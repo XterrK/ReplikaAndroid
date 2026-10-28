@@ -9,4 +9,4 @@ val Mint=Color(0xFF6CE5C0)
 val Violet=Color(0xFFB398FF)
 val SpeakerColors=listOf(Blue,Mint,Violet,Color(0xFFFFBC86),Color(0xFFEA98C0))
 fun speakerColor(id: Int)=if(id<0) Muted else SpeakerColors[id%SpeakerColors.size]
-@Composable fun ReplikaTheme(content: @Composable ()->Unit) { MaterialTheme(colorScheme=darkColorScheme(primary=Blue,secondary=Mint,tertiary=Violet,background=Ink,surface=Ink,surfaceVariant=Color(0xFF182238),onBackground=Color(0xFFEEF2FF),onSurface=Color(0xFFEEF2FF),outline=Color(0xFF34415B)),content=content) }
+@Composable fun ReplikaTheme(content: @Composable ()->Unit) { MaterialTheme(colorScheme=darkColorScheme(primary=Blue,onPrimary=Color(0xFF071128),secondary=Mint,tertiary=Violet,background=Ink,surface=Ink,surfaceVariant=Color(0xFF182238),onBackground=Color(0xFFEEF2FF),onSurface=Color(0xFFEEF2FF),outline=Color(0xFF34415B)),content=content) }

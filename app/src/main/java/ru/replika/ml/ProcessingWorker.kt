@@ -22,9 +22,10 @@ class ProcessingWorker(context: Context,params: WorkerParameters): CoroutineWork
  override suspend fun getForegroundInfo(): ForegroundInfo {
   val nm=applicationContext.getSystemService(NotificationManager::class.java)
   nm.createNotificationChannel(NotificationChannel("processing","Обработка аудио",NotificationManager.IMPORTANCE_LOW))
+  val open=PendingIntent.getActivity(applicationContext,recordingId.hashCode(),android.content.Intent(applicationContext,MainActivity::class.java).putExtra("recordingId",recordingId).addFlags(android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP or android.content.Intent.FLAG_ACTIVITY_SINGLE_TOP),PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
   val cancel=WorkManager.getInstance(applicationContext).createCancelPendingIntent(id)
-  val notification=NotificationCompat.Builder(applicationContext,"processing").setSmallIcon(ru.replika.R.drawable.ic_replika).setContentTitle("REPLIKA · локальная обработка").setContentText("Аудио остаётся на устройстве").setOngoing(true).addAction(0,"Отменить",cancel).build()
-  return if(Build.VERSION.SDK_INT>=29) ForegroundInfo(42,notification,ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC) else ForegroundInfo(42,notification)
+  val notification=NotificationCompat.Builder(applicationContext,"processing").setSmallIcon(ru.replika.R.drawable.ic_replika).setContentIntent(open).setContentTitle("REPLIKA · локальная обработка").setContentText("Аудио остаётся на устройстве").setOngoing(true).addAction(0,"Отменить",cancel).build()
+  return if(Build.VERSION.SDK_INT>=29) ForegroundInfo(recordingId.hashCode() and 0x7fffffff,notification,ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC) else ForegroundInfo(recordingId.hashCode() and 0x7fffffff,notification)
  }
  override suspend fun doWork(): Result = withContext(Dispatchers.Default) {
   val pcm=File(applicationContext.cacheDir,"$recordingId.pcm")
@@ -106,7 +107,7 @@ class ProcessingWorker(context: Context,params: WorkerParameters): CoroutineWork
  companion object {
   fun enqueue(context: Context,id: String) {
    val request=OneTimeWorkRequestBuilder<ProcessingWorker>().setInputData(workDataOf("recordingId" to id)).addTag(id).build()
-   WorkManager.getInstance(context).enqueueUniqueWork("replika-pipeline",ExistingWorkPolicy.APPEND_OR_REPLACE,request)
+   WorkManager.getInstance(context).enqueueUniqueWork("replika-$id",ExistingWorkPolicy.KEEP,request)
   }
  }
 }

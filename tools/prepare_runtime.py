@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
 """Pinned native runtime/source bootstrap. Does not modify any SDK."""
-import pathlib,urllib.request,tarfile,hashlib,shutil
+import pathlib,urllib.request,tarfile,hashlib,shutil,json
 ROOT=pathlib.Path(__file__).resolve().parents[1]
 CACHE=pathlib.Path('/mnt/f/ReplikaToolchain');CACHE.mkdir(exist_ok=True)
 def fetch(url,name):
  p=CACHE/name
  if not p.exists():urllib.request.urlretrieve(url,p)
+ expected=next((r["sha256"] for r in json.loads((ROOT/"tools/native-lock.json").read_text()) if r["file"]==name),None)
+ if expected:assert hashlib.file_digest(p.open("rb"),"sha256").hexdigest()==expected, "Runtime checksum mismatch: "+name
  return p
 s=fetch('https://github.com/k2-fsa/sherpa-onnx/releases/download/v2.0.1/sherpa-onnx-v2.0.1-android.tar.bz2','sherpa.tar.bz2')
 with tarfile.open(s) as t:

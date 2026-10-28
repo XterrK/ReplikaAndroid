@@ -25,7 +25,13 @@ def job(spec):
     with t.extractfile(m) as s,(folder/dst).open('wb') as d:shutil.copyfileobj(s,d)
  return [dict(group=group,path=f'{group}/{dst}',url=url,archiveMember=None if src=='direct' else src,size=(folder/dst).stat().st_size,sha256=hashlib.file_digest((folder/dst).open('rb'),'sha256').hexdigest()) for src,dst in files.items()]
 if __name__=='__main__':
+ expected_path=ROOT/'app/src/main/assets/models-lock.json'
+ expected={r['path']:r for r in json.loads(expected_path.read_text())['files']} if expected_path.exists() else {}
  with concurrent.futures.ThreadPoolExecutor(max_workers=4) as e:rows=sum(e.map(job,JOBS),[])
+ for row in rows:
+  if row['path'] in expected:
+   old=expected[row['path']]
+   assert row['sha256']==old['sha256'] and row['size']==old['size'], 'Pinned model changed: '+row['path']
  lock={'source':'official sherpa-onnx release assets; SHA256 measured locally, not publisher signatures','files':rows}
  (DEST/'manifest.json').write_text(json.dumps(lock,indent=2))
  assets=ROOT/'app/src/main/assets';assets.mkdir(exist_ok=True);(assets/'models-lock.json').write_text(json.dumps(lock,indent=2))
@@ -33,4 +39,5 @@ if __name__=='__main__':
  with zipfile.ZipFile(DEST/'replika-offline-pack.zip','w',compression=zipfile.ZIP_STORED) as z:
   z.write(DEST/'manifest.json','manifest.json')
   for row in rows:z.write(DEST/row['path'],row['path'])
+  for license in (ROOT/'docs/licenses').glob('*'):z.write(license,'licenses/'+license.name)
  print('Pack ready',sum(r['size'] for r in rows),flush=True)

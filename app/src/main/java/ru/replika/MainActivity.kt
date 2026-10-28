@@ -8,6 +8,7 @@ import androidx.activity.viewModels
 import ru.replika.ui.*
 class MainActivity: ComponentActivity() {
  private val vm: AppViewModel by viewModels()
- override fun onCreate(savedInstanceState: Bundle?) { super.onCreate(savedInstanceState);enableEdgeToEdge();setContent { ReplikaTheme { ReplikaRoot(vm) } } }
+ override fun onCreate(savedInstanceState: Bundle?) { super.onCreate(savedInstanceState);enableEdgeToEdge();intent.getStringExtra("recordingId")?.let { vm.selected.value=it };setContent { ReplikaTheme { ReplikaRoot(vm) } } }
+ override fun onNewIntent(intent: android.content.Intent) { super.onNewIntent(intent);intent.getStringExtra("recordingId")?.let { vm.selected.value=it } }
  override fun onStop() { if(vm.isRecording.value && !vm.paused.value) vm.pauseRecording();super.onStop() }
 }

@@ -23,16 +23,19 @@ class PipelineTest {
   val prior=app.db.dao().recording(id)
   if(prior!=null) app.db.dao().clearSegments(id)
   app.db.dao().insert(Recording(id,"Официальный русский ML smoke test",audio.path,status="QUEUED",phase="Ожидание обработки"))
-  val scenario=ActivityScenario.launch(MainActivity::class.java)
+  val scenario=ActivityScenario.launch<MainActivity>(android.content.Intent(app,MainActivity::class.java).putExtra("recordingId",id))
   try {
    ProcessingWorker.enqueue(app,id)
-   var ready=false
+   var ready=false;var captured=false
+   fun capture(name: String) { runCatching { val folder=File(app.filesDir,"human-review").apply { mkdirs() };instrumentation.uiAutomation.takeScreenshot()?.let { bitmap -> File(folder,name).outputStream().use { bitmap.compress(Bitmap.CompressFormat.PNG,100,it) };bitmap.recycle() } } }
    withTimeout(20*60*1000L) {
     while(true) { delay(1000);val record=app.db.dao().recording(id)!!
+     if(record.status=="PROCESSING" && !captured) { capture("03-processing.png");captured=true }
      if(record.status=="ERROR") fail("ML pipeline failed: ${record.error}")
      if(record.status=="READY") { ready=true;File(app.filesDir,"android-pipeline-diagnostics.json").writeText(record.diagnostics);break }
     }
    }
+   delay(1500);capture("04-transcript-workspace.png")
    assertTrue(ready);val rows=app.db.dao().segmentList(id);assertTrue(rows.isNotEmpty());assertTrue(rows.all { it.endMs>it.startMs && it.source.contains("GigaAM") })
    File(app.filesDir,"android-transcript.json").writeText(ru.replika.domain.Exporter.json("Real integration",rows.map { it.domain() }) { "speaker-$it" })
   } finally { scenario.close() }
