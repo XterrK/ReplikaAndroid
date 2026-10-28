@@ -1,0 +1,53 @@
+package ru.replika
+
+import android.graphics.Bitmap
+import androidx.test.core.app.ActivityScenario
+import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.test.platform.app.InstrumentationRegistry
+import kotlinx.coroutines.*
+import org.junit.*
+import org.junit.Assert.*
+import org.junit.runner.RunWith
+import ru.replika.data.Recording
+import ru.replika.ml.ProcessingWorker
+import java.io.File
+
+@RunWith(AndroidJUnit4::class)
+class PipelineTest {
+ @Test fun completeRealGigaPipeline()=runBlocking {
+  val instrumentation=InstrumentationRegistry.getInstrumentation();val app=instrumentation.targetContext.applicationContext as ReplikaApp
+  val audio=File(app.filesDir,"integration-example.wav")
+  Assume.assumeTrue("Real WAV and models must be staged first",audio.exists())
+  app.models.requireReady()
+  val id="integration-real-giga"
+  val prior=app.db.dao().recording(id)
+  if(prior!=null) app.db.dao().clearSegments(id)
+  app.db.dao().insert(Recording(id,"Официальный русский ML smoke test",audio.path,status="QUEUED",phase="Ожидание обработки"))
+  val scenario=ActivityScenario.launch(MainActivity::class.java)
+  try {
+   ProcessingWorker.enqueue(app,id)
+   var ready=false
+   withTimeout(20*60*1000L) {
+    while(true) { delay(1000);val record=app.db.dao().recording(id)!!
+     if(record.status=="ERROR") fail("ML pipeline failed: ${record.error}")
+     if(record.status=="READY") { ready=true;File(app.filesDir,"android-pipeline-diagnostics.json").writeText(record.diagnostics);break }
+    }
+   }
+   assertTrue(ready);val rows=app.db.dao().segmentList(id);assertTrue(rows.isNotEmpty());assertTrue(rows.all { it.endMs>it.startMs && it.source.contains("GigaAM") })
+   File(app.filesDir,"android-transcript.json").writeText(ru.replika.domain.Exporter.json("Real integration",rows.map { it.domain() }) { "speaker-$it" })
+  } finally { scenario.close() }
+ }
+ @Test fun realWhisperBackend()=runBlocking {
+  val app=InstrumentationRegistry.getInstrumentation().targetContext.applicationContext as ReplikaApp
+  val audio=File(app.filesDir,"integration-example.wav")
+  Assume.assumeTrue(audio.exists() && app.models.file("whisper-tiny/ggml-tiny.bin").exists())
+  app.models.requireReady("whisper-tiny")
+  val pcm=ru.replika.ml.AudioDecoder.decode(audio.path,File(app.cacheDir,"whisper-test.pcm"))
+  try {
+   ru.replika.ml.WhisperEngine(app.models).use { engine ->
+    val start=android.os.SystemClock.elapsedRealtime();val text=engine.recognize(ru.replika.ml.AudioDecoder.read(pcm.file,0,pcm.samples))
+    assertTrue(text.isNotBlank());File(app.filesDir,"android-whisper.txt").writeText("${engine.source}\n${android.os.SystemClock.elapsedRealtime()-start} ms\n$text")
+   }
+  } finally { pcm.file.delete() }
+ }
+}

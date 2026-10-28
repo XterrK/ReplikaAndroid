@@ -1,0 +1,20 @@
+#!/usr/bin/env python3
+"""Pinned native runtime/source bootstrap. Does not modify any SDK."""
+import pathlib,urllib.request,tarfile,hashlib,shutil
+ROOT=pathlib.Path(__file__).resolve().parents[1]
+CACHE=pathlib.Path('/mnt/f/ReplikaToolchain');CACHE.mkdir(exist_ok=True)
+def fetch(url,name):
+ p=CACHE/name
+ if not p.exists():urllib.request.urlretrieve(url,p)
+ return p
+s=fetch('https://github.com/k2-fsa/sherpa-onnx/releases/download/v2.0.1/sherpa-onnx-v2.0.1-android.tar.bz2','sherpa.tar.bz2')
+with tarfile.open(s) as t:
+ for m in t.getmembers():
+  for abi in ['arm64-v8a','x86_64']:
+   if '/'+abi+'/' in '/'+m.name and pathlib.PurePosixPath(m.name).name in ['libsherpa-onnx-jni.so','libonnxruntime.so']:
+    p=ROOT/'app/src/main/jniLibs'/abi/pathlib.PurePosixPath(m.name).name;p.parent.mkdir(parents=True,exist_ok=True)
+    with t.extractfile(m) as src,p.open('wb') as dst:shutil.copyfileobj(src,dst)
+w=fetch('https://github.com/ggml-org/whisper.cpp/archive/refs/tags/v1.7.6.tar.gz','whisper-v1.7.6.tar.gz')
+if not (ROOT/'third_party/whisper.cpp-1.7.6/src/whisper.cpp').exists():
+ with tarfile.open(w) as t:t.extractall(ROOT/'third_party',filter='data')
+for p in [s,w]:print(p.name,hashlib.file_digest(p.open('rb'),'sha256').hexdigest())
