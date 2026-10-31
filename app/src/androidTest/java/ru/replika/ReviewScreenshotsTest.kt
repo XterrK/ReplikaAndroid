@@ -29,8 +29,18 @@ class ReviewScreenshotsTest {
   Assume.assumeTrue("Run real PipelineTest first",ready)
   compose.onNode(hasScrollAction()).performScrollToNode(hasText("Официальный русский ML smoke test"))
   compose.onNodeWithText("Официальный русский ML smoke test").performClick();capture("04-transcript-workspace.png")
+  val before=kotlinx.coroutines.runBlocking { app.db.dao().segmentList("integration-real-giga").first() }
   compose.onAllNodesWithContentDescription("Изменить реплику").onFirst().performClick();capture("05-speaker-editing.png")
-  compose.onNodeWithText("Сохранить исправления").performClick()
+  compose.onNodeWithText("Участник 2").performClick()
+  val corrected=if(before.text.startsWith("чьих ")) "ни"+before.text else before.text+" (проверено)"
+  compose.onNode(isToggleable() and hasAnySibling(hasText("Фрагмент проверен"))).performClick()
+  compose.onNode(hasSetTextAction()).performClick().performTextReplacement(corrected)
+  compose.onNodeWithText("Сохранить исправления").performScrollTo().performClick()
+  compose.waitUntil(5000) {
+   val saved=kotlinx.coroutines.runBlocking { app.db.dao().segmentList("integration-real-giga").first() }
+   saved.text==corrected && saved.speakerId==1 && saved.edited && saved.reviewed
+  }
+  capture("04-transcript-workspace.png")
   compose.onNodeWithText("Smart Review",substring=true).performClick();capture("06-smart-review.png")
  }
 }

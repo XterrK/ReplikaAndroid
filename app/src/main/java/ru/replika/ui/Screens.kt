@@ -223,8 +223,8 @@ fun clock(ms: Long)="%02d:%02d".format(Locale.ROOT,ms.coerceAtLeast(0)/60000,ms.
  }
  if(edit!=null) {
   val row=edit!!;var text by remember(row.id) { mutableStateOf(row.text) };var speaker by remember(row.id) { mutableIntStateOf(row.speakerId) };var checked by remember(row.id) { mutableStateOf(row.reviewed) }
-  ModalBottomSheet(onDismissRequest={edit=null},containerColor=Color(0xFF131E33)) {
-   Column(Modifier.fillMaxWidth().padding(24.dp).imePadding(),verticalArrangement=Arrangement.spacedBy(14.dp)) {
+  ModalBottomSheet(onDismissRequest={edit=null},sheetState=rememberModalBottomSheetState(skipPartiallyExpanded=true),containerColor=Color(0xFF131E33)) {
+   Column(Modifier.fillMaxWidth().padding(24.dp).imePadding().verticalScroll(rememberScrollState()),verticalArrangement=Arrangement.spacedBy(14.dp)) {
     Text("Проверить фрагмент",fontSize=24.sp,fontWeight=FontWeight.SemiBold);Text("${Exporter.stamp(row.startMs)} — ${Exporter.stamp(row.endMs)}",color=Muted)
     if(row.reasons!="[]") Text(row.domain().reasons.joinToString("\n"),color=Color(0xFFFFC58A))
     OutlinedButton(onClick={playSegment(row)}) { Icon(Icons.Outlined.PlayArrow,null);Text("Прослушать участок") }

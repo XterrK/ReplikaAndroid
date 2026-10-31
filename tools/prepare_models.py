@@ -16,6 +16,7 @@ def job(spec):
   tmp=p.with_suffix('.part');print('Downloading',url,flush=True)
   with urllib.request.urlopen(url,timeout=90) as r, tmp.open('wb') as f:shutil.copyfileobj(r,f)
   tmp.rename(p)
+ if group=='whisper-tiny':assert hashlib.file_digest(p.open('rb'),'sha1').hexdigest()=='bd577a113a864445d4c299885e0cb97d4ba92b5f', 'Publisher Whisper SHA1 mismatch'
  folder=DEST/group;folder.mkdir(exist_ok=True)
  if 'direct' in files:shutil.copyfile(p,folder/files['direct'])
  else:

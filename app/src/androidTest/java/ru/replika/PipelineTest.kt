@@ -1,7 +1,8 @@
 package ru.replika
 
 import android.graphics.Bitmap
-import androidx.test.core.app.ActivityScenario
+import androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry
+import androidx.test.runner.lifecycle.Stage
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import kotlinx.coroutines.*
@@ -23,7 +24,16 @@ class PipelineTest {
   val prior=app.db.dao().recording(id)
   if(prior!=null) app.db.dao().clearSegments(id)
   app.db.dao().insert(Recording(id,"Официальный русский ML smoke test",audio.path,status="QUEUED",phase="Ожидание обработки"))
-  val scenario=ActivityScenario.launch<MainActivity>(android.content.Intent(app,MainActivity::class.java).putExtra("recordingId",id))
+  // Avoid startActivitySync's idle wait on an animated indeterminate processing screen.
+  app.startActivity(android.content.Intent(app,MainActivity::class.java).putExtra("recordingId",id).addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK or android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK))
+  withTimeout(30000) {
+   while(true) {
+    var resumed=false
+    instrumentation.runOnMainSync { resumed=ActivityLifecycleMonitorRegistry.getInstance().getActivitiesInStage(Stage.RESUMED).any { it is MainActivity } }
+    if(resumed) break
+    delay(100)
+   }
+  }
   try {
    ProcessingWorker.enqueue(app,id)
    var ready=false;var captured=false
@@ -38,7 +48,9 @@ class PipelineTest {
    delay(1500);capture("04-transcript-workspace.png")
    assertTrue(ready);val rows=app.db.dao().segmentList(id);assertTrue(rows.isNotEmpty());assertTrue(rows.all { it.endMs>it.startMs && it.source.contains("GigaAM") })
    File(app.filesDir,"android-transcript.json").writeText(ru.replika.domain.Exporter.json("Real integration",rows.map { it.domain() }) { "speaker-$it" })
-  } finally { scenario.close() }
+  } finally { instrumentation.runOnMainSync {
+   ActivityLifecycleMonitorRegistry.getInstance().getActivitiesInStage(Stage.RESUMED).filterIsInstance<MainActivity>().forEach { it.finish() }
+  } }
  }
  @Test fun realWhisperBackend()=runBlocking {
   val app=InstrumentationRegistry.getInstrumentation().targetContext.applicationContext as ReplikaApp

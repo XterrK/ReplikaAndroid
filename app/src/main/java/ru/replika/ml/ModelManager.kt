@@ -46,13 +46,21 @@ class ModelManager(private val context: Context) {
    val existing=part.length();if(existing>0) connection.setRequestProperty("Range","bytes=$existing-")
    try {
     val code=connection.responseCode
-    require(code==200 || code==206) { "Ошибка загрузки HTTP $code" }
-    val append=code==206 && existing>0
-    if(code==206) require(connection.getHeaderField("Content-Range")?.startsWith("bytes $existing-")==true) { "Неверный диапазон загрузки" }
-    connection.inputStream.use { input -> FileOutputStream(part,append).use { output ->
-     val buf=ByteArray(128*1024);var total=if(append) existing else 0
-     while(true) { currentCoroutineContext().ensureActive();val n=input.read(buf);if(n<0) break;output.write(buf,0,n);total+=n;progress("Загрузка: ${total/1024/1024} МБ") }
-    } }
+    if(code==416 && existing>0) {
+     val remoteSize=connection.getHeaderField("Content-Range")?.substringAfter("*/","")?.toLongOrNull()
+     if(remoteSize!=existing) { part.delete();error("Размер прерванной загрузки изменился. Повторите загрузку с начала.") }
+     // Complete archive survived process death before installation. Validate its members below.
+    } else {
+     require(code==200 || code==206) { "Ошибка загрузки HTTP $code" }
+     val append=code==206 && existing>0
+     if(code==206) require(connection.getHeaderField("Content-Range")?.startsWith("bytes $existing-")==true) { "Неверный диапазон загрузки" }
+     val expectedPayload=connection.contentLengthLong
+     connection.inputStream.use { input -> FileOutputStream(part,append).use { output ->
+      val buf=ByteArray(128*1024);var total=if(append) existing else 0;var received=0L
+      while(true) { currentCoroutineContext().ensureActive();val n=input.read(buf);if(n<0) break;output.write(buf,0,n);total+=n;received+=n;progress("Загрузка: ${total/1024/1024} МБ") }
+      require(expectedPayload<0 || received==expectedPayload) { "Соединение прервано. Файл сохранён для продолжения загрузки." }
+     } }
+    }
    } finally { connection.disconnect() }
    progress("Проверка файлов…")
    try {

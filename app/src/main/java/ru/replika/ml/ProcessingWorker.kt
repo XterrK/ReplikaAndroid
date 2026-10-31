@@ -64,10 +64,9 @@ class ProcessingWorker(context: Context,params: WorkerParameters): CoroutineWork
      segmentation=OfflineSpeakerSegmentationModelConfig(pyannote=OfflineSpeakerSegmentationPyannoteModelConfig(app.models.file("diar/segmentation.onnx").path),numThreads=2),
      embedding=SpeakerEmbeddingExtractorConfig(model=app.models.file("diar/embedding.onnx").path,numThreads=2),
      clustering=FastClusteringConfig(numClusters=rec.expectedSpeakers)))
-    val job=currentCoroutineContext()[Job]!!
     val turns=try {
      val samples=AudioDecoder.read(pcm,0,decoded.samples)
-     val result=sd.processWithCallback(samples,{ _,_,_ -> if(job.isActive) 0 else 1 })
+     val result=sd.process(samples)
      ensureActive()
      Alignment.stable(result.map { Turn((it.start*1000).roundToLong(),(it.end*1000).roundToLong(),it.speaker) })
     } finally { sd.release() }
@@ -94,7 +93,7 @@ class ProcessingWorker(context: Context,params: WorkerParameters): CoroutineWork
     times["asrMs"]=android.os.SystemClock.elapsedRealtime()-stage
     val total=android.os.SystemClock.elapsedRealtime()-start
     val mem=Debug.MemoryInfo();Debug.getMemoryInfo(mem)
-    val diagnostics=org.json.JSONObject().put("device","${Build.MANUFACTURER} ${Build.MODEL}").put("android",Build.VERSION.SDK_INT).put("runtime","sherpa-onnx 2.0.1").put("backend",engine.source).put("threads",2).put("audioMs",decoded.durationMs).put("totalMs",total).put("pipelineRtf",total.toDouble()/decoded.durationMs.coerceAtLeast(1)).put("asrRtf",times["asrMs"]!!.toDouble()/decoded.durationMs.coerceAtLeast(1)).put("finalPssKb",mem.totalPss).put("peakMemory","N/A").put("stagesMs",org.json.JSONObject(times as Map<*,*>)).put("diarizationTurns",org.json.JSONArray().also { array -> turns.forEach { t -> array.put(org.json.JSONObject().put("startMs",t.startMs).put("endMs",t.endMs).put("speakerId",t.speaker)) } }).put("modelBytes",app.models.statuses().sumOf { it.bytes }).toString(2)
+    val diagnostics=org.json.JSONObject().put("device","${Build.MANUFACTURER} ${Build.MODEL}").put("android",Build.VERSION.SDK_INT).put("runtime","sherpa-onnx 2.0.1").put("backend",engine.source).put("threads",2).put("vadThreads",1).put("sampleRate",16000).put("expectedSpeakers",rec.expectedSpeakers).put("clusterThreshold",0.5).put("vadThreshold",0.5).put("maxAsrSegmentMs",20000).put("audioMs",decoded.durationMs).put("totalMs",total).put("pipelineRtf",total.toDouble()/decoded.durationMs.coerceAtLeast(1)).put("asrRtf",times["asrMs"]!!.toDouble()/decoded.durationMs.coerceAtLeast(1)).put("finalPssKb",mem.totalPss).put("peakMemory","N/A").put("stagesMs",org.json.JSONObject(times as Map<*,*>)).put("diarizationTurns",org.json.JSONArray().also { array -> turns.forEach { t -> array.put(org.json.JSONObject().put("startMs",t.startMs).put("endMs",t.endMs).put("speakerId",t.speaker)) } }).put("modelBytes",app.models.statuses().sumOf { it.bytes }).toString(2)
     dao.complete((dao.recording(recordingId)?:rec).copy(status="READY",phase=if(segments.isEmpty()) "Речь не найдена" else "Готово",durationMs=decoded.durationMs,peaks=decoded.peaks.joinToString(","),diagnostics=diagnostics),segments.map { SegmentRow.from(recordingId,it) })
    }
    Result.success()

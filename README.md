@@ -6,7 +6,7 @@
 
 ## Сборка
 
-Требуются JDK 17, Android SDK 35, Build Tools 35.0.0, NDK 27.2.12479018 и CMake 3.22.1. Gradle 8.13, AGP 8.9.2, Kotlin 2.1.20. Все тяжёлые инструменты текущего окружения находятся в `F:\ReplikaToolchain`, проект — в `F:\Hackathons\ReplikaAndroid`.
+Требуются Python 3.12+, JDK 17, Android SDK 35, Build Tools 35.0.0, NDK 27.2.12479018 и CMake 3.22.1. Gradle 8.13, AGP 8.9.2, Kotlin 2.1.20. Все тяжёлые инструменты текущего окружения находятся в `F:\ReplikaToolchain`, проект — в `F:\Hackathons\ReplikaAndroid`.
 
 ```bash
 # Из корня проекта в WSL; tools/env.sh содержит пути этой машины.
@@ -15,6 +15,8 @@ python3 tools/prepare_runtime.py
 python3 tools/prepare_models.py
 ./gradlew :app:assembleDebug :app:testDebugUnitTest
 ```
+
+В этом WSL для ускоренной сборки доступен `python3 tools/build_local.py`: он использует RAM-кэш и сохраняет checkpoint в `F:\ReplikaToolchain\gradle-cache-checkpoint.tar`. Постоянные SDK, NDK, веса и проект остаются на F:.
 
 Для другой машины задайте JAVA_HOME, ANDROID_HOME, GRADLE_USER_HOME и `sdk.dir` в `local.properties`. Python bootstrap не требует сторонних пакетов. Скачивание выполняется при явном запуске скриптов. Модели не включаются в APK.
 
