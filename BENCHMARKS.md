@@ -33,9 +33,23 @@
 
 ## Время, память и размер
 
-Worker записывает monotonic elapsedRealtime: подготовку, VAD, диаризацию, ASR и весь pipeline, включая загрузку/инициализацию моделей и проверку SHA-256 после начала измеряемой части. Pipeline RTF = totalMs/audioMs. ASR RTF = время ASR-этапа / полная длительность исходной записи; это не чистая скорость сети на активной речи. В документации запуска указывать холодный или повторный запуск и условия температуры.
+В V1.1 `ProcessingWorker` отдельно сохраняет validationMs (SHA-256), decodeMs, vadLoadMs, vadMs (весь VAD этап), diarizationLoadMs, diarizationReadMs, diarizationInferenceMs, diarizationMs (весь этап), asrLoadMs, asrReadMs, asrInferenceMs, thermalWaitMs и asrMs (весь ASR этап). Вложенные времена нельзя суммировать повторно. `totalMs` начинается перед проверкой моделей и заканчивается после освобождения ASR; сериализация диагностики и финальная транзакция Room за пределами этого интервала. Это явно записано в pipelineTimingScope. Все часы — elapsedRealtime.
 
-`finalPssKb` — один настоящий снимок Android Debug.MemoryInfo в конце обработки. Это **не пиковое потребление**. Peak memory остаётся N/A. `modelBytes` — сумма реально установленных файлов моделей, включая альтернативный backend, если установлен. Время скачивания в RTF не входит.
+Pipeline RTF = totalMs/audioMs; asrStageRtf включает загрузку и ожидания; asrInferenceRtf содержит только recognize()/длительность исходного файла. Для сравнения на активной речи дополнительно сохраняются реальные ASR slices. Старое asrRtf не является чистым inference и не сравнивается с прямым вызовом Whisper.
+
+`finalPssKb` и pssKb сравнительного теста — настоящие снимки Android PSS, **не пики** и не выделенная память только модели. Peak RAM N/A. `modelBytes` Worker — все установленные наборы; в прямом сравнении — файлы выбранного ASR. Скачивание не входит во время обработки.
+
+## Сопоставимый протокол V1.1
+
+`MLComparisonTest` запускается последовательно, с общим native mutex, после импорта pack и staging официальных fixtures. `directAsrSameInputColdThenWarm` декодирует русский mono WAV один раз, подаёт один и тот же FloatArray обеим моделям, измеряет загрузку отдельно, затем 3 inference на каждом движке: первый после создания engine и два warm. Это **не reboot-cold**: файловый cache не очищается, температура и порядок backend не контролируются. Все тексты сохраняются дословно. Скорость одного такого файла не является общей оценкой модели.
+
+`vadBoundaryComparisons` сравнивает raw, current, pre100, post100, pre100+post100, threshold=.35/minSpeech=.1 и threshold=.65/minSilence=.4. Для каждого сохраняются VAD-only и diar-aligned результаты: диаризация может независимо обрезать начало слова. Это диагностический эксперимент, не подбор глобальных параметров.
+
+`diarizationAutomaticVersusKnownFour` сравнивает automatic .5, fixed4 и automatic .65 на китайском fixture. В fixed режиме threshold не применяется. Без временного эталона число кластеров не доказывает качество; DER N/A.
+
+`PipelineTest` выполняет полный Worker отдельно для GigaAM и Whisper на одинаковом mono WAV. Эти времена сравниваются только друг с другом, а прямой ASR — только с прямым ASR. В текущем протоколе полный pipeline один раз на backend; статистическая устойчивость полных прогонов не подтверждается.
+
+Для независимого benchmark: зафиксировать минимум 3 новых engine и по 3 warm прогона на backend, чередовать порядок, зафиксировать температуру/режим питания, APK/модели SHA, устройство/API/ABI/page size и хеш оригинала. Отдельно повторить полный pipeline, не суммируя прямые тесты. Для cold после перезагрузки записать время/состояние и отсутствие предварительного чтения модели. Добавить ручной эталон до просмотра гипотез; разнести tuning/evaluation записи по [протоколу русского диалога](docs/test-evidence/v1.1/RUSSIAN_DIALOGUE_PROTOCOL.md). Никакого ранжирования GigaAM/Whisper по качеству без сопоставимых WER/CER.
 
 ## Корпус
 
@@ -44,3 +58,31 @@ Worker записывает monotonic elapsedRealtime: подготовку, VAD
 Для итогового сравнения к хакатону записать с согласия участников 5–10 коротких русских диалогов: тихая комната, шум, перебивания, одинаковые тембры, разные микрофоны. Хранить согласия отдельно; публиковать записи только при явном разрешении. Для каждого файла подготовить дословный текст и интервалы всех участников, включая пересечения.
 
 Реальные результаты размещаются в `docs/host-smoke.json` и отчётах Android, если соответствующий прогон завершён. Linux-результат всегда подписан как Linux, не Android.
+
+## Фактический прогон V1.1 — 31.10.2026
+
+Android 15 / API35 emulator x86_64, Windows WHPX, 2 CPU / 3072 MB, страницы 4096 bytes, без активного default network. Физический arm64, API36 и runtime 16 KiB не проверены. Финальный APK SHA-256 `9728e09fe8f6b0d66b4c038f5a71752c21602db5c72e7013e3b80d0ea6668b6a`; clean-сборка побайтно совпала с APK, прошедшим Android-проверки. JVM 18/18, Android 19 instrumentation + 2 Compose UI + 1 отдельный process-relaunch — PASS; это исполнение проверок, не точность ML. Подробная [ML-сводка](docs/human-review/v1.1/ML_TEST_SUMMARY.md).
+
+Прямой ASR на одном и том же полном mono PCM 11290 ms, 16 kHz, 2 threads:
+
+| Backend | Load, ms | Первый inference, ms / RTF | Warm 1, ms / RTF | Warm 2, ms / RTF | Файлы ASR, bytes |
+|---|---:|---:|---:|---:|---:|
+| GigaAM v2 INT8 | 1054 | 1953 / .173 | 2032 / .180 | 2004 / .178 | 241086439 |
+| Whisper tiny multilingual, ru | 103 | 14691 / 1.301 | 15085 / 1.336 | 14063 / 1.246 | 77691713 |
+
+Это один новый engine и два warm вызова на backend, не reboot-cold; порядок, filesystem cache и температура не контролировались. Наблюдаемые времена не ранжируют качество моделей. Снимки PSS после вызовов: GigaAM 601279/714151/714175 KB, Whisper 455695/453987/454019 KB. Это память всего процесса в отдельные моменты, **не peak RAM и не выделенная память модели**. Источник: [ml-asr-comparison.json](docs/test-evidence/v1.1/ml-asr-comparison.json).
+
+Полный Worker на том же WAV измерен отдельно, по slices, по одному прогону каждого backend:
+
+| Backend | ASR load / inference, ms | Diarization load / inference, ms | Core pipeline, ms / RTF | Финальный PSS, KB |
+|---|---:|---:|---:|---:|
+| GigaAM | 1616 / 4335 | 527 / 1821 | 16752 / 1.484 | 239138 |
+| Whisper | 137 / 37691 | 1003 / 3203 | 48707 / 4.314 | 245327 |
+
+Core pipeline включает проверку моделей, декодирование, VAD, диаризацию, ASR и освобождение ASR; исключает сериализацию диагностики и финальную транзакцию Room. Сохранение Room подтверждено отдельными проверками. Вложенные load/inference и времена этапов не суммируются повторно; полный GigaAM pipeline не сравнивается с одним прямым Whisper inference. Источники: [GigaAM](docs/test-evidence/v1.1/android-pipeline-diagnostics.json), [Whisper](docs/test-evidence/v1.1/android-whisper-pipeline-diagnostics.json). Peak RAM N/A, WER/CER/DER N/A.
+
+VAD-сравнение на том же PCM: raw GigaAM и pre100 дают «ничьих», current/post100 и проверенные threshold/min-duration варианты — «чьих». Pre100 после alignment восстановил исходную гипотезу без повторной подачи samples; глобальный start первого непустого сегмента 31 ms, а не локальный ноль. Production: pre-roll 100 ms, post-roll 0, ограничение границами файла и объединение расширенных VAD spans. Whisper в финальном Worker всё ещё начинает «Чих»: общего исправления распознавания этой моделью не заявляется. Его короткие неизвестные slices пустые, 1–2 ms; это не гарантия для других записей. [Сравнение VAD](docs/test-evidence/v1.1/ml-vad-comparison.json).
+
+На отдельном китайском WAV 56860 ms automatic .5 → 7 ID/11 turns, fixed4 → 4 ID/10 turns, automatic .65 → те же 7 ID/11 turns. Inference 9823/9899/10173 ms; load 418/397/379 ms. Fixed4 — полезное заданное ограничение, а не доказанное улучшение DER. Threshold глобально не менялся; короткие embeddings и русская диаризация требуют отдельного размеченного evaluation split. [Clustering JSON](docs/test-evidence/v1.1/ml-diarization-comparison.json).
+
+Полный русский многоголосный pipeline **BLOCKED**: русский fixture одноголосный, многоголосный fixture китайский. Сохранены настоящие [GigaAM transcript](docs/test-evidence/v1.1/android-transcript.json) и [Whisper transcript](docs/test-evidence/v1.1/android-whisper-transcript.json) до правок. Ручное добавление «(проверено)», speaker ID=1 и подпись в UI предназначены только для проверки сохранения/экспорта; это не второй обнаруженный голос и не ML-эталон. Протокол получения диалога и разметки находится в [RUSSIAN_DIALOGUE_PROTOCOL.md](docs/test-evidence/v1.1/RUSSIAN_DIALOGUE_PROTOCOL.md).

@@ -1,0 +1,78 @@
+{
+  "device": "unknown Android SDK built for x86_64",
+  "api": 35,
+  "abi": "x86_64",
+  "threads": 2,
+  "sampleRate": 16000,
+  "WER": "N\/A; no independently annotated reference",
+  "CER": "N\/A; no independently annotated reference",
+  "peakMemory": "N\/A; PSS observations are snapshots",
+  "audioSha256": "d8aaaa18a5098d7c6de0595ae7ac1e64cacd0d4022af3595213bdaf23be77e69",
+  "audioMs": 11290,
+  "scope": "direct ASR, identical decoded full waveform; excludes VAD, diarization, decoding",
+  "coldDefinition": "new engine, first inference; filesystem cache uncontrolled; NOT reboot-cold",
+  "backends": [
+    {
+      "backend": "GigaAM v2 Transducer INT8 \/ sherpa-onnx 2.0.1",
+      "loadMs": 999,
+      "runs": [
+        {
+          "run": 0,
+          "condition": "first inference after new engine",
+          "inferenceMs": 1839,
+          "rtf": 0.1628875110717449,
+          "pssKb": 601205,
+          "text": "ничьих не требуя похвал счастлив уж я надеждой сладкой что дева с трепетом любви посмотрит может быть украдкой на песни грешные мои у лукоморья дуб зеленый"
+        },
+        {
+          "run": 1,
+          "condition": "warm, same engine",
+          "inferenceMs": 1944,
+          "rtf": 0.17218777679362268,
+          "pssKb": 714073,
+          "text": "ничьих не требуя похвал счастлив уж я надеждой сладкой что дева с трепетом любви посмотрит может быть украдкой на песни грешные мои у лукоморья дуб зеленый"
+        },
+        {
+          "run": 2,
+          "condition": "warm, same engine",
+          "inferenceMs": 1870,
+          "rtf": 0.16563330380868024,
+          "pssKb": 714101,
+          "text": "ничьих не требуя похвал счастлив уж я надеждой сладкой что дева с трепетом любви посмотрит может быть украдкой на песни грешные мои у лукоморья дуб зеленый"
+        }
+      ],
+      "modelBytes": 241086439
+    },
+    {
+      "backend": "Whisper tiny multilingual \/ whisper.cpp 1.7.6 \/ ru",
+      "loadMs": 103,
+      "runs": [
+        {
+          "run": 0,
+          "condition": "first inference after new engine",
+          "inferenceMs": 13689,
+          "rtf": 1.212488928255093,
+          "pssKb": 455221,
+          "text": "Ничего не требую похвал, все слиф уж я надежды сладкой, что дево стрепитом любви, посмотрит может быть украдкой на песни грешные мои. Олукомории это убзеленый."
+        },
+        {
+          "run": 1,
+          "condition": "warm, same engine",
+          "inferenceMs": 14175,
+          "rtf": 1.2555358724534986,
+          "pssKb": 453425,
+          "text": "Ничего не требую похвал, все слиф уж я надежды сладкой, что дево стрепитом любви, посмотрит может быть украдкой на песни грешные мои. Олукомории это убзеленый."
+        },
+        {
+          "run": 2,
+          "condition": "warm, same engine",
+          "inferenceMs": 14278,
+          "rtf": 1.2646589902568646,
+          "pssKb": 453457,
+          "text": "Ничего не требую похвал, все слиф уж я надежды сладкой, что дево стрепитом любви, посмотрит может быть украдкой на песни грешные мои. Олукомории это убзеленый."
+        }
+      ],
+      "modelBytes": 77691713
+    }
+  ]
+}

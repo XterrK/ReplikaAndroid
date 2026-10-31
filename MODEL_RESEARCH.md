@@ -31,7 +31,7 @@
 
 GigaAM v2 — русский акустический ASR; автоматическая пунктуация не добавлена. Совместимость произвольных ONNX не предполагается. INT8 применяется только к официальному encoder. Segmentation и embedding оставлены в конфигурации официального Android примера. Embedding обучался преимущественно на китайском корпусе; перенос на русскую речь требует измерения DER на собственном корпусе.
 
-Whisper tiny использует float GGML-веса, а не INT8; это маленькая multilingual модель, которая может уступать GigaAM на русской речи. Её результат никогда не выдаётся за результат GigaAM. Переключение выполняется явно до обработки.
+Whisper tiny использует float GGML-веса, а не INT8; это маленькая multilingual модель, с качеством на русском, требующим сопоставимой проверки. Её результат никогда не выдаётся за результат GigaAM. Переключение выполняется явно до обработки.
 
 Автоматическое число участников использует clustering numClusters=-1, threshold=0.5; пользователь может задать 1–20. Разделения одновременно произнесённых слов нет. Модель может не вернуть все пересечения. Реальное качество без размеченного корпуса не заявляется.
 
@@ -40,3 +40,11 @@ Whisper tiny использует float GGML-веса, а не INT8; это ма
 ## Найденная проблема JNI callback
 
 На реальном Android runtime обнаружен SIGABRT в `processWithCallback`: native v2.0.1 ищет `invoke(IIJ)Ljava/lang/Integer;`, которого нет у Kotlin 2.1 invokedynamic lambda. Основной конвейер использует поддерживаемый `process(samples)` без callback и проверяет отмену до/после native этапа. Диаризация остаётся настоящей; проценты прогресса не симулируются.
+
+## Проверка clustering V1.1
+
+По [исходнику fast-clustering.cc v2.0.1](https://raw.githubusercontent.com/k2-fsa/sherpa-onnx/v2.0.1/sherpa-onnx/csrc/fast-clustering.cc) строки embeddings нормализуются, расстояние равно 1−cosine similarity, linkage COMPLETE. Положительный numClusters выбирает разрез на k и обходит threshold; automatic использует distance threshold. Повышение threshold допускает больше объединений, но не гарантирует правильного числа участников.
+
+Параметры текущего segmentation: windowShiftRatio=.1, minDurationOn=.2 s, minDurationOff=.5 s. Короткие сегменты и перенос embedding на русскую речь требуют размеченного корпуса. Native фильтрует NaN embeddings; приложение не подменяет embeddings заглушками. Наблюдение 7 кластеров на записи с названием four-speakers требует анализа разделения одного голоса; без DER и ручной проверки оно не становится количественной оценкой качества.
+
+[Silero wrapper](https://raw.githubusercontent.com/k2-fsa/sherpa-onnx/v2.0.1/sherpa-onnx/csrc/voice-activity-detector.cc) уже отступает назад на два окна и minSpeechDuration. Потерянный префикс проверяется сравнением исходника, VAD и alignment, а не объявляется исключительно VAD-ошибкой.
