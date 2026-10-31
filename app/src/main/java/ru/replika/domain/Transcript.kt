@@ -28,26 +28,41 @@ object Alignment {
   }
   return out
  }
- // Partition speech on actual diarization boundaries. Recognize each disjoint interval once.
- // Overlap remains unknown: a mixed signal is never assigned to either participant arbitrarily.
+ /** Expand context on the original recording clock, then merge so no sample is recognized twice. */
+ fun context(spans: List<Span>, durationMs: Long, preMs: Long = 0, postMs: Long = 0): List<Span> {
+  require(durationMs >= 0 && preMs >= 0 && postMs >= 0)
+  return merge(spans.filter { it.endMs > it.startMs }.map {
+   Span((it.startMs.coerceIn(0,durationMs)-preMs.coerceAtMost(durationMs)).coerceAtLeast(0),
+    it.endMs.coerceIn(0,durationMs).let { end -> end + postMs.coerceAtMost(durationMs-end) })
+  })
+ }
+ // Partition on real speaker changes; coalesce adjacent intervals with the same assignment.
+ // Each disjoint interval is recognized once. Mixed speech remains unknown.
  fun slices(vad: List<Span>, turns: List<Turn>, maxMs: Long = 20000): List<Slice> {
   require(maxMs > 0)
   val out = mutableListOf<Slice>()
   for(v in merge(vad)) {
    val boundaries = (listOf(v.startMs,v.endMs) + turns.flatMap { listOf(it.startMs,it.endMs) }.filter { it > v.startMs && it < v.endMs }).distinct().sorted()
+   val partitions = mutableListOf<Slice>()
    for((a,b) in boundaries.zipWithNext()) {
     val active = turns.filter { it.startMs < b && it.endMs > a }.map { it.speaker }.distinct()
     val speaker = active.singleOrNull() ?: -1
     val reasons = buildList {
      if(active.size > 1) add("Пересечение голосов: слова не разделены")
      if(speaker < 0) add("Неоднозначный говорящий")
-     if(b-a < 700) add("Короткая реплика возле границы")
     }
-    var start = a
-    while(start < b) {
-     val end = minOf(start+maxMs,b)
-     out += Slice(start,end,speaker, reasons + if(end < b || start > a) listOf("Разрез длинного интервала: проверьте границу слов") else emptyList())
-     start = end
+    val previous=partitions.lastOrNull()
+    if(previous!=null && previous.endMs==a && previous.speaker==speaker && previous.reasons==reasons) {
+     partitions[partitions.lastIndex]=previous.copy(endMs=b)
+    } else partitions+=Slice(a,b,speaker,reasons)
+   }
+   for(p in partitions) {
+    val reasons=p.reasons + if(p.endMs-p.startMs<700) listOf("Короткая реплика возле границы") else emptyList()
+    var start=p.startMs
+    while(start<p.endMs) {
+     val end=minOf(start+maxMs,p.endMs)
+     out+=Slice(start,end,p.speaker,reasons + if(end<p.endMs || start>p.startMs) listOf("Разрез длинного интервала: проверьте границу слов") else emptyList())
+     start=end
     }
    }
   }

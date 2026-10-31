@@ -23,6 +23,22 @@ class ModelPackTest {
   app.models.importPack(Uri.fromFile(pack)) { }
   assertTrue(app.models.statuses().all { it.installed })
  }
+ @Test fun corruptPackCannotReplaceVerifiedModel()=runBlocking {
+  val app=InstrumentationRegistry.getInstrumentation().targetContext.applicationContext as ReplikaApp
+  Assume.assumeTrue("Import real pack first",app.models.statuses().all { it.installed })
+  val target=app.models.file("giga-v2/encoder.int8.onnx")
+  val originalSize=target.length()
+  val pack=File(app.cacheDir,"corrupt-test-pack.zip")
+  java.util.zip.ZipOutputStream(pack.outputStream()).use { z ->
+   z.putNextEntry(java.util.zip.ZipEntry("giga-v2/encoder.int8.onnx"));z.write("corrupt model fixture".toByteArray());z.closeEntry()
+  }
+  try {
+   var rejected=false
+   try { app.models.importPack(Uri.fromFile(pack)) { } } catch(e: IllegalArgumentException) { rejected=true }
+   assertTrue(rejected);assertEquals(originalSize,target.length());app.models.requireReady()
+   assertFalse(File(target.path+".installing").exists())
+  } finally { pack.delete() }
+ }
  @Test fun incompleteModelsCannotReachInference() {
   val context=InstrumentationRegistry.getInstrumentation().targetContext
   val isolated=File(context.cacheDir,"model-safety-${System.nanoTime()}").apply { mkdirs() }

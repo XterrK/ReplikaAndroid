@@ -43,6 +43,42 @@ class StorageAudioTest {
   val source=File(context.cacheDir,"corrupted.mp3").apply { writeText("not audio") };val dest=File(context.cacheDir,"corrupted.pcm")
   try { var failed=false;try { AudioDecoder.decode(source.path,dest) } catch(e: Exception) { failed=true };assertTrue(failed);assertFalse(dest.exists()) } finally { source.delete();dest.delete() }
  }
+ @Test fun realWavMp3M4aDecode()=runBlocking {
+  val report=org.json.JSONArray()
+  for(ext in listOf("wav","mp3","m4a")) {
+   val source=File(context.filesDir,"integration-example.$ext")
+   Assume.assumeTrue("Stage official format fixture: $ext",source.exists())
+   val dest=File(context.cacheDir,"format-$ext.pcm")
+   try {
+    val start=android.os.SystemClock.elapsedRealtime()
+    val info=AudioDecoder.decode(source.path,dest)
+    assertTrue("Unexpected duration for $ext: ${info.durationMs}",kotlin.math.abs(info.durationMs-11290)<200)
+    assertTrue(info.peaks.any { it>0f })
+    report.put(org.json.JSONObject().put("format",ext).put("audioMs",info.durationMs).put("decodeMs",android.os.SystemClock.elapsedRealtime()-start).put("samples",info.samples))
+   } finally { dest.delete() }
+  }
+  File(context.filesDir,"media-formats.json").writeText(report.toString(2))
+ }
+ @Test fun corruptWorkerPreservesPreviousTranscript()=runBlocking {
+  val app=context.applicationContext as ReplikaApp
+  val source=File(context.cacheDir,"worker-corrupt.mp3").apply { writeText("not an audio container") }
+  val id="integration-corrupt-preserve"
+  val prior=SegmentRow.from(id,Segment(id="preserved-segment",startMs=0,endMs=1000,speakerId=0,text="Сохранённая коррекция",source="explicit storage fixture",edited=true))
+  try {
+   app.db.dao().insert(Recording(id,"Corrupt import regression",source.path,status="IMPORTED"))
+   app.db.dao().insertSegments(listOf(prior))
+   app.models.requireReady()
+   // Worker raises foreground while activity is visible, as in the user flow.
+   app.startActivity(android.content.Intent(app,MainActivity::class.java).addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK))
+   delay(1500)
+   ru.replika.ml.ProcessingWorker.enqueue(app,id)
+   withTimeout(60000) {
+    while(app.db.dao().recording(id)?.status!="ERROR") delay(200)
+   }
+   assertEquals(prior,app.db.dao().segmentList(id).single())
+   assertFalse(context.cacheDir.listFiles().orEmpty().any { it.name.startsWith("$id-") && it.extension=="pcm" })
+  } finally { source.delete();app.db.openHelper.writableDatabase.execSQL("DELETE FROM recordings WHERE id = ?",arrayOf(id)) }
+ }
  @Test fun realModelValidationAndAsr()=runBlocking {
   // Opt-in: models and official test audio must be staged on this Android device.
   val app=context.applicationContext as ReplikaApp

@@ -21,9 +21,10 @@ class PipelineTest {
   Assume.assumeTrue("Real WAV and models must be staged first",audio.exists())
   app.models.requireReady()
   val id="integration-real-giga"
+  app.db.openHelper.writableDatabase.execSQL("DELETE FROM speakers WHERE recordingId = ?",arrayOf(id))
   val prior=app.db.dao().recording(id)
   if(prior!=null) app.db.dao().clearSegments(id)
-  app.db.dao().insert(Recording(id,"Официальный русский ML smoke test",audio.path,status="QUEUED",phase="Ожидание обработки"))
+  app.db.dao().insert(Recording(id,"Официальный русский ML smoke test",audio.path,status="IMPORTED",phase="Ожидание обработки"))
   // Avoid startActivitySync's idle wait on an animated indeterminate processing screen.
   app.startActivity(android.content.Intent(app,MainActivity::class.java).putExtra("recordingId",id).addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK or android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK))
   withTimeout(30000) {
@@ -47,10 +48,35 @@ class PipelineTest {
    }
    delay(1500);capture("04-transcript-workspace.png")
    assertTrue(ready);val rows=app.db.dao().segmentList(id);assertTrue(rows.isNotEmpty());assertTrue(rows.all { it.endMs>it.startMs && it.source.contains("GigaAM") })
+   assertTrue("Pre-roll regression: actual GigaAM prefix was clipped",rows.first().text.startsWith("ничьих"))
+   assertEquals(100,org.json.JSONObject(app.db.dao().recording(id)!!.diagnostics).getInt("preRollMs"))
    File(app.filesDir,"android-transcript.json").writeText(ru.replika.domain.Exporter.json("Real integration",rows.map { it.domain() }) { "speaker-$it" })
   } finally { instrumentation.runOnMainSync {
    ActivityLifecycleMonitorRegistry.getInstance().getActivitiesInStage(Stage.RESUMED).filterIsInstance<MainActivity>().forEach { it.finish() }
   } }
+ }
+ @Test fun completeRealWhisperPipeline()=runBlocking {
+  val instrumentation=InstrumentationRegistry.getInstrumentation();val app=instrumentation.targetContext.applicationContext as ReplikaApp
+  val audio=File(app.filesDir,"integration-example.wav")
+  Assume.assumeTrue(audio.exists() && app.models.file("whisper-tiny/ggml-tiny.bin").exists())
+  val id="integration-real-whisper"
+  app.db.dao().insert(Recording(id,"Whisper полный русский mono pipeline",audio.path,status="IMPORTED",backend="whisper-tiny"))
+  app.startActivity(android.content.Intent(app,MainActivity::class.java).putExtra("recordingId",id).addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK or android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK))
+  delay(2000)
+  ProcessingWorker.enqueue(app,id)
+  withTimeout(20*60*1000L) {
+   while(true) {
+    delay(500);val rec=app.db.dao().recording(id)!!
+    if(rec.status=="ERROR") fail(rec.error)
+    if(rec.status=="READY") {
+     val rows=app.db.dao().segmentList(id);assertTrue(rows.isNotEmpty());assertTrue(rows.all { it.source.contains("Whisper") })
+     File(app.filesDir,"android-whisper-pipeline-diagnostics.json").writeText(rec.diagnostics)
+     File(app.filesDir,"android-whisper-transcript.json").writeText(ru.replika.domain.Exporter.json("Actual Whisper Worker result",rows.map { it.domain() }) { "speaker-$it" })
+     break
+    }
+   }
+  }
+  instrumentation.runOnMainSync { ActivityLifecycleMonitorRegistry.getInstance().getActivitiesInStage(Stage.RESUMED).filterIsInstance<MainActivity>().forEach { it.finish() } }
  }
  @Test fun realWhisperBackend()=runBlocking {
   val app=InstrumentationRegistry.getInstrumentation().targetContext.applicationContext as ReplikaApp

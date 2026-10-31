@@ -11,7 +11,7 @@ android {
  if (!providers.gradleProperty("skipWhisperBuild").isPresent) { externalNativeBuild { cmake { path = file("src/main/cpp/CMakeLists.txt"); version = "3.22.1" } } }
  defaultConfig {
   applicationId = "ru.replika.offline"; minSdk = 26; targetSdk = 35
-  versionCode = 1; versionName = "0.1.0"
+  versionCode = 2; versionName = "1.1.0"
   ndk { abiFilters += listOf("arm64-v8a", "x86_64") }
   testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
  }
@@ -40,6 +40,7 @@ dependencies {
  testImplementation("org.json:json:20250107")
  androidTestImplementation("androidx.test.ext:junit:1.2.1")
  androidTestImplementation("androidx.test:runner:1.6.2")
+ androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
  androidTestImplementation(platform("androidx.compose:compose-bom:2025.04.01"))
  androidTestImplementation("androidx.compose.ui:ui-test-junit4")
  debugImplementation("androidx.compose.ui:ui-test-manifest")

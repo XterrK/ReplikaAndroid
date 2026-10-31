@@ -28,6 +28,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.*
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.selected
+import kotlinx.coroutines.flow.first
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -144,12 +149,12 @@ fun clock(ms: Long)="%02d:%02d".format(Locale.ROOT,ms.coerceAtLeast(0)/60000,ms.
  var stopAt by remember { mutableStateOf<Long?>(null) }
  DisposableEffect(player) { val listener=object: Player.Listener { override fun onPlayerError(error: PlaybackException) { vm.error.value="Воспроизведение: ${error.message}" } };player.addListener(listener);onDispose { player.release() } }
  LaunchedEffect(player) { while(isActive) { position=player.currentPosition;playing=player.isPlaying;stopAt?.let { if(position>=it) { player.pause();stopAt=null } };delay(100) } }
- fun seek(ms: Long) { stopAt=null;player.seekTo(ms.coerceAtLeast(0)) }
- fun playSegment(row: SegmentRow) { player.seekTo((row.startMs-150).coerceAtLeast(0));stopAt=row.endMs+150;player.play() }
+ fun seek(ms: Long) { stopAt=null;position=ms.coerceIn(0,rec.durationMs.coerceAtLeast(0));player.seekTo(position) }
+ fun playSegment(row: SegmentRow) { seek(row.startMs);stopAt=row.endMs.coerceAtMost(rec.durationMs);player.play() }
  fun name(id: Int)=speakers.firstOrNull { it.speakerId==id }?.name?:if(id<0) "Неизвестный" else "Участник ${id+1}"
  var review by rememberSaveable(rec.id) { mutableStateOf(false) };var filter by rememberSaveable(rec.id) { mutableStateOf<Int?>(null) }
  var edit by remember { mutableStateOf<SegmentRow?>(null) };var rename by remember { mutableStateOf<Int?>(null) };var titleEdit by remember { mutableStateOf(false) }
- var export by remember { mutableStateOf(false) };var expected by rememberSaveable { mutableStateOf("") }
+ var export by remember { mutableStateOf(false) };var expected by rememberSaveable(rec.id) { mutableStateOf(if(rec.expectedSpeakers>0) rec.expectedSpeakers.toString() else "2") };var automatic by rememberSaveable(rec.id) { mutableStateOf(rec.expectedSpeakers<0) }
  val ready=rec.status=="READY"
  val warnings=rows.filter { it.reasons!="[]" && !it.reviewed }
  val visible=rows.filter { (filter==null || filter==it.speakerId) && (!review || (it.reasons!="[]" && !it.reviewed)) }
@@ -165,15 +170,19 @@ fun clock(ms: Long)="%02d:%02d".format(Locale.ROOT,ms.coerceAtLeast(0)/60000,ms.
    if(ready) IconButton(onClick={export=true}) { Icon(Icons.Outlined.IosShare,"Экспорт") }
   }
   if(!ready) {
-   Column(Modifier.weight(1f).padding(28.dp),verticalArrangement=Arrangement.Center) {
+   Column(Modifier.weight(1f).verticalScroll(rememberScrollState()).padding(28.dp),verticalArrangement=Arrangement.Center) {
     Eyebrow(if(rec.status=="ERROR") "НУЖНО ВНИМАНИЕ" else "КАЖДОЕ СЛОВО ВАЖНО")
     Spacer(Modifier.height(24.dp));Icon(Icons.Outlined.GraphicEq,null,tint=Blue,modifier=Modifier.size(70.dp));Spacer(Modifier.height(24.dp));Text(rec.phase,fontSize=28.sp,lineHeight=34.sp,fontWeight=FontWeight.Medium)
     Spacer(Modifier.height(16.dp));Text(rec.error?:"Аудио обрабатывается на устройстве. Участники обозначаются условными номерами, а не реальными именами.",color=Muted,lineHeight=24.sp)
     Spacer(Modifier.height(24.dp))
-    if(rec.status=="PROCESSING" || rec.status=="QUEUED") { LinearProgressIndicator(Modifier.fillMaxWidth());Spacer(Modifier.height(16.dp));OutlinedButton(onClick={vm.cancel(rec.id)}) { Text("Отменить обработку") } }
+    if(rec.status in setOf("PROCESSING","QUEUED","CANCELLING")) { LinearProgressIndicator(Modifier.fillMaxWidth());Spacer(Modifier.height(16.dp));if(rec.status=="CANCELLING") Text("Текущий нативный этап нельзя прервать мгновенно. Дождитесь завершения операции.",color=Muted) else OutlinedButton(onClick={vm.cancel(rec.id)}) { Text("Отменить обработку") } }
     else {
-     OutlinedTextField(expected,{expected=it.filter(Char::isDigit).take(2)},label={Text("Количество участников (необязательно)")},supportingText={Text("Пусто — автоматическое определение")},singleLine=true,modifier=Modifier.fillMaxWidth())
-     Spacer(Modifier.height(16.dp));Button(onClick={vm.process(rec.id,expected.toIntOrNull()?.coerceIn(1,20)?:-1)},modifier=Modifier.fillMaxWidth().height(52.dp)) { Text(if(rec.status=="IMPORTED") "Создать стенограмму" else "Повторить обработку") }
+     Text("Количество говорящих",fontWeight=FontWeight.Medium)
+     FilterChip(selected=automatic,onClick={automatic=true},label={Text("Автоматически")})
+     FilterChip(selected=!automatic,onClick={automatic=false},label={Text("Указано пользователем")})
+     val validCount=expected.toIntOrNull()?.let { it in 1..20 }==true
+     if(!automatic) OutlinedTextField(expected,{expected=it.filter(Char::isDigit).take(2)},label={Text("Число говорящих")},supportingText={Text("От 1 до 20. Это подсказка для кластеризации.")},isError=!validCount,singleLine=true,modifier=Modifier.fillMaxWidth())
+     Spacer(Modifier.height(16.dp));Button(onClick={vm.process(rec.id,if(automatic) -1 else expected.toInt())},enabled=automatic || validCount,modifier=Modifier.fillMaxWidth().height(52.dp)) { Text(if(rec.status=="IMPORTED") "Создать стенограмму" else "Повторить обработку") }
      Text("Установите выбранный ASR, VAD и диаризацию в разделе «Модели».",color=Muted,modifier=Modifier.padding(top=12.dp),style=MaterialTheme.typography.bodySmall)
     }
    }
@@ -200,14 +209,14 @@ fun clock(ms: Long)="%02d:%02d".format(Locale.ROOT,ms.coerceAtLeast(0)/60000,ms.
    Row(Modifier.fillMaxWidth().padding(horizontal=24.dp),verticalAlignment=Alignment.CenterVertically,horizontalArrangement=Arrangement.SpaceBetween) {
     FilterChip(selected=review,onClick={review=!review},label={Text("Smart Review · ${warnings.size}")},leadingIcon={Icon(Icons.Outlined.FactCheck,null,Modifier.size(18.dp))})
     IconToggleButton(checked=autoFollow,onCheckedChange={autoFollow=it}) { Icon(Icons.Outlined.Sync,"Следовать за воспроизведением",tint=if(autoFollow) Blue else Muted) }
-    if(review && warnings.isNotEmpty()) IconButton(onClick={val next=warnings.firstOrNull { it.startMs>position }?:warnings.first();seek(next.startMs);scope.launch { val i=visible.indexOfFirst { it.id==next.id };if(i>=0) listState.animateScrollToItem(i+3) }}) { Icon(Icons.Outlined.SkipNext,"Следующее предупреждение") }
+    if(review && visible.isNotEmpty()) IconButton(onClick={val next=visible.firstOrNull { it.startMs>position }?:visible.first();seek(next.startMs);scope.launch { val i=visible.indexOfFirst { it.id==next.id };if(i>=0) listState.animateScrollToItem(i+3) };edit=next}) { Icon(Icons.Outlined.SkipNext,"Следующее предупреждение") }
    }
    LazyColumn(state=listState,modifier=Modifier.weight(1f),contentPadding=PaddingValues(start=24.dp,end=24.dp,bottom=28.dp),verticalArrangement=Arrangement.spacedBy(8.dp)) {
     item { if(review) Text("Вычисляемые признаки для проверки, не вероятность ошибки.",color=Muted,style=MaterialTheme.typography.bodySmall) }
     item { Spacer(Modifier.height(2.dp)) };item { Spacer(Modifier.height(2.dp)) }
-    if(visible.isEmpty()) item { Text(if(review) "Все отмеченные фрагменты проверены." else "Речь не найдена или отфильтрована.",color=Muted,modifier=Modifier.padding(vertical=30.dp)) }
+    if(visible.isEmpty()) item { Text(if(review) "Нет непроверенных фрагментов с вычисленными предупреждениями." else "Речь не найдена или отфильтрована.",color=Muted,modifier=Modifier.padding(vertical=30.dp)) }
     items(visible,key={it.id}) { row ->
-     Column(Modifier.fillMaxWidth().clip(RoundedCornerShape(14.dp)).background(if(active?.id==row.id) Color(0xFF1B2D50) else Color(0xFF101A2C)).clickable { seek(row.startMs) }.padding(16.dp)) {
+     Column(Modifier.fillMaxWidth().clip(RoundedCornerShape(14.dp)).background(if(active?.id==row.id) Color(0xFF1B2D50) else Color(0xFF101A2C)).testTag("segment-${row.id}").semantics { selected=active?.id==row.id }.clickable { playSegment(row) }.padding(16.dp)) {
       Row(verticalAlignment=Alignment.CenterVertically) {
        Text(name(row.speakerId),color=speakerColor(row.speakerId),style=MaterialTheme.typography.labelLarge,modifier=Modifier.weight(1f).clickable { rename=row.speakerId })
        Text(clock(row.startMs),style=MaterialTheme.typography.labelSmall,color=Muted)
@@ -222,9 +231,9 @@ fun clock(ms: Long)="%02d:%02d".format(Locale.ROOT,ms.coerceAtLeast(0)/60000,ms.
   }
  }
  if(edit!=null) {
-  val row=edit!!;var text by remember(row.id) { mutableStateOf(row.text) };var speaker by remember(row.id) { mutableIntStateOf(row.speakerId) };var checked by remember(row.id) { mutableStateOf(row.reviewed) }
+  val row=edit!!;var text by remember(row.id) { mutableStateOf(row.text) };var speaker by remember(row.id) { mutableIntStateOf(row.speakerId) };var checked by remember(row.id) { mutableStateOf(row.reviewed) };var saving by remember(row.id) { mutableStateOf(false) };val focusManager=LocalFocusManager.current
   ModalBottomSheet(onDismissRequest={edit=null},sheetState=rememberModalBottomSheetState(skipPartiallyExpanded=true),containerColor=Color(0xFF131E33)) {
-   Column(Modifier.fillMaxWidth().padding(24.dp).imePadding().verticalScroll(rememberScrollState()),verticalArrangement=Arrangement.spacedBy(14.dp)) {
+   Column(Modifier.fillMaxWidth().imePadding().verticalScroll(rememberScrollState()).padding(24.dp),verticalArrangement=Arrangement.spacedBy(14.dp)) {
     Text("Проверить фрагмент",fontSize=24.sp,fontWeight=FontWeight.SemiBold);Text("${Exporter.stamp(row.startMs)} — ${Exporter.stamp(row.endMs)}",color=Muted)
     if(row.reasons!="[]") Text(row.domain().reasons.joinToString("\n"),color=Color(0xFFFFC58A))
     OutlinedButton(onClick={playSegment(row)}) { Icon(Icons.Outlined.PlayArrow,null);Text("Прослушать участок") }
@@ -232,7 +241,7 @@ fun clock(ms: Long)="%02d:%02d".format(Locale.ROOT,ms.coerceAtLeast(0)/60000,ms.
     Text("Говорящий",color=Muted)
     LazyRow(horizontalArrangement=Arrangement.spacedBy(8.dp)) { items((listOf(-1)+rows.map { it.speakerId }+((rows.maxOfOrNull { it.speakerId }?:-1)+1)).distinct()) { id -> FilterChip(selected=speaker==id,onClick={speaker=id},label={Text(name(id))}) } }
     Row(verticalAlignment=Alignment.CenterVertically) { Checkbox(checked,{checked=it});Text("Фрагмент проверен") }
-    Button(onClick={vm.edit(row,text,speaker,checked);edit=null},modifier=Modifier.fillMaxWidth().height(50.dp)) { Text("Сохранить исправления") }
+    Button(onClick={saving=true;focusManager.clearFocus();vm.edit(row,text,speaker,checked) { ok -> saving=false;if(ok) edit=null }},enabled=!saving,modifier=Modifier.fillMaxWidth().height(50.dp)) { Text(if(saving) "Сохраняем…" else "Сохранить исправления") }
    }
   }
  }
@@ -243,7 +252,11 @@ fun clock(ms: Long)="%02d:%02d".format(Locale.ROOT,ms.coerceAtLeast(0)/60000,ms.
    listOf("txt","srt","json").forEach { format -> TextButton(onClick={
     scope.launch {
      try {
-      val content=when(format) { "txt"->Exporter.txt(rec.title,rows.map { it.domain() },::name);"srt"->Exporter.srt(rows.map { it.domain() },::name);else->org.json.JSONObject(Exporter.json(rec.title,rows.map { it.domain() },::name)).put("recordingId",rec.id).put("diagnostics",if(rec.diagnostics.isNotBlank()) org.json.JSONObject(rec.diagnostics) else org.json.JSONObject()).toString(2) }
+      val saved=vm.dao.recording(rec.id)?:error("Запись недоступна")
+      val savedRows=vm.dao.segmentList(rec.id).map { it.domain() }
+      val savedSpeakers=vm.dao.speakers(rec.id).first()
+      fun savedName(id: Int)=savedSpeakers.firstOrNull { it.speakerId==id }?.name?:if(id<0) "Неизвестный" else "Участник ${id+1}"
+      val content=when(format) { "txt"->Exporter.txt(saved.title,savedRows,::savedName);"srt"->Exporter.srt(savedRows,::savedName);else->org.json.JSONObject(Exporter.json(saved.title,savedRows,::savedName)).put("recordingId",saved.id).put("diagnostics",if(saved.diagnostics.isNotBlank()) org.json.JSONObject(saved.diagnostics) else org.json.JSONObject()).toString(2) }
       val file=withContext(Dispatchers.IO) { File(context.cacheDir,"exports").apply { mkdirs() }.let { File(it,"replika-${rec.id}.$format").apply { writeText(content) } } }
       val uri=FileProvider.getUriForFile(context,"${context.packageName}.files",file)
       context.startActivity(Intent.createChooser(Intent(Intent.ACTION_SEND).setType(if(format=="json") "application/json" else "text/plain").putExtra(Intent.EXTRA_STREAM,uri).addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION),"Передать стенограмму"));export=false

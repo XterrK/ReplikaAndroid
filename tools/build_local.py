@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
 """WSL/F: build with a RAM mirror, checkpointed as a buffered tar on F: after every build."""
-import pathlib,os,shutil,concurrent.futures,subprocess,tarfile
+import pathlib,os,shutil,concurrent.futures,subprocess,tarfile,sys,fcntl
 ROOT=pathlib.Path('/mnt/f/Hackathons/ReplikaAndroid');TOOLS=pathlib.Path('/mnt/f/ReplikaToolchain');RAM=pathlib.Path('/dev/shm/replika-build');RAM.mkdir(exist_ok=True)
+# Serialize mirror mutation and Gradle: a JVM must never read a partially copied JDK.
+build_lock=(TOOLS/'replika-build.lock').open('w')
+fcntl.flock(build_lock,fcntl.LOCK_EX)
 def copy_tree(src,dst):
  pairs=[]
  for base,dirs,files in os.walk(src):
@@ -24,7 +27,9 @@ jdk=RAM/'jdk';jdk.mkdir(exist_ok=True)
 for name in ['bin','lib','conf']:copy_tree(TOOLS/'jdk-17.0.17+10'/name,jdk/name)
 shutil.copy2(TOOLS/'jdk-17.0.17+10/release',jdk/'release')
 env=os.environ.copy();env.update(JAVA_HOME=str(jdk),GRADLE_USER_HOME=str(cache),ANDROID_HOME=str(TOOLS/'sdk'),ANDROID_USER_HOME=str(TOOLS/'android-user'),TMPDIR=str(TOOLS/'tmp'))
-args=['bash',str(RAM/'gradle/bin/gradle'),'-p',str(ROOT),':app:assembleDebug',':app:testDebugUnitTest',':app:assembleDebugAndroidTest','--max-workers=2','-Dorg.gradle.jvmargs=-Xmx1500m','-Pkotlin.compiler.execution.strategy=in-process']
+tasks=sys.argv[1:] or [':app:assembleDebug',':app:testDebugUnitTest',':app:assembleDebugAndroidTest']
+if os.environ.get('REPLIKA_BUILD_OFFLINE')=='1':tasks+=['--offline']
+args=['bash',str(RAM/'gradle/bin/gradle'),'-p',str(ROOT),*tasks,'--max-workers=2','-Dorg.gradle.jvmargs=-Xmx1500m','-Pkotlin.compiler.execution.strategy=in-process']
 try:result=subprocess.run(args,cwd=ROOT,env=env).returncode
 finally:
  subprocess.run(['bash',str(RAM/'gradle/bin/gradle'),'--stop'],cwd=ROOT,env=env)

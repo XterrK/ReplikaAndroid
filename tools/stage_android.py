@@ -29,6 +29,9 @@ try:
   if '--pack' not in sys.argv:stage(p,'files/models/'+spec['path'])
  if '--pack' in sys.argv:stage(ROOT/'model-pack/replika-offline-pack.zip','files/integration-model-pack.zip')
  stage(pathlib.Path('/mnt/f/ReplikaToolchain/russian-example.wav'),'files/integration-example.wav')
+ for ext in ['mp3','m4a']:
+  source=pathlib.Path('/mnt/f/ReplikaToolchain/russian-example.'+ext)
+  if source.exists():stage(source,'files/integration-example.'+ext)
  multi=pathlib.Path('/mnt/f/ReplikaToolchain/four-speakers-zh.wav')
  if multi.exists():stage(multi,'files/integration-multispeaker.wav')
 finally:
