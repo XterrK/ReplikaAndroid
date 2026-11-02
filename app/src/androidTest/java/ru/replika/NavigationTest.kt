@@ -8,10 +8,13 @@ import org.junit.runner.RunWith
 class NavigationTest {
  @get:Rule val compose=createAndroidComposeRule<MainActivity>()
  @Test fun libraryModelsNavigation() {
-  compose.onNodeWithText("Каждое слово\nможно проверить.").assertIsDisplayed()
+  compose.onNodeWithText("Библиотека").assertIsDisplayed()
+  compose.onNodeWithTag("library-search").assertIsDisplayed()
   compose.onNodeWithText("Модели").performClick()
-  compose.onNodeWithText("ЛОКАЛЬНЫЙ ИНТЕЛЛЕКТ").assertIsDisplayed()
+  compose.onNodeWithText("Распознавание на устройстве").assertIsDisplayed()
+  compose.onNodeWithText("Импорт offline pack").assertIsDisplayed()
   compose.onNodeWithText("Записи").performClick()
-  compose.onNodeWithText("Начните с голоса").assertIsDisplayed()
+  compose.onNodeWithText("Библиотека").assertIsDisplayed()
+  compose.onNodeWithTag("library-search").assertIsDisplayed()
  }
 }

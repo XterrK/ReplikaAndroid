@@ -8,7 +8,11 @@ import androidx.activity.viewModels
 import ru.replika.ui.*
 class MainActivity: ComponentActivity() {
  private val vm: AppViewModel by viewModels()
- override fun onCreate(savedInstanceState: Bundle?) { super.onCreate(savedInstanceState);enableEdgeToEdge(statusBarStyle=androidx.activity.SystemBarStyle.dark(android.graphics.Color.rgb(11,17,32)),navigationBarStyle=androidx.activity.SystemBarStyle.dark(android.graphics.Color.rgb(11,17,32)));if(savedInstanceState==null) intent.getStringExtra("recordingId")?.let { vm.selected.value=it };setContent { ReplikaTheme { ReplikaRoot(vm) } } }
+ override fun onCreate(savedInstanceState: Bundle?) { super.onCreate(savedInstanceState);enableEdgeToEdge(statusBarStyle=androidx.activity.SystemBarStyle.dark(android.graphics.Color.rgb(11,17,32)),navigationBarStyle=androidx.activity.SystemBarStyle.dark(android.graphics.Color.rgb(11,17,32)));if(vm.selected.value==null) {
+   if(savedInstanceState?.containsKey("selectedRecordingId")==true) vm.selected.value=savedInstanceState.getString("selectedRecordingId")
+   else intent.getStringExtra("recordingId")?.let { vm.selected.value=it }
+  };setContent { ReplikaTheme { ReplikaRoot(vm) } } }
+ override fun onSaveInstanceState(outState: Bundle) { outState.putString("selectedRecordingId",vm.selected.value);super.onSaveInstanceState(outState) }
  override fun onNewIntent(intent: android.content.Intent) { super.onNewIntent(intent);setIntent(intent);intent.getStringExtra("recordingId")?.let { vm.selected.value=it } }
  override fun onStop() { if(vm.isRecording.value && !vm.paused.value) vm.pauseRecording();super.onStop() }
 }

@@ -38,7 +38,7 @@ class PipelineTest {
   try {
    ProcessingWorker.enqueue(app,id)
    var ready=false;var captured=false
-   fun capture(name: String) { runCatching { val folder=File(app.filesDir,"human-review").apply { mkdirs() };instrumentation.uiAutomation.takeScreenshot()?.let { bitmap -> File(folder,name).outputStream().use { bitmap.compress(Bitmap.CompressFormat.PNG,100,it) };bitmap.recycle() } } }
+   fun capture(name: String) { runCatching { val folder=File(app.filesDir,"human-review-v1.2").apply { mkdirs() };instrumentation.uiAutomation.takeScreenshot()?.let { bitmap -> File(folder,name).outputStream().use { bitmap.compress(Bitmap.CompressFormat.PNG,100,it) };bitmap.recycle() } } }
    withTimeout(20*60*1000L) {
     while(true) { delay(1000);val record=app.db.dao().recording(id)!!
      if(record.status=="PROCESSING" && !captured) { capture("03-processing.png");captured=true }

@@ -23,20 +23,30 @@ data class SegmentRow(
 }
 @Entity(tableName="speakers",primaryKeys=["recordingId","speakerId"])
 data class SpeakerRow(val recordingId: String,val speakerId: Int,val name: String)
+data class TranscriptSnapshot(
+ @Embedded val recording: Recording,
+ @Relation(parentColumn="id",entityColumn="recordingId") val rows: List<SegmentRow>,
+ @Relation(parentColumn="id",entityColumn="recordingId") val speakers: List<SpeakerRow>
+)
 @Dao
 abstract class ReplikaDao {
+ @Transaction @Query("SELECT * FROM recordings WHERE id=:id") abstract fun transcriptSnapshot(id: String): Flow<TranscriptSnapshot?>
  @Query("SELECT * FROM recordings ORDER BY createdAt DESC") abstract fun recordings(): Flow<List<Recording>>
  @Query("SELECT * FROM recordings WHERE id=:id") abstract suspend fun recording(id: String): Recording?
+ @Query("SELECT * FROM segments WHERE id=:id") abstract suspend fun segment(id: String): SegmentRow?
+ @Query("SELECT * FROM recordings ORDER BY createdAt DESC") abstract suspend fun recordingList(): List<Recording>
  @Query("SELECT * FROM segments WHERE recordingId=:id ORDER BY startMs,endMs") abstract fun segments(id: String): Flow<List<SegmentRow>>
  @Query("SELECT * FROM segments WHERE recordingId=:id ORDER BY startMs,endMs") abstract suspend fun segmentList(id: String): List<SegmentRow>
  @Query("SELECT * FROM speakers WHERE recordingId=:id") abstract fun speakers(id: String): Flow<List<SpeakerRow>>
  @Upsert abstract suspend fun insert(recording: Recording)
  @Insert(onConflict=OnConflictStrategy.REPLACE) abstract suspend fun insertSegments(rows: List<SegmentRow>)
- @Update abstract suspend fun updateSegment(row: SegmentRow)
+ @Update abstract suspend fun updateSegment(row: SegmentRow): Int
  @Insert(onConflict=OnConflictStrategy.REPLACE) abstract suspend fun speaker(speaker: SpeakerRow)
  @Query("DELETE FROM segments WHERE recordingId=:id") abstract suspend fun clearSegments(id: String)
+ @Query("DELETE FROM speakers WHERE recordingId=:id") abstract suspend fun deleteSpeakers(id: String)
+ @Query("DELETE FROM recordings WHERE id=:id") abstract suspend fun deleteRecording(id: String): Int
  @Query("UPDATE recordings SET status=:status,phase=:phase,error=:error WHERE id=:id") abstract suspend fun status(id: String,status: String,phase: String,error: String?=null)
- @Query("SELECT DISTINCT recordingId FROM segments WHERE text LIKE '%' || :query || '%'") abstract suspend fun search(query: String): List<String>
+ @Query("SELECT DISTINCT recordingId FROM segments WHERE text LIKE '%' || :query || '%'") abstract fun searchFlow(query: String): Flow<List<String>>
  @Transaction open suspend fun complete(recording: Recording, rows: List<SegmentRow>) {
   clearSegments(recording.id); insertSegments(rows); insert(recording)
  }

@@ -13,18 +13,41 @@ import kotlinx.coroutines.sync.withLock
 import ru.replika.ReplikaApp
 import ru.replika.data.*
 import ru.replika.ml.*
+import ru.replika.domain.ProductErrors
+import java.util.concurrent.TimeUnit
 import java.io.File
 import java.util.UUID
+
+data class LibraryState(val loaded: Boolean = false,val records: List<Recording> = emptyList())
+data class TranscriptState(val recordingId: String? = null,val loaded: Boolean = false,val rows: List<SegmentRow> = emptyList(),val speakers: List<SpeakerRow> = emptyList(),val recordingStatus: String? = null)
 
 @OptIn(kotlinx.coroutines.ExperimentalCoroutinesApi::class)
 class AppViewModel(application: Application): AndroidViewModel(application) {
  private val app=application as ReplikaApp
  val dao=app.db.dao()
- val recordings=dao.recordings().stateIn(viewModelScope,SharingStarted.Eagerly,emptyList())
+ val library=MutableStateFlow(LibraryState())
+ val recordings=library.map { it.records }.stateIn(viewModelScope,SharingStarted.Eagerly,emptyList())
+ val recordingsLoaded=library.map { it.loaded }.stateIn(viewModelScope,SharingStarted.Eagerly,false)
  val error=MutableStateFlow<String?>(null)
+ val notice=MutableStateFlow<String?>(null)
+ val technicalError=MutableStateFlow<String?>(null)
+ val undoAvailable=MutableStateFlow(false)
+ val deleting=MutableStateFlow<Set<String>>(emptySet())
  val selected=MutableStateFlow<String?>(null)
- val segments=selected.flatMapLatest { if(it==null) flowOf(emptyList()) else dao.segments(it) }.stateIn(viewModelScope,SharingStarted.Eagerly,emptyList())
- val speakers=selected.flatMapLatest { if(it==null) flowOf(emptyList()) else dao.speakers(it) }.stateIn(viewModelScope,SharingStarted.Eagerly,emptyList())
+ private val transcriptRows=selected.flatMapLatest { id ->
+  if(id==null) flowOf(TranscriptState()) else dao.transcriptSnapshot(id).map { snapshot ->
+   TranscriptState(id,true,snapshot?.rows.orEmpty().sortedWith(compareBy<SegmentRow> { it.startMs }.thenBy { it.endMs }),snapshot?.speakers.orEmpty(),snapshot?.recording?.status)
+  }.onStart { emit(TranscriptState(recordingId=id)) }
+ }
+ val transcript=combine(transcriptRows,library) { state,collection ->
+  val status=collection.records.firstOrNull { it.id==state.recordingId }?.status
+  state.copy(loaded=state.loaded && collection.loaded && status==state.recordingStatus)
+ }.stateIn(viewModelScope,SharingStarted.Eagerly,TranscriptState())
+ val segments=transcript.map { it.rows }.stateIn(viewModelScope,SharingStarted.Eagerly,emptyList())
+ val speakers=transcript.map { it.speakers }.stateIn(viewModelScope,SharingStarted.Eagerly,emptyList())
+ private val storage=ProductStorage(app.db,File(app.filesDir,"audio"))
+ private var lastEdit: SegmentUndo?=null
+ private val errorLogGate=kotlinx.coroutines.sync.Mutex()
  val models=MutableStateFlow<List<ModelStatus>>(emptyList())
  val backend=MutableStateFlow(app.getSharedPreferences("settings",0).getString("backend","giga-v2")?:"giga-v2")
  fun selectBackend(id: String) { backend.value=id;app.getSharedPreferences("settings",0).edit().putString("backend",id).apply() }
@@ -41,6 +64,16 @@ class AppViewModel(application: Application): AndroidViewModel(application) {
  private val cancellingRequests=mutableSetOf<String>()
  init {
   refreshModels()
+  viewModelScope.launch {
+   dao.recordings().collect { rows -> library.value=LibraryState(true,rows) }
+  }
+  viewModelScope.launch {
+   selected.collect { id -> if(lastEdit?.before?.recordingId!=id) clearUndo() }
+  }
+  viewModelScope.launch(Dispatchers.IO) {
+   runCatching { File(app.filesDir,"diagnostics/last-ui-error.json").takeIf { it.isFile }?.readText() }.getOrNull()?.let { technicalError.compareAndSet(null,it) }
+   runCatching { app.models.gate.withLock { storage.recoverPendingDeletions() } }.onFailure { if(it is CancellationException) throw it else reportError("Восстановление аудио",ProductOperationException("Не удалось завершить восстановление аудио. Файлы сохранены в приложении; перезапустите его и повторите действие.","Pending audio recovery failed",it)) }
+  }
   viewModelScope.launch {
    while(isActive) {
     runCatching { reconcileProcessing() }.onFailure { if(it is CancellationException) throw it }
@@ -72,7 +105,7 @@ class AppViewModel(application: Application): AndroidViewModel(application) {
    }
   }
  }
- fun refreshModels() { viewModelScope.launch(Dispatchers.IO) { runCatching { app.models.statuses() }.onSuccess { models.value=it }.onFailure { error.value=it.message } } }
+ fun refreshModels() { viewModelScope.launch(Dispatchers.IO) { runCatching { app.models.statuses() }.onSuccess { models.value=it }.onFailure { reportError("Проверка моделей",it) } } }
  fun importAudio(uri: Uri) { viewModelScope.launch {
   try {
    val id=UUID.randomUUID().toString();val folder=File(app.filesDir,"audio").apply { mkdirs() }
@@ -89,22 +122,30 @@ class AppViewModel(application: Application): AndroidViewModel(application) {
      require(file.length()>0) { "Файл пуст" }
     }
     dao.insert(Recording(id,title,file.path));selected.value=id
-   } catch(t: Throwable) { file.delete();throw t }
-  } catch(e: CancellationException) { throw e } catch(e: Exception) { error.value="Не удалось импортировать аудио: ${e.message}" }
+   } catch(t: Throwable) {
+    // A suspended Room insert may commit just before cancellation is delivered.
+    // Preserve audio whenever the database references it or the lookup is inconclusive.
+    withContext(NonCancellable+Dispatchers.IO) {
+     val referenced=runCatching { dao.recording(id)?.audioPath==file.path }.getOrDefault(true)
+     if(!referenced) file.delete()
+    }
+    throw t
+   }
+  } catch(e: CancellationException) { throw e } catch(e: Exception) { reportError("Импорт аудио",e) }
  } }
  fun process(id: String,count: Int) {
-  if(!processingRequests.add(id)) return
+  if(id in deleting.value || !processingRequests.add(id)) return
   viewModelScope.launch {
    try {
-    require(count==-1 || count in 1..20) { "Укажите от 1 до 20 говорящих" }
+    if(count!=-1 && count !in 1..20) throw ProductOperationException("Укажите от 1 до 20 говорящих.","Invalid speaker count $count")
     val queued=app.db.withTransaction {
      val rec=dao.recording(id)?:return@withTransaction false
      if(rec.status in setOf("QUEUED","PROCESSING","CANCELLING")) return@withTransaction false
      dao.insert(rec.copy(expectedSpeakers=count,backend=backend.value,status="QUEUED",phase="Ожидание обработки",error=null))
      true
     }
-    if(queued) ProcessingWorker.enqueue(app,id)
-   } catch(e: CancellationException) { throw e } catch(e: Exception) { error.value=e.message }
+    if(queued) { clearUndo();ProcessingWorker.enqueue(app,id) }
+   } catch(e: CancellationException) { throw e } catch(e: Exception) { reportError("Запуск обработки",e) }
    finally { processingRequests.remove(id) }
   }
  }
@@ -127,22 +168,100 @@ class AppViewModel(application: Application): AndroidViewModel(application) {
       if(dao.recording(id)?.status=="CANCELLING") dao.status(id,"CANCELLED","Обработка отменена")
      }
     }
-   } catch(e: CancellationException) { throw e } catch(e: Exception) { error.value="Не удалось отменить обработку: ${e.message}" }
+   } catch(e: CancellationException) { throw e } catch(e: Exception) { reportError("Отмена обработки",e) }
    finally { cancellingRequests.remove(id) }
   }
  }
+ fun clearNotice() { notice.value=null }
+ private fun clearUndo() { lastEdit=null;undoAvailable.value=false }
  fun edit(row: SegmentRow,text: String,speaker: Int,reviewed: Boolean,onComplete: (Boolean)->Unit = {}) { viewModelScope.launch {
-  try { dao.updateSegment(row.copy(text=text,speakerId=speaker,edited=row.edited || text!=row.text || speaker!=row.speakerId,reviewed=reviewed));onComplete(true) }
-  catch(e: CancellationException) { throw e } catch(e: Exception) { error.value="Не удалось сохранить исправления: ${e.message}";onComplete(false) }
+  clearUndo()
+  try {
+   if(row.recordingId in deleting.value) throw ProductOperationException("Запись удаляется. Дождитесь завершения действия.","Edit during deletion")
+   val change=storage.edit(row,text,speaker,reviewed)
+   lastEdit=change.takeIf { it.before!=it.after };undoAvailable.value=lastEdit!=null
+   notice.value="Изменения сохранены";onComplete(true)
+  } catch(e: CancellationException) { throw e } catch(e: Exception) { reportError("Сохранение фрагмента",e);onComplete(false) }
  } }
- fun rename(id: String,speaker: Int,name: String) { viewModelScope.launch { dao.speaker(SpeakerRow(id,speaker,name.trim().ifBlank { "Участник ${speaker+1}" })) } }
- fun title(id: String,title: String) { viewModelScope.launch { app.db.withTransaction { dao.recording(id)?.let { dao.insert(it.copy(title=title.trim().ifBlank { it.title })) } } } }
+ fun undoLastEdit(onComplete: (Boolean)->Unit = {}) { viewModelScope.launch {
+  val change=lastEdit
+  if(change==null) { onComplete(false);return@launch }
+  try {
+   storage.undo(change);clearUndo();notice.value="Последнее исправление отменено";onComplete(true)
+  } catch(e: CancellationException) { throw e } catch(e: Exception) { clearUndo();reportError("Отмена исправления",e);onComplete(false) }
+ } }
+ fun rename(id: String,speaker: Int,name: String) { viewModelScope.launch {
+  clearUndo()
+  try {
+   app.db.withTransaction {
+    if(dao.recording(id)==null || id in deleting.value) throw ProductOperationException("Запись больше недоступна.","Rename unavailable recording $id")
+    dao.speaker(SpeakerRow(id,speaker,name.trim().ifBlank { if(speaker<0) "Неизвестный" else "Участник ${speaker+1}" }))
+   }
+   clearUndo();notice.value="Имя участника сохранено"
+  } catch(e: CancellationException) { throw e } catch(e: Exception) { reportError("Переименование участника",e) }
+ } }
+ fun title(id: String,title: String) { viewModelScope.launch {
+  clearUndo()
+  try {
+   app.db.withTransaction {
+    val row=dao.recording(id)?:throw ProductOperationException("Запись больше недоступна.","Rename unavailable recording $id")
+    if(id in deleting.value) throw ProductOperationException("Запись удаляется.","Rename during deletion")
+    dao.insert(row.copy(title=title.trim().ifBlank { row.title }))
+   }
+   clearUndo();notice.value="Название сохранено"
+  } catch(e: CancellationException) { throw e } catch(e: Exception) { reportError("Переименование записи",e) }
+ } }
+ fun deleteRecording(id: String,onComplete: (Boolean)->Unit = {}) {
+  if(id in deleting.value) { onComplete(false);return }
+  clearUndo();deleting.value=deleting.value+id
+  viewModelScope.launch {
+   try {
+    val rec=dao.recording(id)?:throw ProductOperationException("Запись уже удалена.","Missing recording $id")
+    if(rec.status in setOf("QUEUED","PROCESSING","CANCELLING") || id in processingRequests || id in cancellingRequests) throw ProductOperationException("Сначала отмените обработку и дождитесь её завершения.","Delete busy recording $id")
+    val result=app.models.gate.withLock {
+     val work=withContext(Dispatchers.IO) { WorkManager.getInstance(app).getWorkInfosForUniqueWork("replika-$id").get(10,TimeUnit.SECONDS) }
+     if(work.any { !it.state.isFinished }) throw ProductOperationException("Фоновая обработка ещё не завершена. Отмените её или повторите удаление позже.","Delete with active WorkRequest for $id")
+     storage.deleteRecording(id)
+    }
+    clearUndo();if(selected.value==id) selected.value=null
+    notice.value=when {
+     result.cleanupPending -> "Запись удалена. Очистка локального аудио пока не завершена."
+     result.audioPreserved -> "Запись удалена. Общие и внешние аудиофайлы не затронуты."
+     else -> "Запись и локальное аудио удалены"
+    }
+    if(result.cleanupPending) reportTechnicalError("Очистка удалённого аудио",id,java.io.IOException("Owned audio cleanup is pending"),showUserMessage=false)
+    onComplete(true)
+   } catch(e: CancellationException) { throw e } catch(e: Exception) { reportError("Удаление записи",e);onComplete(false) }
+   finally { deleting.value=deleting.value-id }
+  }
+ }
+ fun errorMessage(context: String,detail: String?): String = ProductErrors.message(context,detail)
+ fun reportError(context: String,error: Throwable) { reportTechnicalError(context,null,error) }
+ fun reportPlaybackError(id: String,error: Throwable) { reportTechnicalError("Воспроизведение",id,error) }
+ private fun reportTechnicalError(context: String,recordingId: String?,cause: Throwable,showUserMessage: Boolean = true) {
+  val friendly=if(cause is ProductOperationException) cause.userMessage else ProductErrors.fromThrowable(context,cause)
+  if(showUserMessage) error.value=friendly
+  val data=org.json.JSONObject().put("atMs",System.currentTimeMillis()).put("context",context).put("recordingId",recordingId?:org.json.JSONObject.NULL)
+   .put("exceptionClass",cause.javaClass.name).put("message",cause.message?:org.json.JSONObject.NULL).put("stackTrace",cause.stackTraceToString())
+  if(cause is androidx.media3.common.PlaybackException) data.put("playbackErrorCode",cause.errorCode)
+  val raw=data.toString(2);technicalError.value=raw
+  viewModelScope.launch(Dispatchers.IO) {
+   errorLogGate.withLock {
+   if(technicalError.value!=raw) return@withLock
+   runCatching {
+    val folder=File(app.filesDir,"diagnostics").apply { mkdirs() }
+    val temporary=File(folder,"last-ui-error.json.part");temporary.writeText(raw)
+    check(temporary.renameTo(File(folder,"last-ui-error.json")))
+   }
+   }
+  }
+ }
  fun download(id: String) { modelOperation { app.models.download(id) { modelProgress.value=it } } }
  fun deleteModel(id: String) { modelOperation { app.models.delete(id) } }
  fun importPack(uri: Uri) { modelOperation { app.models.importPack(uri) { modelProgress.value=it } } }
  private fun modelOperation(block: suspend ()->Unit) {
   if(modelJob?.isActive==true) return
-  modelJob=viewModelScope.launch { modelProgress.value="Подготовка…";try { withContext(Dispatchers.IO) { block() } } catch(e: CancellationException) { throw e } catch(e: Exception) { error.value=e.message } finally { modelProgress.value=null;refreshModels() } }
+  modelJob=viewModelScope.launch { modelProgress.value="Подготовка…";try { withContext(Dispatchers.IO) { block() } } catch(e: CancellationException) { throw e } catch(e: Exception) { reportError("Установка моделей",e) } finally { modelProgress.value=null;refreshModels() } }
  }
  fun cancelModelDownload() { modelJob?.cancel() }
  fun startRecording() {
@@ -155,22 +274,22 @@ class AppViewModel(application: Application): AndroidViewModel(application) {
    val r=if(Build.VERSION.SDK_INT>=31) MediaRecorder(app) else @Suppress("DEPRECATION") MediaRecorder()
    try { r.setAudioSource(MediaRecorder.AudioSource.MIC);r.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);r.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);r.setAudioSamplingRate(48000);r.setAudioEncodingBitRate(128000);r.setOutputFile(f.path)
    r.setMaxFileSize((folder.usableSpace-reserve).coerceAtLeast(1))
-   r.setOnInfoListener { _,what,_ -> if(what==MediaRecorder.MEDIA_RECORDER_INFO_MAX_FILESIZE_REACHED) { stopRecording(true);error.value="Запись сохранена: свободное место заканчивается" } }
-   r.setOnErrorListener { _,_,_ -> stopRecording(false);error.value="Запись прервана: ошибка микрофона или нехватка места" }
+   r.setOnInfoListener { _,what,_ -> if(what==MediaRecorder.MEDIA_RECORDER_INFO_MAX_FILESIZE_REACHED) { stopRecording(true);notice.value="Свободное место заканчивается. Запись остановлена." } }
+   r.setOnErrorListener { _,what,extra -> stopRecording(false);reportError("Запись",IllegalStateException("MediaRecorder error what=$what extra=$extra")) }
    r.prepare();r.start() } catch(t: Throwable) { r.release();f.delete();throw t }
    recorder=r;recordingFile=f;isRecording.value=true;paused.value=false;elapsed.value=0;levels.value=emptyList()
    meterJob=viewModelScope.launch { var last=android.os.SystemClock.elapsedRealtime();while(isActive) { delay(100);val now=android.os.SystemClock.elapsedRealtime();val delta=now-last;last=now;if(!paused.value) { elapsed.value+=delta;val amp=runCatching { r.maxAmplitude/32768f }.getOrDefault(0f);levels.value=(levels.value+amp).takeLast(70) } } }
-  } catch(e: Exception) { error.value="Микрофон: ${e.message}" }
+  } catch(e: Exception) { reportError("Запись",e) }
  }
- fun pauseRecording() { runCatching { if(paused.value) recorder?.resume() else recorder?.pause();paused.value=!paused.value }.onFailure { error.value=it.message } }
+ fun pauseRecording() { runCatching { if(paused.value) recorder?.resume() else recorder?.pause();paused.value=!paused.value }.onFailure { reportError("Запись",it) } }
  fun stopRecording(save: Boolean,persistAfterClear: Boolean=false) {
   meterJob?.cancel();val f=recordingFile;val r=recorder
   recorder=null;isRecording.value=false
-  try { r?.stop() } catch(e: Exception) { f?.delete();error.value="Запись слишком короткая или прервана" } finally { r?.release() }
+  try { r?.stop() } catch(e: Exception) { f?.delete();if(save) reportError("Остановка записи",e) } finally { r?.release() }
   if(f!=null && f.exists()) {
    if(save) {
     val persistenceScope=if(persistAfterClear) CoroutineScope(Dispatchers.IO) else viewModelScope
-    persistenceScope.launch { try { val id=UUID.randomUUID().toString();dao.insert(Recording(id,"Запись ${java.text.SimpleDateFormat("dd.MM HH:mm",java.util.Locale.ROOT).format(java.util.Date())}",f.path));selected.value=id } catch(e: Exception) { error.value="Не удалось сохранить запись: ${e.message}" } }
+    persistenceScope.launch { try { val id=UUID.randomUUID().toString();dao.insert(Recording(id,"Запись ${java.text.SimpleDateFormat("dd.MM HH:mm",java.util.Locale.ROOT).format(java.util.Date())}",f.path));selected.value=id;notice.value="Запись сохранена" } catch(e: Exception) { reportError("Сохранение записи",e) } }
    } else f.delete()
   };recordingFile=null
  }
