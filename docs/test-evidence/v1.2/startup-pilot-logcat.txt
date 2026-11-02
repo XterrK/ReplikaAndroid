@@ -1,0 +1,54 @@
+--------- beginning of system
+10-31 13:31:23.821   557   622 I ActivityManager: Extending process start timeout by 271ms for ProcessRecord{3402e3c 7425:ru.replika.offline/u0a148}
+10-31 13:31:24.985   557  7442 I ActivityManager: dumpStackTraces pids=null
+10-31 13:31:25.992   557  7441 D ActivityManager: created ANR temporary file:/data/anr/temp_anr_560474367994905696.txt
+10-31 13:31:26.030   557  7442 I ActivityManager: Dumping to /data/anr/anr_2026-10-31-13-31-24-986
+10-31 13:31:26.030   557  7441 I ActivityManager: Collecting stacks for pid 7425 into temporary file temp_anr_560474367994905696.txt
+10-31 13:31:34.503   557  7442 I ActivityManager: dumpStackTraces nativepids=null
+10-31 13:31:34.503   557  7442 I ActivityManager: dumpStackTraces extraPids=null
+10-31 13:31:34.503   557  7442 I ActivityManager: Done dumping
+10-31 13:31:34.610   557  7442 E ActivityManager: ANR in ru.replika.offline
+10-31 13:31:34.610   557  7442 E ActivityManager: PID: 7425
+10-31 13:31:34.610   557  7442 E ActivityManager: Reason: Process ProcessRecord{3402e3c 7425:ru.replika.offline/u0a148} failed to complete startup
+10-31 13:31:34.610   557  7442 E ActivityManager: ErrorId: 254a136c-8c3e-4deb-a5d3-1ed3ff2d2cc9
+10-31 13:31:34.610   557  7442 E ActivityManager: Frozen: false
+10-31 13:31:34.610   557  7442 E ActivityManager: Load: 0.0 / 0.0 / 0.0
+10-31 13:31:34.610   557  7442 E ActivityManager: ----- Output from /proc/pressure/memory -----
+10-31 13:31:34.610   557  7442 E ActivityManager: some avg10=2.72 avg60=6.89 avg300=2.22 total=17160860
+10-31 13:31:34.610   557  7442 E ActivityManager: full avg10=0.52 avg60=1.16 avg300=0.36 total=6950453
+10-31 13:31:34.610   557  7442 E ActivityManager: ----- End output from /proc/pressure/memory -----
+10-31 13:31:34.610   557  7442 E ActivityManager: ----- Output from /proc/pressure/cpu -----
+10-31 13:31:34.610   557  7442 E ActivityManager: some avg10=22.87 avg60=27.41 avg300=9.80 total=654082180
+10-31 13:31:34.610   557  7442 E ActivityManager: full avg10=0.00 avg60=0.00 avg300=0.00 total=0
+10-31 13:31:34.610   557  7442 E ActivityManager: ----- End output from /proc/pressure/cpu -----
+10-31 13:31:34.610   557  7442 E ActivityManager: ----- Output from /proc/pressure/io -----
+10-31 13:31:34.610   557  7442 E ActivityManager: some avg10=3.22 avg60=5.29 avg300=1.72 total=117662629
+10-31 13:31:34.610   557  7442 E ActivityManager: full avg10=0.02 avg60=0.21 avg300=0.07 total=66667260
+10-31 13:31:34.610   557  7442 E ActivityManager: ----- End output from /proc/pressure/io -----
+10-31 13:31:34.610   557  7442 E ActivityManager: 
+10-31 13:31:34.610   557  7442 E ActivityManager: CPU usage from 18ms to 10305ms later (2026-10-31 13:31:24.241 to 2026-10-31 13:31:34.528):
+10-31 13:31:34.610   557  7442 E ActivityManager:   109% 7425/ru.replika.offline: 33% user + 75% kernel / faults: 6036 minor
+10-31 13:31:34.610   557  7442 E ActivityManager:   18% 557/system_server: 3.4% user + 15% kernel / faults: 40 minor
+10-31 13:31:34.610   557  7442 E ActivityManager:   0% 213/tombstoned: 0% user + 0% kernel / faults: 4 minor
+10-31 13:31:34.610   557  7442 E ActivityManager:   3.6% 7384/kworker/u6:3-events_unbound: 0% user + 3.6% kernel
+10-31 13:31:34.610   557  7442 E ActivityManager:   1.4% 364/android.hardware.sensors-service.multihal: 0% user + 1.4% kernel
+10-31 13:31:34.610   557  7442 E ActivityManager:   1% 370/android.hardware.graphics.composer3-service.ranchu: 0% user + 1% kernel
+10-31 13:31:34.610   557  7442 E ActivityManager:   0.8% 7332/kworker/1:1-virtio_vsock: 0% user + 0.8% kernel
+10-31 13:31:34.610   557  7442 E ActivityManager:   0.5% 1084/com.android.settings: 0% user + 0.4% kernel / faults: 42 major
+10-31 13:31:34.610   557  7442 E ActivityManager:   0.5% 7321/kworker/u5:1-events_unbound: 0% user + 0.5% kernel
+10-31 13:31:34.610   557  7442 E ActivityManager:   0.1% 16/rcu_preempt: 0% user + 0.1% kernel
+10-31 13:31:34.610   557  7442 E ActivityManager: 47% TOTAL: 11% user + 24% kernel + 10% iowait + 1% softirq
+10-31 13:31:34.610   557  7442 E ActivityManager: CPU usage from 14105223ms to 14105223ms ago (1970-01-01 00:00:00.000 to 1970-01-01 00:00:00.000) with 0% awake:
+10-31 13:31:34.610   557  7442 E ActivityManager: 0% TOTAL: 0% user + 0% kernel
+10-31 13:31:34.871   557  7442 I ActivityManager: Killing 7425:ru.replika.offline/u0a148 (adj 0): bg anr
+10-31 13:31:34.871   557  7442 D ActivityManager: Completed ANR of ru.replika.offline in 10727ms, latency 32ms
+10-31 13:31:34.904   557  2325 W ActivityManager: Crash of app ru.replika.offline running instrumentation ComponentInfo{ru.replika.offline.test/androidx.test.runner.AndroidJUnitRunner}
+10-31 13:31:34.905   557  2325 I ActivityManager: Force stopping ru.replika.offline appid=10148 user=0: finished inst
+--------- beginning of main
+10-31 13:31:34.923  7413  7413 I AndroidRuntime: VM exiting with result code 0.
+10-31 13:31:34.949   557  7447 W ActivityManager: pid 557 system sent binder code 2 with flags 0 to frozen apps and got error -32
+10-31 13:31:34.983   557  7447 I ActivityManager: Failure reporting to instrumentation watcher: comp=ComponentInfo{ru.replika.offline.test/androidx.test.runner.AndroidJUnitRunner} results=Bundle[{shortMsg=Process crashed.}]
+10-31 13:31:37.138   557   685 D ActivityManager: freezing 3490 com.android.keychain
+10-31 13:31:37.139   557   685 D ActivityManager: freezing 1084 com.android.settings
+10-31 13:31:37.141   557   685 D ActivityManager: freezing 2332 com.android.localtransport
+10-31 13:31:37.142   557   685 D ActivityManager: freezing 2119 com.android.dynsystem:dynsystem

@@ -1,0 +1,532 @@
+{
+  "device": "unknown Android SDK built for x86_64",
+  "api": 35,
+  "abi": "x86_64",
+  "threads": 2,
+  "sampleRate": 16000,
+  "WER": "N\/A; no independently annotated reference",
+  "CER": "N\/A; no independently annotated reference",
+  "peakMemory": "N\/A; PSS observations are snapshots",
+  "audioSha256": "d8aaaa18a5098d7c6de0595ae7ac1e64cacd0d4022af3595213bdaf23be77e69",
+  "audioMs": 11290,
+  "diarizationTurns": [
+    {
+      "startMs": 31,
+      "endMs": 8485,
+      "speakerId": 0
+    },
+    {
+      "startMs": 9245,
+      "endMs": 10966,
+      "speakerId": 0
+    }
+  ],
+  "qualityNote": "Inspect actual first word; no WER\/CER or claim VAD is sole cause without reference",
+  "runs": [
+    {
+      "name": "raw-no-vad-no-diar-crop",
+      "text": "ничьих не требуя похвал счастлив уж я надеждой сладкой что дева с трепетом любви посмотрит может быть украдкой на песни грешные мои у лукоморья дуб зеленый",
+      "inferenceMs": 1873
+    },
+    {
+      "name": "current",
+      "threshold": 0.5,
+      "minSpeechSec": 0.25,
+      "minSilenceSec": 0.25,
+      "preMs": 0,
+      "postMs": 0,
+      "vadSpans": [
+        {
+          "startMs": 102,
+          "endMs": 8550
+        },
+        {
+          "startMs": 9254,
+          "endMs": 10982
+        }
+      ],
+      "contextSpans": [
+        {
+          "startMs": 102,
+          "endMs": 8550
+        },
+        {
+          "startMs": 9254,
+          "endMs": 10982
+        }
+      ],
+      "vadOnly": [
+        {
+          "startMs": 102,
+          "endMs": 8550,
+          "text": "чьих не требуя похвал счастлив уж я надеждой сладкой что дева с трепетом любви посмотрит может быть украдкой на песни грешные мои",
+          "blank": false,
+          "inferenceMs": 1464
+        },
+        {
+          "startMs": 9254,
+          "endMs": 10982,
+          "text": "у лукоморья дуб зеленый",
+          "blank": false,
+          "inferenceMs": 290
+        }
+      ],
+      "alignedSlices": [
+        {
+          "startMs": 102,
+          "endMs": 8485,
+          "text": "чьих не требуя похвал счастлив уж я надеждой сладкой что дева с трепетом любви посмотрит может быть украдкой на песни грешные мои",
+          "blank": false,
+          "inferenceMs": 1393,
+          "speakerId": 0
+        },
+        {
+          "startMs": 8485,
+          "endMs": 8550,
+          "text": "",
+          "blank": true,
+          "inferenceMs": 77,
+          "speakerId": -1
+        },
+        {
+          "startMs": 9254,
+          "endMs": 10966,
+          "text": "у лукоморья дуб зеленый",
+          "blank": false,
+          "inferenceMs": 335,
+          "speakerId": 0
+        },
+        {
+          "startMs": 10966,
+          "endMs": 10982,
+          "text": "",
+          "blank": true,
+          "inferenceMs": 69,
+          "speakerId": -1
+        }
+      ]
+    },
+    {
+      "name": "pre100",
+      "threshold": 0.5,
+      "minSpeechSec": 0.25,
+      "minSilenceSec": 0.25,
+      "preMs": 100,
+      "postMs": 0,
+      "vadSpans": [
+        {
+          "startMs": 102,
+          "endMs": 8550
+        },
+        {
+          "startMs": 9254,
+          "endMs": 10982
+        }
+      ],
+      "contextSpans": [
+        {
+          "startMs": 2,
+          "endMs": 8550
+        },
+        {
+          "startMs": 9154,
+          "endMs": 10982
+        }
+      ],
+      "vadOnly": [
+        {
+          "startMs": 2,
+          "endMs": 8550,
+          "text": "ничьих не требуя похвал счастлив уж я надеждой сладкой что дева с трепетом любви посмотрит может быть украдкой на песни грешные мои",
+          "blank": false,
+          "inferenceMs": 1462
+        },
+        {
+          "startMs": 9154,
+          "endMs": 10982,
+          "text": "у лукоморья дуб зеленый",
+          "blank": false,
+          "inferenceMs": 311
+        }
+      ],
+      "alignedSlices": [
+        {
+          "startMs": 2,
+          "endMs": 31,
+          "text": "",
+          "blank": true,
+          "inferenceMs": 52,
+          "speakerId": -1
+        },
+        {
+          "startMs": 31,
+          "endMs": 8485,
+          "text": "ничьих не требуя похвал счастлив уж я надеждой сладкой что дева с трепетом любви посмотрит может быть украдкой на песни грешные мои",
+          "blank": false,
+          "inferenceMs": 1549,
+          "speakerId": 0
+        },
+        {
+          "startMs": 8485,
+          "endMs": 8550,
+          "text": "",
+          "blank": true,
+          "inferenceMs": 130,
+          "speakerId": -1
+        },
+        {
+          "startMs": 9154,
+          "endMs": 9245,
+          "text": "",
+          "blank": true,
+          "inferenceMs": 110,
+          "speakerId": -1
+        },
+        {
+          "startMs": 9245,
+          "endMs": 10966,
+          "text": "у лукоморья дуб зеленый",
+          "blank": false,
+          "inferenceMs": 412,
+          "speakerId": 0
+        },
+        {
+          "startMs": 10966,
+          "endMs": 10982,
+          "text": "",
+          "blank": true,
+          "inferenceMs": 40,
+          "speakerId": -1
+        }
+      ]
+    },
+    {
+      "name": "post100",
+      "threshold": 0.5,
+      "minSpeechSec": 0.25,
+      "minSilenceSec": 0.25,
+      "preMs": 0,
+      "postMs": 100,
+      "vadSpans": [
+        {
+          "startMs": 102,
+          "endMs": 8550
+        },
+        {
+          "startMs": 9254,
+          "endMs": 10982
+        }
+      ],
+      "contextSpans": [
+        {
+          "startMs": 102,
+          "endMs": 8650
+        },
+        {
+          "startMs": 9254,
+          "endMs": 11082
+        }
+      ],
+      "vadOnly": [
+        {
+          "startMs": 102,
+          "endMs": 8650,
+          "text": "чьих не требуя похвал счастлив уж я надеждой сладкой что дева с трепетом любви посмотрит может быть украдкой на песни грешные мои",
+          "blank": false,
+          "inferenceMs": 1427
+        },
+        {
+          "startMs": 9254,
+          "endMs": 11082,
+          "text": "у лукоморья дуб зеленый",
+          "blank": false,
+          "inferenceMs": 327
+        }
+      ],
+      "alignedSlices": [
+        {
+          "startMs": 102,
+          "endMs": 8485,
+          "text": "чьих не требуя похвал счастлив уж я надеждой сладкой что дева с трепетом любви посмотрит может быть украдкой на песни грешные мои",
+          "blank": false,
+          "inferenceMs": 1438,
+          "speakerId": 0
+        },
+        {
+          "startMs": 8485,
+          "endMs": 8650,
+          "text": "",
+          "blank": true,
+          "inferenceMs": 68,
+          "speakerId": -1
+        },
+        {
+          "startMs": 9254,
+          "endMs": 10966,
+          "text": "у лукоморья дуб зеленый",
+          "blank": false,
+          "inferenceMs": 319,
+          "speakerId": 0
+        },
+        {
+          "startMs": 10966,
+          "endMs": 11082,
+          "text": "",
+          "blank": true,
+          "inferenceMs": 52,
+          "speakerId": -1
+        }
+      ]
+    },
+    {
+      "name": "pre100-post100",
+      "threshold": 0.5,
+      "minSpeechSec": 0.25,
+      "minSilenceSec": 0.25,
+      "preMs": 100,
+      "postMs": 100,
+      "vadSpans": [
+        {
+          "startMs": 102,
+          "endMs": 8550
+        },
+        {
+          "startMs": 9254,
+          "endMs": 10982
+        }
+      ],
+      "contextSpans": [
+        {
+          "startMs": 2,
+          "endMs": 8650
+        },
+        {
+          "startMs": 9154,
+          "endMs": 11082
+        }
+      ],
+      "vadOnly": [
+        {
+          "startMs": 2,
+          "endMs": 8650,
+          "text": "ничьих не требуя похвал счастлив уж я надеждой сладкой что дева с трепетом любви посмотрит может быть украдкой на песни грешные мои",
+          "blank": false,
+          "inferenceMs": 1372
+        },
+        {
+          "startMs": 9154,
+          "endMs": 11082,
+          "text": "у лукоморья дуб зеленый",
+          "blank": false,
+          "inferenceMs": 348
+        }
+      ],
+      "alignedSlices": [
+        {
+          "startMs": 2,
+          "endMs": 31,
+          "text": "",
+          "blank": true,
+          "inferenceMs": 53,
+          "speakerId": -1
+        },
+        {
+          "startMs": 31,
+          "endMs": 8485,
+          "text": "ничьих не требуя похвал счастлив уж я надеждой сладкой что дева с трепетом любви посмотрит может быть украдкой на песни грешные мои",
+          "blank": false,
+          "inferenceMs": 1654,
+          "speakerId": 0
+        },
+        {
+          "startMs": 8485,
+          "endMs": 8650,
+          "text": "",
+          "blank": true,
+          "inferenceMs": 124,
+          "speakerId": -1
+        },
+        {
+          "startMs": 9154,
+          "endMs": 9245,
+          "text": "",
+          "blank": true,
+          "inferenceMs": 99,
+          "speakerId": -1
+        },
+        {
+          "startMs": 9245,
+          "endMs": 10966,
+          "text": "у лукоморья дуб зеленый",
+          "blank": false,
+          "inferenceMs": 331,
+          "speakerId": 0
+        },
+        {
+          "startMs": 10966,
+          "endMs": 11082,
+          "text": "",
+          "blank": true,
+          "inferenceMs": 53,
+          "speakerId": -1
+        }
+      ]
+    },
+    {
+      "name": "threshold035-minSpeech010",
+      "threshold": 0.35,
+      "minSpeechSec": 0.1,
+      "minSilenceSec": 0.25,
+      "preMs": 0,
+      "postMs": 0,
+      "vadSpans": [
+        {
+          "startMs": 124,
+          "endMs": 8550
+        },
+        {
+          "startMs": 9276,
+          "endMs": 11014
+        }
+      ],
+      "contextSpans": [
+        {
+          "startMs": 124,
+          "endMs": 8550
+        },
+        {
+          "startMs": 9276,
+          "endMs": 11014
+        }
+      ],
+      "vadOnly": [
+        {
+          "startMs": 124,
+          "endMs": 8550,
+          "text": "чьих не требуя похвал счастлив уж я надеждой сладкой что дева с трепетом любви посмотрит может быть украдкой на песни грешные мои",
+          "blank": false,
+          "inferenceMs": 1414
+        },
+        {
+          "startMs": 9276,
+          "endMs": 11014,
+          "text": "у лукоморья дуб зеленый",
+          "blank": false,
+          "inferenceMs": 317
+        }
+      ],
+      "alignedSlices": [
+        {
+          "startMs": 124,
+          "endMs": 8485,
+          "text": "чьих не требуя похвал счастлив уж я надеждой сладкой что дева с трепетом любви посмотрит может быть украдкой на песни грешные мои",
+          "blank": false,
+          "inferenceMs": 1358,
+          "speakerId": 0
+        },
+        {
+          "startMs": 8485,
+          "endMs": 8550,
+          "text": "",
+          "blank": true,
+          "inferenceMs": 54,
+          "speakerId": -1
+        },
+        {
+          "startMs": 9276,
+          "endMs": 10966,
+          "text": "у лукоморья дуб зеленый",
+          "blank": false,
+          "inferenceMs": 288,
+          "speakerId": 0
+        },
+        {
+          "startMs": 10966,
+          "endMs": 11014,
+          "text": "",
+          "blank": true,
+          "inferenceMs": 66,
+          "speakerId": -1
+        }
+      ]
+    },
+    {
+      "name": "threshold065-minSilence040",
+      "threshold": 0.65,
+      "minSpeechSec": 0.25,
+      "minSilenceSec": 0.4,
+      "preMs": 0,
+      "postMs": 0,
+      "vadSpans": [
+        {
+          "startMs": 102,
+          "endMs": 8528
+        },
+        {
+          "startMs": 9254,
+          "endMs": 11296
+        }
+      ],
+      "contextSpans": [
+        {
+          "startMs": 102,
+          "endMs": 8528
+        },
+        {
+          "startMs": 9254,
+          "endMs": 11290
+        }
+      ],
+      "vadOnly": [
+        {
+          "startMs": 102,
+          "endMs": 8528,
+          "text": "чьих не требуя похвал счастлив уж я надеждой сладкой что дева с трепетом любви посмотрит может быть украдкой на песни грешные мои",
+          "blank": false,
+          "inferenceMs": 1366
+        },
+        {
+          "startMs": 9254,
+          "endMs": 11290,
+          "text": "у лукоморья дуб зеленый",
+          "blank": false,
+          "inferenceMs": 363
+        }
+      ],
+      "alignedSlices": [
+        {
+          "startMs": 102,
+          "endMs": 8485,
+          "text": "чьих не требуя похвал счастлив уж я надеждой сладкой что дева с трепетом любви посмотрит может быть украдкой на песни грешные мои",
+          "blank": false,
+          "inferenceMs": 1479,
+          "speakerId": 0
+        },
+        {
+          "startMs": 8485,
+          "endMs": 8528,
+          "text": "",
+          "blank": true,
+          "inferenceMs": 62,
+          "speakerId": -1
+        },
+        {
+          "startMs": 9254,
+          "endMs": 10966,
+          "text": "у лукоморья дуб зеленый",
+          "blank": false,
+          "inferenceMs": 415,
+          "speakerId": 0
+        },
+        {
+          "startMs": 10966,
+          "endMs": 11290,
+          "text": "",
+          "blank": true,
+          "inferenceMs": 84,
+          "speakerId": -1
+        }
+      ]
+    }
+  ]
+}

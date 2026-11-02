@@ -1,0 +1,93 @@
+{
+  "device": "unknown Android SDK built for x86_64",
+  "android": 35,
+  "runtime": "sherpa-onnx 2.0.1",
+  "backend": "GigaAM v2 Transducer INT8 \/ sherpa-onnx 2.0.1",
+  "threads": 2,
+  "vadThreads": 1,
+  "sampleRate": 16000,
+  "expectedSpeakers": -1,
+  "clusterThreshold": 0.5,
+  "vadThreshold": 0.5,
+  "maxAsrSegmentMs": 20000,
+  "audioMs": 650,
+  "totalMs": 3074,
+  "pipelineRtf": 4.729230769230769,
+  "pipelineTimingScope": "model validation through ASR release; excludes final Room commit and diagnostics serialization",
+  "asrStageRtf": 2.923076923076923,
+  "asrInferenceRtf": 0.3292307692307692,
+  "runCondition": "not classified; no cache flush or temperature control",
+  "finalPssKb": 189243,
+  "peakMemory": "N\/A",
+  "stagesMs": {
+    "validationMs": 279,
+    "decodeMs": 58,
+    "vadLoadMs": 15,
+    "vadMs": 25,
+    "diarizationLoadMs": 445,
+    "diarizationReadMs": 231,
+    "diarizationInferenceMs": 70,
+    "diarizationMs": 770,
+    "asrLoadMs": 1388,
+    "asrMs": 1900,
+    "asrReadMs": 196,
+    "asrInferenceMs": 214,
+    "thermalWaitMs": 0
+  },
+  "diarizationTurns": [
+    {
+      "startMs": 31,
+      "endMs": 706,
+      "speakerId": 0
+    }
+  ],
+  "clusteringMode": "automatic",
+  "clusterThresholdApplied": true,
+  "segmentationWindowShiftRatio": 0.1,
+  "diarMinDurationOnSec": 0.2,
+  "diarMinDurationOffSec": 0.5,
+  "vadMinSpeechSec": 0.25,
+  "vadMinSilenceSec": 0.25,
+  "vadWindowSamples": 512,
+  "vadMaxSpeechSec": 20,
+  "preRollMs": 100,
+  "postRollMs": 0,
+  "vadSpans": [
+    {
+      "startMs": 102,
+      "endMs": 672
+    }
+  ],
+  "asrSpeechSpans": [
+    {
+      "startMs": 2,
+      "endMs": 650
+    }
+  ],
+  "asrSlices": [
+    {
+      "startMs": 2,
+      "endMs": 31,
+      "speakerId": -1,
+      "text": "",
+      "blank": true,
+      "inferenceMs": 61,
+      "warnings": [
+        "Неоднозначный говорящий",
+        "Короткая реплика возле границы"
+      ]
+    },
+    {
+      "startMs": 31,
+      "endMs": 650,
+      "speakerId": 0,
+      "text": "ничьих не",
+      "blank": false,
+      "inferenceMs": 153,
+      "warnings": [
+        "Короткая реплика возле границы"
+      ]
+    }
+  ],
+  "modelBytes": 365008680
+}

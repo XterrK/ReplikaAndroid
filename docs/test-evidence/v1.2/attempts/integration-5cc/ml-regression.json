@@ -1,0 +1,1257 @@
+{
+  "generatedUtc": "2026-11-02T15:41:40.060829+00:00",
+  "baseline": "/mnt/f/Hackathons/ReplikaAndroid/docs/test-evidence/v1.1",
+  "candidate": "/mnt/f/Hackathons/ReplikaAndroid/docs/test-evidence/v1.2",
+  "scope": "Actual saved hypotheses/configuration/bounds; no new model execution, no reference-dependent quality score",
+  "timingPolicy": "Observed timings/PSS are retained separately; equality and performance superiority are not asserted",
+  "limitations": [
+    "Pipeline JSON itself lacks input SHA; source identity follows pinned test protocol and comparison input SHA",
+    "A matching public mono fixture does not validate a natural Russian multispeaker dialogue or physical arm64",
+    "New warning-crop/UI acceptance is separate from this baseline regression comparison",
+    "Saved JSON equality does not establish fresh execution; successful instrumentation/APK evidence is required"
+  ],
+  "checks": [
+    {
+      "name": "GigaAM full Worker",
+      "files": [
+        "android-transcript.json",
+        "android-pipeline-diagnostics.json"
+      ],
+      "status": "PASS",
+      "normalizedBaselineSha256": "1255ac7052cd3039228c2e253b18f4f5741bac9ab28993d64c5b5863a7b4874b",
+      "normalizedCandidateSha256": "1255ac7052cd3039228c2e253b18f4f5741bac9ab28993d64c5b5863a7b4874b",
+      "differences": [],
+      "invariantViolations": {
+        "baseline": [],
+        "candidate": []
+      },
+      "observations": {
+        "baseline": [
+          {
+            "segments": [
+              {
+                "warnings": []
+              },
+              {
+                "warnings": []
+              }
+            ]
+          },
+          {
+            "totalMs": 16752,
+            "pipelineRtf": 1.4837909654561559,
+            "asrStageRtf": 0.8517271922054915,
+            "asrInferenceRtf": 0.38396811337466785,
+            "finalPssKb": 239138,
+            "stagesMs": {
+              "validationMs": 794,
+              "decodeMs": 290,
+              "vadLoadMs": 22,
+              "vadMs": 471,
+              "diarizationLoadMs": 527,
+              "diarizationReadMs": 3159,
+              "diarizationInferenceMs": 1821,
+              "diarizationMs": 5537,
+              "asrLoadMs": 1616,
+              "asrMs": 9616,
+              "asrReadMs": 3015,
+              "asrInferenceMs": 4335,
+              "thermalWaitMs": 0
+            },
+            "diarizationTurns": [
+              {},
+              {}
+            ],
+            "vadSpans": [
+              {},
+              {}
+            ],
+            "asrSpeechSpans": [
+              {},
+              {}
+            ],
+            "asrSlices": [
+              {
+                "inferenceMs": 59,
+                "warnings": [
+                  {},
+                  {}
+                ]
+              },
+              {
+                "inferenceMs": 3118,
+                "warnings": []
+              },
+              {
+                "inferenceMs": 72,
+                "warnings": [
+                  {},
+                  {}
+                ]
+              },
+              {
+                "inferenceMs": 140,
+                "warnings": [
+                  {},
+                  {}
+                ]
+              },
+              {
+                "inferenceMs": 833,
+                "warnings": []
+              },
+              {
+                "inferenceMs": 113,
+                "warnings": [
+                  {},
+                  {}
+                ]
+              }
+            ]
+          }
+        ],
+        "candidate": [
+          {
+            "segments": [
+              {
+                "warnings": []
+              },
+              {
+                "warnings": []
+              }
+            ]
+          },
+          {
+            "totalMs": 13418,
+            "pipelineRtf": 1.1884853852967228,
+            "asrStageRtf": 0.6319751992914083,
+            "asrInferenceRtf": 0.26899911426040746,
+            "finalPssKb": 174667,
+            "stagesMs": {
+              "validationMs": 572,
+              "decodeMs": 301,
+              "vadLoadMs": 28,
+              "vadMs": 323,
+              "diarizationLoadMs": 506,
+              "diarizationReadMs": 3091,
+              "diarizationInferenceMs": 1412,
+              "diarizationMs": 5041,
+              "asrLoadMs": 1294,
+              "asrMs": 7135,
+              "asrReadMs": 2620,
+              "asrInferenceMs": 3037,
+              "thermalWaitMs": 0
+            },
+            "diarizationTurns": [
+              {},
+              {}
+            ],
+            "vadSpans": [
+              {},
+              {}
+            ],
+            "asrSpeechSpans": [
+              {},
+              {}
+            ],
+            "asrSlices": [
+              {
+                "inferenceMs": 98,
+                "warnings": [
+                  {},
+                  {}
+                ]
+              },
+              {
+                "inferenceMs": 1882,
+                "warnings": []
+              },
+              {
+                "inferenceMs": 68,
+                "warnings": [
+                  {},
+                  {}
+                ]
+              },
+              {
+                "inferenceMs": 74,
+                "warnings": [
+                  {},
+                  {}
+                ]
+              },
+              {
+                "inferenceMs": 817,
+                "warnings": []
+              },
+              {
+                "inferenceMs": 98,
+                "warnings": [
+                  {},
+                  {}
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "Whisper full Worker",
+      "files": [
+        "android-whisper-transcript.json",
+        "android-whisper-pipeline-diagnostics.json"
+      ],
+      "status": "PASS",
+      "normalizedBaselineSha256": "a01add21491e1f56d2a5b05e83e47e3e2dd911d3fc3401c84aac0065625d369c",
+      "normalizedCandidateSha256": "a01add21491e1f56d2a5b05e83e47e3e2dd911d3fc3401c84aac0065625d369c",
+      "differences": [],
+      "invariantViolations": {
+        "baseline": [],
+        "candidate": []
+      },
+      "observations": {
+        "baseline": [
+          {
+            "segments": [
+              {
+                "warnings": []
+              },
+              {
+                "warnings": []
+              }
+            ]
+          },
+          {
+            "totalMs": 48707,
+            "pipelineRtf": 4.314171833480956,
+            "asrStageRtf": 3.59911426040744,
+            "asrInferenceRtf": 3.338441098317095,
+            "finalPssKb": 245327,
+            "stagesMs": {
+              "validationMs": 159,
+              "decodeMs": 243,
+              "vadLoadMs": 29,
+              "vadMs": 325,
+              "diarizationLoadMs": 1003,
+              "diarizationReadMs": 3080,
+              "diarizationInferenceMs": 3203,
+              "diarizationMs": 7318,
+              "asrLoadMs": 137,
+              "asrMs": 40634,
+              "asrReadMs": 2748,
+              "asrInferenceMs": 37691,
+              "thermalWaitMs": 0
+            },
+            "diarizationTurns": [
+              {},
+              {}
+            ],
+            "vadSpans": [
+              {},
+              {}
+            ],
+            "asrSpeechSpans": [
+              {},
+              {}
+            ],
+            "asrSlices": [
+              {
+                "inferenceMs": 2,
+                "warnings": [
+                  {},
+                  {}
+                ]
+              },
+              {
+                "inferenceMs": 19645,
+                "warnings": []
+              },
+              {
+                "inferenceMs": 2,
+                "warnings": [
+                  {},
+                  {}
+                ]
+              },
+              {
+                "inferenceMs": 1,
+                "warnings": [
+                  {},
+                  {}
+                ]
+              },
+              {
+                "inferenceMs": 18039,
+                "warnings": []
+              },
+              {
+                "inferenceMs": 2,
+                "warnings": [
+                  {},
+                  {}
+                ]
+              }
+            ]
+          }
+        ],
+        "candidate": [
+          {
+            "segments": [
+              {
+                "warnings": []
+              },
+              {
+                "warnings": []
+              }
+            ]
+          },
+          {
+            "totalMs": 40568,
+            "pipelineRtf": 3.5932683790965454,
+            "asrStageRtf": 3.0347209920283436,
+            "asrInferenceRtf": 2.7910540301151463,
+            "finalPssKb": 175683,
+            "stagesMs": {
+              "validationMs": 183,
+              "decodeMs": 378,
+              "vadLoadMs": 22,
+              "vadMs": 248,
+              "diarizationLoadMs": 632,
+              "diarizationReadMs": 2826,
+              "diarizationInferenceMs": 1927,
+              "diarizationMs": 5406,
+              "asrLoadMs": 136,
+              "asrMs": 34262,
+              "asrReadMs": 2563,
+              "asrInferenceMs": 31511,
+              "thermalWaitMs": 0
+            },
+            "diarizationTurns": [
+              {},
+              {}
+            ],
+            "vadSpans": [
+              {},
+              {}
+            ],
+            "asrSpeechSpans": [
+              {},
+              {}
+            ],
+            "asrSlices": [
+              {
+                "inferenceMs": 4,
+                "warnings": [
+                  {},
+                  {}
+                ]
+              },
+              {
+                "inferenceMs": 16631,
+                "warnings": []
+              },
+              {
+                "inferenceMs": 9,
+                "warnings": [
+                  {},
+                  {}
+                ]
+              },
+              {
+                "inferenceMs": 2,
+                "warnings": [
+                  {},
+                  {}
+                ]
+              },
+              {
+                "inferenceMs": 14863,
+                "warnings": []
+              },
+              {
+                "inferenceMs": 2,
+                "warnings": [
+                  {},
+                  {}
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "Identical full-PCM direct ASR",
+      "files": [
+        "ml-asr-comparison.json"
+      ],
+      "status": "PASS",
+      "normalizedBaselineSha256": "6fde7946c089c5ba2b2200df664624d918b0d63933a5f1edb2fec7ce9807b414",
+      "normalizedCandidateSha256": "6fde7946c089c5ba2b2200df664624d918b0d63933a5f1edb2fec7ce9807b414",
+      "differences": [],
+      "invariantViolations": {
+        "baseline": [],
+        "candidate": []
+      },
+      "observations": {
+        "baseline": [
+          {
+            "backends": [
+              {
+                "loadMs": 1054,
+                "runs": [
+                  {
+                    "inferenceMs": 1953,
+                    "rtf": 0.1729849424269265,
+                    "pssKb": 601279
+                  },
+                  {
+                    "inferenceMs": 2032,
+                    "rtf": 0.1799822852081488,
+                    "pssKb": 714151
+                  },
+                  {
+                    "inferenceMs": 2004,
+                    "rtf": 0.1775022143489814,
+                    "pssKb": 714175
+                  }
+                ]
+              },
+              {
+                "loadMs": 103,
+                "runs": [
+                  {
+                    "inferenceMs": 14691,
+                    "rtf": 1.3012400354295837,
+                    "pssKb": 455695
+                  },
+                  {
+                    "inferenceMs": 15085,
+                    "rtf": 1.3361381753764394,
+                    "pssKb": 453987
+                  },
+                  {
+                    "inferenceMs": 14063,
+                    "rtf": 1.245615589016829,
+                    "pssKb": 454019
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "candidate": [
+          {
+            "backends": [
+              {
+                "loadMs": 943,
+                "runs": [
+                  {
+                    "inferenceMs": 1811,
+                    "rtf": 0.1604074402125775,
+                    "pssKb": 530567
+                  },
+                  {
+                    "inferenceMs": 1974,
+                    "rtf": 0.17484499557130204,
+                    "pssKb": 643427
+                  },
+                  {
+                    "inferenceMs": 1940,
+                    "rtf": 0.17183348095659876,
+                    "pssKb": 643463
+                  }
+                ]
+              },
+              {
+                "loadMs": 99,
+                "runs": [
+                  {
+                    "inferenceMs": 13395,
+                    "rtf": 1.1864481842338352,
+                    "pssKb": 383935
+                  },
+                  {
+                    "inferenceMs": 13216,
+                    "rtf": 1.170593445527015,
+                    "pssKb": 382095
+                  },
+                  {
+                    "inferenceMs": 13248,
+                    "rtf": 1.1734278122232065,
+                    "pssKb": 382127
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "VAD contexts and alignment",
+      "files": [
+        "ml-vad-comparison.json"
+      ],
+      "status": "PASS",
+      "normalizedBaselineSha256": "8cb81307e4508e69d801adc457fe81f3010f09b55db80f3dfd594a19530710be",
+      "normalizedCandidateSha256": "8cb81307e4508e69d801adc457fe81f3010f09b55db80f3dfd594a19530710be",
+      "differences": [],
+      "invariantViolations": {
+        "baseline": [],
+        "candidate": []
+      },
+      "observations": {
+        "baseline": [
+          {
+            "diarizationTurns": [
+              {},
+              {}
+            ],
+            "runs": [
+              {
+                "inferenceMs": 3348
+              },
+              {
+                "vadSpans": [
+                  {},
+                  {}
+                ],
+                "contextSpans": [
+                  {},
+                  {}
+                ],
+                "vadOnly": [
+                  {
+                    "inferenceMs": 1772
+                  },
+                  {
+                    "inferenceMs": 372
+                  }
+                ],
+                "alignedSlices": [
+                  {
+                    "inferenceMs": 1540
+                  },
+                  {
+                    "inferenceMs": 104
+                  },
+                  {
+                    "inferenceMs": 349
+                  },
+                  {
+                    "inferenceMs": 66
+                  }
+                ]
+              },
+              {
+                "vadSpans": [
+                  {},
+                  {}
+                ],
+                "contextSpans": [
+                  {},
+                  {}
+                ],
+                "vadOnly": [
+                  {
+                    "inferenceMs": 1500
+                  },
+                  {
+                    "inferenceMs": 363
+                  }
+                ],
+                "alignedSlices": [
+                  {
+                    "inferenceMs": 84
+                  },
+                  {
+                    "inferenceMs": 1623
+                  },
+                  {
+                    "inferenceMs": 57
+                  },
+                  {
+                    "inferenceMs": 77
+                  },
+                  {
+                    "inferenceMs": 333
+                  },
+                  {
+                    "inferenceMs": 68
+                  }
+                ]
+              },
+              {
+                "vadSpans": [
+                  {},
+                  {}
+                ],
+                "contextSpans": [
+                  {},
+                  {}
+                ],
+                "vadOnly": [
+                  {
+                    "inferenceMs": 1650
+                  },
+                  {
+                    "inferenceMs": 382
+                  }
+                ],
+                "alignedSlices": [
+                  {
+                    "inferenceMs": 1814
+                  },
+                  {
+                    "inferenceMs": 103
+                  },
+                  {
+                    "inferenceMs": 349
+                  },
+                  {
+                    "inferenceMs": 68
+                  }
+                ]
+              },
+              {
+                "vadSpans": [
+                  {},
+                  {}
+                ],
+                "contextSpans": [
+                  {},
+                  {}
+                ],
+                "vadOnly": [
+                  {
+                    "inferenceMs": 1549
+                  },
+                  {
+                    "inferenceMs": 375
+                  }
+                ],
+                "alignedSlices": [
+                  {
+                    "inferenceMs": 59
+                  },
+                  {
+                    "inferenceMs": 1520
+                  },
+                  {
+                    "inferenceMs": 140
+                  },
+                  {
+                    "inferenceMs": 119
+                  },
+                  {
+                    "inferenceMs": 679
+                  },
+                  {
+                    "inferenceMs": 116
+                  }
+                ]
+              },
+              {
+                "vadSpans": [
+                  {},
+                  {}
+                ],
+                "contextSpans": [
+                  {},
+                  {}
+                ],
+                "vadOnly": [
+                  {
+                    "inferenceMs": 1501
+                  },
+                  {
+                    "inferenceMs": 338
+                  }
+                ],
+                "alignedSlices": [
+                  {
+                    "inferenceMs": 1530
+                  },
+                  {
+                    "inferenceMs": 111
+                  },
+                  {
+                    "inferenceMs": 553
+                  },
+                  {
+                    "inferenceMs": 80
+                  }
+                ]
+              },
+              {
+                "vadSpans": [
+                  {},
+                  {}
+                ],
+                "contextSpans": [
+                  {},
+                  {}
+                ],
+                "vadOnly": [
+                  {
+                    "inferenceMs": 1419
+                  },
+                  {
+                    "inferenceMs": 403
+                  }
+                ],
+                "alignedSlices": [
+                  {
+                    "inferenceMs": 1461
+                  },
+                  {
+                    "inferenceMs": 66
+                  },
+                  {
+                    "inferenceMs": 336
+                  },
+                  {
+                    "inferenceMs": 97
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "candidate": [
+          {
+            "diarizationTurns": [
+              {},
+              {}
+            ],
+            "runs": [
+              {
+                "inferenceMs": 1873
+              },
+              {
+                "vadSpans": [
+                  {},
+                  {}
+                ],
+                "contextSpans": [
+                  {},
+                  {}
+                ],
+                "vadOnly": [
+                  {
+                    "inferenceMs": 1464
+                  },
+                  {
+                    "inferenceMs": 290
+                  }
+                ],
+                "alignedSlices": [
+                  {
+                    "inferenceMs": 1393
+                  },
+                  {
+                    "inferenceMs": 77
+                  },
+                  {
+                    "inferenceMs": 335
+                  },
+                  {
+                    "inferenceMs": 69
+                  }
+                ]
+              },
+              {
+                "vadSpans": [
+                  {},
+                  {}
+                ],
+                "contextSpans": [
+                  {},
+                  {}
+                ],
+                "vadOnly": [
+                  {
+                    "inferenceMs": 1462
+                  },
+                  {
+                    "inferenceMs": 311
+                  }
+                ],
+                "alignedSlices": [
+                  {
+                    "inferenceMs": 52
+                  },
+                  {
+                    "inferenceMs": 1549
+                  },
+                  {
+                    "inferenceMs": 130
+                  },
+                  {
+                    "inferenceMs": 110
+                  },
+                  {
+                    "inferenceMs": 412
+                  },
+                  {
+                    "inferenceMs": 40
+                  }
+                ]
+              },
+              {
+                "vadSpans": [
+                  {},
+                  {}
+                ],
+                "contextSpans": [
+                  {},
+                  {}
+                ],
+                "vadOnly": [
+                  {
+                    "inferenceMs": 1427
+                  },
+                  {
+                    "inferenceMs": 327
+                  }
+                ],
+                "alignedSlices": [
+                  {
+                    "inferenceMs": 1438
+                  },
+                  {
+                    "inferenceMs": 68
+                  },
+                  {
+                    "inferenceMs": 319
+                  },
+                  {
+                    "inferenceMs": 52
+                  }
+                ]
+              },
+              {
+                "vadSpans": [
+                  {},
+                  {}
+                ],
+                "contextSpans": [
+                  {},
+                  {}
+                ],
+                "vadOnly": [
+                  {
+                    "inferenceMs": 1372
+                  },
+                  {
+                    "inferenceMs": 348
+                  }
+                ],
+                "alignedSlices": [
+                  {
+                    "inferenceMs": 53
+                  },
+                  {
+                    "inferenceMs": 1654
+                  },
+                  {
+                    "inferenceMs": 124
+                  },
+                  {
+                    "inferenceMs": 99
+                  },
+                  {
+                    "inferenceMs": 331
+                  },
+                  {
+                    "inferenceMs": 53
+                  }
+                ]
+              },
+              {
+                "vadSpans": [
+                  {},
+                  {}
+                ],
+                "contextSpans": [
+                  {},
+                  {}
+                ],
+                "vadOnly": [
+                  {
+                    "inferenceMs": 1414
+                  },
+                  {
+                    "inferenceMs": 317
+                  }
+                ],
+                "alignedSlices": [
+                  {
+                    "inferenceMs": 1358
+                  },
+                  {
+                    "inferenceMs": 54
+                  },
+                  {
+                    "inferenceMs": 288
+                  },
+                  {
+                    "inferenceMs": 66
+                  }
+                ]
+              },
+              {
+                "vadSpans": [
+                  {},
+                  {}
+                ],
+                "contextSpans": [
+                  {},
+                  {}
+                ],
+                "vadOnly": [
+                  {
+                    "inferenceMs": 1366
+                  },
+                  {
+                    "inferenceMs": 363
+                  }
+                ],
+                "alignedSlices": [
+                  {
+                    "inferenceMs": 1479
+                  },
+                  {
+                    "inferenceMs": 62
+                  },
+                  {
+                    "inferenceMs": 415
+                  },
+                  {
+                    "inferenceMs": 84
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "Automatic/fixed diarization",
+      "files": [
+        "ml-diarization-comparison.json"
+      ],
+      "status": "PASS",
+      "normalizedBaselineSha256": "941cdae2e2f4d62eec0a1eb46be5e8e9131d64eceea4b2ad85f1e4c150f99b5f",
+      "normalizedCandidateSha256": "941cdae2e2f4d62eec0a1eb46be5e8e9131d64eceea4b2ad85f1e4c150f99b5f",
+      "differences": [],
+      "invariantViolations": {
+        "baseline": [],
+        "candidate": []
+      },
+      "observations": {
+        "baseline": [
+          {
+            "runs": [
+              {
+                "loadMs": 418,
+                "inferenceMs": 9823,
+                "rtf": 0.17275765036932816,
+                "pssKb": 431315,
+                "turns": [
+                  {},
+                  {},
+                  {},
+                  {},
+                  {},
+                  {},
+                  {},
+                  {},
+                  {},
+                  {},
+                  {}
+                ]
+              },
+              {
+                "loadMs": 397,
+                "inferenceMs": 9899,
+                "rtf": 0.17409426661976785,
+                "pssKb": 431079,
+                "turns": [
+                  {},
+                  {},
+                  {},
+                  {},
+                  {},
+                  {},
+                  {},
+                  {},
+                  {},
+                  {}
+                ]
+              },
+              {
+                "loadMs": 379,
+                "inferenceMs": 10173,
+                "rtf": 0.17891311994372142,
+                "pssKb": 431451,
+                "turns": [
+                  {},
+                  {},
+                  {},
+                  {},
+                  {},
+                  {},
+                  {},
+                  {},
+                  {},
+                  {},
+                  {}
+                ]
+              }
+            ]
+          }
+        ],
+        "candidate": [
+          {
+            "runs": [
+              {
+                "loadMs": 355,
+                "inferenceMs": 8874,
+                "rtf": 0.15606753429475906,
+                "pssKb": 366006,
+                "turns": [
+                  {},
+                  {},
+                  {},
+                  {},
+                  {},
+                  {},
+                  {},
+                  {},
+                  {},
+                  {},
+                  {}
+                ]
+              },
+              {
+                "loadMs": 347,
+                "inferenceMs": 9653,
+                "rtf": 0.16976785086176574,
+                "pssKb": 365575,
+                "turns": [
+                  {},
+                  {},
+                  {},
+                  {},
+                  {},
+                  {},
+                  {},
+                  {},
+                  {},
+                  {}
+                ]
+              },
+              {
+                "loadMs": 358,
+                "inferenceMs": 9035,
+                "rtf": 0.15889905029897994,
+                "pssKb": 365755,
+                "turns": [
+                  {},
+                  {},
+                  {},
+                  {},
+                  {},
+                  {},
+                  {},
+                  {},
+                  {},
+                  {},
+                  {}
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "Native-label export provenance",
+      "files": [
+        "android-diarization.json",
+        "ml-diarization-comparison.json"
+      ],
+      "status": "PASS",
+      "normalizedBaselineSha256": "3f430fe8a0d5988bf88455c3ad5e614eea97d87b4ff9493c84a98471646f4a17",
+      "normalizedCandidateSha256": "3f430fe8a0d5988bf88455c3ad5e614eea97d87b4ff9493c84a98471646f4a17",
+      "differences": [],
+      "invariantViolations": {
+        "baseline": [],
+        "candidate": []
+      },
+      "observations": {
+        "baseline": [
+          {
+            "diarizationMsIncludingLoad": 22191,
+            "turns": [
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {}
+            ]
+          },
+          {
+            "runs": [
+              {
+                "loadMs": 418,
+                "inferenceMs": 9823,
+                "rtf": 0.17275765036932816,
+                "pssKb": 431315,
+                "turns": [
+                  {},
+                  {},
+                  {},
+                  {},
+                  {},
+                  {},
+                  {},
+                  {},
+                  {},
+                  {},
+                  {}
+                ]
+              },
+              {
+                "loadMs": 397,
+                "inferenceMs": 9899,
+                "rtf": 0.17409426661976785,
+                "pssKb": 431079,
+                "turns": [
+                  {},
+                  {},
+                  {},
+                  {},
+                  {},
+                  {},
+                  {},
+                  {},
+                  {},
+                  {}
+                ]
+              },
+              {
+                "loadMs": 379,
+                "inferenceMs": 10173,
+                "rtf": 0.17891311994372142,
+                "pssKb": 431451,
+                "turns": [
+                  {},
+                  {},
+                  {},
+                  {},
+                  {},
+                  {},
+                  {},
+                  {},
+                  {},
+                  {},
+                  {}
+                ]
+              }
+            ]
+          }
+        ],
+        "candidate": [
+          {
+            "diarizationMsIncludingLoad": 21038,
+            "turns": [
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {}
+            ]
+          },
+          {
+            "runs": [
+              {
+                "loadMs": 355,
+                "inferenceMs": 8874,
+                "rtf": 0.15606753429475906,
+                "pssKb": 366006,
+                "turns": [
+                  {},
+                  {},
+                  {},
+                  {},
+                  {},
+                  {},
+                  {},
+                  {},
+                  {},
+                  {},
+                  {}
+                ]
+              },
+              {
+                "loadMs": 347,
+                "inferenceMs": 9653,
+                "rtf": 0.16976785086176574,
+                "pssKb": 365575,
+                "turns": [
+                  {},
+                  {},
+                  {},
+                  {},
+                  {},
+                  {},
+                  {},
+                  {},
+                  {},
+                  {}
+                ]
+              },
+              {
+                "loadMs": 358,
+                "inferenceMs": 9035,
+                "rtf": 0.15889905029897994,
+                "pssKb": 365755,
+                "turns": [
+                  {},
+                  {},
+                  {},
+                  {},
+                  {},
+                  {},
+                  {},
+                  {},
+                  {},
+                  {},
+                  {}
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "status": "PASS"
+}

@@ -1,0 +1,148 @@
+{
+  "schemaVersion": 1,
+  "recordingId": "integration-v12-warning",
+  "source": "official GigaAM conversion Russian mono WAV; a controlled excerpt, not a new dialogue",
+  "sourceSha256": "d8aaaa18a5098d7c6de0595ae7ac1e64cacd0d4022af3595213bdaf23be77e69",
+  "sampleRate": 16000,
+  "backend": "giga-v2",
+  "transform": "decode source to mono 16 kHz; crop real samples; write signed PCM16 little-endian WAV",
+  "timestampScope": "timestamps are global within the new excerpt file; add sourceOffsetMs only when relating back to the source",
+  "warningPolicy": "unchanged production conditions; no injected text, speaker turns or warning reasons",
+  "russianMultispeakerE2E": false,
+  "status": "WORKING",
+  "candidates": [
+    {
+      "sourceOffsetMs": 0,
+      "sourceStartSample": 0,
+      "sampleCount": 10400,
+      "requestedDurationMs": 650,
+      "derivedAudioMs": 650,
+      "derivedFile": "v12-warning-40c8c36c-b66c-438e-9c55-dbd4667ab480-0.wav",
+      "derivedSha256": "46940b30ab8c09462b891ec10b061db637c9887d8ff5a39c54b6bcbe76e44655",
+      "status": "READY",
+      "observedWorkerWallMs": 3845,
+      "workerError": null,
+      "diagnostics": {
+        "device": "unknown Android SDK built for x86_64",
+        "android": 35,
+        "runtime": "sherpa-onnx 2.0.1",
+        "backend": "GigaAM v2 Transducer INT8 \/ sherpa-onnx 2.0.1",
+        "threads": 2,
+        "vadThreads": 1,
+        "sampleRate": 16000,
+        "expectedSpeakers": -1,
+        "clusterThreshold": 0.5,
+        "vadThreshold": 0.5,
+        "maxAsrSegmentMs": 20000,
+        "audioMs": 650,
+        "totalMs": 3212,
+        "pipelineRtf": 4.941538461538461,
+        "pipelineTimingScope": "model validation through ASR release; excludes final Room commit and diagnostics serialization",
+        "asrStageRtf": 2.973846153846154,
+        "asrInferenceRtf": 0.39076923076923076,
+        "runCondition": "not classified; no cache flush or temperature control",
+        "finalPssKb": 188178,
+        "peakMemory": "N\/A",
+        "stagesMs": {
+          "validationMs": 302,
+          "decodeMs": 85,
+          "vadLoadMs": 19,
+          "vadMs": 30,
+          "diarizationLoadMs": 504,
+          "diarizationReadMs": 244,
+          "diarizationInferenceMs": 63,
+          "diarizationMs": 839,
+          "asrLoadMs": 1382,
+          "asrMs": 1933,
+          "asrReadMs": 208,
+          "asrInferenceMs": 254,
+          "thermalWaitMs": 0
+        },
+        "diarizationTurns": [
+          {
+            "startMs": 31,
+            "endMs": 706,
+            "speakerId": 0
+          }
+        ],
+        "clusteringMode": "automatic",
+        "clusterThresholdApplied": true,
+        "segmentationWindowShiftRatio": 0.1,
+        "diarMinDurationOnSec": 0.2,
+        "diarMinDurationOffSec": 0.5,
+        "vadMinSpeechSec": 0.25,
+        "vadMinSilenceSec": 0.25,
+        "vadWindowSamples": 512,
+        "vadMaxSpeechSec": 20,
+        "preRollMs": 100,
+        "postRollMs": 0,
+        "vadSpans": [
+          {
+            "startMs": 102,
+            "endMs": 672
+          }
+        ],
+        "asrSpeechSpans": [
+          {
+            "startMs": 2,
+            "endMs": 650
+          }
+        ],
+        "asrSlices": [
+          {
+            "startMs": 2,
+            "endMs": 31,
+            "speakerId": -1,
+            "text": "",
+            "blank": true,
+            "inferenceMs": 56,
+            "warnings": [
+              "Неоднозначный говорящий",
+              "Короткая реплика возле границы"
+            ]
+          },
+          {
+            "startMs": 31,
+            "endMs": 650,
+            "speakerId": 0,
+            "text": "ничьих не",
+            "blank": false,
+            "inferenceMs": 198,
+            "warnings": [
+              "Короткая реплика возле границы"
+            ]
+          }
+        ],
+        "modelBytes": 365008680
+      },
+      "transcript": {
+        "schemaVersion": 1,
+        "title": "Короткая реплика · Smart Review",
+        "timestampPrecision": "segment",
+        "segments": [
+          {
+            "id": "4378a0b9-8075-4076-8cc2-97c35b4a275e",
+            "startMs": 31,
+            "endMs": 650,
+            "speakerId": 0,
+            "speakerName": "Участник 1",
+            "text": "ничьих не",
+            "source": "GigaAM v2 Transducer INT8 \/ sherpa-onnx 2.0.1",
+            "edited": false,
+            "reviewed": false,
+            "warnings": [
+              "Короткая реплика возле границы"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "sourceAudioMs": 11290,
+  "selectedCandidate": 0,
+  "sourceOffsetMs": 0,
+  "warningSegmentId": "4378a0b9-8075-4076-8cc2-97c35b4a275e",
+  "warningReasons": [
+    "Короткая реплика возле границы"
+  ]
+}

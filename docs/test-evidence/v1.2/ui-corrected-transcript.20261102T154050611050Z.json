@@ -1,0 +1,181 @@
+{
+  "schemaVersion": 1,
+  "title": "Официальный русский ML smoke test",
+  "timestampPrecision": "segment",
+  "segments": [
+    {
+      "id": "4cccade5-d584-4aec-9f17-7f7312925c4a",
+      "startMs": 31,
+      "endMs": 8485,
+      "speakerId": 1,
+      "speakerName": "Проверенная подпись",
+      "text": "ничьих не требуя похвал счастлив уж я надеждой сладкой что дева с трепетом любви посмотрит может быть украдкой на песни грешные мои (проверено)",
+      "source": "GigaAM v2 Transducer INT8 \/ sherpa-onnx 2.0.1",
+      "edited": true,
+      "reviewed": true,
+      "warnings": []
+    },
+    {
+      "id": "38c9964e-262c-4f73-b5b8-f489b68845ee",
+      "startMs": 9245,
+      "endMs": 10966,
+      "speakerId": 0,
+      "speakerName": "Участник 1",
+      "text": "у лукоморья дуб зеленый",
+      "source": "GigaAM v2 Transducer INT8 \/ sherpa-onnx 2.0.1",
+      "edited": false,
+      "reviewed": false,
+      "warnings": []
+    }
+  ],
+  "recordingId": "integration-real-giga",
+  "diagnostics": {
+    "device": "unknown Android SDK built for x86_64",
+    "android": 35,
+    "runtime": "sherpa-onnx 2.0.1",
+    "backend": "GigaAM v2 Transducer INT8 \/ sherpa-onnx 2.0.1",
+    "threads": 2,
+    "vadThreads": 1,
+    "sampleRate": 16000,
+    "expectedSpeakers": -1,
+    "clusterThreshold": 0.5,
+    "vadThreshold": 0.5,
+    "maxAsrSegmentMs": 20000,
+    "audioMs": 11290,
+    "totalMs": 14769,
+    "pipelineRtf": 1.3081488042515501,
+    "pipelineTimingScope": "model validation through ASR release; excludes final Room commit and diagnostics serialization",
+    "asrStageRtf": 0.7771479185119575,
+    "asrInferenceRtf": 0.34774136403897254,
+    "runCondition": "not classified; no cache flush or temperature control",
+    "finalPssKb": 175623,
+    "peakMemory": "N\/A",
+    "stagesMs": {
+      "validationMs": 679,
+      "decodeMs": 360,
+      "vadLoadMs": 34,
+      "vadMs": 283,
+      "diarizationLoadMs": 525,
+      "diarizationReadMs": 2603,
+      "diarizationInferenceMs": 1475,
+      "diarizationMs": 4634,
+      "asrLoadMs": 2138,
+      "asrMs": 8774,
+      "asrReadMs": 2545,
+      "asrInferenceMs": 3926,
+      "thermalWaitMs": 0
+    },
+    "diarizationTurns": [
+      {
+        "startMs": 31,
+        "endMs": 8485,
+        "speakerId": 0
+      },
+      {
+        "startMs": 9245,
+        "endMs": 10966,
+        "speakerId": 0
+      }
+    ],
+    "clusteringMode": "automatic",
+    "clusterThresholdApplied": true,
+    "segmentationWindowShiftRatio": 0.1,
+    "diarMinDurationOnSec": 0.2,
+    "diarMinDurationOffSec": 0.5,
+    "vadMinSpeechSec": 0.25,
+    "vadMinSilenceSec": 0.25,
+    "vadWindowSamples": 512,
+    "vadMaxSpeechSec": 20,
+    "preRollMs": 100,
+    "postRollMs": 0,
+    "vadSpans": [
+      {
+        "startMs": 102,
+        "endMs": 8550
+      },
+      {
+        "startMs": 9254,
+        "endMs": 10982
+      }
+    ],
+    "asrSpeechSpans": [
+      {
+        "startMs": 2,
+        "endMs": 8550
+      },
+      {
+        "startMs": 9154,
+        "endMs": 10982
+      }
+    ],
+    "asrSlices": [
+      {
+        "startMs": 2,
+        "endMs": 31,
+        "speakerId": -1,
+        "text": "",
+        "blank": true,
+        "inferenceMs": 77,
+        "warnings": [
+          "Неоднозначный говорящий",
+          "Короткая реплика возле границы"
+        ]
+      },
+      {
+        "startMs": 31,
+        "endMs": 8485,
+        "speakerId": 0,
+        "text": "ничьих не требуя похвал счастлив уж я надеждой сладкой что дева с трепетом любви посмотрит может быть украдкой на песни грешные мои",
+        "blank": false,
+        "inferenceMs": 3206,
+        "warnings": []
+      },
+      {
+        "startMs": 8485,
+        "endMs": 8550,
+        "speakerId": -1,
+        "text": "",
+        "blank": true,
+        "inferenceMs": 55,
+        "warnings": [
+          "Неоднозначный говорящий",
+          "Короткая реплика возле границы"
+        ]
+      },
+      {
+        "startMs": 9154,
+        "endMs": 9245,
+        "speakerId": -1,
+        "text": "",
+        "blank": true,
+        "inferenceMs": 105,
+        "warnings": [
+          "Неоднозначный говорящий",
+          "Короткая реплика возле границы"
+        ]
+      },
+      {
+        "startMs": 9245,
+        "endMs": 10966,
+        "speakerId": 0,
+        "text": "у лукоморья дуб зеленый",
+        "blank": false,
+        "inferenceMs": 419,
+        "warnings": []
+      },
+      {
+        "startMs": 10966,
+        "endMs": 10982,
+        "speakerId": -1,
+        "text": "",
+        "blank": true,
+        "inferenceMs": 64,
+        "warnings": [
+          "Неоднозначный говорящий",
+          "Короткая реплика возле границы"
+        ]
+      }
+    ],
+    "modelBytes": 365008680
+  }
+}
