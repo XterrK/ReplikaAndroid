@@ -316,8 +316,9 @@ private val EditorRowSaver=listSaver<SegmentRow?,Any>(
  val app=context.applicationContext as ReplikaApp
  val scope=rememberCoroutineScope()
  var saving by remember(rec.id) { mutableStateOf(false) }
- ModalBottomSheet(onDismissRequest=onDismiss,containerColor=SurfaceBase) {
-  Column(Modifier.fillMaxWidth().navigationBarsPadding().padding(20.dp),verticalArrangement=Arrangement.spacedBy(12.dp)) {
+ ModalBottomSheet(onDismissRequest=onDismiss,containerColor=SurfaceBase,sheetState=rememberModalBottomSheetState(skipPartiallyExpanded=true),modifier=Modifier.testTag("transcript-export")) {
+  DarkSheetSystemBars()
+  Column(Modifier.fillMaxWidth().navigationBarsPadding().verticalScroll(rememberScrollState()).padding(20.dp),verticalArrangement=Arrangement.spacedBy(12.dp)) {
    Text("Экспорт стенограммы",style=MaterialTheme.typography.titleLarge)
    Text("С текущими именами, метками времени и сохранёнными исправлениями.",style=MaterialTheme.typography.bodyMedium,color=Muted)
    listOf("txt" to "Текст для чтения","srt" to "Субтитры с временными метками","json" to "Реплики и диагностика").forEach { (format,description) ->
