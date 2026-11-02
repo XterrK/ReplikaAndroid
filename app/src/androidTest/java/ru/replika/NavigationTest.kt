@@ -12,6 +12,11 @@ class NavigationTest {
   compose.onNodeWithTag("library-search").assertIsDisplayed()
   compose.onNodeWithText("Модели").performClick()
   compose.onNodeWithText("Распознавание на устройстве").assertIsDisplayed()
+  if(BuildConfig.BUNDLED_MODELS) {
+   compose.onNodeWithTag("models-list").performScrollToNode(hasTestTag("models-advanced-toggle"))
+   compose.onNodeWithTag("models-advanced-toggle").performClick()
+   compose.onNodeWithTag("models-list").performScrollToNode(hasText("Импорт offline pack"))
+  }
   compose.onNodeWithText("Импорт offline pack").assertIsDisplayed()
   compose.onNodeWithText("Записи").performClick()
   compose.onNodeWithText("Библиотека").assertIsDisplayed()

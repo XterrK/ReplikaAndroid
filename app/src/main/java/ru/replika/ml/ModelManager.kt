@@ -24,6 +24,7 @@ class ModelManager(private val context: Context) {
   List(j.length()) { i -> j.getJSONObject(i).let { ModelFile(it.getString("group"),it.getString("path"),it.getString("url"),if(it.isNull("archiveMember")) null else it.getString("archiveMember"),it.getLong("size"),it.getString("sha256")) } }
  }
  fun file(path: String)=File(root,path)
+ fun specifications(): List<ModelFile> = files.toList()
  private fun hash(f: File): String {
   val md=MessageDigest.getInstance("SHA-256")
   f.inputStream().buffered().use { s -> val b=ByteArray(128*1024);while(true) { val n=s.read(b);if(n<0) break;md.update(b,0,n) } }

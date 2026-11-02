@@ -32,6 +32,8 @@ class ProcessingWorker(context: Context,params: WorkerParameters): CoroutineWork
   val pcm=File(applicationContext.cacheDir,"$recordingId-$id.pcm")
   try {
    setForeground(getForegroundInfo())
+   // Await outside the native gate: provisioning itself holds that same gate.
+   app.bundledModels.awaitReady()
    app.models.gate.withLock {
     try {
     phase("Проверка моделей")

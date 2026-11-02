@@ -33,7 +33,10 @@ args=['bash',str(RAM/'gradle/bin/gradle'),'-p',str(ROOT),*tasks,'--max-workers=2
 try:result=subprocess.run(args,cwd=ROOT,env=env).returncode
 finally:
  subprocess.run(['bash',str(RAM/'gradle/bin/gradle'),'--stop'],cwd=ROOT,env=env)
- temp=archive.with_suffix('.tar.part')
- with temp.open('wb',buffering=4*1024*1024) as f,tarfile.open(fileobj=f,mode='w|') as t:t.add(cache,arcname='.',filter=lambda i: None if i.name.endswith('.lock') else i)
- temp.replace(archive);print('Cache checkpoint saved on F:',flush=True)
+ if os.environ.get('REPLIKA_REUSE_RAM_CACHE')=='1':
+  print('RAM cache retained; existing F: checkpoint unchanged (REPLIKA_REUSE_RAM_CACHE=1)',flush=True)
+ else:
+  temp=archive.with_suffix('.tar.part')
+  with temp.open('wb',buffering=4*1024*1024) as f,tarfile.open(fileobj=f,mode='w|') as t:t.add(cache,arcname='.',filter=lambda i: None if i.name.endswith('.lock') else i)
+  temp.replace(archive);print('Cache checkpoint saved on F:',flush=True)
 raise SystemExit(result)

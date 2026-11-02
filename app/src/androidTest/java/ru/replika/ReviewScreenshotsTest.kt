@@ -40,6 +40,10 @@ class ReviewScreenshotsTest {
    checked
   }
   capture("07-models-diagnostics.png")
+  if(BuildConfig.BUNDLED_MODELS) {
+   compose.onNodeWithTag("models-list").performScrollToNode(hasTestTag("models-advanced-toggle"))
+   compose.onNodeWithTag("models-advanced-toggle").performClick()
+  }
   compose.onNodeWithTag("models-list").performScrollToNode(hasText("Импорт offline pack"));capture("13-offline-pack.png")
   compose.onNodeWithTag("models-list").performScrollToNode(hasText("Silero VAD"));capture("31-models-installed-small-file.png")
   compose.onNodeWithTag("models-list").performScrollToNode(hasText("Диагностика"))

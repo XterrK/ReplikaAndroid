@@ -4,6 +4,28 @@ plugins {
  id("org.jetbrains.kotlin.plugin.compose")
  id("com.google.devtools.ksp")
 }
+
+// Models remain local build inputs. Only the All-in-One variants package this generated asset.
+val embeddedAssets = layout.buildDirectory.dir("generated/embedded-models/assets")
+val prepareEmbeddedModelPack by tasks.registering(Exec::class) {
+ group = "replika"
+ description = "Verify and package the existing local offline models without downloading weights"
+ val sourcePack = rootProject.file("model-pack/replika-offline-pack.zip")
+ val modelManifest = file("src/main/assets/models-lock.json")
+ val generator = rootProject.file("tools/prepare_embedded_pack.py")
+ val outputPack = embeddedAssets.map { it.file("offline/replika-models.zip") }
+ val metadata = layout.buildDirectory.file("generated/embedded-models/pack-verification.json")
+ inputs.files(sourcePack, modelManifest, generator)
+ outputs.files(outputPack, metadata)
+ workingDir(rootProject.projectDir)
+ commandLine(
+  providers.gradleProperty("replikaPython").orElse("python3").get(), generator.absolutePath,
+  "--source", sourcePack.absolutePath, "--manifest", modelManifest.absolutePath,
+  "--output", outputPack.get().asFile.absolutePath,
+  "--metadata", metadata.get().asFile.absolutePath,
+ )
+}
+
 android {
  namespace = "ru.replika"
  compileSdk = 35
@@ -11,16 +33,53 @@ android {
  if (!providers.gradleProperty("skipWhisperBuild").isPresent) { externalNativeBuild { cmake { path = file("src/main/cpp/CMakeLists.txt"); version = "3.22.1" } } }
  defaultConfig {
   applicationId = "ru.replika.offline"; minSdk = 26; targetSdk = 35
-  versionCode = 3; versionName = "1.2.0"
-  ndk { abiFilters += listOf("arm64-v8a", "x86_64") }
+  versionCode = 4; versionName = "1.2.1"
+  buildConfigField("boolean", "BUNDLED_MODELS", "false")
+  buildConfigField("String", "EMBEDDED_MODEL_ASSET", "\"offline/replika-models.zip\"")
+  // Model SHA-256 values come from models-lock.json; the generated ZIP fingerprint is build evidence.
+  buildConfigField("String", "EMBEDDED_MODEL_PACK_SHA256", "\"\"")
   testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
  }
+ buildTypes {
+  getByName("debug") { ndk { abiFilters += listOf("arm64-v8a", "x86_64") } }
+  getByName("release") { ndk { abiFilters += listOf("arm64-v8a", "x86_64") } }
+  create("allInOne") {
+   initWith(getByName("debug"))
+   signingConfig = signingConfigs.getByName("debug")
+   matchingFallbacks += "debug"
+   ndk { abiFilters.clear(); abiFilters += "arm64-v8a" }
+   buildConfigField("boolean", "BUNDLED_MODELS", "true")
+  }
+  create("allInOneQa") {
+   initWith(getByName("debug"))
+   signingConfig = signingConfigs.getByName("debug")
+   matchingFallbacks += "debug"
+   // QA normally has isolated data. Explicit same-ID mode permits a controlled emulator upgrade test.
+   if (!providers.gradleProperty("replikaAioQaSameId").map { it.toBoolean() }.getOrElse(false)) {
+    applicationIdSuffix = ".aioqa"
+   }
+   ndk { abiFilters.clear(); abiFilters += "x86_64" }
+   buildConfigField("boolean", "BUNDLED_MODELS", "true")
+  }
+ }
+ sourceSets {
+  getByName("allInOne").assets.srcDir(embeddedAssets)
+  getByName("allInOneQa").assets.srcDir(embeddedAssets)
+ }
+ testBuildType = providers.gradleProperty("replikaTestBuildType").getOrElse("debug")
+ // The inner ZIP is already compressed; avoid a second decompression layer during first launch.
+ androidResources { noCompress += "zip" }
  buildFeatures { compose = true; buildConfig = true }
  compileOptions { sourceCompatibility = JavaVersion.VERSION_17; targetCompatibility = JavaVersion.VERSION_17 }
  kotlinOptions { jvmTarget = "17" }
  // Avoid inflating the large debug DEX on the startup thread (observed ART startup ANR).
  packaging { jniLibs.useLegacyPackaging = false; dex.useLegacyPackaging = false }
  testOptions { unitTests.isReturnDefaultValues = true }
+}
+// AGP shares identical native Debug configurations across build types. Their preBuild tasks can
+// therefore run during a standard build; only AIO asset merging may depend on the local model pack.
+tasks.matching { it.name == "mergeAllInOneAssets" || it.name == "mergeAllInOneQaAssets" }.configureEach {
+ dependsOn(prepareEmbeddedModelPack)
 }
 dependencies {
  implementation(platform("androidx.compose:compose-bom:2025.04.01"))
@@ -45,4 +104,5 @@ dependencies {
  androidTestImplementation(platform("androidx.compose:compose-bom:2025.04.01"))
  androidTestImplementation("androidx.compose.ui:ui-test-junit4")
  debugImplementation("androidx.compose.ui:ui-test-manifest")
+ add("allInOneQaImplementation", "androidx.compose.ui:ui-test-manifest")
 }

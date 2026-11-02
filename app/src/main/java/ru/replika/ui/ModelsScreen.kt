@@ -12,6 +12,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -25,22 +26,57 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.json.JSONObject
+import ru.replika.BuildConfig
+import ru.replika.ReplikaApp
 import ru.replika.data.Recording
 import java.io.File
 
 @Composable fun ModelsScreen(vm: AppViewModel,records: List<Recording>) {
+ val context=LocalContext.current
+ val restoreBundled: ()->Unit = { (context.applicationContext as ReplikaApp).bundledModels.start(forceCheck=true) }
  val backend by vm.backend.collectAsStateWithLifecycle();val models by vm.models.collectAsStateWithLifecycle();val progress by vm.modelProgress.collectAsStateWithLifecycle();val technicalError by vm.technicalError.collectAsStateWithLifecycle()
  val pack=rememberLauncherForActivityResult(ActivityResultContracts.OpenDocument()) { it?.let(vm::importPack) }
  var download by remember { mutableStateOf<String?>(null) };var delete by remember { mutableStateOf<String?>(null) };var details by remember { mutableStateOf(false) };var pickDiagnostic by remember { mutableStateOf(false) };var diagnosticId by remember { mutableStateOf<String?>(null) };var benchmark by remember { mutableStateOf(false) }
+ var advancedModels by rememberSaveable { mutableStateOf(false) }
+ val showModelControls=!BuildConfig.BUNDLED_MODELS || advancedModels
+ val bundledReady=models.isNotEmpty() && models.all { it.installed }
  val candidates=records.filter { it.diagnostics.isNotBlank() || it.error!=null };val rec=candidates.firstOrNull { it.id==diagnosticId }?:candidates.firstOrNull();val summary=remember(rec?.diagnostics) { DiagnosticView.parse(rec?.diagnostics?:"") }
  LazyColumn(Modifier.fillMaxSize().testTag("models-list"),contentPadding=PaddingValues(20.dp),verticalArrangement=Arrangement.spacedBy(20.dp)) {
   item { Text("Модели",style=MaterialTheme.typography.headlineLarge);Spacer(Modifier.height(6.dp));Text("Распознавание на устройстве",color=Muted,style=MaterialTheme.typography.bodyMedium) }
+  if(BuildConfig.BUNDLED_MODELS) item {
+   Surface(color=SurfaceRaised,shape=MaterialTheme.shapes.medium,modifier=Modifier.testTag("models-bundled-status")) {
+    Row(Modifier.fillMaxWidth().padding(16.dp),horizontalArrangement=Arrangement.spacedBy(12.dp),verticalAlignment=Alignment.Top) {
+     Icon(if(bundledReady) Icons.Outlined.CheckCircle else Icons.Outlined.OfflineBolt,null,tint=if(bundledReady) Mint else Muted,modifier=Modifier.size(24.dp))
+     Column(verticalArrangement=Arrangement.spacedBy(6.dp)) {
+      Text("Встроенный офлайн-комплект",style=MaterialTheme.typography.titleMedium)
+      Text(when {
+       bundledReady->"Все модели установлены и проверены. Оба движка распознавания, VAD и разделение говорящих работают без интернета."
+       models.isEmpty()->"Проверяем подготовленные файлы. Все необходимые модели входят в APK."
+       else->"Все необходимые модели входят в APK. Текущее состояние каждого набора показано ниже."
+      },style=MaterialTheme.typography.bodyMedium,color=Muted)
+     }
+    }
+   }
+  }
   item { Column(verticalArrangement=Arrangement.spacedBy(8.dp)) {
    Text("Движок распознавания",style=MaterialTheme.typography.titleMedium)
    AsrChoice("GigaAM v2","Русский · encoder INT8",backend=="giga-v2") { vm.selectBackend("giga-v2") }
    AsrChoice("Whisper tiny","Multilingual · язык: русский",backend=="whisper-tiny") { vm.selectBackend("whisper-tiny") }
   } }
-  item { FilledTonalButton(onClick={pack.launch(arrayOf("application/zip","application/octet-stream"))},enabled=progress==null,modifier=Modifier.fillMaxWidth().heightIn(min=52.dp)) { Icon(Icons.Outlined.FolderOpen,null);Spacer(Modifier.width(8.dp));Text("Импорт offline pack") };Spacer(Modifier.height(8.dp));Text("Нужны выбранный ASR, Silero VAD и диаризация. Каждый файл проверяется по SHA-256.",style=MaterialTheme.typography.bodySmall,color=Muted) }
+  if(BuildConfig.BUNDLED_MODELS) item {
+   TextButton(onClick={advancedModels=!advancedModels},modifier=Modifier.fillMaxWidth().heightIn(min=48.dp).testTag("models-advanced-toggle")) {
+    Text(if(advancedModels) "Скрыть расширенное управление" else "Расширенное управление",modifier=Modifier.weight(1f))
+    Icon(if(advancedModels) Icons.Outlined.ExpandLess else Icons.Outlined.ExpandMore,null)
+   }
+   if(advancedModels) Column(verticalArrangement=Arrangement.spacedBy(8.dp)) {
+    Text("Дополнительно: ручной импорт ZIP, восстановление из APK и удаление моделей. Для готового встроенного комплекта эти действия не требуются.",style=MaterialTheme.typography.bodySmall,color=Muted)
+    OutlinedButton(onClick=restoreBundled,enabled=progress==null,modifier=Modifier.fillMaxWidth().heightIn(min=52.dp).testTag("models-restore-bundled")) {
+     Icon(Icons.Outlined.Restore,null);Spacer(Modifier.width(8.dp));Text("Восстановить из APK")
+    }
+    Text("Проверим весь встроенный комплект и восстановим недостающие или повреждённые файлы. Интернет не нужен.",style=MaterialTheme.typography.bodySmall,color=Muted)
+   }
+  }
+  if(showModelControls) item { FilledTonalButton(onClick={pack.launch(arrayOf("application/zip","application/octet-stream"))},enabled=progress==null,modifier=Modifier.fillMaxWidth().heightIn(min=52.dp)) { Icon(Icons.Outlined.FolderOpen,null);Spacer(Modifier.width(8.dp));Text("Импорт offline pack") };Spacer(Modifier.height(8.dp));Text("Нужны выбранный ASR, Silero VAD и диаризация. Каждый файл проверяется по SHA-256.",style=MaterialTheme.typography.bodySmall,color=Muted) }
   if(progress!=null) item { Column(Modifier.fillMaxWidth()) { LinearProgressIndicator(Modifier.fillMaxWidth());Spacer(Modifier.height(8.dp));Text(progress!!,style=MaterialTheme.typography.bodyMedium);TextButton(onClick=vm::cancelModelDownload) { Text("Отменить загрузку") } } }
   item { Row(Modifier.fillMaxWidth(),horizontalArrangement=Arrangement.SpaceBetween) { Text("На устройстве",style=MaterialTheme.typography.titleMedium);Text(if(models.isEmpty()) "Проверка…" else "${models.count { it.installed }} / ${models.size}",color=Muted,style=MaterialTheme.typography.labelLarge) } }
   if(models.isEmpty()) item { LinearProgressIndicator(Modifier.fillMaxWidth());Text("Проверяем файлы…",color=Muted) }
@@ -53,9 +89,9 @@ import java.io.File
       Spacer(Modifier.height(4.dp));Text("${formatBytes(m.bytes)} / ${formatBytes(m.expected)}",style=MaterialTheme.typography.bodySmall,color=Muted)
       Spacer(Modifier.height(4.dp));Text(if(m.installed) "SHA-256 проверен" else if(m.bytes>0) "Нужна проверка файлов" else "Не установлен",style=MaterialTheme.typography.labelMedium,color=if(m.installed) Mint else Muted)
      }
-     Box { IconButton(onClick={menu=true},enabled=progress==null,modifier=Modifier.size(48.dp)) { Icon(Icons.Outlined.MoreVert,"Управление моделью ${m.id}",tint=Muted) }
+     if(showModelControls) Box { IconButton(onClick={menu=true},enabled=progress==null,modifier=Modifier.size(48.dp)) { Icon(Icons.Outlined.MoreVert,"Управление моделью ${m.id}",tint=Muted) }
       DropdownMenu(expanded=menu,onDismissRequest={menu=false}) {
-       DropdownMenuItem(text={Text(if(m.installed) "Проверить / восстановить" else "Загрузить")},onClick={menu=false;download=m.id})
+       DropdownMenuItem(text={Text(if(BuildConfig.BUNDLED_MODELS) "Проверить / восстановить из APK" else if(m.installed) "Проверить / восстановить" else "Загрузить")},onClick={menu=false;if(BuildConfig.BUNDLED_MODELS) restoreBundled() else download=m.id})
        if(m.bytes>0) DropdownMenuItem(text={Text("Удалить модель")},onClick={menu=false;delete=m.id})
       }
      }
@@ -78,7 +114,7 @@ import java.io.File
   item { TextButton(onClick={benchmark=!benchmark}) { Icon(Icons.Outlined.Science,null,Modifier.size(20.dp));Spacer(Modifier.width(8.dp));Text("Оценка по эталону") };if(benchmark) BenchmarkPanel(vm,records) }
  }
  if(download!=null) AlertDialog(onDismissRequest={download=null},title={Text("Проверить и загрузить файлы?")},text={Text("Проверенные файлы останутся на месте. Недостающие веса загрузятся из официальных GitHub releases sherpa-onnx или Hugging Face whisper.cpp. Потребуются трафик и свободное место. Аудио не передаётся.")},confirmButton={TextButton(onClick={vm.download(download!!);download=null}) { Text("Продолжить") }},dismissButton={TextButton(onClick={download=null}) { Text("Отмена") }})
- if(delete!=null) AlertDialog(onDismissRequest={delete=null},title={Text("Удалить модель?")},text={Text("Записи и стенограммы сохранятся. Для нового распознавания этот набор придётся установить снова.")},confirmButton={TextButton(onClick={vm.deleteModel(delete!!);delete=null}) { Text("Удалить",color=MaterialTheme.colorScheme.error) }},dismissButton={TextButton(onClick={delete=null}) { Text("Отмена") }})
+ if(delete!=null) AlertDialog(onDismissRequest={delete=null},title={Text("Удалить модель?")},text={Text(if(BuildConfig.BUNDLED_MODELS) "Записи и стенограммы сохранятся. Для нового распознавания удалённый набор понадобится снова. Вернуть встроенный комплект можно кнопкой «Восстановить из APK», без интернета." else "Записи и стенограммы сохранятся. Для нового распознавания этот набор придётся установить снова.")},confirmButton={TextButton(onClick={vm.deleteModel(delete!!);delete=null}) { Text("Удалить",color=MaterialTheme.colorScheme.error) }},dismissButton={TextButton(onClick={delete=null}) { Text("Отмена") }})
  if(pickDiagnostic) ModalBottomSheet(onDismissRequest={pickDiagnostic=false},sheetState=rememberModalBottomSheetState(skipPartiallyExpanded=true),containerColor=SurfaceRaised) {
   DarkSheetSystemBars()
   Text("Диагностика записи",style=MaterialTheme.typography.titleLarge,modifier=Modifier.padding(20.dp))
