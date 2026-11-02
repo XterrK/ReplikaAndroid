@@ -1,0 +1,114 @@
+{
+  "groups": [
+    {
+      "log": "qa-acceptance-tests.txt",
+      "passed": 26,
+      "failed": 0,
+      "skipped": 0,
+      "methods": [
+        "ru.replika.BundledModelInstallerTest#unsafeZipPathsAreRejectedWithoutEscapingPrivateDirectories",
+        "ru.replika.BundledModelInstallerTest#missingRequiredFileCannotBeBypassedWithPreexistingStages",
+        "ru.replika.BundledModelInstallerTest#interruptedPublicationCanExposeOnlyVerifiedFilesAndRetryCompletes",
+        "ru.replika.BundledModelInstallerTest#duplicateZipPathsAreRejectedEvenWhenAllStagesWereAlreadyWritten",
+        "ru.replika.BundledModelInstallerTest#crcCorruptionCannotPublishFiles",
+        "ru.replika.BundledModelInstallerTest#replacingMissingModelsPreservesExistingValidModelsAndScansSkippedEntryBytes",
+        "ru.replika.BundledModelInstallerTest#corruptStageIsReplacedButCompleteVerifiedStageIsReused",
+        "ru.replika.BundledModelInstallerTest#insufficientStorageDoesNotOpenPackOrChangeLiveModel",
+        "ru.replika.BundledModelInstallerTest#completePackPublishesOnlyVerifiedFilesAndReportsActualBytes",
+        "ru.replika.BundledModelInstallerTest#interruptedPreparationRetainsVerifiedStageAndSafelyRetries",
+        "ru.replika.BundledModelInstallerTest#boundedMetadataRejectsArchiveBombWithoutPublishingModels",
+        "ru.replika.BundledModelInstallerTest#wrongHashDoesNotPublishAnythingOrDestroyExistingFiles",
+        "ru.replika.BundledModelInstallerTest#validModelsAreNotRewrittenAndPackIsNeverOpened",
+        "ru.replika.BundledModelInstallerTest#unsafeManifestPathsAreRejectedBeforeOpeningPack",
+        "ru.replika.BundledModelInstallerTest#manifestFingerprintIsStableAndChangesWithPinnedWeights",
+        "ru.replika.BundledModelInstallerTest#oversizedAndUnknownEntriesAreRejectedBeforePublication",
+        "ru.replika.AllInOneAcceptanceTest#bothRealWorkerBackendsUseAutomaticallyPreparedBundle",
+        "ru.replika.AllInOneAcceptanceTest#preparedBundleHashesAndNoExtractionOnRepeatedLaunch",
+        "ru.replika.DiarizationTest#realAutomaticMultispeakerDiarization",
+        "ru.replika.AllInOneUiTest#preparationErrorRetryRemainsAccessibleWithLongTextAtFontScale130",
+        "ru.replika.AllInOneUiTest#installedBundleHasOptionalAdvancedImportAndBothBackendChoices",
+        "ru.replika.ProductExperienceTest#corruptImportedFixtureDoesNotPrematurelyPreparePlayer",
+        "ru.replika.ProductExperienceTest#workspaceSeekSpeedAndBackgroundPause",
+        "ru.replika.ProductExperienceTest#corruptedWorkerExplainsRecoveryAndKeepsSavedRows",
+        "ru.replika.ProductExperienceTest#libraryDeleteConfirmationRemovesOnlyOwnedCopy",
+        "ru.replika.ProductExperienceTest#editorLongRosterSaveUndoAndDiscard"
+      ]
+    },
+    {
+      "log": "qa-cold-hashes-test.txt",
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "methods": [
+        "ru.replika.AllInOneAcceptanceTest#preparedBundleHashesAndNoExtractionOnRepeatedLaunch"
+      ]
+    },
+    {
+      "log": "qa-legacy-core-tests.txt",
+      "passed": 23,
+      "failed": 0,
+      "skipped": 0,
+      "methods": [
+        "ru.replika.StorageAudioTest#corruptedImportReturnsErrorAndRemovesPcm",
+        "ru.replika.StorageAudioTest#corruptWorkerPreservesPreviousTranscript",
+        "ru.replika.StorageAudioTest#sessionSurvivesDatabaseReopen",
+        "ru.replika.StorageAudioTest#stereo48kNormalizesTo16kWithoutTimeDrift",
+        "ru.replika.StorageAudioTest#realWavMp3M4aDecode",
+        "ru.replika.StorageAudioTest#realModelValidationAndAsr",
+        "ru.replika.ProductStorageTest#deletionStagingRecoversBothSidesOfDatabaseCommit",
+        "ru.replika.ProductStorageTest#editAndUndoArePersistedAndExported",
+        "ru.replika.ProductStorageTest#busyDeletionIsRejectedWithoutChangingData",
+        "ru.replika.ProductStorageTest#symlinkOutsideOwnedDirectoryIsNeverDeleted",
+        "ru.replika.ProductStorageTest#staleUndoAndStaleEditorNeverOverwriteNewerData",
+        "ru.replika.ProductStorageTest#externalAndSharedAudioArePreserved",
+        "ru.replika.ProductStorageTest#deletingOwnedAudioRemovesOnlyItsRowsAndFile",
+        "ru.replika.ProcessingRecoveryTest#duplicateRequestsAndQueuedCancellationPreserveTranscript",
+        "ru.replika.ProcessingRecoveryTest#orphanedProgressRecoversWithoutDeletingSavedEdits",
+        "ru.replika.ModelPackTest#incompleteModelsCannotReachInference",
+        "ru.replika.ModelPackTest#corruptPackCannotReplaceVerifiedModel",
+        "ru.replika.ModelPackTest#importRealOfflinePack",
+        "ru.replika.MLComparisonTest#vadBoundaryComparisons",
+        "ru.replika.MLComparisonTest#diarizationAutomaticVersusKnownFour",
+        "ru.replika.MLComparisonTest#directAsrSameInputColdThenWarm",
+        "ru.replika.PipelineTest#realWhisperBackend",
+        "ru.replika.WarningPipelineTest#completeRealShortSpeechWarningPipeline"
+      ]
+    },
+    {
+      "log": "qa-legacy-ui-tests.txt",
+      "passed": 4,
+      "failed": 0,
+      "skipped": 0,
+      "methods": [
+        "ru.replika.NavigationTest#libraryModelsNavigation",
+        "ru.replika.ReviewScreenshotsTest#libraryModelsAndRecording",
+        "ru.replika.ReviewScreenshotsTest#actualShortSpeechReviewQueue",
+        "ru.replika.ReviewScreenshotsTest#realTranscriptReviewAndSpeakerEditing"
+      ]
+    },
+    {
+      "log": "qa-persisted-edits-test.txt",
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "methods": [
+        "ru.replika.PersistedEditsTest#actualUiCorrectionsSurviveProcessRelaunch"
+      ]
+    }
+  ],
+  "junitExecutions": 55,
+  "uniqueJUnitMethods": 54,
+  "repeatedColdHashCheck": 1,
+  "additionalReusedWorkerMethods": [
+    "PipelineTest.completeRealGigaPipeline",
+    "PipelineTest.completeRealWhisperPipeline"
+  ],
+  "reusedMethodsExecutedInside": "AllInOneAcceptanceTest.bothRealWorkerBackendsUseAutomaticallyPreparedBundle",
+  "JVM": {
+    "passed": 25,
+    "failed": 0,
+    "skipped": 0
+  },
+  "actualFirstLaunchAnrAttempt": "first-launch/ (FAIL, retained)",
+  "successfulColdBootRepeat": "first-launch-after-cold/summary.json"
+}

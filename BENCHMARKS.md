@@ -137,3 +137,19 @@ VAD-сравнение на том же PCM: raw GigaAM и pre100 дают «н�
 На отдельном китайском WAV 56860 ms automatic .5 → 7 ID/11 turns, fixed4 → 4 ID/10 turns, automatic .65 → те же 7 ID/11 turns. Inference 9823/9899/10173 ms; load 418/397/379 ms. Fixed4 — полезное заданное ограничение, а не доказанное улучшение DER. Threshold глобально не менялся; короткие embeddings и русская диаризация требуют отдельного размеченного evaluation split. [Clustering JSON](docs/test-evidence/v1.1/ml-diarization-comparison.json).
 
 Полный русский многоголосный pipeline **BLOCKED**: русский fixture одноголосный, многоголосный fixture китайский. Сохранены настоящие [GigaAM transcript](docs/test-evidence/v1.1/android-transcript.json) и [Whisper transcript](docs/test-evidence/v1.1/android-whisper-transcript.json) до правок. Ручное добавление «(проверено)», speaker ID=1 и подпись в UI предназначены только для проверки сохранения/экспорта; это не второй обнаруженный голос и не ML-эталон. Протокол получения диалога и разметки находится в [RUSSIAN_DIALOGUE_PROTOCOL.md](docs/test-evidence/v1.1/RUSSIAN_DIALOGUE_PROTOCOL.md).
+
+
+## V1.2.1 · модели из APK · 02.11.2026
+
+Два настоящих Worker после автоматической подготовки полного встроенного комплекта. API35/x86_64,2vCPU/3072MiB,4096-byte pages; physical arm64 не проверен. Вход один и тот же официальный русский mono WAV:11290ms. Порядок GigaAM→Whisper; cache/температура не контролировались, cold/warm классификация не заявляется. WER/CER/DER N/A.
+
+|Backend|ASR load|Чистый ASR inference по slices|Полный pipeline по scope Worker|RTF pipeline|PSS в конце|
+|---|---:|---:|---:|---:|---:|
+|giga-v2|1820ms|3559ms|15969ms|1.414|181341KiB|
+|whisper-tiny|126ms|32350ms|40060ms|3.548|177148KiB|
+
+Обе строки имеют одинаковый scope: model validation→ASR release. Финальный Room commit, UI и экспорт подтверждены assertions, но не входят в `totalMs`. PSS — конечный снимок, не peak. Чистый inference не смешивается со временем всего pipeline; по этим двум прогонам не делается вывод о качестве моделей или скорости на vivo. [Сырые результаты](docs/test-evidence/v1.2.1/acceptance/files/all-in-one-real-worker-acceptance.json).
+
+Автоподготовка:29437ms(8 extracted/8 published); повторный process launch:844ms(8 validSkipped/0 extracted), mtimes сохранены. После force-stop:23541ms(2 reusedStage/6 extracted/8 published). Это время installer, отдельно от установки APK и ASR. [Первый запуск](docs/test-evidence/v1.2.1/first-launch-after-cold/). Первый деградировавший AVD-прогон с ANR сохранён отдельно; его89178ms не является успешным UX benchmark.
+
+Основной arm64 APK:377401829B; единственный embedded ZIP:281336043B; подготовленные веса:365008680B. DEFLATE не меняет ONNX/GGML: все8SHA совпадают. Debug DEX остаётся ZIP_STORED. Native ZIP и ELF LOAD alignment проверены статически; runtime16KiB BLOCKED.

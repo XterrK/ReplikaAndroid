@@ -1,41 +1,33 @@
-# REPLIKA V1.2 · состояние на 02.11.2026
+# REPLIKA V1.2.1 · состояние на 02.11.2026
 
-**Продукт PARTIAL; эмуляторная приёмка WORKING.** Продуктовый проход выполнен поверх существующей V1.1. Независимое Human Review ещё не получено; физический arm64 и русский natural многоголосный end-to-end BLOCKED.
+**Продукт PARTIAL. All-in-One работает в проверенной среде API35/x86_64; vivo X300/physicalarm64 BLOCKED.**
 
-База: `validation/v1.1` / `6e3c8abcd885345b185c2a9131f69eb02e4eb029`, исходное дерево было чистым. Текущая ветка: `feature/replika-v1.2-product`. Проверенный commit реализации: `e4233e19c39170508d76c3450355ea4becf413a6`; финальный commit отчётов указан в manifest ZIP. Git bundle/старые APK/QA app data и Review V1.1 сохранены в `F:\ReplikaToolchain\v1.2-preservation\`; история и модели сохранены. Push не выполнялся.
+Ветка `feature/all-in-one-offline-apk`;база `ba81ad00d8808890b1418730559c60dada88a775`(исходное дерево чистое). Commit реализации `974ad6a1a027c0b5560c4e467df5546171de2ed3`;финальный HEAD включает последующие отчёты. Git bundle/прежние APK/app data сохранены в `F:\ReplikaToolchain\v1.2.1-preservation\20261102T171315Z`. Push не выполнялся.
 
-## Возможности и область проверки
-
-| Возможность | Статус | Подтверждение / предел |
+|Возможность|Статус|Основание/предел|
 |---|---|---|
-| Clean APK/JVM/native static |WORKING |25 JVM,81clean tasks,8 .so ZIP+ELF,обе ABI |
-| Android API35 x86_64 |WORKING |36 уникальных Android/UI/process+7 compact-повторов,без skipped |
-| GigaAM/Silero/sherpa/Whisper |WORKING на AVD |Настоящие weights,оба full mono Worker,6 групп regression PASS |
-| Русский multispeaker natural pipeline |BLOCKED |Нет допустимого диалога/reference; protocol готов |
-| Физический arm64 |BLOCKED |Телефон не подключён;эмулятор не заменяет |
-| API36/16KiB runtime |BLOCKED |Доступен только API35/4096;staticalignment не runtime proof |
-| Diarization automatic/fixed |WORKING как конфигурация |zh auto7/fixed4;нет DER и независимой русской оценки |
-| VAD/timestamps/pre-roll |WORKING на fixture |100 ms pre/0post,clamp/merge/partition,«ничьих»,global31 ms |
-| Library |WORKING на AVD |Компактная шапка,реактивный поиск,rename,без ложного initial empty |
-| Удаление с audio |WORKING на AVD |Подтверждение,cancel,owned/shared/external/symlink,busy,restart recovery;forcedSQLrollback не инжектирован |
-| Transcript/player |WORKING по состоянию AVD |Связанныеwaveform/timeline/rows,tap/seek/±10/speed/pause/background;реальный звук не проверен |
-| Editor/Room/export |WORKING на AVD |12 ручных имён+IME,font1.3,save/Undo/stale guard/draft recreation,force-stop |
-| Smart Review |WORKING как очередь |Реальный 650 ms crop дал short flag;не confidence/не доказательство ASR |
-| Recording |PARTIAL |Виртуальный MediaRecorder,pause/resume/background/save/decode;микрофон телефона не проверен |
-| Форматы/ошибки |WORKING в пределах тестов |WAV/MP3/M4A decoder,corrupt Worker/PCM cleanup/oldrows;SAF-провайдеры отдельно |
-| Models/diagnostics |WORKING на AVD |Оба ASR,packSHA,629 КБ для VAD,summary+отдельный JSON |
-| Длительные записи/нагрев/peak |PARTIAL/BLOCKED |Нет phone/long acceptance;PSS snapshots,неpeak |
-| Нехватка места/download-resume/external Share |PARTIAL |Есть guards/errors/chooser;forcedENOSPC иreceivers не выполнены |
-| Немедленный JNI abort/word timings/separation |NOT IMPLEMENTED |Отмена ждёт native call;timestamps сегментные |
-| Second ASR opinion |NOT IMPLEMENTED |Полезность исследована,доказательств для фонового Whisper нет |
-| Human Review package |WORKING как материалы |Реальные PNG,отчёты,rawJSON;внешнее UX-одобрение не заявлено |
+|Один APK со всеми моделями|WORKING как артефакт|arm64-only377401829B,8 файлов моделей365008680B,все SHA|
+|Zero-click offline provisioning|WORKING на AVD|чистая установка,airplane,WIFI/data off,29.437s,реальная Library|
+|Повтор/закрытие/recovery|WORKING на AVD|.844s без extract;force-stop resume2+6→8;SHA/mtimes/PID|
+|Защиты installer|WORKING в тестах|16Android fixtures,path/CRC/hash/space/partial publication;actualENOSPC PARTIAL|
+|GigaAM/Whisper/VAD/diarization|WORKING на AVD|настоящие8weights из APK;оба полных mono Worker иlegacyMLregressions|
+|Русский natural multispeaker|BLOCKED|нет допустимого размеченного диалога;mono иzh diarне заменяют|
+|Room/правки/экспорт/плеер/review|WORKING на AVD|все старые assertion paths+5ProductUI+persistence;ML алгоритмы не менялись|
+|Recording|PARTIAL|virtualAAC2756ms,pause/resume/background/save/decode PASS;phone microphone BLOCKED|
+|V1.2→AIO upgrade|WORKING на AVD|sameId,code3→4;все значения9records/13segments/1speaker,11audio hashes,8model stats сохранены|
+|Стандартный APK/manual import|WORKING на AVD|отдельная сборка,импорт сохранён,provisioning отключён,pack API tests PASS|
+|Native16KiB|PARTIAL|ZIP+ELFLOAD+deps всех4arm64 .so PASS;runtime16KiB/API36 BLOCKED|
+|Первоначальный ANR|PARTIAL|первая UX-попытка FAIL;coldreinstall того же APK PASS;корень причины не объявлен устранённым|
+|Физический vivo/arm64|BLOCKED|нет телефона;никакой подмены эмулятором|
+|Long audio/peakRAM/thermal/share receivers|PARTIAL/BLOCKED|переносятся ограничения V1.2;PSS snapshots не peak|
+|Native immediate abort/wordtimes/overlap separation|NOT IMPLEMENTED|сегментные timestamps;отмена ждёт nativecall|
 
-## Артефакты и риски
+Проверки:25JVM;54uniqueAndroid/UI JUnit+1coldrepeat,0failed/skipped.2существующих Worker-метода вызваны внутри нового acceptance wrapper. [Отчёт](docs/ALL_IN_ONE_TEST_REPORT.md),[поимённые логи](docs/test-evidence/v1.2.1/test-summary.json).
 
-APK: `app/build/outputs/apk/debug/app-debug.apk`,129032636 bytes,version1.2.0/code3.
+APK:`F:\Hackathons\ReplikaAndroid\release\REPLIKA-V1.2.1-AllInOne-arm64.apk`.
 
-SHA-256: `5d06dc98cb4f896f2640e1d76c5821462dad8e26ec8a275991c8828d3cd5141c`.
+SHA-256:`72fb824fc4356f72b22a57a1f7ac8a3221c29361d7feec35c0d1710cf2554aaa`.
 
-Review ZIP: `review/REPLIKA_V1_2_HUMAN_REVIEW.zip`; без APK/SDK/моделей/аудио/секретов. [TEST_REPORT](TEST_REPORT.md),[UX](docs/human-review/v1.2/UX_BEFORE_AFTER.md),[KNOWN_ISSUES](docs/human-review/v1.2/KNOWN_ISSUES.md),[ML timings](BENCHMARKS.md).
+Стандартный:`release/REPLIKA-V1.2.1-Standard.apk`;прежнийV1.2:`release/REPLIKA-V1.2-Standard-preserved.apk`. Модели/APK/audio/SDK не добавляются в Git. [Установка](docs/ALL_IN_ONE_INSTALL.md),[лицензии](docs/ALL_IN_ONE_LICENSE_AUDIT.md),[экраны](docs/human-review/v1.2.1/README.md),[пределы](docs/ALL_IN_ONE_KNOWN_ISSUES.md).
 
-Три главных риска до 6 ноября: (1)нет приёмки русского многоголосного диалога и независимой разметки; (2)нет физического arm64/offline/audio/16KiB runtime подтверждения; (3)длинный PCM/native memory,нагрев и ожидание отмены ещё не проверены на телефоне. Нельзя выводить их готовность из clean build или эмуляторных скриншотов.
+Три риска перед6ноября:1)нет приёмки физическогоarm64/API36/16KiB/микрофона и есть не до конца объяснённый ANR AVD;2)качество naturalRUдиалога/пересечений и дробление speaker IDs не подтверждены(zh auto7/fixed4,DER N/A);3)377MB APK+365MB weights,свободное место и native memory/нагрев длинных записей требуют проверки на телефоне.

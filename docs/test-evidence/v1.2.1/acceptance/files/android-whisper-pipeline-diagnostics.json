@@ -1,0 +1,149 @@
+{
+  "device": "unknown Android SDK built for x86_64",
+  "android": 35,
+  "runtime": "sherpa-onnx 2.0.1",
+  "backend": "Whisper tiny multilingual \/ whisper.cpp 1.7.6 \/ ru",
+  "threads": 2,
+  "vadThreads": 1,
+  "sampleRate": 16000,
+  "expectedSpeakers": -1,
+  "clusterThreshold": 0.5,
+  "vadThreshold": 0.5,
+  "maxAsrSegmentMs": 20000,
+  "audioMs": 11290,
+  "totalMs": 40060,
+  "pipelineRtf": 3.5482728077945085,
+  "pipelineTimingScope": "model validation through ASR release; excludes final Room commit and diagnostics serialization",
+  "asrStageRtf": 3.1013286093888395,
+  "asrInferenceRtf": 2.8653675819309123,
+  "runCondition": "not classified; no cache flush or temperature control",
+  "finalPssKb": 177148,
+  "peakMemory": "N\/A",
+  "stagesMs": {
+    "validationMs": 129,
+    "decodeMs": 207,
+    "vadLoadMs": 15,
+    "vadMs": 223,
+    "diarizationLoadMs": 454,
+    "diarizationReadMs": 2563,
+    "diarizationInferenceMs": 1426,
+    "diarizationMs": 4459,
+    "asrLoadMs": 126,
+    "asrMs": 35014,
+    "asrReadMs": 2485,
+    "asrInferenceMs": 32350,
+    "thermalWaitMs": 0
+  },
+  "diarizationTurns": [
+    {
+      "startMs": 31,
+      "endMs": 8485,
+      "speakerId": 0
+    },
+    {
+      "startMs": 9245,
+      "endMs": 10966,
+      "speakerId": 0
+    }
+  ],
+  "clusteringMode": "automatic",
+  "clusterThresholdApplied": true,
+  "segmentationWindowShiftRatio": 0.1,
+  "diarMinDurationOnSec": 0.2,
+  "diarMinDurationOffSec": 0.5,
+  "vadMinSpeechSec": 0.25,
+  "vadMinSilenceSec": 0.25,
+  "vadWindowSamples": 512,
+  "vadMaxSpeechSec": 20,
+  "preRollMs": 100,
+  "postRollMs": 0,
+  "vadSpans": [
+    {
+      "startMs": 102,
+      "endMs": 8550
+    },
+    {
+      "startMs": 9254,
+      "endMs": 10982
+    }
+  ],
+  "asrSpeechSpans": [
+    {
+      "startMs": 2,
+      "endMs": 8550
+    },
+    {
+      "startMs": 9154,
+      "endMs": 10982
+    }
+  ],
+  "asrSlices": [
+    {
+      "startMs": 2,
+      "endMs": 31,
+      "speakerId": -1,
+      "text": "",
+      "blank": true,
+      "inferenceMs": 3,
+      "warnings": [
+        "Неоднозначный говорящий",
+        "Короткая реплика возле границы"
+      ]
+    },
+    {
+      "startMs": 31,
+      "endMs": 8485,
+      "speakerId": 0,
+      "text": "Чих не требую похвал, если фуш я надежды сладкой, что дево стрепитом любви, посмотрит может быть украдкой, написниклешные мои.",
+      "blank": false,
+      "inferenceMs": 17081,
+      "warnings": []
+    },
+    {
+      "startMs": 8485,
+      "endMs": 8550,
+      "speakerId": -1,
+      "text": "",
+      "blank": true,
+      "inferenceMs": 6,
+      "warnings": [
+        "Неоднозначный говорящий",
+        "Короткая реплика возле границы"
+      ]
+    },
+    {
+      "startMs": 9154,
+      "endMs": 9245,
+      "speakerId": -1,
+      "text": "",
+      "blank": true,
+      "inferenceMs": 3,
+      "warnings": [
+        "Неоднозначный говорящий",
+        "Короткая реплика возле границы"
+      ]
+    },
+    {
+      "startMs": 9245,
+      "endMs": 10966,
+      "speakerId": 0,
+      "text": "у локамори эту обзеленый.",
+      "blank": false,
+      "inferenceMs": 15255,
+      "warnings": []
+    },
+    {
+      "startMs": 10966,
+      "endMs": 10982,
+      "speakerId": -1,
+      "text": "",
+      "blank": true,
+      "inferenceMs": 2,
+      "warnings": [
+        "Неоднозначный говорящий",
+        "Короткая реплика возле границы"
+      ]
+    }
+  ],
+  "modelBytes": 365008680
+}

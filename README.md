@@ -1,5 +1,7 @@
 # REPLIKA · Реплика
 
+V1.2.1 добавляет отдельный **All-in-One arm64 APK**: все пять семейств моделей уже внутри, первый запуск автоматически подготавливает и проверяет файлы без сети. Установка одним файлом и локальная сборка описаны в [ALL_IN_ONE_INSTALL.md](docs/ALL_IN_ONE_INSTALL.md); [аудит распространения моделей](docs/ALL_IN_ONE_LICENSE_AUDIT.md). Обычный debug APK и ручной импорт ZIP сохранены.
+
 **Каждое слово можно проверить.** Локальная стенограмма с говорящими, исходным звуком и ручной проверкой. Исследовательская Android-сборка для подготовки к хакатону 6 ноября 2026 года. Основной сценарий — локальное распознавание, разделение говорящих и временные метки.
 
 Приложение реализует Kotlin / Compose / Room / Media3 / WorkManager и настоящие нативные ML-backend. Состояние проверок и ограничения находятся в [PROJECT_STATE.md](PROJECT_STATE.md) и [TEST_REPORT.md](TEST_REPORT.md). Наличие кода не означает подтверждённую работу на физическом телефоне.
@@ -18,9 +20,9 @@ python3 tools/prepare_models.py
 
 В этом WSL для ускоренной сборки доступен `python3 tools/build_local.py`: он использует RAM-кэш и сохраняет checkpoint в `F:\ReplikaToolchain\gradle-cache-checkpoint.tar`. Постоянные SDK, NDK, веса и проект остаются на F:.
 
-Для другой машины задайте JAVA_HOME, ANDROID_HOME, GRADLE_USER_HOME и `sdk.dir` в `local.properties`. Python bootstrap не требует сторонних пакетов. Скачивание выполняется при явном запуске скриптов. Модели не включаются в APK.
+Для другой машины задайте JAVA_HOME, ANDROID_HOME, GRADLE_USER_HOME и `sdk.dir` в `local.properties`. Python bootstrap не требует сторонних пакетов. Скачивание выполняется при явном запуске скриптов. В обычный APK модели не включаются. Для All-in-One используйте существующий проверенный `model-pack/replika-offline-pack.zip` и `python3 tools/build_local.py :app:assembleAllInOne`; веса не меняются и повторно не скачиваются.
 
-## Установка
+## Установка стандартного APK
 
 ```bash
 adb devices
@@ -32,7 +34,9 @@ adb push model-pack/replika-offline-pack.zip /sdcard/Download/
 
 Минимум Android 8.0 (API 26); APK содержит arm64-v8a и x86_64. Рекомендуется телефон с достаточным объёмом RAM. Для длинных записей текущая нативная диаризация требует целый PCM-массив; приложение проверяет доступный Java heap и сообщает о нехватке памяти.
 
-## Проверка V1.2
+## Проверка V1.2.1
+
+Актуальный All-in-One отчёт — [ALL_IN_ONE_TEST_REPORT.md](docs/ALL_IN_ONE_TEST_REPORT.md); материалы нового onboarding — [v1.2.1](docs/human-review/v1.2.1/README.md). Сохранённые результаты V1.2 относятся к предыдущей итерации.
 
 Актуальные результаты — [TEST_REPORT.md](TEST_REPORT.md), материалы независимого ревью — [docs/human-review/v1.2](docs/human-review/v1.2). Старые доказательства сохранены отдельно. Проверка физического arm64 и русского многоголосного диалога учитывается отдельно от x86_64 emulator.
 

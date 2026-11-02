@@ -1,0 +1,13 @@
+01-clean-offline PREPARING
+01-clean-offline VERIFYING
+01-clean-offline READY
+Traceback (most recent call last):
+  File "/mnt/f/Hackathons/ReplikaAndroid/tools/test_bundled_first_launch.py", line 165, in <module>
+    main()
+    ~~~~^^
+  File "/mnt/f/Hackathons/ReplikaAndroid/tools/test_bundled_first_launch.py", line 107, in main
+    first = wait_ready("01-clean-offline")
+  File "/mnt/f/Hackathons/ReplikaAndroid/tools/test_bundled_first_launch.py", line 87, in wait_ready
+    assert f'package="{PKG}"' in xml and 'text="Библиотека"' in xml and 'text="Записи"' in xml, "Verified models did not lead to the actual app Library"
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Verified models did not lead to the actual app Library
