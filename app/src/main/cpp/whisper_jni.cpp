@@ -12,14 +12,14 @@ Java_ru_replika_ml_WhisperEngine_init(JNIEnv *env, jobject, jstring path) {
  return reinterpret_cast<jlong>(ctx);
 }
 extern "C" JNIEXPORT jstring JNICALL
-Java_ru_replika_ml_WhisperEngine_transcribe(JNIEnv *env,jobject,jlong handle,jfloatArray audio) {
+Java_ru_replika_ml_WhisperEngine_transcribe(JNIEnv *env,jobject,jlong handle,jfloatArray audio,jint threads) {
  auto *ctx=reinterpret_cast<whisper_context *>(handle);
  const auto n=env->GetArrayLength(audio);
  auto samples=std::make_unique<float[]>(n);
  env->GetFloatArrayRegion(audio,0,n,samples.get());
  auto p=whisper_full_default_params(WHISPER_SAMPLING_GREEDY);
- p.n_threads=2;p.language="ru";p.translate=false;p.no_context=true;
- p.print_realtime=false;p.print_progress=false;p.print_timestamps=false;p.single_segment=true;
+ p.n_threads=threads;p.language="ru";p.translate=false;p.no_context=true;
+ p.print_special=false;p.print_realtime=false;p.print_progress=false;p.print_timestamps=false;p.single_segment=true;
  p.suppress_blank=true;
  const int result=whisper_full(ctx,p,samples.get(),n);
  if(result!=0) { env->ThrowNew(env->FindClass("java/lang/IllegalStateException"),"whisper_full failed");return nullptr; }

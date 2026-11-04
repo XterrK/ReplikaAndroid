@@ -95,6 +95,21 @@ object AudioDecoder {
  }
  fun read(file: File,start: Int,count: Int): FloatArray {
   require(start>=0 && count>=0)
-  return RandomAccessFile(file,"r").use { f -> f.seek(start.toLong()*4); FloatArray(count) { f.readFloat() } }
+  require((start.toLong()+count)*4<=file.length()) { "PCM interval exceeds original file" }
+  val output=FloatArray(count)
+  // RandomAccessFile.readFloat performs individual unbuffered byte reads on Android.
+  // Read bounded blocks instead; retain the existing big-endian PCM representation exactly.
+  FileInputStream(file).channel.use { channel ->
+   channel.position(start.toLong()*4)
+   val bytes=java.nio.ByteBuffer.allocate(64*1024).order(ByteOrder.BIG_ENDIAN)
+   var offset=0
+   while(offset<count) {
+    val n=minOf(bytes.capacity()/4,count-offset)
+    bytes.clear();bytes.limit(n*4)
+    while(bytes.hasRemaining()) check(channel.read(bytes)>=0) { "Truncated PCM" }
+    bytes.flip();bytes.asFloatBuffer().get(output,offset,n);offset+=n
+   }
+  }
+  return output
  }
 }

@@ -1,0 +1,122 @@
+{
+  "finalPssKb": 195083,
+  "peakMemory": "N\/A; stage boundary snapshots only",
+  "device": "unknown Android SDK built for x86_64",
+  "android": 35,
+  "runtime": "sherpa-onnx 2.0.1",
+  "backend": "GigaAM v2 Transducer INT8 \/ sherpa-onnx 2.0.1",
+  "threads": 2,
+  "vadThreads": 1,
+  "sampleRate": 16000,
+  "expectedSpeakers": -1,
+  "clusterThreshold": 0.5,
+  "vadThreshold": 0.5,
+  "maxAsrSegmentMs": 20000,
+  "audioMs": 650,
+  "totalMs": 4447,
+  "pipelineRtf": 6.841538461538462,
+  "pipelineTimingScope": "validation through ASR release; persistenceMs and telemetry.elapsedMs reported separately",
+  "asrStageRtf": 0.683076923076923,
+  "asrInferenceRtf": 0.3646153846153846,
+  "runCondition": "uncontrolled device caches\/temperature; sequential ML stages; CPU provider",
+  "diarizationTurns": [
+    {
+      "startMs": 31,
+      "endMs": 650,
+      "speakerId": 0
+    }
+  ],
+  "clusteringMode": "automatic",
+  "clusterThresholdApplied": true,
+  "automaticValidation": "not accepted on independent long Russian dialogue",
+  "segmentationWindowShiftRatio": 0.1,
+  "diarMinDurationOnSec": 0.2,
+  "diarMinDurationOffSec": 0.5,
+  "vadMinSpeechSec": 0.25,
+  "vadMinSilenceSec": 0.25,
+  "vadWindowSamples": 512,
+  "vadMaxSpeechSec": 20,
+  "preRollMs": 100,
+  "postRollMs": 0,
+  "vadSpans": [
+    {
+      "startMs": 102,
+      "endMs": 672
+    }
+  ],
+  "asrSpeechSpans": [
+    {
+      "startMs": 2,
+      "endMs": 650
+    }
+  ],
+  "asrSlices": [
+    {
+      "startMs": 2,
+      "endMs": 650,
+      "speakerId": 0,
+      "text": "ничьих ни",
+      "blank": false,
+      "inferenceMs": 303,
+      "warnings": [
+        "Короткая граница диаризации: проверьте слова",
+        "Короткая реплика возле границы"
+      ]
+    }
+  ],
+  "modelBytes": 365008680,
+  "stagesMs": {
+    "thermalWaitMs": 0,
+    "provisioningWaitMs": 1,
+    "nativeGateWaitMs": 0,
+    "validationMs": 358,
+    "decodeMs": 138,
+    "metadataPersistenceMs": 4,
+    "vadLoadMs": 115,
+    "vadMs": 19,
+    "diarizationLoadMs": 702,
+    "diarizationReadMs": 1,
+    "diarizationInferenceMs": 85,
+    "diarizationMs": 994,
+    "alignmentMs": 5,
+    "asrLoadMs": 1890,
+    "asrReadMs": 1,
+    "asrInferenceMs": 237,
+    "asrMs": 444,
+    "persistenceMs": 13
+  },
+  "telemetry": {
+    "run": "32a41ebc-8c32-4994-92a3-4aef56715148",
+    "elapsedMs": 4789,
+    "stagesMs": {
+      "thermalWaitMs": 0,
+      "provisioningWaitMs": 1,
+      "nativeGateWaitMs": 0,
+      "validationMs": 358,
+      "decodeMs": 138,
+      "metadataPersistenceMs": 4,
+      "vadLoadMs": 115,
+      "vadMs": 19,
+      "diarizationLoadMs": 702,
+      "diarizationReadMs": 1,
+      "diarizationInferenceMs": 85,
+      "diarizationMs": 994,
+      "alignmentMs": 5,
+      "asrLoadMs": 1890,
+      "asrReadMs": 1,
+      "asrInferenceMs": 237,
+      "asrMs": 444,
+      "persistenceMs": 13
+    },
+    "observedMaxPssKb": 434879,
+    "memoryScope": "stage boundary PSS snapshots; not continuous peak memory",
+    "thermalStatus": 0,
+    "thermalEvents": [
+      {
+        "elapsedMs": 79,
+        "status": 0
+      }
+    ],
+    "thermalApiSupported": true
+  }
+}

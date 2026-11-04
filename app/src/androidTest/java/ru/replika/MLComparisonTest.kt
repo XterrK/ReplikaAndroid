@@ -88,7 +88,7 @@ class MLComparisonTest {
      .put("qualityNote","Inspect actual first word; no WER/CER or claim VAD is sole cause without reference")
     val runs=JSONArray();result.put("runs",runs)
     data class Variant(val name: String,val threshold: Float=.5f,val minSpeech: Float=.25f,val minSilence: Float=.25f,val pre: Long=0,val post: Long=0)
-    val variants=listOf(Variant("current"),Variant("pre100",pre=100),Variant("post100",post=100),Variant("pre100-post100",pre=100,post=100),
+    val variants=listOf(Variant("current"),Variant("pre100",pre=100),Variant("post100",post=100),Variant("pre100-post100",pre=100,post=100),Variant("pre200",pre=200),Variant("pre300-post100",pre=300,post=100),
      Variant("threshold035-minSpeech010",threshold=.35f,minSpeech=.1f),Variant("threshold065-minSilence040",threshold=.65f,minSilence=.4f))
     GigaAmEngine(app.models).use { engine ->
      val rawStart=SystemClock.elapsedRealtime();val raw=engine.recognize(samples)
@@ -114,11 +114,17 @@ class MLComparisonTest {
       contextual.forEach { vadOnlyResults.put(recognize(it.startMs,it.endMs)) }
       val slices=Alignment.slices(contextual,turns)
       slices.forEach { sliceResults.put(recognize(it.startMs,it.endMs).put("speakerId",it.speaker)) }
+      val planned=RecognitionPlanner.plan(contextual,turns)
+      val plannedResults=JSONArray()
+      planned.forEach { plannedResults.put(recognize(it.startMs,it.endMs).put("speakerId",it.speaker)) }
+      assertTrue(planned.zipWithNext().all { (a,b) -> a.endMs<=b.startMs })
+      assertEquals(contextual.sumOf { it.endMs-it.startMs },planned.sumOf { it.endMs-it.startMs })
+      if(v.name=="pre100") assertTrue("New planner must retain the known real prefix",plannedResults.getJSONObject(0).getString("text").startsWith("ничьих"))
       assertTrue(slices.zipWithNext().all { (a,b) -> a.endMs<=b.startMs })
       assertTrue(slices.all { it.startMs>=0 && it.endMs<=pcm.durationMs })
       runs.put(JSONObject().put("name",v.name).put("threshold",v.threshold).put("minSpeechSec",v.minSpeech).put("minSilenceSec",v.minSilence)
        .put("preMs",v.pre).put("postMs",v.post).put("vadSpans",spansJson(spans)).put("contextSpans",spansJson(contextual))
-       .put("vadOnly",vadOnlyResults).put("alignedSlices",sliceResults))
+       .put("vadOnly",vadOnlyResults).put("alignedSlices",sliceResults).put("repairedPlanner",plannedResults))
       save("ml-vad-comparison.json",result)
      }
     }

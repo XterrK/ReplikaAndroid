@@ -60,7 +60,7 @@ object Alignment {
     val reasons=p.reasons + if(p.endMs-p.startMs<700) listOf("Короткая реплика возле границы") else emptyList()
     var start=p.startMs
     while(start<p.endMs) {
-     val end=minOf(start+maxMs,p.endMs)
+     val end=start+minOf(maxMs,p.endMs-start)
      out+=Slice(start,end,p.speaker,reasons + if(end<p.endMs || start>p.startMs) listOf("Разрез длинного интервала: проверьте границу слов") else emptyList())
      start=end
     }

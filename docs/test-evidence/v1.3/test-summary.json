@@ -1,0 +1,469 @@
+{
+  "status": "REGRESSIONS_PASS; PRODUCT_ACCEPTANCE_PARTIAL",
+  "jvmPassed": 38,
+  "androidFinalUniquePassed": 60,
+  "androidInitialDebugRepeatedPassed": 5,
+  "freshV121BaselinePassed": 1,
+  "androidFinalFailed": 0,
+  "androidFinalSkipped": 0,
+  "physicalDeviceTests": 0,
+  "automaticKnownFourSpeakerQualityAccepted": false,
+  "originalUserRecordingTested": false,
+  "androidCases": [
+    {
+      "class": "ru.replika.AllInOneAcceptanceTest",
+      "test": "bothRealWorkerBackendsUseAutomaticallyPreparedBundle",
+      "code": 0
+    },
+    {
+      "class": "ru.replika.AllInOneAcceptanceTest",
+      "test": "preparedBundleHashesAndNoExtractionOnRepeatedLaunch",
+      "code": 0
+    },
+    {
+      "class": "ru.replika.ModelPackTest",
+      "test": "incompleteModelsCannotReachInference",
+      "code": 0
+    },
+    {
+      "class": "ru.replika.ModelPackTest",
+      "test": "corruptPackCannotReplaceVerifiedModel",
+      "code": 0
+    },
+    {
+      "class": "ru.replika.ModelPackTest",
+      "test": "importRealOfflinePack",
+      "code": 0
+    },
+    {
+      "class": "ru.replika.StorageAudioTest",
+      "test": "corruptedImportReturnsErrorAndRemovesPcm",
+      "code": 0
+    },
+    {
+      "class": "ru.replika.StorageAudioTest",
+      "test": "corruptWorkerPreservesPreviousTranscript",
+      "code": 0
+    },
+    {
+      "class": "ru.replika.StorageAudioTest",
+      "test": "sessionSurvivesDatabaseReopen",
+      "code": 0
+    },
+    {
+      "class": "ru.replika.StorageAudioTest",
+      "test": "stereo48kNormalizesTo16kWithoutTimeDrift",
+      "code": 0
+    },
+    {
+      "class": "ru.replika.StorageAudioTest",
+      "test": "realWavMp3M4aDecode",
+      "code": 0
+    },
+    {
+      "class": "ru.replika.StorageAudioTest",
+      "test": "realModelValidationAndAsr",
+      "code": 0
+    },
+    {
+      "class": "ru.replika.ProductStorageTest",
+      "test": "deletionStagingRecoversBothSidesOfDatabaseCommit",
+      "code": 0
+    },
+    {
+      "class": "ru.replika.ProductStorageTest",
+      "test": "editAndUndoArePersistedAndExported",
+      "code": 0
+    },
+    {
+      "class": "ru.replika.ProductStorageTest",
+      "test": "busyDeletionIsRejectedWithoutChangingData",
+      "code": 0
+    },
+    {
+      "class": "ru.replika.ProductStorageTest",
+      "test": "symlinkOutsideOwnedDirectoryIsNeverDeleted",
+      "code": 0
+    },
+    {
+      "class": "ru.replika.ProductStorageTest",
+      "test": "staleUndoAndStaleEditorNeverOverwriteNewerData",
+      "code": 0
+    },
+    {
+      "class": "ru.replika.ProductStorageTest",
+      "test": "externalAndSharedAudioArePreserved",
+      "code": 0
+    },
+    {
+      "class": "ru.replika.ProductStorageTest",
+      "test": "deletingOwnedAudioRemovesOnlyItsRowsAndFile",
+      "code": 0
+    },
+    {
+      "class": "ru.replika.ProcessingRecoveryTest",
+      "test": "duplicateRequestsAndQueuedCancellationPreserveTranscript",
+      "code": 0
+    },
+    {
+      "class": "ru.replika.ProcessingRecoveryTest",
+      "test": "orphanedProgressRecoversWithoutDeletingSavedEdits",
+      "code": 0
+    },
+    {
+      "class": "ru.replika.BundledModelInstallerTest",
+      "test": "unsafeZipPathsAreRejectedWithoutEscapingPrivateDirectories",
+      "code": 0
+    },
+    {
+      "class": "ru.replika.BundledModelInstallerTest",
+      "test": "missingRequiredFileCannotBeBypassedWithPreexistingStages",
+      "code": 0
+    },
+    {
+      "class": "ru.replika.BundledModelInstallerTest",
+      "test": "interruptedPublicationCanExposeOnlyVerifiedFilesAndRetryCompletes",
+      "code": 0
+    },
+    {
+      "class": "ru.replika.BundledModelInstallerTest",
+      "test": "duplicateZipPathsAreRejectedEvenWhenAllStagesWereAlreadyWritten",
+      "code": 0
+    },
+    {
+      "class": "ru.replika.BundledModelInstallerTest",
+      "test": "crcCorruptionCannotPublishFiles",
+      "code": 0
+    },
+    {
+      "class": "ru.replika.BundledModelInstallerTest",
+      "test": "replacingMissingModelsPreservesExistingValidModelsAndScansSkippedEntryBytes",
+      "code": 0
+    },
+    {
+      "class": "ru.replika.BundledModelInstallerTest",
+      "test": "corruptStageIsReplacedButCompleteVerifiedStageIsReused",
+      "code": 0
+    },
+    {
+      "class": "ru.replika.BundledModelInstallerTest",
+      "test": "insufficientStorageDoesNotOpenPackOrChangeLiveModel",
+      "code": 0
+    },
+    {
+      "class": "ru.replika.BundledModelInstallerTest",
+      "test": "completePackPublishesOnlyVerifiedFilesAndReportsActualBytes",
+      "code": 0
+    },
+    {
+      "class": "ru.replika.BundledModelInstallerTest",
+      "test": "interruptedPreparationRetainsVerifiedStageAndSafelyRetries",
+      "code": 0
+    },
+    {
+      "class": "ru.replika.BundledModelInstallerTest",
+      "test": "boundedMetadataRejectsArchiveBombWithoutPublishingModels",
+      "code": 0
+    },
+    {
+      "class": "ru.replika.BundledModelInstallerTest",
+      "test": "wrongHashDoesNotPublishAnythingOrDestroyExistingFiles",
+      "code": 0
+    },
+    {
+      "class": "ru.replika.BundledModelInstallerTest",
+      "test": "validModelsAreNotRewrittenAndPackIsNeverOpened",
+      "code": 0
+    },
+    {
+      "class": "ru.replika.BundledModelInstallerTest",
+      "test": "unsafeManifestPathsAreRejectedBeforeOpeningPack",
+      "code": 0
+    },
+    {
+      "class": "ru.replika.BundledModelInstallerTest",
+      "test": "manifestFingerprintIsStableAndChangesWithPinnedWeights",
+      "code": 0
+    },
+    {
+      "class": "ru.replika.BundledModelInstallerTest",
+      "test": "oversizedAndUnknownEntriesAreRejectedBeforePublication",
+      "code": 0
+    },
+    {
+      "class": "ru.replika.DiarizationTest",
+      "test": "realAutomaticMultispeakerDiarization",
+      "code": 0
+    },
+    {
+      "class": "ru.replika.PipelineTest",
+      "test": "realWhisperBackend",
+      "code": 0
+    },
+    {
+      "class": "ru.replika.MLComparisonTest",
+      "test": "vadBoundaryComparisons",
+      "code": 0
+    },
+    {
+      "class": "ru.replika.MLComparisonTest",
+      "test": "diarizationAutomaticVersusKnownFour",
+      "code": 0
+    },
+    {
+      "class": "ru.replika.MLComparisonTest",
+      "test": "directAsrSameInputColdThenWarm",
+      "code": 0
+    },
+    {
+      "class": "ru.replika.WarningPipelineTest",
+      "test": "completeRealShortSpeechWarningPipeline",
+      "code": 0
+    },
+    {
+      "class": "ru.replika.RecoveryV13InstrumentedTest",
+      "test": "thermalGateWaitResumeAndCancellationWithActualPowerManager",
+      "code": 0
+    },
+    {
+      "class": "ru.replika.RecoveryV13InstrumentedTest",
+      "test": "fourMinuteSingleSpeakerWorkerSkipsDiarizationAndKeepsBounds",
+      "code": 0
+    },
+    {
+      "class": "ru.replika.RecoveryV13InstrumentedTest",
+      "test": "gigaThreadsOneTwoFourSequentialWithIdenticalInput",
+      "code": 0
+    },
+    {
+      "class": "ru.replika.RecoveryV13InstrumentedTest",
+      "test": "bufferedPcmReadMatchesEverySampleAndOriginalClock",
+      "code": 0
+    },
+    {
+      "class": "ru.replika.TranscriptModesV13Test",
+      "test": "readingCopyEditAndRecreationShareRoomDataWithoutInference",
+      "code": 0
+    },
+    {
+      "class": "ru.replika.NavigationTest",
+      "test": "libraryModelsNavigation",
+      "code": 0
+    },
+    {
+      "class": "ru.replika.AllInOneUiTest",
+      "test": "preparationErrorRetryRemainsAccessibleWithLongTextAtFontScale130",
+      "code": 0
+    },
+    {
+      "class": "ru.replika.AllInOneUiTest",
+      "test": "installedBundleHasOptionalAdvancedImportAndBothBackendChoices",
+      "code": 0
+    },
+    {
+      "class": "ru.replika.ProductExperienceTest",
+      "test": "corruptImportedFixtureDoesNotPrematurelyPreparePlayer",
+      "code": 0
+    },
+    {
+      "class": "ru.replika.ProductExperienceTest",
+      "test": "workspaceSeekSpeedAndBackgroundPause",
+      "code": 0
+    },
+    {
+      "class": "ru.replika.ProductExperienceTest",
+      "test": "corruptedWorkerExplainsRecoveryAndKeepsSavedRows",
+      "code": 0
+    },
+    {
+      "class": "ru.replika.ProductExperienceTest",
+      "test": "libraryDeleteConfirmationRemovesOnlyOwnedCopy",
+      "code": 0
+    },
+    {
+      "class": "ru.replika.ProductExperienceTest",
+      "test": "editorLongRosterSaveUndoAndDiscard",
+      "code": 0
+    },
+    {
+      "class": "ru.replika.ReviewScreenshotsTest",
+      "test": "libraryModelsAndRecording",
+      "code": 0
+    },
+    {
+      "class": "ru.replika.ReviewScreenshotsTest",
+      "test": "actualShortSpeechReviewQueue",
+      "code": 0
+    },
+    {
+      "class": "ru.replika.ReviewScreenshotsTest",
+      "test": "realTranscriptReviewAndSpeakerEditing",
+      "code": 0
+    },
+    {
+      "class": "ru.replika.PersistedEditsTest",
+      "test": "actualUiCorrectionsSurviveProcessRelaunch",
+      "code": 0
+    },
+    {
+      "class": "ru.replika.RecoveryV13InstrumentedTest",
+      "test": "fourMinuteAutomaticDiarizationRetainsOneSpeakerOnControlledRepeat",
+      "code": 0
+    }
+  ],
+  "jvmCases": [
+    {
+      "class": "ru.replika.DomainTest",
+      "test": "mergeIntervals"
+    },
+    {
+      "class": "ru.replika.DomainTest",
+      "test": "manualCorrectionsPersistInRowRoundtrip"
+    },
+    {
+      "class": "ru.replika.DomainTest",
+      "test": "noRandomTextAssignmentAtOverlap"
+    },
+    {
+      "class": "ru.replika.DomainTest",
+      "test": "exportsPreserveTimesTextNames"
+    },
+    {
+      "class": "ru.replika.DomainTest",
+      "test": "contextNeverCreatesDuplicateChunks"
+    },
+    {
+      "class": "ru.replika.DomainTest",
+      "test": "unknownIdsStayUnknown"
+    },
+    {
+      "class": "ru.replika.DomainTest",
+      "test": "stableSpeakerIds"
+    },
+    {
+      "class": "ru.replika.DomainTest",
+      "test": "noOverlappingChunksOrDuplicates"
+    },
+    {
+      "class": "ru.replika.DomainTest",
+      "test": "contextClampsToFileAndMergesCloseSpeech"
+    },
+    {
+      "class": "ru.replika.DomainTest",
+      "test": "derConfusion"
+    },
+    {
+      "class": "ru.replika.DomainTest",
+      "test": "downsamplingFilterPreservesVoiceAndRejectsAliases"
+    },
+    {
+      "class": "ru.replika.DomainTest",
+      "test": "contextualCropUsesOriginalClockAcrossDiarizationBoundary"
+    },
+    {
+      "class": "ru.replika.DomainTest",
+      "test": "shortTurnAndUnknownWarningsAreComputed"
+    },
+    {
+      "class": "ru.replika.DomainTest",
+      "test": "derMissAndFalseAlarm"
+    },
+    {
+      "class": "ru.replika.DomainTest",
+      "test": "ratesRequireGroundTruth"
+    },
+    {
+      "class": "ru.replika.DomainTest",
+      "test": "derOptimalPermutationAndOverlap"
+    },
+    {
+      "class": "ru.replika.DomainTest",
+      "test": "contextPreservesOriginalClockAndSpeakerChanges"
+    },
+    {
+      "class": "ru.replika.DomainTest",
+      "test": "sameSpeakerBoundariesDoNotFragmentAsr"
+    },
+    {
+      "class": "ru.replika.PresentationTest",
+      "test": "smallVerifiedVadHasNonzeroReadableSize"
+    },
+    {
+      "class": "ru.replika.PresentationTest",
+      "test": "legacyAsrStageIsNeverReportedAsPureInference"
+    },
+    {
+      "class": "ru.replika.PresentationTest",
+      "test": "subsecondAudioHasAVisibleDuration"
+    },
+    {
+      "class": "ru.replika.PresentationTest",
+      "test": "absentAndCorruptDiagnosticsDoNotInventMeasurements"
+    },
+    {
+      "class": "ru.replika.ProductErrorsTest",
+      "test": "missingFileAndPermissionFailureHaveDifferentRecoveryActions"
+    },
+    {
+      "class": "ru.replika.ProductErrorsTest",
+      "test": "noSpaceAndMemoryHaveSpecificRemedies"
+    },
+    {
+      "class": "ru.replika.ProductErrorsTest",
+      "test": "brokenContainerHasAnActionAndNoRawEnglish"
+    },
+    {
+      "class": "ru.replika.RecoveryV13Test",
+      "test": "neverBorrowAcrossSpeakerChangeOrOverlap"
+    },
+    {
+      "class": "ru.replika.RecoveryV13Test",
+      "test": "invalidThreadCountRejected"
+    },
+    {
+      "class": "ru.replika.RecoveryV13Test",
+      "test": "readingParagraphsRespectSpeakerAndLongPause"
+    },
+    {
+      "class": "ru.replika.RecoveryV13Test",
+      "test": "explicitModesAndAllowedThreads"
+    },
+    {
+      "class": "ru.replika.RecoveryV13Test",
+      "test": "doNotAssignLongUnknownGap"
+    },
+    {
+      "class": "ru.replika.RecoveryV13Test",
+      "test": "reclaimDiarizationMarginsWithoutChangingPreroll"
+    },
+    {
+      "class": "ru.replika.RecoveryV13Test",
+      "test": "plainTextUsesSameEditsAndRetainsRepeatedSpokenWords"
+    },
+    {
+      "class": "ru.replika.RecoveryV13Test",
+      "test": "longPauseAndChangedSpeakerRemainSeparate"
+    },
+    {
+      "class": "ru.replika.RecoveryV13Test",
+      "test": "pausesGroupSourceIdsAndManualCorrectionsWithoutMutation"
+    },
+    {
+      "class": "ru.replika.RecoveryV13Test",
+      "test": "noMergingAcrossFilteredSpeakerOrUnknownOrOverlap"
+    },
+    {
+      "class": "ru.replika.RecoveryV13Test",
+      "test": "thermalPolicyRetainsSevereAndHigherProtection"
+    },
+    {
+      "class": "ru.replika.RecoveryV13Test",
+      "test": "allLongRecordingSamplesCoveredExactlyOnce"
+    },
+    {
+      "class": "ru.replika.RecoveryV13Test",
+      "test": "rejectInvalidChunkLimit"
+    }
+  ],
+  "scope": "API35 x86_64 emulator; two full PipelineTest methods are additionally invoked by bundle acceptance wrapper"
+}

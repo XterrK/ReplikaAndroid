@@ -1,0 +1,149 @@
+{
+  "device": "unknown Android SDK built for x86_64",
+  "android": 35,
+  "runtime": "sherpa-onnx 2.0.1",
+  "backend": "GigaAM v2 Transducer INT8 \/ sherpa-onnx 2.0.1",
+  "threads": 2,
+  "vadThreads": 1,
+  "sampleRate": 16000,
+  "expectedSpeakers": -1,
+  "clusterThreshold": 0.5,
+  "vadThreshold": 0.5,
+  "maxAsrSegmentMs": 20000,
+  "audioMs": 11290,
+  "totalMs": 21455,
+  "pipelineRtf": 1.9003542958370239,
+  "pipelineTimingScope": "model validation through ASR release; excludes final Room commit and diagnostics serialization",
+  "asrStageRtf": 0.9674047829937998,
+  "asrInferenceRtf": 0.4437555358724535,
+  "runCondition": "not classified; no cache flush or temperature control",
+  "finalPssKb": 180235,
+  "peakMemory": "N\/A",
+  "stagesMs": {
+    "validationMs": 411,
+    "decodeMs": 2254,
+    "vadLoadMs": 173,
+    "vadMs": 642,
+    "diarizationLoadMs": 894,
+    "diarizationReadMs": 4259,
+    "diarizationInferenceMs": 2012,
+    "diarizationMs": 7195,
+    "asrLoadMs": 2303,
+    "asrMs": 10922,
+    "asrReadMs": 3466,
+    "asrInferenceMs": 5010,
+    "thermalWaitMs": 0
+  },
+  "diarizationTurns": [
+    {
+      "startMs": 31,
+      "endMs": 8485,
+      "speakerId": 0
+    },
+    {
+      "startMs": 9245,
+      "endMs": 10966,
+      "speakerId": 0
+    }
+  ],
+  "clusteringMode": "automatic",
+  "clusterThresholdApplied": true,
+  "segmentationWindowShiftRatio": 0.1,
+  "diarMinDurationOnSec": 0.2,
+  "diarMinDurationOffSec": 0.5,
+  "vadMinSpeechSec": 0.25,
+  "vadMinSilenceSec": 0.25,
+  "vadWindowSamples": 512,
+  "vadMaxSpeechSec": 20,
+  "preRollMs": 100,
+  "postRollMs": 0,
+  "vadSpans": [
+    {
+      "startMs": 102,
+      "endMs": 8550
+    },
+    {
+      "startMs": 9254,
+      "endMs": 10982
+    }
+  ],
+  "asrSpeechSpans": [
+    {
+      "startMs": 2,
+      "endMs": 8550
+    },
+    {
+      "startMs": 9154,
+      "endMs": 10982
+    }
+  ],
+  "asrSlices": [
+    {
+      "startMs": 2,
+      "endMs": 31,
+      "speakerId": -1,
+      "text": "",
+      "blank": true,
+      "inferenceMs": 74,
+      "warnings": [
+        "Неоднозначный говорящий",
+        "Короткая реплика возле границы"
+      ]
+    },
+    {
+      "startMs": 31,
+      "endMs": 8485,
+      "speakerId": 0,
+      "text": "ничьих не требуя похвал счастлив уж я надеждой сладкой что дева с трепетом любви посмотрит может быть украдкой на песни грешные мои",
+      "blank": false,
+      "inferenceMs": 3586,
+      "warnings": []
+    },
+    {
+      "startMs": 8485,
+      "endMs": 8550,
+      "speakerId": -1,
+      "text": "",
+      "blank": true,
+      "inferenceMs": 101,
+      "warnings": [
+        "Неоднозначный говорящий",
+        "Короткая реплика возле границы"
+      ]
+    },
+    {
+      "startMs": 9154,
+      "endMs": 9245,
+      "speakerId": -1,
+      "text": "",
+      "blank": true,
+      "inferenceMs": 56,
+      "warnings": [
+        "Неоднозначный говорящий",
+        "Короткая реплика возле границы"
+      ]
+    },
+    {
+      "startMs": 9245,
+      "endMs": 10966,
+      "speakerId": 0,
+      "text": "у лукоморья дуб зеленый",
+      "blank": false,
+      "inferenceMs": 1082,
+      "warnings": []
+    },
+    {
+      "startMs": 10966,
+      "endMs": 10982,
+      "speakerId": -1,
+      "text": "",
+      "blank": true,
+      "inferenceMs": 111,
+      "warnings": [
+        "Неоднозначный говорящий",
+        "Короткая реплика возле границы"
+      ]
+    }
+  ],
+  "modelBytes": 365008680
+}

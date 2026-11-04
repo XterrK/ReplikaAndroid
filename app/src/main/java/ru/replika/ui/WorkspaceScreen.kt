@@ -10,6 +10,7 @@ import androidx.compose.foundation.lazy.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.*
@@ -25,6 +26,8 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalClipboardManager
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.*
@@ -45,6 +48,8 @@ import kotlinx.coroutines.flow.first
 import ru.replika.ReplikaApp
 import ru.replika.data.*
 import ru.replika.domain.Exporter
+import ru.replika.domain.TranscriptPresentation
+import ru.replika.domain.LogicalTurn
 import java.io.File
 
 // Retain the exact version opened by the editor so recreation cannot bypass stale-edit checks.
@@ -67,6 +72,7 @@ private val EditorRowSaver=listSaver<SegmentRow?,Any>(
  var speed by rememberSaveable(rec.id) { mutableFloatStateOf(1f) }
  var stopAt by rememberSaveable(rec.id) { mutableStateOf<Long?>(null) }
  var prepared by remember(rec.id) { mutableStateOf(false) }
+ var reading by rememberSaveable(rec.id) { mutableStateOf(false) }
  var review by rememberSaveable(rec.id) { mutableStateOf(false) }
  var filter by rememberSaveable(rec.id) { mutableStateOf<Int?>(null) }
  var follow by rememberSaveable(rec.id) { mutableStateOf(false) }
@@ -84,6 +90,10 @@ private val EditorRowSaver=listSaver<SegmentRow?,Any>(
    SpeakerChoice(id,speakers.firstOrNull { it.speakerId==id }?.name?:if(id<0) "Неизвестный" else "Участник "+(id+1))
   }
  }
+ val clipboard=LocalClipboardManager.current
+ val groups=remember(rows) { TranscriptPresentation.groups(rows.map { it.domain() }) }
+ val rowsById=remember(rows) { rows.associateBy { it.id } }
+ val shownGroups=remember(groups,filter) { groups.filter { filter==null || it.speakerId==filter } }
  val visible=remember(rows,filter) { rows.filter { filter==null || it.speakerId==filter } }
  val pending=remember(rows) { rows.count { !it.reviewed && reviewIssues(it).isNotEmpty() } }
  val active=rows.firstOrNull { position>=it.startMs && position<it.endMs }
@@ -112,9 +122,9 @@ private val EditorRowSaver=listSaver<SegmentRow?,Any>(
    delay(100)
   }
  }
- LaunchedEffect(active?.id,follow,filter,review) {
-  if(follow && !review && active!=null) {
-   val index=visible.indexOfFirst { it.id==active.id }
+ LaunchedEffect(active?.id,follow,filter,review,reading) {
+  if(follow && !review && !reading && active!=null) {
+   val index=shownGroups.indexOfFirst { group -> group.parts.any { it.id==active.id } }
    if(index>=0) listState.animateScrollToItem(index)
   }
  }
@@ -142,7 +152,14 @@ private val EditorRowSaver=listSaver<SegmentRow?,Any>(
      onBack={seek(position-10000)},onForward={seek(position+10000)},
      onSpeed={speed=when(speed) { 1f->1.25f;1.25f->1.5f;1.5f->2f;else->1f };player.setPlaybackSpeed(speed)}
     )
-    Row(Modifier.fillMaxWidth().padding(start=20.dp,end=8.dp),verticalAlignment=Alignment.CenterVertically) {
+    Row(Modifier.fillMaxWidth().padding(horizontal=20.dp),verticalAlignment=Alignment.CenterVertically) {
+     SingleChoiceSegmentedButtonRow(Modifier.weight(1f)) {
+      SegmentedButton(selected=!reading,onClick={reading=false},shape=SegmentedButtonDefaults.itemShape(0,2),modifier=Modifier.testTag("mode-dialogue")) { Text("Диалог") }
+      SegmentedButton(selected=reading,onClick={reading=true;review=false;filter=null},shape=SegmentedButtonDefaults.itemShape(1,2),modifier=Modifier.testTag("mode-reading")) { Text("Чтение") }
+     }
+     if(reading) IconButton(onClick={clipboard.setText(AnnotatedString(TranscriptPresentation.plain(rows.map { it.domain() })))},modifier=Modifier.testTag("copy-plain-text")) { Icon(Icons.Outlined.ContentCopy,"Копировать чистый текст") }
+    }
+    if(!reading) Row(Modifier.fillMaxWidth().padding(start=20.dp,end=8.dp),verticalAlignment=Alignment.CenterVertically) {
      Text(if(filter==null) "Диалог" else name(filter!!),style=MaterialTheme.typography.titleSmall,maxLines=1,overflow=TextOverflow.Ellipsis,modifier=Modifier.weight(1f))
      IconButton(onClick={choosingFilter=true}) { Icon(Icons.Outlined.FilterList,"Фильтр говорящих",tint=if(filter!=null) Blue else Muted) }
      IconToggleButton(checked=follow,onCheckedChange={follow=it}) { Icon(Icons.Outlined.Sync,"Следовать за воспроизведением",tint=if(follow) Blue else Muted) }
@@ -155,6 +172,11 @@ private val EditorRowSaver=listSaver<SegmentRow?,Any>(
     when {
      !loaded -> Column(Modifier.fillMaxWidth().weight(1f).padding(24.dp).testTag("transcript-loading"),verticalArrangement=Arrangement.spacedBy(12.dp)) {
       LinearProgressIndicator(Modifier.fillMaxWidth());Text("Загружаем стенограмму…",style=MaterialTheme.typography.bodyMedium,color=Muted)
+     }
+     reading -> LazyColumn(Modifier.weight(1f).testTag("reading-text"),contentPadding=PaddingValues(20.dp),verticalArrangement=Arrangement.spacedBy(20.dp)) {
+      items(groups,key={it.id}) { group ->
+       SelectionContainer { Text(group.text,style=MaterialTheme.typography.bodyLarge,modifier=Modifier.fillMaxWidth().testTag("reading-paragraph-"+group.id)) }
+      }
      }
      review -> SmartReviewQueue(
       visible,::name,Modifier.weight(1f),onListen={play(it)},onEdit={editing=it},
@@ -173,8 +195,12 @@ private val EditorRowSaver=listSaver<SegmentRow?,Any>(
       state=listState,modifier=Modifier.weight(1f).testTag("transcript-list"),
       contentPadding=PaddingValues(top=8.dp,bottom=24.dp)
      ) {
-      itemsIndexed(visible,key={_,row -> row.id}) { index,row ->
-       DialogueRow(row,::name,active?.id==row.id,index<visible.lastIndex,onPlay={play(row)},onEdit={editing=row},onRename={renaming=row.speakerId})
+      itemsIndexed(shownGroups,key={_,group -> group.id}) { index,group ->
+       val parts=group.parts.mapNotNull { rowsById[it.id] }
+       if(parts.size==1) {
+        val row=parts.single()
+        DialogueRow(row,::name,active?.id==row.id,index<shownGroups.lastIndex,onPlay={play(row)},onEdit={editing=row},onRename={renaming=row.speakerId})
+       } else LogicalDialogue(group,parts,::name,active?.id,onPlay={play(it)},onEdit={editing=it},onRename={renaming=group.speakerId})
       }
      }
     }
@@ -245,6 +271,25 @@ private val EditorRowSaver=listSaver<SegmentRow?,Any>(
  }
 }
 
+@Composable private fun LogicalDialogue(group: LogicalTurn,parts: List<SegmentRow>,name: (Int)->String,activeId: String?,onPlay: (SegmentRow)->Unit,onEdit: (SegmentRow)->Unit,onRename: ()->Unit) {
+ Column(Modifier.fillMaxWidth().padding(horizontal=20.dp,vertical=12.dp).testTag("logical-turn-"+group.id)) {
+  Row(verticalAlignment=Alignment.CenterVertically,horizontalArrangement=Arrangement.spacedBy(10.dp)) {
+   SpeakerAvatar(group.speakerId)
+   Text(name(group.speakerId),style=MaterialTheme.typography.labelMedium,color=speakerColor(group.speakerId),modifier=Modifier.weight(1f).heightIn(min=48.dp).clickable(onClick=onRename).wrapContentHeight())
+   Text(segmentIntervalLabel(group.startMs,group.endMs),style=MaterialTheme.typography.labelSmall,color=Muted)
+  }
+  parts.forEach { row ->
+   Row(Modifier.fillMaxWidth().background(if(activeId==row.id) Blue.copy(alpha=.09f) else Ink).testTag("segment-"+row.id).semantics { selected=activeId==row.id }.clickable { onPlay(row) },verticalAlignment=Alignment.CenterVertically) {
+    Column(Modifier.weight(1f)) {
+     Text(row.text,style=MaterialTheme.typography.bodyLarge)
+     Text(segmentIntervalLabel(row.startMs,row.endMs)+(if(row.edited) " · Изменено" else "")+(if(row.reviewed) " · Проверено" else if(reviewIssues(row).isNotEmpty()) " · Нужна проверка" else ""),style=MaterialTheme.typography.labelSmall,color=Muted)
+    }
+    IconButton(onClick={onEdit(row)},modifier=Modifier.size(48.dp)) { Icon(Icons.Outlined.MoreHoriz,"Изменить реплику",tint=Muted) }
+   }
+  }
+ }
+}
+
 @Composable private fun DialogueRow(row: SegmentRow,name: (Int)->String,active: Boolean,hasNext: Boolean,onPlay: ()->Unit,onEdit: ()->Unit,onRename: ()->Unit) {
  val issues=remember(row.reasons,row.speakerId) { reviewIssues(row) }
  Row(
@@ -275,7 +320,8 @@ private val EditorRowSaver=listSaver<SegmentRow?,Any>(
 }
 
 @Composable private fun ProcessingPane(vm: AppViewModel,rec: Recording,modifier: Modifier=Modifier) {
- var automatic by rememberSaveable(rec.id) { mutableStateOf(rec.expectedSpeakers<0) }
+ var speakerMode by rememberSaveable(rec.id) { mutableStateOf(if(rec.expectedSpeakers==1) "single" else if(rec.expectedSpeakers>1) "fixed" else "automatic") }
+ var threads by rememberSaveable(rec.id) { mutableIntStateOf(2) }
  var count by rememberSaveable(rec.id) { mutableStateOf(if(rec.expectedSpeakers>0) rec.expectedSpeakers.toString() else "2") }
  var details by remember(rec.id) { mutableStateOf(false) }
  val busy=rec.status in setOf("QUEUED","PROCESSING","CANCELLING")
@@ -300,12 +346,20 @@ private val EditorRowSaver=listSaver<SegmentRow?,Any>(
     }
     Column(Modifier.fillMaxWidth().background(SurfaceBase,ProductShape.panel).padding(16.dp),verticalArrangement=Arrangement.spacedBy(8.dp)) {
      Text("Количество говорящих",style=MaterialTheme.typography.titleMedium)
-     Row(Modifier.fillMaxWidth().heightIn(min=48.dp).selectable(automatic,role=Role.RadioButton) { automatic=true },verticalAlignment=Alignment.CenterVertically) { RadioButton(automatic,null);Text("Автоматически",style=MaterialTheme.typography.bodyMedium) }
-     Row(Modifier.fillMaxWidth().heightIn(min=48.dp).selectable(!automatic,role=Role.RadioButton) { automatic=false },verticalAlignment=Alignment.CenterVertically) { RadioButton(!automatic,null);Text("Указано пользователем",style=MaterialTheme.typography.bodyMedium) }
-     if(!automatic) OutlinedTextField(count,{count=it.filter(Char::isDigit).take(2)},label={Text("Число говорящих")},supportingText={Text("От 1 до 20. Это подсказка для кластеризации.")},keyboardOptions=KeyboardOptions(keyboardType=KeyboardType.Number),singleLine=true,isError=count.toIntOrNull()?.let { it in 1..20 }!=true,modifier=Modifier.fillMaxWidth().testTag("speaker-count"))
+     listOf("single" to "Один говорящий", "fixed" to "Фиксированное число говорящих", "automatic" to "Автоматически").forEach { (key,label) ->
+      Row(Modifier.fillMaxWidth().heightIn(min=48.dp).selectable(speakerMode==key,role=Role.RadioButton) { speakerMode=key }.testTag("speakers-"+key),verticalAlignment=Alignment.CenterVertically) { RadioButton(speakerMode==key,null);Text(label,style=MaterialTheme.typography.bodyMedium) }
+     }
+     if(speakerMode=="single") Text("Для монолога. Все фрагменты будут у одного участника; обработка быстрее.",style=MaterialTheme.typography.bodySmall,color=Muted)
+     if(speakerMode=="automatic") Text("Число участников может быть неточным. Для известного состава выберите другой режим.",style=MaterialTheme.typography.bodySmall,color=Muted)
+     if(speakerMode=="fixed") OutlinedTextField(count,{count=it.filter(Char::isDigit).take(2)},label={Text("Число говорящих")},supportingText={Text("От 2 до 20 участников.")},keyboardOptions=KeyboardOptions(keyboardType=KeyboardType.Number),singleLine=true,isError=count.toIntOrNull()?.let { it in 2..20 }!=true,modifier=Modifier.fillMaxWidth().testTag("speaker-count"))
+     Text("Нагрузка на процессор",style=MaterialTheme.typography.labelLarge)
+     Row(horizontalArrangement=Arrangement.spacedBy(8.dp)) {
+      FilterChip(selected=threads==1,onClick={threads=1},label={Text("Умеренная")})
+      FilterChip(selected=threads==2,onClick={threads=2},label={Text("Обычная")})
+     }
     }
-    Button(onClick={vm.process(rec.id,if(automatic) -1 else count.toInt())},enabled=automatic || count.toIntOrNull()?.let { it in 1..20 }==true,modifier=Modifier.fillMaxWidth().heightIn(min=52.dp)) { Text(if(rec.status=="IMPORTED") "Создать стенограмму" else "Повторить обработку") }
-    Text("Нужны выбранный ASR, VAD и модели говорящих. Управление установкой — в разделе «Модели».",style=MaterialTheme.typography.bodySmall,color=Muted)
+    Button(onClick={vm.process(rec.id,when(speakerMode) { "single"->1;"fixed"->count.toInt();else->-1 },threads)},enabled=speakerMode!="fixed" || count.toIntOrNull()?.let { it in 2..20 }==true,modifier=Modifier.fillMaxWidth().heightIn(min=52.dp)) { Text(if(rec.status=="IMPORTED") "Создать стенограмму" else "Повторить обработку") }
+    Text("Нужны выбранная модель распознавания и VAD; для нескольких участников — модели говорящих. Управление установкой — в разделе «Модели».",style=MaterialTheme.typography.bodySmall,color=Muted)
    }
   }
  }

@@ -133,10 +133,11 @@ class AppViewModel(application: Application): AndroidViewModel(application) {
    }
   } catch(e: CancellationException) { throw e } catch(e: Exception) { reportError("Импорт аудио",e) }
  } }
- fun process(id: String,count: Int) {
+ fun process(id: String,count: Int,threads: Int=2) {
   if(id in deleting.value || !processingRequests.add(id)) return
   viewModelScope.launch {
    try {
+    ru.replika.domain.MlPolicy.threads(threads)
     if(count!=-1 && count !in 1..20) throw ProductOperationException("Укажите от 1 до 20 говорящих.","Invalid speaker count $count")
     val queued=app.db.withTransaction {
      val rec=dao.recording(id)?:return@withTransaction false
@@ -144,7 +145,7 @@ class AppViewModel(application: Application): AndroidViewModel(application) {
      dao.insert(rec.copy(expectedSpeakers=count,backend=backend.value,status="QUEUED",phase="Ожидание обработки",error=null))
      true
     }
-    if(queued) { clearUndo();ProcessingWorker.enqueue(app,id) }
+    if(queued) { clearUndo();ProcessingWorker.enqueue(app,id,threads) }
    } catch(e: CancellationException) { throw e } catch(e: Exception) { reportError("Запуск обработки",e) }
    finally { processingRequests.remove(id) }
   }

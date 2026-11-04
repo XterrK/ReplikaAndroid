@@ -1,3 +1,24 @@
+# REPLIKA V1.3 · состояние на 04.11.2026
+
+**PARTIAL — кандидат с single-speaker bypass и улучшениями IO/чтения; automatic diarization и физический vivo не приняты.**
+
+Продолжение `2f84a633f5c3b51accd99ac7510db70570f61dde`; существующие записи и schema 1 сохранены, push не выполнялся. Подробности: [TEST_REPORT_V1_3.md](TEST_REPORT_V1_3.md), [REAL_DEVICE_FINDINGS.md](REAL_DEVICE_FINDINGS.md), [PERFORMANCE_ANALYSIS.md](PERFORMANCE_ANALYSIS.md), [DIARIZATION_FIX_REPORT.md](DIARIZATION_FIX_REPORT.md), [VAD_BOUNDARY_REPORT.md](VAD_BOUNDARY_REPORT.md).
+
+- All-in-One arm64: `release/REPLIKA-V1.3-AllInOne-arm64.apk`, versionCode 5, все 8 прежних файлов моделей включая Whisper; SHA-256 в соседнем `.sha256`.
+- Три режима говорящих; single действительно не запускает Pyannote/embedding/clustering. У automatic нет универсального ограничения числа участников; новый estimator не принят.
+- GigaAM default, Whisper tiny экспериментальный. CPU 2 threads по умолчанию, 1 в умеренном профиле; 4 только в диагностическом эксперименте.
+- Блочное чтение PCM; 100 ms pre-roll сохранён, обработаны короткие края выравнивания. Жёсткие ASR-разрезы 20 s и отсутствие word alignment остаются риском.
+- Диалог и чистое чтение из одной Room-модели, безопасные логические группы, копирование, синхронные ручные правки.
+- Thermal API listener/polling, пауза SEVERE+, отмена ожидания, технические stage logs без audio/text. Уже начатый JNI не прерывается мгновенно.
+- Android update 4→5 на эмуляторе: все 334 файла DB/files побайтово сохранены. Приватные backup/bundle/старый APK: `F:\ReplikaToolchain\v1.3-preservation`.
+- Доступен только API35 x86_64 AVD; физический vivo, его исходная запись и независимый размеченный RU corpus отсутствуют. RTF/peak/thermal/качество на телефоне не установлены.
+
+Проверки V1.3: 38 JVM, 60 разных Android методов прошли на API35/x86_64 без failures/skips. Single Worker на контролируемом повторе 247.589 s: 55.341 s, все ID 0. Automatic probe 247.590 s: 1 участник, но four-speaker fixture остаётся 7 вместо 4; automatic quality acceptance FAIL. Старый/новый GigaAM Worker 11.290 s: 21.455/12.809 s на AVD с неконтролируемыми кэшами/нагрузкой. Исходный vivo не проверен.
+
+Ниже сохранено предыдущее состояние V1.2.1 для истории; его числа не являются свежими результатами V1.3.
+
+---
+
 # REPLIKA V1.2.1 · состояние на 02.11.2026
 
 **Продукт PARTIAL. All-in-One работает в проверенной среде API35/x86_64; vivo X300/physicalarm64 BLOCKED.**

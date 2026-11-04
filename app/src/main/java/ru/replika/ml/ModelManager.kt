@@ -34,7 +34,10 @@ class ModelManager(private val context: Context) {
  fun statuses(): List<ModelStatus> = listOf("giga-v2" to "GigaAM v2 • Russian • INT8", "diar" to "Pyannote 3.0 + 3D-Speaker", "vad" to "Silero VAD", "whisper-tiny" to "Whisper tiny • multilingual • whisper.cpp 1.7.6").map { (id,title) ->
   val selected=files.filter { it.group==id };ModelStatus(id,title,selected.isNotEmpty() && selected.all { valid(it) },selected.sumOf { file(it.path).takeIf(File::isFile)?.length()?:0 },selected.sumOf { it.size })
  }
- fun requireReady(backend: String = "giga-v2") { val required=files.filter { it.group in setOf(backend,"vad","diar") };require(required.isNotEmpty() && required.all { valid(it) }) { "Установите и проверьте все три набора моделей в разделе «Модели»" } }
+ fun requireReady(backend: String = "giga-v2", includeDiarization: Boolean = true) {
+  require(backend in setOf("giga-v2","whisper-tiny"))
+  val groups=if(includeDiarization) setOf(backend,"vad","diar") else setOf(backend,"vad")
+  val required=files.filter { it.group in groups };require(required.isNotEmpty() && required.all { valid(it) }) { "Установите и проверьте все три набора моделей в разделе «Модели»" } }
  suspend fun delete(group: String)=gate.withLock { withContext(Dispatchers.IO) { files.filter { it.group==group }.forEach { file(it.path).delete() } } }
  suspend fun download(group: String, progress: (String)->Unit)=gate.withLock { withContext(Dispatchers.IO) {
   val selected=files.filter { it.group==group };require(selected.isNotEmpty())

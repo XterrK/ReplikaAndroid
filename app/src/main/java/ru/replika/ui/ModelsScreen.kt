@@ -61,7 +61,7 @@ import java.io.File
   item { Column(verticalArrangement=Arrangement.spacedBy(8.dp)) {
    Text("Движок распознавания",style=MaterialTheme.typography.titleMedium)
    AsrChoice("GigaAM v2","Русский · encoder INT8",backend=="giga-v2") { vm.selectBackend("giga-v2") }
-   AsrChoice("Whisper tiny","Multilingual · язык: русский",backend=="whisper-tiny") { vm.selectBackend("whisper-tiny") }
+   AsrChoice("Whisper tiny","Экспериментальный · multilingual · русский",backend=="whisper-tiny") { vm.selectBackend("whisper-tiny") }
   } }
   if(BuildConfig.BUNDLED_MODELS) item {
    TextButton(onClick={advancedModels=!advancedModels},modifier=Modifier.fillMaxWidth().heightIn(min=48.dp).testTag("models-advanced-toggle")) {

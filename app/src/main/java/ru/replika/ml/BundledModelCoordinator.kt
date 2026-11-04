@@ -32,6 +32,8 @@ class BundledModelCoordinator(private val app: ReplikaApp) {
    val runId = UUID.randomUUID().toString()
    var lastProgress = 0L
    var lastPhase: Phase? = null
+   var phaseStarted=started
+   val stageTimes=linkedMapOf<String,Long>()
    val diagnostic = JSONObject().put("runId",runId).put("version",BuildConfig.VERSION_NAME)
     .put("asset",BuildConfig.EMBEDDED_MODEL_ASSET).put("startedAtUtc",java.time.Instant.now().toString())
    val folder = File(app.filesDir,"provisioning-diagnostics").apply { mkdirs() }
@@ -43,7 +45,10 @@ class BundledModelCoordinator(private val app: ReplikaApp) {
    }
    try {
     val context = currentCoroutineContext()
+    val gateStarted=SystemClock.elapsedRealtime()
     val report = app.models.gate.withLock {
+     stageTimes["nativeGateWaitMs"]=SystemClock.elapsedRealtime()-gateStarted
+     phaseStarted=SystemClock.elapsedRealtime()
      val specs = app.models.specifications()
      val stage = File(app.filesDir,"bundled-model-staging/${BundledModelInstaller.manifestFingerprint(specs)}")
      BundledModelInstaller(specs,app.models.root,stage,
@@ -61,15 +66,18 @@ class BundledModelCoordinator(private val app: ReplikaApp) {
         mutableState.value = State(phase,value.processedBytes,value.totalBytes,value.path)
         // Persist transitions, rather than writing JSON for every 128 KiB read.
         if(phase != lastPhase) {
-         diagnostic.put("phase",phase.name).put("processedBytes",value.processedBytes)
+         lastPhase?.let { previous -> stageTimes[previous.name]=(stageTimes[previous.name]?:0)+(now-phaseStarted) }
+         phaseStarted=now
+         diagnostic.put("stagesMs",JSONObject(stageTimes as Map<*,*>)).put("phase",phase.name).put("processedBytes",value.processedBytes)
           .put("totalBytes",value.totalBytes).put("elapsedMs",now-started)
-         persist();Log.i("ReplikaProvision","$phase ${value.processedBytes}/${value.totalBytes}")
+         persist();Log.i("ReplikaProvision",JSONObject().put("run",runId).put("phase",phase.name).put("elapsedMs",now-started).put("bytes",value.processedBytes).put("totalBytes",value.totalBytes).put("stagesMs",JSONObject(stageTimes as Map<*,*>)).toString())
         }
         lastPhase = phase;lastProgress = now
        }
       }).install()
     }
-    diagnostic.put("phase","READY").put("elapsedMs",SystemClock.elapsedRealtime()-started)
+    lastPhase?.let { previous -> stageTimes[previous.name]=(stageTimes[previous.name]?:0)+(SystemClock.elapsedRealtime()-phaseStarted) }
+    diagnostic.put("stagesMs",JSONObject(stageTimes as Map<*,*>)).put("phase","READY").put("elapsedMs",SystemClock.elapsedRealtime()-started)
      .put("validSkipped",report.validSkipped).put("reusedStage",report.reusedStage)
      .put("extracted",report.extracted).put("published",report.published).put("modelBytes",report.modelBytes)
     persist()

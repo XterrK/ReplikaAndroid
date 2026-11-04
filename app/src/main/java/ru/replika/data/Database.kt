@@ -47,6 +47,7 @@ abstract class ReplikaDao {
  @Query("DELETE FROM recordings WHERE id=:id") abstract suspend fun deleteRecording(id: String): Int
  @Query("UPDATE recordings SET status=:status,phase=:phase,error=:error WHERE id=:id") abstract suspend fun status(id: String,status: String,phase: String,error: String?=null)
  @Query("SELECT DISTINCT recordingId FROM segments WHERE text LIKE '%' || :query || '%'") abstract fun searchFlow(query: String): Flow<List<String>>
+ @Query("UPDATE recordings SET diagnostics=:diagnostics WHERE id=:id") abstract suspend fun diagnostics(id: String,diagnostics: String)
  @Transaction open suspend fun complete(recording: Recording, rows: List<SegmentRow>) {
   clearSegments(recording.id); insertSegments(rows); insert(recording)
  }

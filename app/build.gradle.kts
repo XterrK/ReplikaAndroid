@@ -33,7 +33,7 @@ android {
  if (!providers.gradleProperty("skipWhisperBuild").isPresent) { externalNativeBuild { cmake { path = file("src/main/cpp/CMakeLists.txt"); version = "3.22.1" } } }
  defaultConfig {
   applicationId = "ru.replika.offline"; minSdk = 26; targetSdk = 35
-  versionCode = 4; versionName = "1.2.1"
+  versionCode = 5; versionName = "1.3"
   buildConfigField("boolean", "BUNDLED_MODELS", "false")
   buildConfigField("String", "EMBEDDED_MODEL_ASSET", "\"offline/replika-models.zip\"")
   // Model SHA-256 values come from models-lock.json; the generated ZIP fingerprint is build evidence.

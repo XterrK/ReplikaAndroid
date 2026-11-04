@@ -1,11 +1,11 @@
 package ru.replika.ml
-class WhisperEngine(models: ModelManager): AsrEngine {
+class WhisperEngine(models: ModelManager, private val threads: Int = 2): AsrEngine {
  override val source="Whisper tiny multilingual / whisper.cpp 1.7.6 / ru"
  private var handle=init(models.file("whisper-tiny/ggml-tiny.bin").path).also { require(it!=0L) { "Не удалось загрузить Whisper tiny" } }
- override fun recognize(samples: FloatArray)=transcribe(handle,samples).trim()
+ override fun recognize(samples: FloatArray)=transcribe(handle,samples,ru.replika.domain.MlPolicy.threads(threads)).trim()
  override fun close() { if(handle!=0L) { free(handle);handle=0 } }
  private external fun init(path: String): Long
- private external fun transcribe(handle: Long,audio: FloatArray): String
+ private external fun transcribe(handle: Long,audio: FloatArray,threads: Int): String
  private external fun free(handle: Long)
  companion object { init { System.loadLibrary("replika-whisper") } }
 }

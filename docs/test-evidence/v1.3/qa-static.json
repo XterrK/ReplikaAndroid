@@ -1,0 +1,327 @@
+{
+  "checkedAtUtc": "2026-11-04T18:22:33.777085+00:00",
+  "apk": "/mnt/f/Hackathons/ReplikaAndroid/app/build/outputs/apk/allInOneQa/app-allInOneQa.apk",
+  "expectedAbis": [
+    "x86_64"
+  ],
+  "errors": [],
+  "runtime16KiBValidation": "BLOCKED: requires an actual 16 KiB Android runtime",
+  "scope": "Pack/model hashes, one embedded ZIP, target ABIs, ZIP/ELF 16 KiB alignment and DT_NEEDED; no inference/runtime claim",
+  "bytes": 381467192,
+  "sha256": "191114fe10808e3d1d5caaeb0d60c8c046c7694259bc155ba3bdd49b8c69770b",
+  "embeddedPackCopies": 1,
+  "looseModelAssets": [],
+  "embeddedPack": {
+    "name": "assets/offline/replika-models.zip",
+    "bytes": 281336043,
+    "apkStoredBytes": 281336043,
+    "zipStored": true,
+    "sha256": "fb9b088dd582749d5f8713260d165ef770434188d23c498837592c9c98854770",
+    "manifestSha256": "3f3f2845599c29d9bcda86985a4892e9c6190f29b47d8d0dd8255538a14353b6",
+    "models": [
+      {
+        "path": "giga-v2/encoder.int8.onnx",
+        "bytes": 236314144,
+        "sha256": "b51efc61e3c0037ad1cb804079975468de3d175324fe8323aef5be4f5c6a38a1"
+      },
+      {
+        "path": "giga-v2/decoder.onnx",
+        "bytes": 3331651,
+        "sha256": "208e24cc150fb0ebca3fab169502796daa12e0255dcf7b4acf65015c436e9f76"
+      },
+      {
+        "path": "giga-v2/joiner.onnx",
+        "bytes": 1440448,
+        "sha256": "4b02eced18e033fc5173e6c47b6ab166b5efea8d35c3f33a6755ff0d622fb5b0"
+      },
+      {
+        "path": "giga-v2/tokens.txt",
+        "bytes": 196,
+        "sha256": "17cc514451bcceac9c280068c71502f8448f99e9fb1456b8d0761651fd0392f2"
+      },
+      {
+        "path": "diar/segmentation.onnx",
+        "bytes": 5992913,
+        "sha256": "220ad67ca923bef2fa91f2390c786097bf305bceb5e261d4af67b38e938e1079"
+      },
+      {
+        "path": "diar/embedding.onnx",
+        "bytes": 39593761,
+        "sha256": "1a331345f04805badbb495c775a6ddffcdd1a732567d5ec8b3d5749e3c7a5e4b"
+      },
+      {
+        "path": "vad/silero_vad.onnx",
+        "bytes": 643854,
+        "sha256": "9e2449e1087496d8d4caba907f23e0bd3f78d91fa552479bb9c23ac09cbb1fd6"
+      },
+      {
+        "path": "whisper-tiny/ggml-tiny.bin",
+        "bytes": 77691713,
+        "sha256": "be07e048e1e599ad46341c8d2a135645097a538221678b7acdd1b1919c6e1b21"
+      }
+    ],
+    "modelBytes": 365008680,
+    "licenses": [
+      "licenses/3d-LICENSE.txt",
+      "licenses/NOTICE.md",
+      "licenses/giga-LICENSE.txt",
+      "licenses/onnxruntime-LICENSE.txt",
+      "licenses/pyannote-LICENSE.txt",
+      "licenses/sherpa-onnx-LICENSE.txt",
+      "licenses/vad-LICENSE.txt",
+      "licenses/whisper-LICENSE.txt"
+    ]
+  },
+  "actualAbis": [
+    "x86_64"
+  ],
+  "nativeLibraries": [
+    {
+      "name": "lib/x86_64/libandroidx.graphics.path.so",
+      "bytes": 10760,
+      "zipDataOffset": 66191360,
+      "zipStored": true,
+      "zipAlignment16KiB": "PASS",
+      "machine": 62,
+      "loadSegments": [
+        {
+          "offset": 0,
+          "virtualAddress": 0,
+          "fileBytes": 7872,
+          "memoryBytes": 7872,
+          "alignment": 16384,
+          "alignmentAtLeast16KiB": true,
+          "offsetAddressCongruent16KiB": true
+        },
+        {
+          "offset": 7872,
+          "virtualAddress": 24256,
+          "fileBytes": 936,
+          "memoryBytes": 936,
+          "alignment": 16384,
+          "alignmentAtLeast16KiB": true,
+          "offsetAddressCongruent16KiB": true
+        },
+        {
+          "offset": 8808,
+          "virtualAddress": 41576,
+          "fileBytes": 0,
+          "memoryBytes": 16,
+          "alignment": 16384,
+          "alignmentAtLeast16KiB": true,
+          "offsetAddressCongruent16KiB": true
+        }
+      ],
+      "elfLoadAlignment16KiB": "PASS",
+      "dependencies": [
+        {
+          "name": "libm.so",
+          "providedBy": "Android public native library"
+        },
+        {
+          "name": "libdl.so",
+          "providedBy": "Android public native library"
+        },
+        {
+          "name": "libc.so",
+          "providedBy": "Android public native library"
+        }
+      ]
+    },
+    {
+      "name": "lib/x86_64/libonnxruntime.so",
+      "bytes": 25581112,
+      "zipDataOffset": 66207744,
+      "zipStored": true,
+      "zipAlignment16KiB": "PASS",
+      "machine": 62,
+      "loadSegments": [
+        {
+          "offset": 0,
+          "virtualAddress": 0,
+          "fileBytes": 5745632,
+          "memoryBytes": 5745632,
+          "alignment": 16384,
+          "alignmentAtLeast16KiB": true,
+          "offsetAddressCongruent16KiB": true
+        },
+        {
+          "offset": 5745632,
+          "virtualAddress": 5762016,
+          "fileBytes": 19363904,
+          "memoryBytes": 19363904,
+          "alignment": 16384,
+          "alignmentAtLeast16KiB": true,
+          "offsetAddressCongruent16KiB": true
+        },
+        {
+          "offset": 25109536,
+          "virtualAddress": 25142304,
+          "fileBytes": 465616,
+          "memoryBytes": 465888,
+          "alignment": 16384,
+          "alignmentAtLeast16KiB": true,
+          "offsetAddressCongruent16KiB": true
+        },
+        {
+          "offset": 25575152,
+          "virtualAddress": 25624304,
+          "fileBytes": 3680,
+          "memoryBytes": 37648,
+          "alignment": 16384,
+          "alignmentAtLeast16KiB": true,
+          "offsetAddressCongruent16KiB": true
+        }
+      ],
+      "elfLoadAlignment16KiB": "PASS",
+      "dependencies": [
+        {
+          "name": "libdl.so",
+          "providedBy": "Android public native library"
+        },
+        {
+          "name": "liblog.so",
+          "providedBy": "Android public native library"
+        },
+        {
+          "name": "libm.so",
+          "providedBy": "Android public native library"
+        },
+        {
+          "name": "libc.so",
+          "providedBy": "Android public native library"
+        }
+      ]
+    },
+    {
+      "name": "lib/x86_64/libreplika-whisper.so",
+      "bytes": 2495088,
+      "zipDataOffset": 91799552,
+      "zipStored": true,
+      "zipAlignment16KiB": "PASS",
+      "machine": 62,
+      "loadSegments": [
+        {
+          "offset": 0,
+          "virtualAddress": 0,
+          "fileBytes": 2440224,
+          "memoryBytes": 2440224,
+          "alignment": 16384,
+          "alignmentAtLeast16KiB": true,
+          "offsetAddressCongruent16KiB": true
+        },
+        {
+          "offset": 2440224,
+          "virtualAddress": 2456608,
+          "fileBytes": 51904,
+          "memoryBytes": 54240,
+          "alignment": 16384,
+          "alignmentAtLeast16KiB": true,
+          "offsetAddressCongruent16KiB": true
+        },
+        {
+          "offset": 2492128,
+          "virtualAddress": 2524896,
+          "fileBytes": 752,
+          "memoryBytes": 538944,
+          "alignment": 16384,
+          "alignmentAtLeast16KiB": true,
+          "offsetAddressCongruent16KiB": true
+        }
+      ],
+      "elfLoadAlignment16KiB": "PASS",
+      "dependencies": [
+        {
+          "name": "libandroid.so",
+          "providedBy": "Android public native library"
+        },
+        {
+          "name": "liblog.so",
+          "providedBy": "Android public native library"
+        },
+        {
+          "name": "libm.so",
+          "providedBy": "Android public native library"
+        },
+        {
+          "name": "libdl.so",
+          "providedBy": "Android public native library"
+        },
+        {
+          "name": "libc.so",
+          "providedBy": "Android public native library"
+        }
+      ]
+    },
+    {
+      "name": "lib/x86_64/libsherpa-onnx-jni.so",
+      "bytes": 5053592,
+      "zipDataOffset": 94306304,
+      "zipStored": true,
+      "zipAlignment16KiB": "PASS",
+      "machine": 62,
+      "loadSegments": [
+        {
+          "offset": 0,
+          "virtualAddress": 0,
+          "fileBytes": 5009568,
+          "memoryBytes": 5009568,
+          "alignment": 16384,
+          "alignmentAtLeast16KiB": true,
+          "offsetAddressCongruent16KiB": true
+        },
+        {
+          "offset": 5009568,
+          "virtualAddress": 5025952,
+          "fileBytes": 41352,
+          "memoryBytes": 44896,
+          "alignment": 16384,
+          "alignmentAtLeast16KiB": true,
+          "offsetAddressCongruent16KiB": true
+        },
+        {
+          "offset": 5050920,
+          "virtualAddress": 5083688,
+          "fileBytes": 594,
+          "memoryBytes": 16689,
+          "alignment": 16384,
+          "alignmentAtLeast16KiB": true,
+          "offsetAddressCongruent16KiB": true
+        }
+      ],
+      "elfLoadAlignment16KiB": "PASS",
+      "dependencies": [
+        {
+          "name": "libandroid.so",
+          "providedBy": "Android public native library"
+        },
+        {
+          "name": "liblog.so",
+          "providedBy": "Android public native library"
+        },
+        {
+          "name": "libonnxruntime.so",
+          "providedBy": "APK same ABI"
+        },
+        {
+          "name": "libm.so",
+          "providedBy": "Android public native library"
+        },
+        {
+          "name": "libdl.so",
+          "providedBy": "Android public native library"
+        },
+        {
+          "name": "libc.so",
+          "providedBy": "Android public native library"
+        }
+      ]
+    }
+  ],
+  "zipalign": {
+    "exitCode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  "staticVerification": "PASS"
+}
