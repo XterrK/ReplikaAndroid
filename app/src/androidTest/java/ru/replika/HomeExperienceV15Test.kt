@@ -79,6 +79,8 @@ class HomeExperienceV15Test {
   File(proof,"jury.json").writeBytes(juryBytes)
   File(proof,"diagnostic.json").writeBytes(diagnostic.readBytes())
   File(proof,"scope.json").writeText(org.json.JSONObject().put("controlledUiFixture",true).put("newModelInference",false).put("sourceTest","HomeExperienceV15Test").put("bothFormatsExportedThroughUi",true).put("juryFileNotOverwritten",true).toString(2))
+  // File creation precedes the Main-dispatcher chooser launch. Wait for its window before Back.
+  compose.waitUntil(15000) { automation.rootInActiveWindow?.packageName?.toString() in setOf("android","com.android.intentresolver") }
   automation.performGlobalAction(android.accessibilityservice.AccessibilityService.GLOBAL_ACTION_BACK)
   compose.waitUntil(10000) {
    var focused=false

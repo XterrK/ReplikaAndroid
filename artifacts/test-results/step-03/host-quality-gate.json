@@ -1,0 +1,45 @@
+{
+  "at": "2026-11-06T22:22:04.144657+00:00",
+  "status": "HOST_PRIMARY_QUALITY_PASS",
+  "checks": {
+    "original_primary_gate": true,
+    "dev_short_deletions_target": true,
+    "reserve_raw_no_regression": true,
+    "reserve_normalized_no_regression": true,
+    "all23_word_projection_supported": true
+  },
+  "policy_config": "configs/eval/vad-words-context600.json",
+  "source_reports": {
+    "artifacts/test-results/step-03/comparison-context600-selected-host/report.json": "ff42b2f8a47d24f446315a181090f3922ef280710f9b5aa149b2998548fc5b44",
+    "artifacts/test-results/step-03/comparison-reserve-context600-host/report.json": "0c8b53cb22346f353c3ba4a7e3e43f76272fd54c9cbcdb458f63a03923e53f86"
+  },
+  "supported_case_diagnostics": [
+    "artifacts/test-results/step-03/context600-selected-host/dev-01-two-clean/diagnostics.json",
+    "artifacts/test-results/step-03/context600-selected-host/dev-02-three-clean/diagnostics.json",
+    "artifacts/test-results/step-03/context600-selected-host/dev-03-short/diagnostics.json",
+    "artifacts/test-results/step-03/context600-selected-host/dev-04-expressive/diagnostics.json",
+    "artifacts/test-results/step-03/context600-selected-host/dev-05-whisper/diagnostics.json",
+    "artifacts/test-results/step-03/context600-selected-host/dev-06-overlap/diagnostics.json",
+    "artifacts/test-results/step-03/context600-selected-host/dev-mono-m/diagnostics.json",
+    "artifacts/test-results/step-03/context600-selected-host/dev-mono-s/diagnostics.json",
+    "artifacts/test-results/step-03/context600-selected-host/holdout-01-two-clean/diagnostics.json",
+    "artifacts/test-results/step-03/context600-selected-host/holdout-02-three-clean/diagnostics.json",
+    "artifacts/test-results/step-03/context600-selected-host/holdout-03-short/diagnostics.json",
+    "artifacts/test-results/step-03/context600-selected-host/holdout-04-overlap-expressive/diagnostics.json",
+    "artifacts/test-results/step-03/context600-selected-host/holdout-mono-d/diagnostics.json",
+    "artifacts/test-results/step-03/reserve-context600-host/reserve-01-two-clean/diagnostics.json",
+    "artifacts/test-results/step-03/reserve-context600-host/reserve-02-two-clean/diagnostics.json",
+    "artifacts/test-results/step-03/reserve-context600-host/reserve-03-three-clean/diagnostics.json",
+    "artifacts/test-results/step-03/reserve-context600-host/reserve-04-three-clean/diagnostics.json",
+    "artifacts/test-results/step-03/reserve-context600-host/reserve-05-short/diagnostics.json",
+    "artifacts/test-results/step-03/reserve-context600-host/reserve-06-short/diagnostics.json",
+    "artifacts/test-results/step-03/reserve-context600-host/reserve-07-expressive/diagnostics.json",
+    "artifacts/test-results/step-03/reserve-context600-host/reserve-08-expressive/diagnostics.json",
+    "artifacts/test-results/step-03/reserve-context600-host/reserve-09-overlap/diagnostics.json",
+    "artifacts/test-results/step-03/reserve-context600-host/reserve-10-overlap/diagnostics.json"
+  ],
+  "word_timing_acceptance": null,
+  "native_gate": "NOT_RUN",
+  "production_default": "V1.6 retained; native candidate behind explicit build/work-data flag",
+  "scope": "Host raw/normalized quality and short-deletion gate only. Independent word-timing target and ARM/phone acceptance are not established."
+}

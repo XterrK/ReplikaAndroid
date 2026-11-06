@@ -1,0 +1,1626 @@
+{
+  "schema_version": 1,
+  "created_at": "2026-11-06T22:21:06.180548+00:00",
+  "selected_split": "all",
+  "inputs": {
+    "baseline": "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-03/reserve-v16-host",
+    "candidate": "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-03/reserve-context600-host",
+    "manifest": "/mnt/d/ReplikaAndroid/ReplikaAndroid/benchmark/eval-reserve/manifest.json",
+    "manifest_sha256": "765e8bb8ecb83d84fcc61081d82ee995faf4741718c01d99f84c078ec0fed5d3",
+    "selected_case_ids": [
+      "reserve-01-two-clean",
+      "reserve-02-two-clean",
+      "reserve-03-three-clean",
+      "reserve-04-three-clean",
+      "reserve-05-short",
+      "reserve-06-short",
+      "reserve-07-expressive",
+      "reserve-08-expressive",
+      "reserve-09-overlap",
+      "reserve-10-overlap"
+    ],
+    "validation": "Exact selected IDs, declared original audio SHA against manifest, independent source/copied reference hashes, optional saved evidence hashes; external audio not rehashed by this report"
+  },
+  "scope": "Saved host outputs only; no inference, no summary.json reads, no excluded split case/reference reads. Utterance-interval DER/timing proxy is not natural-dialogue or word-timestamp acceptance. Host RTF is not phone performance.",
+  "by_split": {
+    "holdout": {
+      "baseline": {
+        "cases": 10,
+        "case_ids": [
+          "reserve-01-two-clean",
+          "reserve-02-two-clean",
+          "reserve-03-three-clean",
+          "reserve-04-three-clean",
+          "reserve-05-short",
+          "reserve-06-short",
+          "reserve-07-expressive",
+          "reserve-08-expressive",
+          "reserve-09-overlap",
+          "reserve-10-overlap"
+        ],
+        "wer_raw": {
+          "errors": 135,
+          "substitutions": 111,
+          "deletions": 18,
+          "insertions": 6,
+          "reference_tokens": 743,
+          "hypothesis_tokens": 731,
+          "available_cases": 10,
+          "total_cases": 10,
+          "missing_cases": [],
+          "complete": true,
+          "rate": 0.1816958277254374
+        },
+        "wer_punctuation_tokens": {
+          "errors": 150,
+          "substitutions": 95,
+          "deletions": 34,
+          "insertions": 21,
+          "reference_tokens": 954,
+          "hypothesis_tokens": 941,
+          "available_cases": 10,
+          "total_cases": 10,
+          "missing_cases": [],
+          "complete": true,
+          "rate": 0.15723270440251572
+        },
+        "wer_normalized": {
+          "errors": 42,
+          "substitutions": 19,
+          "deletions": 16,
+          "insertions": 7,
+          "reference_tokens": 744,
+          "hypothesis_tokens": 735,
+          "available_cases": 10,
+          "total_cases": 10,
+          "missing_cases": [],
+          "complete": true,
+          "rate": 0.056451612903225805
+        },
+        "cer_normalized": {
+          "errors": 157,
+          "substitutions": 22,
+          "deletions": 106,
+          "insertions": 29,
+          "reference_tokens": 3831,
+          "hypothesis_tokens": 3754,
+          "available_cases": 10,
+          "total_cases": 10,
+          "missing_cases": [],
+          "complete": true,
+          "rate": 0.04098146697990081
+        },
+        "cpwer_raw": {
+          "errors": 572,
+          "substitutions": 106,
+          "deletions": 239,
+          "insertions": 227,
+          "reference_tokens": 743,
+          "hypothesis_tokens": 731,
+          "available_cases": 10,
+          "total_cases": 10,
+          "missing_cases": [],
+          "complete": true,
+          "rate": 0.7698519515477793
+        },
+        "cpwer_normalized": {
+          "errors": 529,
+          "substitutions": 60,
+          "deletions": 239,
+          "insertions": 230,
+          "reference_tokens": 744,
+          "hypothesis_tokens": 735,
+          "available_cases": 10,
+          "total_cases": 10,
+          "missing_cases": [],
+          "complete": true,
+          "rate": 0.7110215053763441
+        },
+        "der_collar_0ms": {
+          "miss_ms": 46241.0,
+          "false_alarm_ms": 3171.0,
+          "confusion_ms": 120681.0,
+          "reference_speaker_ms": 346423.0,
+          "available_cases": 10,
+          "total_cases": 10,
+          "missing_cases": [],
+          "complete": true,
+          "rate": 0.49099799955545675
+        },
+        "der_collar_250ms": {
+          "miss_ms": 36546.0,
+          "false_alarm_ms": 993.0,
+          "confusion_ms": 117402.0,
+          "reference_speaker_ms": 329423.0,
+          "available_cases": 10,
+          "total_cases": 10,
+          "missing_cases": [],
+          "complete": true,
+          "rate": 0.4703405651700094
+        },
+        "native_der_collar_0ms": {
+          "miss_ms": 30591.0,
+          "false_alarm_ms": 5330.0,
+          "confusion_ms": 129181.0,
+          "reference_speaker_ms": 346423.0,
+          "available_cases": 10,
+          "total_cases": 10,
+          "missing_cases": [],
+          "complete": true,
+          "rate": 0.4765907575420801
+        },
+        "native_der_collar_250ms": {
+          "miss_ms": 21149.0,
+          "false_alarm_ms": 2585.0,
+          "confusion_ms": 125845.0,
+          "reference_speaker_ms": 329423.0,
+          "available_cases": 10,
+          "total_cases": 10,
+          "missing_cases": [],
+          "complete": true,
+          "rate": 0.4540636203300923
+        },
+        "punctuation": {
+          "true_positive": 142,
+          "false_positive": 49,
+          "false_negative": 49,
+          "available_cases": 10,
+          "total_cases": 10,
+          "missing_cases": [],
+          "complete": true,
+          "precision": 0.743455497382199,
+          "recall": 0.743455497382199,
+          "f1": 0.743455497382199
+        },
+        "initial_case": {
+          "correct": 54,
+          "reference_initials": 60,
+          "aligned_reference_initials": 54,
+          "unmatched_reference_initials": 6,
+          "available_cases": 10,
+          "total_cases": 10,
+          "missing_cases": [],
+          "complete": true,
+          "accuracy": 0.9,
+          "conditional_accuracy": 1.0
+        },
+        "timing": {
+          "matched_pairs": 58,
+          "reference_intervals": 60,
+          "hypothesis_intervals": 127,
+          "unmatched_reference": 2,
+          "unmatched_hypothesis": 69,
+          "pairs_over_250ms": 46,
+          "available_cases": 10,
+          "total_cases": 10,
+          "missing_cases": [],
+          "complete": true,
+          "per_pair_complete": true,
+          "missing_pair_cases": [],
+          "median_start_abs_error_ms": 372.0,
+          "mean_start_abs_error_ms": 1310.0172413793102,
+          "median_end_abs_error_ms": 460.5,
+          "mean_end_abs_error_ms": 1490.655172413793,
+          "reference_coverage": 0.9666666666666667,
+          "hypothesis_coverage": 0.4566929133858268,
+          "fraction_over_250ms": 0.7931034482758621,
+          "reference_fraction_over_250ms_or_unmatched": 0.8,
+          "median_both_below_200ms_diagnostic": false,
+          "word_timestamp_acceptance": null,
+          "scope": "Utterance/clip-bound reference proxy; global medians across matched pairs. Not word-timestamp acceptance; always inspect coverage."
+        },
+        "export_speakers": {
+          "available_cases": 10,
+          "total_cases": 10,
+          "complete": true,
+          "missing_cases": [],
+          "exact_cases": 1,
+          "absolute_error_sum": 26,
+          "exact_rate": 0.1,
+          "mean_absolute_error": 2.6,
+          "cases": [
+            {
+              "id": "reserve-01-two-clean",
+              "reference": 2,
+              "hypothesis": 6,
+              "signed_error": 4,
+              "absolute_error": 4
+            },
+            {
+              "id": "reserve-02-two-clean",
+              "reference": 2,
+              "hypothesis": 5,
+              "signed_error": 3,
+              "absolute_error": 3
+            },
+            {
+              "id": "reserve-03-three-clean",
+              "reference": 3,
+              "hypothesis": 7,
+              "signed_error": 4,
+              "absolute_error": 4
+            },
+            {
+              "id": "reserve-04-three-clean",
+              "reference": 3,
+              "hypothesis": 5,
+              "signed_error": 2,
+              "absolute_error": 2
+            },
+            {
+              "id": "reserve-05-short",
+              "reference": 2,
+              "hypothesis": 1,
+              "signed_error": -1,
+              "absolute_error": 1
+            },
+            {
+              "id": "reserve-06-short",
+              "reference": 2,
+              "hypothesis": 2,
+              "signed_error": 0,
+              "absolute_error": 0
+            },
+            {
+              "id": "reserve-07-expressive",
+              "reference": 3,
+              "hypothesis": 7,
+              "signed_error": 4,
+              "absolute_error": 4
+            },
+            {
+              "id": "reserve-08-expressive",
+              "reference": 3,
+              "hypothesis": 5,
+              "signed_error": 2,
+              "absolute_error": 2
+            },
+            {
+              "id": "reserve-09-overlap",
+              "reference": 2,
+              "hypothesis": 5,
+              "signed_error": 3,
+              "absolute_error": 3
+            },
+            {
+              "id": "reserve-10-overlap",
+              "reference": 3,
+              "hypothesis": 6,
+              "signed_error": 3,
+              "absolute_error": 3
+            }
+          ]
+        },
+        "native_speakers": {
+          "available_cases": 10,
+          "total_cases": 10,
+          "complete": true,
+          "missing_cases": [],
+          "exact_cases": 1,
+          "absolute_error_sum": 26,
+          "exact_rate": 0.1,
+          "mean_absolute_error": 2.6,
+          "cases": [
+            {
+              "id": "reserve-01-two-clean",
+              "reference": 2,
+              "hypothesis": 6,
+              "signed_error": 4,
+              "absolute_error": 4
+            },
+            {
+              "id": "reserve-02-two-clean",
+              "reference": 2,
+              "hypothesis": 5,
+              "signed_error": 3,
+              "absolute_error": 3
+            },
+            {
+              "id": "reserve-03-three-clean",
+              "reference": 3,
+              "hypothesis": 7,
+              "signed_error": 4,
+              "absolute_error": 4
+            },
+            {
+              "id": "reserve-04-three-clean",
+              "reference": 3,
+              "hypothesis": 5,
+              "signed_error": 2,
+              "absolute_error": 2
+            },
+            {
+              "id": "reserve-05-short",
+              "reference": 2,
+              "hypothesis": 1,
+              "signed_error": -1,
+              "absolute_error": 1
+            },
+            {
+              "id": "reserve-06-short",
+              "reference": 2,
+              "hypothesis": 2,
+              "signed_error": 0,
+              "absolute_error": 0
+            },
+            {
+              "id": "reserve-07-expressive",
+              "reference": 3,
+              "hypothesis": 7,
+              "signed_error": 4,
+              "absolute_error": 4
+            },
+            {
+              "id": "reserve-08-expressive",
+              "reference": 3,
+              "hypothesis": 5,
+              "signed_error": 2,
+              "absolute_error": 2
+            },
+            {
+              "id": "reserve-09-overlap",
+              "reference": 2,
+              "hypothesis": 5,
+              "signed_error": 3,
+              "absolute_error": 3
+            },
+            {
+              "id": "reserve-10-overlap",
+              "reference": 3,
+              "hypothesis": 6,
+              "signed_error": 3,
+              "absolute_error": 3
+            }
+          ]
+        },
+        "audio_ms": 367423,
+        "processing_ms": 320576.634803,
+        "processing_ms_available_cases": 10,
+        "runner_wall_ms": 325439,
+        "runner_wall_ms_available_cases": 10,
+        "rtf": 0.8725001831757947
+      },
+      "candidate": {
+        "cases": 10,
+        "case_ids": [
+          "reserve-01-two-clean",
+          "reserve-02-two-clean",
+          "reserve-03-three-clean",
+          "reserve-04-three-clean",
+          "reserve-05-short",
+          "reserve-06-short",
+          "reserve-07-expressive",
+          "reserve-08-expressive",
+          "reserve-09-overlap",
+          "reserve-10-overlap"
+        ],
+        "wer_raw": {
+          "errors": 83,
+          "substitutions": 71,
+          "deletions": 11,
+          "insertions": 1,
+          "reference_tokens": 743,
+          "hypothesis_tokens": 733,
+          "available_cases": 10,
+          "total_cases": 10,
+          "missing_cases": [],
+          "complete": true,
+          "rate": 0.1117092866756393
+        },
+        "wer_punctuation_tokens": {
+          "errors": 93,
+          "substitutions": 66,
+          "deletions": 17,
+          "insertions": 10,
+          "reference_tokens": 954,
+          "hypothesis_tokens": 947,
+          "available_cases": 10,
+          "total_cases": 10,
+          "missing_cases": [],
+          "complete": true,
+          "rate": 0.09748427672955975
+        },
+        "wer_normalized": {
+          "errors": 24,
+          "substitutions": 12,
+          "deletions": 10,
+          "insertions": 2,
+          "reference_tokens": 744,
+          "hypothesis_tokens": 736,
+          "available_cases": 10,
+          "total_cases": 10,
+          "missing_cases": [],
+          "complete": true,
+          "rate": 0.03225806451612903
+        },
+        "cer_normalized": {
+          "errors": 115,
+          "substitutions": 19,
+          "deletions": 88,
+          "insertions": 8,
+          "reference_tokens": 3831,
+          "hypothesis_tokens": 3751,
+          "available_cases": 10,
+          "total_cases": 10,
+          "missing_cases": [],
+          "complete": true,
+          "rate": 0.03001827199164709
+        },
+        "cpwer_raw": {
+          "errors": 551,
+          "substitutions": 85,
+          "deletions": 238,
+          "insertions": 228,
+          "reference_tokens": 743,
+          "hypothesis_tokens": 733,
+          "available_cases": 10,
+          "total_cases": 10,
+          "missing_cases": [],
+          "complete": true,
+          "rate": 0.7415881561238223
+        },
+        "cpwer_normalized": {
+          "errors": 526,
+          "substitutions": 58,
+          "deletions": 238,
+          "insertions": 230,
+          "reference_tokens": 744,
+          "hypothesis_tokens": 736,
+          "available_cases": 10,
+          "total_cases": 10,
+          "missing_cases": [],
+          "complete": true,
+          "rate": 0.706989247311828
+        },
+        "der_collar_0ms": {
+          "miss_ms": 59090.0,
+          "false_alarm_ms": 3147.0,
+          "confusion_ms": 111047.0,
+          "reference_speaker_ms": 346423.0,
+          "available_cases": 10,
+          "total_cases": 10,
+          "missing_cases": [],
+          "complete": true,
+          "rate": 0.5002092817162833
+        },
+        "der_collar_250ms": {
+          "miss_ms": 46942.0,
+          "false_alarm_ms": 1000.0,
+          "confusion_ms": 108863.0,
+          "reference_speaker_ms": 329423.0,
+          "available_cases": 10,
+          "total_cases": 10,
+          "missing_cases": [],
+          "complete": true,
+          "rate": 0.4759989436074591
+        },
+        "native_der_collar_0ms": {
+          "miss_ms": 30591.0,
+          "false_alarm_ms": 5330.0,
+          "confusion_ms": 129181.0,
+          "reference_speaker_ms": 346423.0,
+          "available_cases": 10,
+          "total_cases": 10,
+          "missing_cases": [],
+          "complete": true,
+          "rate": 0.4765907575420801
+        },
+        "native_der_collar_250ms": {
+          "miss_ms": 21149.0,
+          "false_alarm_ms": 2585.0,
+          "confusion_ms": 125845.0,
+          "reference_speaker_ms": 329423.0,
+          "available_cases": 10,
+          "total_cases": 10,
+          "missing_cases": [],
+          "complete": true,
+          "rate": 0.4540636203300923
+        },
+        "punctuation": {
+          "true_positive": 156,
+          "false_positive": 41,
+          "false_negative": 35,
+          "available_cases": 10,
+          "total_cases": 10,
+          "missing_cases": [],
+          "complete": true,
+          "precision": 0.7918781725888325,
+          "recall": 0.8167539267015707,
+          "f1": 0.8041237113402062
+        },
+        "initial_case": {
+          "correct": 55,
+          "reference_initials": 60,
+          "aligned_reference_initials": 55,
+          "unmatched_reference_initials": 5,
+          "available_cases": 10,
+          "total_cases": 10,
+          "missing_cases": [],
+          "complete": true,
+          "accuracy": 0.9166666666666666,
+          "conditional_accuracy": 1.0
+        },
+        "timing": {
+          "matched_pairs": 52,
+          "reference_intervals": 60,
+          "hypothesis_intervals": 96,
+          "unmatched_reference": 8,
+          "unmatched_hypothesis": 44,
+          "pairs_over_250ms": 48,
+          "available_cases": 10,
+          "total_cases": 10,
+          "missing_cases": [],
+          "complete": true,
+          "per_pair_complete": true,
+          "missing_pair_cases": [],
+          "median_start_abs_error_ms": 391.0,
+          "mean_start_abs_error_ms": 1187.826923076923,
+          "median_end_abs_error_ms": 513.0,
+          "mean_end_abs_error_ms": 1348,
+          "reference_coverage": 0.8666666666666667,
+          "hypothesis_coverage": 0.5416666666666666,
+          "fraction_over_250ms": 0.9230769230769231,
+          "reference_fraction_over_250ms_or_unmatched": 0.9333333333333333,
+          "median_both_below_200ms_diagnostic": false,
+          "word_timestamp_acceptance": null,
+          "scope": "Utterance/clip-bound reference proxy; global medians across matched pairs. Not word-timestamp acceptance; always inspect coverage."
+        },
+        "export_speakers": {
+          "available_cases": 10,
+          "total_cases": 10,
+          "complete": true,
+          "missing_cases": [],
+          "exact_cases": 1,
+          "absolute_error_sum": 26,
+          "exact_rate": 0.1,
+          "mean_absolute_error": 2.6,
+          "cases": [
+            {
+              "id": "reserve-01-two-clean",
+              "reference": 2,
+              "hypothesis": 6,
+              "signed_error": 4,
+              "absolute_error": 4
+            },
+            {
+              "id": "reserve-02-two-clean",
+              "reference": 2,
+              "hypothesis": 5,
+              "signed_error": 3,
+              "absolute_error": 3
+            },
+            {
+              "id": "reserve-03-three-clean",
+              "reference": 3,
+              "hypothesis": 7,
+              "signed_error": 4,
+              "absolute_error": 4
+            },
+            {
+              "id": "reserve-04-three-clean",
+              "reference": 3,
+              "hypothesis": 5,
+              "signed_error": 2,
+              "absolute_error": 2
+            },
+            {
+              "id": "reserve-05-short",
+              "reference": 2,
+              "hypothesis": 1,
+              "signed_error": -1,
+              "absolute_error": 1
+            },
+            {
+              "id": "reserve-06-short",
+              "reference": 2,
+              "hypothesis": 2,
+              "signed_error": 0,
+              "absolute_error": 0
+            },
+            {
+              "id": "reserve-07-expressive",
+              "reference": 3,
+              "hypothesis": 7,
+              "signed_error": 4,
+              "absolute_error": 4
+            },
+            {
+              "id": "reserve-08-expressive",
+              "reference": 3,
+              "hypothesis": 5,
+              "signed_error": 2,
+              "absolute_error": 2
+            },
+            {
+              "id": "reserve-09-overlap",
+              "reference": 2,
+              "hypothesis": 5,
+              "signed_error": 3,
+              "absolute_error": 3
+            },
+            {
+              "id": "reserve-10-overlap",
+              "reference": 3,
+              "hypothesis": 6,
+              "signed_error": 3,
+              "absolute_error": 3
+            }
+          ]
+        },
+        "native_speakers": {
+          "available_cases": 10,
+          "total_cases": 10,
+          "complete": true,
+          "missing_cases": [],
+          "exact_cases": 1,
+          "absolute_error_sum": 26,
+          "exact_rate": 0.1,
+          "mean_absolute_error": 2.6,
+          "cases": [
+            {
+              "id": "reserve-01-two-clean",
+              "reference": 2,
+              "hypothesis": 6,
+              "signed_error": 4,
+              "absolute_error": 4
+            },
+            {
+              "id": "reserve-02-two-clean",
+              "reference": 2,
+              "hypothesis": 5,
+              "signed_error": 3,
+              "absolute_error": 3
+            },
+            {
+              "id": "reserve-03-three-clean",
+              "reference": 3,
+              "hypothesis": 7,
+              "signed_error": 4,
+              "absolute_error": 4
+            },
+            {
+              "id": "reserve-04-three-clean",
+              "reference": 3,
+              "hypothesis": 5,
+              "signed_error": 2,
+              "absolute_error": 2
+            },
+            {
+              "id": "reserve-05-short",
+              "reference": 2,
+              "hypothesis": 1,
+              "signed_error": -1,
+              "absolute_error": 1
+            },
+            {
+              "id": "reserve-06-short",
+              "reference": 2,
+              "hypothesis": 2,
+              "signed_error": 0,
+              "absolute_error": 0
+            },
+            {
+              "id": "reserve-07-expressive",
+              "reference": 3,
+              "hypothesis": 7,
+              "signed_error": 4,
+              "absolute_error": 4
+            },
+            {
+              "id": "reserve-08-expressive",
+              "reference": 3,
+              "hypothesis": 5,
+              "signed_error": 2,
+              "absolute_error": 2
+            },
+            {
+              "id": "reserve-09-overlap",
+              "reference": 2,
+              "hypothesis": 5,
+              "signed_error": 3,
+              "absolute_error": 3
+            },
+            {
+              "id": "reserve-10-overlap",
+              "reference": 3,
+              "hypothesis": 6,
+              "signed_error": 3,
+              "absolute_error": 3
+            }
+          ]
+        },
+        "audio_ms": 367423,
+        "processing_ms": 318146.533648,
+        "processing_ms_available_cases": 10,
+        "runner_wall_ms": 322434,
+        "runner_wall_ms_available_cases": 10,
+        "rtf": 0.8658862772553705
+      },
+      "rate_deltas_candidate_minus_baseline": {
+        "wer_raw": -0.06998654104979811,
+        "wer_punctuation_tokens": -0.05974842767295596,
+        "wer_normalized": -0.024193548387096774,
+        "cer_normalized": -0.010963194988253717,
+        "cpwer_raw": -0.02826379542395696,
+        "cpwer_normalized": -0.0040322580645161255,
+        "der_collar_0ms": 0.009211282160826562,
+        "der_collar_250ms": 0.005658378437449707,
+        "native_der_collar_0ms": 0.0,
+        "native_der_collar_250ms": 0.0
+      },
+      "short_utterance_deletion_axis": {
+        "case_ids": [
+          "reserve-05-short",
+          "reserve-06-short"
+        ],
+        "baseline_raw_deletions": 0,
+        "candidate_raw_deletions": 0,
+        "baseline_normalized_deletions": 0,
+        "candidate_normalized_deletions": 0,
+        "relative_deletion_reduction": null,
+        "required_relative_reduction": 0.3,
+        "status": "UNASSESSABLE",
+        "scope": "Additional short-case axis, separate from primary WER gates; zero baseline deletions cannot prove a 30% reduction."
+      }
+    }
+  },
+  "all_selected": {
+    "baseline": {
+      "cases": 10,
+      "case_ids": [
+        "reserve-01-two-clean",
+        "reserve-02-two-clean",
+        "reserve-03-three-clean",
+        "reserve-04-three-clean",
+        "reserve-05-short",
+        "reserve-06-short",
+        "reserve-07-expressive",
+        "reserve-08-expressive",
+        "reserve-09-overlap",
+        "reserve-10-overlap"
+      ],
+      "wer_raw": {
+        "errors": 135,
+        "substitutions": 111,
+        "deletions": 18,
+        "insertions": 6,
+        "reference_tokens": 743,
+        "hypothesis_tokens": 731,
+        "available_cases": 10,
+        "total_cases": 10,
+        "missing_cases": [],
+        "complete": true,
+        "rate": 0.1816958277254374
+      },
+      "wer_punctuation_tokens": {
+        "errors": 150,
+        "substitutions": 95,
+        "deletions": 34,
+        "insertions": 21,
+        "reference_tokens": 954,
+        "hypothesis_tokens": 941,
+        "available_cases": 10,
+        "total_cases": 10,
+        "missing_cases": [],
+        "complete": true,
+        "rate": 0.15723270440251572
+      },
+      "wer_normalized": {
+        "errors": 42,
+        "substitutions": 19,
+        "deletions": 16,
+        "insertions": 7,
+        "reference_tokens": 744,
+        "hypothesis_tokens": 735,
+        "available_cases": 10,
+        "total_cases": 10,
+        "missing_cases": [],
+        "complete": true,
+        "rate": 0.056451612903225805
+      },
+      "cer_normalized": {
+        "errors": 157,
+        "substitutions": 22,
+        "deletions": 106,
+        "insertions": 29,
+        "reference_tokens": 3831,
+        "hypothesis_tokens": 3754,
+        "available_cases": 10,
+        "total_cases": 10,
+        "missing_cases": [],
+        "complete": true,
+        "rate": 0.04098146697990081
+      },
+      "cpwer_raw": {
+        "errors": 572,
+        "substitutions": 106,
+        "deletions": 239,
+        "insertions": 227,
+        "reference_tokens": 743,
+        "hypothesis_tokens": 731,
+        "available_cases": 10,
+        "total_cases": 10,
+        "missing_cases": [],
+        "complete": true,
+        "rate": 0.7698519515477793
+      },
+      "cpwer_normalized": {
+        "errors": 529,
+        "substitutions": 60,
+        "deletions": 239,
+        "insertions": 230,
+        "reference_tokens": 744,
+        "hypothesis_tokens": 735,
+        "available_cases": 10,
+        "total_cases": 10,
+        "missing_cases": [],
+        "complete": true,
+        "rate": 0.7110215053763441
+      },
+      "der_collar_0ms": {
+        "miss_ms": 46241.0,
+        "false_alarm_ms": 3171.0,
+        "confusion_ms": 120681.0,
+        "reference_speaker_ms": 346423.0,
+        "available_cases": 10,
+        "total_cases": 10,
+        "missing_cases": [],
+        "complete": true,
+        "rate": 0.49099799955545675
+      },
+      "der_collar_250ms": {
+        "miss_ms": 36546.0,
+        "false_alarm_ms": 993.0,
+        "confusion_ms": 117402.0,
+        "reference_speaker_ms": 329423.0,
+        "available_cases": 10,
+        "total_cases": 10,
+        "missing_cases": [],
+        "complete": true,
+        "rate": 0.4703405651700094
+      },
+      "native_der_collar_0ms": {
+        "miss_ms": 30591.0,
+        "false_alarm_ms": 5330.0,
+        "confusion_ms": 129181.0,
+        "reference_speaker_ms": 346423.0,
+        "available_cases": 10,
+        "total_cases": 10,
+        "missing_cases": [],
+        "complete": true,
+        "rate": 0.4765907575420801
+      },
+      "native_der_collar_250ms": {
+        "miss_ms": 21149.0,
+        "false_alarm_ms": 2585.0,
+        "confusion_ms": 125845.0,
+        "reference_speaker_ms": 329423.0,
+        "available_cases": 10,
+        "total_cases": 10,
+        "missing_cases": [],
+        "complete": true,
+        "rate": 0.4540636203300923
+      },
+      "punctuation": {
+        "true_positive": 142,
+        "false_positive": 49,
+        "false_negative": 49,
+        "available_cases": 10,
+        "total_cases": 10,
+        "missing_cases": [],
+        "complete": true,
+        "precision": 0.743455497382199,
+        "recall": 0.743455497382199,
+        "f1": 0.743455497382199
+      },
+      "initial_case": {
+        "correct": 54,
+        "reference_initials": 60,
+        "aligned_reference_initials": 54,
+        "unmatched_reference_initials": 6,
+        "available_cases": 10,
+        "total_cases": 10,
+        "missing_cases": [],
+        "complete": true,
+        "accuracy": 0.9,
+        "conditional_accuracy": 1.0
+      },
+      "timing": {
+        "matched_pairs": 58,
+        "reference_intervals": 60,
+        "hypothesis_intervals": 127,
+        "unmatched_reference": 2,
+        "unmatched_hypothesis": 69,
+        "pairs_over_250ms": 46,
+        "available_cases": 10,
+        "total_cases": 10,
+        "missing_cases": [],
+        "complete": true,
+        "per_pair_complete": true,
+        "missing_pair_cases": [],
+        "median_start_abs_error_ms": 372.0,
+        "mean_start_abs_error_ms": 1310.0172413793102,
+        "median_end_abs_error_ms": 460.5,
+        "mean_end_abs_error_ms": 1490.655172413793,
+        "reference_coverage": 0.9666666666666667,
+        "hypothesis_coverage": 0.4566929133858268,
+        "fraction_over_250ms": 0.7931034482758621,
+        "reference_fraction_over_250ms_or_unmatched": 0.8,
+        "median_both_below_200ms_diagnostic": false,
+        "word_timestamp_acceptance": null,
+        "scope": "Utterance/clip-bound reference proxy; global medians across matched pairs. Not word-timestamp acceptance; always inspect coverage."
+      },
+      "export_speakers": {
+        "available_cases": 10,
+        "total_cases": 10,
+        "complete": true,
+        "missing_cases": [],
+        "exact_cases": 1,
+        "absolute_error_sum": 26,
+        "exact_rate": 0.1,
+        "mean_absolute_error": 2.6,
+        "cases": [
+          {
+            "id": "reserve-01-two-clean",
+            "reference": 2,
+            "hypothesis": 6,
+            "signed_error": 4,
+            "absolute_error": 4
+          },
+          {
+            "id": "reserve-02-two-clean",
+            "reference": 2,
+            "hypothesis": 5,
+            "signed_error": 3,
+            "absolute_error": 3
+          },
+          {
+            "id": "reserve-03-three-clean",
+            "reference": 3,
+            "hypothesis": 7,
+            "signed_error": 4,
+            "absolute_error": 4
+          },
+          {
+            "id": "reserve-04-three-clean",
+            "reference": 3,
+            "hypothesis": 5,
+            "signed_error": 2,
+            "absolute_error": 2
+          },
+          {
+            "id": "reserve-05-short",
+            "reference": 2,
+            "hypothesis": 1,
+            "signed_error": -1,
+            "absolute_error": 1
+          },
+          {
+            "id": "reserve-06-short",
+            "reference": 2,
+            "hypothesis": 2,
+            "signed_error": 0,
+            "absolute_error": 0
+          },
+          {
+            "id": "reserve-07-expressive",
+            "reference": 3,
+            "hypothesis": 7,
+            "signed_error": 4,
+            "absolute_error": 4
+          },
+          {
+            "id": "reserve-08-expressive",
+            "reference": 3,
+            "hypothesis": 5,
+            "signed_error": 2,
+            "absolute_error": 2
+          },
+          {
+            "id": "reserve-09-overlap",
+            "reference": 2,
+            "hypothesis": 5,
+            "signed_error": 3,
+            "absolute_error": 3
+          },
+          {
+            "id": "reserve-10-overlap",
+            "reference": 3,
+            "hypothesis": 6,
+            "signed_error": 3,
+            "absolute_error": 3
+          }
+        ]
+      },
+      "native_speakers": {
+        "available_cases": 10,
+        "total_cases": 10,
+        "complete": true,
+        "missing_cases": [],
+        "exact_cases": 1,
+        "absolute_error_sum": 26,
+        "exact_rate": 0.1,
+        "mean_absolute_error": 2.6,
+        "cases": [
+          {
+            "id": "reserve-01-two-clean",
+            "reference": 2,
+            "hypothesis": 6,
+            "signed_error": 4,
+            "absolute_error": 4
+          },
+          {
+            "id": "reserve-02-two-clean",
+            "reference": 2,
+            "hypothesis": 5,
+            "signed_error": 3,
+            "absolute_error": 3
+          },
+          {
+            "id": "reserve-03-three-clean",
+            "reference": 3,
+            "hypothesis": 7,
+            "signed_error": 4,
+            "absolute_error": 4
+          },
+          {
+            "id": "reserve-04-three-clean",
+            "reference": 3,
+            "hypothesis": 5,
+            "signed_error": 2,
+            "absolute_error": 2
+          },
+          {
+            "id": "reserve-05-short",
+            "reference": 2,
+            "hypothesis": 1,
+            "signed_error": -1,
+            "absolute_error": 1
+          },
+          {
+            "id": "reserve-06-short",
+            "reference": 2,
+            "hypothesis": 2,
+            "signed_error": 0,
+            "absolute_error": 0
+          },
+          {
+            "id": "reserve-07-expressive",
+            "reference": 3,
+            "hypothesis": 7,
+            "signed_error": 4,
+            "absolute_error": 4
+          },
+          {
+            "id": "reserve-08-expressive",
+            "reference": 3,
+            "hypothesis": 5,
+            "signed_error": 2,
+            "absolute_error": 2
+          },
+          {
+            "id": "reserve-09-overlap",
+            "reference": 2,
+            "hypothesis": 5,
+            "signed_error": 3,
+            "absolute_error": 3
+          },
+          {
+            "id": "reserve-10-overlap",
+            "reference": 3,
+            "hypothesis": 6,
+            "signed_error": 3,
+            "absolute_error": 3
+          }
+        ]
+      },
+      "audio_ms": 367423,
+      "processing_ms": 320576.634803,
+      "processing_ms_available_cases": 10,
+      "runner_wall_ms": 325439,
+      "runner_wall_ms_available_cases": 10,
+      "rtf": 0.8725001831757947
+    },
+    "candidate": {
+      "cases": 10,
+      "case_ids": [
+        "reserve-01-two-clean",
+        "reserve-02-two-clean",
+        "reserve-03-three-clean",
+        "reserve-04-three-clean",
+        "reserve-05-short",
+        "reserve-06-short",
+        "reserve-07-expressive",
+        "reserve-08-expressive",
+        "reserve-09-overlap",
+        "reserve-10-overlap"
+      ],
+      "wer_raw": {
+        "errors": 83,
+        "substitutions": 71,
+        "deletions": 11,
+        "insertions": 1,
+        "reference_tokens": 743,
+        "hypothesis_tokens": 733,
+        "available_cases": 10,
+        "total_cases": 10,
+        "missing_cases": [],
+        "complete": true,
+        "rate": 0.1117092866756393
+      },
+      "wer_punctuation_tokens": {
+        "errors": 93,
+        "substitutions": 66,
+        "deletions": 17,
+        "insertions": 10,
+        "reference_tokens": 954,
+        "hypothesis_tokens": 947,
+        "available_cases": 10,
+        "total_cases": 10,
+        "missing_cases": [],
+        "complete": true,
+        "rate": 0.09748427672955975
+      },
+      "wer_normalized": {
+        "errors": 24,
+        "substitutions": 12,
+        "deletions": 10,
+        "insertions": 2,
+        "reference_tokens": 744,
+        "hypothesis_tokens": 736,
+        "available_cases": 10,
+        "total_cases": 10,
+        "missing_cases": [],
+        "complete": true,
+        "rate": 0.03225806451612903
+      },
+      "cer_normalized": {
+        "errors": 115,
+        "substitutions": 19,
+        "deletions": 88,
+        "insertions": 8,
+        "reference_tokens": 3831,
+        "hypothesis_tokens": 3751,
+        "available_cases": 10,
+        "total_cases": 10,
+        "missing_cases": [],
+        "complete": true,
+        "rate": 0.03001827199164709
+      },
+      "cpwer_raw": {
+        "errors": 551,
+        "substitutions": 85,
+        "deletions": 238,
+        "insertions": 228,
+        "reference_tokens": 743,
+        "hypothesis_tokens": 733,
+        "available_cases": 10,
+        "total_cases": 10,
+        "missing_cases": [],
+        "complete": true,
+        "rate": 0.7415881561238223
+      },
+      "cpwer_normalized": {
+        "errors": 526,
+        "substitutions": 58,
+        "deletions": 238,
+        "insertions": 230,
+        "reference_tokens": 744,
+        "hypothesis_tokens": 736,
+        "available_cases": 10,
+        "total_cases": 10,
+        "missing_cases": [],
+        "complete": true,
+        "rate": 0.706989247311828
+      },
+      "der_collar_0ms": {
+        "miss_ms": 59090.0,
+        "false_alarm_ms": 3147.0,
+        "confusion_ms": 111047.0,
+        "reference_speaker_ms": 346423.0,
+        "available_cases": 10,
+        "total_cases": 10,
+        "missing_cases": [],
+        "complete": true,
+        "rate": 0.5002092817162833
+      },
+      "der_collar_250ms": {
+        "miss_ms": 46942.0,
+        "false_alarm_ms": 1000.0,
+        "confusion_ms": 108863.0,
+        "reference_speaker_ms": 329423.0,
+        "available_cases": 10,
+        "total_cases": 10,
+        "missing_cases": [],
+        "complete": true,
+        "rate": 0.4759989436074591
+      },
+      "native_der_collar_0ms": {
+        "miss_ms": 30591.0,
+        "false_alarm_ms": 5330.0,
+        "confusion_ms": 129181.0,
+        "reference_speaker_ms": 346423.0,
+        "available_cases": 10,
+        "total_cases": 10,
+        "missing_cases": [],
+        "complete": true,
+        "rate": 0.4765907575420801
+      },
+      "native_der_collar_250ms": {
+        "miss_ms": 21149.0,
+        "false_alarm_ms": 2585.0,
+        "confusion_ms": 125845.0,
+        "reference_speaker_ms": 329423.0,
+        "available_cases": 10,
+        "total_cases": 10,
+        "missing_cases": [],
+        "complete": true,
+        "rate": 0.4540636203300923
+      },
+      "punctuation": {
+        "true_positive": 156,
+        "false_positive": 41,
+        "false_negative": 35,
+        "available_cases": 10,
+        "total_cases": 10,
+        "missing_cases": [],
+        "complete": true,
+        "precision": 0.7918781725888325,
+        "recall": 0.8167539267015707,
+        "f1": 0.8041237113402062
+      },
+      "initial_case": {
+        "correct": 55,
+        "reference_initials": 60,
+        "aligned_reference_initials": 55,
+        "unmatched_reference_initials": 5,
+        "available_cases": 10,
+        "total_cases": 10,
+        "missing_cases": [],
+        "complete": true,
+        "accuracy": 0.9166666666666666,
+        "conditional_accuracy": 1.0
+      },
+      "timing": {
+        "matched_pairs": 52,
+        "reference_intervals": 60,
+        "hypothesis_intervals": 96,
+        "unmatched_reference": 8,
+        "unmatched_hypothesis": 44,
+        "pairs_over_250ms": 48,
+        "available_cases": 10,
+        "total_cases": 10,
+        "missing_cases": [],
+        "complete": true,
+        "per_pair_complete": true,
+        "missing_pair_cases": [],
+        "median_start_abs_error_ms": 391.0,
+        "mean_start_abs_error_ms": 1187.826923076923,
+        "median_end_abs_error_ms": 513.0,
+        "mean_end_abs_error_ms": 1348,
+        "reference_coverage": 0.8666666666666667,
+        "hypothesis_coverage": 0.5416666666666666,
+        "fraction_over_250ms": 0.9230769230769231,
+        "reference_fraction_over_250ms_or_unmatched": 0.9333333333333333,
+        "median_both_below_200ms_diagnostic": false,
+        "word_timestamp_acceptance": null,
+        "scope": "Utterance/clip-bound reference proxy; global medians across matched pairs. Not word-timestamp acceptance; always inspect coverage."
+      },
+      "export_speakers": {
+        "available_cases": 10,
+        "total_cases": 10,
+        "complete": true,
+        "missing_cases": [],
+        "exact_cases": 1,
+        "absolute_error_sum": 26,
+        "exact_rate": 0.1,
+        "mean_absolute_error": 2.6,
+        "cases": [
+          {
+            "id": "reserve-01-two-clean",
+            "reference": 2,
+            "hypothesis": 6,
+            "signed_error": 4,
+            "absolute_error": 4
+          },
+          {
+            "id": "reserve-02-two-clean",
+            "reference": 2,
+            "hypothesis": 5,
+            "signed_error": 3,
+            "absolute_error": 3
+          },
+          {
+            "id": "reserve-03-three-clean",
+            "reference": 3,
+            "hypothesis": 7,
+            "signed_error": 4,
+            "absolute_error": 4
+          },
+          {
+            "id": "reserve-04-three-clean",
+            "reference": 3,
+            "hypothesis": 5,
+            "signed_error": 2,
+            "absolute_error": 2
+          },
+          {
+            "id": "reserve-05-short",
+            "reference": 2,
+            "hypothesis": 1,
+            "signed_error": -1,
+            "absolute_error": 1
+          },
+          {
+            "id": "reserve-06-short",
+            "reference": 2,
+            "hypothesis": 2,
+            "signed_error": 0,
+            "absolute_error": 0
+          },
+          {
+            "id": "reserve-07-expressive",
+            "reference": 3,
+            "hypothesis": 7,
+            "signed_error": 4,
+            "absolute_error": 4
+          },
+          {
+            "id": "reserve-08-expressive",
+            "reference": 3,
+            "hypothesis": 5,
+            "signed_error": 2,
+            "absolute_error": 2
+          },
+          {
+            "id": "reserve-09-overlap",
+            "reference": 2,
+            "hypothesis": 5,
+            "signed_error": 3,
+            "absolute_error": 3
+          },
+          {
+            "id": "reserve-10-overlap",
+            "reference": 3,
+            "hypothesis": 6,
+            "signed_error": 3,
+            "absolute_error": 3
+          }
+        ]
+      },
+      "native_speakers": {
+        "available_cases": 10,
+        "total_cases": 10,
+        "complete": true,
+        "missing_cases": [],
+        "exact_cases": 1,
+        "absolute_error_sum": 26,
+        "exact_rate": 0.1,
+        "mean_absolute_error": 2.6,
+        "cases": [
+          {
+            "id": "reserve-01-two-clean",
+            "reference": 2,
+            "hypothesis": 6,
+            "signed_error": 4,
+            "absolute_error": 4
+          },
+          {
+            "id": "reserve-02-two-clean",
+            "reference": 2,
+            "hypothesis": 5,
+            "signed_error": 3,
+            "absolute_error": 3
+          },
+          {
+            "id": "reserve-03-three-clean",
+            "reference": 3,
+            "hypothesis": 7,
+            "signed_error": 4,
+            "absolute_error": 4
+          },
+          {
+            "id": "reserve-04-three-clean",
+            "reference": 3,
+            "hypothesis": 5,
+            "signed_error": 2,
+            "absolute_error": 2
+          },
+          {
+            "id": "reserve-05-short",
+            "reference": 2,
+            "hypothesis": 1,
+            "signed_error": -1,
+            "absolute_error": 1
+          },
+          {
+            "id": "reserve-06-short",
+            "reference": 2,
+            "hypothesis": 2,
+            "signed_error": 0,
+            "absolute_error": 0
+          },
+          {
+            "id": "reserve-07-expressive",
+            "reference": 3,
+            "hypothesis": 7,
+            "signed_error": 4,
+            "absolute_error": 4
+          },
+          {
+            "id": "reserve-08-expressive",
+            "reference": 3,
+            "hypothesis": 5,
+            "signed_error": 2,
+            "absolute_error": 2
+          },
+          {
+            "id": "reserve-09-overlap",
+            "reference": 2,
+            "hypothesis": 5,
+            "signed_error": 3,
+            "absolute_error": 3
+          },
+          {
+            "id": "reserve-10-overlap",
+            "reference": 3,
+            "hypothesis": 6,
+            "signed_error": 3,
+            "absolute_error": 3
+          }
+        ]
+      },
+      "audio_ms": 367423,
+      "processing_ms": 318146.533648,
+      "processing_ms_available_cases": 10,
+      "runner_wall_ms": 322434,
+      "runner_wall_ms_available_cases": 10,
+      "rtf": 0.8658862772553705
+    }
+  },
+  "gate": {
+    "status": "PENDING_UNEVALUATED_SPLIT",
+    "accepted": false,
+    "checks": {
+      "dev_raw_wer_strictly_better": {
+        "status": "NOT_EVALUATED",
+        "baseline": null,
+        "candidate": null
+      },
+      "dev_normalized_wer_no_worse": {
+        "status": "NOT_EVALUATED",
+        "baseline": null,
+        "candidate": null
+      },
+      "holdout_raw_wer_no_worse": {
+        "status": "PASS",
+        "baseline": 0.1816958277254374,
+        "candidate": 0.1117092866756393,
+        "comparison": "less_or_equal"
+      }
+    },
+    "additional_axes": "Short deletion target and coarse timing diagnostics are reported separately; no real word-timestamp acceptance without independent word gold."
+  },
+  "paired_evidence": [
+    {
+      "id": "reserve-01-two-clean",
+      "audio_sha256": "5673228b684b16a26ebcfe48447209693cda5c84654621c0c8ba7935ba407cce",
+      "baseline": {
+        "case_sha256": "9e3f1fd740dc2512aa50fa39698cfa22259d5a8a570f8545b156623a2803c577",
+        "metrics_sha256": "9067fa9c0541d4619a99f40f125d2cf278f69949e4a8146ab878899543618f4c"
+      },
+      "candidate": {
+        "case_sha256": "8deeaebcb74e0ea4f4c8245e84e5a1ed7ff60cbf1bd20197ca900fbc7c9a2b76",
+        "metrics_sha256": "99b084f578709f86e44cb6ac8041184ef052c2155699abbd460d09f59681952f"
+      }
+    },
+    {
+      "id": "reserve-02-two-clean",
+      "audio_sha256": "789887fa1b04429694547b20c3270d963b629497636e2339c00a91eb352aab78",
+      "baseline": {
+        "case_sha256": "e0fbce5298e9025aa3a65cf230bc3b34d1bca2b41664c6bf0a482846afe3bf18",
+        "metrics_sha256": "d1e78d0c14ecb2c46889d3a22bef346dd408f4c0e40ac291f6c641ee3fad20c0"
+      },
+      "candidate": {
+        "case_sha256": "bab3881e1d75e8c23590761fea021f7e6d66a721a73b98e3b0d8730ee3fdae7a",
+        "metrics_sha256": "a60c819fb0fe3b1c0178e353ff4ed89e0520bf557394a656cfc9cbd177794e83"
+      }
+    },
+    {
+      "id": "reserve-03-three-clean",
+      "audio_sha256": "0343bb962c477050f848f8b82c608dea9627ac633e79068fb4b23ae0fbd71c1a",
+      "baseline": {
+        "case_sha256": "2dea7e14ed9ebfda8a77a19deb461af0b7fd91ee228eed1b7fae09807f3c9cde",
+        "metrics_sha256": "902165cb9d7e0da7d711098c6ce7aaaf82faa6525a4e539d65b6c2c826d27217"
+      },
+      "candidate": {
+        "case_sha256": "20c519df4f185ec01aebf7a8a77be5435d3d1f53fdbb6fcc98992e85e83b21f7",
+        "metrics_sha256": "96c6cb1427a6ba17fad23caaede278fd0c2b737d13680e5d52bef39ed53f0193"
+      }
+    },
+    {
+      "id": "reserve-04-three-clean",
+      "audio_sha256": "a482e202ac5ad3f3eb13edbf4ab4b4f3d21167d44f38da19dd9bbdceed910962",
+      "baseline": {
+        "case_sha256": "de627ffcdd28193320956b3a3b93346e3cb9ee0a25722cb6dc669b847ab41cf7",
+        "metrics_sha256": "24492c4f9230caca8efd9ff3c8cd33647e5cd108455d5f7c1e6e6dd540bfdc95"
+      },
+      "candidate": {
+        "case_sha256": "f42f34486006b11eea20f1d1bee392e56019203e36fab713b7b12e373bcbe05a",
+        "metrics_sha256": "53acaf63f86f7dc11ddcd4aac6af8a421cda59d6b595655a8ce4bdb8364069fe"
+      }
+    },
+    {
+      "id": "reserve-05-short",
+      "audio_sha256": "347813b51d306e3afb1bda8f41167856bfb57ec3e0f2f9db09dc564cb815b74c",
+      "baseline": {
+        "case_sha256": "bf5fb57d66b2a656abd6c7e01d9c3e35bd590259749dc8f12039b277155b134b",
+        "metrics_sha256": "0477432396c0ed1cf63ab2b002392ee0947fc1630d613e06c0b521d6eaba30e1"
+      },
+      "candidate": {
+        "case_sha256": "e42469a768baa0566daa41b23b55b25cf32dad380b784d8ba5c4c7df6ceaeb0f",
+        "metrics_sha256": "c915220bc3835b8455eb4b50d38180633c9e217f295f8025e037d3a01f533a58"
+      }
+    },
+    {
+      "id": "reserve-06-short",
+      "audio_sha256": "98f98acccb4301259aff75fa2776791a5e720a0740a9398e32ba5c7756af506e",
+      "baseline": {
+        "case_sha256": "cf872d3146eb813ee3b345094e86c2fc72b8df452ef7ea15ea058742cf8c08db",
+        "metrics_sha256": "3bac88728ac96c8ee2ee5fc3832fdb221bb60d1fb98ab36f37019680e63031c8"
+      },
+      "candidate": {
+        "case_sha256": "41da33a06c1df1f071e472f6806aa95c12f9f831a4dc17308add8749ef467f17",
+        "metrics_sha256": "29434777daac24845341c2f210584ff617a5f49e4d31881e7869dd2e672e02fc"
+      }
+    },
+    {
+      "id": "reserve-07-expressive",
+      "audio_sha256": "15e9a5227e65fe18e6ff867c47051a79d96ae07668fc00eba0337573237898bb",
+      "baseline": {
+        "case_sha256": "3e1da140dc98aa72b6d11ca4b0a76a998238e5875ef6d30d88557c68c546b5d2",
+        "metrics_sha256": "f4d779d7a58cf4edded973080485e891d9e4e83a1a8471d55a19e05a6e70c97d"
+      },
+      "candidate": {
+        "case_sha256": "251d29bce473dfee2f49ffefbbc2612093129c1f6ae88b8d5725b3775770084d",
+        "metrics_sha256": "264d7d4b5b0a2a44783cc8c2ae10f6237aaed23c4ba31a04fd52524821d46ca3"
+      }
+    },
+    {
+      "id": "reserve-08-expressive",
+      "audio_sha256": "59eb5b21a3f86ce820c6838052250334cd044815476d90586dc690449e98cddd",
+      "baseline": {
+        "case_sha256": "96583213ebd0a2f3a5c845928c061648772605f7afb448e659c8b8c8dc0b75a8",
+        "metrics_sha256": "b26792f12cb0736a262b5746fcf141ae2464ba7ecdc4071f1f52c423b90da835"
+      },
+      "candidate": {
+        "case_sha256": "a88374a662c59d4af3c029e4f4c7ae7e33ae3d14ba66c037acefb54501c34b22",
+        "metrics_sha256": "e7c7c69e007b4c15089794f1d255d4d01fbfdb4e0d9e90bfc39b86b53c151a17"
+      }
+    },
+    {
+      "id": "reserve-09-overlap",
+      "audio_sha256": "f6e91c8834ff75e6975f2b9871497ef20820bda0cf613c3c39abcb6084d82095",
+      "baseline": {
+        "case_sha256": "a726f2ac54ecdc5b9c111276d3e1e1cf4be25d829c974211bca2277cfe84f620",
+        "metrics_sha256": "18f32a6c91e4b461ec28843b0158e93e6867b31130871f18cc100174bd416341"
+      },
+      "candidate": {
+        "case_sha256": "5f4c761ba5f2ea49b53deb8e8501c9eb2e8d1b2b1b94e1ce086b44d462f44f04",
+        "metrics_sha256": "dc8304354b4af2601440e5215f714221f0e5dff640fc6f3d9338c3111f172059"
+      }
+    },
+    {
+      "id": "reserve-10-overlap",
+      "audio_sha256": "b590fc4fe0370f6a6a047204ed3705667052a06e6cf98783a0436276c007f753",
+      "baseline": {
+        "case_sha256": "d87534b7bd4a84d2b94eecfe60e50e998b00c06583b1749f39500b3432982234",
+        "metrics_sha256": "654f7081745dd09fc266a76d27a01570d7991e0ee58040b2d558c9aaee048fcf"
+      },
+      "candidate": {
+        "case_sha256": "2a1e08070d323aa84f5e3324ac97d7ee6df773c3626c67fab4e28662cb427ad6",
+        "metrics_sha256": "ff06059c1a5fbb81c6216d8f82634ee13c3da0e09d84a5981e4e6b1576ace34b"
+      }
+    }
+  ]
+}

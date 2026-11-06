@@ -9,6 +9,7 @@ import csv
 from datetime import datetime, timezone
 import hashlib
 import json
+import math
 import os
 from pathlib import Path
 import platform
@@ -44,10 +45,25 @@ def confined(root, relative):
 
 def validate_configuration(config):
     allowed = {"schema_version", "id", "pipeline", "expected_speakers", "threads", "notes"}
+    if config.get("pipeline") == "vad_words_v1":
+        allowed |= {"punctuation_mode", "energy_split", "vad_min_speech_sec", "vad_min_silence_sec", "vad_threshold", "pre_roll_ms"}
     if set(config) - allowed:
         raise ValueError("Unsupported configuration options: " + str(sorted(set(config) - allowed)))
-    if config.get("schema_version") != 1 or config.get("pipeline") != "v16":
-        raise ValueError("Only the unchanged v16 baseline pipeline is supported in task 2")
+    if config.get("schema_version") != 1 or config.get("pipeline") not in {"v16", "vad_words_v1"}:
+        raise ValueError("Unsupported evaluation pipeline")
+    if config["pipeline"] == "vad_words_v1":
+        if config.get("punctuation_mode") not in {"none", "seam"} or type(config.get("energy_split")) is not bool:
+            raise ValueError("Word pipeline needs explicit punctuation_mode and energy_split")
+        for field in ("vad_min_speech_sec", "vad_min_silence_sec"):
+            value = config.get(field, .25)
+            if type(value) not in (int, float) or not math.isfinite(value) or not .05 <= value <= 1:
+                raise ValueError(field + " must be finite and within 0.05..1 seconds")
+        threshold = config.get("vad_threshold", .5)
+        if type(threshold) not in (int, float) or not math.isfinite(threshold) or not .1 <= threshold <= .9:
+            raise ValueError("vad_threshold must be finite and within 0.1..0.9")
+        pre_roll = config.get("pre_roll_ms", 100)
+        if type(pre_roll) is not int or not 0 <= pre_roll <= 1000:
+            raise ValueError("pre_roll_ms must be an integer within 0..1000")
     if type(config.get("threads")) is not int or config["threads"] not in (1, 2, 4):
         raise ValueError("threads must match MlPolicy: 1, 2 or 4")
     count = config.get("expected_speakers")
@@ -150,6 +166,12 @@ def run(args):
 
     config = json.loads(args.config.read_text(encoding="utf-8"))
     validate_configuration(config)
+    selected_pipeline = baseline_pipeline
+    options = {}
+    if config["pipeline"] == "vad_words_v1":
+        import pipeline_words as selected_pipeline
+        options = {"punctuation_mode": config["punctuation_mode"], "energy_split": config["energy_split"]}
+        options.update({key: config[key] for key in ("vad_min_speech_sec", "vad_min_silence_sec", "vad_threshold", "pre_roll_ms") if key in config})
     manifest = json.loads(args.manifest.read_text(encoding="utf-8"))
     if manifest.get("schema_version") != 1:
         raise ValueError("Unsupported corpus manifest schema")
@@ -177,12 +199,15 @@ def run(args):
         model_files[spec["path"]] = spec["sha256"]
     fingerprint = {"config_sha256": digest(args.config), "manifest_sha256": digest(args.manifest),
                    "model_lock_sha256": digest(lock_path), "models": model_files,
-                   "runtime": sherpa_onnx.__version__, "pipeline_code_sha256": digest(baseline_pipeline.__file__),
+                   "runtime": sherpa_onnx.__version__, "pipeline_code_sha256": digest(selected_pipeline.__file__),
+                   "baseline_helpers_sha256": digest(baseline_pipeline.__file__),
                    "decoder_code_sha256": digest(Path(baseline_pipeline.__file__).with_name("decoder_parity.py")),
                    "requirements_lock_sha256": digest(Path(__file__).with_name("requirements.lock.txt")),
                    "scorer_code_sha256": digest(scoring.__file__), "runner_code_sha256": digest(__file__),
                    "references": {key: value["sha256"] for key, value in frozen_references.items()},
                    "selected_ids": [c["id"] for c in cases]}
+    if config["pipeline"] == "vad_words_v1":
+        fingerprint["word_planner_code_sha256"] = digest(Path(__file__).with_name("vad_words.py"))
     output = args.output.resolve()
     if output.exists():
         if not args.resume or not (output / "run.json").is_file():
@@ -228,7 +253,7 @@ def run(args):
             start = time.perf_counter()
             try:
                 # Deliberately use CONFIG, never case.expected_speakers or reference labels.
-                actual = baseline_pipeline.process(audio, args.model_root, expected_speakers=config["expected_speakers"], threads=config["threads"])
+                actual = selected_pipeline.process(audio, args.model_root, expected_speakers=config["expected_speakers"], threads=config["threads"], **options)
                 hypothesis = validated_hypothesis(actual["transcript"])
                 if digest(audio) != audio_hash:
                     raise ValueError("Inference modified original audio: " + case["id"])

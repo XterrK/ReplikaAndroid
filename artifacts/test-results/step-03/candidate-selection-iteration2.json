@@ -1,0 +1,48 @@
+{
+  "created_at": "2026-11-06T22:12:47.803181+00:00",
+  "status": "DEV_SELECTION_FROZEN_BEFORE_ITERATION2_VALIDATION",
+  "iteration": 2,
+  "selected": {
+    "run": "context600-dev",
+    "raw_wer": 0.13320825515947468,
+    "raw_errors": 71,
+    "normalized_wer": 0.03007518796992481,
+    "normalized_errors": 16,
+    "short_deletions": 0,
+    "eligible": true,
+    "run_sha256": "841a2675d44aa4cb02a0fec62e183bb4bef0ac9af7f375d0c2026445db936b64"
+  },
+  "config": "configs/eval/vad-words-context600.json",
+  "config_sha256": "1da9cada7145495bccd8698e635a00a39fa7096199d0a4a3ef6d832edb4564a0",
+  "candidates": [
+    {
+      "run": "context300-dev",
+      "raw_wer": 0.1575984990619137,
+      "raw_errors": 84,
+      "normalized_wer": 0.039473684210526314,
+      "normalized_errors": 21,
+      "short_deletions": 0,
+      "eligible": true,
+      "run_sha256": "e06f83de9c1b9b3c62b1f34e750aca39b785bb9b585e7c0c44d7d3d4363611d4"
+    },
+    {
+      "run": "context600-dev",
+      "raw_wer": 0.13320825515947468,
+      "raw_errors": 71,
+      "normalized_wer": 0.03007518796992481,
+      "normalized_errors": 16,
+      "short_deletions": 0,
+      "eligible": true,
+      "run_sha256": "841a2675d44aa4cb02a0fec62e183bb4bef0ac9af7f375d0c2026445db936b64"
+    }
+  ],
+  "selection_rule": "Original VAD .5/.25/.25; globally extend actual preceding ASR context only. Dev raw/normalized/D gates then minimum raw. No candidate2 old-holdout/reserve inference yet.",
+  "prior_trial": "selected-host rejected, comparison-selected-host FAIL; unchanged evidence retained. No Android activation.",
+  "original_holdout_scope": "Previously checked after iteration1; retained as a mandatory regression validation, not relabelled untouched.",
+  "reserve_selection": "benchmark/eval-reserve/selection.json",
+  "reserve_selection_sha256": "015045aa2b98a70cb6f8c3c82ebb2dee783023faa72740b3b1ec249d17b67656",
+  "reserve_scope": "Independent metadata-only selection frozen at 2026-11-06T22:10:28Z before this dev winner; no model/hypothesis input.",
+  "gates": "Original dev replication + original holdout raw no regression AND independent reserve raw/normalized no regression separately. Never average away original holdout failure.",
+  "word_timing_acceptance": null,
+  "android_promotion": "Not applied; additionally requires native fixed-five policy/evidence/parity gate."
+}

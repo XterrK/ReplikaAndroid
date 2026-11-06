@@ -1,0 +1,76 @@
+{
+  "status": "COMPLETE",
+  "run": "eval20261106T225321770613Z",
+  "serial": "emulator-5556",
+  "cases": [
+    {
+      "id": "dev-01-two-clean",
+      "split": "dev",
+      "wer_raw": 0.15714285714285714,
+      "host_wer_raw": 0.15714285714285714,
+      "wer_delta_percentage_points": 0.0,
+      "per_file_diagnostic_pass": true,
+      "rtf": 4.739274828914831,
+      "reference_words": 140,
+      "native_errors": 22,
+      "host_errors": 22
+    }
+  ],
+  "scope": "Actual production Worker; explicit device. x86 emulator is not ARM/phone acceptance.",
+  "reference_text_or_counts_staged": false,
+  "new_model_inference": true,
+  "inference_requested": true,
+  "requested_asr_plan": "v16",
+  "requested_asr_policy": {
+    "pipeline": "v16",
+    "punctuation_mode": "none",
+    "energy_split": false,
+    "vad_threshold": 0.5,
+    "vad_min_speech_sec": 0.25,
+    "vad_min_silence_sec": 0.25,
+    "pre_roll_ms": 100
+  },
+  "source_host_run_sha256": "87e545e555d2544a25f2aeac6a30b7df98a902fd6a820ca424dabe56cf883976",
+  "word_evidence_cases": [],
+  "airplane_mode_on": "1",
+  "wifi_on": "0",
+  "emulator": true,
+  "expected_speakers": -1,
+  "threads": 2,
+  "matched_asr_policy": {
+    "pipeline": "v16",
+    "punctuation_mode": "none",
+    "energy_split": false,
+    "vad_threshold": 0.5,
+    "vad_min_speech_sec": 0.25,
+    "vad_min_silence_sec": 0.25,
+    "pre_roll_ms": 100
+  },
+  "corpus_port_comparison": {
+    "scope": "Fixed paired corpus, total errors / total reference words; per-file differences retained",
+    "reference_words": 140,
+    "host_errors": 22,
+    "native_errors": 22,
+    "host_wer_raw": 0.15714285714285714,
+    "native_wer_raw": 0.15714285714285714,
+    "wer_delta_percentage_points": 0.0,
+    "threshold_percentage_points": 0.5,
+    "gate_pass": true,
+    "per_file_diagnostics": [
+      {
+        "id": "dev-01-two-clean",
+        "split": "dev",
+        "wer_raw": 0.15714285714285714,
+        "host_wer_raw": 0.15714285714285714,
+        "wer_delta_percentage_points": 0.0,
+        "per_file_diagnostic_pass": true,
+        "rtf": 4.739274828914831,
+        "reference_words": 140,
+        "native_errors": 22,
+        "host_errors": 22,
+        "per_file_within_threshold": true
+      }
+    ]
+  },
+  "completed_at": "2026-11-06T22:59:02.090842+00:00"
+}

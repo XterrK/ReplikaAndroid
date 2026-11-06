@@ -1,0 +1,96 @@
+{
+  "validated_at": "2026-11-06T22:12:45.999209+00:00",
+  "status": "PASS",
+  "inference_performed": false,
+  "model_outputs_or_hypotheses_read": false,
+  "old_reference_files_read": false,
+  "cases": 10,
+  "unique_source_clips": 60,
+  "duration_ms": 367423,
+  "selection_sha256": "015045aa2b98a70cb6f8c3c82ebb2dee783023faa72740b3b1ec249d17b67656",
+  "manifest_sha256": "765e8bb8ecb83d84fcc61081d82ee995faf4741718c01d99f84c078ec0fed5d3",
+  "original_manifest_sha256": "47109cb1987624daaf8f4dc28e8eca3198b0c2bbcf01cd334b9611664eb38066",
+  "checks": [
+    "all original77 sources and prior7 whisper paths/hashes/exact texts excluded",
+    "60 reserve clips unique by path, raw content hash and text",
+    "publisher LFS hashes/sizes verified",
+    "10 canonical mono16kPCM16 WAV files; audio hashes verified",
+    "references preserve author text and exact floor-converted clip placement",
+    "only holdout;5 two-actor and5 three-actor;2 short and2 overlap cases",
+    "offline regeneration produced byte-identical frozen outputs",
+    "original corpus unchanged; original holdout gate still mandatory"
+  ],
+  "outputs": [
+    {
+      "id": "reserve-01-two-clean",
+      "duration_ms": 46339,
+      "audio_bytes": 1482918,
+      "audio_sha256": "5673228b684b16a26ebcfe48447209693cda5c84654621c0c8ba7935ba407cce",
+      "reference_sha256": "8c45382c5fcd198752bc4eb3f3b5de43316ed0c9bd986ab55d121eb6ce3e2656"
+    },
+    {
+      "id": "reserve-02-two-clean",
+      "duration_ms": 32945,
+      "audio_bytes": 1054312,
+      "audio_sha256": "789887fa1b04429694547b20c3270d963b629497636e2339c00a91eb352aab78",
+      "reference_sha256": "f4dd3fa2f034c752ac16c3d57618b4eb0ff38494e035e52b123b47c214dc450f"
+    },
+    {
+      "id": "reserve-03-three-clean",
+      "duration_ms": 47593,
+      "audio_bytes": 1523036,
+      "audio_sha256": "0343bb962c477050f848f8b82c608dea9627ac633e79068fb4b23ae0fbd71c1a",
+      "reference_sha256": "b66f338ff2f844a260b2f78da5ea53a1b57fb72f962b697f9dd621696eb2bcc8"
+    },
+    {
+      "id": "reserve-04-three-clean",
+      "duration_ms": 42868,
+      "audio_bytes": 1371824,
+      "audio_sha256": "a482e202ac5ad3f3eb13edbf4ab4b4f3d21167d44f38da19dd9bbdceed910962",
+      "reference_sha256": "0c47e169e2c9110038f67eed55d8b6f770bc18674ba8cc0efa65b0addd59854a"
+    },
+    {
+      "id": "reserve-05-short",
+      "duration_ms": 16029,
+      "audio_bytes": 512978,
+      "audio_sha256": "347813b51d306e3afb1bda8f41167856bfb57ec3e0f2f9db09dc564cb815b74c",
+      "reference_sha256": "d8bc52d536f25bd78fb3a19e4ad635cf30a6f81baac6c2320d7f21ce9583ce29"
+    },
+    {
+      "id": "reserve-06-short",
+      "duration_ms": 15223,
+      "audio_bytes": 487188,
+      "audio_sha256": "98f98acccb4301259aff75fa2776791a5e720a0740a9398e32ba5c7756af506e",
+      "reference_sha256": "8174cd6d7156dbc8dbcde9082ca702cf18286ced384a8a7b815902ace0f1a8f3"
+    },
+    {
+      "id": "reserve-07-expressive",
+      "duration_ms": 45932,
+      "audio_bytes": 1469894,
+      "audio_sha256": "15e9a5227e65fe18e6ff867c47051a79d96ae07668fc00eba0337573237898bb",
+      "reference_sha256": "957cd2b39223f580cb727900b5b6a1d3acf3db12900251a7721dd76a42a6acaa"
+    },
+    {
+      "id": "reserve-08-expressive",
+      "duration_ms": 36501,
+      "audio_bytes": 1168096,
+      "audio_sha256": "59eb5b21a3f86ce820c6838052250334cd044815476d90586dc690449e98cddd",
+      "reference_sha256": "7698b56c223b5a680acbf2d4081dab0ee0f0cf7596649b2ae01c0a3f08f1a7f9"
+    },
+    {
+      "id": "reserve-09-overlap",
+      "duration_ms": 46869,
+      "audio_bytes": 1499854,
+      "audio_sha256": "f6e91c8834ff75e6975f2b9871497ef20820bda0cf613c3c39abcb6084d82095",
+      "reference_sha256": "7c41c1c9b2554344d08923fd1ff1eae6df41e0cdf5f48ad284f1aad203d589af"
+    },
+    {
+      "id": "reserve-10-overlap",
+      "duration_ms": 37124,
+      "audio_bytes": 1188018,
+      "audio_sha256": "b590fc4fe0370f6a6a047204ed3705667052a06e6cf98783a0436276c007f753",
+      "reference_sha256": "894a8653de3d9e368ac2041355995f4c516417bc47a6bd4f109a2e7dfcd4af1e"
+    }
+  ],
+  "scope": "Preparation validation only; montage utterance intervals are not speech-activity/word gold or natural-dialogue DER"
+}

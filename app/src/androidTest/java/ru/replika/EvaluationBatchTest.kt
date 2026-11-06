@@ -19,6 +19,7 @@ import org.junit.runner.RunWith
 import ru.replika.data.Recording
 import ru.replika.domain.JuryJson
 import ru.replika.domain.MlPolicy
+import ru.replika.domain.AsrPlan
 import ru.replika.ml.ProcessingWorker
 import ru.replika.ml.AudioDecoder
 import ru.replika.ml.GigaAmEngine
@@ -101,6 +102,7 @@ class EvaluationBatchTest {
   val output=File(root,"output")
   check(!output.exists() && output.mkdir()) { "Choose a fresh evalRun; previous evidence must remain intact" }
   val threads=MlPolicy.threads(arguments.getString("evalThreads")?.toInt()?:2)
+  val asrPlan=AsrPlan.fromPersistedId(arguments.getString("evalAsrPlan"))
   val speakers=arguments.getString("evalExpectedSpeakers")?.toInt()?:-1
   MlPolicy.mode(speakers)
   withTimeout(10*60*1000L) { app.bundledModels.awaitReady() }
@@ -111,6 +113,7 @@ class EvaluationBatchTest {
    .put("scope","Actual Android production Worker; independent reference text/counts are not staged or passed to recognition")
    .put("api",Build.VERSION.SDK_INT).put("supportedAbis",JSONArray(Build.SUPPORTED_ABIS.toList()))
    .put("threads",threads).put("expectedSpeakers",speakers).put("newModelInference",true)
+   .put("asrPlan",asrPlan.wireId).put("asrPolicy",ProcessingWorker.asrPolicyJson(asrPlan))
   fun save() {
    val temporary=File(output,"report.json.tmp")
    temporary.writeText(report.toString(2),Charsets.UTF_8)
@@ -141,7 +144,7 @@ class EvaluationBatchTest {
       }
      }
      val wallStart=SystemClock.elapsedRealtime()
-     ProcessingWorker.enqueue(app,recordId,threads)
+     ProcessingWorker.enqueue(app,recordId,threads,asrPlan,collectWordEvidence=true)
      withTimeout(20*60*1000L) {
       while(true) {
        val current=app.db.dao().recording(recordId)?:error("Evaluation record disappeared")
@@ -153,6 +156,7 @@ class EvaluationBatchTest {
      app.models.gate.withLock { }
      val current=app.db.dao().recording(recordId)!!
      val diagnostic=JSONObject(current.diagnostics)
+     assertEquals(asrPlan.wireId,diagnostic.getString("asrPlan"))
      val segments=app.db.dao().segmentList(recordId).map { it.domain() }
      assertTrue(segments.none { it.edited })
      File(output,"$caseId.hypothesis.json").writeText(JuryJson.encode(segments),Charsets.UTF_8)

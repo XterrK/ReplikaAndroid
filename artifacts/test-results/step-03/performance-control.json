@@ -1,0 +1,52 @@
+{
+  "at": "2026-11-06T23:02:11.414754+00:00",
+  "status": "CONTROL_COMPLETE",
+  "case": "dev-01-two-clean",
+  "scope": "Single-case current-APK legacy timing control. Not a fixed-five release gate, controlled speed benchmark, ARM/phone acceptance or causal diagnosis.",
+  "experiments": {
+    "historical_v16": {
+      "file": "artifacts/test-results/step-02/baseline-v16-android/dev-01-two-clean/diagnostics.json",
+      "sha256": "d1b558c4c8951cc2412eb01e8c099de93d4c58f931ab2fa7334a97dbd06e95c3",
+      "plan": "v16-historical",
+      "audio_ms": 69556,
+      "processing_ms": 82431,
+      "rtf": 1.185102651101271,
+      "diarization_inference_ms": 50710,
+      "asr_inference_ms": 23331,
+      "thermal_wait_ms": 0,
+      "threads": 2
+    },
+    "current_word": {
+      "file": "artifacts/test-results/step-03/context600-android/dev-01-two-clean/diagnostics.json",
+      "sha256": "8b28564c5cb22088e9af86452603ea242038d054e7c3f76c293bcadafcf9ebe4",
+      "plan": "vad_words_context600",
+      "audio_ms": 69556,
+      "processing_ms": 320324,
+      "rtf": 4.605267697969981,
+      "diarization_inference_ms": 217471,
+      "asr_inference_ms": 79327,
+      "thermal_wait_ms": 0,
+      "threads": 2
+    },
+    "current_v16_control": {
+      "file": "artifacts/test-results/step-03/legacy-current-environment-control/dev-01-two-clean/diagnostics.json",
+      "sha256": "e55976dabbbf01ef8b551e9e90f443afdd6cb9769ed5075e24fda37ce64cecbd",
+      "plan": "v16",
+      "audio_ms": 69556,
+      "processing_ms": 329645,
+      "rtf": 4.739274828914831,
+      "diarization_inference_ms": 219381,
+      "asr_inference_ms": 78107,
+      "thermal_wait_ms": 0,
+      "threads": 2
+    }
+  },
+  "findings": [
+    "Current legacy also reproduces high runtime; its diarization stage is comparable to current word profile.",
+    "Historical baseline had lower timings; background/clock/cache/AVD/build conditions are not isolated.",
+    "Cause of difference from historical run remains unestablished. No speed improvement claim."
+  ],
+  "performance_acceptance": false,
+  "full_pipeline_acceptance": false,
+  "next_work": "Keep production default v16; investigate diarization/performance in planned C/5. No LLM/Lite/landing work before core acceptance."
+}

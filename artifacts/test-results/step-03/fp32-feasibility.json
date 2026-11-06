@@ -1,0 +1,112 @@
+{
+  "schema_version": 1,
+  "recorded_at": "2026-11-06T21:51:59.256725+00:00",
+  "question": "Is a ready FP32 ONNX encoder available for a controlled quantization-only comparison with the exact pinned GigaAM v3 E2E RNNT INT8 export?",
+  "scope": "Read-only local provenance and official upstream metadata/source research. No weights downloaded, export/inference performed, or model/config changed.",
+  "result": {
+    "ready_same_export_fp32_encoder_found": false,
+    "official_fp32_encoder_url": null,
+    "official_fp32_encoder_bytes": null,
+    "official_fp32_encoder_sha256": null,
+    "reason": "Pinned maintainer repository contains only encoder.int8.onnx. Official export creates the floating encoder, quantizes it and removes that floating file. Checked maintainer listings/release metadata expose no separate FP32 v3 punctuation RNNT encoder."
+  },
+  "pinned_conversion": {
+    "repository": "csukuangfj/sherpa-onnx-nemo-transducer-punct-giga-am-v3-russian-2025-12-16",
+    "revision": "a6039be7cee829a9044a69ac0ebaf1c191217c97",
+    "tree_url": "https://huggingface.co/csukuangfj/sherpa-onnx-nemo-transducer-punct-giga-am-v3-russian-2025-12-16/tree/a6039be7cee829a9044a69ac0ebaf1c191217c97",
+    "api_url": "https://huggingface.co/api/models/csukuangfj/sherpa-onnx-nemo-transducer-punct-giga-am-v3-russian-2025-12-16/tree/a6039be7cee829a9044a69ac0ebaf1c191217c97?recursive=true",
+    "current_files": [
+      {
+        "path": "giga-v3/encoder.int8.onnx",
+        "bytes": 224570820,
+        "sha256": "369f35a71bf288d3b8e0391fabd8dba5f2314088d440bca474056b7b4b6e66bf",
+        "url": "https://huggingface.co/csukuangfj/sherpa-onnx-nemo-transducer-punct-giga-am-v3-russian-2025-12-16/resolve/a6039be7cee829a9044a69ac0ebaf1c191217c97/encoder.int8.onnx"
+      },
+      {
+        "path": "giga-v3/decoder.onnx",
+        "bytes": 4600132,
+        "sha256": "38fc7475443ea2a26f63211ca350f73ac50fff824ab7a3876ee2bd610c53bbc4",
+        "url": "https://huggingface.co/csukuangfj/sherpa-onnx-nemo-transducer-punct-giga-am-v3-russian-2025-12-16/resolve/a6039be7cee829a9044a69ac0ebaf1c191217c97/decoder.onnx"
+      },
+      {
+        "path": "giga-v3/joiner.onnx",
+        "bytes": 2712896,
+        "sha256": "602ff7017a93311aad34df1437c8d7f49911353c13d6eae7a6ee7b041339465c",
+        "url": "https://huggingface.co/csukuangfj/sherpa-onnx-nemo-transducer-punct-giga-am-v3-russian-2025-12-16/resolve/a6039be7cee829a9044a69ac0ebaf1c191217c97/joiner.onnx"
+      },
+      {
+        "path": "giga-v3/tokens.txt",
+        "bytes": 13354,
+        "sha256": "39abae20e692998290c574e606f11a9edef2902a1995463fcff63d1490cf22b7",
+        "url": "https://huggingface.co/csukuangfj/sherpa-onnx-nemo-transducer-punct-giga-am-v3-russian-2025-12-16/resolve/a6039be7cee829a9044a69ac0ebaf1c191217c97/tokens.txt"
+      }
+    ],
+    "decoder_joiner_tokens_match_current_pack": true,
+    "match_scope": "Publisher LFS SHA256 and sizes for decoder/joiner match local model-lock provenance; small tokens.txt content hash independently rechecked. No FP32 sibling is present, so a full matched FP32/INT8 pair is not established."
+  },
+  "official_exporter": {
+    "repository": "k2-fsa/sherpa-onnx",
+    "tag": "v2.0.1",
+    "commit": "af2d8d81dbfa61c4cea4c568da78f3982edca005",
+    "url": "https://raw.githubusercontent.com/k2-fsa/sherpa-onnx/af2d8d81dbfa61c4cea4c568da78f3982edca005/scripts/nemo/GigaAM/export-onnx-rnnt-v3-punct.py",
+    "bytes": 6610,
+    "sha256": "151cc4e11807116a5dd11673a68b80c02536204f2be1e5c269c34dddd9b04039",
+    "source_observations": [
+      "Loads v3_e2e_rnnt, writes tokenizer IDs and encoder/decoder/joint ONNX outputs.",
+      "Adds sherpa metadata to the floating encoder, then quantize_dynamic produces encoder.int8.onnx.",
+      "Renames decoder and joint to decoder.onnx/joiner.onnx; os.remove deletes v3_e2e_rnnt_encoder.onnx."
+    ],
+    "wrapper_url": "https://huggingface.co/csukuangfj/sherpa-onnx-nemo-transducer-punct-giga-am-v3-russian-2025-12-16/blob/a6039be7cee829a9044a69ac0ebaf1c191217c97/run-rnnt-v3-punct.sh",
+    "wrapper_scope": "Historical wrapper installs GigaAM from main rather than a pinned author-code commit, so rerunning it now is not automatically a controlled quantization-only comparison."
+  },
+  "release_metadata": {
+    "url": "https://api.github.com/repos/k2-fsa/sherpa-onnx/releases/tags/asr-models",
+    "matching_archive": {
+      "name": "sherpa-onnx-nemo-transducer-punct-giga-am-v3-russian-2025-12-16.tar.bz2",
+      "url": "https://github.com/k2-fsa/sherpa-onnx/releases/download/asr-models/sherpa-onnx-nemo-transducer-punct-giga-am-v3-russian-2025-12-16.tar.bz2",
+      "bytes": 170197019,
+      "publisher_digest": "sha256:f9620a0099019c6afcee26525ef9ed3297fa50dd5691c1902af0c948fc1a470b"
+    },
+    "archive_members_inspected": false,
+    "scope": "Release metadata only; archive was not downloaded. It is not evidence of an available matched FP32 encoder."
+  },
+  "author_checkpoint_alternative": {
+    "repository": "ai-sage/GigaAM-v3",
+    "branch": "e2e_rnnt",
+    "revision": "7655ad717f8122257385bb4b2f373db3697e8680",
+    "url": "https://huggingface.co/ai-sage/GigaAM-v3/resolve/7655ad717f8122257385bb4b2f373db3697e8680/pytorch_model.bin",
+    "bytes": 448928167,
+    "publisher_lfs_sha256": "afc6dcbae8320ea56f2cddebc0f13fbf62c9d59b6ddcad899782623c8610826a",
+    "tokenizer": {
+      "path": "tokenizer.model",
+      "bytes": 255336,
+      "publisher_lfs_sha256": "828c12c991019eef952a960661f25a92d6ad279591e2ea466b4aeddf1d20a18a"
+    },
+    "scope": "Author PyTorch checkpoint, not a ready FP32 ONNX encoder; equality of its parameters to the historical maintainer export has not been established."
+  },
+  "checkpoint_provenance_gap": {
+    "historical_exporter_comment_model_md5": "72e2a9b5c7caad963b2bbfd2f298c252",
+    "current_author_loader_observed_model_md5": "2730de7545ac43ad256485a462b0a27a",
+    "current_author_loader_url": "https://raw.githubusercontent.com/salute-developers/GigaAM/main/gigaam/__init__.py",
+    "current_author_loader_url_is_immutable": false,
+    "interpretation": "Different checkpoint file hashes may reflect serialization or parameter changes. Neither is established here; a fresh main export cannot simply be called the FP32 counterpart of the pinned INT8 export."
+  },
+  "license": {
+    "name": "MIT",
+    "copyright": "Copyright (c) 2024 GigaChat Team",
+    "url": "https://huggingface.co/csukuangfj/sherpa-onnx-nemo-transducer-punct-giga-am-v3-russian-2025-12-16/blob/a6039be7cee829a9044a69ac0ebaf1c191217c97/LICENSE",
+    "bytes": 1070,
+    "sha256": "f00de6715714c7a63d08639cdbfaa40224eefc407302614bd19f1a8b98c875aa"
+  },
+  "controlled_ab_requirements": [
+    "Pin and obtain the exact author checkpoint and export-source/dependency versions.",
+    "Export in an isolated environment while retaining the pre-quantization ONNX encoder.",
+    "Verify decoder/joiner/token identity or tensor-level equivalence to the current pack; independently verify encoder provenance.",
+    "Record newly generated FP32 size/SHA and measure dev improvement before evaluating the selected candidate on holdout."
+  ],
+  "not_established": [
+    "No exact published FP32 ONNX URL/size/SHA.",
+    "No FP32 compatibility, WER, RTF or memory measurement.",
+    "No claim that the author PyTorch checkpoint is numerically identical to the pinned ONNX export."
+  ]
+}

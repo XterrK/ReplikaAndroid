@@ -1,0 +1,916 @@
+{
+  "runtime": "sherpa-onnx 2.0.1",
+  "onnxruntimeVersion": "1.28.2",
+  "platform": "Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "pythonVersion": "3.12.3",
+  "scope": "Experimental host VAD-chunk ASR; not enabled production behavior or physical-device acceptance",
+  "pipelineVariant": "vad_words_experimental",
+  "turnsUsedForAsrSlicing": false,
+  "audioSha256": "3bf46b08257257dc5bc1ba75805113999adb67c0d598abb2dd624d46889a2285",
+  "audioMs": 14480,
+  "sampleRate": 16000,
+  "originalPcmPeak": 0.254638671875,
+  "recognitionInputGain": 1.0,
+  "vadDetectorGain": 1.0,
+  "vadPrimarySpanCount": 4,
+  "vadPrimarySpans": [
+    {
+      "startMs": 166,
+      "endMs": 2726
+    },
+    {
+      "startMs": 3206,
+      "endMs": 5926
+    },
+    {
+      "startMs": 6150,
+      "endMs": 10278
+    },
+    {
+      "startMs": 10662,
+      "endMs": 13606
+    }
+  ],
+  "vadRescueAttempted": false,
+  "vadRescueApplied": false,
+  "vadRescueRms": null,
+  "vadRescueRmsSamples": 0,
+  "vadRescueSpanCount": 0,
+  "vadRescueReason": "primary_nonempty",
+  "vadRescueScope": "detector-only empty-primary retry with the same explicit threshold/min-speech/min-silence policy as primary; ASR gain and original PCM preserved",
+  "vadSpans": [
+    {
+      "startMs": 166,
+      "endMs": 2726
+    },
+    {
+      "startMs": 3206,
+      "endMs": 5926
+    },
+    {
+      "startMs": 6150,
+      "endMs": 10278
+    },
+    {
+      "startMs": 10662,
+      "endMs": 13606
+    }
+  ],
+  "asrSpeechSpans": [
+    {
+      "startMs": 0,
+      "endMs": 13606
+    }
+  ],
+  "asrChunks": [
+    {
+      "startMs": 0,
+      "endMs": 13606
+    }
+  ],
+  "rawDiarizationTurns": [
+    {
+      "startMs": 31,
+      "endMs": 13970,
+      "speakerId": 0
+    }
+  ],
+  "diarizationTurns": [
+    {
+      "startMs": 31,
+      "endMs": 13970,
+      "speakerId": 0
+    }
+  ],
+  "asrSlices": [
+    {
+      "startMs": 0,
+      "endMs": 13606,
+      "speakerId": -1,
+      "text": "Да, французские сыры — это отдельная тема. Каждый регион Франции славится своими сырами, и вкусы у них такие разные, а багеты — это просто чудо. Такие хрустящие снаружи и мягкие внутри.",
+      "blank": false,
+      "inferenceMs": 2172.442915,
+      "tokens": [
+        " Да",
+        ",",
+        " ф",
+        "ран",
+        "ц",
+        "у",
+        "з",
+        "ские",
+        " с",
+        "ы",
+        "ры",
+        " —",
+        " это",
+        " от",
+        "де",
+        "ль",
+        "ная",
+        " те",
+        "ма",
+        ".",
+        " Ка",
+        "ж",
+        "д",
+        "ый",
+        " ре",
+        "ги",
+        "он",
+        " Ф",
+        "ран",
+        "ции",
+        " с",
+        "ла",
+        "в",
+        "ится",
+        " свои",
+        "ми",
+        " с",
+        "ы",
+        "ра",
+        "ми",
+        ",",
+        " и",
+        " в",
+        "ку",
+        "сы",
+        " у",
+        " ",
+        "ни",
+        "х",
+        " так",
+        "и",
+        "е",
+        " раз",
+        "ные",
+        ",",
+        " а",
+        " ",
+        "ба",
+        "г",
+        "е",
+        "ты",
+        " —",
+        " это",
+        " просто",
+        " ",
+        "чу",
+        "до",
+        ".",
+        " Так",
+        "и",
+        "е",
+        " ",
+        "х",
+        "ру",
+        "ст",
+        "я",
+        "щи",
+        "е",
+        " с",
+        "на",
+        "ру",
+        "жи",
+        " и",
+        " ",
+        "м",
+        "я",
+        "г",
+        "ки",
+        "е",
+        " в",
+        "ну",
+        "т",
+        "ри",
+        "."
+      ],
+      "timestamps": [
+        0.07999999821186066,
+        0.23999999463558197,
+        0.4399999976158142,
+        0.5199999809265137,
+        0.6399999856948853,
+        0.6800000071525574,
+        0.7599999904632568,
+        0.8799999952316284,
+        1.0399999618530273,
+        1.159999966621399,
+        1.2400000095367432,
+        1.4399999380111694,
+        1.71999990940094,
+        1.9199999570846558,
+        2.0799999237060547,
+        2.200000047683716,
+        2.2799999713897705,
+        2.440000057220459,
+        2.5999999046325684,
+        2.759999990463257,
+        3.1599998474121094,
+        3.319999933242798,
+        3.359999895095825,
+        3.43999981880188,
+        3.559999942779541,
+        3.679999828338623,
+        3.799999952316284,
+        4.0,
+        4.119999885559082,
+        4.279999732971191,
+        4.480000019073486,
+        4.599999904632568,
+        4.71999979019165,
+        4.799999713897705,
+        5.0,
+        5.199999809265137,
+        5.319999694824219,
+        5.440000057220459,
+        5.559999942779541,
+        5.71999979019165,
+        5.839999675750732,
+        6.039999961853027,
+        6.199999809265137,
+        6.319999694824219,
+        6.440000057220459,
+        6.599999904632568,
+        6.71999979019165,
+        6.759999752044678,
+        6.799999713897705,
+        6.920000076293945,
+        7.159999847412109,
+        7.199999809265137,
+        7.359999656677246,
+        7.639999866485596,
+        7.799999713897705,
+        8.039999961853027,
+        8.199999809265137,
+        8.279999732971191,
+        8.399999618530273,
+        8.519999504089355,
+        8.639999389648438,
+        8.800000190734863,
+        9.079999923706055,
+        9.399999618530273,
+        9.84000015258789,
+        9.920000076293945,
+        10.079999923706055,
+        10.359999656677246,
+        10.679999351501465,
+        10.84000015258789,
+        10.880000114440918,
+        11.0,
+        11.079999923706055,
+        11.15999984741211,
+        11.279999732971191,
+        11.399999618530273,
+        11.519999504089355,
+        11.679999351501465,
+        11.84000015258789,
+        11.960000038146973,
+        12.079999923706055,
+        12.199999809265137,
+        12.359999656677246,
+        12.519999504089355,
+        12.559999465942383,
+        12.59999942779541,
+        12.679999351501465,
+        12.75999927520752,
+        12.880000114440918,
+        13.039999961853027,
+        13.15999984741211,
+        13.239999771118164,
+        13.319999694824219,
+        13.479999542236328
+      ],
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "words": [
+        {
+          "startMs": 80,
+          "endMs": 120,
+          "text": "Да,",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 0
+        },
+        {
+          "startMs": 440,
+          "endMs": 920,
+          "text": "французские",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 0
+        },
+        {
+          "startMs": 1040,
+          "endMs": 1280,
+          "text": "сыры —",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 0
+        },
+        {
+          "startMs": 1720,
+          "endMs": 1760,
+          "text": "это",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 0
+        },
+        {
+          "startMs": 1920,
+          "endMs": 2320,
+          "text": "отдельная",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 0
+        },
+        {
+          "startMs": 2440,
+          "endMs": 2640,
+          "text": "тема.",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 0
+        },
+        {
+          "startMs": 3160,
+          "endMs": 3480,
+          "text": "Каждый",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 0
+        },
+        {
+          "startMs": 3560,
+          "endMs": 3840,
+          "text": "регион",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 0
+        },
+        {
+          "startMs": 4000,
+          "endMs": 4320,
+          "text": "Франции",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 0
+        },
+        {
+          "startMs": 4480,
+          "endMs": 4840,
+          "text": "славится",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 0
+        },
+        {
+          "startMs": 5000,
+          "endMs": 5240,
+          "text": "своими",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 0
+        },
+        {
+          "startMs": 5320,
+          "endMs": 5760,
+          "text": "сырами,",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 0
+        },
+        {
+          "startMs": 6040,
+          "endMs": 6080,
+          "text": "и",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 0
+        },
+        {
+          "startMs": 6200,
+          "endMs": 6480,
+          "text": "вкусы",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 0
+        },
+        {
+          "startMs": 6600,
+          "endMs": 6640,
+          "text": "у",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 0
+        },
+        {
+          "startMs": 6760,
+          "endMs": 6840,
+          "text": "них",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 0
+        },
+        {
+          "startMs": 6920,
+          "endMs": 7240,
+          "text": "такие",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 0
+        },
+        {
+          "startMs": 7360,
+          "endMs": 7680,
+          "text": "разные,",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 0
+        },
+        {
+          "startMs": 8040,
+          "endMs": 8080,
+          "text": "а",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 0
+        },
+        {
+          "startMs": 8280,
+          "endMs": 8680,
+          "text": "багеты —",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 0
+        },
+        {
+          "startMs": 9080,
+          "endMs": 9120,
+          "text": "это",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 0
+        },
+        {
+          "startMs": 9400,
+          "endMs": 9440,
+          "text": "просто",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 0
+        },
+        {
+          "startMs": 9920,
+          "endMs": 10120,
+          "text": "чудо.",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 0
+        },
+        {
+          "startMs": 10680,
+          "endMs": 10920,
+          "text": "Такие",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 0
+        },
+        {
+          "startMs": 11080,
+          "endMs": 11720,
+          "text": "хрустящие",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 0
+        },
+        {
+          "startMs": 11840,
+          "endMs": 12240,
+          "text": "снаружи",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 0
+        },
+        {
+          "startMs": 12360,
+          "endMs": 12400,
+          "text": "и",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 0
+        },
+        {
+          "startMs": 12560,
+          "endMs": 12920,
+          "text": "мягкие",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 0
+        },
+        {
+          "startMs": 13040,
+          "endMs": 13360,
+          "text": "внутри.",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 0
+        }
+      ],
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "warnings": []
+    }
+  ],
+  "words": [
+    {
+      "startMs": 80,
+      "endMs": 120,
+      "text": "Да,",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 0
+    },
+    {
+      "startMs": 440,
+      "endMs": 920,
+      "text": "французские",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 0
+    },
+    {
+      "startMs": 1040,
+      "endMs": 1280,
+      "text": "сыры —",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 0
+    },
+    {
+      "startMs": 1720,
+      "endMs": 1760,
+      "text": "это",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 0
+    },
+    {
+      "startMs": 1920,
+      "endMs": 2320,
+      "text": "отдельная",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 0
+    },
+    {
+      "startMs": 2440,
+      "endMs": 2640,
+      "text": "тема.",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 0
+    },
+    {
+      "startMs": 3160,
+      "endMs": 3480,
+      "text": "Каждый",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 0
+    },
+    {
+      "startMs": 3560,
+      "endMs": 3840,
+      "text": "регион",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 0
+    },
+    {
+      "startMs": 4000,
+      "endMs": 4320,
+      "text": "Франции",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 0
+    },
+    {
+      "startMs": 4480,
+      "endMs": 4840,
+      "text": "славится",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 0
+    },
+    {
+      "startMs": 5000,
+      "endMs": 5240,
+      "text": "своими",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 0
+    },
+    {
+      "startMs": 5320,
+      "endMs": 5760,
+      "text": "сырами,",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 0
+    },
+    {
+      "startMs": 6040,
+      "endMs": 6080,
+      "text": "и",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 0
+    },
+    {
+      "startMs": 6200,
+      "endMs": 6480,
+      "text": "вкусы",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 0
+    },
+    {
+      "startMs": 6600,
+      "endMs": 6640,
+      "text": "у",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 0
+    },
+    {
+      "startMs": 6760,
+      "endMs": 6840,
+      "text": "них",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 0
+    },
+    {
+      "startMs": 6920,
+      "endMs": 7240,
+      "text": "такие",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 0
+    },
+    {
+      "startMs": 7360,
+      "endMs": 7680,
+      "text": "разные,",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 0
+    },
+    {
+      "startMs": 8040,
+      "endMs": 8080,
+      "text": "а",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 0
+    },
+    {
+      "startMs": 8280,
+      "endMs": 8680,
+      "text": "багеты —",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 0
+    },
+    {
+      "startMs": 9080,
+      "endMs": 9120,
+      "text": "это",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 0
+    },
+    {
+      "startMs": 9400,
+      "endMs": 9440,
+      "text": "просто",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 0
+    },
+    {
+      "startMs": 9920,
+      "endMs": 10120,
+      "text": "чудо.",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 0
+    },
+    {
+      "startMs": 10680,
+      "endMs": 10920,
+      "text": "Такие",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 0
+    },
+    {
+      "startMs": 11080,
+      "endMs": 11720,
+      "text": "хрустящие",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 0
+    },
+    {
+      "startMs": 11840,
+      "endMs": 12240,
+      "text": "снаружи",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 0
+    },
+    {
+      "startMs": 12360,
+      "endMs": 12400,
+      "text": "и",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 0
+    },
+    {
+      "startMs": 12560,
+      "endMs": 12920,
+      "text": "мягкие",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 0
+    },
+    {
+      "startMs": 13040,
+      "endMs": 13360,
+      "text": "внутри.",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 0
+    }
+  ],
+  "segments": [
+    {
+      "startMs": 80,
+      "endMs": 13360,
+      "speakerId": 0,
+      "text": "Да, французские сыры — это отдельная тема. Каждый регион Франции славится своими сырами, и вкусы у них такие разные, а багеты — это просто чудо. Такие хрустящие снаружи и мягкие внутри.",
+      "source": "GigaAM v3 E2E RNNT INT8 / sherpa-onnx 2.0.1",
+      "warnings": []
+    }
+  ],
+  "stagesMs": {
+    "validationMs": 3073.83811,
+    "timestampMetadataMs": 10.507306,
+    "decodeMs": 24.16871,
+    "vadLoadMs": 24.380005,
+    "vadMs": 134.560973,
+    "diarizationLoadMs": 1191.807522,
+    "diarizationInferenceMs": 3947.865266,
+    "diarizationMs": 5163.522746,
+    "alignmentMs": 0.007351,
+    "asrLoadMs": 4064.232315,
+    "asrReadMs": 0.155892,
+    "asrInferenceMs": 2172.326084,
+    "wordAssignmentMs": 1.300821,
+    "asrMs": 2231.528935
+  },
+  "backend": "GigaAM v3 E2E RNNT INT8 / sherpa-onnx 2.0.1",
+  "clusteringMode": "automatic",
+  "expectedSpeakers": -1,
+  "modelFiles": [
+    {
+      "path": "giga-v3/encoder.int8.onnx",
+      "bytes": 224570820,
+      "sha256": "369f35a71bf288d3b8e0391fabd8dba5f2314088d440bca474056b7b4b6e66bf",
+      "hashValidationCached": false
+    },
+    {
+      "path": "giga-v3/decoder.onnx",
+      "bytes": 4600132,
+      "sha256": "38fc7475443ea2a26f63211ca350f73ac50fff824ab7a3876ee2bd610c53bbc4",
+      "hashValidationCached": false
+    },
+    {
+      "path": "giga-v3/joiner.onnx",
+      "bytes": 2712896,
+      "sha256": "602ff7017a93311aad34df1437c8d7f49911353c13d6eae7a6ee7b041339465c",
+      "hashValidationCached": false
+    },
+    {
+      "path": "giga-v3/tokens.txt",
+      "bytes": 13354,
+      "sha256": "39abae20e692998290c574e606f11a9edef2902a1995463fcff63d1490cf22b7",
+      "hashValidationCached": false
+    },
+    {
+      "path": "diar/segmentation.onnx",
+      "bytes": 5992913,
+      "sha256": "220ad67ca923bef2fa91f2390c786097bf305bceb5e261d4af67b38e938e1079",
+      "hashValidationCached": false
+    },
+    {
+      "path": "diar/embedding.onnx",
+      "bytes": 39593761,
+      "sha256": "1a331345f04805badbb495c775a6ddffcdd1a732567d5ec8b3d5749e3c7a5e4b",
+      "hashValidationCached": false
+    },
+    {
+      "path": "vad/silero_vad.onnx",
+      "bytes": 643854,
+      "sha256": "9e2449e1087496d8d4caba907f23e0bd3f78d91fa552479bb9c23ac09cbb1fd6",
+      "hashValidationCached": false
+    }
+  ],
+  "modelBytes": 278127730,
+  "tokenTimestampPolicy": {
+    "verified": true,
+    "feature_frame_shift_ms": 10,
+    "subsampling_factor": 4,
+    "frame_stride_ms": 40,
+    "feature_frame_shift_source": "https://github.com/k2-fsa/sherpa-onnx/blob/v2.0.1/sherpa-onnx/csrc/offline-recognizer-transducer-nemo-impl.h#L208-L211",
+    "model_metadata": {
+      "onnx.infer": "onnxruntime.quant",
+      "vocab_size": "1024",
+      "pred_rnn_layers": "1",
+      "pred_hidden": "320",
+      "normalize_type": "",
+      "subsampling_factor": "4",
+      "model_type": "EncDecRNNTBPEModel",
+      "version": "3",
+      "model_author": "https://github.com/salute-developers/GigaAM",
+      "license": "https://github.com/salute-developers/GigaAM/blob/main/LICENSE",
+      "language": "Russian",
+      "comment": "v3",
+      "is_giga_am": "1"
+    },
+    "precision": "Token emission frame intervals; not acoustic forced-aligned word timestamps"
+  },
+  "tokenTimestampError": null,
+  "wordAssignmentSupported": true,
+  "fallbackChunks": 0,
+  "fallbackPolicy": "Full ASR chunk with unknown speaker and warning; no fabricated word times or second ASR pass",
+  "config": {
+    "asrThreads": 2,
+    "vadThreads": 1,
+    "provider": "cpu",
+    "sampleRate": 16000,
+    "featureDim": 80,
+    "dither": 0,
+    "decodingMethod": "greedy_search",
+    "modelType": "nemo_transducer",
+    "vadThreshold": 0.5,
+    "vadMinSpeechSec": 0.25,
+    "vadMinSilenceSec": 0.25,
+    "vadWindowSamples": 512,
+    "vadMaxSpeechSec": 20,
+    "preRollMs": 600,
+    "postRollMs": 0,
+    "maxAsrSegmentMs": 20000,
+    "clusterThreshold": 0.5,
+    "clusterThresholdApplied": true,
+    "segmentationWindowShiftRatio": 0.1,
+    "diarMinDurationOnSec": 0.2,
+    "diarMinDurationOffSec": 0.5,
+    "quietGainTriggerPeak": 0.01,
+    "quietGainTargetPeak": 0.1,
+    "quietGainMax": 20,
+    "quietGainSilenceFloor": 1e-06,
+    "rescueTargetRms": 0.02,
+    "rescuePeakHeadroom": 0.95,
+    "rescueMinGainRatio": 1.01,
+    "asrSlicing": "bounded VAD only; ignores diarization turns",
+    "energySplit": true,
+    "energyWindowMs": 40,
+    "energySearchMs": 4000,
+    "energyTie": "earliest minimum",
+    "energyCut": "window center",
+    "punctuationMode": "none"
+  },
+  "inputDecoder": {
+    "policy": "unchanged generic AudioDecoder canonical16k timeline emulation",
+    "hostDecoderHelperSha256": "5b5258286138ae5b251de0324c592a968180ef2d90f3c6ee68aa33e82af67044"
+  },
+  "pipelineTimingScope": "per-invocation SHA validation, metadata, canonical decode, unchanged VAD/diarization, VAD chunking, ASR and word assignment; excludes persistence/result JSON serialization",
+  "memoryScope": "Host WAV held in memory; not Android bounded-IO/peak RAM parity",
+  "validationScope": "Every required file hashed per invocation, unchanged production ModelManager policy",
+  "nativeResourcePolicy": "VAD released before diarization; diarizer released before ASR; no retained native model cache",
+  "sourceFiles": {
+    "app/src/main/java/ru/replika/ml/ProcessingWorker.kt": "69be2010ea3fcf5ab865570dac87654c277fea02cd3c0c97d66c3edb75d4e050",
+    "app/src/main/java/ru/replika/ml/AsrEngine.kt": "8be6a422b26de01d3aa3a237c7921e1906bdc03a90fbad016d4cc0763aba09c2",
+    "app/src/main/java/ru/replika/ml/AudioDecoder.kt": "53cb484da019c62cca72f74c1930b50dabd934018aef47528eafbaf690b34b06",
+    "app/src/main/java/ru/replika/domain/QuietAudioGain.kt": "f89037844f79685a7e79bfe1e282af3687202de06325826ac2fc320379225b40",
+    "app/src/main/java/ru/replika/domain/ZeroSpanVadRescue.kt": "ffdeb91451b495e686a52fb6029663387bc53991318f572d992d39fd4b5883b8",
+    "tools/eval/pipeline_words.py": "68183283067a0bff8da6b0912e850b1097875fef47fb09164d03b5ae3ab29f6c",
+    "tools/eval/vad_words.py": "1310361aecdab50e6c977032b73f01352d870af7416904b6dca22b682f3c76a7",
+    "tools/eval/pipeline.py": "fcdea5e2028e2c46226ab24ff0ac4fe33743fb15bfe853789e156f50203b137a",
+    "tools/eval/decoder_parity.py": "5b5258286138ae5b251de0324c592a968180ef2d90f3c6ee68aa33e82af67044"
+  }
+}

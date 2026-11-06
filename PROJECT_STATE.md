@@ -1,6 +1,8 @@
-# Цикл PLAN_19H · 06.11.2026
+# Цикл PLAN_19H · 06–07.11.2026
 
 Текущий ход работ: [STATUS.md](STATUS.md), [UPDATES.md](UPDATES.md), [DECISIONS.md](DECISIONS.md). Снимок V1.6 `3aba648` опубликован в приватном [XterrK/ReplikaAndroid](https://github.com/XterrK/ReplikaAndroid), fallback APK — в prerelease. Пункт 0 завершён, 80 JVM и All-in-One на новой машине PASS. Пункт 1 (Jury JSON и default automatic) принят: 89 JVM, All-in-One/static и 2 native UI PASS; ML-модели и параметры не менялись. Пункт2 принят: независимые author refs и immutablebaseline13host/5Androidoffline,65Python checks; corpusportgap0.226п.п.,per-fileвариант сохранён. [Результаты](docs/TEST_RESULTS.md). История ниже сохраняет состояние до этого цикла.
+
+Пункт 3 (D) — текущая работа. Context600 прошёл отдельные host-гейты на прежнем holdout и disjoint reserve; первый неудачный профиль сохранён как FAIL. 125 Python / 111 JVM / All-in-One/debug/test APK и static APK checks PASS. Native fixed-five выполняется offline на x86_64-прокси; обычный build-default остаётся V1.6, новый профиль включается явным флагом. [Подробности и ограничения](docs/STEP_03_VAD_WORD_ASR.md). WER/DER означают ошибки (меньше лучше); доля верного числа спикеров — успех (больше лучше).
 
 ---
 

@@ -1,0 +1,59 @@
+{
+  "at": "2026-11-07T02:21:22+03:00",
+  "ready_for_opt_in_asr": true,
+  "full_pipeline_accepted": false,
+  "asr_plan": "vad_words_context600",
+  "ordinary_build_default": "v16",
+  "checks": {
+    "host_quality": {
+      "path": "artifacts/test-results/step-03/host-quality-gate.json",
+      "sha256": "80384996b9cc40c2411d11a40a16ddace3a82872637aa87391a9f9cbd0dfc2f4"
+    },
+    "native_quality_port": {
+      "path": "artifacts/test-results/step-03/android-quality-gate.json",
+      "sha256": "cc4880aca1d416418c4b5f6b5bc5021dfef4d1b4ab0c84c46ec073394075b96d"
+    },
+    "jvm": {
+      "path": "artifacts/test-results/step-03/jvm/summary.json",
+      "sha256": "61ae114f441c6646946a1841445684523eb5920ac9497e4911c117131cdaabfe"
+    },
+    "python": {
+      "path": "artifacts/test-results/step-03/python-checks/summary.json",
+      "sha256": "2f0cde7122f0616b0e29ec355cd6298968c26d1b349630499f2184ed3155310a"
+    },
+    "ui": {
+      "path": "artifacts/test-results/step-03/ui/summary.json",
+      "sha256": "e5d38037107febdb428fcae50a1ea0a2b98012f35013dad4e5feeb12a2a7507c"
+    },
+    "static_apk": {
+      "path": "artifacts/test-results/step-03/apk-verification.json",
+      "sha256": "b104798766dd3bfa724c23a14976db07461064ac131cf83eb076c56b926a1e2d"
+    },
+    "host_audit": {
+      "path": "artifacts/test-results/step-03/host-audit.json",
+      "sha256": "62bef68eea7177a3b7e26a51cbc7e6f1ba1dc70e52473a5b196ef0239dd03263"
+    },
+    "native_audit": {
+      "path": "artifacts/test-results/step-03/native-audit.json",
+      "sha256": "d74de62ee12aee8aa8ecc87ba2a3af2e085429d693dbaa7a0bf8b8ede73115bc"
+    },
+    "preservation": {
+      "path": "artifacts/test-results/step-03/apk-preservation.json",
+      "sha256": "3497d163d040680d75af163ad6abc3b8b849c9f5f36fb04fbf6fc4468f68c443"
+    },
+    "performance_control": {
+      "path": "artifacts/test-results/step-03/performance-control.json",
+      "sha256": "234596996a0a21c89b1200aefe1ad8d14a9f833606968b10a8922de1ed77effe"
+    }
+  },
+  "native_raw_errors": 43,
+  "native_reference_words": 442,
+  "native_wer_errors_fraction": 0.09728506787330317,
+  "previous_native_errors": 75,
+  "weighted_port_delta_percentage_points": -0.22624434389140272,
+  "word_timing_acceptance": null,
+  "automatic_speaker_target_met": false,
+  "performance_target_met": false,
+  "scope": "ASR implementation, text quality and port delivery only; ordinary production path remains legacy. No full diarization/time/speed/ARM/phone acceptance.",
+  "next_plan_item": "C diarization; not started in this checkpoint"
+}

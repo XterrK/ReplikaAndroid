@@ -69,3 +69,39 @@ Actual AndroidFloat32PCM захвачен test-only методом (1testPASS,.4
 ## 2026-11-07T00:02:35+03:00 — пункт2 принят
 
 65Python tests,89JVM/All-in-One/testAPK checks PASS;13hostcases повторены сgenericAndroid-math decoder. Все reference/hypothesis/metrics/diagnostics/CSV сохранены.5actualWorker cases прошли offline; дополнительно decoder/freshASR probesPASS. По явному уточнению пользователя corpusgate0.226244<0.5п.п.PASS; per-filewordoutlier и первоначальныйgateFAIL сохранены. Обновлён `docs/TEST_RESULTS.md`,добавлен `tools/eval/README.md`,подготовлен immutablebaseline для пункта3. Commit/PR готовится; пункт3 ещё не начат.
+
+## 2026-11-07T00:27:12+03:00 — начат пункт3
+
+PR2 merged `beeaff5`; создана `hack/task-03-vad-word-asr`. Разрабатываются отдельные hostword-pipeline и pureKotlin helpers, baselinepipeline.py/scorer/corpusзаморожены. Подтверждёнframe40ms поencoder subsampling4 иsherpa feature10ms. AsrEngine получил неиспользуемый detailed API; существующий recognize и Worker legacy не изменены. Runner принимает только явную experimentalконфигурацию сpunctuation_mode/energy_split. Нет выборановыхweights/VADparams. Ранние кандидаты проверяются толькоdev; итоговыйwinner — затемdev+holdout.
+
+## 2026-11-07T00:33:49+03:00 — пункт 3: первый dev-эксперимент
+
+Все 8 dev-файлов обработаны. ASR по VAD без правки пунктуации: raw WER 93/533 = 17,448% (baseline 124/533 = 23,265%), normalized 26/532 = 4,887% (39/532 = 7,331%). Fallback словных таймингов: 0. Native DER прежний; DER по экспортным интервалам вырос, что фиксируется отдельно. Короткий dev-кейс всё ещё имеет 2 удаления; цель −30% не достигнута. Медианы границ по coarse clip gold не подтверждают целевые 200 мс. Holdout пока не запускался. Добавляются предусмотренный планом VAD-sweep и отдельный A/B пунктуации. Найден защитный дефект на невероятном Float timestamp: исправляется с регрессией; исходный эксперимент и source snapshot сохраняются.
+
+## 2026-11-07T00:49:44+03:00 — пункт 3: промежуточный VAD-sweep
+
+Повтор default word-пути воспроизвёл 93 raw / 26 normalized ошибок на dev. Ранний глобальный seam дал 116 / 26 и не принимается. VAD 0,15/0,20 с: 92 / 22, короткие удаления 2. VAD 0,10/0,12 с: 99 / 20, короткие удаления 0 (baseline 124 / 39 и 2 удаления). Веса/диаризация прежние. Идут sensitive threshold 0,35 и seam-v3, ограниченный реально разделёнными чанками; v2 source snapshot сохранён до изменения. Все эталоны/гипотезы/метрики в step-03, индекс results.csv обновляется. 282 pure Kotlin/Python cases v2 совпали, v3 проверяется отдельно. Android Worker ещё не переключён.
+
+## 2026-11-07T00:56:50+03:00 — пункт 3: dev-выбор заморожен
+
+Последние два interaction checks завершены: short10+seam дал 119 raw / 20 normalized; sensitive+short10 — 96 / 18 и 0 коротких удалений. Последний выбран по зафиксированным условиям D до открытия candidate holdout (`candidate-selection.json`). Порог/минимум речи/минимум тишины: 0,35 / 0,10 / 0,12 с; punctuation_mode=none. Запущен свежий одиночный selected-host на всех 13 файлах. До его gate ML-параметры Android не меняются, port готовится вне working tree. 114 Python tests PASS, 20 focused JVM PASS и 282 pure v3 differential cases без различий. Цель <200 мс остаётся неподтверждённой: независимой словной разметки нет.
+
+## 2026-11-07T01:06:23+03:00 — пункт 3: selected holdout FAIL, Android не переключён
+
+Свежий all13 selected-host завершён. Dev воспроизведён: 96/533 raw (18,011%), 18/532 normalized (3,383%), short D=0. Holdout: 78/444 raw (17,568%) против baseline 73/444 (16,441%); normalized 16/442 (3,620%) против 24/442 (5,430%). Raw — главный по §0.4, поэтому gate FAIL; ни VD-параметры, ни новый Worker не перенесены в Android. Внешний port независимо проверен двумя агентами, но не применялся/не компилировался. Исходный trial и v3 source snapshot сохраняются. Продолжается только D: dev-эксперимент с исходным VAD и увеличенным реальным pre-roll; отдельно фиксируется резерв новых disjoint клипов без model/hypothesis input для будущей финальной проверки. Старый holdout-gate остаётся обязательным.
+
+## 2026-11-07T01:13:42+03:00 — пункт 3: context600 выбран на dev
+
+Context300: 84/533 raw, 21/532 normalized, short D=0. Context600: 71/533 raw (13,321%), 16/532 normalized (3,008%), short D=0. Меняется только реальный pre-roll при исходном VAD .5/.25/.25; frame40/слова/диаризация/веса прежние. Во второй selection JSON зафиксированы dev-результаты и уже замороженный reserve selection hash. Свежий all13 context600-selected-host идёт; далее отдельная проверка на reserve. Ни один candidate пока не перенесён в Worker.
+
+## 2026-11-07T01:30:21+03:00 — пункт 3: host quality PASS, начат нативный port
+
+Context600 прошёл primary quality gates: original dev71/533 raw и16/532 normalized, original holdout49/444 raw и13/442 normalized; reserve83/743 raw и24/744 normalized против baseline135/743 и42/744. Все23файла имеют supported word projection без fallback. host-quality-gate.json сохраняет отдельные условия и null для недоказанной word timing acceptance. После этого применён независимо проверенный draft Worker/AsrPlan; default обычной сборки v16, кандидат только через -PreplikaAsrPlan=vad_words_context600 и явный WorkData plan. Full JVM111/0fail и Python125PASS, All-in-One собран; debug/test APK ещё собираются. APK не опубликован/не объявлен принятым. Следом actual offline Worker fixed-five и прежние export UI checks. Аудит host2131/2131PASS, отчёт host-audit.json сохраняет также ухудшения timing coverage/DER.
+
+## 2026-11-07T01:55:17+03:00 — пункт 3: native fixed-five PASS
+
+5actualWorker cases завершены offline наAPI35/x86_64. Raw43/442=9,729% против host44/442=9,955%; разница−0,226244п.п., corpusgatePASS. Единственный per-file outlier dev01: native10 vs host11 на140словах (−0,714286п.п.); все расхождения сохранены в native-port-differences.json. Пять QA payloads полные, fallback0/truncationfalse. Предыдущий Android baseline на той же пятёрке75/442=16,968%; user3%-вопрос уточнён: WER — ошибки↓, доля верного числа спикеров — успех↑, platformgap — отдельная проверка. Нативный RTF3,616–4,911 плохой; неизменённая SD стадия наdev01 217471ms против прежних50710ms, поэтому начат отдельный legacy current-environment control, causal slowdown не объявляется исправленным/объяснённым. Обычный build-default всё ещёv16.
+
+## 2026-11-07T02:21:22+03:00 — пункт 3: проверки завершены, готовится Git
+
+ASR opt-in delivery: host-quality и native quality/port PASS,125Python/111JVM, All-in-One/debug/test APK/static PASS, UI2/2 за18,633s после test-only ожидания появления второго chooser перед Back. Attempt1 (1/2) сохранён, mainAPK побайтово прежний353147c… . UI-export обеих JSON-схем, automatic/manual и фактический nativeJury5 contractPASS. Legacy текущегоAPK наdev01RTF4,739 vsword4,605, обеSD~219/217с vsисторические50,7с; причина не установлена, ускорение не заявляется. acceptance.json допускает opt-in ASR, но full_pipeline_accepted=false; defaultv16, targets diar/time/speed открыты. НовыйAPK305347754B SHA048c42fd1ad6f48db10c90583baae3a94ad389ef4e6a9dbb50535879b442ae9d, прежниеAPK и signer сохранены. Веса/скорер/decoder/baseline helper не изменились. Новая исходная поставка содержит все dev-trials, отдельный reserve, refs/hypotheses/metrics/CSV; secrets/weights/native/APK внеGit. C не начинался.

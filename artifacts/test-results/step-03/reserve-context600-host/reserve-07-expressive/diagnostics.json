@@ -1,0 +1,2642 @@
+{
+  "runtime": "sherpa-onnx 2.0.1",
+  "onnxruntimeVersion": "1.28.2",
+  "platform": "Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "pythonVersion": "3.12.3",
+  "scope": "Experimental host VAD-chunk ASR; not enabled production behavior or physical-device acceptance",
+  "pipelineVariant": "vad_words_experimental",
+  "turnsUsedForAsrSlicing": false,
+  "audioSha256": "15e9a5227e65fe18e6ff867c47051a79d96ae07668fc00eba0337573237898bb",
+  "audioMs": 45932,
+  "sampleRate": 16000,
+  "originalPcmPeak": 0.9357603788375854,
+  "recognitionInputGain": 1.0,
+  "vadDetectorGain": 1.0,
+  "vadPrimarySpanCount": 14,
+  "vadPrimarySpans": [
+    {
+      "startMs": 678,
+      "endMs": 2086
+    },
+    {
+      "startMs": 2438,
+      "endMs": 6598
+    },
+    {
+      "startMs": 7334,
+      "endMs": 11654
+    },
+    {
+      "startMs": 11878,
+      "endMs": 13478
+    },
+    {
+      "startMs": 14182,
+      "endMs": 16902
+    },
+    {
+      "startMs": 17382,
+      "endMs": 18086
+    },
+    {
+      "startMs": 18310,
+      "endMs": 18854
+    },
+    {
+      "startMs": 19558,
+      "endMs": 21030
+    },
+    {
+      "startMs": 21382,
+      "endMs": 28422
+    },
+    {
+      "startMs": 29254,
+      "endMs": 34278
+    },
+    {
+      "startMs": 34886,
+      "endMs": 37542
+    },
+    {
+      "startMs": 38246,
+      "endMs": 39942
+    },
+    {
+      "startMs": 41222,
+      "endMs": 43398
+    },
+    {
+      "startMs": 43878,
+      "endMs": 45574
+    }
+  ],
+  "vadRescueAttempted": false,
+  "vadRescueApplied": false,
+  "vadRescueRms": null,
+  "vadRescueRmsSamples": 0,
+  "vadRescueSpanCount": 0,
+  "vadRescueReason": "primary_nonempty",
+  "vadRescueScope": "detector-only empty-primary retry with the same explicit threshold/min-speech/min-silence policy as primary; ASR gain and original PCM preserved",
+  "vadSpans": [
+    {
+      "startMs": 678,
+      "endMs": 2086
+    },
+    {
+      "startMs": 2438,
+      "endMs": 6598
+    },
+    {
+      "startMs": 7334,
+      "endMs": 11654
+    },
+    {
+      "startMs": 11878,
+      "endMs": 13478
+    },
+    {
+      "startMs": 14182,
+      "endMs": 16902
+    },
+    {
+      "startMs": 17382,
+      "endMs": 18086
+    },
+    {
+      "startMs": 18310,
+      "endMs": 18854
+    },
+    {
+      "startMs": 19558,
+      "endMs": 21030
+    },
+    {
+      "startMs": 21382,
+      "endMs": 28422
+    },
+    {
+      "startMs": 29254,
+      "endMs": 34278
+    },
+    {
+      "startMs": 34886,
+      "endMs": 37542
+    },
+    {
+      "startMs": 38246,
+      "endMs": 39942
+    },
+    {
+      "startMs": 41222,
+      "endMs": 43398
+    },
+    {
+      "startMs": 43878,
+      "endMs": 45574
+    }
+  ],
+  "asrSpeechSpans": [
+    {
+      "startMs": 78,
+      "endMs": 6598
+    },
+    {
+      "startMs": 6734,
+      "endMs": 13478
+    },
+    {
+      "startMs": 13582,
+      "endMs": 18854
+    },
+    {
+      "startMs": 18958,
+      "endMs": 28422
+    },
+    {
+      "startMs": 28654,
+      "endMs": 34278
+    },
+    {
+      "startMs": 34286,
+      "endMs": 37542
+    },
+    {
+      "startMs": 37646,
+      "endMs": 39942
+    },
+    {
+      "startMs": 40622,
+      "endMs": 45574
+    }
+  ],
+  "asrChunks": [
+    {
+      "startMs": 78,
+      "endMs": 6598
+    },
+    {
+      "startMs": 6734,
+      "endMs": 13478
+    },
+    {
+      "startMs": 13582,
+      "endMs": 18854
+    },
+    {
+      "startMs": 18958,
+      "endMs": 28422
+    },
+    {
+      "startMs": 28654,
+      "endMs": 34278
+    },
+    {
+      "startMs": 34286,
+      "endMs": 37542
+    },
+    {
+      "startMs": 37646,
+      "endMs": 39942
+    },
+    {
+      "startMs": 40622,
+      "endMs": 45574
+    }
+  ],
+  "rawDiarizationTurns": [
+    {
+      "startMs": 1027,
+      "endMs": 6646,
+      "speakerId": 0
+    },
+    {
+      "startMs": 7253,
+      "endMs": 13514,
+      "speakerId": 1
+    },
+    {
+      "startMs": 14138,
+      "endMs": 15978,
+      "speakerId": 1
+    },
+    {
+      "startMs": 15978,
+      "endMs": 18965,
+      "speakerId": 2
+    },
+    {
+      "startMs": 19505,
+      "endMs": 21057,
+      "speakerId": 2
+    },
+    {
+      "startMs": 21378,
+      "endMs": 22964,
+      "speakerId": 3
+    },
+    {
+      "startMs": 22964,
+      "endMs": 28398,
+      "speakerId": 4
+    },
+    {
+      "startMs": 29258,
+      "endMs": 34169,
+      "speakerId": 5
+    },
+    {
+      "startMs": 34169,
+      "endMs": 39974,
+      "speakerId": 8
+    },
+    {
+      "startMs": 41273,
+      "endMs": 42269,
+      "speakerId": 8
+    },
+    {
+      "startMs": 42269,
+      "endMs": 45458,
+      "speakerId": 1
+    },
+    {
+      "startMs": 43248,
+      "endMs": 43973,
+      "speakerId": 8
+    },
+    {
+      "startMs": 44665,
+      "endMs": 45442,
+      "speakerId": 8
+    }
+  ],
+  "diarizationTurns": [
+    {
+      "startMs": 1027,
+      "endMs": 6646,
+      "speakerId": 0
+    },
+    {
+      "startMs": 7253,
+      "endMs": 13514,
+      "speakerId": 1
+    },
+    {
+      "startMs": 14138,
+      "endMs": 15978,
+      "speakerId": 1
+    },
+    {
+      "startMs": 15978,
+      "endMs": 18965,
+      "speakerId": 2
+    },
+    {
+      "startMs": 19505,
+      "endMs": 21057,
+      "speakerId": 2
+    },
+    {
+      "startMs": 21378,
+      "endMs": 22964,
+      "speakerId": 3
+    },
+    {
+      "startMs": 22964,
+      "endMs": 28398,
+      "speakerId": 4
+    },
+    {
+      "startMs": 29258,
+      "endMs": 34169,
+      "speakerId": 5
+    },
+    {
+      "startMs": 34169,
+      "endMs": 39974,
+      "speakerId": 6
+    },
+    {
+      "startMs": 41273,
+      "endMs": 42269,
+      "speakerId": 6
+    },
+    {
+      "startMs": 42269,
+      "endMs": 45458,
+      "speakerId": 1
+    },
+    {
+      "startMs": 43248,
+      "endMs": 43973,
+      "speakerId": 6
+    },
+    {
+      "startMs": 44665,
+      "endMs": 45442,
+      "speakerId": 6
+    }
+  ],
+  "asrSlices": [
+    {
+      "startMs": 78,
+      "endMs": 6598,
+      "speakerId": -1,
+      "text": "Ха-ха! Точно. Ну что, может, как-нибудь устроим совместный кинопросмотр на английском?",
+      "blank": false,
+      "inferenceMs": 1309.401437,
+      "tokens": [
+        " Ха",
+        "-",
+        "ха",
+        "!",
+        " То",
+        "чно",
+        ".",
+        " Ну",
+        " что",
+        ",",
+        " может",
+        ",",
+        " как",
+        "-",
+        "нибудь",
+        " у",
+        "стро",
+        "им",
+        " с",
+        "ов",
+        "ме",
+        "ст",
+        "ный",
+        " кино",
+        "про",
+        "смотр",
+        " на",
+        " ",
+        "ан",
+        "г",
+        "ли",
+        "й",
+        "с",
+        "ком",
+        "?"
+      ],
+      "timestamps": [
+        0.5999999642372131,
+        0.8399999737739563,
+        0.9199999570846558,
+        1.1200000047683716,
+        1.4800000190734863,
+        1.71999990940094,
+        2.0399999618530273,
+        2.359999895095825,
+        2.5199999809265137,
+        2.799999952316284,
+        3.0799999237060547,
+        3.319999933242798,
+        3.4800000190734863,
+        3.6399998664855957,
+        3.6399998664855957,
+        3.879999876022339,
+        4.0,
+        4.159999847412109,
+        4.400000095367432,
+        4.519999980926514,
+        4.599999904632568,
+        4.71999979019165,
+        4.839999675750732,
+        5.079999923706055,
+        5.319999694824219,
+        5.559999942779541,
+        5.87999963760376,
+        6.0,
+        6.039999961853027,
+        6.119999885559082,
+        6.159999847412109,
+        6.239999771118164,
+        6.319999694824219,
+        6.359999656677246,
+        6.440000057220459
+      ],
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "words": [
+        {
+          "startMs": 678,
+          "endMs": 1038,
+          "text": "Ха-ха!",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 0
+        },
+        {
+          "startMs": 1558,
+          "endMs": 1838,
+          "text": "Точно.",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 0
+        },
+        {
+          "startMs": 2438,
+          "endMs": 2478,
+          "text": "Ну",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 0
+        },
+        {
+          "startMs": 2598,
+          "endMs": 2638,
+          "text": "что,",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 0
+        },
+        {
+          "startMs": 3158,
+          "endMs": 3198,
+          "text": "может,",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 0
+        },
+        {
+          "startMs": 3558,
+          "endMs": 3758,
+          "text": "как-нибудь",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 0
+        },
+        {
+          "startMs": 3958,
+          "endMs": 4278,
+          "text": "устроим",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 0
+        },
+        {
+          "startMs": 4478,
+          "endMs": 4958,
+          "text": "совместный",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 0
+        },
+        {
+          "startMs": 5158,
+          "endMs": 5678,
+          "text": "кинопросмотр",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 0
+        },
+        {
+          "startMs": 5958,
+          "endMs": 5998,
+          "text": "на",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 0
+        },
+        {
+          "startMs": 6118,
+          "endMs": 6478,
+          "text": "английском?",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 0
+        }
+      ],
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "warnings": []
+    },
+    {
+      "startMs": 6734,
+      "endMs": 13478,
+      "speakerId": -1,
+      "text": "Да, готовка — это отличный способ провести время с пользой и удовольствием. А у тебя есть любимое блюдо?",
+      "blank": false,
+      "inferenceMs": 1360.00576,
+      "tokens": [
+        " Да",
+        ",",
+        " готов",
+        "ка",
+        " —",
+        " это",
+        " от",
+        "ли",
+        "ч",
+        "ный",
+        " с",
+        "по",
+        "с",
+        "об",
+        " про",
+        "вести",
+        " время",
+        " с",
+        " по",
+        "ль",
+        "з",
+        "ой",
+        " и",
+        " у",
+        "до",
+        "во",
+        "ль",
+        "ст",
+        "ви",
+        "ем",
+        ".",
+        " А",
+        " у",
+        " тебя",
+        " есть",
+        " люб",
+        "им",
+        "ое",
+        " б",
+        "лю",
+        "до",
+        "?"
+      ],
+      "timestamps": [
+        0.5199999809265137,
+        0.7599999904632568,
+        1.0799999237060547,
+        1.4800000190734863,
+        1.5999999046325684,
+        1.71999990940094,
+        1.8399999141693115,
+        1.959999918937683,
+        2.0399999618530273,
+        2.119999885559082,
+        2.2799999713897705,
+        2.319999933242798,
+        2.3999998569488525,
+        2.4800000190734863,
+        2.5999999046325684,
+        2.759999990463257,
+        3.0399999618530273,
+        3.319999933242798,
+        3.43999981880188,
+        3.559999942779541,
+        3.6399998664855957,
+        3.759999990463257,
+        3.919999837875366,
+        4.039999961853027,
+        4.159999847412109,
+        4.279999732971191,
+        4.360000133514404,
+        4.440000057220459,
+        4.519999980926514,
+        4.639999866485596,
+        4.799999713897705,
+        5.079999923706055,
+        5.239999771118164,
+        5.359999656677246,
+        5.519999980926514,
+        5.799999713897705,
+        5.960000038146973,
+        6.079999923706055,
+        6.279999732971191,
+        6.359999656677246,
+        6.480000019073486,
+        6.639999866485596
+      ],
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "words": [
+        {
+          "startMs": 7254,
+          "endMs": 7294,
+          "text": "Да,",
+          "speakerId": 1,
+          "warnings": [],
+          "chunkIndex": 1
+        },
+        {
+          "startMs": 7814,
+          "endMs": 8254,
+          "text": "готовка —",
+          "speakerId": 1,
+          "warnings": [],
+          "chunkIndex": 1
+        },
+        {
+          "startMs": 8454,
+          "endMs": 8494,
+          "text": "это",
+          "speakerId": 1,
+          "warnings": [],
+          "chunkIndex": 1
+        },
+        {
+          "startMs": 8574,
+          "endMs": 8894,
+          "text": "отличный",
+          "speakerId": 1,
+          "warnings": [],
+          "chunkIndex": 1
+        },
+        {
+          "startMs": 9014,
+          "endMs": 9254,
+          "text": "способ",
+          "speakerId": 1,
+          "warnings": [],
+          "chunkIndex": 1
+        },
+        {
+          "startMs": 9334,
+          "endMs": 9534,
+          "text": "провести",
+          "speakerId": 1,
+          "warnings": [],
+          "chunkIndex": 1
+        },
+        {
+          "startMs": 9774,
+          "endMs": 9814,
+          "text": "время",
+          "speakerId": 1,
+          "warnings": [],
+          "chunkIndex": 1
+        },
+        {
+          "startMs": 10054,
+          "endMs": 10094,
+          "text": "с",
+          "speakerId": 1,
+          "warnings": [],
+          "chunkIndex": 1
+        },
+        {
+          "startMs": 10174,
+          "endMs": 10534,
+          "text": "пользой",
+          "speakerId": 1,
+          "warnings": [],
+          "chunkIndex": 1
+        },
+        {
+          "startMs": 10654,
+          "endMs": 10694,
+          "text": "и",
+          "speakerId": 1,
+          "warnings": [],
+          "chunkIndex": 1
+        },
+        {
+          "startMs": 10774,
+          "endMs": 11414,
+          "text": "удовольствием.",
+          "speakerId": 1,
+          "warnings": [],
+          "chunkIndex": 1
+        },
+        {
+          "startMs": 11814,
+          "endMs": 11854,
+          "text": "А",
+          "speakerId": 1,
+          "warnings": [],
+          "chunkIndex": 1
+        },
+        {
+          "startMs": 11974,
+          "endMs": 12014,
+          "text": "у",
+          "speakerId": 1,
+          "warnings": [],
+          "chunkIndex": 1
+        },
+        {
+          "startMs": 12094,
+          "endMs": 12134,
+          "text": "тебя",
+          "speakerId": 1,
+          "warnings": [],
+          "chunkIndex": 1
+        },
+        {
+          "startMs": 12254,
+          "endMs": 12294,
+          "text": "есть",
+          "speakerId": 1,
+          "warnings": [],
+          "chunkIndex": 1
+        },
+        {
+          "startMs": 12534,
+          "endMs": 12854,
+          "text": "любимое",
+          "speakerId": 1,
+          "warnings": [],
+          "chunkIndex": 1
+        },
+        {
+          "startMs": 13014,
+          "endMs": 13254,
+          "text": "блюдо?",
+          "speakerId": 1,
+          "warnings": [],
+          "chunkIndex": 1
+        }
+      ],
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "warnings": []
+    },
+    {
+      "startMs": 13582,
+      "endMs": 18854,
+      "speakerId": -1,
+      "text": "Подарила маме билеты на концерт её любимой группы. А ты любишь дарить?",
+      "blank": false,
+      "inferenceMs": 1113.540538,
+      "tokens": [
+        " По",
+        "да",
+        "ри",
+        "ла",
+        " ",
+        "ма",
+        "ме",
+        " ",
+        "би",
+        "ле",
+        "ты",
+        " на",
+        " кон",
+        "це",
+        "рт",
+        " её",
+        " люб",
+        "им",
+        "ой",
+        " ",
+        "гру",
+        "п",
+        "п",
+        "ы",
+        ".",
+        " А",
+        " ты",
+        " люб",
+        "ишь",
+        " да",
+        "ри",
+        "ть",
+        "?"
+      ],
+      "timestamps": [
+        0.4399999976158142,
+        0.5999999642372131,
+        0.7599999904632568,
+        0.8799999952316284,
+        1.0,
+        1.0399999618530273,
+        1.159999966621399,
+        1.3199999332427979,
+        1.3600000143051147,
+        1.4399999380111694,
+        1.559999942779541,
+        1.71999990940094,
+        1.7999999523162842,
+        1.959999918937683,
+        2.0799999237060547,
+        2.2799999713897705,
+        2.5199999809265137,
+        2.679999828338623,
+        2.799999952316284,
+        2.9600000381469727,
+        3.0,
+        3.0799999237060547,
+        3.1999998092651367,
+        3.240000009536743,
+        3.43999981880188,
+        3.759999990463257,
+        3.919999837875366,
+        4.079999923706055,
+        4.279999732971191,
+        4.71999979019165,
+        4.960000038146973,
+        5.039999961853027,
+        5.159999847412109
+      ],
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "words": [
+        {
+          "startMs": 14022,
+          "endMs": 14502,
+          "text": "Подарила",
+          "speakerId": 1,
+          "warnings": [],
+          "chunkIndex": 2
+        },
+        {
+          "startMs": 14622,
+          "endMs": 14782,
+          "text": "маме",
+          "speakerId": 1,
+          "warnings": [],
+          "chunkIndex": 2
+        },
+        {
+          "startMs": 14942,
+          "endMs": 15182,
+          "text": "билеты",
+          "speakerId": 1,
+          "warnings": [],
+          "chunkIndex": 2
+        },
+        {
+          "startMs": 15302,
+          "endMs": 15342,
+          "text": "на",
+          "speakerId": 1,
+          "warnings": [],
+          "chunkIndex": 2
+        },
+        {
+          "startMs": 15382,
+          "endMs": 15702,
+          "text": "концерт",
+          "speakerId": 1,
+          "warnings": [],
+          "chunkIndex": 2
+        },
+        {
+          "startMs": 15862,
+          "endMs": 15902,
+          "text": "её",
+          "speakerId": 1,
+          "warnings": [],
+          "chunkIndex": 2
+        },
+        {
+          "startMs": 16102,
+          "endMs": 16422,
+          "text": "любимой",
+          "speakerId": 2,
+          "warnings": [],
+          "chunkIndex": 2
+        },
+        {
+          "startMs": 16582,
+          "endMs": 16862,
+          "text": "группы.",
+          "speakerId": 2,
+          "warnings": [],
+          "chunkIndex": 2
+        },
+        {
+          "startMs": 17342,
+          "endMs": 17382,
+          "text": "А",
+          "speakerId": 2,
+          "warnings": [],
+          "chunkIndex": 2
+        },
+        {
+          "startMs": 17502,
+          "endMs": 17542,
+          "text": "ты",
+          "speakerId": 2,
+          "warnings": [],
+          "chunkIndex": 2
+        },
+        {
+          "startMs": 17662,
+          "endMs": 17902,
+          "text": "любишь",
+          "speakerId": 2,
+          "warnings": [],
+          "chunkIndex": 2
+        },
+        {
+          "startMs": 18302,
+          "endMs": 18662,
+          "text": "дарить?",
+          "speakerId": 2,
+          "warnings": [],
+          "chunkIndex": 2
+        }
+      ],
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "warnings": []
+    },
+    {
+      "startMs": 18958,
+      "endMs": 28422,
+      "speakerId": -1,
+      "text": "Или получать подарки больше. Полностью согласен. Всегда интересно узнать, какие новинки ты собираешься добавить в свой гардероб в ближайшее время?",
+      "blank": false,
+      "inferenceMs": 2026.990468,
+      "tokens": [
+        " И",
+        "ли",
+        " по",
+        "луч",
+        "ать",
+        " под",
+        "ар",
+        "ки",
+        " больше",
+        ".",
+        " По",
+        "л",
+        "ность",
+        "ю",
+        " соглас",
+        "е",
+        "н",
+        ".",
+        " Все",
+        "г",
+        "да",
+        " интерес",
+        "но",
+        " узнать",
+        ",",
+        " какие",
+        " но",
+        "ви",
+        "н",
+        "ки",
+        " ты",
+        " со",
+        "би",
+        "ра",
+        "ешь",
+        "ся",
+        " добавить",
+        " в",
+        " с",
+        "вой",
+        " г",
+        "ар",
+        "дер",
+        "об",
+        " в",
+        " б",
+        "ли",
+        "жа",
+        "й",
+        "ше",
+        "е",
+        " время",
+        "?"
+      ],
+      "timestamps": [
+        0.47999998927116394,
+        0.6399999856948853,
+        0.7999999523162842,
+        0.9199999570846558,
+        1.0399999618530273,
+        1.2400000095367432,
+        1.3600000143051147,
+        1.5199999809265137,
+        1.71999990940094,
+        2.119999885559082,
+        2.440000057220459,
+        2.5999999046325684,
+        2.679999828338623,
+        2.879999876022339,
+        3.0399999618530273,
+        3.3999998569488525,
+        3.4800000190734863,
+        3.5999999046325684,
+        3.9599997997283936,
+        4.199999809265137,
+        4.279999732971191,
+        4.400000095367432,
+        4.759999752044678,
+        4.880000114440918,
+        5.159999847412109,
+        5.319999694824219,
+        5.599999904632568,
+        5.759999752044678,
+        5.87999963760376,
+        5.960000038146973,
+        6.119999885559082,
+        6.279999732971191,
+        6.399999618530273,
+        6.519999980926514,
+        6.679999828338623,
+        6.839999675750732,
+        6.960000038146973,
+        7.399999618530273,
+        7.480000019073486,
+        7.599999904632568,
+        7.71999979019165,
+        7.799999713897705,
+        7.919999599456787,
+        8.079999923706055,
+        8.399999618530273,
+        8.519999504089355,
+        8.639999389648438,
+        8.679999351501465,
+        8.760000228881836,
+        8.84000015258789,
+        8.960000038146973,
+        9.079999923706055,
+        9.359999656677246
+      ],
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "words": [
+        {
+          "startMs": 19438,
+          "endMs": 19638,
+          "text": "Или",
+          "speakerId": 2,
+          "warnings": [],
+          "chunkIndex": 3
+        },
+        {
+          "startMs": 19758,
+          "endMs": 20038,
+          "text": "получать",
+          "speakerId": 2,
+          "warnings": [],
+          "chunkIndex": 3
+        },
+        {
+          "startMs": 20198,
+          "endMs": 20518,
+          "text": "подарки",
+          "speakerId": 2,
+          "warnings": [],
+          "chunkIndex": 3
+        },
+        {
+          "startMs": 20678,
+          "endMs": 20718,
+          "text": "больше.",
+          "speakerId": 2,
+          "warnings": [],
+          "chunkIndex": 3
+        },
+        {
+          "startMs": 21398,
+          "endMs": 21878,
+          "text": "Полностью",
+          "speakerId": 3,
+          "warnings": [],
+          "chunkIndex": 3
+        },
+        {
+          "startMs": 21998,
+          "endMs": 22478,
+          "text": "согласен.",
+          "speakerId": 3,
+          "warnings": [],
+          "chunkIndex": 3
+        },
+        {
+          "startMs": 22918,
+          "endMs": 23278,
+          "text": "Всегда",
+          "speakerId": 4,
+          "warnings": [
+            "Смена говорящего на границе слова"
+          ],
+          "chunkIndex": 3
+        },
+        {
+          "startMs": 23358,
+          "endMs": 23758,
+          "text": "интересно",
+          "speakerId": 4,
+          "warnings": [],
+          "chunkIndex": 3
+        },
+        {
+          "startMs": 23838,
+          "endMs": 23878,
+          "text": "узнать,",
+          "speakerId": 4,
+          "warnings": [],
+          "chunkIndex": 3
+        },
+        {
+          "startMs": 24278,
+          "endMs": 24318,
+          "text": "какие",
+          "speakerId": 4,
+          "warnings": [],
+          "chunkIndex": 3
+        },
+        {
+          "startMs": 24558,
+          "endMs": 24958,
+          "text": "новинки",
+          "speakerId": 4,
+          "warnings": [],
+          "chunkIndex": 3
+        },
+        {
+          "startMs": 25078,
+          "endMs": 25118,
+          "text": "ты",
+          "speakerId": 4,
+          "warnings": [],
+          "chunkIndex": 3
+        },
+        {
+          "startMs": 25238,
+          "endMs": 25838,
+          "text": "собираешься",
+          "speakerId": 4,
+          "warnings": [],
+          "chunkIndex": 3
+        },
+        {
+          "startMs": 25918,
+          "endMs": 25958,
+          "text": "добавить",
+          "speakerId": 4,
+          "warnings": [],
+          "chunkIndex": 3
+        },
+        {
+          "startMs": 26358,
+          "endMs": 26398,
+          "text": "в",
+          "speakerId": 4,
+          "warnings": [],
+          "chunkIndex": 3
+        },
+        {
+          "startMs": 26438,
+          "endMs": 26598,
+          "text": "свой",
+          "speakerId": 4,
+          "warnings": [],
+          "chunkIndex": 3
+        },
+        {
+          "startMs": 26678,
+          "endMs": 27078,
+          "text": "гардероб",
+          "speakerId": 4,
+          "warnings": [],
+          "chunkIndex": 3
+        },
+        {
+          "startMs": 27358,
+          "endMs": 27398,
+          "text": "в",
+          "speakerId": 4,
+          "warnings": [],
+          "chunkIndex": 3
+        },
+        {
+          "startMs": 27478,
+          "endMs": 27958,
+          "text": "ближайшее",
+          "speakerId": 4,
+          "warnings": [],
+          "chunkIndex": 3
+        },
+        {
+          "startMs": 28038,
+          "endMs": 28078,
+          "text": "время?",
+          "speakerId": 4,
+          "warnings": [],
+          "chunkIndex": 3
+        }
+      ],
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "warnings": []
+    },
+    {
+      "startMs": 28654,
+      "endMs": 34278,
+      "speakerId": -1,
+      "text": "Да, я иногда захожу на сайты известных брендов, чтобы посмотреть",
+      "blank": false,
+      "inferenceMs": 1043.113486,
+      "tokens": [
+        " Да",
+        ",",
+        " я",
+        " и",
+        "но",
+        "г",
+        "да",
+        " за",
+        "хо",
+        "жу",
+        " на",
+        " с",
+        "а",
+        "й",
+        "ты",
+        " из",
+        "ве",
+        "ст",
+        "ных",
+        " б",
+        "ре",
+        "н",
+        "д",
+        "ов",
+        ",",
+        " чтобы",
+        " посмотреть"
+      ],
+      "timestamps": [
+        0.6800000071525574,
+        1.2400000095367432,
+        1.559999942779541,
+        1.7599999904632568,
+        1.8799999952316284,
+        2.0,
+        2.0399999618530273,
+        2.1599998474121094,
+        2.319999933242798,
+        2.440000057220459,
+        2.6399998664855957,
+        2.799999952316284,
+        2.919999837875366,
+        3.0,
+        3.0799999237060547,
+        3.240000009536743,
+        3.3999998569488525,
+        3.4800000190734863,
+        3.5999999046325684,
+        3.799999952316284,
+        3.919999837875366,
+        4.119999885559082,
+        4.199999809265137,
+        4.319999694824219,
+        4.440000057220459,
+        4.559999942779541,
+        4.880000114440918
+      ],
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "words": [
+        {
+          "startMs": 29334,
+          "endMs": 29374,
+          "text": "Да,",
+          "speakerId": 5,
+          "warnings": [],
+          "chunkIndex": 4
+        },
+        {
+          "startMs": 30214,
+          "endMs": 30254,
+          "text": "я",
+          "speakerId": 5,
+          "warnings": [],
+          "chunkIndex": 4
+        },
+        {
+          "startMs": 30414,
+          "endMs": 30734,
+          "text": "иногда",
+          "speakerId": 5,
+          "warnings": [],
+          "chunkIndex": 4
+        },
+        {
+          "startMs": 30814,
+          "endMs": 31134,
+          "text": "захожу",
+          "speakerId": 5,
+          "warnings": [],
+          "chunkIndex": 4
+        },
+        {
+          "startMs": 31294,
+          "endMs": 31334,
+          "text": "на",
+          "speakerId": 5,
+          "warnings": [],
+          "chunkIndex": 4
+        },
+        {
+          "startMs": 31454,
+          "endMs": 31774,
+          "text": "сайты",
+          "speakerId": 5,
+          "warnings": [],
+          "chunkIndex": 4
+        },
+        {
+          "startMs": 31894,
+          "endMs": 32294,
+          "text": "известных",
+          "speakerId": 5,
+          "warnings": [],
+          "chunkIndex": 4
+        },
+        {
+          "startMs": 32454,
+          "endMs": 33014,
+          "text": "брендов,",
+          "speakerId": 5,
+          "warnings": [],
+          "chunkIndex": 4
+        },
+        {
+          "startMs": 33214,
+          "endMs": 33254,
+          "text": "чтобы",
+          "speakerId": 5,
+          "warnings": [],
+          "chunkIndex": 4
+        },
+        {
+          "startMs": 33534,
+          "endMs": 33574,
+          "text": "посмотреть",
+          "speakerId": 5,
+          "warnings": [],
+          "chunkIndex": 4
+        }
+      ],
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "warnings": []
+    },
+    {
+      "startMs": 34286,
+      "endMs": 37542,
+      "speakerId": -1,
+      "text": "Что представляют собой новые представители?",
+      "blank": false,
+      "inferenceMs": 762.947598,
+      "tokens": [
+        " Что",
+        " пред",
+        "ста",
+        "в",
+        "ля",
+        "ю",
+        "т",
+        " со",
+        "бо",
+        "й",
+        " но",
+        "вы",
+        "е",
+        " пред",
+        "ста",
+        "в",
+        "ите",
+        "ли",
+        "?"
+      ],
+      "timestamps": [
+        0.2800000011920929,
+        0.6399999856948853,
+        0.8399999737739563,
+        0.9599999785423279,
+        1.0399999618530273,
+        1.159999966621399,
+        1.2400000095367432,
+        1.3600000143051147,
+        1.5199999809265137,
+        1.6399999856948853,
+        1.7999999523162842,
+        2.0,
+        2.0799999237060547,
+        2.240000009536743,
+        2.440000057220459,
+        2.5999999046325684,
+        2.7200000286102295,
+        2.919999837875366,
+        3.1999998092651367
+      ],
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "words": [
+        {
+          "startMs": 34566,
+          "endMs": 34606,
+          "text": "Что",
+          "speakerId": 6,
+          "warnings": [],
+          "chunkIndex": 5
+        },
+        {
+          "startMs": 34926,
+          "endMs": 35566,
+          "text": "представляют",
+          "speakerId": 6,
+          "warnings": [],
+          "chunkIndex": 5
+        },
+        {
+          "startMs": 35646,
+          "endMs": 35966,
+          "text": "собой",
+          "speakerId": 6,
+          "warnings": [],
+          "chunkIndex": 5
+        },
+        {
+          "startMs": 36086,
+          "endMs": 36406,
+          "text": "новые",
+          "speakerId": 6,
+          "warnings": [],
+          "chunkIndex": 5
+        },
+        {
+          "startMs": 36526,
+          "endMs": 37246,
+          "text": "представители?",
+          "speakerId": 6,
+          "warnings": [],
+          "chunkIndex": 5
+        }
+      ],
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "warnings": []
+    },
+    {
+      "startMs": 37646,
+      "endMs": 39942,
+      "speakerId": -1,
+      "text": "Ты тоже интересуешься?",
+      "blank": false,
+      "inferenceMs": 592.908063,
+      "tokens": [
+        " Ты",
+        " тоже",
+        " интерес",
+        "у",
+        "ешь",
+        "ся",
+        "?"
+      ],
+      "timestamps": [
+        0.3999999761581421,
+        0.6399999856948853,
+        1.0799999237060547,
+        1.5199999809265137,
+        1.6799999475479126,
+        1.959999918937683,
+        2.1599998474121094
+      ],
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "words": [
+        {
+          "startMs": 38046,
+          "endMs": 38086,
+          "text": "Ты",
+          "speakerId": 6,
+          "warnings": [],
+          "chunkIndex": 6
+        },
+        {
+          "startMs": 38286,
+          "endMs": 38326,
+          "text": "тоже",
+          "speakerId": 6,
+          "warnings": [],
+          "chunkIndex": 6
+        },
+        {
+          "startMs": 38726,
+          "endMs": 39646,
+          "text": "интересуешься?",
+          "speakerId": 6,
+          "warnings": [],
+          "chunkIndex": 6
+        }
+      ],
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "warnings": []
+    },
+    {
+      "startMs": 40622,
+      "endMs": 45574,
+      "speakerId": -1,
+      "text": "Да, мы настоящие профессионалы. А другие пусть завидуют.",
+      "blank": false,
+      "inferenceMs": 880.86644,
+      "tokens": [
+        " Да",
+        ",",
+        " мы",
+        " на",
+        "сто",
+        "я",
+        "щи",
+        "е",
+        " про",
+        "фе",
+        "сси",
+        "о",
+        "на",
+        "лы",
+        ".",
+        " А",
+        " друг",
+        "и",
+        "е",
+        " пу",
+        "сть",
+        " за",
+        "вид",
+        "ую",
+        "т",
+        "."
+      ],
+      "timestamps": [
+        0.6399999856948853,
+        0.9599999785423279,
+        1.2400000095367432,
+        1.4399999380111694,
+        1.5999999046325684,
+        1.6799999475479126,
+        1.7599999904632568,
+        1.8799999952316284,
+        2.0,
+        2.1599998474121094,
+        2.2799999713897705,
+        2.440000057220459,
+        2.5199999809265137,
+        2.679999828338623,
+        2.919999837875366,
+        3.1599998474121094,
+        3.359999895095825,
+        3.5199999809265137,
+        3.5999999046325684,
+        3.799999952316284,
+        3.9599997997283936,
+        4.279999732971191,
+        4.440000057220459,
+        4.639999866485596,
+        4.799999713897705,
+        4.880000114440918
+      ],
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "words": [
+        {
+          "startMs": 41262,
+          "endMs": 41302,
+          "text": "Да,",
+          "speakerId": 6,
+          "warnings": [],
+          "chunkIndex": 7
+        },
+        {
+          "startMs": 41862,
+          "endMs": 41902,
+          "text": "мы",
+          "speakerId": 6,
+          "warnings": [],
+          "chunkIndex": 7
+        },
+        {
+          "startMs": 42062,
+          "endMs": 42542,
+          "text": "настоящие",
+          "speakerId": 1,
+          "warnings": [
+            "Смена говорящего на границе слова"
+          ],
+          "chunkIndex": 7
+        },
+        {
+          "startMs": 42622,
+          "endMs": 43342,
+          "text": "профессионалы.",
+          "speakerId": 1,
+          "warnings": [
+            "Пересечение голосов в слове"
+          ],
+          "chunkIndex": 7
+        },
+        {
+          "startMs": 43782,
+          "endMs": 43822,
+          "text": "А",
+          "speakerId": -1,
+          "warnings": [
+            "Неоднозначный говорящий слова",
+            "Пересечение голосов в слове"
+          ],
+          "chunkIndex": 7
+        },
+        {
+          "startMs": 43982,
+          "endMs": 44262,
+          "text": "другие",
+          "speakerId": 1,
+          "warnings": [],
+          "chunkIndex": 7
+        },
+        {
+          "startMs": 44422,
+          "endMs": 44622,
+          "text": "пусть",
+          "speakerId": 1,
+          "warnings": [],
+          "chunkIndex": 7
+        },
+        {
+          "startMs": 44902,
+          "endMs": 45462,
+          "text": "завидуют.",
+          "speakerId": 1,
+          "warnings": [
+            "Пересечение голосов в слове"
+          ],
+          "chunkIndex": 7
+        }
+      ],
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "warnings": []
+    }
+  ],
+  "words": [
+    {
+      "startMs": 678,
+      "endMs": 1038,
+      "text": "Ха-ха!",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 0
+    },
+    {
+      "startMs": 1558,
+      "endMs": 1838,
+      "text": "Точно.",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 0
+    },
+    {
+      "startMs": 2438,
+      "endMs": 2478,
+      "text": "Ну",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 0
+    },
+    {
+      "startMs": 2598,
+      "endMs": 2638,
+      "text": "что,",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 0
+    },
+    {
+      "startMs": 3158,
+      "endMs": 3198,
+      "text": "может,",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 0
+    },
+    {
+      "startMs": 3558,
+      "endMs": 3758,
+      "text": "как-нибудь",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 0
+    },
+    {
+      "startMs": 3958,
+      "endMs": 4278,
+      "text": "устроим",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 0
+    },
+    {
+      "startMs": 4478,
+      "endMs": 4958,
+      "text": "совместный",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 0
+    },
+    {
+      "startMs": 5158,
+      "endMs": 5678,
+      "text": "кинопросмотр",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 0
+    },
+    {
+      "startMs": 5958,
+      "endMs": 5998,
+      "text": "на",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 0
+    },
+    {
+      "startMs": 6118,
+      "endMs": 6478,
+      "text": "английском?",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 0
+    },
+    {
+      "startMs": 7254,
+      "endMs": 7294,
+      "text": "Да,",
+      "speakerId": 1,
+      "warnings": [],
+      "chunkIndex": 1
+    },
+    {
+      "startMs": 7814,
+      "endMs": 8254,
+      "text": "готовка —",
+      "speakerId": 1,
+      "warnings": [],
+      "chunkIndex": 1
+    },
+    {
+      "startMs": 8454,
+      "endMs": 8494,
+      "text": "это",
+      "speakerId": 1,
+      "warnings": [],
+      "chunkIndex": 1
+    },
+    {
+      "startMs": 8574,
+      "endMs": 8894,
+      "text": "отличный",
+      "speakerId": 1,
+      "warnings": [],
+      "chunkIndex": 1
+    },
+    {
+      "startMs": 9014,
+      "endMs": 9254,
+      "text": "способ",
+      "speakerId": 1,
+      "warnings": [],
+      "chunkIndex": 1
+    },
+    {
+      "startMs": 9334,
+      "endMs": 9534,
+      "text": "провести",
+      "speakerId": 1,
+      "warnings": [],
+      "chunkIndex": 1
+    },
+    {
+      "startMs": 9774,
+      "endMs": 9814,
+      "text": "время",
+      "speakerId": 1,
+      "warnings": [],
+      "chunkIndex": 1
+    },
+    {
+      "startMs": 10054,
+      "endMs": 10094,
+      "text": "с",
+      "speakerId": 1,
+      "warnings": [],
+      "chunkIndex": 1
+    },
+    {
+      "startMs": 10174,
+      "endMs": 10534,
+      "text": "пользой",
+      "speakerId": 1,
+      "warnings": [],
+      "chunkIndex": 1
+    },
+    {
+      "startMs": 10654,
+      "endMs": 10694,
+      "text": "и",
+      "speakerId": 1,
+      "warnings": [],
+      "chunkIndex": 1
+    },
+    {
+      "startMs": 10774,
+      "endMs": 11414,
+      "text": "удовольствием.",
+      "speakerId": 1,
+      "warnings": [],
+      "chunkIndex": 1
+    },
+    {
+      "startMs": 11814,
+      "endMs": 11854,
+      "text": "А",
+      "speakerId": 1,
+      "warnings": [],
+      "chunkIndex": 1
+    },
+    {
+      "startMs": 11974,
+      "endMs": 12014,
+      "text": "у",
+      "speakerId": 1,
+      "warnings": [],
+      "chunkIndex": 1
+    },
+    {
+      "startMs": 12094,
+      "endMs": 12134,
+      "text": "тебя",
+      "speakerId": 1,
+      "warnings": [],
+      "chunkIndex": 1
+    },
+    {
+      "startMs": 12254,
+      "endMs": 12294,
+      "text": "есть",
+      "speakerId": 1,
+      "warnings": [],
+      "chunkIndex": 1
+    },
+    {
+      "startMs": 12534,
+      "endMs": 12854,
+      "text": "любимое",
+      "speakerId": 1,
+      "warnings": [],
+      "chunkIndex": 1
+    },
+    {
+      "startMs": 13014,
+      "endMs": 13254,
+      "text": "блюдо?",
+      "speakerId": 1,
+      "warnings": [],
+      "chunkIndex": 1
+    },
+    {
+      "startMs": 14022,
+      "endMs": 14502,
+      "text": "Подарила",
+      "speakerId": 1,
+      "warnings": [],
+      "chunkIndex": 2
+    },
+    {
+      "startMs": 14622,
+      "endMs": 14782,
+      "text": "маме",
+      "speakerId": 1,
+      "warnings": [],
+      "chunkIndex": 2
+    },
+    {
+      "startMs": 14942,
+      "endMs": 15182,
+      "text": "билеты",
+      "speakerId": 1,
+      "warnings": [],
+      "chunkIndex": 2
+    },
+    {
+      "startMs": 15302,
+      "endMs": 15342,
+      "text": "на",
+      "speakerId": 1,
+      "warnings": [],
+      "chunkIndex": 2
+    },
+    {
+      "startMs": 15382,
+      "endMs": 15702,
+      "text": "концерт",
+      "speakerId": 1,
+      "warnings": [],
+      "chunkIndex": 2
+    },
+    {
+      "startMs": 15862,
+      "endMs": 15902,
+      "text": "её",
+      "speakerId": 1,
+      "warnings": [],
+      "chunkIndex": 2
+    },
+    {
+      "startMs": 16102,
+      "endMs": 16422,
+      "text": "любимой",
+      "speakerId": 2,
+      "warnings": [],
+      "chunkIndex": 2
+    },
+    {
+      "startMs": 16582,
+      "endMs": 16862,
+      "text": "группы.",
+      "speakerId": 2,
+      "warnings": [],
+      "chunkIndex": 2
+    },
+    {
+      "startMs": 17342,
+      "endMs": 17382,
+      "text": "А",
+      "speakerId": 2,
+      "warnings": [],
+      "chunkIndex": 2
+    },
+    {
+      "startMs": 17502,
+      "endMs": 17542,
+      "text": "ты",
+      "speakerId": 2,
+      "warnings": [],
+      "chunkIndex": 2
+    },
+    {
+      "startMs": 17662,
+      "endMs": 17902,
+      "text": "любишь",
+      "speakerId": 2,
+      "warnings": [],
+      "chunkIndex": 2
+    },
+    {
+      "startMs": 18302,
+      "endMs": 18662,
+      "text": "дарить?",
+      "speakerId": 2,
+      "warnings": [],
+      "chunkIndex": 2
+    },
+    {
+      "startMs": 19438,
+      "endMs": 19638,
+      "text": "Или",
+      "speakerId": 2,
+      "warnings": [],
+      "chunkIndex": 3
+    },
+    {
+      "startMs": 19758,
+      "endMs": 20038,
+      "text": "получать",
+      "speakerId": 2,
+      "warnings": [],
+      "chunkIndex": 3
+    },
+    {
+      "startMs": 20198,
+      "endMs": 20518,
+      "text": "подарки",
+      "speakerId": 2,
+      "warnings": [],
+      "chunkIndex": 3
+    },
+    {
+      "startMs": 20678,
+      "endMs": 20718,
+      "text": "больше.",
+      "speakerId": 2,
+      "warnings": [],
+      "chunkIndex": 3
+    },
+    {
+      "startMs": 21398,
+      "endMs": 21878,
+      "text": "Полностью",
+      "speakerId": 3,
+      "warnings": [],
+      "chunkIndex": 3
+    },
+    {
+      "startMs": 21998,
+      "endMs": 22478,
+      "text": "согласен.",
+      "speakerId": 3,
+      "warnings": [],
+      "chunkIndex": 3
+    },
+    {
+      "startMs": 22918,
+      "endMs": 23278,
+      "text": "Всегда",
+      "speakerId": 4,
+      "warnings": [
+        "Смена говорящего на границе слова"
+      ],
+      "chunkIndex": 3
+    },
+    {
+      "startMs": 23358,
+      "endMs": 23758,
+      "text": "интересно",
+      "speakerId": 4,
+      "warnings": [],
+      "chunkIndex": 3
+    },
+    {
+      "startMs": 23838,
+      "endMs": 23878,
+      "text": "узнать,",
+      "speakerId": 4,
+      "warnings": [],
+      "chunkIndex": 3
+    },
+    {
+      "startMs": 24278,
+      "endMs": 24318,
+      "text": "какие",
+      "speakerId": 4,
+      "warnings": [],
+      "chunkIndex": 3
+    },
+    {
+      "startMs": 24558,
+      "endMs": 24958,
+      "text": "новинки",
+      "speakerId": 4,
+      "warnings": [],
+      "chunkIndex": 3
+    },
+    {
+      "startMs": 25078,
+      "endMs": 25118,
+      "text": "ты",
+      "speakerId": 4,
+      "warnings": [],
+      "chunkIndex": 3
+    },
+    {
+      "startMs": 25238,
+      "endMs": 25838,
+      "text": "собираешься",
+      "speakerId": 4,
+      "warnings": [],
+      "chunkIndex": 3
+    },
+    {
+      "startMs": 25918,
+      "endMs": 25958,
+      "text": "добавить",
+      "speakerId": 4,
+      "warnings": [],
+      "chunkIndex": 3
+    },
+    {
+      "startMs": 26358,
+      "endMs": 26398,
+      "text": "в",
+      "speakerId": 4,
+      "warnings": [],
+      "chunkIndex": 3
+    },
+    {
+      "startMs": 26438,
+      "endMs": 26598,
+      "text": "свой",
+      "speakerId": 4,
+      "warnings": [],
+      "chunkIndex": 3
+    },
+    {
+      "startMs": 26678,
+      "endMs": 27078,
+      "text": "гардероб",
+      "speakerId": 4,
+      "warnings": [],
+      "chunkIndex": 3
+    },
+    {
+      "startMs": 27358,
+      "endMs": 27398,
+      "text": "в",
+      "speakerId": 4,
+      "warnings": [],
+      "chunkIndex": 3
+    },
+    {
+      "startMs": 27478,
+      "endMs": 27958,
+      "text": "ближайшее",
+      "speakerId": 4,
+      "warnings": [],
+      "chunkIndex": 3
+    },
+    {
+      "startMs": 28038,
+      "endMs": 28078,
+      "text": "время?",
+      "speakerId": 4,
+      "warnings": [],
+      "chunkIndex": 3
+    },
+    {
+      "startMs": 29334,
+      "endMs": 29374,
+      "text": "Да,",
+      "speakerId": 5,
+      "warnings": [],
+      "chunkIndex": 4
+    },
+    {
+      "startMs": 30214,
+      "endMs": 30254,
+      "text": "я",
+      "speakerId": 5,
+      "warnings": [],
+      "chunkIndex": 4
+    },
+    {
+      "startMs": 30414,
+      "endMs": 30734,
+      "text": "иногда",
+      "speakerId": 5,
+      "warnings": [],
+      "chunkIndex": 4
+    },
+    {
+      "startMs": 30814,
+      "endMs": 31134,
+      "text": "захожу",
+      "speakerId": 5,
+      "warnings": [],
+      "chunkIndex": 4
+    },
+    {
+      "startMs": 31294,
+      "endMs": 31334,
+      "text": "на",
+      "speakerId": 5,
+      "warnings": [],
+      "chunkIndex": 4
+    },
+    {
+      "startMs": 31454,
+      "endMs": 31774,
+      "text": "сайты",
+      "speakerId": 5,
+      "warnings": [],
+      "chunkIndex": 4
+    },
+    {
+      "startMs": 31894,
+      "endMs": 32294,
+      "text": "известных",
+      "speakerId": 5,
+      "warnings": [],
+      "chunkIndex": 4
+    },
+    {
+      "startMs": 32454,
+      "endMs": 33014,
+      "text": "брендов,",
+      "speakerId": 5,
+      "warnings": [],
+      "chunkIndex": 4
+    },
+    {
+      "startMs": 33214,
+      "endMs": 33254,
+      "text": "чтобы",
+      "speakerId": 5,
+      "warnings": [],
+      "chunkIndex": 4
+    },
+    {
+      "startMs": 33534,
+      "endMs": 33574,
+      "text": "посмотреть",
+      "speakerId": 5,
+      "warnings": [],
+      "chunkIndex": 4
+    },
+    {
+      "startMs": 34566,
+      "endMs": 34606,
+      "text": "Что",
+      "speakerId": 6,
+      "warnings": [],
+      "chunkIndex": 5
+    },
+    {
+      "startMs": 34926,
+      "endMs": 35566,
+      "text": "представляют",
+      "speakerId": 6,
+      "warnings": [],
+      "chunkIndex": 5
+    },
+    {
+      "startMs": 35646,
+      "endMs": 35966,
+      "text": "собой",
+      "speakerId": 6,
+      "warnings": [],
+      "chunkIndex": 5
+    },
+    {
+      "startMs": 36086,
+      "endMs": 36406,
+      "text": "новые",
+      "speakerId": 6,
+      "warnings": [],
+      "chunkIndex": 5
+    },
+    {
+      "startMs": 36526,
+      "endMs": 37246,
+      "text": "представители?",
+      "speakerId": 6,
+      "warnings": [],
+      "chunkIndex": 5
+    },
+    {
+      "startMs": 38046,
+      "endMs": 38086,
+      "text": "Ты",
+      "speakerId": 6,
+      "warnings": [],
+      "chunkIndex": 6
+    },
+    {
+      "startMs": 38286,
+      "endMs": 38326,
+      "text": "тоже",
+      "speakerId": 6,
+      "warnings": [],
+      "chunkIndex": 6
+    },
+    {
+      "startMs": 38726,
+      "endMs": 39646,
+      "text": "интересуешься?",
+      "speakerId": 6,
+      "warnings": [],
+      "chunkIndex": 6
+    },
+    {
+      "startMs": 41262,
+      "endMs": 41302,
+      "text": "Да,",
+      "speakerId": 6,
+      "warnings": [],
+      "chunkIndex": 7
+    },
+    {
+      "startMs": 41862,
+      "endMs": 41902,
+      "text": "мы",
+      "speakerId": 6,
+      "warnings": [],
+      "chunkIndex": 7
+    },
+    {
+      "startMs": 42062,
+      "endMs": 42542,
+      "text": "настоящие",
+      "speakerId": 1,
+      "warnings": [
+        "Смена говорящего на границе слова"
+      ],
+      "chunkIndex": 7
+    },
+    {
+      "startMs": 42622,
+      "endMs": 43342,
+      "text": "профессионалы.",
+      "speakerId": 1,
+      "warnings": [
+        "Пересечение голосов в слове"
+      ],
+      "chunkIndex": 7
+    },
+    {
+      "startMs": 43782,
+      "endMs": 43822,
+      "text": "А",
+      "speakerId": -1,
+      "warnings": [
+        "Неоднозначный говорящий слова",
+        "Пересечение голосов в слове"
+      ],
+      "chunkIndex": 7
+    },
+    {
+      "startMs": 43982,
+      "endMs": 44262,
+      "text": "другие",
+      "speakerId": 1,
+      "warnings": [],
+      "chunkIndex": 7
+    },
+    {
+      "startMs": 44422,
+      "endMs": 44622,
+      "text": "пусть",
+      "speakerId": 1,
+      "warnings": [],
+      "chunkIndex": 7
+    },
+    {
+      "startMs": 44902,
+      "endMs": 45462,
+      "text": "завидуют.",
+      "speakerId": 1,
+      "warnings": [
+        "Пересечение голосов в слове"
+      ],
+      "chunkIndex": 7
+    }
+  ],
+  "segments": [
+    {
+      "startMs": 678,
+      "endMs": 6478,
+      "speakerId": 0,
+      "text": "Ха-ха! Точно. Ну что, может, как-нибудь устроим совместный кинопросмотр на английском?",
+      "source": "GigaAM v3 E2E RNNT INT8 / sherpa-onnx 2.0.1",
+      "warnings": []
+    },
+    {
+      "startMs": 7254,
+      "endMs": 13254,
+      "speakerId": 1,
+      "text": "Да, готовка — это отличный способ провести время с пользой и удовольствием. А у тебя есть любимое блюдо?",
+      "source": "GigaAM v3 E2E RNNT INT8 / sherpa-onnx 2.0.1",
+      "warnings": []
+    },
+    {
+      "startMs": 14022,
+      "endMs": 15902,
+      "speakerId": 1,
+      "text": "Подарила маме билеты на концерт её",
+      "source": "GigaAM v3 E2E RNNT INT8 / sherpa-onnx 2.0.1",
+      "warnings": []
+    },
+    {
+      "startMs": 16102,
+      "endMs": 18662,
+      "speakerId": 2,
+      "text": "любимой группы. А ты любишь дарить?",
+      "source": "GigaAM v3 E2E RNNT INT8 / sherpa-onnx 2.0.1",
+      "warnings": []
+    },
+    {
+      "startMs": 19438,
+      "endMs": 20718,
+      "speakerId": 2,
+      "text": "Или получать подарки больше.",
+      "source": "GigaAM v3 E2E RNNT INT8 / sherpa-onnx 2.0.1",
+      "warnings": []
+    },
+    {
+      "startMs": 21398,
+      "endMs": 22478,
+      "speakerId": 3,
+      "text": "Полностью согласен.",
+      "source": "GigaAM v3 E2E RNNT INT8 / sherpa-onnx 2.0.1",
+      "warnings": []
+    },
+    {
+      "startMs": 22918,
+      "endMs": 28078,
+      "speakerId": 4,
+      "text": "Всегда интересно узнать, какие новинки ты собираешься добавить в свой гардероб в ближайшее время?",
+      "source": "GigaAM v3 E2E RNNT INT8 / sherpa-onnx 2.0.1",
+      "warnings": [
+        "Смена говорящего на границе слова"
+      ]
+    },
+    {
+      "startMs": 29334,
+      "endMs": 33574,
+      "speakerId": 5,
+      "text": "Да, я иногда захожу на сайты известных брендов, чтобы посмотреть",
+      "source": "GigaAM v3 E2E RNNT INT8 / sherpa-onnx 2.0.1",
+      "warnings": []
+    },
+    {
+      "startMs": 34566,
+      "endMs": 37246,
+      "speakerId": 6,
+      "text": "Что представляют собой новые представители?",
+      "source": "GigaAM v3 E2E RNNT INT8 / sherpa-onnx 2.0.1",
+      "warnings": []
+    },
+    {
+      "startMs": 38046,
+      "endMs": 39646,
+      "speakerId": 6,
+      "text": "Ты тоже интересуешься?",
+      "source": "GigaAM v3 E2E RNNT INT8 / sherpa-onnx 2.0.1",
+      "warnings": []
+    },
+    {
+      "startMs": 41262,
+      "endMs": 41902,
+      "speakerId": 6,
+      "text": "Да, мы",
+      "source": "GigaAM v3 E2E RNNT INT8 / sherpa-onnx 2.0.1",
+      "warnings": []
+    },
+    {
+      "startMs": 42062,
+      "endMs": 43342,
+      "speakerId": 1,
+      "text": "настоящие профессионалы.",
+      "source": "GigaAM v3 E2E RNNT INT8 / sherpa-onnx 2.0.1",
+      "warnings": [
+        "Смена говорящего на границе слова",
+        "Пересечение голосов в слове"
+      ]
+    },
+    {
+      "startMs": 43782,
+      "endMs": 43822,
+      "speakerId": -1,
+      "text": "А",
+      "source": "GigaAM v3 E2E RNNT INT8 / sherpa-onnx 2.0.1",
+      "warnings": [
+        "Неоднозначный говорящий слова",
+        "Пересечение голосов в слове"
+      ]
+    },
+    {
+      "startMs": 43982,
+      "endMs": 45462,
+      "speakerId": 1,
+      "text": "другие пусть завидуют.",
+      "source": "GigaAM v3 E2E RNNT INT8 / sherpa-onnx 2.0.1",
+      "warnings": [
+        "Пересечение голосов в слове"
+      ]
+    }
+  ],
+  "stagesMs": {
+    "validationMs": 3041.9675,
+    "timestampMetadataMs": 6.390798,
+    "decodeMs": 94.546554,
+    "vadLoadMs": 23.514666,
+    "vadMs": 343.347554,
+    "diarizationLoadMs": 1105.637789,
+    "diarizationInferenceMs": 21163.678949,
+    "diarizationMs": 22285.435645,
+    "alignmentMs": 0.01621,
+    "asrLoadMs": 3853.64591,
+    "asrReadMs": 1.041226,
+    "asrInferenceMs": 9088.918092,
+    "wordAssignmentMs": 5.67504,
+    "asrMs": 9301.963855
+  },
+  "backend": "GigaAM v3 E2E RNNT INT8 / sherpa-onnx 2.0.1",
+  "clusteringMode": "automatic",
+  "expectedSpeakers": -1,
+  "modelFiles": [
+    {
+      "path": "giga-v3/encoder.int8.onnx",
+      "bytes": 224570820,
+      "sha256": "369f35a71bf288d3b8e0391fabd8dba5f2314088d440bca474056b7b4b6e66bf",
+      "hashValidationCached": false
+    },
+    {
+      "path": "giga-v3/decoder.onnx",
+      "bytes": 4600132,
+      "sha256": "38fc7475443ea2a26f63211ca350f73ac50fff824ab7a3876ee2bd610c53bbc4",
+      "hashValidationCached": false
+    },
+    {
+      "path": "giga-v3/joiner.onnx",
+      "bytes": 2712896,
+      "sha256": "602ff7017a93311aad34df1437c8d7f49911353c13d6eae7a6ee7b041339465c",
+      "hashValidationCached": false
+    },
+    {
+      "path": "giga-v3/tokens.txt",
+      "bytes": 13354,
+      "sha256": "39abae20e692998290c574e606f11a9edef2902a1995463fcff63d1490cf22b7",
+      "hashValidationCached": false
+    },
+    {
+      "path": "diar/segmentation.onnx",
+      "bytes": 5992913,
+      "sha256": "220ad67ca923bef2fa91f2390c786097bf305bceb5e261d4af67b38e938e1079",
+      "hashValidationCached": false
+    },
+    {
+      "path": "diar/embedding.onnx",
+      "bytes": 39593761,
+      "sha256": "1a331345f04805badbb495c775a6ddffcdd1a732567d5ec8b3d5749e3c7a5e4b",
+      "hashValidationCached": false
+    },
+    {
+      "path": "vad/silero_vad.onnx",
+      "bytes": 643854,
+      "sha256": "9e2449e1087496d8d4caba907f23e0bd3f78d91fa552479bb9c23ac09cbb1fd6",
+      "hashValidationCached": false
+    }
+  ],
+  "modelBytes": 278127730,
+  "tokenTimestampPolicy": {
+    "verified": true,
+    "feature_frame_shift_ms": 10,
+    "subsampling_factor": 4,
+    "frame_stride_ms": 40,
+    "feature_frame_shift_source": "https://github.com/k2-fsa/sherpa-onnx/blob/v2.0.1/sherpa-onnx/csrc/offline-recognizer-transducer-nemo-impl.h#L208-L211",
+    "model_metadata": {
+      "onnx.infer": "onnxruntime.quant",
+      "vocab_size": "1024",
+      "pred_rnn_layers": "1",
+      "pred_hidden": "320",
+      "normalize_type": "",
+      "subsampling_factor": "4",
+      "model_type": "EncDecRNNTBPEModel",
+      "version": "3",
+      "model_author": "https://github.com/salute-developers/GigaAM",
+      "license": "https://github.com/salute-developers/GigaAM/blob/main/LICENSE",
+      "language": "Russian",
+      "comment": "v3",
+      "is_giga_am": "1"
+    },
+    "precision": "Token emission frame intervals; not acoustic forced-aligned word timestamps"
+  },
+  "tokenTimestampError": null,
+  "wordAssignmentSupported": true,
+  "fallbackChunks": 0,
+  "fallbackPolicy": "Full ASR chunk with unknown speaker and warning; no fabricated word times or second ASR pass",
+  "config": {
+    "asrThreads": 2,
+    "vadThreads": 1,
+    "provider": "cpu",
+    "sampleRate": 16000,
+    "featureDim": 80,
+    "dither": 0,
+    "decodingMethod": "greedy_search",
+    "modelType": "nemo_transducer",
+    "vadThreshold": 0.5,
+    "vadMinSpeechSec": 0.25,
+    "vadMinSilenceSec": 0.25,
+    "vadWindowSamples": 512,
+    "vadMaxSpeechSec": 20,
+    "preRollMs": 600,
+    "postRollMs": 0,
+    "maxAsrSegmentMs": 20000,
+    "clusterThreshold": 0.5,
+    "clusterThresholdApplied": true,
+    "segmentationWindowShiftRatio": 0.1,
+    "diarMinDurationOnSec": 0.2,
+    "diarMinDurationOffSec": 0.5,
+    "quietGainTriggerPeak": 0.01,
+    "quietGainTargetPeak": 0.1,
+    "quietGainMax": 20,
+    "quietGainSilenceFloor": 1e-06,
+    "rescueTargetRms": 0.02,
+    "rescuePeakHeadroom": 0.95,
+    "rescueMinGainRatio": 1.01,
+    "asrSlicing": "bounded VAD only; ignores diarization turns",
+    "energySplit": true,
+    "energyWindowMs": 40,
+    "energySearchMs": 4000,
+    "energyTie": "earliest minimum",
+    "energyCut": "window center",
+    "punctuationMode": "none"
+  },
+  "inputDecoder": {
+    "policy": "unchanged generic AudioDecoder canonical16k timeline emulation",
+    "hostDecoderHelperSha256": "5b5258286138ae5b251de0324c592a968180ef2d90f3c6ee68aa33e82af67044"
+  },
+  "pipelineTimingScope": "per-invocation SHA validation, metadata, canonical decode, unchanged VAD/diarization, VAD chunking, ASR and word assignment; excludes persistence/result JSON serialization",
+  "memoryScope": "Host WAV held in memory; not Android bounded-IO/peak RAM parity",
+  "validationScope": "Every required file hashed per invocation, unchanged production ModelManager policy",
+  "nativeResourcePolicy": "VAD released before diarization; diarizer released before ASR; no retained native model cache",
+  "sourceFiles": {
+    "app/src/main/java/ru/replika/ml/ProcessingWorker.kt": "69be2010ea3fcf5ab865570dac87654c277fea02cd3c0c97d66c3edb75d4e050",
+    "app/src/main/java/ru/replika/ml/AsrEngine.kt": "8be6a422b26de01d3aa3a237c7921e1906bdc03a90fbad016d4cc0763aba09c2",
+    "app/src/main/java/ru/replika/ml/AudioDecoder.kt": "53cb484da019c62cca72f74c1930b50dabd934018aef47528eafbaf690b34b06",
+    "app/src/main/java/ru/replika/domain/QuietAudioGain.kt": "f89037844f79685a7e79bfe1e282af3687202de06325826ac2fc320379225b40",
+    "app/src/main/java/ru/replika/domain/ZeroSpanVadRescue.kt": "ffdeb91451b495e686a52fb6029663387bc53991318f572d992d39fd4b5883b8",
+    "tools/eval/pipeline_words.py": "68183283067a0bff8da6b0912e850b1097875fef47fb09164d03b5ae3ab29f6c",
+    "tools/eval/vad_words.py": "1310361aecdab50e6c977032b73f01352d870af7416904b6dca22b682f3c76a7",
+    "tools/eval/pipeline.py": "fcdea5e2028e2c46226ab24ff0ac4fe33743fb15bfe853789e156f50203b137a",
+    "tools/eval/decoder_parity.py": "5b5258286138ae5b251de0324c592a968180ef2d90f3c6ee68aa33e82af67044"
+  }
+}

@@ -1,0 +1,101 @@
+{
+  "created_at": "2026-11-06T20:52:05.438855+00:00",
+  "pcm_comparison": {
+    "scope": "Generic canonical-WAV decoder investigation; no ASR/model/production change",
+    "audio_sha256": "453c3b47484600ba183a43a04f72a7c57faa51691d6ccd099939bb2dc99a1354",
+    "aosp_extractor_source": "https://android.googlesource.com/platform/frameworks/av/+/refs/heads/android15-release/media/module/extractors/wav/WAVExtractor.cpp",
+    "packet_frames": 16384,
+    "emulated_vs_direct_pcm16": {
+      "candidate_samples": 1190678,
+      "actual_samples": 1190678,
+      "bit_exact": false,
+      "different_samples": 756167,
+      "first_differing_sample": 51710,
+      "maximum_abs_error": 7.897615432739258e-06,
+      "mean_abs_error": 3.884855985406362e-08,
+      "candidate_peak": 0.510554313659668,
+      "actual_peak": 0.51055908203125
+    },
+    "android_pcm_sha256": "20564fccab786ac714d255617b524f4e27c005bfeba4bcbb8c37263d82a8c184",
+    "direct_vs_android": {
+      "candidate_samples": 1190678,
+      "actual_samples": 1190678,
+      "bit_exact": false,
+      "different_samples": 756167,
+      "first_differing_sample": 51710,
+      "maximum_abs_error": 7.897615432739258e-06,
+      "mean_abs_error": 3.884855985406362e-08,
+      "candidate_peak": 0.51055908203125,
+      "actual_peak": 0.510554313659668
+    },
+    "emulated_vs_android": {
+      "candidate_samples": 1190678,
+      "actual_samples": 1190678,
+      "bit_exact": true,
+      "different_samples": 0,
+      "first_differing_sample": null,
+      "maximum_abs_error": 0.0,
+      "mean_abs_error": 0.0,
+      "candidate_peak": 0.510554313659668,
+      "actual_peak": 0.510554313659668
+    }
+  },
+  "same_host_causal_probe": {
+    "direct_repeat_identical_text": true,
+    "actual_and_emulated_identical_text": true,
+    "direct_vs_decoded_text_differs": false
+  },
+  "cpu_tier_probes": [
+    {
+      "label": "qemu-ivybridge-avx",
+      "text": "Согласна, Skeleton — это просто адреналин на максимуме.",
+      "cpu_features": {
+        "AVX": true,
+        "FMA3": false,
+        "AVX2": false
+      }
+    },
+    {
+      "label": "qemu-nehalem-sse42",
+      "text": "Согласна, Skeleton — это просто адреналин на максимуме.",
+      "cpu_features": {
+        "AVX": false,
+        "FMA3": false,
+        "AVX2": false
+      }
+    }
+  ],
+  "full_generic_case_word": "Согласна, Skeleton — это просто адреналин на максимуме.",
+  "cpu_mask_attempt": {
+    "method": "Linux ARCH_SET_CPUID process-only diagnostic",
+    "result": "ENODEV; no model inference and no persistent change"
+  },
+  "conclusion": "Generic AudioDecoder clock/interpolation mismatch is proven and fixed for input fidelity. It did not independently explain the Skeleton/скелетон cross-runtime choice. CPU-tier probes were also negative. Fresh native GigaAmEngine emits скелетон on the same captured PCM, so Worker slice history is not required for that choice. Native and host share sherpa2.0.1/gitaf2d8d81/ORT1.28.2; the exact platform numerical cause remains unproven. No word/file-specific normalization or production/model changes were made. No diagnostic probe is claimed as WER improvement.",
+  "sources": [
+    "https://android.googlesource.com/platform/frameworks/av/+/refs/heads/android15-release/media/module/extractors/wav/WAVExtractor.cpp",
+    "https://onnxruntime.ai/docs/performance/model-optimizations/quantization.html",
+    "https://man7.org/linux/man-pages/man2/arch_prctl.2.html"
+  ],
+  "source_decoder_sha256": "53cb484da019c62cca72f74c1930b50dabd934018aef47528eafbaf690b34b06",
+  "host_decoder_helper_sha256": "5b5258286138ae5b251de0324c592a968180ef2d90f3c6ee68aa33e82af67044",
+  "updated_at": "2026-11-06T21:21:25.999302+00:00",
+  "fresh_native_asr_probe": {
+    "start_ms": 67842,
+    "end_ms": 71142,
+    "text": "Согласна, скелетон — это просто адреналин на максимуме.",
+    "processing_ms": 1992,
+    "threads": 2,
+    "newModelInference": true,
+    "scope": "Fresh production GigaAmEngine on a slice of actual Android PCM; no reference/VAD/diarization hints"
+  },
+  "fresh_native_probe_source_sha256": "898d0f91ba1b835bc2ad1aac7c55aa9da5e9d670c594517238a6cb5e3fc026cb",
+  "build_identity": {
+    "scope": "Native build strings from pinned repository x86_64 JNI library and local Python runtime metadata; fresh-native ASR executed by parent instrumentation test",
+    "sherpa_version": "2.0.1",
+    "git_sha1": "af2d8d81",
+    "git_date": "Mon Oct 26 14:57:12 2026",
+    "onnxruntime_version": "1.28.2",
+    "android_jni_sha256": "878d61116f244131263eec24297ef05bf508d02bccdede2a4e3ad3202bbdaa48",
+    "same_semver_git_and_ort_as_host": true
+  }
+}

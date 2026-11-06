@@ -1,0 +1,241 @@
+{
+  "at": "2026-11-06T22:26:53.371756+00:00",
+  "status": "SAVED_HOST_AUDIT_PASS",
+  "new_model_inference": false,
+  "scoring_recomputed_from_saved_references_and_hypotheses": true,
+  "original_gates_modified": false,
+  "checks_passed": 2131,
+  "checks_total": 2131,
+  "failures": [],
+  "runs_audited": {
+    "baseline-old": {
+      "path": "artifacts/test-results/step-02/baseline-v16-host-android-decoder",
+      "run_sha256": "87e545e555d2544a25f2aeac6a30b7df98a902fd6a820ca424dabe56cf883976",
+      "cases": 13
+    },
+    "dev-context600": {
+      "path": "artifacts/test-results/step-03/context600-dev",
+      "run_sha256": "841a2675d44aa4cb02a0fec62e183bb4bef0ac9af7f375d0c2026445db936b64",
+      "cases": 8
+    },
+    "candidate-old": {
+      "path": "artifacts/test-results/step-03/context600-selected-host",
+      "run_sha256": "a388cc7e35ed099b3ab268bf908255e4fbefcdd69723f95b7b649565a99ba631",
+      "cases": 13
+    },
+    "baseline-reserve": {
+      "path": "artifacts/test-results/step-03/reserve-v16-host",
+      "run_sha256": "097dc0b82c585727c0f9cdea76f034ed33741a322fa0845193eef1b0ff313981",
+      "cases": 10
+    },
+    "candidate-reserve": {
+      "path": "artifacts/test-results/step-03/reserve-context600-host",
+      "run_sha256": "b712465d642e0bc0bd2fd30305444d9588fa50d5927c5a5a25c6859b5a168163",
+      "cases": 10
+    }
+  },
+  "input_audio_and_model_sha_rehashed": true,
+  "model_files": {
+    "giga-v3/encoder.int8.onnx": "369f35a71bf288d3b8e0391fabd8dba5f2314088d440bca474056b7b4b6e66bf",
+    "giga-v3/decoder.onnx": "38fc7475443ea2a26f63211ca350f73ac50fff824ab7a3876ee2bd610c53bbc4",
+    "giga-v3/joiner.onnx": "602ff7017a93311aad34df1437c8d7f49911353c13d6eae7a6ee7b041339465c",
+    "giga-v3/tokens.txt": "39abae20e692998290c574e606f11a9edef2902a1995463fcff63d1490cf22b7",
+    "diar/segmentation.onnx": "220ad67ca923bef2fa91f2390c786097bf305bceb5e261d4af67b38e938e1079",
+    "diar/embedding.onnx": "1a331345f04805badbb495c775a6ddffcdd1a732567d5ec8b3d5749e3c7a5e4b",
+    "vad/silero_vad.onnx": "9e2449e1087496d8d4caba907f23e0bd3f78d91fa552479bb9c23ac09cbb1fd6"
+  },
+  "dev_exact_replication_case_ids": [
+    "dev-01-two-clean",
+    "dev-02-three-clean",
+    "dev-03-short",
+    "dev-04-expressive",
+    "dev-05-whisper",
+    "dev-06-overlap",
+    "dev-mono-m",
+    "dev-mono-s"
+  ],
+  "separate_primary_gates": {
+    "original": {
+      "status": "PASS",
+      "accepted": true,
+      "checks": {
+        "dev_raw_wer_strictly_better": {
+          "status": "PASS",
+          "baseline": 0.2326454033771107,
+          "candidate": 0.13320825515947468,
+          "comparison": "strictly_less"
+        },
+        "dev_normalized_wer_no_worse": {
+          "status": "PASS",
+          "baseline": 0.07330827067669173,
+          "candidate": 0.03007518796992481,
+          "comparison": "less_or_equal"
+        },
+        "holdout_raw_wer_no_worse": {
+          "status": "PASS",
+          "baseline": 0.16441441441441443,
+          "candidate": 0.11036036036036036,
+          "comparison": "less_or_equal"
+        }
+      },
+      "additional_axes": "Short deletion target and coarse timing diagnostics are reported separately; no real word-timestamp acceptance without independent word gold."
+    },
+    "reserve_raw_and_normalized_no_regression": true,
+    "reserve_report_generic_combined_gate": "PENDING_UNEVALUATED_SPLIT",
+    "reserve_report_note": "Reserve has only holdout rows, so its generic combined dev+holdout gate correctly remains pending; host-quality-gate checks reserve raw and normalized separately."
+  },
+  "metrics": {
+    "original_dev": {
+      "baseline": {
+        "raw_errors": 124,
+        "raw_words": 533,
+        "raw_wer": 0.2326454033771107,
+        "normalized_errors": 39,
+        "normalized_words": 532,
+        "cpwer_raw": 0.8292682926829268,
+        "cpwer_normalized": 0.7274436090225563,
+        "transcript_der0_proxy": 0.46036184210526315,
+        "native_der0_proxy": 0.4315671992481203,
+        "median_start_abs_error_ms_proxy": 684.0,
+        "median_end_abs_error_ms_proxy": 475.0,
+        "reference_interval_coverage": 0.9777777777777777,
+        "host_rtf_uncontrolled_concurrency": 0.36919850524253184
+      },
+      "candidate": {
+        "raw_errors": 71,
+        "raw_words": 533,
+        "raw_wer": 0.13320825515947468,
+        "normalized_errors": 16,
+        "normalized_words": 532,
+        "cpwer_raw": 0.7786116322701688,
+        "cpwer_normalized": 0.7086466165413534,
+        "transcript_der0_proxy": 0.46903195488721805,
+        "native_der0_proxy": 0.4315671992481203,
+        "median_start_abs_error_ms_proxy": 367.0,
+        "median_end_abs_error_ms_proxy": 500.0,
+        "reference_interval_coverage": 0.8888888888888888,
+        "host_rtf_uncontrolled_concurrency": 0.7228184803904171
+      }
+    },
+    "original_holdout": {
+      "baseline": {
+        "raw_errors": 73,
+        "raw_words": 444,
+        "raw_wer": 0.16441441441441443,
+        "normalized_errors": 24,
+        "normalized_words": 442,
+        "cpwer_raw": 1.0045045045045045,
+        "cpwer_normalized": 0.9457013574660633,
+        "transcript_der0_proxy": 0.5477321266615305,
+        "native_der0_proxy": 0.5154572317414498,
+        "median_start_abs_error_ms_proxy": 331.5,
+        "median_end_abs_error_ms_proxy": 456.0,
+        "reference_interval_coverage": 1.0,
+        "host_rtf_uncontrolled_concurrency": 0.3604735469285734
+      },
+      "candidate": {
+        "raw_errors": 49,
+        "raw_words": 444,
+        "raw_wer": 0.11036036036036036,
+        "normalized_errors": 13,
+        "normalized_words": 442,
+        "cpwer_raw": 0.9797297297297297,
+        "cpwer_normalized": 0.9321266968325792,
+        "transcript_der0_proxy": 0.5355418808086522,
+        "native_der0_proxy": 0.5154572317414498,
+        "median_start_abs_error_ms_proxy": 269.0,
+        "median_end_abs_error_ms_proxy": 462.5,
+        "reference_interval_coverage": 0.9375,
+        "host_rtf_uncontrolled_concurrency": 0.8230411603265163
+      }
+    },
+    "reserve": {
+      "baseline": {
+        "raw_errors": 135,
+        "raw_words": 743,
+        "raw_wer": 0.1816958277254374,
+        "normalized_errors": 42,
+        "normalized_words": 744,
+        "cpwer_raw": 0.7698519515477793,
+        "cpwer_normalized": 0.7110215053763441,
+        "transcript_der0_proxy": 0.49099799955545675,
+        "native_der0_proxy": 0.4765907575420801,
+        "median_start_abs_error_ms_proxy": 372.0,
+        "median_end_abs_error_ms_proxy": 460.5,
+        "reference_interval_coverage": 0.9666666666666667,
+        "host_rtf_uncontrolled_concurrency": 0.8725001831757947
+      },
+      "candidate": {
+        "raw_errors": 83,
+        "raw_words": 743,
+        "raw_wer": 0.1117092866756393,
+        "normalized_errors": 24,
+        "normalized_words": 744,
+        "cpwer_raw": 0.7415881561238223,
+        "cpwer_normalized": 0.706989247311828,
+        "transcript_der0_proxy": 0.5002092817162833,
+        "native_der0_proxy": 0.4765907575420801,
+        "median_start_abs_error_ms_proxy": 391.0,
+        "median_end_abs_error_ms_proxy": 513.0,
+        "reference_interval_coverage": 0.8666666666666667,
+        "host_rtf_uncontrolled_concurrency": 0.8658862772553705
+      }
+    }
+  },
+  "per_case_regressions_retained": {
+    "original": {
+      "wer_raw": [],
+      "cpwer_raw": [
+        "dev-03-short",
+        "holdout-03-short"
+      ],
+      "cpwer_normalized": [
+        "dev-01-two-clean",
+        "holdout-03-short",
+        "holdout-04-overlap-expressive"
+      ],
+      "der_collar_0ms": [
+        "dev-03-short",
+        "dev-04-expressive",
+        "dev-05-whisper",
+        "holdout-03-short"
+      ]
+    },
+    "reserve": {
+      "wer_raw": [],
+      "cpwer_raw": [],
+      "cpwer_normalized": [
+        "reserve-01-two-clean"
+      ],
+      "der_collar_0ms": [
+        "reserve-01-two-clean",
+        "reserve-03-three-clean",
+        "reserve-04-three-clean",
+        "reserve-05-short",
+        "reserve-06-short",
+        "reserve-07-expressive",
+        "reserve-08-expressive",
+        "reserve-09-overlap"
+      ]
+    }
+  },
+  "limitations": [
+    "Final original all13 and both reserve jobs overlapped in wall-clock time; host RTF is not a controlled solo performance comparison.",
+    "DER and segment timing use utterance/clip placement proxies, not independent word or natural-dialogue activity gold; the <200ms word-timing target remains unestablished.",
+    "Transcript DER worsens on original dev and reserve while raw native turns/DER stay identical; do not claim diarization improvement.",
+    "Aggregate cpWER improves but remains high and individual regressions remain; automatic speaker count remains a known limitation.",
+    "The original holdout was opened after the rejected iteration1. Its unchanged regression gate is separate from the new metadata-selected, clip-disjoint reserve.",
+    "Reserve reuses the same source corpus/actors; it establishes utterance-disjoint validation, not unseen-actor or natural-conversation generalization.",
+    "Host helper code fingerprints match current frozen host sources. Android Worker changed only after these host runs and is not claimed byte-identical to saved source diagnostics.",
+    "Host-only primary quality acceptance does not accept Android parity, ARM/phone performance, real word timing, or a new production default."
+  ],
+  "default_recommendation": "Retain V1.6 default. Keep D explicit and default-off until native parity/evidence gate and document all remaining axes.",
+  "source_reports_sha256": {
+    "artifacts/test-results/step-03/host-quality-gate.json": "80384996b9cc40c2411d11a40a16ddace3a82872637aa87391a9f9cbd0dfc2f4",
+    "artifacts/test-results/step-03/candidate-selection-iteration2.json": "001535c51a8c969379eedcad3e1d6c65afa43ed81ce1227ca8526d4593ecae6e",
+    "artifacts/test-results/step-03/comparison-context600-selected-host/report.json": "ff42b2f8a47d24f446315a181090f3922ef280710f9b5aa149b2998548fc5b44",
+    "artifacts/test-results/step-03/comparison-reserve-context600-host/report.json": "0c8b53cb22346f353c3ba4a7e3e43f76272fd54c9cbcdb458f63a03923e53f86",
+    "benchmark/eval-reserve/selection.json": "015045aa2b98a70cb6f8c3c82ebb2dee783023faa72740b3b1ec249d17b67656"
+  },
+  "audit_script_sha256": "6de7a3aabda61325d559f063bde9e9f76bdf880b30dc77cb33032aaa7bce5df0"
+}

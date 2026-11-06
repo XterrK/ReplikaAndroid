@@ -33,12 +33,20 @@ class ProcessingWorker(context: Context,params: WorkerParameters): CoroutineWork
  override suspend fun doWork(): Result = withContext(Dispatchers.Default) {
   val pcm=File(applicationContext.cacheDir,"$recordingId-$id.pcm")
   val trace=PipelineTelemetry(applicationContext)
+  val workerContext=currentCoroutineContext()
   var diagnostic=JSONObject()
   suspend fun guard(label: String) {
    trace.cool { phase("Android сообщил о сильном нагреве · ожидание охлаждения") }
    phase(label)
   }
   try {
+   // Persisted requests without this key are always V1.6, even after a new APK changes defaults.
+   val asrPlan=AsrPlan.fromPersistedId(inputData.getString(ASR_PLAN_KEY))
+   val collectWordEvidence=inputData.getBoolean(COLLECT_WORD_EVIDENCE_KEY,false)
+   diagnostic.put("asrPlan",asrPlan.wireId).put("asrPolicy",asrPolicyJson(asrPlan))
+    .put("wordEvidenceRequested",collectWordEvidence).put("wordEvidenceApplicable",asrPlan.wordTimestamps)
+    .put("wordEvidenceLimitBytes",WORD_EVIDENCE_LIMIT_BYTES).put("wordEvidenceBytes",0L)
+    .put("wordEvidenceTruncated",false)
    setForeground(getForegroundInfo())
    trace.measure("provisioningWaitMs") { app.bundledModels.awaitReady() }
    val gateStart=SystemClock.elapsedRealtime()
@@ -67,7 +75,7 @@ class ProcessingWorker(context: Context,params: WorkerParameters): CoroutineWork
      guard("Поиск речи · Silero VAD")
      suspend fun detectSpeech(detectorGain: Float,label: String): List<Span> {
       val vad=trace.measure("vadLoadMs") { Vad(config=VadModelConfig(sileroVadModelConfig=SileroVadModelConfig(
-       model=app.models.file("vad/silero_vad.onnx").path,threshold=.5f,minSilenceDuration=.25f,minSpeechDuration=.25f,maxSpeechDuration=20f),numThreads=1)) }
+       model=app.models.file("vad/silero_vad.onnx").path,threshold=asrPlan.vadThreshold,minSilenceDuration=asrPlan.vadMinSilenceSec,minSpeechDuration=asrPlan.vadMinSpeechSec,maxSpeechDuration=20f),numThreads=1)) }
       val found=mutableListOf<Span>()
       trace.measure("vadMs") {
        try {
@@ -151,10 +159,42 @@ class ProcessingWorker(context: Context,params: WorkerParameters): CoroutineWork
        Alignment.stable(result.map { Turn((it.start*1000).roundToLong().coerceIn(0,decoded.durationMs),(it.end*1000).roundToLong().coerceIn(0,decoded.durationMs),it.speaker) }.filter { it.endMs>it.startMs })
       } finally { sd.release() }
      }
-     phase("Сопоставление временных интервалов")
-     val boundedSpans=Alignment.context(spans,decoded.durationMs,PRE_ROLL_MS,POST_ROLL_MS)
-     val slices=trace.measure("alignmentMs") { RecognitionPlanner.plan(boundedSpans,turns) }
+     if(asrPlan.wordTimestamps) guard("Планирование участков речи") else phase("Сопоставление временных интервалов")
+     val preRollMs=if(asrPlan.wordTimestamps) asrPlan.preRollMs else PRE_ROLL_MS
+     val boundedSpans=Alignment.context(spans,decoded.durationMs,preRollMs,POST_ROLL_MS)
+     val slices=trace.measure("alignmentMs") {
+      if(!asrPlan.wordTimestamps) RecognitionPlanner.plan(boundedSpans,turns)
+      else withContext(Dispatchers.IO) {
+       VadWordPlanner.planChunks(boundedSpans,energy={startMs,endMs ->
+        workerContext.ensureActive()
+        require(startMs>=0 && endMs>startMs && endMs<=decoded.durationMs) { "Energy window exceeds decoded audio" }
+        val first=startMs*16L;val last=endMs*16L
+        require(first>=0 && last<=decoded.samples.toLong() && last>first && last<=Int.MAX_VALUE.toLong())
+        val block=AudioDecoder.read(pcm,first.toInt(),(last-first).toInt())
+        var squares=0.0
+        for(sample in block) { val value=sample.toDouble();squares+=value*value }
+        workerContext.ensureActive()
+        squares/block.size
+       }).map { Slice(it.startMs,it.endMs,-1,emptyList()) }
+      }
+     }
      val sliceResults=JSONArray();val segments=mutableListOf<Segment>()
+     var fallbackChunks=0;var wordProcessedChunks=0;var wordEvidenceBytes=0L;var wordEvidenceTruncated=false
+     val verifiedFrameStrideMs=if(backend=="giga-v3") 40L else 0L
+     diagnostic.put("asrChunks",spanJson(slices.map { Span(it.startMs,it.endMs) }))
+      .put("turnsUsedForAsrSlicing",!asrPlan.wordTimestamps)
+      .put("wordAssignmentSupported",asrPlan.wordTimestamps && verifiedFrameStrideMs>0)
+      .put("wordProcessedChunks",0).put("fallbackChunks",0)
+      .put("wordTimestampScope",if(asrPlan.wordTimestamps)
+       "Token-emission proxies; pinned GigaAM v3 stride 40ms; not forced alignment or calibrated confidence"
+       else "Legacy V1.6 ASR segment intervals; word assignment not requested")
+     if(asrPlan.wordTimestamps) {
+      // Keep partial QA evidence on cancellation without publishing a partial transcript as READY.
+      diagnostic.put("asrSlices",sliceResults).put("energyWindowMs",40).put("energySearchMs",4000)
+       .put("energyMetric","sequential Double mean-square of original decoded Float32 PCM")
+       .put("fallbackPolicy","Full actual ASR chunk with unknown speaker and warning; no fabricated word times or second ASR pass")
+       .put("wordEvidenceBudgetScope","Conservative additional pretty-JSON UTF-8 payload bytes, including nesting allowance; summaries excluded")
+     }
      val engine=if(slices.isEmpty()) {
       // Silence/no-speech does not need a 230 MB recognizer. Preserve attribution and Room semantics.
       trace.times["asrLoadMs"]=0;trace.times["asrInferenceMs"]=0;null
@@ -164,6 +204,7 @@ class ProcessingWorker(context: Context,params: WorkerParameters): CoroutineWork
      }
      val source=engine?.source?:GigaAmEngine.sourceForModel(backend)
      trace.measure("asrMs") { engine?.use { activeEngine ->
+      if(!asrPlan.wordTimestamps) {
       for((i,s) in slices.withIndex()) {
        ensureActive();guard("Распознавание · ${source.substringBefore(" /")} · ${i+1}/${slices.size}")
        val a=(s.startMs*16).toInt();val b=min((s.endMs*16).toInt(),decoded.samples)
@@ -177,6 +218,63 @@ class ProcessingWorker(context: Context,params: WorkerParameters): CoroutineWork
        ensureActive()
        if(text.isNotBlank()) segments+=Segment(startMs=s.startMs,endMs=s.endMs,speakerId=s.speaker,text=text,source=source,reasons=s.reasons)
       }
+      } else {
+       for((i,s) in slices.withIndex()) {
+        ensureActive();guard("Распознавание · ${source.substringBefore(" /")} · ${i+1}/${slices.size}")
+        val first=s.startMs*16L;val last=minOf(s.endMs*16L,decoded.samples.toLong())
+        require(first>=0 && last>=first && last<=Int.MAX_VALUE.toLong())
+        val samples=trace.measure("asrReadMs") { AudioDecoder.read(pcm,first.toInt(),(last-first).toInt()) }
+        QuietAudioGain.apply(samples,recognitionGain)
+        val inferenceStart=SystemClock.elapsedRealtime()
+        // One recognizer pass. An unsupported word projection reuses this exact returned text.
+        val hypothesis=trace.measure("asrInferenceMs") { activeEngine.recognizeDetailed(samples) }
+        val inferenceMs=SystemClock.elapsedRealtime()-inferenceStart
+        ensureActive()
+        val (parsed,assigned,chunkSegments)=trace.measure("wordAssignmentMs") {
+         val parsed=VadWordPlanner.words(hypothesis.text,hypothesis.tokens,hypothesis.timestampsSeconds,
+          Span(s.startMs,s.endMs),hypothesis.frameStrideMs)
+         val assigned=if(parsed.supported) VadWordPlanner.assignWords(parsed.words,turns) else emptyList()
+         val grouped=if(parsed.supported) VadWordPlanner.groupWords(assigned,source,asrPlan.seamPunctuation)
+          else if(hypothesis.text.isNotBlank()) listOf(Segment(startMs=s.startMs,endMs=s.endMs,
+           speakerId=-1,text=hypothesis.text,source=source,reasons=listOf(WORD_FALLBACK_WARNING))) else emptyList()
+         Triple(parsed,assigned,grouped)
+        }
+        ensureActive()
+        if(!parsed.supported && hypothesis.text.isNotBlank()) fallbackChunks++
+        wordProcessedChunks++
+        // Summary fields remain small in production. Full token/word arrays are explicit QA only.
+        val summary=JSONObject().put("startMs",s.startMs).put("endMs",s.endMs).put("speakerId",-1)
+         .put("text",hypothesis.text).put("blank",hypothesis.text.isBlank()).put("inferenceMs",inferenceMs)
+         .put("tokenCount",hypothesis.tokens.size).put("timestampCount",hypothesis.timestampsSeconds.size)
+         .put("wordCount",assigned.size).put("frameStrideMs",hypothesis.frameStrideMs)
+         .put("wordAssignmentSupported",parsed.supported).put("wordAssignmentReason",parsed.reason)
+         .put("timestampUnit","seconds within ASR VAD chunk")
+         .put("warnings",JSONArray(if(parsed.supported) emptyList<String>() else listOf(WORD_FALLBACK_WARNING)))
+         .put("wordEvidenceIncluded",false)
+        when {
+         !collectWordEvidence -> summary.put("wordEvidenceOmittedReason","not_requested")
+         wordEvidenceTruncated -> summary.put("wordEvidenceOmittedReason","budget_exceeded")
+         else -> {
+          val payload=wordEvidenceJson(hypothesis,assigned)
+          val payloadBytes=conservativeWordEvidenceBytes(payload)
+          if(payloadBytes<=WORD_EVIDENCE_LIMIT_BYTES.toLong()-wordEvidenceBytes) {
+           for(key in payload.keys()) summary.put(key,payload.get(key))
+           wordEvidenceBytes+=payloadBytes
+           summary.put("wordEvidenceIncluded",true)
+          } else {
+           wordEvidenceTruncated=true
+           summary.put("wordEvidenceOmittedReason","budget_exceeded")
+          }
+         }
+        }
+        sliceResults.put(summary)
+        diagnostic.put("wordAssignmentSupported",verifiedFrameStrideMs>0 && fallbackChunks==0)
+         .put("wordProcessedChunks",wordProcessedChunks).put("fallbackChunks",fallbackChunks)
+         .put("wordEvidenceBytes",wordEvidenceBytes).put("wordEvidenceTruncated",wordEvidenceTruncated)
+        ensureActive()
+        segments+=chunkSegments
+       }
+      }
      } }
      val total=SystemClock.elapsedRealtime()-start
      val finalMemory=Debug.MemoryInfo();Debug.getMemoryInfo(finalMemory)
@@ -185,7 +283,7 @@ class ProcessingWorker(context: Context,params: WorkerParameters): CoroutineWork
       .put("originalPcmPeak",inputPeak).put("recognitionInputGain",recognitionGain)
       .put("quietGainTriggerPeak",QuietAudioGain.TRIGGER_PEAK).put("quietGainMax",QuietAudioGain.MAX_GAIN)
       .put("quietGainScope","temporary VAD and ASR arrays only; original PCM/playback/diarization preserved")
-      .put("expectedSpeakers",rec.expectedSpeakers).put("clusterThreshold",AUTO_CLUSTER_THRESHOLD).put("vadThreshold",.5)
+      .put("expectedSpeakers",rec.expectedSpeakers).put("clusterThreshold",AUTO_CLUSTER_THRESHOLD).put("vadThreshold",asrPlan.vadThreshold.toDouble())
       .put("maxAsrSegmentMs",20000).put("audioMs",decoded.durationMs).put("totalMs",total).put("pipelineRtf",total.toDouble()/decoded.durationMs.coerceAtLeast(1))
       .put("pipelineTimingScope","validation through ASR release; persistenceMs and telemetry.elapsedMs reported separately")
       .put("asrStageRtf",(trace.times["asrMs"]?:0).toDouble()/decoded.durationMs.coerceAtLeast(1))
@@ -194,8 +292,8 @@ class ProcessingWorker(context: Context,params: WorkerParameters): CoroutineWork
       .put("diarizationTurns",JSONArray().also { a -> turns.forEach { t -> a.put(JSONObject().put("startMs",t.startMs).put("endMs",t.endMs).put("speakerId",t.speaker)) } })
       .put("clusteringMode",mode).put("clusterThresholdApplied",mode=="automatic").put("automaticValidation","not accepted on independent long Russian dialogue")
       .put("segmentationWindowShiftRatio",.1).put("diarMinDurationOnSec",.2).put("diarMinDurationOffSec",.5)
-      .put("vadMinSpeechSec",.25).put("vadMinSilenceSec",.25).put("vadWindowSamples",512).put("vadMaxSpeechSec",20)
-      .put("preRollMs",PRE_ROLL_MS).put("postRollMs",POST_ROLL_MS).put("vadSpans",spanJson(spans))
+      .put("vadMinSpeechSec",asrPlan.vadMinSpeechSec.toDouble()).put("vadMinSilenceSec",asrPlan.vadMinSilenceSec.toDouble()).put("vadWindowSamples",512).put("vadMaxSpeechSec",20)
+      .put("preRollMs",preRollMs).put("postRollMs",POST_ROLL_MS).put("vadSpans",spanJson(spans))
       .put("asrSpeechSpans",spanJson(boundedSpans)).put("asrSlices",sliceResults)
       .put("modelBytes",app.models.specifications().sumOf { app.models.file(it.path).length() })
      trace.measure("persistenceMs") { app.db.withTransaction {
@@ -230,7 +328,30 @@ class ProcessingWorker(context: Context,params: WorkerParameters): CoroutineWork
   }
  }
  private fun spanJson(spans: List<Span>)=JSONArray().also { a -> spans.forEach { a.put(JSONObject().put("startMs",it.startMs).put("endMs",it.endMs)) } }
+ private fun wordEvidenceJson(hypothesis: AsrHypothesis,words: List<VadWordPlanner.AssignedWord>): JSONObject {
+  val timestamps=JSONArray()
+  var nonfinite=false
+  for(value in hypothesis.timestampsSeconds) {
+   if(value.isFinite()) timestamps.put(value.toDouble()) else { timestamps.put(JSONObject.NULL);nonfinite=true }
+  }
+  val result=JSONObject().put("tokens",JSONArray(hypothesis.tokens)).put("timestamps",timestamps)
+   .put("words",JSONArray().also { rows -> words.forEach { word -> rows.put(JSONObject()
+    .put("startMs",word.startMs).put("endMs",word.endMs).put("text",word.text)
+    .put("speakerId",word.speaker).put("warnings",JSONArray(word.reasons))) } })
+  if(nonfinite) result.put("timestampRawBits",JSONArray(hypothesis.timestampsSeconds.map { it.toRawBits() }))
+  return result
+ }
+ private fun conservativeWordEvidenceBytes(payload: JSONObject): Long {
+  val encoded=payload.toString(2)
+  // Evidence fields are merged into one asrSlices item (at most six extra indentation spaces).
+  // Eight spaces per line and a fixed framing reserve bound additional serialized UTF-8 size.
+  return encoded.toByteArray(Charsets.UTF_8).size.toLong()+(encoded.count { it=='\n' }+1L)*8L+128L
+ }
  companion object {
+  const val ASR_PLAN_KEY="asrPlan"
+  const val COLLECT_WORD_EVIDENCE_KEY="collectWordEvidence"
+  const val WORD_EVIDENCE_LIMIT_BYTES=256*1024
+  const val WORD_FALLBACK_WARNING="Время слов недоступно: проверьте говорящего и границы"
   const val PRE_ROLL_MS=100L
   const val POST_ROLL_MS=0L
   const val AUTO_CLUSTER_THRESHOLD=.5f
@@ -241,8 +362,15 @@ class ProcessingWorker(context: Context,params: WorkerParameters): CoroutineWork
     embedding=SpeakerEmbeddingExtractorConfig(model=models.file("diar/embedding.onnx").path,numThreads=threads),
     clustering=FastClusteringConfig(numClusters=count,threshold=AUTO_CLUSTER_THRESHOLD),minDurationOn=.2f,minDurationOff=.5f)
   }
-  fun enqueue(context: Context,id: String,threads: Int=2) {
-   val request=OneTimeWorkRequestBuilder<ProcessingWorker>().setInputData(workDataOf("recordingId" to id,"mlThreads" to MlPolicy.threads(threads))).addTag(id).build()
+  fun asrPolicyJson(plan: AsrPlan): JSONObject = JSONObject().put("pipeline",plan.pipeline)
+   .put("punctuation_mode",plan.punctuationMode).put("energy_split",plan.wordTimestamps)
+   .put("vad_threshold",plan.vadThreshold.toDouble()).put("vad_min_speech_sec",plan.vadMinSpeechSec.toDouble())
+   .put("vad_min_silence_sec",plan.vadMinSilenceSec.toDouble()).put("pre_roll_ms",plan.preRollMs)
+  fun enqueue(context: Context,id: String,threads: Int=2,
+   asrPlan: AsrPlan=AsrPlan.fromPersistedId(BuildConfig.DEFAULT_ASR_PLAN),collectWordEvidence: Boolean=false) {
+   val request=OneTimeWorkRequestBuilder<ProcessingWorker>().setInputData(workDataOf("recordingId" to id,
+    "mlThreads" to MlPolicy.threads(threads),ASR_PLAN_KEY to asrPlan.wireId,
+    COLLECT_WORD_EVIDENCE_KEY to collectWordEvidence)).addTag(id).build()
    WorkManager.getInstance(context).enqueueUniqueWork("replika-$id",ExistingWorkPolicy.KEEP,request)
   }
  }

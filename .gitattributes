@@ -1,3 +1,6 @@
 # Keep publisher input bytes and generated CSV evidence unchanged, including standard CRLF.
 benchmark/eval/sources/*.csv -text whitespace=cr-at-eol
+benchmark/eval-reserve/sources/*.csv -text whitespace=cr-at-eol
 artifacts/test-results/**/*.csv -text whitespace=cr-at-eol
+# Keep complete evidence in Git while letting reviewers expand generated diffs explicitly.
+artifacts/test-results/** linguist-generated=true

@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "status": "COMPLETE",
+  "started_at": "2026-11-06T21:45:48.397834+00:00",
+  "fingerprint": {
+    "config_sha256": "a4064c851a6693f6531813b910afb063079f440eb4d1b9d5a4bbf46009e8ce26",
+    "manifest_sha256": "47109cb1987624daaf8f4dc28e8eca3198b0c2bbcf01cd334b9611664eb38066",
+    "model_lock_sha256": "bd18076e29b225ae51a9c43dd347bf0fd7ed8f2e9c5ed10bba56a0899df1dcb9",
+    "models": {
+      "giga-v3/encoder.int8.onnx": "369f35a71bf288d3b8e0391fabd8dba5f2314088d440bca474056b7b4b6e66bf",
+      "giga-v3/decoder.onnx": "38fc7475443ea2a26f63211ca350f73ac50fff824ab7a3876ee2bd610c53bbc4",
+      "giga-v3/joiner.onnx": "602ff7017a93311aad34df1437c8d7f49911353c13d6eae7a6ee7b041339465c",
+      "giga-v3/tokens.txt": "39abae20e692998290c574e606f11a9edef2902a1995463fcff63d1490cf22b7",
+      "diar/segmentation.onnx": "220ad67ca923bef2fa91f2390c786097bf305bceb5e261d4af67b38e938e1079",
+      "diar/embedding.onnx": "1a331345f04805badbb495c775a6ddffcdd1a732567d5ec8b3d5749e3c7a5e4b",
+      "vad/silero_vad.onnx": "9e2449e1087496d8d4caba907f23e0bd3f78d91fa552479bb9c23ac09cbb1fd6"
+    },
+    "runtime": "2.0.1",
+    "pipeline_code_sha256": "a75c1973e8789a49e0240df5437786c4de908cfa34785e73dc157d495c8fb1e1",
+    "baseline_helpers_sha256": "fcdea5e2028e2c46226ab24ff0ac4fe33743fb15bfe853789e156f50203b137a",
+    "decoder_code_sha256": "5b5258286138ae5b251de0324c592a968180ef2d90f3c6ee68aa33e82af67044",
+    "requirements_lock_sha256": "675ae0a88edf92262ab1d84bf7ba9ce2b060308f4cc1f7d10b5273d724963cb3",
+    "scorer_code_sha256": "d9415f7fcac76261fc2c0749d0a640a0a03fa8c6e32f8e5856c4bc0e30ccd85f",
+    "runner_code_sha256": "18e7a88ec8a317d6f38121d9f786ac206e935e5819d263de8bde89ca82c54cc6",
+    "references": {
+      "dev-01-two-clean": "523b1097852d70d1f6d2cf2f3c632ee5c5ac3bedf8e64487ecbdada21c25d127",
+      "dev-02-three-clean": "0900022595d73de02b3c7459f85a37b39e37ac5cb455e7ee8827399097e01256",
+      "dev-03-short": "dfaf5a84d3c2850a87ebe3b47369ffb87863c6c710abc6cc7f2faea5337be571",
+      "dev-04-expressive": "31893577919d7a65863235dc7067a73214f9a9855a7db5ee153fadffbb8606f7",
+      "dev-05-whisper": "d544e0695cf6307c2899f72cdff638c970e4915e9326003c393710545ca7a9f1",
+      "dev-06-overlap": "7b23bb601328e721ebc51b2f2cf0d3292b64bf65cd6250332e45688756e53713",
+      "dev-mono-m": "c027484abb892d54d2b3eb1601344a7c29e1e1ada7d09e490d15e104ed3e71f5",
+      "dev-mono-s": "9259341e0d2aa8bc8bf6bdc9f616ea30e5025aa4e1adca14dc09f2089dcb15e1"
+    },
+    "selected_ids": [
+      "dev-01-two-clean",
+      "dev-02-three-clean",
+      "dev-03-short",
+      "dev-04-expressive",
+      "dev-05-whisper",
+      "dev-06-overlap",
+      "dev-mono-m",
+      "dev-mono-s"
+    ],
+    "word_planner_code_sha256": "1310361aecdab50e6c977032b73f01352d870af7416904b6dca22b682f3c76a7"
+  },
+  "config": {
+    "schema_version": 1,
+    "id": "vad-words-sensitive",
+    "pipeline": "vad_words_v1",
+    "expected_speakers": -1,
+    "threads": 2,
+    "punctuation_mode": "none",
+    "energy_split": true,
+    "notes": "Task3 global VAD onset sensitivity sweep, dev only before selection. Same original PCM, gains, models, automatic diarization. No file-specific rule.",
+    "vad_threshold": 0.35,
+    "vad_min_speech_sec": 0.15,
+    "vad_min_silence_sec": 0.25
+  },
+  "host": {
+    "platform": "Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+    "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+    "machine": "x86_64",
+    "logical_cpus": 18
+  },
+  "scope": "Host CPU baseline; not Android/ARM/phone performance. Reference texts/counts never enter inference.",
+  "completed_at": "2026-11-06T21:49:41.838986+00:00",
+  "host_process_peak_rss_kib_cumulative": 418464,
+  "memory_scope": "Linux process high-water RSS for the whole run; not per-file PSS or phone memory"
+}
