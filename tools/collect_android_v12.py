@@ -18,7 +18,7 @@ def collect(remote,local):
  local.write_bytes(r.stdout);return True
 for name in ['android-diarization.json','android-pipeline-diagnostics.json','android-transcript.json','android-whisper.txt','android-whisper-pipeline-diagnostics.json','android-whisper-transcript.json','integration-result.txt','ml-asr-comparison.json','ml-vad-comparison.json','ml-diarization-comparison.json','media-formats.json','edit-persistence.json','v12-warning-pipeline.json','v12-warning-diagnostics.json','v12-warning-transcript.json','v12-warning-transcript.txt','v12-product-experience.json','v12-review-queue-ui.json']:
  collect('files/'+name,EVIDENCE/name)
-collect('cache/exports/replika-integration-real-giga.json',EVIDENCE/'ui-corrected-transcript.json')
+collect('cache/exports/replika-integration-real-giga.diagnostic.json',EVIDENCE/'ui-corrected-transcript.json')
 r=subprocess.run([ADB,'shell','run-as',PKG,'ls','files/human-review-v1.2'],capture_output=True,text=True)
 for name in r.stdout.splitlines():
  name=name.strip()

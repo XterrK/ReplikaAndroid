@@ -229,14 +229,15 @@ class ProductExperienceTest {
   compose.activityRule.scenario.moveToState(androidx.lifecycle.Lifecycle.State.RESUMED)
   compose.onNodeWithContentDescription("Воспроизвести").assertIsDisplayed()
   capture("28-product-player-seek")
-  val exported=File(app.cacheDir,"exports/replika-${fixture.id}.json")
+  val exported=File(app.cacheDir,"exports/replika-${fixture.id}.diagnostic.json")
   assertFalse("This must be a fresh export of the isolated QA record",exported.exists())
   compose.onNodeWithContentDescription("Экспорт").performClick()
   compose.onNodeWithTag("export-txt").assertIsDisplayed()
   compose.onNodeWithTag("export-srt").assertIsDisplayed()
   compose.onNodeWithTag("export-json").assertIsDisplayed()
+  compose.onNodeWithTag("export-diagnostic-json").performScrollTo().assertIsDisplayed()
   capture("36-product-export-options")
-  compose.onNodeWithTag("export-json").performClick()
+  compose.onNodeWithTag("export-diagnostic-json").performClick()
   compose.waitUntil(10000) { exported.exists() && exported.length()>0 }
   val saved=JSONObject(exported.readText()).getJSONArray("segments")
   val item=(0 until saved.length()).map { saved.getJSONObject(it) }.single { it.getString("id")==before.id }

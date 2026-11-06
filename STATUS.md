@@ -4,12 +4,14 @@
 
 ## Текущий этап
 
-**Пункт 0 — выполняется.** Сохраняем текущее V1.6 в `hack/final`, резервный APK и исходную историю; готовим приватный GitHub-репозиторий. ML и UI ещё не изменялись.
+**Пункт 1 — проверки завершены.** 89 JVM / All-in-One / static / 2 native UI PASS. Ветка `hack/task-01-jury-json` готовится к commit/PR. Далее — только пункт 2, стенд оценки.
+
+Последнее обновление: 2026-11-06T22:53:18+03:00.
 
 | Пункт | Статус | Проверки / результат |
 | --- | --- | --- |
-| 0. Сохранение и GitHub | IN PROGRESS | `artifacts/test-results/step-00/preservation.json` |
-| 1. Jury JSON + default automatic | NOT STARTED | После пункта 0 |
+| 0. Сохранение и GitHub | DONE | `artifacts/test-results/step-00/preservation.json` |
+| 1. Jury JSON + default automatic | DONE | 89 JVM / All-in-One / static / 2 Android UI PASS |
 | 2. Стенд оценки + baseline | NOT STARTED | Raw WER с пунктуацией — основной |
 | 3. ASR по VAD + словные speaker IDs | NOT STARTED | Только после dev/holdout |
 | 4. Диаризация | NOT STARTED | Только после dev/holdout |

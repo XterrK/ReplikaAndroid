@@ -16,7 +16,7 @@ import java.io.File
 class PersistedEditsTest {
  @Test fun actualUiCorrectionsSurviveProcessRelaunch()=runBlocking {
   val app=InstrumentationRegistry.getInstrumentation().targetContext.applicationContext as ReplikaApp
-  val exported=File(app.cacheDir,"exports/replika-integration-real-giga.json")
+  val exported=File(app.cacheDir,"exports/replika-integration-real-giga.diagnostic.json")
   Assume.assumeTrue("Run real pipeline and UI corrections first",exported.isFile)
   val rows=app.db.dao().segmentList("integration-real-giga")
   val edited=rows.first { it.edited && it.reviewed && it.speakerId==1 }

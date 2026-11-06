@@ -1,3 +1,9 @@
+# Цикл PLAN_19H · 06.11.2026
+
+Текущий ход работ: [STATUS.md](STATUS.md), [UPDATES.md](UPDATES.md), [DECISIONS.md](DECISIONS.md). Снимок V1.6 `3aba648` опубликован в приватном [XterrK/ReplikaAndroid](https://github.com/XterrK/ReplikaAndroid), fallback APK — в prerelease. Пункт 0 завершён, 80 JVM и All-in-One на новой машине PASS. Пункт 1 (Jury JSON и default automatic) принят: 89 JVM, All-in-One/static и 2 native UI PASS; ML-модели и параметры не менялись. История ниже сохраняет состояние до этого цикла.
+
+---
+
 # REPLIKA V1.6 — UI и перенос проекта · 06.11.2026
 
 Продолжение пользовательских тестов V1.5: пользователь подтвердил улучшение распознавания, включая шёпот. В этом цикле ML-модели, усиление тихой речи, VAD, диаризация и схема Room не менялись.

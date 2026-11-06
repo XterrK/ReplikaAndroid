@@ -17,3 +17,35 @@
 - На новой машине JDK17/SDK отсутствуют; готовится отдельное Linux-окружение в пользовательском каталоге вне Git. Старый F:-toolchain недоступен.
 - Состав публикации: около 2724 исходных/evidence файлов, 123 MB; нет отдельных файлов >40 MiB и credential-like filenames. Точечный скан содержимого выполняется отдельно.
 - Модели, `.so`, APK/fallback и signing key подтверждены через git check-ignore.
+
+## 2026-11-06T22:34:53+03:00 — снимок зафиксирован
+
+Коммит `3aba648`: сохранено всё неигнорируемое рабочее дерево V1.6; 1784 изменённых/добавленных/перемещённых файлов относительно прежнего HEAD. Запущен push в приватный GitHub; JDK/SDK preflight и проверка 12 входов прошли. Первая JVM/All-in-One сборка ещё идёт; успешный результат пока не заявляется.
+
+## 2026-11-06T22:38:59+03:00 — публикация подтверждена
+
+`hack/final` опубликован в приватном XterrK/ReplikaAndroid. Fallback V1.6 доступен в prerelease `v1.6-preserved-20261106`; серверный SHA-256 GitHub совпадает с локальным, размер 306312754 байта. Свежая сборка и JVM-тесты ещё выполняются.
+
+## 2026-11-06T22:41:45+03:00 — пункт 0 завершён, начат пункт 1
+
+Исходная сборка на новой машине: BUILD SUCCESSFUL (10m44s), 80 JVM / 0 failures/errors/skips; All-in-One собран. Логи и XML сохранены в `artifacts/test-results/step-00/`. Приватный source push и SHA fallback на GitHub подтверждены. Начата отдельная ветка `hack/task-01-jury-json`. Свежего ML benchmark пока нет.
+
+## 2026-11-06T22:45:09+03:00 — пункт 1 реализован, проверяется
+
+- Добавлен `domain/JuryJson.kt` и 9 контрактных JVM-тестов (схема, порядок, IDs, unknown, пустые, Unicode/экранирование, Long timestamps, некорректные интервалы).
+- Обычный JSON переключён на формат жюри; прежний формат доступен отдельно. Кодирование выполняется вне Main.
+- Обновлены Android export/persistence assertions и исторический collector; added automatic-default UI test.
+- Запущены JVM, All-in-One и сборка Android test APK. Прогоны UI и модельные сравнения ещё не выполнены.
+- Независимое ревью выявило блокирование Main при большом экспорте и зависимость legacy collector от старого пути; оба замечания исправлены.
+
+## 2026-11-06T22:46:19+03:00 — исправление первой проверки пункта 1
+
+Первая сборка остановилась при compileDebugUnitTestKotlin: JSONObject.keySet() отсутствует в Android compile API. Контрактный тест переведён на совместимый keys().asSequence(); main/ML-код не менялся. Неудачный лог сохранён в `artifacts/test-results/step-01/build-attempt1.log`. Повторяется полный выбранный набор JVM/All-in-One/Android test APK. Старые 80 XML не выдаются за новый результат.
+
+## 2026-11-06T22:50:17+03:00 — 89 JVM и All-in-One PASS
+
+Повторная сборка успешна (2m4s): 89 JVM / 0 failures/errors/skips, All-in-One и Android test APK. Статическая проверка APK PASS, SHA256 cc71c0a811d1d35efdc4186638898234a21171e21bebb1d8df75e67a454c53e5. XML/логи сохранены. ML-код и model lock совпадают со снимком V1.6. Дополнен UI-тест обоих форматов, отдельно собираются стандартный debug APK и обновлённый test APK; новый x86_64 AVD загружается.
+
+## 2026-11-06T22:53:18+03:00 — пункт 1 принят
+
+89 JVM, All-in-One/debug/test APK и static arm64 checks PASS. Два UI-метода на API35/x86_64 прошли за20.036s: экспорт обоих JSON через интерфейс, сохранение strict jury bytes, default automatic и ручной выбор. Фактические JSON и scope сохранены; это controlled fixture, не модельная транскрибация. APK кандидата сохранён отдельно от fallback, SHA256 `cc71c0a811d1d35efdc4186638898234a21171e21bebb1d8df75e67a454c53e5`. Подготовлен отчёт `docs/STEP_01_JURY_JSON.md`; далее commit/PR, затем пункт2.
