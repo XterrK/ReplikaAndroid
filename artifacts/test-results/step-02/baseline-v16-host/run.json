@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "status": "COMPLETE",
+  "started_at": "2026-11-06T20:12:07.938465+00:00",
+  "fingerprint": {
+    "config_sha256": "5b474cda9264cf532148846cc8bc2d382c02aa3165004635b90c3046f1039740",
+    "manifest_sha256": "47109cb1987624daaf8f4dc28e8eca3198b0c2bbcf01cd334b9611664eb38066",
+    "model_lock_sha256": "bd18076e29b225ae51a9c43dd347bf0fd7ed8f2e9c5ed10bba56a0899df1dcb9",
+    "models": {
+      "giga-v3/encoder.int8.onnx": "369f35a71bf288d3b8e0391fabd8dba5f2314088d440bca474056b7b4b6e66bf",
+      "giga-v3/decoder.onnx": "38fc7475443ea2a26f63211ca350f73ac50fff824ab7a3876ee2bd610c53bbc4",
+      "giga-v3/joiner.onnx": "602ff7017a93311aad34df1437c8d7f49911353c13d6eae7a6ee7b041339465c",
+      "giga-v3/tokens.txt": "39abae20e692998290c574e606f11a9edef2902a1995463fcff63d1490cf22b7",
+      "diar/segmentation.onnx": "220ad67ca923bef2fa91f2390c786097bf305bceb5e261d4af67b38e938e1079",
+      "diar/embedding.onnx": "1a331345f04805badbb495c775a6ddffcdd1a732567d5ec8b3d5749e3c7a5e4b",
+      "vad/silero_vad.onnx": "9e2449e1087496d8d4caba907f23e0bd3f78d91fa552479bb9c23ac09cbb1fd6"
+    },
+    "runtime": "2.0.1",
+    "pipeline_code_sha256": "bcb7c43e57c4756ac7322542c51ad750ed071a8202c55cb2de85a62f4adced15",
+    "scorer_code_sha256": "d9415f7fcac76261fc2c0749d0a640a0a03fa8c6e32f8e5856c4bc0e30ccd85f",
+    "runner_code_sha256": "435a427fc4483fa5df5d676e0e7639e0293764dab0ae27a47e65f77ea7f02c7b",
+    "references": {
+      "dev-01-two-clean": "523b1097852d70d1f6d2cf2f3c632ee5c5ac3bedf8e64487ecbdada21c25d127",
+      "dev-02-three-clean": "0900022595d73de02b3c7459f85a37b39e37ac5cb455e7ee8827399097e01256",
+      "dev-03-short": "dfaf5a84d3c2850a87ebe3b47369ffb87863c6c710abc6cc7f2faea5337be571",
+      "dev-04-expressive": "31893577919d7a65863235dc7067a73214f9a9855a7db5ee153fadffbb8606f7",
+      "dev-05-whisper": "d544e0695cf6307c2899f72cdff638c970e4915e9326003c393710545ca7a9f1",
+      "dev-06-overlap": "7b23bb601328e721ebc51b2f2cf0d3292b64bf65cd6250332e45688756e53713",
+      "holdout-01-two-clean": "3fd896996b8244d98bfb21584657ea872d827b935aa2ceac97b4ef81ce16a4a9",
+      "holdout-02-three-clean": "b3d0daa4ea7d84008352961e70dd72fa85bb4052de546858651e08c87d79721a",
+      "holdout-03-short": "d3e024461e9ccf8624b4f77d47250198134f6c048a2945086eaf80026f4fd97e",
+      "holdout-04-overlap-expressive": "6523f1fd9c61b901b71a21a8b01f64b6cac7909da3cd579cedc95a21a4b6aefe",
+      "dev-mono-m": "c027484abb892d54d2b3eb1601344a7c29e1e1ada7d09e490d15e104ed3e71f5",
+      "dev-mono-s": "9259341e0d2aa8bc8bf6bdc9f616ea30e5025aa4e1adca14dc09f2089dcb15e1",
+      "holdout-mono-d": "191beae3a90fb880b0c20bcbe8b2dc5a11ade31e8beb790c46fef638af88d151"
+    },
+    "selected_ids": [
+      "dev-01-two-clean",
+      "dev-02-three-clean",
+      "dev-03-short",
+      "dev-04-expressive",
+      "dev-05-whisper",
+      "dev-06-overlap",
+      "holdout-01-two-clean",
+      "holdout-02-three-clean",
+      "holdout-03-short",
+      "holdout-04-overlap-expressive",
+      "dev-mono-m",
+      "dev-mono-s",
+      "holdout-mono-d"
+    ]
+  },
+  "config": {
+    "schema_version": 1,
+    "id": "v16-auto-baseline",
+    "pipeline": "v16",
+    "expected_speakers": -1,
+    "threads": 2,
+    "notes": "Current production GigaAM v3 E2E INT8 + Silero + Pyannote/3D-Speaker; no ML tuning; expected speaker counts in references are never passed to inference."
+  },
+  "host": {
+    "platform": "Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+    "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+    "machine": "x86_64",
+    "logical_cpus": 18
+  },
+  "scope": "Host CPU baseline; not Android/ARM/phone performance. Reference texts/counts never enter inference.",
+  "completed_at": "2026-11-06T20:15:08.512493+00:00",
+  "host_process_peak_rss_kib_cumulative": 447720,
+  "memory_scope": "Linux process high-water RSS for the whole run; not per-file PSS or phone memory"
+}

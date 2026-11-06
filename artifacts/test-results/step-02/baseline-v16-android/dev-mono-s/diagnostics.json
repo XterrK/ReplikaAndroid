@@ -1,0 +1,233 @@
+{
+  "vadPrimarySpanCount": 3,
+  "vadPrimarySpans": [
+    {
+      "startMs": 102,
+      "endMs": 518
+    },
+    {
+      "startMs": 774,
+      "endMs": 3622
+    },
+    {
+      "startMs": 3942,
+      "endMs": 6336
+    }
+  ],
+  "vadRescueAttempted": false,
+  "vadRescueApplied": false,
+  "vadDetectorGain": 1,
+  "vadRescueRms": null,
+  "vadRescueRmsSamples": 0,
+  "vadRescueSpanCount": 0,
+  "vadRescueReason": "primary_nonempty",
+  "vadRescueTargetRms": 0.02,
+  "vadRescueMaxGain": 20,
+  "vadRescuePeakHeadroom": 0.95,
+  "vadRescueMinGainRatio": 1.01,
+  "vadRescueScope": "detector-only empty-primary retry; ASR input, original PCM and diarization unchanged",
+  "finalPssKb": 196648,
+  "peakMemory": "N\/A; stage boundary snapshots only",
+  "device": "unknown Android SDK built for x86_64",
+  "android": 35,
+  "runtime": "sherpa-onnx 2.0.1",
+  "backend": "GigaAM v3 E2E RNNT INT8 \/ sherpa-onnx 2.0.1",
+  "threads": 2,
+  "vadThreads": 1,
+  "sampleRate": 16000,
+  "originalPcmPeak": 0.3039856,
+  "recognitionInputGain": 1,
+  "quietGainTriggerPeak": 0.01,
+  "quietGainMax": 20,
+  "quietGainScope": "temporary VAD and ASR arrays only; original PCM\/playback\/diarization preserved",
+  "expectedSpeakers": -1,
+  "clusterThreshold": 0.5,
+  "vadThreshold": 0.5,
+  "maxAsrSegmentMs": 20000,
+  "audioMs": 6333,
+  "totalMs": 8650,
+  "pipelineRtf": 1.3658613611242696,
+  "pipelineTimingScope": "validation through ASR release; persistenceMs and telemetry.elapsedMs reported separately",
+  "asrStageRtf": 0.5389231012158535,
+  "asrInferenceRtf": 0.4306016106110848,
+  "runCondition": "uncontrolled device caches\/temperature; sequential ML stages; CPU provider",
+  "diarizationTurns": [
+    {
+      "startMs": 31,
+      "endMs": 5397,
+      "speakerId": 0
+    },
+    {
+      "startMs": 4300,
+      "endMs": 4655,
+      "speakerId": 1
+    },
+    {
+      "startMs": 5397,
+      "endMs": 6275,
+      "speakerId": 1
+    }
+  ],
+  "clusteringMode": "automatic",
+  "clusterThresholdApplied": true,
+  "automaticValidation": "not accepted on independent long Russian dialogue",
+  "segmentationWindowShiftRatio": 0.1,
+  "diarMinDurationOnSec": 0.2,
+  "diarMinDurationOffSec": 0.5,
+  "vadMinSpeechSec": 0.25,
+  "vadMinSilenceSec": 0.25,
+  "vadWindowSamples": 512,
+  "vadMaxSpeechSec": 20,
+  "preRollMs": 100,
+  "postRollMs": 0,
+  "vadSpans": [
+    {
+      "startMs": 102,
+      "endMs": 518
+    },
+    {
+      "startMs": 774,
+      "endMs": 3622
+    },
+    {
+      "startMs": 3942,
+      "endMs": 6336
+    }
+  ],
+  "asrSpeechSpans": [
+    {
+      "startMs": 2,
+      "endMs": 518
+    },
+    {
+      "startMs": 674,
+      "endMs": 3622
+    },
+    {
+      "startMs": 3842,
+      "endMs": 6333
+    }
+  ],
+  "asrSlices": [
+    {
+      "startMs": 2,
+      "endMs": 518,
+      "speakerId": 0,
+      "text": "Да.",
+      "blank": false,
+      "inferenceMs": 354,
+      "warnings": [
+        "Короткая граница диаризации: проверьте слова",
+        "Короткая реплика возле границы"
+      ]
+    },
+    {
+      "startMs": 674,
+      "endMs": 3622,
+      "speakerId": 0,
+      "text": "История — это ключ к пониманию прошлого и настоящего.",
+      "blank": false,
+      "inferenceMs": 1031,
+      "warnings": []
+    },
+    {
+      "startMs": 3842,
+      "endMs": 4300,
+      "speakerId": 0,
+      "text": "А тебе?",
+      "blank": false,
+      "inferenceMs": 381,
+      "warnings": [
+        "Короткая реплика возле границы"
+      ]
+    },
+    {
+      "startMs": 4300,
+      "endMs": 4655,
+      "speakerId": -1,
+      "text": "Бе.",
+      "blank": false,
+      "inferenceMs": 287,
+      "warnings": [
+        "Пересечение голосов: слова не разделены",
+        "Неоднозначный говорящий",
+        "Короткая реплика возле границы"
+      ]
+    },
+    {
+      "startMs": 4655,
+      "endMs": 5397,
+      "speakerId": 0,
+      "text": "Нравится?",
+      "blank": false,
+      "inferenceMs": 480,
+      "warnings": []
+    },
+    {
+      "startMs": 5397,
+      "endMs": 6333,
+      "speakerId": 1,
+      "text": "Изучать историю.",
+      "blank": false,
+      "inferenceMs": 491,
+      "warnings": [
+        "Короткая граница диаризации: проверьте слова"
+      ]
+    }
+  ],
+  "modelBytes": 278127730,
+  "stagesMs": {
+    "thermalWaitMs": 0,
+    "provisioningWaitMs": 1,
+    "nativeGateWaitMs": 0,
+    "validationMs": 1723,
+    "decodeMs": 100,
+    "metadataPersistenceMs": 9,
+    "vadLoadMs": 38,
+    "vadMs": 73,
+    "diarizationLoadMs": 883,
+    "diarizationReadMs": 1,
+    "diarizationInferenceMs": 93,
+    "diarizationMs": 1101,
+    "alignmentMs": 1,
+    "asrLoadMs": 1852,
+    "asrReadMs": 10,
+    "asrInferenceMs": 2727,
+    "asrMs": 3413,
+    "persistenceMs": 5
+  },
+  "telemetry": {
+    "run": "fa11a249-ebde-47ab-8ae7-bac2077cc21c",
+    "elapsedMs": 9212,
+    "stagesMs": {
+      "thermalWaitMs": 0,
+      "provisioningWaitMs": 1,
+      "nativeGateWaitMs": 0,
+      "validationMs": 1723,
+      "decodeMs": 100,
+      "metadataPersistenceMs": 9,
+      "vadLoadMs": 38,
+      "vadMs": 73,
+      "diarizationLoadMs": 883,
+      "diarizationReadMs": 1,
+      "diarizationInferenceMs": 93,
+      "diarizationMs": 1101,
+      "alignmentMs": 1,
+      "asrLoadMs": 1852,
+      "asrReadMs": 10,
+      "asrInferenceMs": 2727,
+      "asrMs": 3413,
+      "persistenceMs": 5
+    },
+    "observedMaxPssKb": 417016,
+    "memoryScope": "stage boundary PSS snapshots; not continuous peak memory",
+    "thermalStatus": 0,
+    "thermalEvents": [
+      {
+        "elapsedMs": 337,
+        "status": 0
+      }
+    ],
+    "thermalApiSupported": true
+  }
+}

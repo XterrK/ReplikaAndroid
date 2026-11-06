@@ -4,15 +4,15 @@
 
 ## Текущий этап
 
-**Пункт 1 — проверки завершены.** 89 JVM / All-in-One / static / 2 native UI PASS. Ветка `hack/task-01-jury-json` готовится к commit/PR. Далее — только пункт 2, стенд оценки.
+**Пункт 2 — принят.**13hostcases/5Androidoffline cases,65Python,89JVM/AIO checks PASS. Corpusportgate0.226<0.5п.п. по уточнению пользователя; per-fileoutlier сохранён. Commit/PR готовится, затем пункт3.
 
-Последнее обновление: 2026-11-06T22:53:18+03:00.
+Последнее обновление:2026-11-07T00:02:35+03:00.
 
 | Пункт | Статус | Проверки / результат |
 | --- | --- | --- |
 | 0. Сохранение и GitHub | DONE | `artifacts/test-results/step-00/preservation.json` |
 | 1. Jury JSON + default automatic | DONE | 89 JVM / All-in-One / static / 2 Android UI PASS |
-| 2. Стенд оценки + baseline | NOT STARTED | Raw WER с пунктуацией — основной |
+| 2. Стенд оценки + baseline | DONE | 13host/5Android,65Python; corpusportgatePASS |
 | 3. ASR по VAD + словные speaker IDs | NOT STARTED | Только после dev/holdout |
 | 4. Диаризация | NOT STARTED | Только после dev/holdout |
 | 5. CPU/thermal/импорт | NOT STARTED | Отдельная задача |

@@ -1,0 +1,108 @@
+{
+  "validated_at": "2026-11-06T20:08:58.471670+00:00",
+  "result": "PASS",
+  "checks": [
+    "13 mono16kPCM16 audio files; byte SHA256 match",
+    "floor-converted endpoints in audio duration",
+    "jury JSON exact fields and first-occurrence numbering",
+    "verbatim author text and source-placement bounds",
+    "77 unique raw source paths and publisher LFS hashes",
+    "no reused old V1.5 whisper clips",
+    "full offline regeneration identical to frozen metadata/reference/audio bytes"
+  ],
+  "splits": {
+    "dev": {
+      "cases": 8,
+      "duration_ms": 270480,
+      "utterances": 45,
+      "words": 533
+    },
+    "holdout": {
+      "cases": 5,
+      "duration_ms": 215242,
+      "utterances": 32,
+      "words": 444
+    }
+  },
+  "audio_files": [
+    {
+      "id": "dev-01-two-clean",
+      "bytes": 2225840,
+      "frames": 1112898,
+      "sha256": "80bdb11e4d9e313d2440c01b80babc0dbe319c9dbea371988ef62716ffb9d77b"
+    },
+    {
+      "id": "dev-02-three-clean",
+      "bytes": 1897012,
+      "frames": 948484,
+      "sha256": "54dd41aa60e05602adcebc10d38a3a4f1cb2cf3ebdcc014d46a1387fbcc8a040"
+    },
+    {
+      "id": "dev-03-short",
+      "bytes": 616150,
+      "frames": 308053,
+      "sha256": "a3255bc32a41cc9f6ccd691bfc6a0861e82e160370f2b403b1339133465c94b4"
+    },
+    {
+      "id": "dev-04-expressive",
+      "bytes": 1135090,
+      "frames": 567523,
+      "sha256": "f79ee42bac3ce68fa7bad5afeb68117e2135ea22facf95314fe0020288f1b11e"
+    },
+    {
+      "id": "dev-05-whisper",
+      "bytes": 1052928,
+      "frames": 526442,
+      "sha256": "20443dba1db8cbd8ca5594ef1fc6edbd2ba257973f8c7621d7d20267a1a9095d"
+    },
+    {
+      "id": "dev-06-overlap",
+      "bytes": 1153992,
+      "frames": 576974,
+      "sha256": "dd232cf4b15efa710887fc38785b1c7377cc30046b45719aa5f6a867bb0b009c"
+    },
+    {
+      "id": "holdout-01-two-clean",
+      "bytes": 1836280,
+      "frames": 918118,
+      "sha256": "68050d739b081714bbf883806a8eff429f816e4701c4036bf03ee12678c878eb"
+    },
+    {
+      "id": "holdout-02-three-clean",
+      "bytes": 2381400,
+      "frames": 1190678,
+      "sha256": "453c3b47484600ba183a43a04f72a7c57faa51691d6ccd099939bb2dc99a1354"
+    },
+    {
+      "id": "holdout-03-short",
+      "bytes": 665180,
+      "frames": 332568,
+      "sha256": "c107bd7c657245278204950dc80ca07346a035ba997c3e2b99771867f9a4dc49"
+    },
+    {
+      "id": "holdout-04-overlap-expressive",
+      "bytes": 1541768,
+      "frames": 770862,
+      "sha256": "e5d96325a3f726a355c013757e42c250cff8b7457d6ccb2f5875fb4a6cad7514"
+    },
+    {
+      "id": "dev-mono-m",
+      "bytes": 372104,
+      "frames": 186030,
+      "sha256": "317b2c84e153f783cd343c5681603c94045f522f2d44fe1f41dc7862f46198f6"
+    },
+    {
+      "id": "dev-mono-s",
+      "bytes": 202708,
+      "frames": 101332,
+      "sha256": "97943f4d90c2b56166031263a6820c41e0f80b94643a9d3737327debdc8fbe53"
+    },
+    {
+      "id": "holdout-mono-d",
+      "bytes": 463416,
+      "frames": 231686,
+      "sha256": "3bf46b08257257dc5bc1ba75805113999adb67c0d598abb2dd624d46889a2285"
+    }
+  ],
+  "scope": "No ASR/VAD inference; DER timing is utterance-interval proxy, not speech-activity gold"
+}
