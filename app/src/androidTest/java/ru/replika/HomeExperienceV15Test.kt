@@ -47,7 +47,13 @@ class HomeExperienceV15Test {
   compose.onNodeWithText("JSON",substring=false).performClick()
   compose.waitUntil(10000) { target.isFile && target.length()>0 }
   val json=org.json.JSONObject(target.readText())
-  assertEquals("Проверяем экспорт с главного экрана.",json.getJSONArray("segments").getJSONObject(0).getString("text"))
+  assertEquals(listOf("transcript"),json.keys().asSequence().toList())
+  val exported=json.getJSONArray("transcript").getJSONObject(0)
+  assertEquals("Проверяем экспорт с главного экрана.",exported.getString("text"))
+  assertEquals("speaker_1",exported.getString("speaker_id"))
+  assertEquals(0L,exported.getLong("start_ms"));assertEquals(11000L,exported.getLong("end_ms"))
+  assertEquals(setOf("speaker_id","start_ms","end_ms","text"),exported.keys().asSequence().toSet())
+  assertFalse(target.readBytes().take(3)==listOf(0xef.toByte(),0xbb.toByte(),0xbf.toByte()))
   val automation=InstrumentationRegistry.getInstrumentation().uiAutomation
   compose.waitUntil(15000) { automation.rootInActiveWindow?.packageName?.toString() in setOf("android","com.android.intentresolver") }
   automation.performGlobalAction(android.accessibilityservice.AccessibilityService.GLOBAL_ACTION_BACK)
@@ -59,6 +65,37 @@ class HomeExperienceV15Test {
    focused
   }
   compose.onNodeWithTag("recording-home").assertIsDisplayed()
+  val juryBytes=target.readBytes()
+  compose.onNodeWithTag("home-export").performClick()
+  compose.onNodeWithTag("home-export-$id").performScrollTo().performClick()
+  val diagnostic=File(app.cacheDir,"exports/replika-$id.diagnostic.json").apply { delete() }
+  compose.onNodeWithTag("export-diagnostic-json").performScrollTo().performClick()
+  compose.waitUntil(10000) { diagnostic.isFile && diagnostic.length()>0 }
+  val legacy=org.json.JSONObject(diagnostic.readText())
+  assertEquals("Проверяем экспорт с главного экрана.",legacy.getJSONArray("segments").getJSONObject(0).getString("text"))
+  assertEquals(id,legacy.getString("recordingId"));assertTrue(legacy.has("diagnostics"))
+  assertArrayEquals("Diagnostic export must not overwrite jury JSON",juryBytes,target.readBytes())
+  val proof=File(app.filesDir,"hack-step01-ui").apply { mkdirs() }
+  File(proof,"jury.json").writeBytes(juryBytes)
+  File(proof,"diagnostic.json").writeBytes(diagnostic.readBytes())
+  File(proof,"scope.json").writeText(org.json.JSONObject().put("controlledUiFixture",true).put("newModelInference",false).put("sourceTest","HomeExperienceV15Test").put("bothFormatsExportedThroughUi",true).put("juryFileNotOverwritten",true).toString(2))
+  automation.performGlobalAction(android.accessibilityservice.AccessibilityService.GLOBAL_ACTION_BACK)
+  compose.waitUntil(10000) {
+   var focused=false
+   InstrumentationRegistry.getInstrumentation().runOnMainSync { focused=activity.window.decorView.hasWindowFocus() }
+   focused
+  }
+  compose.onNodeWithTag("recording-home").assertIsDisplayed()
+ }
+ @Test fun newRecordingDefaultsToAutomaticAndManualModesRemainSelectable() {
+  runBlocking { app.db.dao().insert(Recording(id,"Новый импорт · default auto",File(app.filesDir,"integration-example.wav").path,status="IMPORTED")) }
+  compose.activityRule.scenario.onActivity { vm.selected.value=id }
+  compose.waitUntil(10000) { compose.onAllNodesWithTag("speakers-automatic").fetchSemanticsNodes().isNotEmpty() }
+  compose.onNodeWithTag("speakers-automatic").assertIsSelected()
+  compose.onNodeWithTag("speakers-single").assertIsNotSelected().performClick().assertIsSelected()
+  compose.onNodeWithTag("speakers-fixed").performClick().assertIsSelected()
+  compose.onNodeWithTag("speaker-count").assertIsDisplayed()
+  compose.onNodeWithTag("speakers-automatic").performClick().assertIsSelected()
  }
  @Test fun largeMonoWaveformAndTransportStayCenteredAndSeekIsAccessible() {
   compose.activityRule.scenario.onActivity { vm.selected.value=id }

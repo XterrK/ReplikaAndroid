@@ -184,9 +184,9 @@ class ReviewScreenshotsTest {
   compose.onNodeWithText(corrected).assertIsDisplayed()
   compose.onAllNodesWithText("Проверенная подпись").onLast().assertIsDisplayed()
   capture("11-transcript-after-correction.png")
-  val exported=File(app.cacheDir,"exports/replika-integration-real-giga.json").apply { delete() }
+  val exported=File(app.cacheDir,"exports/replika-integration-real-giga.diagnostic.json").apply { delete() }
   compose.onNodeWithContentDescription("Экспорт").performClick()
-  compose.onNodeWithText("JSON").performClick()
+  compose.onNodeWithTag("export-diagnostic-json").performScrollTo().performClick()
   compose.waitUntil(5000) { exported.exists() && exported.length()>0 }
   val json=org.json.JSONObject(exported.readText()).getJSONArray("segments")
   val row=(0 until json.length()).map { json.getJSONObject(it) }.single { it.getString("id")==before.id }

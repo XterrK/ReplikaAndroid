@@ -291,7 +291,7 @@ private val EditorRowSaver=listSaver<SegmentRow?,Any>(
     }
     Column(Modifier.fillMaxWidth().background(SurfaceBase,ProductShape.panel).padding(16.dp),verticalArrangement=Arrangement.spacedBy(8.dp)) {
      Text("Количество говорящих",style=MaterialTheme.typography.titleMedium)
-     listOf("single" to "Один говорящий", "fixed" to "Фиксированное число говорящих", "automatic" to "Автоматически").forEach { (key,label) ->
+     listOf("automatic" to "Автоматически", "single" to "Один говорящий", "fixed" to "Фиксированное число говорящих").forEach { (key,label) ->
       Row(Modifier.fillMaxWidth().heightIn(min=48.dp).selectable(speakerMode==key,role=Role.RadioButton) { speakerMode=key }.testTag("speakers-"+key),verticalAlignment=Alignment.CenterVertically) { RadioButton(speakerMode==key,null);Text(label,style=MaterialTheme.typography.bodyMedium) }
      }
      if(speakerMode=="single") Text("Для монолога. Все фрагменты будут у одного участника; обработка быстрее.",style=MaterialTheme.typography.bodySmall,color=Muted)
@@ -319,8 +319,8 @@ private val EditorRowSaver=listSaver<SegmentRow?,Any>(
   DarkSheetSystemBars()
   Column(Modifier.fillMaxWidth().navigationBarsPadding().verticalScroll(rememberScrollState()).padding(20.dp),verticalArrangement=Arrangement.spacedBy(12.dp)) {
    Text("Экспорт стенограммы",style=MaterialTheme.typography.titleLarge)
-   Text("С текущими именами, метками времени и сохранёнными исправлениями.",style=MaterialTheme.typography.bodyMedium,color=Muted)
-   listOf("txt" to "Текст для чтения","srt" to "Субтитры с временными метками","json" to "Реплики и диагностика").forEach { (format,description) ->
+   Text("С сохранёнными исправлениями и метками времени. JSON использует номера участников.",style=MaterialTheme.typography.bodyMedium,color=Muted)
+   listOf("txt" to "Текст для чтения","srt" to "Субтитры с временными метками","json" to "Стенограмма в формате жюри","diagnostic-json" to "Имена, исправления и подробности обработки").forEach { (format,description) ->
     TextButton(
      enabled=!saving,modifier=Modifier.fillMaxWidth().heightIn(min=56.dp).testTag("export-"+format),
      onClick={
@@ -335,14 +335,16 @@ private val EditorRowSaver=listSaver<SegmentRow?,Any>(
         }
         val saved=snapshot.first;val segments=snapshot.second;val names=snapshot.third
         fun label(id: Int)=names.firstOrNull { it.speakerId==id }?.name?:if(id<0) "Неизвестный" else "Участник "+(id+1)
-        val content=when(format) {
+        val content=withContext(Dispatchers.Default) { when(format) {
          "txt" -> Exporter.txt(saved.title,segments,::label)
          "srt" -> Exporter.srt(segments,::label)
+         "json" -> ru.replika.domain.JuryJson.encode(segments)
          else -> org.json.JSONObject(Exporter.json(saved.title,segments,::label)).put("recordingId",saved.id).put("diagnostics",if(saved.diagnostics.isNotBlank()) org.json.JSONObject(saved.diagnostics) else org.json.JSONObject()).toString(2)
-        }
-        val file=withContext(Dispatchers.IO) { File(context.cacheDir,"exports").apply { mkdirs() }.let { File(it,"replika-"+rec.id+"."+format).apply { writeText(content) } } }
+        } }
+        val extension=if(format=="diagnostic-json") "diagnostic.json" else format
+        val file=withContext(Dispatchers.IO) { File(context.cacheDir,"exports").apply { mkdirs() }.let { File(it,"replika-"+rec.id+"."+extension).apply { writeText(content,Charsets.UTF_8) } } }
         val uri=FileProvider.getUriForFile(context,context.packageName+".files",file)
-        context.startActivity(Intent.createChooser(Intent(Intent.ACTION_SEND).setType(if(format=="json") "application/json" else "text/plain").putExtra(Intent.EXTRA_STREAM,uri).addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION),"Передать стенограмму"))
+        context.startActivity(Intent.createChooser(Intent(Intent.ACTION_SEND).setType(if(extension.endsWith("json")) "application/json" else "text/plain").putExtra(Intent.EXTRA_STREAM,uri).addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION),"Передать стенограмму"))
         onDismiss()
        } catch(e: CancellationException) { throw e }
        catch(e: Exception) { vm.reportError("Экспорт",e) }
@@ -350,7 +352,7 @@ private val EditorRowSaver=listSaver<SegmentRow?,Any>(
       }
      }
     ) {
-     Column(Modifier.weight(1f),verticalArrangement=Arrangement.spacedBy(3.dp)) { Text(format.uppercase(),style=MaterialTheme.typography.titleMedium);Text(description,style=MaterialTheme.typography.bodySmall,color=Muted) }
+     Column(Modifier.weight(1f),verticalArrangement=Arrangement.spacedBy(3.dp)) { Text(if(format=="diagnostic-json") "Диагностический JSON" else format.uppercase(),style=MaterialTheme.typography.titleMedium);Text(description,style=MaterialTheme.typography.bodySmall,color=Muted) }
      Icon(Icons.Outlined.ArrowOutward,null,Modifier.size(20.dp))
     }
    }
