@@ -1,0 +1,183 @@
+{
+  "case": "quiet-pcm16-minus40db",
+  "recordingId": "qa-v15-quiet-pcm16-minus40db-0f19488b-3254-4de2-8eb5-84e8fcadb452",
+  "platform": "Android instrumentation; imported public fixture, NOT a phone microphone test",
+  "backend": "giga-v3",
+  "expectedSpeakers": 1,
+  "sampleRate": 16000,
+  "sourceSha256": "d8aaaa18a5098d7c6de0595ae7ac1e64cacd0d4022af3595213bdaf23be77e69",
+  "transform": "copy verified official WAV; decode copy to mono 16k; multiply by0.01(-40dB); quantize to signed PCM16 WAV",
+  "realWhisper": false,
+  "status": "PASS",
+  "sourceAudioMs": 11290,
+  "derivedSha256": "be47704d094e8e32eb26ea1192d56ce183a9f611a6f9323a04295cd453eabb19",
+  "derivedPeak": 0.0028686523,
+  "workerStatus": "READY",
+  "workerError": null,
+  "storedBackend": "giga-v3",
+  "segmentCount": 1,
+  "diagnostics": {
+    "vadPrimarySpanCount": 1,
+    "vadPrimarySpans": [
+      {
+        "startMs": 102,
+        "endMs": 11296
+      }
+    ],
+    "vadRescueAttempted": false,
+    "vadRescueApplied": false,
+    "vadDetectorGain": 20,
+    "vadRescueRms": null,
+    "vadRescueRmsSamples": 0,
+    "vadRescueSpanCount": 0,
+    "vadRescueReason": "primary_nonempty",
+    "vadRescueTargetRms": 0.02,
+    "vadRescueMaxGain": 20,
+    "vadRescuePeakHeadroom": 0.95,
+    "vadRescueMinGainRatio": 1.01,
+    "vadRescueScope": "detector-only empty-primary retry; ASR input, original PCM and diarization unchanged",
+    "finalPssKb": 188705,
+    "peakMemory": "N\/A; stage boundary snapshots only",
+    "device": "unknown Android SDK built for x86_64",
+    "android": 35,
+    "runtime": "sherpa-onnx 2.0.1",
+    "backend": "GigaAM v3 E2E RNNT INT8 \/ sherpa-onnx 2.0.1",
+    "threads": 2,
+    "vadThreads": 1,
+    "sampleRate": 16000,
+    "originalPcmPeak": 0.0028686523,
+    "recognitionInputGain": 20,
+    "quietGainTriggerPeak": 0.01,
+    "quietGainMax": 20,
+    "quietGainScope": "temporary VAD and ASR arrays only; original PCM\/playback\/diarization preserved",
+    "expectedSpeakers": 1,
+    "clusterThreshold": 0.5,
+    "vadThreshold": 0.5,
+    "maxAsrSegmentMs": 20000,
+    "audioMs": 11290,
+    "totalMs": 5486,
+    "pipelineRtf": 0.48591674047829936,
+    "pipelineTimingScope": "validation through ASR release; persistenceMs and telemetry.elapsedMs reported separately",
+    "asrStageRtf": 0.1642161204605846,
+    "asrInferenceRtf": 0.1479185119574845,
+    "runCondition": "uncontrolled device caches\/temperature; sequential ML stages; CPU provider",
+    "diarizationTurns": [
+      {
+        "startMs": 0,
+        "endMs": 11290,
+        "speakerId": 0
+      }
+    ],
+    "clusteringMode": "single",
+    "clusterThresholdApplied": false,
+    "automaticValidation": "not accepted on independent long Russian dialogue",
+    "segmentationWindowShiftRatio": 0.1,
+    "diarMinDurationOnSec": 0.2,
+    "diarMinDurationOffSec": 0.5,
+    "vadMinSpeechSec": 0.25,
+    "vadMinSilenceSec": 0.25,
+    "vadWindowSamples": 512,
+    "vadMaxSpeechSec": 20,
+    "preRollMs": 100,
+    "postRollMs": 0,
+    "vadSpans": [
+      {
+        "startMs": 102,
+        "endMs": 11296
+      }
+    ],
+    "asrSpeechSpans": [
+      {
+        "startMs": 2,
+        "endMs": 11290
+      }
+    ],
+    "asrSlices": [
+      {
+        "startMs": 2,
+        "endMs": 11290,
+        "speakerId": 0,
+        "text": "Ничьих не требуя похвал, Счастлив уж я надеждой сладкой, Что дева с трепетом любви Посмотрит, может быть, украдкой На песни грешные мои. У лукоморья дуб зелёный.",
+        "blank": false,
+        "inferenceMs": 1737,
+        "warnings": []
+      }
+    ],
+    "modelBytes": 278127730,
+    "stagesMs": {
+      "thermalWaitMs": 0,
+      "provisioningWaitMs": 0,
+      "nativeGateWaitMs": 0,
+      "validationMs": 588,
+      "decodeMs": 576,
+      "metadataPersistenceMs": 4,
+      "vadLoadMs": 26,
+      "vadMs": 274,
+      "diarizationMs": 0,
+      "diarizationLoadMs": 0,
+      "diarizationInferenceMs": 0,
+      "alignmentMs": 6,
+      "asrLoadMs": 1747,
+      "asrReadMs": 13,
+      "asrInferenceMs": 1670,
+      "asrMs": 1854,
+      "persistenceMs": 9
+    },
+    "telemetry": {
+      "run": "43aad1e4-51d7-45aa-8b40-204acffa61c0",
+      "elapsedMs": 5784,
+      "stagesMs": {
+        "thermalWaitMs": 0,
+        "provisioningWaitMs": 0,
+        "nativeGateWaitMs": 0,
+        "validationMs": 588,
+        "decodeMs": 576,
+        "metadataPersistenceMs": 4,
+        "vadLoadMs": 26,
+        "vadMs": 274,
+        "diarizationMs": 0,
+        "diarizationLoadMs": 0,
+        "diarizationInferenceMs": 0,
+        "alignmentMs": 6,
+        "asrLoadMs": 1747,
+        "asrReadMs": 13,
+        "asrInferenceMs": 1670,
+        "asrMs": 1854,
+        "persistenceMs": 9
+      },
+      "observedMaxPssKb": 418689,
+      "memoryScope": "stage boundary PSS snapshots; not continuous peak memory",
+      "thermalStatus": 0,
+      "thermalEvents": [
+        {
+          "elapsedMs": 68,
+          "status": 0
+        }
+      ],
+      "thermalApiSupported": true
+    }
+  },
+  "transcript": {
+    "schemaVersion": 1,
+    "title": "QA V1.5 · quiet-pcm16-minus40db",
+    "timestampPrecision": "segment",
+    "segments": [
+      {
+        "id": "10b72e74-60c6-484a-8b87-8bf22eab3e12",
+        "startMs": 2,
+        "endMs": 11290,
+        "speakerId": 0,
+        "speakerName": "Участник 1",
+        "text": "Ничьих не требуя похвал, Счастлив уж я надеждой сладкой, Что дева с трепетом любви Посмотрит, может быть, украдкой На песни грешные мои. У лукоморья дуб зелёный.",
+        "source": "GigaAM v3 E2E RNNT INT8 \/ sherpa-onnx 2.0.1",
+        "edited": false,
+        "reviewed": false,
+        "warnings": []
+      }
+    ]
+  },
+  "sourceUnchanged": true,
+  "roomReadBackVerified": true,
+  "qaRowsRemoved": true,
+  "qaTemporaryFilesRemoved": true
+}

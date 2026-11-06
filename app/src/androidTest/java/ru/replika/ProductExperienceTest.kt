@@ -118,6 +118,7 @@ class ProductExperienceTest {
  }
 
  private fun findFixtureInLibrary() {
+  if(compose.onAllNodesWithTag("library-list").fetchSemanticsNodes().isEmpty()) compose.onNodeWithText("Записи",substring=false).performClick()
   compose.waitUntil(10000) { compose.onAllNodesWithTag("library-list").fetchSemanticsNodes().isNotEmpty() }
   compose.waitUntil(10000) {
    var present=false

@@ -47,39 +47,92 @@ class ProcessingWorker(context: Context,params: WorkerParameters): CoroutineWork
     try {
      val rec=dao.recording(recordingId)?:return@withLock
      val mode=MlPolicy.mode(rec.expectedSpeakers)
+     // Historical rows keep their original source; reprocessing uses the packaged GigaAM.
+     val backend=app.models.resolveBackend(rec.backend)
      val threads=MlPolicy.threads(inputData.getInt("mlThreads",2))
      guard("Проверка моделей")
      val start=SystemClock.elapsedRealtime()
-     trace.measure("validationMs") { withContext(Dispatchers.IO) { app.models.requireReady(rec.backend,mode!="single") } }
+     trace.measure("validationMs") { withContext(Dispatchers.IO) { app.models.requireReady(backend,mode!="single") } }
      guard("Подготовка · декодирование PCM 16 kHz")
      val decoded=trace.measure("decodeMs") { withContext(Dispatchers.IO) { AudioDecoder.decode(rec.audioPath,pcm) } }
-     trace.config(rec.backend,threads,decoded.durationMs,mode)
+     // Only extremely low-level input is boosted. Stored PCM and diarization stay original.
+     val inputPeak=decoded.peaks.maxOrNull()?:0f
+     val recognitionGain=QuietAudioGain.forPeak(inputPeak)
+     trace.config(backend,threads,decoded.durationMs,mode)
      trace.measure("metadataPersistenceMs") { app.db.withTransaction {
       ensureActive();val current=dao.recording(recordingId)?:rec
       if(current.status=="CANCELLING") throw CancellationException("User requested cancellation")
       dao.insert(current.copy(status="PROCESSING",phase="VAD",durationMs=decoded.durationMs,peaks=decoded.peaks.joinToString(",")))
      } }
      guard("Поиск речи · Silero VAD")
-     val vad=trace.measure("vadLoadMs") { Vad(config=VadModelConfig(sileroVadModelConfig=SileroVadModelConfig(
-      model=app.models.file("vad/silero_vad.onnx").path,threshold=.5f,minSilenceDuration=.25f,minSpeechDuration=.25f,maxSpeechDuration=20f),numThreads=1)) }
-     val spans=mutableListOf<Span>()
-     trace.measure("vadMs") {
-      try {
-       fun drain() { while(!vad.empty()) { val s=vad.front();spans+=Span(s.start*1000/16000,(s.start+s.samples.size)*1000/16000);vad.pop() } }
+     suspend fun detectSpeech(detectorGain: Float,label: String): List<Span> {
+      val vad=trace.measure("vadLoadMs") { Vad(config=VadModelConfig(sileroVadModelConfig=SileroVadModelConfig(
+       model=app.models.file("vad/silero_vad.onnx").path,threshold=.5f,minSilenceDuration=.25f,minSpeechDuration=.25f,maxSpeechDuration=20f),numThreads=1)) }
+      val found=mutableListOf<Span>()
+      trace.measure("vadMs") {
+       try {
+        fun drain() { while(!vad.empty()) { val s=vad.front();found+=Span(s.start*1000/16000,(s.start+s.samples.size)*1000/16000);vad.pop() } }
+        java.io.DataInputStream(pcm.inputStream().buffered()).use { input ->
+         var read=0;var nextThermalCheck=16000
+         while(read<decoded.samples) {
+          ensureActive()
+          if(read>=nextThermalCheck) {
+           if(trace.cool { phase("Android сообщил о сильном нагреве · ожидание охлаждения") }>0) phase(label)
+           nextThermalCheck=read+16000
+          }
+          val n=min(512,decoded.samples-read);val block=FloatArray(512)
+          repeat(n) { block[it]=input.readFloat() };QuietAudioGain.apply(block,detectorGain);vad.acceptWaveform(block);read+=n;drain()
+         }
+        };vad.flush();drain()
+       } finally { vad.release() }
+      }
+      return found
+     }
+     val primarySpans=detectSpeech(recognitionGain,"Поиск речи · Silero VAD")
+     var spans=primarySpans
+     var rescueRms: Double?=null
+     var rescueRmsSamples=0L
+     var rescueAttempted=false
+     var rescueSpanCount=0
+     var detectorGain=recognitionGain
+     var rescueDecision=ZeroSpanVadRescue.decide(primarySpans.size,inputPeak,recognitionGain,null)
+     // Ordinary nonempty VAD and digital silence skip even this additional disk scan.
+     if(ZeroSpanVadRescue.needsRms(primarySpans.size,inputPeak,recognitionGain)) {
+      guard("Проверяем тихую речь · Silero VAD")
+      rescueRms=trace.measure("vadRescueRmsMs") {
+       val rms=ZeroSpanVadRescue.RmsAccumulator()
        java.io.DataInputStream(pcm.inputStream().buffered()).use { input ->
         var read=0;var nextThermalCheck=16000
         while(read<decoded.samples) {
          ensureActive()
          if(read>=nextThermalCheck) {
-          if(trace.cool { phase("Android сообщил о сильном нагреве · ожидание охлаждения") }>0) phase("Поиск речи · Silero VAD")
+          if(trace.cool { phase("Android сообщил о сильном нагреве · ожидание охлаждения") }>0) phase("Проверяем тихую речь · Silero VAD")
           nextThermalCheck=read+16000
          }
-         val n=min(512,decoded.samples-read);val block=FloatArray(512)
-         repeat(n) { block[it]=input.readFloat() };vad.acceptWaveform(block);read+=n;drain()
+         val n=min(512,decoded.samples-read)
+         repeat(n) { rms.add(input.readFloat()) };read+=n
         }
-       };vad.flush();drain()
-      } finally { vad.release() }
+       }
+       rescueRmsSamples=rms.samples;rms.value()
+      }
+      rescueDecision=ZeroSpanVadRescue.decide(primarySpans.size,inputPeak,recognitionGain,rescueRms)
+      if(rescueDecision.shouldRetry) {
+       guard("Повторный поиск тихой речи · Silero VAD")
+       detectorGain=rescueDecision.detectorGain;rescueAttempted=true
+       val rescued=trace.measure("vadRescuePassMs") { detectSpeech(detectorGain,"Повторный поиск тихой речи · Silero VAD") }
+       rescueSpanCount=rescued.size
+       if(rescued.isNotEmpty()) spans=rescued
+      }
      }
+     val rescueApplied=rescueAttempted && rescueSpanCount>0
+     diagnostic.put("vadPrimarySpanCount",primarySpans.size).put("vadPrimarySpans",spanJson(primarySpans))
+      .put("vadRescueAttempted",rescueAttempted).put("vadRescueApplied",rescueApplied)
+      .put("vadDetectorGain",detectorGain).put("vadRescueRms",rescueRms?:JSONObject.NULL)
+      .put("vadRescueRmsSamples",rescueRmsSamples).put("vadRescueSpanCount",rescueSpanCount)
+      .put("vadRescueReason",if(rescueAttempted) { if(rescueApplied) "retry_applied" else "retry_empty" } else rescueDecision.reason)
+      .put("vadRescueTargetRms",ZeroSpanVadRescue.TARGET_RMS).put("vadRescueMaxGain",ZeroSpanVadRescue.MAX_GAIN)
+      .put("vadRescuePeakHeadroom",ZeroSpanVadRescue.PEAK_HEADROOM).put("vadRescueMinGainRatio",ZeroSpanVadRescue.MIN_GAIN_RATIO)
+      .put("vadRescueScope","detector-only empty-primary retry; ASR input, original PCM and diarization unchanged")
      // Mode A never loads segmentation/embedding, nor allocates a full-recording float array.
      val turns=if(mode=="single") {
       trace.times["diarizationMs"]=0;trace.times["diarizationLoadMs"]=0;trace.times["diarizationInferenceMs"]=0
@@ -102,20 +155,22 @@ class ProcessingWorker(context: Context,params: WorkerParameters): CoroutineWork
      val boundedSpans=Alignment.context(spans,decoded.durationMs,PRE_ROLL_MS,POST_ROLL_MS)
      val slices=trace.measure("alignmentMs") { RecognitionPlanner.plan(boundedSpans,turns) }
      val sliceResults=JSONArray();val segments=mutableListOf<Segment>()
-     guard("Загрузка модели распознавания")
-     val engine=trace.measure("asrLoadMs") { when(rec.backend) {
-      "giga-v2" -> GigaAmEngine(app.models,threads)
-      "whisper-tiny" -> WhisperEngine(app.models,threads)
-      else -> error("Backend недоступен")
-     } }
-     val source=engine.source
-     trace.measure("asrMs") { engine.use {
+     val engine=if(slices.isEmpty()) {
+      // Silence/no-speech does not need a 230 MB recognizer. Preserve attribution and Room semantics.
+      trace.times["asrLoadMs"]=0;trace.times["asrInferenceMs"]=0;null
+     } else {
+      guard("Загрузка модели распознавания")
+      trace.measure("asrLoadMs") { GigaAmEngine(app.models,threads) }
+     }
+     val source=engine?.source?:GigaAmEngine.sourceForModel(backend)
+     trace.measure("asrMs") { engine?.use { activeEngine ->
       for((i,s) in slices.withIndex()) {
        ensureActive();guard("Распознавание · ${source.substringBefore(" /")} · ${i+1}/${slices.size}")
        val a=(s.startMs*16).toInt();val b=min((s.endMs*16).toInt(),decoded.samples)
        val samples=trace.measure("asrReadMs") { AudioDecoder.read(pcm,a,(b-a).coerceAtLeast(0)) }
+       QuietAudioGain.apply(samples,recognitionGain)
        val inferenceStart=SystemClock.elapsedRealtime()
-       val text=trace.measure("asrInferenceMs") { engine.recognize(samples) }
+       val text=trace.measure("asrInferenceMs") { activeEngine.recognize(samples) }
        val inferenceMs=SystemClock.elapsedRealtime()-inferenceStart
        // Private Room diagnostics may contain hypotheses; they are NEVER passed to Logcat.
        sliceResults.put(JSONObject().put("startMs",s.startMs).put("endMs",s.endMs).put("speakerId",s.speaker).put("text",text).put("blank",text.isBlank()).put("inferenceMs",inferenceMs).put("warnings",JSONArray(s.reasons)))
@@ -125,8 +180,11 @@ class ProcessingWorker(context: Context,params: WorkerParameters): CoroutineWork
      } }
      val total=SystemClock.elapsedRealtime()-start
      val finalMemory=Debug.MemoryInfo();Debug.getMemoryInfo(finalMemory)
-     diagnostic=JSONObject().put("finalPssKb",finalMemory.totalPss).put("peakMemory","N/A; stage boundary snapshots only").put("device","${Build.MANUFACTURER} ${Build.MODEL}").put("android",Build.VERSION.SDK_INT)
+     diagnostic=diagnostic.put("finalPssKb",finalMemory.totalPss).put("peakMemory","N/A; stage boundary snapshots only").put("device","${Build.MANUFACTURER} ${Build.MODEL}").put("android",Build.VERSION.SDK_INT)
       .put("runtime","sherpa-onnx 2.0.1").put("backend",source).put("threads",threads).put("vadThreads",1).put("sampleRate",16000)
+      .put("originalPcmPeak",inputPeak).put("recognitionInputGain",recognitionGain)
+      .put("quietGainTriggerPeak",QuietAudioGain.TRIGGER_PEAK).put("quietGainMax",QuietAudioGain.MAX_GAIN)
+      .put("quietGainScope","temporary VAD and ASR arrays only; original PCM/playback/diarization preserved")
       .put("expectedSpeakers",rec.expectedSpeakers).put("clusterThreshold",AUTO_CLUSTER_THRESHOLD).put("vadThreshold",.5)
       .put("maxAsrSegmentMs",20000).put("audioMs",decoded.durationMs).put("totalMs",total).put("pipelineRtf",total.toDouble()/decoded.durationMs.coerceAtLeast(1))
       .put("pipelineTimingScope","validation through ASR release; persistenceMs and telemetry.elapsedMs reported separately")
@@ -143,7 +201,7 @@ class ProcessingWorker(context: Context,params: WorkerParameters): CoroutineWork
      trace.measure("persistenceMs") { app.db.withTransaction {
       ensureActive();val current=dao.recording(recordingId)?:rec
       if(current.status=="CANCELLING") throw CancellationException("User requested cancellation")
-      dao.complete(current.copy(status="READY",phase=if(segments.isEmpty()) "Речь не найдена" else "Готово",durationMs=decoded.durationMs,peaks=decoded.peaks.joinToString(","),diagnostics=diagnostic.toString(2)),segments.map { SegmentRow.from(recordingId,it) })
+      dao.complete(current.copy(backend=backend,status="READY",phase=if(segments.isEmpty()) "Речь не найдена" else "Готово",durationMs=decoded.durationMs,peaks=decoded.peaks.joinToString(","),diagnostics=diagnostic.toString(2)),segments.map { SegmentRow.from(recordingId,it) })
      } }
      // Only diagnostics are updated after commit; never replace a concurrently edited recording/segment.
 

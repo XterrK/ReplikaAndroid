@@ -16,7 +16,7 @@ fun formatElapsed(ms: Long?): String = when {
  else -> clock(ms)
 }
 fun audioClock(ms: Long,durationMs: Long=ms)=if(durationMs in 1L..999L) formatElapsed(ms.coerceAtLeast(0)) else clock(ms)
-fun backendName(id: String)=when(id) { "giga-v2"->"GigaAM v2";"whisper-tiny"->"Whisper tiny";else->id }
+fun backendName(id: String)=when(id) { "giga-v2"->"GigaAM v2";"giga-v3"->"GigaAM v3";"whisper-tiny"->"Whisper tiny";else->id }
 data class DiagnosticView(val data: JSONObject?) {
  fun time(key: String): Long?=data?.optJSONObject("stagesMs")?.let { if(it.has(key)) it.optLong(key) else null }
  val audioMs get()=data?.let { if(it.has("audioMs")) it.optLong("audioMs") else null }

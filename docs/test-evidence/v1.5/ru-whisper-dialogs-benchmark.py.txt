@@ -1,0 +1,49 @@
+#!/usr/bin/env python3
+"""Research-only held-out studio RU whisper; never modifies production configuration."""
+import argparse,sys,pathlib,json,time,hashlib,collections
+p=argparse.ArgumentParser();p.add_argument('--out',type=pathlib.Path,required=True);p.add_argument('--repo',type=pathlib.Path,required=True);a=p.parse_args()
+sys.path.insert(0,'/mnt/f/ReplikaToolchain/python');sys.path.insert(0,str(a.repo/'tools'))
+import numpy as np,sherpa_onnx as sherpa
+import benchmark_asr_v15 as bench
+root=pathlib.Path(__file__).parent
+manifest=json.loads((root/'fixtures.json').read_text());fixtures=manifest['fixtures'];audio={};inputs=[]
+for f in fixtures:
+ path=root/f['path'];assert bench.file_sha256(path)==f['sha256'];x=bench.read_wav(path,np);audio[f['id']]=x
+ gain=bench.candidate_gain(np,x);spans=bench.vad_spans(sherpa,np,a.repo/'model-pack/vad/silero_vad.onnx',x,gain)
+ # Match Kotlin's sample->millisecond truncation, Alignment.context(pre100/post0), merge, then sample addressing.
+ duration_ms=len(x)//16;context=[]
+ for start,end in spans:
+  s=max(0,min(duration_ms,start*1000//16000)-100);e=min(duration_ms,end*1000//16000)
+  if e>s:
+   if context and s<=context[-1][1]:context[-1][1]=max(context[-1][1],e)
+   else:context.append([s,e])
+ slices=[]
+ for s,e in context:
+  while s<e:
+   end=min(e,s+20000);slices.append([s,end]);s=end
+ inputs.append({'id':f['id'],'speaker':f['speaker_id'],'audioSec':len(x)/16000,'originalSignalPeak':float(np.max(np.abs(x))),'originalSignalRms':float(np.sqrt(np.mean(x*x))),'boundedGain':gain,'rawVadSpansSamples':spans,'rawVadDetectedSec':sum(e-s for s,e in spans)/16000,'productionContextMs':context,'productionAsrSlicesMs':slices,'contextRetainedSec':sum(e-s for s,e in context)/1000,'referenceWords':len(bench.words(f['reference']))})
+out={'platform':'Linux WSL CPU, not Android/phone microphone/performance; uncontrolled cache/temperature','runtime':sherpa.__version__,'threads':2,'vadThreads':1,'selection':manifest['selection'],'datasetRevision':fixtures[0]['revision'],'modelSelectedBeforeThisHoldout':'giga-v3 E2E RNNT INT8','preprocessing':'original PCM16 WAV, shared existing windowed-sinc 63tap resampler to float mono16k; no attenuation/no added noise; same constant gain rule as production','normalization':'same benchmark_asr_v15.words: lowercase, ё→е, Unicode word tokens; punctuation ignored; CER on space-joined tokens','gainPolicy':{'triggerPeak':.01,'silenceFloor':1e-6,'targetPeak':.1,'maximumGain':20},'vadPolicy':{'threshold':.5,'minSpeechSec':.25,'minSilenceSec':.25,'maxSpeechSec':20,'preRollMs':100,'postRollMs':0,'maxAsrSliceMs':20000},'limitations':['ALL7 official test rows, 84words, 3actors; too small/controlled for population claims','whisper is author/crowd style label; not phonation-audited by us','studio/possibly normalized actor audio, not phone whisper/noisy room','scripts GPT-assisted before live actor recording; paper says manually segmented/aligned transcripts; supplied reference correctness not word-by-word audited by us','training overlap unknown','direct whole-clip ASR vs host single-speaker VAD/context emulation; no Android Room/MediaCodec/diarization equivalence claim'],'inputs':inputs,'models':{},'asr':[],'scriptSha256':hashlib.sha256(pathlib.Path(__file__).read_bytes()).hexdigest(),'sharedBenchmarkScriptSha256':hashlib.sha256((a.repo/'tools/benchmark_asr_v15.py').read_bytes()).hexdigest()}
+def save():a.out.write_text(json.dumps(out,ensure_ascii=False,indent=2))
+models=[('giga-v2',a.repo/'model-pack/giga-v2'),('giga-v3',pathlib.Path('/tmp/replika-asr-candidates/giga-v3')),('giga-v3-rnnt',pathlib.Path('/tmp/replika-asr-candidates/giga-v3-rnnt'))]
+for tag,path in models:
+ decoder='decoder.onnx' if (path/'decoder.onnx').exists() else 'decoder.int8.onnx';joiner='joiner.onnx' if (path/'joiner.onnx').exists() else 'joiner.int8.onnx'
+ out['models'][tag]={name:{'bytes':(path/name).stat().st_size,'sha256':bench.file_sha256(path/name)} for name in ('encoder.int8.onnx',decoder,joiner,'tokens.txt')}
+ t=time.perf_counter();r=sherpa.OfflineRecognizer.from_transducer(encoder=str(path/'encoder.int8.onnx'),decoder=str(path/decoder),joiner=str(path/joiner),tokens=str(path/'tokens.txt'),num_threads=2,model_type='nemo_transducer',decoding_method='greedy_search',max_active_paths=4);load=time.perf_counter()-t
+ for f,info in zip(fixtures,inputs):
+  x=audio[f['id']]*info['boundedGain'];scopes=[('whole-clip',[[0,len(x)]])]
+  if tag=='giga-v3':scopes.append(('production-vad-context-single-speaker',[[s*16,min(e*16,len(x))] for s,e in info['productionAsrSlicesMs']]))
+  for scope,slices in scopes:
+   hypotheses=[];seconds=0
+   for start,end in slices:
+    stream=r.create_stream();stream.accept_waveform(16000,x[start:end]);t=time.perf_counter();r.decode_stream(stream);seconds+=time.perf_counter()-t;hypotheses.append(stream.result.text)
+   hyp=' '.join(hypotheses).strip();ref=bench.words(f['reference']);h=bench.words(hyp);record={'id':f['id'],'model':tag,'scope':scope,'reference':f['reference'],'hypothesis':hyp,'wordErrors':bench.distance(ref,h),'referenceWords':len(ref),'charErrors':bench.distance(list(' '.join(ref)),list(' '.join(h))),'referenceChars':len(' '.join(ref)),'gain':info['boundedGain'],'inferenceSec':seconds,'loadSec':load,'sliceHypotheses':hypotheses}
+   out['asr'].append(record);print(tag,scope,f['id'],record['wordErrors'],len(ref),flush=True);save()
+ del r
+by=collections.defaultdict(list)
+for r in out['asr']:by[r['model'],r['scope']].append(r)
+out['summary']=[]
+for (model,scope),rs in by.items():
+ w=sum(r['wordErrors'] for r in rs);n=sum(r['referenceWords'] for r in rs);c=sum(r['charErrors'] for r in rs);cn=sum(r['referenceChars'] for r in rs)
+ out['summary'].append({'model':model,'scope':scope,'files':len(rs),'wordErrors':w,'referenceWords':n,'wer':w/n,'charErrors':c,'referenceChars':cn,'cer':c/cn,'inferenceSec':sum(r['inferenceSec'] for r in rs)})
+out['vadSummary']={'files':len(inputs),'filesWithEmptyVad':sum(not r['rawVadSpansSamples'] for r in inputs),'audioSec':sum(r['audioSec'] for r in inputs),'rawVadDetectedSec':sum(r['rawVadDetectedSec'] for r in inputs),'contextRetainedSec':sum(r['contextRetainedSec'] for r in inputs),'slices':sum(len(r['productionAsrSlicesMs']) for r in inputs),'filesGainAboveOne':sum(r['boundedGain']>1 for r in inputs)}
+save();print(json.dumps({'summary':out['summary'],'vadSummary':out['vadSummary']},indent=2),flush=True)

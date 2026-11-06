@@ -1,0 +1,91 @@
+{
+  "finalPssKb": 141846,
+  "peakMemory": "N\/A; stage boundary snapshots only",
+  "device": "unknown Android SDK built for x86_64",
+  "android": 35,
+  "runtime": "sherpa-onnx 2.0.1",
+  "backend": "GigaAM v2 Transducer INT8 \/ sherpa-onnx 2.0.1",
+  "threads": 2,
+  "vadThreads": 1,
+  "sampleRate": 16000,
+  "expectedSpeakers": -1,
+  "clusterThreshold": 0.5,
+  "vadThreshold": 0.5,
+  "maxAsrSegmentMs": 20000,
+  "audioMs": 11290,
+  "totalMs": 10276,
+  "pipelineRtf": 0.9101860053144376,
+  "pipelineTimingScope": "validation through ASR release; persistenceMs and telemetry.elapsedMs reported separately",
+  "asrStageRtf": 0.31346324180690877,
+  "asrInferenceRtf": 0.2804251550044287,
+  "runCondition": "uncontrolled device caches\/temperature; sequential ML stages; CPU provider",
+  "diarizationTurns": [
+    {
+      "startMs": 31,
+      "endMs": 8485,
+      "speakerId": 0
+    },
+    {
+      "startMs": 9245,
+      "endMs": 10966,
+      "speakerId": 0
+    }
+  ],
+  "clusteringMode": "automatic",
+  "clusterThresholdApplied": true,
+  "automaticValidation": "not accepted on independent long Russian dialogue",
+  "segmentationWindowShiftRatio": 0.1,
+  "diarMinDurationOnSec": 0.2,
+  "diarMinDurationOffSec": 0.5,
+  "vadMinSpeechSec": 0.25,
+  "vadMinSilenceSec": 0.25,
+  "vadWindowSamples": 512,
+  "vadMaxSpeechSec": 20,
+  "preRollMs": 100,
+  "postRollMs": 0,
+  "vadSpans": [
+    {
+      "startMs": 102,
+      "endMs": 8550
+    },
+    {
+      "startMs": 9254,
+      "endMs": 10982
+    }
+  ],
+  "asrSpeechSpans": [
+    {
+      "startMs": 2,
+      "endMs": 8550
+    },
+    {
+      "startMs": 9154,
+      "endMs": 10982
+    }
+  ],
+  "asrSlices": [
+    {
+      "startMs": 2,
+      "endMs": 8550,
+      "speakerId": 0,
+      "text": "ничьих не требуя похвал счастлив уж я надеждой сладкой что дева с трепетом любви посмотрит может быть украдкой на песни грешные мои",
+      "blank": false,
+      "inferenceMs": 2553,
+      "warnings": [
+        "Короткая граница диаризации: проверьте слова"
+      ]
+    },
+    {
+      "startMs": 9154,
+      "endMs": 10982,
+      "speakerId": 0,
+      "text": "у лукоморья дуб зеленый",
+      "blank": false,
+      "inferenceMs": 747,
+      "warnings": [
+        "Короткая граница диаризации: проверьте слова"
+      ]
+    }
+  ],
+  "modelBytes": 365008680
+}

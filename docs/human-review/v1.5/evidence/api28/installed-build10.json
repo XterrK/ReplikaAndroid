@@ -1,0 +1,73 @@
+{
+  "installedAtUtc": "2026-11-05T22:29:30.137175+00:00",
+  "serial": "emulator-5558",
+  "sdk": 28,
+  "build": "10b-final",
+  "scope": "Build10 final reinstall over this tasks clean build7 disposable overlay; only public controlled fixtures exist. No legacy records read; original AVD guest disks not written. No historical upgrade or physical-phone claim.",
+  "apks": [
+    {
+      "path": "app/build/outputs/apk/allInOneQa/app-allInOneQa.apk",
+      "bytes": 310037337,
+      "sha256": "4af6e6f917f6ac7fc72a25c7cd93cd60166d91aadae1d126a7568083b20962da"
+    },
+    {
+      "path": "app/build/outputs/apk/androidTest/allInOneQa/app-allInOneQa-androidTest.apk",
+      "bytes": 3231452,
+      "sha256": "2653cc03a3d0a8cd0b6289ff50c4eab94ae134a2d3e8f7839adb2e5cade8e12c"
+    }
+  ],
+  "steps": [
+    {
+      "args": [
+        "install",
+        "-r",
+        "-t",
+        "/mnt/f/Hackathons/ReplikaAndroid/app/build/outputs/apk/allInOneQa/app-allInOneQa.apk"
+      ],
+      "exitCode": 0,
+      "stdout": "Performing Streamed Install\nSuccess\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "install",
+        "-r",
+        "-t",
+        "/mnt/f/Hackathons/ReplikaAndroid/app/build/outputs/apk/androidTest/allInOneQa/app-allInOneQa-androidTest.apk"
+      ],
+      "exitCode": 0,
+      "stdout": "Performing Streamed Install\nSuccess\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "shell",
+        "input",
+        "keyevent",
+        "82"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "shell",
+        "settings",
+        "put",
+        "secure",
+        "show_ime_with_hard_keyboard",
+        "1"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ],
+  "sourceFreezeRecord": {
+    "path": "docs/human-review/v1.5/evidence/build10-source-sha256.json",
+    "sha256": "76402d7a81d6f220f1053d8b31da3cda9ee443df2e7564c859b2b3106220ffa6"
+  },
+  "microphonePermission": "RECORD_AUDIO explicitly granted only on disposable5558 for emulator-input recording regression; physical phone untested",
+  "fontScale": "1.3"
+}

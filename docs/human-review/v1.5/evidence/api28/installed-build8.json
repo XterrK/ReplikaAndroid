@@ -1,0 +1,67 @@
+{
+  "installedAtUtc": "2026-11-05T22:01:38.860320+00:00",
+  "serial": "emulator-5558",
+  "sdk": 28,
+  "build": "8",
+  "scope": "Build8 reinstall over this tasks clean build7 disposable overlay; only public controlled fixtures exist. No legacy records read; original AVD guest disks not written. No historical upgrade or physical-phone claim.",
+  "apks": [
+    {
+      "path": "app/build/outputs/apk/allInOneQa/app-allInOneQa.apk",
+      "bytes": 308734774,
+      "sha256": "dfc6f4e8c5afc49cd3e22c4f6b79a6269b4ad64c376fb57e81f4cc143bc094e0"
+    },
+    {
+      "path": "app/build/outputs/apk/androidTest/allInOneQa/app-allInOneQa-androidTest.apk",
+      "bytes": 3228884,
+      "sha256": "fcdde04ad02c500c7bccc05719409e1c251cf6bec6ae582217148618899d36b0"
+    }
+  ],
+  "steps": [
+    {
+      "args": [
+        "install",
+        "-r",
+        "-t",
+        "/mnt/f/Hackathons/ReplikaAndroid/app/build/outputs/apk/allInOneQa/app-allInOneQa.apk"
+      ],
+      "exitCode": 0,
+      "stdout": "Performing Streamed Install\nSuccess\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "install",
+        "-r",
+        "-t",
+        "/mnt/f/Hackathons/ReplikaAndroid/app/build/outputs/apk/androidTest/allInOneQa/app-allInOneQa-androidTest.apk"
+      ],
+      "exitCode": 0,
+      "stdout": "Performing Streamed Install\nSuccess\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "shell",
+        "input",
+        "keyevent",
+        "82"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "shell",
+        "settings",
+        "put",
+        "secure",
+        "show_ime_with_hard_keyboard",
+        "1"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ]
+}

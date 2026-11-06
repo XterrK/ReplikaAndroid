@@ -1,0 +1,68 @@
+{
+  "recoveredAtUtc": "2026-11-05T22:36:50.685862+00:00",
+  "serial": "emulator-5558",
+  "scope": "Parent-authorized recovery of only old AOSP SystemUI ANR in disposable overlay; no app/source/ML changes, no primary5556 commands or changes.",
+  "beforeFocusedComponents": [
+    "mCurrentFocus=Window{26ac1d6 u0 Application Not Responding: com.android.systemui}",
+    "mFocusedApp=AppWindowToken{652ad12 token=Token{df7749d ActivityRecord{299c774 u0 com.android.launcher3/.Launcher t2}}}"
+  ],
+  "action": "Tapped exact android:id/aerr_close in confirmed com.android.systemui ANR dialog",
+  "buttonLabel": "Close app",
+  "buttonBounds": "[25,302][335,350]",
+  "events": [
+    {
+      "args": [
+        "shell",
+        "dumpsys",
+        "window",
+        "windows"
+      ],
+      "exitCode": 0,
+      "stdout": "mCurrentFocus=Window{26ac1d6 u0 Application Not Responding: com.android.systemui}\nmFocusedApp=AppWindowToken{652ad12 token=Token{df7749d ActivityRecord{299c774 u0 com.android.launcher3/.Launcher t2}}}",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "shell",
+        "uiautomator",
+        "dump",
+        "/data/local/tmp/replika-api28-systemui-anr.xml"
+      ],
+      "exitCode": 0,
+      "stdout": "UI hierchary dumped to: /data/local/tmp/replika-api28-systemui-anr.xml",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "exec-out",
+        "cat",
+        "/data/local/tmp/replika-api28-systemui-anr.xml"
+      ],
+      "exitCode": 0,
+      "stdout": "Confirmed SystemUI ANR dialog inspected only for android:id/aerr_close. Raw hierarchy not retained.",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "shell",
+        "input",
+        "tap",
+        "180",
+        "326"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "shell",
+        "rm",
+        "/data/local/tmp/replika-api28-systemui-anr.xml"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "build": "8",
+  "sdk": 28,
+  "filter": "ru.replika.HomeExperienceV15Test",
+  "disposition": "Known stale test package assumption; excluded from final selected acceptance. Final build9 will use the portable test.",
+  "runs": [
+    {
+      "serial": "emulator-5558",
+      "sdk": 28,
+      "filter": "ru.replika.HomeExperienceV15Test",
+      "seconds": 30.23,
+      "failed": true,
+      "timedOut": false,
+      "result": [
+        "Tests run: 2,  Failures: 1"
+      ],
+      "log": "HomeExperienceV15Test-20261105T220326Z.log"
+    }
+  ],
+  "productAssertionsPassedBeforeTimeout": [
+    "Home orb/navigation visible",
+    "Room export file created",
+    "JSON current segment text matched controlled expected value"
+  ],
+  "failureLocation": "HomeExperienceV15Test.kt:51 waits for hardcoded com.android.intentresolver; failure occurs after JSON assertion",
+  "noAppSourceChanges": true,
+  "hardcodedChooserPackagePresent": false,
+  "chooserPackageReadScope": "Package existence metadata only; no chooser/user contacts screenshot collected.",
+  "ownedExportJson": {
+    "bytes": 575,
+    "sha256": "53fa03ea01ee6943984437d69e29b24467a57450bf3a3154de960ebbd1edf56f",
+    "segmentTextMatches": true,
+    "scope": "Known public UI fixture export only; no other records/DB read."
+  }
+}

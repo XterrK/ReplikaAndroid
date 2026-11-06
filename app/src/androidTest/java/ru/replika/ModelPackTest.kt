@@ -26,11 +26,11 @@ class ModelPackTest {
  @Test fun corruptPackCannotReplaceVerifiedModel()=runBlocking {
   val app=InstrumentationRegistry.getInstrumentation().targetContext.applicationContext as ReplikaApp
   Assume.assumeTrue("Import real pack first",app.models.statuses().all { it.installed })
-  val target=app.models.file("giga-v2/encoder.int8.onnx")
+  val target=app.models.file("${app.models.asrId}/encoder.int8.onnx")
   val originalSize=target.length()
   val pack=File(app.cacheDir,"corrupt-test-pack.zip")
   java.util.zip.ZipOutputStream(pack.outputStream()).use { z ->
-   z.putNextEntry(java.util.zip.ZipEntry("giga-v2/encoder.int8.onnx"));z.write("corrupt model fixture".toByteArray());z.closeEntry()
+   z.putNextEntry(java.util.zip.ZipEntry("${app.models.asrId}/encoder.int8.onnx"));z.write("corrupt model fixture".toByteArray());z.closeEntry()
   }
   try {
    var rejected=false
@@ -45,7 +45,7 @@ class ModelPackTest {
   val wrapped=object: ContextWrapper(context) { override fun getFilesDir()=isolated }
   try {
    val manager=ModelManager(wrapped)
-   manager.file("giga-v2/encoder.int8.onnx").apply { parentFile!!.mkdirs();writeText("incomplete fixture") }
+   manager.file("${manager.asrId}/encoder.int8.onnx").apply { parentFile!!.mkdirs();writeText("incomplete fixture") }
    var rejected=false
    try { manager.requireReady() } catch(e: IllegalArgumentException) { rejected=true }
    assertTrue(rejected);assertFalse(manager.statuses().any { it.installed })

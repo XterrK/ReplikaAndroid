@@ -1,0 +1,24 @@
+{
+  "scope": "API35 x86_64 AOSP emulator, Skia OpenGL. Separate 10s warm quiet-recording windows; no other AVD/ASR/Gradle/browser/screenrecord competing. Host virtual mic disabled. Device caches/host OS load not controlled; this is not a physical-phone energy/60fps acceptance.",
+  "samples": {
+    "beforeQuietCadence": {
+      "frames": 289,
+      "jankyFrames": 102,
+      "jankyPercent": 35.29,
+      "p50ms": 31,
+      "p90ms": 117,
+      "p95ms": 150,
+      "idleFrames": 0
+    },
+    "finalQuietCadence": {
+      "frames": 295,
+      "jankyFrames": 175,
+      "jankyPercent": 59.32,
+      "p50ms": 19,
+      "p90ms": 28,
+      "p95ms": 38,
+      "idleFrames": 0
+    }
+  },
+  "interpretation": "Final measured frame costs lower, but reported jank percentage is higher; do not present a universal performance win or 60fps pass. Quiet scheduler targets30fps. Both settled idle samples render0appframes over4s. GPU4950ms percentiles contain invalid/sentinel timing and are not valid latency measurements."
+}

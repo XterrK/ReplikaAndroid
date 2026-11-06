@@ -25,6 +25,9 @@ data class TranscriptState(val recordingId: String? = null,val loaded: Boolean =
 class AppViewModel(application: Application): AndroidViewModel(application) {
  private val app=application as ReplikaApp
  val dao=app.db.dao()
+ private val appearance=AppearancePreferences(app)
+ val themeMode=appearance.mode.stateIn(viewModelScope,SharingStarted.Eagerly,ThemeMode.SYSTEM)
+ fun selectTheme(mode: ThemeMode) { viewModelScope.launch { try { appearance.select(mode) } catch(e: Exception) { reportError("Сохранение темы",e) } } }
  val library=MutableStateFlow(LibraryState())
  val recordings=library.map { it.records }.stateIn(viewModelScope,SharingStarted.Eagerly,emptyList())
  val recordingsLoaded=library.map { it.loaded }.stateIn(viewModelScope,SharingStarted.Eagerly,false)
@@ -49,8 +52,11 @@ class AppViewModel(application: Application): AndroidViewModel(application) {
  private var lastEdit: SegmentUndo?=null
  private val errorLogGate=kotlinx.coroutines.sync.Mutex()
  val models=MutableStateFlow<List<ModelStatus>>(emptyList())
- val backend=MutableStateFlow(app.getSharedPreferences("settings",0).getString("backend","giga-v2")?:"giga-v2")
- fun selectBackend(id: String) { backend.value=id;app.getSharedPreferences("settings",0).edit().putString("backend",id).apply() }
+ val backend=MutableStateFlow(app.models.resolveBackend(app.getSharedPreferences("settings",0).getString("backend",null)))
+ fun selectBackend(id: String) { val current=app.models.resolveBackend(id);backend.value=current;app.getSharedPreferences("settings",0).edit().putString("backend",current).apply() }
+ val importProgress=MutableStateFlow<String?>(null)
+ private var importJob: Job?=null
+ fun cancelImport() { importJob?.cancel() }
  val modelProgress=MutableStateFlow<String?>(null)
  private var modelJob: Job?=null
  private var recorder: MediaRecorder?=null
@@ -59,11 +65,21 @@ class AppViewModel(application: Application): AndroidViewModel(application) {
  val paused=MutableStateFlow(false)
  val elapsed=MutableStateFlow(0L)
  val levels=MutableStateFlow<List<Float>>(emptyList())
+ val voiceLevel=MutableStateFlow(0f)
+ val recordingPhase=MutableStateFlow(RecordingPhase.IDLE)
+ private val envelope=VoiceEnvelope()
+ private var stopAfterStart: Boolean?=null
+ private var pauseAfterStart=false
+ fun onRecordingBackgrounded() { if(recordingPhase.value==RecordingPhase.STARTING) pauseAfterStart=true else if(isRecording.value && !paused.value) pauseRecording() }
+ fun requireMicrophonePermission() { if(!isRecording.value) recordingPhase.value=RecordingPhase.PERMISSION_REQUIRED }
  private var meterJob: Job?=null
  private val processingRequests=mutableSetOf<String>()
  private val cancellingRequests=mutableSetOf<String>()
  init {
+  selectBackend(backend.value) // Migrate retired backend preferences without rewriting historical transcripts.
+  viewModelScope.launch(Dispatchers.IO) { runCatching { app.models.gate.withLock { app.models.removeRetiredWhisperFiles() } } }
   refreshModels()
+  viewModelScope.launch(Dispatchers.IO) { app.importJournal.recover(dao::audioPathsReferenced) }
   viewModelScope.launch {
    dao.recordings().collect { rows -> library.value=LibraryState(true,rows) }
   }
@@ -106,33 +122,29 @@ class AppViewModel(application: Application): AndroidViewModel(application) {
   }
  }
  fun refreshModels() { viewModelScope.launch(Dispatchers.IO) { runCatching { app.models.statuses() }.onSuccess { models.value=it }.onFailure { reportError("Проверка моделей",it) } } }
- fun importAudio(uri: Uri) { viewModelScope.launch {
-  try {
-   val id=UUID.randomUUID().toString();val folder=File(app.filesDir,"audio").apply { mkdirs() }
-   val metadata=withContext(Dispatchers.IO) { runCatching { app.contentResolver.query(uri,arrayOf(android.provider.OpenableColumns.DISPLAY_NAME,android.provider.OpenableColumns.SIZE),null,null,null)?.use { if(it.moveToFirst()) it.getString(0) to (if(it.isNull(1)) -1L else it.getLong(1)) else null } }.getOrNull() }
-   val title=metadata?.first?:uri.lastPathSegment?:"Новая запись"
-   val file=File(folder,"$id.audio")
+ /** Audio and video share the platform document picker; heavy recognition starts only on explicit request. */
+ fun importAudio(uri: Uri) {
+  if(importJob?.isActive==true) return
+  importProgress.value="Открытие файла…"
+  importJob=viewModelScope.launch {
+   val id=UUID.randomUUID().toString();val folder=File(app.filesDir,"audio")
    try {
-    withContext(Dispatchers.IO) {
-     val reserve=8L*1024*1024
-     require(folder.usableSpace>reserve+(metadata?.second?:0L).coerceAtLeast(0)) { "Недостаточно места для импорта аудио" }
-     app.contentResolver.openInputStream(uri)?.use { src -> file.outputStream().use { dst ->
-      val buffer=ByteArray(65536);while(true) { ensureActive();val n=src.read(buffer);if(n<0) break;dst.write(buffer,0,n) }
-     } }?:error("Файл недоступен")
-     require(file.length()>0) { "Файл пуст" }
+    val imported=app.importJournal.runImport(id,dao::audioPathsReferenced) {
+     val result=MediaImporter(app).importMedia(uri,folder,id) { importProgress.value=it }
+     ensureActive()
+     dao.insert(Recording(id,result.title,result.file.path,durationMs=result.durationMs,backend=backend.value))
+     result
     }
-    dao.insert(Recording(id,title,file.path));selected.value=id
-   } catch(t: Throwable) {
-    // A suspended Room insert may commit just before cancellation is delivered.
-    // Preserve audio whenever the database references it or the lookup is inconclusive.
-    withContext(NonCancellable+Dispatchers.IO) {
-     val referenced=runCatching { dao.recording(id)?.audioPath==file.path }.getOrDefault(true)
-     if(!referenced) file.delete()
-    }
-    throw t
-   }
-  } catch(e: CancellationException) { throw e } catch(e: Exception) { reportError("Импорт аудио",e) }
- } }
+    selected.value=id
+    if(imported.audioTrackCount>1) notice.value="В файле ${imported.audioTrackCount} звуковые дорожки. Импортирована основная дорожка; если основная не указана — первая."
+    else if(imported.fromVideo) notice.value="Звук из видео готов к расшифровке. Исходное видео сохранено."
+   } catch(e: Throwable) {
+    if(e is CancellationException) { notice.value="Импорт отменён";throw e }
+    if(e is Exception) reportError("Импорт аудио и видео",e) else throw e
+   } finally { importProgress.value=null }
+  }
+ }
+
  fun process(id: String,count: Int,threads: Int=2) {
   if(id in deleting.value || !processingRequests.add(id)) return
   viewModelScope.launch {
@@ -266,33 +278,85 @@ class AppViewModel(application: Application): AndroidViewModel(application) {
  }
  fun cancelModelDownload() { modelJob?.cancel() }
  fun startRecording() {
-  if(isRecording.value) return
-  try {
-   val folder=File(app.filesDir,"audio").apply { mkdirs() }
-   val reserve=8L*1024*1024
-   require(folder.usableSpace>reserve) { "Недостаточно места для записи" }
-   val f=File(folder,"${UUID.randomUUID()}.m4a")
-   val r=if(Build.VERSION.SDK_INT>=31) MediaRecorder(app) else @Suppress("DEPRECATION") MediaRecorder()
-   try { r.setAudioSource(MediaRecorder.AudioSource.MIC);r.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);r.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);r.setAudioSamplingRate(48000);r.setAudioEncodingBitRate(128000);r.setOutputFile(f.path)
-   r.setMaxFileSize((folder.usableSpace-reserve).coerceAtLeast(1))
-   r.setOnInfoListener { _,what,_ -> if(what==MediaRecorder.MEDIA_RECORDER_INFO_MAX_FILESIZE_REACHED) { stopRecording(true);notice.value="Свободное место заканчивается. Запись остановлена." } }
-   r.setOnErrorListener { _,what,extra -> stopRecording(false);reportError("Запись",IllegalStateException("MediaRecorder error what=$what extra=$extra")) }
-   r.prepare();r.start() } catch(t: Throwable) { r.release();f.delete();throw t }
-   recorder=r;recordingFile=f;isRecording.value=true;paused.value=false;elapsed.value=0;levels.value=emptyList()
-   meterJob=viewModelScope.launch { var last=android.os.SystemClock.elapsedRealtime();while(isActive) { delay(100);val now=android.os.SystemClock.elapsedRealtime();val delta=now-last;last=now;if(!paused.value) { elapsed.value+=delta;val amp=runCatching { r.maxAmplitude/32768f }.getOrDefault(0f);levels.value=(levels.value+amp).takeLast(70) } } }
-  } catch(e: Exception) { reportError("Запись",e) }
+  if(isRecording.value || recordingPhase.value in setOf(RecordingPhase.STARTING,RecordingPhase.STOPPING)) return
+  if(androidx.core.content.ContextCompat.checkSelfPermission(app,android.Manifest.permission.RECORD_AUDIO)!=android.content.pm.PackageManager.PERMISSION_GRANTED) { requireMicrophonePermission();return }
+  recordingPhase.value=RecordingPhase.STARTING;stopAfterStart=null;pauseAfterStart=false;elapsed.value=0;levels.value=emptyList();voiceLevel.value=0f;envelope.reset()
+  viewModelScope.launch {
+   var r: MediaRecorder?=null;var f: File?=null
+   try {
+    withContext(Dispatchers.IO) {
+     val folder=File(app.filesDir,"audio").apply { mkdirs() };val reserve=8L*1024*1024
+     require(folder.usableSpace>reserve) { "Недостаточно места для записи" }
+     f=File(folder,"${UUID.randomUUID()}.m4a")
+     val media=if(Build.VERSION.SDK_INT>=31) MediaRecorder(app) else @Suppress("DEPRECATION") MediaRecorder()
+     r=media
+     media.setAudioSource(MediaRecorder.AudioSource.MIC);media.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);media.setAudioEncoder(MediaRecorder.AudioEncoder.AAC)
+     media.setAudioSamplingRate(48000);media.setAudioEncodingBitRate(128000);media.setOutputFile(f!!.path)
+     media.setMaxFileSize((folder.usableSpace-reserve).coerceAtLeast(1))
+     media.setOnInfoListener { _,what,_ -> if(what==MediaRecorder.MEDIA_RECORDER_INFO_MAX_FILESIZE_REACHED) viewModelScope.launch { stopRecording(true);notice.value="Свободное место заканчивается. Запись остановлена." } }
+     media.setOnErrorListener { _,what,extra -> viewModelScope.launch { stopRecording(false);reportError("Запись",IllegalStateException("MediaRecorder error what=$what extra=$extra")) } }
+     media.prepare();media.start()
+    }
+    recorder=r;recordingFile=f;isRecording.value=true;paused.value=false;recordingPhase.value=RecordingPhase.RECORDING
+    val media=r!!
+    meterJob=viewModelScope.launch {
+     var last=android.os.SystemClock.elapsedRealtime()
+     while(isActive) {
+      delay(50);val now=android.os.SystemClock.elapsedRealtime();val delta=now-last;last=now
+      if(!paused.value) {
+       elapsed.value+=delta
+       val amp=runCatching { media.maxAmplitude/32768f }.getOrDefault(0f)
+       voiceLevel.value=envelope.sample(amp,delta/1000f)
+       levels.value=(levels.value+amp).takeLast(70)
+      }
+     }
+    }
+    if(pauseAfterStart) pauseRecording()
+    stopAfterStart?.let { stopRecording(it) }
+   } catch(e: CancellationException) {
+    withContext(NonCancellable+Dispatchers.IO) { runCatching { r?.stop() };runCatching { r?.release() };f?.delete() };throw e
+   } catch(e: Exception) {
+    withContext(Dispatchers.IO) { runCatching { r?.release() };f?.delete() }
+    recordingPhase.value=RecordingPhase.ERROR;reportError("Запись",e)
+   }
+  }
  }
- fun pauseRecording() { runCatching { if(paused.value) recorder?.resume() else recorder?.pause();paused.value=!paused.value }.onFailure { reportError("Запись",it) } }
+ fun pauseRecording() {
+  if(!isRecording.value || recordingPhase.value==RecordingPhase.STOPPING) return
+  runCatching {
+   if(paused.value) recorder?.resume() else recorder?.pause()
+   paused.value=!paused.value;envelope.reset();voiceLevel.value=0f
+   recordingPhase.value=if(paused.value) RecordingPhase.PAUSED else RecordingPhase.RECORDING
+  }.onFailure { reportError("Запись",it) }
+ }
  fun stopRecording(save: Boolean,persistAfterClear: Boolean=false) {
-  meterJob?.cancel();val f=recordingFile;val r=recorder
-  recorder=null;isRecording.value=false
-  try { r?.stop() } catch(e: Exception) { f?.delete();if(save) reportError("Остановка записи",e) } finally { r?.release() }
-  if(f!=null && f.exists()) {
-   if(save) {
-    val persistenceScope=if(persistAfterClear) CoroutineScope(Dispatchers.IO) else viewModelScope
-    persistenceScope.launch { try { val id=UUID.randomUUID().toString();dao.insert(Recording(id,"Запись ${java.text.SimpleDateFormat("dd.MM HH:mm",java.util.Locale.ROOT).format(java.util.Date())}",f.path));selected.value=id;notice.value="Запись сохранена" } catch(e: Exception) { reportError("Сохранение записи",e) } }
-   } else f.delete()
-  };recordingFile=null
+  if(recordingPhase.value==RecordingPhase.STARTING) { stopAfterStart=save;return }
+  if(recordingPhase.value==RecordingPhase.STOPPING || recorder==null) return
+  recordingPhase.value=RecordingPhase.STOPPING;meterJob?.cancel();voiceLevel.value=0f
+  val f=recordingFile;val r=recorder;val duration=elapsed.value
+  recorder=null;recordingFile=null;isRecording.value=false;paused.value=false
+  val persistenceScope=if(persistAfterClear) CoroutineScope(Dispatchers.IO) else viewModelScope
+  persistenceScope.launch {
+   try {
+    withContext(NonCancellable+Dispatchers.IO) {
+     try { r?.stop() } catch(e: Exception) { f?.delete();throw e } finally { r?.release() }
+     check(f!=null && f.exists()) { "Аудиофайл записи недоступен" }
+     if(f!=null) {
+      if(save) {
+       val id=UUID.randomUUID().toString()
+       val savedDuration=if(duration>0) duration else {
+        val metadata=android.media.MediaMetadataRetriever()
+        try { metadata.setDataSource(f.path);metadata.extractMetadata(android.media.MediaMetadataRetriever.METADATA_KEY_DURATION)?.toLongOrNull()?:0L } finally { metadata.release() }
+       }
+       check(savedDuration>0) { "Запись слишком короткая. Попробуйте записать ещё раз" }
+       dao.insert(Recording(id,"Запись ${java.text.SimpleDateFormat("dd.MM HH:mm",java.util.Locale.ROOT).format(java.util.Date())}",f.path,durationMs=savedDuration,backend=backend.value))
+       // Give the physical shell time to settle while the database commit finishes.
+       elapsed.value=0;levels.value=emptyList();envelope.reset();recordingPhase.value=RecordingPhase.SAVED;selected.value=id;notice.value="Запись сохранена"
+      } else { check(f.delete()) { "Не удалось удалить черновик записи" };elapsed.value=0;levels.value=emptyList();envelope.reset();if(recordingPhase.value!=RecordingPhase.ERROR) recordingPhase.value=RecordingPhase.IDLE }
+     }
+    }
+   } catch(e: Exception) { recordingPhase.value=RecordingPhase.ERROR;reportError("Сохранение записи",e) }
+  }
  }
  override fun onCleared() { if(isRecording.value) stopRecording(true,persistAfterClear=true);super.onCleared() }
 }

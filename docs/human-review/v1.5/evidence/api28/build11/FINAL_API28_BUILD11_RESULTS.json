@@ -1,0 +1,87 @@
+{
+  "sourceBuild": "11",
+  "sdk": 28,
+  "serial": "emulator-5558",
+  "status": "PASS",
+  "passed": 33,
+  "failed": 0,
+  "attempts": "One fresh invocation for each suite; no retries in source11 API28 acceptance.",
+  "profile": "Original native432x936@180dpi; app384x760dp; original system default font1.0 and animator1.0. No runtime display/density/font overrides.",
+  "scope": "Fresh app data in isolated read-only/no-snapshot AVD. Source11 exact QA and test APK SHA are in installed-build11.json. Core import/journal/UI + actual bundled GigaAM recognition of seven public author-scripted studio-whisper fixtures. No physical phone microphone or performance/thermal validation.",
+  "groups": [
+    {
+      "filter": "ru.replika.MediaImportV15Test",
+      "passed": 15,
+      "seconds": 4.78,
+      "log": "MediaImportV15Test-20261105T233643Z.log"
+    },
+    {
+      "filter": "ru.replika.OrbRendererV14Test#canvasFallbackAndAgslRenderBothThemesWithoutRuntimeErrors",
+      "passed": 1,
+      "seconds": 6.62,
+      "log": "OrbRendererV14Test-canvasFallbackAndAgslRenderBothThemesWithoutRuntimeErrors-20261105T233648Z.log"
+    },
+    {
+      "filter": "ru.replika.ImportJournalV15Test",
+      "passed": 8,
+      "seconds": 4.16,
+      "log": "ImportJournalV15Test-20261105T233654Z.log"
+    },
+    {
+      "filter": "ru.replika.NavigationTest",
+      "passed": 1,
+      "seconds": 41.98,
+      "log": "NavigationTest-20261105T233658Z.log"
+    },
+    {
+      "filter": "ru.replika.OrbInteractionV15Test",
+      "passed": 1,
+      "seconds": 6.56,
+      "log": "OrbInteractionV15Test-20261105T233740Z.log"
+    },
+    {
+      "filter": "ru.replika.HomeExperienceV15Test",
+      "passed": 2,
+      "seconds": 13.76,
+      "log": "HomeExperienceV15Test-20261105T233747Z.log"
+    },
+    {
+      "filter": "ru.replika.EditorialV14UiTest",
+      "passed": 4,
+      "seconds": 56.51,
+      "log": "EditorialV14UiTest-20261105T233801Z.log"
+    },
+    {
+      "filter": "ru.replika.WhisperPipelineV15Test",
+      "passed": 1,
+      "seconds": 55.59,
+      "log": "WhisperPipelineV15Test-20261105T233940Z.log"
+    }
+  ],
+  "actualStudioWhisper": {
+    "status": "PASS",
+    "wordErrors": 9,
+    "referenceWords": 84,
+    "charErrors": 39,
+    "referenceChars": 500,
+    "wer": 0.10714285714285714,
+    "cer": 0.078,
+    "rescuedClips": 1
+  },
+  "whisperEvidence": "real-whisper-worker/acceptance.json",
+  "screenshots": "ui/scope.json",
+  "screenshotsCount": 31,
+  "screenshotsScope": "27 full432x936 frames of controlled app records/states, plus4 Canvas338x338 fixtures. Both renderer requests use Canvas on SDK28, never AGSL. Virtual recorder uses emulator audio input; it proves state/save/decode/reopen logic, not vivo acoustic response.",
+  "limits": [
+    "No attached vivo X300.",
+    "No physical-phone mic, whisper, power, thermal or FPS proof.",
+    "Actual studio-whisper set is seven clips/84 reference words; this is a bounded regression, not universal accuracy guarantee.",
+    "Diarization quality defect remains outside this single-speaker fixture acceptance.",
+    "No runtime compact/font override on API28; source11 original profile only. Compact/font-scale acceptance is separate API35 evidence."
+  ],
+  "originalAvdIntegrity": "PASS: all seven original files retain SHA256/bytes/mtime after explicit5558 shutdown; original primary5556 preserved; checksum IO complete.",
+  "updatedAtUtc": "2026-11-05T23:42:59.284400+00:00",
+  "integrityEvidence": "ORIGINAL_AVD_PRESERVATION.json",
+  "ownedEmulatorStopped": true,
+  "checksumIoFinished": true
+}

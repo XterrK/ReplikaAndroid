@@ -1,0 +1,53 @@
+{
+  "status": "source8 host checks pass; Android28/35 post-fix pending",
+  "regression": "Android9 ignores a two-entry MP4 elst; first AAC PTS0 caused an incorrect zero-offset remux",
+  "fixture": {
+    "trackId": 2,
+    "extractorTrackIndex": 1,
+    "movieTimescale": 48000,
+    "mediaTimescale": 48000,
+    "leadingEmptyMovieTicks": 18176,
+    "aospRoundedLeadingUs": 378666,
+    "api28FirstPtsUs": 0
+  },
+  "behavior": {
+    "offsetFrom": "selected audio elst empty edit only; never movie duration minus audio duration",
+    "platformAlreadyApplied": "first PTS matches edit offset within2us: additional0",
+    "platformMissing": "first PTS0: add missing offset only to decoded PCM PTS",
+    "singlePositiveMediaTime": "left to platform gapless/codec-delay; never subtracted twice",
+    "complexMapping": "actionable error instead of wrong timecodes"
+  },
+  "limits": {
+    "metadataBytes": 262144,
+    "boxes": 4096,
+    "tracks": 64,
+    "editEntries": 16,
+    "individualReadBytes": 256,
+    "mdatPayloadRead": false
+  },
+  "verification": {
+    "standaloneKotlin": "2.1.20",
+    "junit": "4.13.2",
+    "pureHelperTests": 11,
+    "pureHelperPassed": 11,
+    "importerApi35CompileOnly": true,
+    "compileOnlyDomainStub": "ProductOperationException signature only, not application integration",
+    "gradleRunByAgent": false,
+    "androidRunByAgent": false
+  },
+  "sourceSha256": {
+    "app/src/main/java/ru/replika/ml/MediaImporter.kt": "2cf2d1347b20f877973781157cd714a78b08ee54d5751e35e3a8bf28eab1c257",
+    "app/src/main/java/ru/replika/ml/IsoBmffAudioTimeline.kt": "631ddcdee2c9547ed1b38ef16f64ae683caedcb9bfe9155341d0dfc60eda2abe",
+    "app/src/test/java/ru/replika/IsoBmffAudioTimelineTest.kt": "7a5f712dc06c99e1503814ab287132fb7f7d464740be73d7ccd35f30cb2046b6",
+    "app/src/androidTest/java/ru/replika/MediaImportV15Test.kt": "261416f18cd5955da6d51f7dd11135e874e368f8c026fe55dd0d21b0731b2f77",
+    "app/src/androidTest/assets/media-import/aac-priming.mp4": "9cbf4159ef384403fe6769233244dd9cc9a169b89e2db94783a737cb28512cf1",
+    "app/src/androidTest/assets/media-import/fixtures.json": "ec5d98e0209e689d5f46c9087355a15c6d404d7f0fc056a8a34dfe094c8c0964",
+    "tools/create_media_import_fixtures.py": "d652715a96e99b034a306d2d6378881ece0fca025df026fe5a4a474aae313e4a"
+  },
+  "primarySources": [
+    "https://android.googlesource.com/platform/frameworks/av/+/android-9.0.0_r1/media/extractors/mp4/MPEG4Extractor.cpp",
+    "https://android.googlesource.com/platform/frameworks/av/+/android-15.0.0_r1/media/module/extractors/mp4/MPEG4Extractor.cpp",
+    "https://developer.apple.com/documentation/quicktime-file-format/playing_with_edit_lists",
+    "https://www.w3.org/TR/mse-byte-stream-format-isobmff/"
+  ]
+}

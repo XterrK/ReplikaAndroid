@@ -1,0 +1,227 @@
+{
+  "jvmTests": 44,
+  "androidDistinctPassedMethods": 69,
+  "androidUnresolvedMethodFailures": [],
+  "androidSkippedMethods": [],
+  "prototypeChecks": 53,
+  "mlComparisons": "PASS",
+  "physicalAndroidAvailable": false,
+  "physicalMicrophoneVerified": false,
+  "nativeScreenshotFiles": 87,
+  "sourceBaselineCommit": "ce345569377f0d7b60b383296f00f58b417986e0",
+  "androidPassedMethods": {
+    "ru.replika.ModelPackTest#incompleteModelsCannotReachInference": [
+      "docs/human-review/v1.4/evidence/android-tests/ModelPackTest.log"
+    ],
+    "ru.replika.ModelPackTest#corruptPackCannotReplaceVerifiedModel": [
+      "docs/human-review/v1.4/evidence/android-tests/ModelPackTest.log"
+    ],
+    "ru.replika.ModelPackTest#importRealOfflinePack": [
+      "docs/human-review/v1.4/evidence/android-tests/ModelPackTest.log"
+    ],
+    "ru.replika.StorageAudioTest#corruptedImportReturnsErrorAndRemovesPcm": [
+      "docs/human-review/v1.4/evidence/android-tests/StorageAudioTest.log"
+    ],
+    "ru.replika.StorageAudioTest#corruptWorkerPreservesPreviousTranscript": [
+      "docs/human-review/v1.4/evidence/android-tests/StorageAudioTest.log"
+    ],
+    "ru.replika.StorageAudioTest#sessionSurvivesDatabaseReopen": [
+      "docs/human-review/v1.4/evidence/android-tests/StorageAudioTest.log"
+    ],
+    "ru.replika.StorageAudioTest#stereo48kNormalizesTo16kWithoutTimeDrift": [
+      "docs/human-review/v1.4/evidence/android-tests/StorageAudioTest.log"
+    ],
+    "ru.replika.StorageAudioTest#realWavMp3M4aDecode": [
+      "docs/human-review/v1.4/evidence/android-tests/StorageAudioTest.log"
+    ],
+    "ru.replika.StorageAudioTest#realModelValidationAndAsr": [
+      "docs/human-review/v1.4/evidence/android-tests/StorageAudioTest.log"
+    ],
+    "ru.replika.ProductStorageTest#deletionStagingRecoversBothSidesOfDatabaseCommit": [
+      "docs/human-review/v1.4/evidence/android-tests/ProductStorageTest.log"
+    ],
+    "ru.replika.ProductStorageTest#editAndUndoArePersistedAndExported": [
+      "docs/human-review/v1.4/evidence/android-tests/ProductStorageTest.log"
+    ],
+    "ru.replika.ProductStorageTest#busyDeletionIsRejectedWithoutChangingData": [
+      "docs/human-review/v1.4/evidence/android-tests/ProductStorageTest.log"
+    ],
+    "ru.replika.ProductStorageTest#symlinkOutsideOwnedDirectoryIsNeverDeleted": [
+      "docs/human-review/v1.4/evidence/android-tests/ProductStorageTest.log"
+    ],
+    "ru.replika.ProductStorageTest#staleUndoAndStaleEditorNeverOverwriteNewerData": [
+      "docs/human-review/v1.4/evidence/android-tests/ProductStorageTest.log"
+    ],
+    "ru.replika.ProductStorageTest#externalAndSharedAudioArePreserved": [
+      "docs/human-review/v1.4/evidence/android-tests/ProductStorageTest.log"
+    ],
+    "ru.replika.ProductStorageTest#deletingOwnedAudioRemovesOnlyItsRowsAndFile": [
+      "docs/human-review/v1.4/evidence/android-tests/ProductStorageTest.log"
+    ],
+    "ru.replika.ProcessingRecoveryTest#duplicateRequestsAndQueuedCancellationPreserveTranscript": [
+      "docs/human-review/v1.4/evidence/android-tests/ProcessingRecoveryTest.log"
+    ],
+    "ru.replika.ProcessingRecoveryTest#orphanedProgressRecoversWithoutDeletingSavedEdits": [
+      "docs/human-review/v1.4/evidence/android-tests/ProcessingRecoveryTest.log"
+    ],
+    "ru.replika.BundledModelInstallerTest#unsafeZipPathsAreRejectedWithoutEscapingPrivateDirectories": [
+      "docs/human-review/v1.4/evidence/android-tests/BundledModelInstallerTest.log"
+    ],
+    "ru.replika.BundledModelInstallerTest#missingRequiredFileCannotBeBypassedWithPreexistingStages": [
+      "docs/human-review/v1.4/evidence/android-tests/BundledModelInstallerTest.log"
+    ],
+    "ru.replika.BundledModelInstallerTest#interruptedPublicationCanExposeOnlyVerifiedFilesAndRetryCompletes": [
+      "docs/human-review/v1.4/evidence/android-tests/BundledModelInstallerTest.log"
+    ],
+    "ru.replika.BundledModelInstallerTest#duplicateZipPathsAreRejectedEvenWhenAllStagesWereAlreadyWritten": [
+      "docs/human-review/v1.4/evidence/android-tests/BundledModelInstallerTest.log"
+    ],
+    "ru.replika.BundledModelInstallerTest#crcCorruptionCannotPublishFiles": [
+      "docs/human-review/v1.4/evidence/android-tests/BundledModelInstallerTest.log"
+    ],
+    "ru.replika.BundledModelInstallerTest#replacingMissingModelsPreservesExistingValidModelsAndScansSkippedEntryBytes": [
+      "docs/human-review/v1.4/evidence/android-tests/BundledModelInstallerTest.log"
+    ],
+    "ru.replika.BundledModelInstallerTest#corruptStageIsReplacedButCompleteVerifiedStageIsReused": [
+      "docs/human-review/v1.4/evidence/android-tests/BundledModelInstallerTest.log"
+    ],
+    "ru.replika.BundledModelInstallerTest#insufficientStorageDoesNotOpenPackOrChangeLiveModel": [
+      "docs/human-review/v1.4/evidence/android-tests/BundledModelInstallerTest.log"
+    ],
+    "ru.replika.BundledModelInstallerTest#completePackPublishesOnlyVerifiedFilesAndReportsActualBytes": [
+      "docs/human-review/v1.4/evidence/android-tests/BundledModelInstallerTest.log"
+    ],
+    "ru.replika.BundledModelInstallerTest#interruptedPreparationRetainsVerifiedStageAndSafelyRetries": [
+      "docs/human-review/v1.4/evidence/android-tests/BundledModelInstallerTest.log"
+    ],
+    "ru.replika.BundledModelInstallerTest#boundedMetadataRejectsArchiveBombWithoutPublishingModels": [
+      "docs/human-review/v1.4/evidence/android-tests/BundledModelInstallerTest.log"
+    ],
+    "ru.replika.BundledModelInstallerTest#wrongHashDoesNotPublishAnythingOrDestroyExistingFiles": [
+      "docs/human-review/v1.4/evidence/android-tests/BundledModelInstallerTest.log"
+    ],
+    "ru.replika.BundledModelInstallerTest#validModelsAreNotRewrittenAndPackIsNeverOpened": [
+      "docs/human-review/v1.4/evidence/android-tests/BundledModelInstallerTest.log"
+    ],
+    "ru.replika.BundledModelInstallerTest#unsafeManifestPathsAreRejectedBeforeOpeningPack": [
+      "docs/human-review/v1.4/evidence/android-tests/BundledModelInstallerTest.log"
+    ],
+    "ru.replika.BundledModelInstallerTest#manifestFingerprintIsStableAndChangesWithPinnedWeights": [
+      "docs/human-review/v1.4/evidence/android-tests/BundledModelInstallerTest.log"
+    ],
+    "ru.replika.BundledModelInstallerTest#oversizedAndUnknownEntriesAreRejectedBeforePublication": [
+      "docs/human-review/v1.4/evidence/android-tests/BundledModelInstallerTest.log"
+    ],
+    "ru.replika.DiarizationTest#realAutomaticMultispeakerDiarization": [
+      "docs/human-review/v1.4/evidence/android-tests/DiarizationTest.log"
+    ],
+    "ru.replika.PipelineTest#completeRealGigaPipeline": [
+      "docs/human-review/v1.4/evidence/android-tests/PipelineTest.log"
+    ],
+    "ru.replika.PipelineTest#completeRealWhisperPipeline": [
+      "docs/human-review/v1.4/evidence/android-tests/PipelineTest.log"
+    ],
+    "ru.replika.PipelineTest#realWhisperBackend": [
+      "docs/human-review/v1.4/evidence/android-tests/PipelineTest.log"
+    ],
+    "ru.replika.MLComparisonTest#vadBoundaryComparisons": [
+      "docs/human-review/v1.4/evidence/android-tests/MLComparisonTest.log"
+    ],
+    "ru.replika.MLComparisonTest#diarizationAutomaticVersusKnownFour": [
+      "docs/human-review/v1.4/evidence/android-tests/MLComparisonTest.log"
+    ],
+    "ru.replika.MLComparisonTest#directAsrSameInputColdThenWarm": [
+      "docs/human-review/v1.4/evidence/android-tests/MLComparisonTest.log"
+    ],
+    "ru.replika.WarningPipelineTest#completeRealShortSpeechWarningPipeline": [
+      "docs/human-review/v1.4/evidence/android-tests/WarningPipelineTest.log"
+    ],
+    "ru.replika.RecoveryV13InstrumentedTest#thermalGateWaitResumeAndCancellationWithActualPowerManager": [
+      "docs/human-review/v1.4/evidence/android-tests/RecoveryV13InstrumentedTest.log"
+    ],
+    "ru.replika.RecoveryV13InstrumentedTest#fourMinuteSingleSpeakerWorkerSkipsDiarizationAndKeepsBounds": [
+      "docs/human-review/v1.4/evidence/android-tests/RecoveryV13InstrumentedTest.log"
+    ],
+    "ru.replika.RecoveryV13InstrumentedTest#fourMinuteAutomaticDiarizationRetainsOneSpeakerOnControlledRepeat": [
+      "docs/human-review/v1.4/evidence/android-tests/RecoveryV13InstrumentedTest.log"
+    ],
+    "ru.replika.RecoveryV13InstrumentedTest#gigaThreadsOneTwoFourSequentialWithIdenticalInput": [
+      "docs/human-review/v1.4/evidence/android-tests/RecoveryV13InstrumentedTest.log"
+    ],
+    "ru.replika.RecoveryV13InstrumentedTest#bufferedPcmReadMatchesEverySampleAndOriginalClock": [
+      "docs/human-review/v1.4/evidence/android-tests/RecoveryV13InstrumentedTest.log"
+    ],
+    "ru.replika.NavigationTest#libraryModelsNavigation": [
+      "docs/human-review/v1.4/evidence/android-tests/NavigationTest.log"
+    ],
+    "ru.replika.AllInOneUiTest#preparationErrorRetryRemainsAccessibleWithLongTextAtFontScale130": [
+      "docs/human-review/v1.4/evidence/android-tests/AllInOneUiTest.log"
+    ],
+    "ru.replika.AllInOneUiTest#installedBundleHasOptionalAdvancedImportAndBothBackendChoices": [
+      "docs/human-review/v1.4/evidence/android-tests/AllInOneUiTest.log"
+    ],
+    "ru.replika.TranscriptModesV13Test#readingCopyEditAndRecreationShareRoomDataWithoutInference": [
+      "docs/human-review/v1.4/evidence/android-tests/TranscriptModesV13Test.log"
+    ],
+    "ru.replika.ProductExperienceTest#corruptImportedFixtureDoesNotPrematurelyPreparePlayer": [
+      "docs/human-review/v1.4/evidence/android-tests/ProductExperienceTest.log"
+    ],
+    "ru.replika.ProductExperienceTest#workspaceSeekSpeedAndBackgroundPause": [
+      "docs/human-review/v1.4/evidence/android-tests/ProductExperienceTest.log"
+    ],
+    "ru.replika.ProductExperienceTest#corruptedWorkerExplainsRecoveryAndKeepsSavedRows": [
+      "docs/human-review/v1.4/evidence/android-tests/ProductExperienceTest.log"
+    ],
+    "ru.replika.ProductExperienceTest#libraryDeleteConfirmationRemovesOnlyOwnedCopy": [
+      "docs/human-review/v1.4/evidence/android-tests/ProductExperienceTest.log"
+    ],
+    "ru.replika.ProductExperienceTest#editorLongRosterSaveUndoAndDiscard": [
+      "docs/human-review/v1.4/evidence/android-tests/ProductExperienceTest.log"
+    ],
+    "ru.replika.ReviewScreenshotsTest#libraryModelsAndRecording": [
+      "docs/human-review/v1.4/evidence/android-tests/ReviewScreenshotsTest.log",
+      "docs/human-review/v1.4/evidence/android-tests/ReviewScreenshotsTest-libraryModelsAndRecording.log"
+    ],
+    "ru.replika.ReviewScreenshotsTest#actualShortSpeechReviewQueue": [
+      "docs/human-review/v1.4/evidence/android-tests/ReviewScreenshotsTest.log"
+    ],
+    "ru.replika.ReviewScreenshotsTest#realTranscriptReviewAndSpeakerEditing": [
+      "docs/human-review/v1.4/evidence/android-tests/ReviewScreenshotsTest.log"
+    ],
+    "ru.replika.PersistedEditsTest#actualUiCorrectionsSurviveProcessRelaunch": [
+      "docs/human-review/v1.4/evidence/android-tests/PersistedEditsTest.log"
+    ],
+    "ru.replika.EditorialV14UiTest#appearancePersistsAcrossRecreationAndCanFollowSystem": [
+      "docs/human-review/v1.4/evidence/android-tests/EditorialV14UiTest.log"
+    ],
+    "ru.replika.EditorialV14UiTest#bothThemesEightScreensAndKeyboard": [
+      "docs/human-review/v1.4/evidence/android-tests/EditorialV14UiTest.log",
+      "docs/human-review/v1.4/evidence/android-tests/EditorialV14UiTest-bothThemesEightScreensAndKeyboard.log"
+    ],
+    "ru.replika.EditorialV14UiTest#virtualRecorderPauseBackSaveDecodeReopen": [
+      "docs/human-review/v1.4/evidence/android-tests/EditorialV14UiTest.log",
+      "docs/human-review/v1.4/evidence/android-tests/EditorialV14UiTest-virtualRecorderPauseBackSaveDecodeReopen.log"
+    ],
+    "ru.replika.OrbRendererV14Test#agslCompilesAndAcceptsUniforms": [
+      "docs/human-review/v1.4/evidence/android-tests/OrbRendererV14Test.log"
+    ],
+    "ru.replika.OrbRendererV14Test#canvasFallbackAndAgslRenderBothThemesWithoutRuntimeErrors": [
+      "docs/human-review/v1.4/evidence/android-tests/OrbRendererV14Test.log"
+    ],
+    "ru.replika.RecordingPermissionV14Test#deniedMicrophoneProducesNoMeterOrRecorderSession": [
+      "docs/human-review/v1.4/evidence/android-tests/RecordingPermissionV14Test.log"
+    ],
+    "ru.replika.AllInOneAcceptanceTest#bothRealWorkerBackendsUseAutomaticallyPreparedBundle": [
+      "docs/human-review/v1.4/evidence/android-tests/AllInOneAcceptanceTest.log"
+    ],
+    "ru.replika.EditorialV14UiTest#keyboardSaveAndUndoKeepTheOriginalRoomSegment": [
+      "docs/human-review/v1.4/evidence/android-tests/EditorialV14UiTest-keyboardSaveAndUndoKeepTheOriginalRoomSegment.log"
+    ],
+    "ru.replika.AllInOneAcceptanceTest#preparedBundleHashesAndNoExtractionOnRepeatedLaunch": [
+      "docs/human-review/v1.4/evidence/android-tests/AllInOneAcceptanceTest-preparedBundleHashesAndNoExtractionOnRepeatedLaunch.log"
+    ]
+  },
+  "historicalFailuresResolvedByLaterPass": [
+    "ru.replika.AllInOneAcceptanceTest#preparedBundleHashesAndNoExtractionOnRepeatedLaunch"
+  ]
+}

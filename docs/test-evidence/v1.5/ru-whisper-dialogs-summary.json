@@ -1,0 +1,182 @@
+{
+  "status": "HOST_ONLY_RESEARCH; production model/source/config unchanged",
+  "selectedModelBeforeHoldout": "giga-v3 E2E RNNT INT8",
+  "dataset": "ALL7 official Dialogs test rows whisper;3actors,50.299s,84referenceWords,500referenceChars",
+  "directAndDefaultGated": [
+    {
+      "model": "giga-v2",
+      "scope": "whole-clip",
+      "files": 7,
+      "wordErrors": 1,
+      "referenceWords": 84,
+      "wer": 0.011904761904761904,
+      "charErrors": 1,
+      "referenceChars": 500,
+      "cer": 0.002,
+      "inferenceSec": 7.572241060999659
+    },
+    {
+      "model": "giga-v3",
+      "scope": "whole-clip",
+      "files": 7,
+      "wordErrors": 2,
+      "referenceWords": 84,
+      "wer": 0.023809523809523808,
+      "charErrors": 2,
+      "referenceChars": 500,
+      "cer": 0.004,
+      "inferenceSec": 3.717766631998529
+    },
+    {
+      "model": "giga-v3",
+      "scope": "production-vad-context-single-speaker",
+      "files": 7,
+      "wordErrors": 31,
+      "referenceWords": 84,
+      "wer": 0.36904761904761907,
+      "charErrors": 172,
+      "referenceChars": 500,
+      "cer": 0.344,
+      "inferenceSec": 2.131090924012824
+    },
+    {
+      "model": "giga-v3-rnnt",
+      "scope": "whole-clip",
+      "files": 7,
+      "wordErrors": 0,
+      "referenceWords": 84,
+      "wer": 0.0,
+      "charErrors": 0,
+      "referenceChars": 500,
+      "cer": 0.0,
+      "inferenceSec": 3.753991561996372
+    }
+  ],
+  "zeroSpan035": {
+    "wordErrors": 31,
+    "referenceWords": 84,
+    "wer": 0.36904761904761907,
+    "charErrors": 172,
+    "referenceChars": 500,
+    "cer": 0.344,
+    "firstPassNonemptyPreserved": 6,
+    "retries": 1,
+    "recoveredEmptyFiles": 0,
+    "negativeRuns": 22,
+    "newFalseVadRuns": 0,
+    "newFalseVadIds": [],
+    "nonblankNegativeRuns": 0
+  },
+  "detectorCandidates": {
+    "A": {
+      "recoveredEmptySpeechIds": [
+        "masha_dima_part11_287"
+      ],
+      "recoveredEmptySpeechFiles": 1,
+      "firstPassNonemptySpeechPreserved": 6,
+      "newFalseVadRuns": 0,
+      "newFalseVadIds": [],
+      "negativeRuns": 22,
+      "contextRetainedSec": 29.886
+    },
+    "B": {
+      "recoveredEmptySpeechIds": [
+        "masha_dima_part11_287"
+      ],
+      "recoveredEmptySpeechFiles": 1,
+      "firstPassNonemptySpeechPreserved": 6,
+      "newFalseVadRuns": 0,
+      "newFalseVadIds": [],
+      "negativeRuns": 22,
+      "contextRetainedSec": 29.726
+    },
+    "C": {
+      "recoveredEmptySpeechIds": [
+        "masha_dima_part11_287"
+      ],
+      "recoveredEmptySpeechFiles": 1,
+      "firstPassNonemptySpeechPreserved": 6,
+      "newFalseVadRuns": 0,
+      "newFalseVadIds": [],
+      "negativeRuns": 22,
+      "contextRetainedSec": 37.534
+    }
+  },
+  "candidateAsr": {
+    "A-post0": {
+      "wordErrors": 29,
+      "referenceWords": 84,
+      "wer": 0.34523809523809523,
+      "charErrors": 144,
+      "referenceChars": 500,
+      "cer": 0.288,
+      "files": 7
+    },
+    "A-post150": {
+      "wordErrors": 29,
+      "referenceWords": 84,
+      "wer": 0.34523809523809523,
+      "charErrors": 144,
+      "referenceChars": 500,
+      "cer": 0.288,
+      "files": 7
+    },
+    "B-post0": {
+      "wordErrors": 31,
+      "referenceWords": 84,
+      "wer": 0.36904761904761907,
+      "charErrors": 154,
+      "referenceChars": 500,
+      "cer": 0.308,
+      "files": 7
+    },
+    "C-post0": {
+      "wordErrors": 10,
+      "referenceWords": 84,
+      "wer": 0.11904761904761904,
+      "charErrors": 44,
+      "referenceChars": 500,
+      "cer": 0.088,
+      "files": 7
+    },
+    "C-post150": {
+      "wordErrors": 10,
+      "referenceWords": 84,
+      "wer": 0.11904761904761904,
+      "charErrors": 44,
+      "referenceChars": 500,
+      "cer": 0.088,
+      "files": 7
+    }
+  },
+  "currentGainAboveOneFiles": 0,
+  "partialRecoveryNotice": "C reduces missed clip23→2errors; total31→10errors; this is one controlled actor clip, not phone acceptance",
+  "negativePost150Nonblank": 0,
+  "negativeAsrReuse": "C selected negative intervals equal old default/A; ASR samples/gain unchanged. Saved actual outputs reused, not a new direct-negative inference claim. Existing direct11negative×2mode evidence is separate.",
+  "post150ImprovedWER": false,
+  "productionEnableRecommendedByThisEvidenceAlone": false,
+  "adoption": {
+    "state": "NATIVE_SOURCE11_IMPLEMENTED_AND_ANDROID35_ANDROID28_WORKER_PASS",
+    "authorization": "Coordinator explicitly accepted positive C for native implementation after host results",
+    "guards": "primarySpans empty; finite original peak>1e-6; current gain<20; bounded original RMS stream; detector gain increase>1%",
+    "preserved": "ASR recognition gain/model, original PCM, diarization, VAD threshold0.5, context100/0",
+    "pureJvm": "Full Gradle JVM80/80PASS, including8 rescue policy cases; standalone8/8 kept separately",
+    "nativeValidation": {
+      "status": "PASS",
+      "sourceGeneration": 11,
+      "platforms": [
+        "API35/x86_64",
+        "API28/x86_64"
+      ],
+      "words": 84,
+      "wordErrors": 9,
+      "wer": 0.10714285714285714,
+      "charErrors": 39,
+      "referenceChars": 500,
+      "cer": 0.078,
+      "rescuedWordsOnInitiallyEmptyClip": "21/23",
+      "scope": "seven author-labelled studio whisper clips; no phone microphone acceptance",
+      "evidence": "../../human-review/v1.5/evidence/whisper-native11/acceptance.json"
+    }
+  }
+}

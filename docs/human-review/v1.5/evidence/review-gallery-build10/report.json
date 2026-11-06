@@ -1,0 +1,697 @@
+{
+  "scope": "Review gallery page only; no APK download/export navigation, native runtime or microphone test.",
+  "flow": "Gallery entry → theme/profile select → twelve original PNGs decode with correct captions; native video metadata/playback → mobile layout.",
+  "url": "file:///F:/Hackathons/ReplikaAndroid/docs/human-review/v1.5/index.html",
+  "browser": "Browser plugin not available; existing Playwright1.64.1 via Windows Node and isolated headless Edge Chromium",
+  "checks": {
+    "identity": "PASS",
+    "notBlank": "PASS",
+    "frameworkOverlay": "none",
+    "consoleHealth": "PASS",
+    "screenshots": "PASS",
+    "interactionProof": "Theme and profile switches render twelve matching original images; video metadata and playback advance; mobile layout remains contained",
+    "pngMatrix": "48/48 PASS",
+    "video": "PASS",
+    "mobileOverflow": "none",
+    "downloadExportNavigation": "not invoked"
+  },
+  "results": [
+    {
+      "theme": "DARK",
+      "profile": "360x640-font1.3",
+      "imageCount": 12,
+      "images": [
+        {
+          "caption": "Главная · запись",
+          "alt": "Главная · запись",
+          "src": "file:///F:/Hackathons/ReplikaAndroid/docs/human-review/v1.5/evidence/android/360x640-font1.3-DARK-recording-idle.png",
+          "href": "file:///F:/Hackathons/ReplikaAndroid/docs/human-review/v1.5/evidence/android/360x640-font1.3-DARK-recording-idle.png",
+          "width": 360,
+          "height": 640,
+          "complete": true,
+          "sha256": "6c05f4d53297479762e30808721f2f2b53c0205a5bea903d0888701f90ea7984",
+          "bytes": 52710
+        },
+        {
+          "caption": "Библиотека",
+          "alt": "Библиотека",
+          "src": "file:///F:/Hackathons/ReplikaAndroid/docs/human-review/v1.5/evidence/android/360x640-font1.3-DARK-library.png",
+          "href": "file:///F:/Hackathons/ReplikaAndroid/docs/human-review/v1.5/evidence/android/360x640-font1.3-DARK-library.png",
+          "width": 360,
+          "height": 640,
+          "complete": true,
+          "sha256": "f1c165a327d5b016db62bfec8b31b93bc6c0a497ae4844c093ad98cac41f2ac5",
+          "bytes": 44508
+        },
+        {
+          "caption": "Обработка · UI fixture",
+          "alt": "Обработка · UI fixture",
+          "src": "file:///F:/Hackathons/ReplikaAndroid/docs/human-review/v1.5/evidence/android/360x640-font1.3-DARK-processing.png",
+          "href": "file:///F:/Hackathons/ReplikaAndroid/docs/human-review/v1.5/evidence/android/360x640-font1.3-DARK-processing.png",
+          "width": 360,
+          "height": 640,
+          "complete": true,
+          "sha256": "863a919d5fc6c1b7795c5238ef1b8b91b43db97ab651a53dece4dddedcffd3b8",
+          "bytes": 32764
+        },
+        {
+          "caption": "Диалог · UI fixture",
+          "alt": "Диалог · UI fixture",
+          "src": "file:///F:/Hackathons/ReplikaAndroid/docs/human-review/v1.5/evidence/android/360x640-font1.3-DARK-dialogue.png",
+          "href": "file:///F:/Hackathons/ReplikaAndroid/docs/human-review/v1.5/evidence/android/360x640-font1.3-DARK-dialogue.png",
+          "width": 360,
+          "height": 640,
+          "complete": true,
+          "sha256": "882cab0f1353a2abe05332ec343b4fd69f1ecad82fc86e115f8935eab1409766",
+          "bytes": 47673
+        },
+        {
+          "caption": "Чтение · UI fixture",
+          "alt": "Чтение · UI fixture",
+          "src": "file:///F:/Hackathons/ReplikaAndroid/docs/human-review/v1.5/evidence/android/360x640-font1.3-DARK-reading.png",
+          "href": "file:///F:/Hackathons/ReplikaAndroid/docs/human-review/v1.5/evidence/android/360x640-font1.3-DARK-reading.png",
+          "width": 360,
+          "height": 640,
+          "complete": true,
+          "sha256": "de053338915bbeb59710ce2778da887d053554199983f731a4e62f0b0469e9f8",
+          "bytes": 51394
+        },
+        {
+          "caption": "Проверка · UI fixture",
+          "alt": "Проверка · UI fixture",
+          "src": "file:///F:/Hackathons/ReplikaAndroid/docs/human-review/v1.5/evidence/android/360x640-font1.3-DARK-review.png",
+          "href": "file:///F:/Hackathons/ReplikaAndroid/docs/human-review/v1.5/evidence/android/360x640-font1.3-DARK-review.png",
+          "width": 360,
+          "height": 640,
+          "complete": true,
+          "sha256": "bf2c6c856add644a58c8f4cddb2efd98c063d9c4b52cc4e148b2ab3081a79f01",
+          "bytes": 43433
+        },
+        {
+          "caption": "Редактор · UI fixture",
+          "alt": "Редактор · UI fixture",
+          "src": "file:///F:/Hackathons/ReplikaAndroid/docs/human-review/v1.5/evidence/android/360x640-font1.3-DARK-editor.png",
+          "href": "file:///F:/Hackathons/ReplikaAndroid/docs/human-review/v1.5/evidence/android/360x640-font1.3-DARK-editor.png",
+          "width": 360,
+          "height": 640,
+          "complete": true,
+          "sha256": "59fa0b00dd75eff58b8fc74b2dd985d1e4ded070afb62da60e83bc1c2df2c907",
+          "bytes": 40555
+        },
+        {
+          "caption": "Модели",
+          "alt": "Модели",
+          "src": "file:///F:/Hackathons/ReplikaAndroid/docs/human-review/v1.5/evidence/android/360x640-font1.3-DARK-models.png",
+          "href": "file:///F:/Hackathons/ReplikaAndroid/docs/human-review/v1.5/evidence/android/360x640-font1.3-DARK-models.png",
+          "width": 360,
+          "height": 640,
+          "complete": true,
+          "sha256": "3b66a415c4b573ea1018f5673a98b8cc62e014f6d64c5636521c96cc5bd5c896",
+          "bytes": 45474
+        },
+        {
+          "caption": "Редактор с клавиатурой · UI fixture",
+          "alt": "Редактор с клавиатурой · UI fixture",
+          "src": "file:///F:/Hackathons/ReplikaAndroid/docs/human-review/v1.5/evidence/android/360x640-font1.3-DARK-editor-keyboard.png",
+          "href": "file:///F:/Hackathons/ReplikaAndroid/docs/human-review/v1.5/evidence/android/360x640-font1.3-DARK-editor-keyboard.png",
+          "width": 360,
+          "height": 640,
+          "complete": true,
+          "sha256": "3407334a9e6b5c6396600fa3f22766c83b5c6b977f7221f6599fb50b6ea4ded3",
+          "bytes": 35276
+        },
+        {
+          "caption": "Выбор темы",
+          "alt": "Выбор темы",
+          "src": "file:///F:/Hackathons/ReplikaAndroid/docs/human-review/v1.5/evidence/android/360x640-font1.3-DARK-settings.png",
+          "href": "file:///F:/Hackathons/ReplikaAndroid/docs/human-review/v1.5/evidence/android/360x640-font1.3-DARK-settings.png",
+          "width": 360,
+          "height": 640,
+          "complete": true,
+          "sha256": "e0b5503a880dd025b64cd00d14148e4ac33ec2cefdc3608ce6e210fd6197d93a",
+          "bytes": 22523
+        },
+        {
+          "caption": "Настройка обработки",
+          "alt": "Настройка обработки",
+          "src": "file:///F:/Hackathons/ReplikaAndroid/docs/human-review/v1.5/evidence/android/360x640-font1.3-DARK-processing-setup.png",
+          "href": "file:///F:/Hackathons/ReplikaAndroid/docs/human-review/v1.5/evidence/android/360x640-font1.3-DARK-processing-setup.png",
+          "width": 360,
+          "height": 640,
+          "complete": true,
+          "sha256": "82c5b9d7783f7c9c3cd8b9c280a283e065fdb7d1830a6ea44d6f897e32734493",
+          "bytes": 43687
+        },
+        {
+          "caption": "Ошибка · UI fixture",
+          "alt": "Ошибка · UI fixture",
+          "src": "file:///F:/Hackathons/ReplikaAndroid/docs/human-review/v1.5/evidence/android/360x640-font1.3-DARK-error.png",
+          "href": "file:///F:/Hackathons/ReplikaAndroid/docs/human-review/v1.5/evidence/android/360x640-font1.3-DARK-error.png",
+          "width": 360,
+          "height": 640,
+          "complete": true,
+          "sha256": "26b555c1bcda0c5e495974e881228fc3fb8bc5268979aea67d7689d583cb92a1",
+          "bytes": 39915
+        }
+      ],
+      "result": "PASS"
+    },
+    {
+      "theme": "DARK",
+      "profile": "384x832-font1.0",
+      "imageCount": 12,
+      "images": [
+        {
+          "caption": "Главная · запись",
+          "alt": "Главная · запись",
+          "src": "file:///F:/Hackathons/ReplikaAndroid/docs/human-review/v1.5/evidence/android/384x832-font1.0-DARK-recording-idle.png",
+          "href": "file:///F:/Hackathons/ReplikaAndroid/docs/human-review/v1.5/evidence/android/384x832-font1.0-DARK-recording-idle.png",
+          "width": 384,
+          "height": 832,
+          "complete": true,
+          "sha256": "f9c22f1df7b79cbc265615b6607569711e9c0af30eb189305b734f71358d9740",
+          "bytes": 57303
+        },
+        {
+          "caption": "Библиотека",
+          "alt": "Библиотека",
+          "src": "file:///F:/Hackathons/ReplikaAndroid/docs/human-review/v1.5/evidence/android/384x832-font1.0-DARK-library.png",
+          "href": "file:///F:/Hackathons/ReplikaAndroid/docs/human-review/v1.5/evidence/android/384x832-font1.0-DARK-library.png",
+          "width": 384,
+          "height": 832,
+          "complete": true,
+          "sha256": "15bfcfce92f251513761f8f83a9d2d352d82b92e7ca97a4d9653d89da1966b69",
+          "bytes": 55104
+        },
+        {
+          "caption": "Обработка · UI fixture",
+          "alt": "Обработка · UI fixture",
+          "src": "file:///F:/Hackathons/ReplikaAndroid/docs/human-review/v1.5/evidence/android/384x832-font1.0-DARK-processing.png",
+          "href": "file:///F:/Hackathons/ReplikaAndroid/docs/human-review/v1.5/evidence/android/384x832-font1.0-DARK-processing.png",
+          "width": 384,
+          "height": 832,
+          "complete": true,
+          "sha256": "72faa19be86ead8451e83fa6a2b3751510df9be9c46e4a448b6419e0094a725c",
+          "bytes": 26694
+        },
+        {
+          "caption": "Диалог · UI fixture",
+          "alt": "Диалог · UI fixture",
+          "src": "file:///F:/Hackathons/ReplikaAndroid/docs/human-review/v1.5/evidence/android/384x832-font1.0-DARK-dialogue.png",
+          "href": "file:///F:/Hackathons/ReplikaAndroid/docs/human-review/v1.5/evidence/android/384x832-font1.0-DARK-dialogue.png",
+          "width": 384,
+          "height": 832,
+          "complete": true,
+          "sha256": "d3010f83f705bf0fa8b63b868b3cfcd7c8c1bc5f7038cd1a0b43a5aa3708b035",
+          "bytes": 53207
+        },
+        {
+          "caption": "Чтение · UI fixture",
+          "alt": "Чтение · UI fixture",
+          "src": "file:///F:/Hackathons/ReplikaAndroid/docs/human-review/v1.5/evidence/android/384x832-font1.0-DARK-reading.png",
+          "href": "file:///F:/Hackathons/ReplikaAndroid/docs/human-review/v1.5/evidence/android/384x832-font1.0-DARK-reading.png",
+          "width": 384,
+          "height": 832,
+          "complete": true,
+          "sha256": "b152145ffe4d909d8b41db5be177c169fe47651b168c54c75f4119c0d9014bd4",
+          "bytes": 38432
+        },
+        {
+          "caption": "Проверка · UI fixture",
+          "alt": "Проверка · UI fixture",
+          "src": "file:///F:/Hackathons/ReplikaAndroid/docs/human-review/v1.5/evidence/android/384x832-font1.0-DARK-review.png",
+          "href": "file:///F:/Hackathons/ReplikaAndroid/docs/human-review/v1.5/evidence/android/384x832-font1.0-DARK-review.png",
+          "width": 384,
+          "height": 832,
+          "complete": true,
+          "sha256": "faaa314d02721eeccf83df68d4495227be875b0c667503b4d0a1da25a31c28c0",
+          "bytes": 42564
+        },
+        {
+          "caption": "Редактор · UI fixture",
+          "alt": "Редактор · UI fixture",
+          "src": "file:///F:/Hackathons/ReplikaAndroid/docs/human-review/v1.5/evidence/android/384x832-font1.0-DARK-editor.png",
+          "href": "file:///F:/Hackathons/ReplikaAndroid/docs/human-review/v1.5/evidence/android/384x832-font1.0-DARK-editor.png",
+          "width": 384,
+          "height": 832,
+          "complete": true,
+          "sha256": "1ea9fb8ea98ed71609ebfa37fad04bf06852e397ffcd1c5f2c30a738bdf38197",
+          "bytes": 38814
+        },
+        {
+          "caption": "Модели",
+          "alt": "Модели",
+          "src": "file:///F:/Hackathons/ReplikaAndroid/docs/human-review/v1.5/evidence/android/384x832-font1.0-DARK-models.png",
+          "href": "file:///F:/Hackathons/ReplikaAndroid/docs/human-review/v1.5/evidence/android/384x832-font1.0-DARK-models.png",
+          "width": 384,
+          "height": 832,
+          "complete": true,
+          "sha256": "c3ec13432cb5a55b8362ebd1fec54453ebc02ffa1bc6be6f91c5569d57d4cfec",
+          "bytes": 51759
+        },
+        {
+          "caption": "Редактор с клавиатурой · UI fixture",
+          "alt": "Редактор с клавиатурой · UI fixture",
+          "src": "file:///F:/Hackathons/ReplikaAndroid/docs/human-review/v1.5/evidence/android/384x832-font1.0-DARK-editor-keyboard.png",
+          "href": "file:///F:/Hackathons/ReplikaAndroid/docs/human-review/v1.5/evidence/android/384x832-font1.0-DARK-editor-keyboard.png",
+          "width": 384,
+          "height": 832,
+          "complete": true,
+          "sha256": "550c62302763aa51e281503d5f1a65abc57b3d19ceaf28fd7073826bf650f266",
+          "bytes": 30856
+        },
+        {
+          "caption": "Выбор темы",
+          "alt": "Выбор темы",
+          "src": "file:///F:/Hackathons/ReplikaAndroid/docs/human-review/v1.5/evidence/android/384x832-font1.0-DARK-settings.png",
+          "href": "file:///F:/Hackathons/ReplikaAndroid/docs/human-review/v1.5/evidence/android/384x832-font1.0-DARK-settings.png",
+          "width": 384,
+          "height": 832,
+          "complete": true,
+          "sha256": "9701443718ae9c3f12a2506033f3ed07bd3956a599d46c5670e66d81920ab986",
+          "bytes": 19275
+        },
+        {
+          "caption": "Настройка обработки",
+          "alt": "Настройка обработки",
+          "src": "file:///F:/Hackathons/ReplikaAndroid/docs/human-review/v1.5/evidence/android/384x832-font1.0-DARK-processing-setup.png",
+          "href": "file:///F:/Hackathons/ReplikaAndroid/docs/human-review/v1.5/evidence/android/384x832-font1.0-DARK-processing-setup.png",
+          "width": 384,
+          "height": 832,
+          "complete": true,
+          "sha256": "dad4c568422114632413eca386435c346ed4e3060c0705b88a15a0c370b3f262",
+          "bytes": 48374
+        },
+        {
+          "caption": "Ошибка · UI fixture",
+          "alt": "Ошибка · UI fixture",
+          "src": "file:///F:/Hackathons/ReplikaAndroid/docs/human-review/v1.5/evidence/android/384x832-font1.0-DARK-error.png",
+          "href": "file:///F:/Hackathons/ReplikaAndroid/docs/human-review/v1.5/evidence/android/384x832-font1.0-DARK-error.png",
+          "width": 384,
+          "height": 832,
+          "complete": true,
+          "sha256": "cedd1ae09eb9b7932d682730c5cd3103bd7cdfefaea788dc62bfe677843d87e4",
+          "bytes": 50607
+        }
+      ],
+      "result": "PASS"
+    },
+    {
+      "theme": "LIGHT",
+      "profile": "360x640-font1.3",
+      "imageCount": 12,
+      "images": [
+        {
+          "caption": "Главная · запись",
+          "alt": "Главная · запись",
+          "src": "file:///F:/Hackathons/ReplikaAndroid/docs/human-review/v1.5/evidence/android/360x640-font1.3-LIGHT-recording-idle.png",
+          "href": "file:///F:/Hackathons/ReplikaAndroid/docs/human-review/v1.5/evidence/android/360x640-font1.3-LIGHT-recording-idle.png",
+          "width": 360,
+          "height": 640,
+          "complete": true,
+          "sha256": "ef51844feaa0bea3377cb15a733a0d6775186741a55123e23f398c40f28b06d2",
+          "bytes": 48130
+        },
+        {
+          "caption": "Библиотека",
+          "alt": "Библиотека",
+          "src": "file:///F:/Hackathons/ReplikaAndroid/docs/human-review/v1.5/evidence/android/360x640-font1.3-LIGHT-library.png",
+          "href": "file:///F:/Hackathons/ReplikaAndroid/docs/human-review/v1.5/evidence/android/360x640-font1.3-LIGHT-library.png",
+          "width": 360,
+          "height": 640,
+          "complete": true,
+          "sha256": "fc045dc760f4434641c04a1c51904068a4ad1e56154950a456ee505d6d6bdb87",
+          "bytes": 44039
+        },
+        {
+          "caption": "Обработка · UI fixture",
+          "alt": "Обработка · UI fixture",
+          "src": "file:///F:/Hackathons/ReplikaAndroid/docs/human-review/v1.5/evidence/android/360x640-font1.3-LIGHT-processing.png",
+          "href": "file:///F:/Hackathons/ReplikaAndroid/docs/human-review/v1.5/evidence/android/360x640-font1.3-LIGHT-processing.png",
+          "width": 360,
+          "height": 640,
+          "complete": true,
+          "sha256": "0e297d544d156325aeb2d1fce903b6400b0f4f80348ba198edd2716b3a9bc1ce",
+          "bytes": 32789
+        },
+        {
+          "caption": "Диалог · UI fixture",
+          "alt": "Диалог · UI fixture",
+          "src": "file:///F:/Hackathons/ReplikaAndroid/docs/human-review/v1.5/evidence/android/360x640-font1.3-LIGHT-dialogue.png",
+          "href": "file:///F:/Hackathons/ReplikaAndroid/docs/human-review/v1.5/evidence/android/360x640-font1.3-LIGHT-dialogue.png",
+          "width": 360,
+          "height": 640,
+          "complete": true,
+          "sha256": "d065e47eb4a39ba8ace0336051d0f2b2da718cebfb61a6137e8ba2639a7172e1",
+          "bytes": 46760
+        },
+        {
+          "caption": "Чтение · UI fixture",
+          "alt": "Чтение · UI fixture",
+          "src": "file:///F:/Hackathons/ReplikaAndroid/docs/human-review/v1.5/evidence/android/360x640-font1.3-LIGHT-reading.png",
+          "href": "file:///F:/Hackathons/ReplikaAndroid/docs/human-review/v1.5/evidence/android/360x640-font1.3-LIGHT-reading.png",
+          "width": 360,
+          "height": 640,
+          "complete": true,
+          "sha256": "2cdd663e0db03ceaa68d53f13f6c768645cdf3fe3c93191ba9c137c8faa59230",
+          "bytes": 51323
+        },
+        {
+          "caption": "Проверка · UI fixture",
+          "alt": "Проверка · UI fixture",
+          "src": "file:///F:/Hackathons/ReplikaAndroid/docs/human-review/v1.5/evidence/android/360x640-font1.3-LIGHT-review.png",
+          "href": "file:///F:/Hackathons/ReplikaAndroid/docs/human-review/v1.5/evidence/android/360x640-font1.3-LIGHT-review.png",
+          "width": 360,
+          "height": 640,
+          "complete": true,
+          "sha256": "42feaf29f00e0a543751dcc9d59de49e473252a96601ff33f1dd1516c325973a",
+          "bytes": 43359
+        },
+        {
+          "caption": "Редактор · UI fixture",
+          "alt": "Редактор · UI fixture",
+          "src": "file:///F:/Hackathons/ReplikaAndroid/docs/human-review/v1.5/evidence/android/360x640-font1.3-LIGHT-editor.png",
+          "href": "file:///F:/Hackathons/ReplikaAndroid/docs/human-review/v1.5/evidence/android/360x640-font1.3-LIGHT-editor.png",
+          "width": 360,
+          "height": 640,
+          "complete": true,
+          "sha256": "7c26bfd2456251b794bdb0cc63075e50312cca57d868fe3cd66e9d5c65ee504f",
+          "bytes": 40093
+        },
+        {
+          "caption": "Модели",
+          "alt": "Модели",
+          "src": "file:///F:/Hackathons/ReplikaAndroid/docs/human-review/v1.5/evidence/android/360x640-font1.3-LIGHT-models.png",
+          "href": "file:///F:/Hackathons/ReplikaAndroid/docs/human-review/v1.5/evidence/android/360x640-font1.3-LIGHT-models.png",
+          "width": 360,
+          "height": 640,
+          "complete": true,
+          "sha256": "01d3899717b0bce52b5eced30c1626e507b9c343d6c628ed276666363d9e3949",
+          "bytes": 45103
+        },
+        {
+          "caption": "Редактор с клавиатурой · UI fixture",
+          "alt": "Редактор с клавиатурой · UI fixture",
+          "src": "file:///F:/Hackathons/ReplikaAndroid/docs/human-review/v1.5/evidence/android/360x640-font1.3-LIGHT-editor-keyboard.png",
+          "href": "file:///F:/Hackathons/ReplikaAndroid/docs/human-review/v1.5/evidence/android/360x640-font1.3-LIGHT-editor-keyboard.png",
+          "width": 360,
+          "height": 640,
+          "complete": true,
+          "sha256": "6fffbc5515cd1f015b331e181cc8852e8c36e4bd01364f827fa325a1a65a93f5",
+          "bytes": 35089
+        },
+        {
+          "caption": "Выбор темы",
+          "alt": "Выбор темы",
+          "src": "file:///F:/Hackathons/ReplikaAndroid/docs/human-review/v1.5/evidence/android/360x640-font1.3-LIGHT-settings.png",
+          "href": "file:///F:/Hackathons/ReplikaAndroid/docs/human-review/v1.5/evidence/android/360x640-font1.3-LIGHT-settings.png",
+          "width": 360,
+          "height": 640,
+          "complete": true,
+          "sha256": "c09ae41f723504795225310147f6ff8a1a9073ed87b7914569f9d2efe94d9639",
+          "bytes": 22256
+        },
+        {
+          "caption": "Настройка обработки",
+          "alt": "Настройка обработки",
+          "src": "file:///F:/Hackathons/ReplikaAndroid/docs/human-review/v1.5/evidence/android/360x640-font1.3-LIGHT-processing-setup.png",
+          "href": "file:///F:/Hackathons/ReplikaAndroid/docs/human-review/v1.5/evidence/android/360x640-font1.3-LIGHT-processing-setup.png",
+          "width": 360,
+          "height": 640,
+          "complete": true,
+          "sha256": "1f1dec01f8f3af43aabbe9a6bd749eece961123f6b8a057de406faf9fcbca2d7",
+          "bytes": 43604
+        },
+        {
+          "caption": "Ошибка · UI fixture",
+          "alt": "Ошибка · UI fixture",
+          "src": "file:///F:/Hackathons/ReplikaAndroid/docs/human-review/v1.5/evidence/android/360x640-font1.3-LIGHT-error.png",
+          "href": "file:///F:/Hackathons/ReplikaAndroid/docs/human-review/v1.5/evidence/android/360x640-font1.3-LIGHT-error.png",
+          "width": 360,
+          "height": 640,
+          "complete": true,
+          "sha256": "558f5e73760365c987f3825c6123cac2c5b5e1915d2ae2cae7b58b7ac0b4759c",
+          "bytes": 40113
+        }
+      ],
+      "result": "PASS"
+    },
+    {
+      "theme": "LIGHT",
+      "profile": "384x832-font1.0",
+      "imageCount": 12,
+      "images": [
+        {
+          "caption": "Главная · запись",
+          "alt": "Главная · запись",
+          "src": "file:///F:/Hackathons/ReplikaAndroid/docs/human-review/v1.5/evidence/android/384x832-font1.0-LIGHT-recording-idle.png",
+          "href": "file:///F:/Hackathons/ReplikaAndroid/docs/human-review/v1.5/evidence/android/384x832-font1.0-LIGHT-recording-idle.png",
+          "width": 384,
+          "height": 832,
+          "complete": true,
+          "sha256": "7037846280ba974f7670f14fd2f72ce7a83ef81b748a11c73aae799607ce631e",
+          "bytes": 51686
+        },
+        {
+          "caption": "Библиотека",
+          "alt": "Библиотека",
+          "src": "file:///F:/Hackathons/ReplikaAndroid/docs/human-review/v1.5/evidence/android/384x832-font1.0-LIGHT-library.png",
+          "href": "file:///F:/Hackathons/ReplikaAndroid/docs/human-review/v1.5/evidence/android/384x832-font1.0-LIGHT-library.png",
+          "width": 384,
+          "height": 832,
+          "complete": true,
+          "sha256": "9f6c9eb221207d7d56bb82a39605868950961c86de662e21cdd51a80718be3c7",
+          "bytes": 54239
+        },
+        {
+          "caption": "Обработка · UI fixture",
+          "alt": "Обработка · UI fixture",
+          "src": "file:///F:/Hackathons/ReplikaAndroid/docs/human-review/v1.5/evidence/android/384x832-font1.0-LIGHT-processing.png",
+          "href": "file:///F:/Hackathons/ReplikaAndroid/docs/human-review/v1.5/evidence/android/384x832-font1.0-LIGHT-processing.png",
+          "width": 384,
+          "height": 832,
+          "complete": true,
+          "sha256": "484328db24e255623967e1f456e9eaed486b79c0c273664ec4e8a3dffd4b98b7",
+          "bytes": 26422
+        },
+        {
+          "caption": "Диалог · UI fixture",
+          "alt": "Диалог · UI fixture",
+          "src": "file:///F:/Hackathons/ReplikaAndroid/docs/human-review/v1.5/evidence/android/384x832-font1.0-LIGHT-dialogue.png",
+          "href": "file:///F:/Hackathons/ReplikaAndroid/docs/human-review/v1.5/evidence/android/384x832-font1.0-LIGHT-dialogue.png",
+          "width": 384,
+          "height": 832,
+          "complete": true,
+          "sha256": "f6464ac057c9ef8fb1d846b5c35bdced062f7105db07811a4106f4c869ef5b1a",
+          "bytes": 51758
+        },
+        {
+          "caption": "Чтение · UI fixture",
+          "alt": "Чтение · UI fixture",
+          "src": "file:///F:/Hackathons/ReplikaAndroid/docs/human-review/v1.5/evidence/android/384x832-font1.0-LIGHT-reading.png",
+          "href": "file:///F:/Hackathons/ReplikaAndroid/docs/human-review/v1.5/evidence/android/384x832-font1.0-LIGHT-reading.png",
+          "width": 384,
+          "height": 832,
+          "complete": true,
+          "sha256": "e1126768672f9729957ad6c38a041ed080c30fb81336d1cfccbc9b6b796838e6",
+          "bytes": 38311
+        },
+        {
+          "caption": "Проверка · UI fixture",
+          "alt": "Проверка · UI fixture",
+          "src": "file:///F:/Hackathons/ReplikaAndroid/docs/human-review/v1.5/evidence/android/384x832-font1.0-LIGHT-review.png",
+          "href": "file:///F:/Hackathons/ReplikaAndroid/docs/human-review/v1.5/evidence/android/384x832-font1.0-LIGHT-review.png",
+          "width": 384,
+          "height": 832,
+          "complete": true,
+          "sha256": "8f9d2d3e4f8fe7c5471b173a5c72ac5f09919ce0ff81291af404f00ed7758383",
+          "bytes": 42569
+        },
+        {
+          "caption": "Редактор · UI fixture",
+          "alt": "Редактор · UI fixture",
+          "src": "file:///F:/Hackathons/ReplikaAndroid/docs/human-review/v1.5/evidence/android/384x832-font1.0-LIGHT-editor.png",
+          "href": "file:///F:/Hackathons/ReplikaAndroid/docs/human-review/v1.5/evidence/android/384x832-font1.0-LIGHT-editor.png",
+          "width": 384,
+          "height": 832,
+          "complete": true,
+          "sha256": "bed975866c00f89666d3078bb5ed912c7148aea8feb463d1231d7c61a062cc73",
+          "bytes": 38586
+        },
+        {
+          "caption": "Модели",
+          "alt": "Модели",
+          "src": "file:///F:/Hackathons/ReplikaAndroid/docs/human-review/v1.5/evidence/android/384x832-font1.0-LIGHT-models.png",
+          "href": "file:///F:/Hackathons/ReplikaAndroid/docs/human-review/v1.5/evidence/android/384x832-font1.0-LIGHT-models.png",
+          "width": 384,
+          "height": 832,
+          "complete": true,
+          "sha256": "53e113d41c697c50ad35fd95af2c93486f740c3d8051a6c3db74b1a61052c363",
+          "bytes": 51171
+        },
+        {
+          "caption": "Редактор с клавиатурой · UI fixture",
+          "alt": "Редактор с клавиатурой · UI fixture",
+          "src": "file:///F:/Hackathons/ReplikaAndroid/docs/human-review/v1.5/evidence/android/384x832-font1.0-LIGHT-editor-keyboard.png",
+          "href": "file:///F:/Hackathons/ReplikaAndroid/docs/human-review/v1.5/evidence/android/384x832-font1.0-LIGHT-editor-keyboard.png",
+          "width": 384,
+          "height": 832,
+          "complete": true,
+          "sha256": "440b7ec88461cbb439735757001bdc1f58f973062d65456952af9aa7ff8392dc",
+          "bytes": 30857
+        },
+        {
+          "caption": "Выбор темы",
+          "alt": "Выбор темы",
+          "src": "file:///F:/Hackathons/ReplikaAndroid/docs/human-review/v1.5/evidence/android/384x832-font1.0-LIGHT-settings.png",
+          "href": "file:///F:/Hackathons/ReplikaAndroid/docs/human-review/v1.5/evidence/android/384x832-font1.0-LIGHT-settings.png",
+          "width": 384,
+          "height": 832,
+          "complete": true,
+          "sha256": "9352db7e5bf89ce907d3d9f736dbe336ec0471892ac941d6bd41bcc1a1361e16",
+          "bytes": 18985
+        },
+        {
+          "caption": "Настройка обработки",
+          "alt": "Настройка обработки",
+          "src": "file:///F:/Hackathons/ReplikaAndroid/docs/human-review/v1.5/evidence/android/384x832-font1.0-LIGHT-processing-setup.png",
+          "href": "file:///F:/Hackathons/ReplikaAndroid/docs/human-review/v1.5/evidence/android/384x832-font1.0-LIGHT-processing-setup.png",
+          "width": 384,
+          "height": 832,
+          "complete": true,
+          "sha256": "f0762c2a3ddac9efa6bcfd68da3b3d7ce7c835bded93de214db07c6ffd38d44a",
+          "bytes": 47425
+        },
+        {
+          "caption": "Ошибка · UI fixture",
+          "alt": "Ошибка · UI fixture",
+          "src": "file:///F:/Hackathons/ReplikaAndroid/docs/human-review/v1.5/evidence/android/384x832-font1.0-LIGHT-error.png",
+          "href": "file:///F:/Hackathons/ReplikaAndroid/docs/human-review/v1.5/evidence/android/384x832-font1.0-LIGHT-error.png",
+          "width": 384,
+          "height": 832,
+          "complete": true,
+          "sha256": "0fe4136f171b773e8838de694ff84ff3300b75a55783191f876feaba87cd9822",
+          "bytes": 50102
+        }
+      ],
+      "result": "PASS"
+    }
+  ],
+  "errors": [],
+  "browserVersion": "156.0.4314.58",
+  "links": [
+    {
+      "text": "All-in-One arm64 APK",
+      "href": "file:///F:/Hackathons/ReplikaAndroid/release/REPLIKA-V1.5-AllInOne-arm64.apk"
+    },
+    {
+      "text": "Отчёт проверки",
+      "href": "file:///F:/Hackathons/ReplikaAndroid/TEST_REPORT_V1_5.md"
+    },
+    {
+      "text": "Сопоставление с C+B",
+      "href": "file:///F:/Hackathons/ReplikaAndroid/docs/human-review/v1.5/FIDELITY_REVIEW.md"
+    },
+    {
+      "text": "Интерактивный прототип",
+      "href": "file:///F:/Hackathons/ReplikaAndroid/design-lab/index.html"
+    }
+  ],
+  "video": {
+    "src": "file:///F:/Hackathons/ReplikaAndroid/docs/human-review/v1.5/evidence/native-demo/native-orb-emulator-touch.mp4",
+    "width": 360,
+    "height": 640,
+    "duration": 26.042278,
+    "readyState": 4,
+    "advanced": true,
+    "playedUntil": 0.1222,
+    "poster": {
+      "src": "file:///F:/Hackathons/ReplikaAndroid/docs/human-review/v1.5/evidence/native-demo/recording-virtual-input.png",
+      "width": 360,
+      "height": 640
+    },
+    "scope": {
+      "actualNativeApplication": true,
+      "physicalPhoneMicrophoneTested": false,
+      "hostMicrophoneEnabled": false,
+      "input": "emulator virtual microphone with host audio input disabled; no synthetic speech injected",
+      "actions": [
+        "orb start",
+        "tap",
+        "drag/release",
+        "pause",
+        "resume",
+        "stop/save"
+      ],
+      "performanceMeasuredDuringVideo": false
+    }
+  },
+  "mobile": [
+    {
+      "width": 320,
+      "scrollWidth": 320,
+      "bodyWidth": 320,
+      "selects": [
+        {
+          "left": 24,
+          "right": 150
+        },
+        {
+          "left": 24,
+          "right": 183.421875
+        }
+      ],
+      "result": "PASS"
+    },
+    {
+      "width": 360,
+      "scrollWidth": 360,
+      "bodyWidth": 360,
+      "selects": [
+        {
+          "left": 24,
+          "right": 150
+        },
+        {
+          "left": 174,
+          "right": 333.421875
+        }
+      ],
+      "result": "PASS"
+    },
+    {
+      "width": 392,
+      "scrollWidth": 392,
+      "bodyWidth": 392,
+      "selects": [
+        {
+          "left": 24,
+          "right": 150
+        },
+        {
+          "left": 174,
+          "right": 333.421875
+        }
+      ],
+      "result": "PASS"
+    }
+  ],
+  "result": "PASS",
+  "isolatedBrowserClosed": true,
+  "completedAtUtc": "2026-11-05T22:59:53.550Z",
+  "visualReview": {
+    "result": "PASS",
+    "inspected": [
+      "desktop-DARK-360x640-font1.3.png",
+      "mobile-320.png",
+      "native-video-playing.png"
+    ],
+    "findings": [],
+    "scope": "Review page layout and metadata reviewed. Native product behavior and physical microphone/performance are outside this browser check."
+  },
+  "changes": {
+    "galleryHtml": "unchanged",
+    "nativeSource": "unchanged",
+    "artifacts": "report and screenshots only"
+  }
+}

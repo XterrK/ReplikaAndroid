@@ -48,13 +48,15 @@ fun segmentIntervalLabel(startMs: Long,endMs: Long): String {
  return cue(startMs)+" — "+cue(endMs)
 }
 
-/** Material3 1.3.2 follows system theme for dialog icons; REPLIKA sheets always use dark surfaces. */
+/** Dialog windows follow the selected app appearance, including an explicit system override. */
 @Composable @androidx.compose.runtime.NonRestartableComposable fun DarkSheetSystemBars() {
  val view=LocalView.current
+ val light=!LocalReplikaDark.current
  SideEffect {
   val window=(view.parent as? DialogWindowProvider)?.window
   if(window!=null) view.post {
-   if(view.isAttachedToWindow) WindowCompat.getInsetsController(window,window.decorView).isAppearanceLightStatusBars=false
+   if(view.isAttachedToWindow) WindowCompat.getInsetsController(window,window.decorView).isAppearanceLightStatusBars=light
+   if(view.isAttachedToWindow) WindowCompat.getInsetsController(window,window.decorView).isAppearanceLightNavigationBars=light
   }
  }
 }

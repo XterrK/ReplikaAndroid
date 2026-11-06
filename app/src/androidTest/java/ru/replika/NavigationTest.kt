@@ -8,6 +8,12 @@ import org.junit.runner.RunWith
 class NavigationTest {
  @get:Rule val compose=createAndroidComposeRule<MainActivity>()
  @Test fun libraryModelsNavigation() {
+  if(BuildConfig.BUNDLED_MODELS) kotlinx.coroutines.runBlocking {
+   kotlinx.coroutines.withTimeout(180000) { (androidx.test.platform.app.InstrumentationRegistry.getInstrumentation().targetContext.applicationContext as ReplikaApp).bundledModels.awaitReady() }
+  }
+  compose.waitUntil(15000) { compose.onAllNodesWithTag("recording-home").fetchSemanticsNodes().isNotEmpty() }
+  compose.onNodeWithTag("recording-home").assertIsDisplayed()
+  compose.onNodeWithText("Записи").performClick()
   compose.onNodeWithText("Библиотека").assertIsDisplayed()
   compose.onNodeWithTag("library-search").assertIsDisplayed()
   compose.onNodeWithText("Модели").performClick()

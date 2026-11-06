@@ -1,0 +1,51 @@
+#!/usr/bin/env python3
+"""HOST-only ASR validation of fixed A/B retries and uniform150ms post-context."""
+import pathlib,json,sys,hashlib,collections,time
+repo=pathlib.Path('/mnt/f/Hackathons/ReplikaAndroid');root=pathlib.Path(__file__).parent
+sys.path.insert(0,'/mnt/f/ReplikaToolchain/python');sys.path.insert(0,str(repo/'tools'))
+import numpy as np,sherpa_onnx as sherpa
+import benchmark_asr_v15 as b
+candidate=json.loads((root/'vad-candidates.json').read_text());baseline=json.loads((root/'results.json').read_text());base={x['id']:x for x in baseline['asr'] if x['model']=='giga-v3' and x['scope']=='production-vad-context-single-speaker'}
+model=pathlib.Path('/tmp/replika-asr-candidates/giga-v3');r=sherpa.OfflineRecognizer.from_transducer(encoder=str(model/'encoder.int8.onnx'),decoder=str(model/'decoder.onnx'),joiner=str(model/'joiner.onnx'),tokens=str(model/'tokens.txt'),num_threads=2,model_type='nemo_transducer',decoding_method='greedy_search',max_active_paths=4)
+out={'scope':'HOST-only, no production enable; detector gain never enters ASR','runtime':sherpa.__version__,'asrThreads':2,'speech':[],'controls':[],'scriptSha256':hashlib.sha256(pathlib.Path(__file__).read_bytes()).hexdigest(),'priorDirectNegativeEvidence':'docs/test-evidence/v1.5/asr-host-negatives.json + asr-host-negative-quiet-impulses.json: same fixed11controls/seed104 and original/currentgain; all22direct hypotheses blank; not re-run because ASRinput unchanged'}
+def save():(root/'vad-candidate-asr.json').write_text(json.dumps(out,ensure_ascii=False,indent=2))
+def context(spans,n,post):
+ duration=n//16;ret=[]
+ for start,end in spans:
+  s=max(0,min(duration,start*1000//16000)-100);e=min(duration,end*1000//16000+post)
+  if e>s:
+   if ret and s<=ret[-1][1]:ret[-1][1]=max(ret[-1][1],e)
+   else:ret.append([s,e])
+ return ret
+def transcribe(x,g,spans,post):
+ texts=[]
+ for start,end in context(spans,len(x),post):
+  for begin in range(start,end,20000):
+   stream=r.create_stream();stream.accept_waveform(16000,x[begin*16:min(end,begin+20000)*16]*g);r.decode_stream(stream);texts.append(stream.result.text)
+ return ' '.join(texts).strip()
+fixtures=json.loads((root/'fixtures.json').read_text())['fixtures'];by={x['id']:x for x in candidate['speech']}
+for f in fixtures:
+ x=b.read_wav(root/f['path'],np);info=by[f['id']]
+ for policy,post in [('A',0),('A',150),('B',0)]:
+  spans=info['candidates'][policy]['selectedSpans'];reused=bool(info['defaultSpans']) and post==0
+  text=base[f['id']]['hypothesis'] if reused else transcribe(x,info['currentGain'],spans,post)
+  ref=b.words(f['reference']);hyp=b.words(text)
+  row={'id':f['id'],'policy':policy,'postRollMs':post,'selectedSpans':spans,'contextMs':context(spans,len(x),post),'reference':f['reference'],'hypothesis':text,'wordErrors':b.distance(ref,hyp),'referenceWords':len(ref),'charErrors':b.distance(list(' '.join(ref)),list(' '.join(hyp))),'referenceChars':len(' '.join(ref)),'asrInputGain':info['currentGain'],'reusedIdenticalBaselineSpansAndAsrInput':reused}
+  out['speech'].append(row);save();print('speech',policy,post,f['id'],row['wordErrors'],text,flush=True)
+rng=np.random.default_rng(104);n=16000*15;t=np.arange(n)/16000
+white=rng.normal(0,1,n);freq=np.fft.rfftfreq(n);pink=np.fft.irfft(np.fft.rfft(white)/np.sqrt(np.maximum(freq,1/n)),n);pink=(pink/np.max(np.abs(pink))*.004).astype(np.float32)
+impulses=np.zeros(n,dtype=np.float32)
+for start in range(0,n,8000):impulses[start:start+800]=(.004*np.exp(-np.arange(800)/90)*rng.normal(0,1,800)).astype(np.float32)
+controls=[('silence',np.zeros(n)),('near_silence',rng.normal(0,1e-8,n)),('white_noise_-60dBFS',white*.001),('white_noise_-40dBFS',white*.01),('pink_noise_peak_004',pink),('hum_80Hz_peak_003',.003*np.sin(2*np.pi*80*t)),('hum_50Hz_harmonics',.001*(np.sin(2*np.pi*50*t)+np.sin(2*np.pi*100*t)+np.sin(2*np.pi*150*t))),('repeating_short_impulses',impulses),('quiet_repeating_short_impulses',impulses*.1),('synthetic_stationary_chord',.001*(np.sin(2*np.pi*220*t)+np.sin(2*np.pi*277*t)+np.sin(2*np.pi*330*t))),('fan_hum_and_noise',.001*np.sin(2*np.pi*120*t)+white*.0003)]
+neg={(x['id'],x['mode']):x for x in candidate['controls']}
+for label,x in controls:
+ x=x.astype(np.float32)
+ for mode,g in [('original',1.),('production-bounded-gain',b.candidate_gain(np,x))]:
+  info=neg[label,mode];spans=info['candidates']['A']['selectedSpans'];assert spans==info['defaultSpans']
+  text=transcribe(x,g,spans,150)
+  row={'id':label,'mode':mode,'postRollMs':150,'spans':spans,'hypothesis':text,'asrInputGain':g};out['controls'].append(row);save();print('negative150',label,mode,repr(text),flush=True)
+summary={}
+for policy,post in [('A',0),('A',150),('B',0)]:
+ rows=[x for x in out['speech'] if x['policy']==policy and x['postRollMs']==post];we=sum(x['wordErrors'] for x in rows);rw=sum(x['referenceWords'] for x in rows);ce=sum(x['charErrors'] for x in rows);rc=sum(x['referenceChars'] for x in rows)
+ summary[f'{policy}-post{post}']={'wordErrors':we,'referenceWords':rw,'wer':we/rw,'charErrors':ce,'referenceChars':rc,'cer':ce/rc,'files':len(rows)}
+out['summary']=summary;out['negativePost150Nonblank']=sum(bool(x['hypothesis']) for x in out['controls']);save();print(json.dumps({'summary':summary,'negativePost150Nonblank':out['negativePost150Nonblank']},indent=2),flush=True)

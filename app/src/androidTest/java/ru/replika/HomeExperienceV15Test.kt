@@ -1,0 +1,84 @@
+package ru.replika
+
+import androidx.compose.ui.test.*
+import androidx.compose.ui.unit.dp
+import androidx.lifecycle.ViewModelProvider
+import androidx.test.platform.app.InstrumentationRegistry
+import kotlinx.coroutines.runBlocking
+import org.junit.*
+import org.junit.Assert.*
+import ru.replika.data.*
+import ru.replika.ui.*
+import java.io.File
+
+/** User-visible regression: home/export navigation and the formerly offset transcript player. */
+class HomeExperienceV15Test {
+ @get:Rule val compose=androidx.compose.ui.test.junit4.createAndroidComposeRule<MainActivity>()
+ private val app get()=InstrumentationRegistry.getInstrumentation().targetContext.applicationContext as ReplikaApp
+ private lateinit var vm: AppViewModel
+ private val id="v15-home-player-fixture"
+ @Before fun fixture() {
+  if(BuildConfig.BUNDLED_MODELS) runBlocking { app.bundledModels.awaitReady() }
+  compose.waitForIdle()
+  compose.activityRule.scenario.onActivity { vm=ViewModelProvider(it)[AppViewModel::class.java];vm.selected.value=null;vm.clearNotice() }
+  val source=File(app.filesDir,"integration-example.wav");assertTrue(source.isFile)
+  runBlocking {
+   app.db.dao().insert(Recording(id,"Экспорт с главной · UI fixture",source.path,status="READY",durationMs=11290,peaks=(0..160).joinToString(",") { (.03+kotlin.math.abs(kotlin.math.sin(it*.17))*.8).toString() }))
+   app.db.dao().clearSegments(id)
+   app.db.dao().insertSegments(listOf(SegmentRow("$id-a",id,0,11000,0,"Проверяем экспорт с главного экрана.","Controlled UI fixture, no ASR claim")))
+  }
+ }
+ @After fun clean() {
+  if(::vm.isInitialized) compose.activityRule.scenario.onActivity { vm.selected.value=null;vm.clearNotice() }
+  runBlocking { app.db.dao().deleteRecording(id) }
+ }
+ @Test fun launcherOpensOrbLibraryHasOwnTabAndHomeExportsRoomText() {
+  val activity=compose.activity
+  compose.onNodeWithTag("recording-home").assertIsDisplayed()
+  compose.onNodeWithTag("liquid-voice-orb").assertIsDisplayed().assertHasClickAction()
+  compose.onNodeWithTag("home-import").assertIsDisplayed()
+  compose.onNodeWithText("Записи",substring=false).performClick()
+  compose.onNodeWithTag("library-search").assertIsDisplayed()
+  compose.onNodeWithText("Запись",substring=false).performClick()
+  compose.onNodeWithTag("home-export").performClick()
+  compose.onNodeWithTag("home-export-picker").assertExists()
+  compose.onNodeWithTag("home-export-$id").performScrollTo().performClick()
+  val target=File(app.cacheDir,"exports/replika-$id.json").apply { delete() }
+  compose.onNodeWithText("JSON",substring=false).performClick()
+  compose.waitUntil(10000) { target.isFile && target.length()>0 }
+  val json=org.json.JSONObject(target.readText())
+  assertEquals("Проверяем экспорт с главного экрана.",json.getJSONArray("segments").getJSONObject(0).getString("text"))
+  val automation=InstrumentationRegistry.getInstrumentation().uiAutomation
+  compose.waitUntil(15000) { automation.rootInActiveWindow?.packageName?.toString() in setOf("android","com.android.intentresolver") }
+  automation.performGlobalAction(android.accessibilityservice.AccessibilityService.GLOBAL_ACTION_BACK)
+  // API28 can retain the Chooser accessibility root after Back even while WindowManager
+  // has already resumed/focused this Activity. Verify the actual app window and content.
+  compose.waitUntil(10000) {
+   var focused=false
+   InstrumentationRegistry.getInstrumentation().runOnMainSync { focused=activity.window.decorView.hasWindowFocus() && activity.lifecycle.currentState==androidx.lifecycle.Lifecycle.State.RESUMED }
+   focused
+  }
+  compose.onNodeWithTag("recording-home").assertIsDisplayed()
+ }
+ @Test fun largeMonoWaveformAndTransportStayCenteredAndSeekIsAccessible() {
+  compose.activityRule.scenario.onActivity { vm.selected.value=id }
+  compose.waitUntil(10000) { compose.onAllNodesWithTag("audio-waveform").fetchSemanticsNodes().isNotEmpty() }
+  val player=compose.onNodeWithTag("audio-player").getUnclippedBoundsInRoot()
+  val play=compose.onNodeWithTag("player-main-play").getUnclippedBoundsInRoot()
+  val wave=compose.onNodeWithTag("audio-waveform").getUnclippedBoundsInRoot()
+  assertTrue("Play control must be centered independently of metadata",kotlin.math.abs((player.left.value+player.right.value)/2-(play.left.value+play.right.value)/2)<1.1f)
+  assertTrue("Waveform must be substantial even on compact devices",wave.bottom-wave.top>=80.dp)
+  val speed=compose.onNodeWithTag("playback-speed").getUnclippedBoundsInRoot()
+  val forward=compose.onNodeWithContentDescription("Вперёд 10 секунд").getUnclippedBoundsInRoot()
+  if(speed.top<forward.bottom && speed.bottom>forward.top) assertTrue("Speed must not crowd the forward target",speed.left-forward.right>=6.dp)
+  compose.onNodeWithContentDescription("Звуковая дорожка одного участника").assertExists()
+  compose.onNodeWithTag("audio-waveform").performSemanticsAction(androidx.compose.ui.semantics.SemanticsActions.SetProgress) { it(.5f) }
+  compose.waitUntil(5000) { runCatching { compose.onNodeWithTag("playback-clock").assertTextEquals("00:05");true }.getOrDefault(false) }
+  compose.onNodeWithTag("smart-review-toggle").performClick()
+  compose.onNodeWithTag("audio-waveform").assertDoesNotExist()
+  compose.onNodeWithTag("review-queue").assertIsDisplayed()
+  compose.onNodeWithTag("mode-reading").performClick()
+  compose.onNodeWithTag("audio-waveform").assertDoesNotExist()
+  compose.onNodeWithTag("playback-speed").assertIsDisplayed()
+ }
+}

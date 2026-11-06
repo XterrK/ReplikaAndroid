@@ -1,0 +1,145 @@
+{
+  "installedAtUtc": "2026-11-05T23:36:35.892634+00:00",
+  "sdk": 28,
+  "serial": "emulator-5558",
+  "sourceBuild": "11",
+  "scope": "Fresh data only in read-only overlay; legacy0.1.0 data cleared before new app launch. No old records/DB read or retained. No wm/density/font overrides. Source10 proof remains separate.",
+  "apks": [
+    {
+      "path": "app/build/outputs/apk/allInOneQa/app-allInOneQa.apk",
+      "bytes": 308767542,
+      "sha256": "34184a045c85e98e68a295efea9d6c3aa74d967bc2e000b68813ec7f0c28f8c2"
+    },
+    {
+      "path": "app/build/outputs/apk/androidTest/allInOneQa/app-allInOneQa-androidTest.apk",
+      "bytes": 3267192,
+      "sha256": "0d6b23a6d031b4b17ccab12c0ef4b9e3edd817b0edafb2d6155f1606f9a46240"
+    }
+  ],
+  "profile": {
+    "size": "Physical size: 432x936",
+    "density": "Physical density: 180",
+    "font": "null"
+  },
+  "steps": [
+    {
+      "args": [
+        "get-serialno"
+      ],
+      "exitCode": 0,
+      "stdout": "emulator-5558\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "shell",
+        "getprop",
+        "ro.build.version.sdk"
+      ],
+      "exitCode": 0,
+      "stdout": "28\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "shell",
+        "wm",
+        "size"
+      ],
+      "exitCode": 0,
+      "stdout": "Physical size: 432x936\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "shell",
+        "wm",
+        "density"
+      ],
+      "exitCode": 0,
+      "stdout": "Physical density: 180\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "shell",
+        "settings",
+        "get",
+        "system",
+        "font_scale"
+      ],
+      "exitCode": 0,
+      "stdout": "null\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "shell",
+        "pm",
+        "clear",
+        "ru.replika.offline"
+      ],
+      "exitCode": 0,
+      "stdout": "Success\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "install",
+        "-r",
+        "-t",
+        "/mnt/f/Hackathons/ReplikaAndroid/app/build/outputs/apk/allInOneQa/app-allInOneQa.apk"
+      ],
+      "exitCode": 0,
+      "stdout": "Performing Streamed Install\nSuccess\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "install",
+        "-r",
+        "-t",
+        "/mnt/f/Hackathons/ReplikaAndroid/app/build/outputs/apk/androidTest/allInOneQa/app-allInOneQa-androidTest.apk"
+      ],
+      "exitCode": 0,
+      "stdout": "Performing Streamed Install\nSuccess\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "shell",
+        "pm",
+        "grant",
+        "ru.replika.offline",
+        "android.permission.RECORD_AUDIO"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "shell",
+        "input",
+        "keyevent",
+        "82"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "shell",
+        "settings",
+        "put",
+        "secure",
+        "show_ime_with_hard_keyboard",
+        "1"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ]
+}

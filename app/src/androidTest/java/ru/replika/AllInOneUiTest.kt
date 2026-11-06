@@ -45,11 +45,12 @@ class AllInOneUiTest {
     }).around(compose)
 
     @Test
-    fun installedBundleHasOptionalAdvancedImportAndBothBackendChoices() {
+    fun installedBundleHasSingleGigaBackendAndOptionalAdvancedImport() {
+        compose.onNodeWithText("Записи",substring=false).performClick()
         compose.onNodeWithTag("library-search").assertIsDisplayed()
         compose.onNodeWithText("Модели").performClick()
         compose.waitUntil(120_000) {
-            compose.onAllNodesWithText("Все модели установлены и проверены.", substring = true)
+            compose.onAllNodesWithText("Модели проверены.", substring = true)
                 .fetchSemanticsNodes().isNotEmpty()
         }
         compose.onNodeWithTag("models-bundled-status").assertIsDisplayed()
@@ -57,25 +58,13 @@ class AllInOneUiTest {
         compose.onNodeWithTag("models-restore-bundled").assertDoesNotExist()
         capture("06-models-bundled-ready.png")
 
-        var originalBackend = ""
+        compose.onNodeWithText("Whisper tiny").assertDoesNotExist()
+        compose.onNodeWithTag("asr-current").assertExists()
+        var actualBackend=""
         compose.activityRule.scenario.onActivity { activity ->
-            originalBackend = ViewModelProvider(activity)[AppViewModel::class.java].backend.value
+            actualBackend=ViewModelProvider(activity)[AppViewModel::class.java].backend.value
         }
-        fun backendIs(expected: String): Boolean {
-            var actual = ""
-            compose.activityRule.scenario.onActivity { activity ->
-                actual = ViewModelProvider(activity)[AppViewModel::class.java].backend.value
-            }
-            return actual == expected
-        }
-        fun choose(title: String, backend: String) {
-            compose.onNodeWithTag("models-list").performScrollToNode(hasText(title))
-            compose.onAllNodesWithText(title).onFirst().assertIsDisplayed().performClick()
-            compose.waitUntil(5_000) { backendIs(backend) }
-        }
-        try {
-            choose("Whisper tiny", "whisper-tiny")
-            choose("GigaAM v2", "giga-v2")
+        assertEquals(app.models.asrId,actualBackend)
             compose.onNodeWithTag("models-list").performScrollToNode(hasTestTag("models-advanced-toggle"))
             compose.onNodeWithTag("models-advanced-toggle").assertHasClickAction().performClick()
             compose.onNodeWithTag("models-list").performScrollToNode(hasText("Импорт offline pack"))
@@ -89,15 +78,9 @@ class AllInOneUiTest {
             compose.onNodeWithTag("models-restore-bundled").assertDoesNotExist()
             File(app.filesDir, "all-in-one-models-ui.json").writeText(JSONObject()
                 .put("package", app.packageName).put("realInstalledModels", true)
-                .put("advancedInitiallyCollapsed", true).put("bothBackendPreferencesSelected", true)
+                .put("advancedInitiallyCollapsed", true).put("singleGigaBackend", actualBackend)
                 .put("optionalImportAndRestoreAccessible", true).put("importOrRestoreInvoked", false)
                 .put("newInferencePerformed", false).toString(2))
-        } finally {
-            // A UI inspection should not change the user's persisted choice.
-            compose.activityRule.scenario.onActivity { activity ->
-                ViewModelProvider(activity)[AppViewModel::class.java].selectBackend(originalBackend)
-            }
-        }
         compose.onNodeWithText("Записи").performClick()
         compose.onNodeWithTag("library-search").assertIsDisplayed()
     }

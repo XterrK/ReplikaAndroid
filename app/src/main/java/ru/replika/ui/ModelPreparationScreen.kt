@@ -47,7 +47,7 @@ import ru.replika.ml.BundledModelCoordinator.State
    },color=Muted,style=MaterialTheme.typography.bodyLarge)
    Spacer(Modifier.height(28.dp))
    if(state.failed) {
-    Button(onClick=onRetry,modifier=Modifier.fillMaxWidth().heightIn(min=52.dp).testTag("retry-preparation")) { Text("Повторить подготовку") }
+    Button(shape=ProductShape.control,onClick=onRetry,modifier=Modifier.fillMaxWidth().heightIn(min=52.dp).testTag("retry-preparation")) { Text("Повторить подготовку") }
     Spacer(Modifier.height(12.dp))
     Text("Записи и уже проверенные модели сохранены.",color=Muted,style=MaterialTheme.typography.bodySmall)
    } else {
@@ -58,9 +58,9 @@ import ru.replika.ml.BundledModelCoordinator.State
     } else LinearProgressIndicator(Modifier.fillMaxWidth(),color=Blue,trackColor=SurfaceRaised)
     state.path?.let { Spacer(Modifier.height(8.dp));Text(it.substringAfterLast('/'),style=MaterialTheme.typography.bodySmall,color=Muted) }
     Spacer(Modifier.height(28.dp));HorizontalDivider(color=SurfaceLine);Spacer(Modifier.height(20.dp))
-    Text("Локальное распознавание · 5 семейств моделей",style=MaterialTheme.typography.titleSmall)
+    Text("Локальное распознавание · Полный комплект моделей",style=MaterialTheme.typography.titleSmall)
     Spacer(Modifier.height(6.dp))
-    Text("GigaAM · Whisper · Silero VAD\nPyannote · 3D-Speaker",style=MaterialTheme.typography.bodySmall,color=Muted)
+    Text("GigaAM · Silero VAD\nPyannote · 3D-Speaker",style=MaterialTheme.typography.bodySmall,color=Muted)
     Spacer(Modifier.height(20.dp))
     Row(horizontalArrangement=Arrangement.spacedBy(8.dp),verticalAlignment=Alignment.CenterVertically) {
      Icon(Icons.Outlined.Shield,null,tint=Mint,modifier=Modifier.size(16.dp))

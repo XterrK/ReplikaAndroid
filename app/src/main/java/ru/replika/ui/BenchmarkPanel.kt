@@ -59,6 +59,6 @@ import java.io.File
     Text("${diagnostic.optString("backend").take(20)} / ${run.optString("recordingId").take(8)}   ${metric("WER")}   ${metric("CER")}   ${metric("DER")}   ${diagnostic.optString("pipelineRtf","N/A").take(5)}",fontSize=12.sp,color=Muted)
    }
   }
-  OutlinedButton(onClick={pick.launch(arrayOf("application/json","text/*","application/octet-stream"))}) { Text("Импорт эталона JSON") }
+  OutlinedButton(shape=ProductShape.control,onClick={pick.launch(arrayOf("application/json","text/*","application/octet-stream"))}) { Text("Импорт эталона JSON") }
  }
 }

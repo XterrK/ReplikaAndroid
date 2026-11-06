@@ -1,0 +1,78 @@
+{
+  "installedAtUtc": "2026-11-05T21:24:54.632435+00:00",
+  "serial": "emulator-5558",
+  "sdk": 28,
+  "build": "7",
+  "scope": "Fresh app data in disposable read-only overlay; previous 0.1.0 data cleared without reading records or DB. Original AVD guest disks not written. No legacy Room migration claim.",
+  "apks": [
+    {
+      "path": "app/build/outputs/apk/allInOneQa/app-allInOneQa.apk",
+      "bytes": 308702006,
+      "sha256": "838bd01356952f860179c6e5d93a9ef98077fa3a7dea1ad2486ec1711532190a"
+    },
+    {
+      "path": "app/build/outputs/apk/androidTest/allInOneQa/app-allInOneQa-androidTest.apk",
+      "bytes": 3218155,
+      "sha256": "5fccb471e26c5cb33536f8c373ec436c9c494726a120a9ff7df1f97e5037df20"
+    }
+  ],
+  "steps": [
+    {
+      "args": [
+        "shell",
+        "pm",
+        "clear",
+        "ru.replika.offline"
+      ],
+      "exitCode": 0,
+      "stdout": "Success\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "install",
+        "-r",
+        "-t",
+        "/mnt/f/Hackathons/ReplikaAndroid/app/build/outputs/apk/allInOneQa/app-allInOneQa.apk"
+      ],
+      "exitCode": 0,
+      "stdout": "Performing Streamed Install\nSuccess\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "install",
+        "-r",
+        "-t",
+        "/mnt/f/Hackathons/ReplikaAndroid/app/build/outputs/apk/androidTest/allInOneQa/app-allInOneQa-androidTest.apk"
+      ],
+      "exitCode": 0,
+      "stdout": "Performing Streamed Install\nSuccess\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "shell",
+        "input",
+        "keyevent",
+        "82"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "shell",
+        "settings",
+        "put",
+        "secure",
+        "show_ime_with_hard_keyboard",
+        "1"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ]
+}

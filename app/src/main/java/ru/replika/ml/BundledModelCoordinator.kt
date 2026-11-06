@@ -74,7 +74,9 @@ class BundledModelCoordinator(private val app: ReplikaApp) {
         }
         lastPhase = phase;lastProgress = now
        }
-      }).install()
+      }).install().also {
+       runCatching { app.models.removeRetiredWhisperFiles() }.onFailure { Log.w("ReplikaProvision","Cannot retire removed model weight",it) }
+      }
     }
     lastPhase?.let { previous -> stageTimes[previous.name]=(stageTimes[previous.name]?:0)+(SystemClock.elapsedRealtime()-phaseStarted) }
     diagnostic.put("stagesMs",JSONObject(stageTimes as Map<*,*>)).put("phase","READY").put("elapsedMs",SystemClock.elapsedRealtime()-started)

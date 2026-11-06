@@ -31,13 +31,24 @@ class ModelManager(private val context: Context) {
   return md.digest().joinToString("") { "%02x".format(it) }
  }
  fun valid(spec: ModelFile): Boolean { val f=file(spec.path);return f.isFile && f.length()==spec.size && hash(f)==spec.sha256 }
- fun statuses(): List<ModelStatus> = listOf("giga-v2" to "GigaAM v2 • Russian • INT8", "diar" to "Pyannote 3.0 + 3D-Speaker", "vad" to "Silero VAD", "whisper-tiny" to "Whisper tiny • multilingual • whisper.cpp 1.7.6").map { (id,title) ->
+ val asrId: String get()=files.map { it.group }.distinct().single { it.startsWith("giga-") }
+ fun resolveBackend(legacyId: String?): String = if(legacyId==asrId) legacyId else asrId
+ fun statuses(): List<ModelStatus> = listOf(asrId to (if(asrId=="giga-v3") "GigaAM v3" else "GigaAM v2"), "diar" to "Разделение говорящих", "vad" to "Silero VAD").map { (id,title) ->
   val selected=files.filter { it.group==id };ModelStatus(id,title,selected.isNotEmpty() && selected.all { valid(it) },selected.sumOf { file(it.path).takeIf(File::isFile)?.length()?:0 },selected.sumOf { it.size })
  }
- fun requireReady(backend: String = "giga-v2", includeDiarization: Boolean = true) {
-  require(backend in setOf("giga-v2","whisper-tiny"))
+ fun requireReady(backend: String = asrId, includeDiarization: Boolean = true) {
+  require(backend==asrId) { "Выбранная модель больше не поддерживается. Используйте GigaAM." }
   val groups=if(includeDiarization) setOf(backend,"vad","diar") else setOf(backend,"vad")
-  val required=files.filter { it.group in groups };require(required.isNotEmpty() && required.all { valid(it) }) { "Установите и проверьте все три набора моделей в разделе «Модели»" } }
+  val required=files.filter { it.group in groups };require(required.isNotEmpty() && required.all { valid(it) }) { "Установите и проверьте GigaAM, VAD и модели говорящих в разделе «Модели»" }
+ }
+ /** Retire only the app-owned removed weight; recordings and external packs are untouched. Call under gate. */
+ fun removeRetiredWhisperFiles() {
+  val retired=File(root,"whisper-tiny/ggml-tiny.bin")
+  if(retired.exists() && retired.canonicalFile.toPath().startsWith(root.canonicalFile.toPath())) {
+   check(retired.delete()) { "Не удалось удалить файл снятой модели" }
+   retired.parentFile?.let { if(it.listFiles().orEmpty().isEmpty()) it.delete() }
+  }
+ }
  suspend fun delete(group: String)=gate.withLock { withContext(Dispatchers.IO) { files.filter { it.group==group }.forEach { file(it.path).delete() } } }
  suspend fun download(group: String, progress: (String)->Unit)=gate.withLock { withContext(Dispatchers.IO) {
   val selected=files.filter { it.group==group };require(selected.isNotEmpty())

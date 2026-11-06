@@ -41,7 +41,6 @@ class BundledModelInstallerTest {
             "diar/segmentation.onnx" to "fixture segmentation".toByteArray(),
             "diar/embedding.onnx" to "fixture embedding".toByteArray(),
             "vad/silero_vad.onnx" to "fixture vad".toByteArray(),
-            "whisper-tiny/ggml-tiny.bin" to "fixture whisper".toByteArray(),
         )
         updateSpecs()
     }
@@ -53,7 +52,7 @@ class BundledModelInstallerTest {
         val times = models.keys.associateWith { File(root, it).lastModified() }
         val events = mutableListOf<BundledModelInstaller.Progress>()
         val report = BundledModelInstaller(specs, root, staging, { error("A valid installation must not open the archive") }, progress = { events += it }).install()
-        assertEquals(8, report.validSkipped)
+        assertEquals(models.size, report.validSkipped)
         assertEquals(0, report.extracted)
         assertEquals(0, report.published)
         models.forEach { (path, bytes) ->
@@ -69,8 +68,8 @@ class BundledModelInstallerTest {
         entries.putAll(models)
         val events = mutableListOf<BundledModelInstaller.Progress>()
         val report = installer(zip(entries), progress = { events += it }).install()
-        assertEquals(8, report.extracted)
-        assertEquals(8, report.published)
+        assertEquals(models.size, report.extracted)
+        assertEquals(models.size, report.published)
         assertEquals(0, report.validSkipped)
         assertEquals(models.values.sumOf { it.size.toLong() }, report.modelBytes)
         assertEquals(report.modelBytes, events.last { it.phase == BundledModelInstaller.Phase.PREPARING }.processedBytes)
@@ -86,8 +85,8 @@ class BundledModelInstallerTest {
         val events = mutableListOf<BundledModelInstaller.Progress>()
         val report = installer(zip(models), progress = { events += it }).install()
         assertEquals(1, report.validSkipped)
-        assertEquals(7, report.extracted)
-        assertEquals(7, report.published)
+        assertEquals(models.size-1, report.extracted)
+        assertEquals(models.size-1, report.published)
         assertEquals(modified, File(root, keep.key).lastModified())
         assertEquals(report.modelBytes, events.last { it.phase == BundledModelInstaller.Phase.PREPARING }.processedBytes)
         assertModelsInstalled()
@@ -199,8 +198,8 @@ class BundledModelInstallerTest {
         assertFalse(staging.walkTopDown().any { it.name.endsWith(".bundled-part") })
         val report = installer(zip(models)).install()
         assertEquals(1, report.reusedStage)
-        assertEquals(7, report.extracted)
-        assertEquals(8, report.published)
+        assertEquals(models.size-1, report.extracted)
+        assertEquals(models.size, report.published)
         assertModelsInstalled()
     }
 
@@ -219,7 +218,7 @@ class BundledModelInstallerTest {
         assertArrayEquals(models.getValue(installed.single().relativeTo(root).invariantSeparatorsPath), installed.single().readBytes())
         val report = installer(zip(models)).install()
         assertEquals(1, report.validSkipped)
-        assertEquals(7, report.reusedStage)
+        assertEquals(models.size-1, report.reusedStage)
         assertEquals(0, report.extracted)
         assertModelsInstalled()
     }
@@ -231,7 +230,7 @@ class BundledModelInstallerTest {
         write(staging, second.key, ByteArray(second.value.size) { 0 })
         val report = installer(zip(models)).install()
         assertEquals(1, report.reusedStage)
-        assertEquals(7, report.extracted)
+        assertEquals(models.size-1, report.extracted)
         assertModelsInstalled()
     }
 

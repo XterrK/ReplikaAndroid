@@ -1,0 +1,185 @@
+{
+  "device": "unknown Android SDK built for x86_64",
+  "api": 35,
+  "abis": [
+    "x86_64"
+  ],
+  "originalVideoSha256": "e05cefe96c748b0bd519cf4193702ddb1283d5b1c994e22681ea471757842e66",
+  "audioArtifactSha256": "8d3c48280398cd8a200ab5199bc404c7f9e169b0ffd5a462aa5b33432bce2c76",
+  "audioArtifactBytes": 93806,
+  "importMode": "AAC_REMUX",
+  "recordingId": "integration-video-v15",
+  "backend": "giga-v3",
+  "segments": 2,
+  "durationMs": 11392,
+  "databaseReopen": true,
+  "exportsReadBack": [
+    "json",
+    "txt",
+    "srt"
+  ],
+  "flowElapsedMs": 10870,
+  "actualPipelineDiagnostics": {
+    "vadPrimarySpanCount": 2,
+    "vadPrimarySpans": [
+      {
+        "startMs": 38,
+        "endMs": 8614
+      },
+      {
+        "startMs": 9318,
+        "endMs": 11078
+      }
+    ],
+    "vadRescueAttempted": false,
+    "vadRescueApplied": false,
+    "vadDetectorGain": 1,
+    "vadRescueRms": null,
+    "vadRescueRmsSamples": 0,
+    "vadRescueSpanCount": 0,
+    "vadRescueReason": "primary_nonempty",
+    "vadRescueTargetRms": 0.02,
+    "vadRescueMaxGain": 20,
+    "vadRescuePeakHeadroom": 0.95,
+    "vadRescueMinGainRatio": 1.01,
+    "vadRescueScope": "detector-only empty-primary retry; ASR input, original PCM and diarization unchanged",
+    "finalPssKb": 180512,
+    "peakMemory": "N\/A; stage boundary snapshots only",
+    "device": "unknown Android SDK built for x86_64",
+    "android": 35,
+    "runtime": "sherpa-onnx 2.0.1",
+    "backend": "GigaAM v3 E2E RNNT INT8 \/ sherpa-onnx 2.0.1",
+    "threads": 2,
+    "vadThreads": 1,
+    "sampleRate": 16000,
+    "originalPcmPeak": 0.28189087,
+    "recognitionInputGain": 1,
+    "quietGainTriggerPeak": 0.01,
+    "quietGainMax": 20,
+    "quietGainScope": "temporary VAD and ASR arrays only; original PCM\/playback\/diarization preserved",
+    "expectedSpeakers": 1,
+    "clusterThreshold": 0.5,
+    "vadThreshold": 0.5,
+    "maxAsrSegmentMs": 20000,
+    "audioMs": 11392,
+    "totalMs": 7534,
+    "pipelineRtf": 0.6613412921348315,
+    "pipelineTimingScope": "validation through ASR release; persistenceMs and telemetry.elapsedMs reported separately",
+    "asrStageRtf": 0.18082865168539325,
+    "asrInferenceRtf": 0.14685744382022473,
+    "runCondition": "uncontrolled device caches\/temperature; sequential ML stages; CPU provider",
+    "diarizationTurns": [
+      {
+        "startMs": 0,
+        "endMs": 11392,
+        "speakerId": 0
+      }
+    ],
+    "clusteringMode": "single",
+    "clusterThresholdApplied": false,
+    "automaticValidation": "not accepted on independent long Russian dialogue",
+    "segmentationWindowShiftRatio": 0.1,
+    "diarMinDurationOnSec": 0.2,
+    "diarMinDurationOffSec": 0.5,
+    "vadMinSpeechSec": 0.25,
+    "vadMinSilenceSec": 0.25,
+    "vadWindowSamples": 512,
+    "vadMaxSpeechSec": 20,
+    "preRollMs": 100,
+    "postRollMs": 0,
+    "vadSpans": [
+      {
+        "startMs": 38,
+        "endMs": 8614
+      },
+      {
+        "startMs": 9318,
+        "endMs": 11078
+      }
+    ],
+    "asrSpeechSpans": [
+      {
+        "startMs": 0,
+        "endMs": 8614
+      },
+      {
+        "startMs": 9218,
+        "endMs": 11078
+      }
+    ],
+    "asrSlices": [
+      {
+        "startMs": 0,
+        "endMs": 8614,
+        "speakerId": 0,
+        "text": "Ничьих не требуя похвал, счастлив уж я надеждой сладкой, Что дева с трепетом любви посмотрит, может быть, украдкой на песни грешные мои.",
+        "blank": false,
+        "inferenceMs": 1452,
+        "warnings": []
+      },
+      {
+        "startMs": 9218,
+        "endMs": 11078,
+        "speakerId": 0,
+        "text": "У лукоморья дуб зелёный.",
+        "blank": false,
+        "inferenceMs": 389,
+        "warnings": []
+      }
+    ],
+    "modelBytes": 278127730,
+    "stagesMs": {
+      "thermalWaitMs": 0,
+      "provisioningWaitMs": 0,
+      "nativeGateWaitMs": 0,
+      "validationMs": 263,
+      "decodeMs": 2305,
+      "metadataPersistenceMs": 5,
+      "vadLoadMs": 108,
+      "vadMs": 296,
+      "diarizationMs": 0,
+      "diarizationLoadMs": 0,
+      "diarizationInferenceMs": 0,
+      "alignmentMs": 4,
+      "asrLoadMs": 2001,
+      "asrReadMs": 6,
+      "asrInferenceMs": 1673,
+      "asrMs": 2060,
+      "persistenceMs": 17
+    },
+    "telemetry": {
+      "run": "ba64b0c9-1ef5-4ae4-999d-83319b7b1467",
+      "elapsedMs": 8088,
+      "stagesMs": {
+        "thermalWaitMs": 0,
+        "provisioningWaitMs": 0,
+        "nativeGateWaitMs": 0,
+        "validationMs": 263,
+        "decodeMs": 2305,
+        "metadataPersistenceMs": 5,
+        "vadLoadMs": 108,
+        "vadMs": 296,
+        "diarizationMs": 0,
+        "diarizationLoadMs": 0,
+        "diarizationInferenceMs": 0,
+        "alignmentMs": 4,
+        "asrLoadMs": 2001,
+        "asrReadMs": 6,
+        "asrInferenceMs": 1673,
+        "asrMs": 2060,
+        "persistenceMs": 17
+      },
+      "observedMaxPssKb": 407768,
+      "memoryScope": "stage boundary PSS snapshots; not continuous peak memory",
+      "thermalStatus": 0,
+      "thermalEvents": [
+        {
+          "elapsedMs": 916,
+          "status": 0
+        }
+      ],
+      "thermalApiSupported": true
+    }
+  },
+  "scope": "Real platform AAC extraction and production offline Worker on recorded device; video\/speech fixture is public, not a microphone recording"
+}

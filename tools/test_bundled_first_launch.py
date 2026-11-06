@@ -12,6 +12,8 @@ import subprocess
 import time
 
 PKG = "ru.replika.offline.aioqa"
+ROOT = pathlib.Path(__file__).resolve().parents[1]
+EXPECTED_MODELS = len(json.loads((ROOT/"app/src/main/assets/models-lock.json").read_text())["files"])
 
 
 def main():
@@ -59,7 +61,7 @@ def main():
     def clear_qa():
         stop()
         assert shell(f"pm clear {PKG}") == "Success"
-        # Keep Android's notification prompt out of Library screenshots; no mic permission granted.
+        # Keep Android's notification prompt out of Home screenshots; no mic permission granted.
         shell(f"pm grant {PKG} android.permission.POST_NOTIFICATIONS")
         existing = shell(f"run-as {PKG} ls files/models", check=False)
         assert not existing, "Clean test must have no preinstalled models"
@@ -91,11 +93,11 @@ def main():
                     time.sleep(1)
                     shell("uiautomator dump /data/local/tmp/replika-aioqa-first-launch.xml")
                     xml = shell("cat /data/local/tmp/replika-aioqa-first-launch.xml")
-                    assert f'package="{PKG}"' in xml and 'text="Библиотека"' in xml and 'text="Записи"' in xml, "Verified models did not lead to the actual app Library"
-                    (args.output / (prefix + "-library.xml")).write_text(xml,encoding="utf-8")
-                    capture(prefix + "-library.png")
+                    assert f'package="{PKG}"' in xml and 'text="Готово к записи"' in xml and 'text="Записи"' in xml, "Verified models did not lead to the actual recording Home"
+                    (args.output / (prefix + "-home.xml")).write_text(xml,encoding="utf-8")
+                    capture(prefix + "-home.png")
                     save(prefix + ".json", {**current, "observedPhases": phases,
-                                           "hostObservedSecondsThroughLibrary": time.monotonic()-host_started})
+                                           "hostObservedSecondsThroughHome": time.monotonic()-host_started})
                     return current
             time.sleep(.12)
         raise TimeoutError("Provisioning did not reach READY")
@@ -113,7 +115,7 @@ def main():
         clear_qa()
         launch()
         first = wait_ready("01-clean-offline")
-        assert first["extracted"] == first["published"] == 8 and first["validSkipped"] == 0
+        assert first["extracted"] == first["published"] == EXPECTED_MODELS and first["validSkipped"] == 0
         before = shell(f"run-as {PKG} sh -c 'find files/models -type f -exec stat -c \"%n %s %Y\" {{}} \\;' ")
         stop()
         launch()
@@ -126,7 +128,7 @@ def main():
         second = wait_ready("02-cold-restart")
         after = shell(f"run-as {PKG} sh -c 'find files/models -type f -exec stat -c \"%n %s %Y\" {{}} \\;' ")
         assert before == after
-        assert second["validSkipped"] == 8 and second["extracted"] == second["published"] == 0
+        assert second["validSkipped"] == EXPECTED_MODELS and second["extracted"] == second["published"] == 0
         save("02-preserved-model-times.json", {"before": before, "after": after, "equal": True})
 
         clear_qa()
@@ -156,7 +158,7 @@ def main():
         assert interrupted
         launch()
         resumed = wait_ready("04-resumed-offline")
-        assert resumed["published"] == 8 and resumed["reusedStage"] >= 1
+        assert resumed["published"] == EXPECTED_MODELS and resumed["reusedStage"] >= 1
         save("summary.json", {"cleanOfflinePreparation": "PASS", "coldRestartNoExtraction": "PASS",
                               "forcedInterruptionAndResume": "PASS", "physicalArm64Validation": "BLOCKED"})
     finally:

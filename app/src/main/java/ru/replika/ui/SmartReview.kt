@@ -22,11 +22,11 @@ data class ReviewIssue(val title: String,val explanation: String)
 /** Presentation of persisted objective flags. No probability or inferred model confidence. */
 fun reviewIssues(row: SegmentRow): List<ReviewIssue> {
  val raw=runCatching { row.domain().reasons }.getOrDefault(emptyList())
- val issues=raw.map { reason ->
+ // Duration-only flags survive in legacy storage/exports, never assert the merged row was short.
+ val issues=raw.filterNot { it.contains("Короткая",ignoreCase=true) }.map { reason ->
   when {
    reason.contains("Пересечение",ignoreCase=true) -> ReviewIssue("Пересечение голосов","В интервале отмечено несколько голосов. Слова участников не разделены.")
    reason.contains("Неоднознач",ignoreCase=true) -> ReviewIssue(if(row.speakerId<0) "Говорящий не определён" else "Проверить назначение", "Исходный анализ не смог однозначно назначить говорящего. Сверьте текущее назначение со звуком.")
-   reason.contains("Короткая",ignoreCase=true) -> ReviewIssue("Короткая реплика","Фрагмент короче 700 мс. Проверьте начало и конец на слух.")
    reason.contains("Разрез",ignoreCase=true) -> ReviewIssue("Граница длинной реплики","Речь разделена на части. Проверьте слова рядом с границей.")
    else -> ReviewIssue("Нужна проверка",reason)
   }
@@ -57,7 +57,7 @@ fun reviewIssues(row: SegmentRow): List<ReviewIssue> {
   item {
    Column(verticalArrangement=Arrangement.spacedBy(6.dp)) {
     Text("Проверка фрагментов",style=MaterialTheme.typography.titleMedium)
-    Text("Метки основаны на времени и разделении голосов, а не на вероятности ошибки.",style=MaterialTheme.typography.bodySmall,color=Muted)
+    Text("Проверьте участника и отмеченные границы на слух.",style=MaterialTheme.typography.bodySmall,color=Muted)
     if(flagged.isNotEmpty()) FlowRow(Modifier.fillMaxWidth(),horizontalArrangement=Arrangement.SpaceBetween) {
      Text(pending.size.toString()+" к проверке · "+(flagged.size-pending.size)+" проверено",style=MaterialTheme.typography.labelSmall,color=Muted)
      TextButton(onClick={showReviewed=!showReviewed},modifier=Modifier.heightIn(min=48.dp)) { Text(if(showReviewed) "К очереди" else "Проверенные",maxLines=1,softWrap=false) }
@@ -71,7 +71,7 @@ fun reviewIssues(row: SegmentRow): List<ReviewIssue> {
     modifier=Modifier.testTag("review-empty")
    ) {
     TextButton(onClick=onTranscript,modifier=Modifier.heightIn(min=48.dp)) { Text("К полной стенограмме") }
-    OutlinedButton(onClick=onListenRecording,modifier=Modifier.heightIn(min=48.dp)) { Icon(Icons.Outlined.PlayArrow,null);Text("Прослушать запись") }
+    OutlinedButton(shape=ProductShape.control,onClick=onListenRecording,modifier=Modifier.heightIn(min=48.dp)) { Icon(Icons.Outlined.PlayArrow,null);Text("Прослушать запись") }
    }
   }
   items(shown,key={it.id}) { row ->

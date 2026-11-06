@@ -1,0 +1,50 @@
+{
+  "platform": "Linux host CPU; not phone",
+  "runtime": "2.0.1",
+  "model": "GigaAM v3 E2E RNNT INT8",
+  "seed": 104,
+  "gainPolicy": {
+    "triggerPeak": 0.01,
+    "targetPeak": 0.1,
+    "maxGain": 20,
+    "silenceFloorPeak": 1e-06
+  },
+  "controls": [
+    {
+      "id": "quiet_repeating_short_impulses",
+      "mode": "original",
+      "seconds": 15,
+      "peak": 0.0010739007266238332,
+      "gain": 1.0,
+      "directHypothesis": "",
+      "vadSpansSamples": [
+        [
+          120416,
+          240128
+        ]
+      ],
+      "gatedHypotheses": [
+        ""
+      ],
+      "elapsedSec": 2.086933536997094
+    },
+    {
+      "id": "quiet_repeating_short_impulses",
+      "mode": "conservative_gain",
+      "seconds": 15,
+      "peak": 0.0010739007266238332,
+      "gain": 20.0,
+      "directHypothesis": "",
+      "vadSpansSamples": [
+        [
+          224864,
+          240128
+        ]
+      ],
+      "gatedHypotheses": [
+        ""
+      ],
+      "elapsedSec": 1.4393732099997578
+    }
+  ]
+}

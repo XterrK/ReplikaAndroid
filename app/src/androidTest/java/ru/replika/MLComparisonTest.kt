@@ -44,9 +44,9 @@ class MLComparisonTest {
 
  @Test fun directAsrSameInputColdThenWarm()=runBlocking {
   val source=File(app.filesDir,"integration-example.wav")
-  Assume.assumeTrue("Stage verified models and official Russian WAV",source.exists() && app.models.file("whisper-tiny/ggml-tiny.bin").exists())
+  Assume.assumeTrue("Stage verified models and official Russian WAV",source.exists())
   app.models.gate.withLock {
-   app.models.requireReady("giga-v2");app.models.requireReady("whisper-tiny")
+   app.models.requireReady()
    val pcm=AudioDecoder.decode(source.path,File(app.cacheDir,"comparison-asr.pcm"))
    try {
     val samples=AudioDecoder.read(pcm.file,0,pcm.samples)
@@ -54,9 +54,9 @@ class MLComparisonTest {
      .put("scope","direct ASR, identical decoded full waveform; excludes VAD, diarization, decoding")
      .put("coldDefinition","new engine, first inference; filesystem cache uncontrolled; NOT reboot-cold")
     val backends=JSONArray();result.put("backends",backends)
-    for(backend in listOf("giga-v2","whisper-tiny")) {
+    for(backend in listOf(app.models.asrId)) {
      val loadStart=SystemClock.elapsedRealtime()
-     val engine: AsrEngine=if(backend=="giga-v2") GigaAmEngine(app.models) else WhisperEngine(app.models)
+     val engine: AsrEngine=GigaAmEngine(app.models)
      val loadMs=SystemClock.elapsedRealtime()-loadStart
      val runs=JSONArray()
      val row=JSONObject().put("backend",engine.source).put("loadMs",loadMs).put("runs",runs)
@@ -119,7 +119,7 @@ class MLComparisonTest {
       planned.forEach { plannedResults.put(recognize(it.startMs,it.endMs).put("speakerId",it.speaker)) }
       assertTrue(planned.zipWithNext().all { (a,b) -> a.endMs<=b.startMs })
       assertEquals(contextual.sumOf { it.endMs-it.startMs },planned.sumOf { it.endMs-it.startMs })
-      if(v.name=="pre100") assertTrue("New planner must retain the known real prefix",plannedResults.getJSONObject(0).getString("text").startsWith("ничьих"))
+      if(v.name=="pre100") assertTrue("New planner must retain the known real prefix",plannedResults.getJSONObject(0).getString("text").trimStart().lowercase(java.util.Locale.ROOT).startsWith("ничьих"))
       assertTrue(slices.zipWithNext().all { (a,b) -> a.endMs<=b.startMs })
       assertTrue(slices.all { it.startMs>=0 && it.endMs<=pcm.durationMs })
       runs.put(JSONObject().put("name",v.name).put("threshold",v.threshold).put("minSpeechSec",v.minSpeech).put("minSilenceSec",v.minSilence)

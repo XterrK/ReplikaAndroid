@@ -10,7 +10,7 @@ val embeddedAssets = layout.buildDirectory.dir("generated/embedded-models/assets
 val prepareEmbeddedModelPack by tasks.registering(Exec::class) {
  group = "replika"
  description = "Verify and package the existing local offline models without downloading weights"
- val sourcePack = rootProject.file("model-pack/replika-offline-pack.zip")
+ val sourcePack = rootProject.file("model-pack/replika-offline-pack-v1.5.zip")
  val modelManifest = file("src/main/assets/models-lock.json")
  val generator = rootProject.file("tools/prepare_embedded_pack.py")
  val outputPack = embeddedAssets.map { it.file("offline/replika-models.zip") }
@@ -30,15 +30,21 @@ android {
  namespace = "ru.replika"
  compileSdk = 35
  ndkVersion = "27.2.12479018"
- if (!providers.gradleProperty("skipWhisperBuild").isPresent) { externalNativeBuild { cmake { path = file("src/main/cpp/CMakeLists.txt"); version = "3.22.1" } } }
  defaultConfig {
   applicationId = "ru.replika.offline"; minSdk = 26; targetSdk = 35
-  versionCode = 5; versionName = "1.3"
+  versionCode = 8; versionName = "1.6"
   buildConfigField("boolean", "BUNDLED_MODELS", "false")
   buildConfigField("String", "EMBEDDED_MODEL_ASSET", "\"offline/replika-models.zip\"")
   // Model SHA-256 values come from models-lock.json; the generated ZIP fingerprint is build evidence.
   buildConfigField("String", "EMBEDDED_MODEL_PACK_SHA256", "\"\"")
   testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+ }
+ // Retain update compatibility after moving the workspace to another computer.
+ // Local development key is intentionally excluded from Git.
+ val portableDebugKey = rootProject.file("local-dev/debug.keystore")
+ if (portableDebugKey.isFile) signingConfigs.getByName("debug") {
+  storeFile = portableDebugKey
+  storePassword = "android"; keyAlias = "androiddebugkey"; keyPassword = "android"
  }
  buildTypes {
   getByName("debug") { ndk { abiFilters += listOf("arm64-v8a", "x86_64") } }
@@ -95,6 +101,7 @@ dependencies {
  implementation("androidx.work:work-runtime-ktx:2.10.1")
  implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.10.2")
  implementation("androidx.core:core-ktx:1.16.0")
+ implementation("androidx.datastore:datastore-preferences:1.1.4")
  implementation("org.apache.commons:commons-compress:1.27.1")
  testImplementation("junit:junit:4.13.2")
  testImplementation("org.json:json:20250107")

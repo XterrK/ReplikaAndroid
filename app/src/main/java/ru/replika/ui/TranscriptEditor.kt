@@ -17,10 +17,13 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -104,31 +107,33 @@ data class SpeakerChoice(val id: Int,val name: String)
   containerColor=SurfaceBase,modifier=Modifier.fillMaxHeight().testTag("transcript-editor")
  ) {
   DarkSheetSystemBars()
+  val keyboardVisible=WindowInsets.isImeVisible
   Column(Modifier.fillMaxWidth().imePadding()) {
-   Row(Modifier.fillMaxWidth().padding(horizontal=20.dp,vertical=8.dp),verticalAlignment=Alignment.CenterVertically) {
+   Row(Modifier.fillMaxWidth().padding(horizontal=20.dp,vertical=if(keyboardVisible) 4.dp else 8.dp),verticalAlignment=Alignment.CenterVertically) {
     Column(Modifier.weight(1f)) {
-     Text("Проверить фрагмент",style=MaterialTheme.typography.titleLarge)
+     Text(if(keyboardVisible) "Редактор" else "Проверить фрагмент",style=if(keyboardVisible) MaterialTheme.typography.titleMedium else MaterialTheme.typography.titleLarge)
      Text(Exporter.stamp(row.startMs)+" — "+Exporter.stamp(row.endMs),style=MaterialTheme.typography.bodySmall,color=Muted)
     }
+    if(keyboardVisible) IconButton(onClick=if(playing) onPause else onListen,modifier=Modifier.testTag("editor-listen")) { Icon(if(playing) Icons.Outlined.Pause else Icons.Outlined.PlayArrow,if(playing) "Пауза оригинала" else "Прослушать участок") }
     IconButton(onClick={close()},enabled=!saving) { Icon(Icons.Outlined.Close,"Закрыть редактор") }
    }
    Column(
     Modifier.weight(1f).fillMaxWidth().verticalScroll(rememberScrollState()).padding(horizontal=20.dp),
-    verticalArrangement=Arrangement.spacedBy(16.dp)
+    verticalArrangement=Arrangement.spacedBy(12.dp)
    ) {
     val issues=remember(row.reasons,row.speakerId,row.startMs,row.endMs) { reviewIssues(row) }
-    if(issues.isNotEmpty()) Column(Modifier.fillMaxWidth().background(SurfaceRaised,ProductShape.control).padding(12.dp),verticalArrangement=Arrangement.spacedBy(6.dp)) {
+    if(!keyboardVisible && issues.isNotEmpty()) Column(Modifier.fillMaxWidth().background(SurfaceRaised,ProductShape.control).padding(12.dp),verticalArrangement=Arrangement.spacedBy(6.dp)) {
      issues.forEach { issue -> Text(issue.title,style=MaterialTheme.typography.labelMedium,color=Amber);Text(issue.explanation,style=MaterialTheme.typography.bodySmall,color=Muted) }
     }
-    OutlinedButton(onClick=if(playing) onPause else onListen,modifier=Modifier.heightIn(min=48.dp).testTag("editor-listen")) {
+    if(!keyboardVisible) OutlinedButton(shape=ProductShape.control,onClick=if(playing) onPause else onListen,modifier=Modifier.heightIn(min=48.dp).testTag("editor-listen")) {
      Icon(if(playing) Icons.Outlined.Pause else Icons.Outlined.PlayArrow,null,Modifier.size(20.dp));Spacer(Modifier.width(6.dp));Text(if(playing) "Пауза" else "Прослушать участок")
     }
     OutlinedTextField(
-     text,{text=it},modifier=Modifier.fillMaxWidth().testTag("editor-text"),enabled=!saving,
-     label={Text("Текст реплики")},minLines=4,maxLines=9,
-     supportingText={Text(if(dirty) "Изменения ещё не сохранены" else "Сохранённый текст",style=MaterialTheme.typography.bodySmall)}
+     text,{text=it},modifier=Modifier.fillMaxWidth().testTag("editor-text").semantics { contentDescription="Текст реплики" },enabled=!saving,
+     label={if(!keyboardVisible) Text("Текст реплики")},minLines=if(keyboardVisible) 2 else 3,maxLines=if(keyboardVisible) 5 else 9,
+     supportingText={if(!keyboardVisible) Text(if(dirty) "Изменения ещё не сохранены" else "Сохранённый текст",style=MaterialTheme.typography.bodySmall)}
     )
-    Column(verticalArrangement=Arrangement.spacedBy(6.dp)) {
+    if(!keyboardVisible) Column(verticalArrangement=Arrangement.spacedBy(6.dp)) {
      Text("Говорящий",style=MaterialTheme.typography.labelMedium,color=Muted)
      Row(
       Modifier.fillMaxWidth().background(SurfaceRaised,ProductShape.control).clickable(enabled=!saving) { focus.clearFocus();keyboard?.hide();picking=true }.padding(12.dp).testTag("editor-speaker"),
@@ -139,20 +144,20 @@ data class SpeakerChoice(val id: Int,val name: String)
       Icon(Icons.Outlined.ExpandMore,"Выбрать говорящего",Modifier.size(20.dp),tint=Muted)
      }
     }
-    Row(Modifier.fillMaxWidth().heightIn(min=48.dp),verticalAlignment=Alignment.CenterVertically) {
+    if(!keyboardVisible) Row(Modifier.fillMaxWidth().heightIn(min=48.dp),verticalAlignment=Alignment.CenterVertically) {
      Checkbox(reviewed,if(saving) null else { value -> reviewed=value },modifier=Modifier.testTag("editor-reviewed"))
      Text("Фрагмент проверен",style=MaterialTheme.typography.bodyMedium)
     }
-    Text("Метки относятся ко всей реплике, а не к отдельным словам.",style=MaterialTheme.typography.bodySmall,color=Muted)
+    if(!keyboardVisible) Text("Метки относятся ко всей реплике, а не к отдельным словам.",style=MaterialTheme.typography.bodySmall,color=Muted)
     Spacer(Modifier.height(8.dp))
    }
    HorizontalDivider(color=SurfaceLine)
    Column(
-    Modifier.fillMaxWidth().background(SurfaceRaised).navigationBarsPadding().padding(horizontal=20.dp,vertical=12.dp),
+    Modifier.fillMaxWidth().background(SurfaceRaised).navigationBarsPadding().padding(horizontal=20.dp,vertical=if(keyboardVisible) 6.dp else 12.dp),
     verticalArrangement=Arrangement.spacedBy(8.dp)
    ) {
     Text(if(saving) "Записываем в историю…" else if(dirty) "Есть несохранённые изменения" else "Изменений нет",style=MaterialTheme.typography.labelSmall,color=if(dirty) Amber else Muted,modifier=Modifier.testTag("editor-save-state"))
-    Button(
+    Button(shape=ProductShape.control,
      onClick={saving=true;focus.clearFocus();keyboard?.hide();vm.edit(row,text,speaker,reviewed) { ok -> saving=false;if(ok) onDismiss() }},
      enabled=!saving && dirty,modifier=Modifier.fillMaxWidth().heightIn(min=52.dp).testTag("editor-save")
     ) { Text(if(saving) "Сохраняем…" else "Сохранить исправления") }

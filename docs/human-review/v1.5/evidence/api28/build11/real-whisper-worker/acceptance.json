@@ -1,0 +1,1231 @@
+{
+  "status": "PASS",
+  "cases": [
+    {
+      "id": "masha_dima_part9_158",
+      "reference": "Да, Маша. Это настоящий триумф. И я рад, что мы сделали это вместе.",
+      "hypothesis": "Маша Это настоящий триумф! И я рад, что мы сделали это вместе.",
+      "wordErrors": 1,
+      "referenceWords": 13,
+      "charErrors": 3,
+      "referenceChars": 62,
+      "originalSha256": "3d19286bf09066817c27898dd272a28a723658abea440d848231109e4728991d",
+      "afterSha256": "3d19286bf09066817c27898dd272a28a723658abea440d848231109e4728991d",
+      "diagnostics": {
+        "vadPrimarySpanCount": 3,
+        "vadPrimarySpans": [
+          {
+            "startMs": 582,
+            "endMs": 966
+          },
+          {
+            "startMs": 1606,
+            "endMs": 3558
+          },
+          {
+            "startMs": 4230,
+            "endMs": 6598
+          }
+        ],
+        "vadRescueAttempted": false,
+        "vadRescueApplied": false,
+        "vadDetectorGain": 1,
+        "vadRescueRms": null,
+        "vadRescueRmsSamples": 0,
+        "vadRescueSpanCount": 0,
+        "vadRescueReason": "primary_nonempty",
+        "vadRescueTargetRms": 0.02,
+        "vadRescueMaxGain": 20,
+        "vadRescuePeakHeadroom": 0.95,
+        "vadRescueMinGainRatio": 1.01,
+        "vadRescueScope": "detector-only empty-primary retry; ASR input, original PCM and diarization unchanged",
+        "finalPssKb": 381897,
+        "peakMemory": "N\/A; stage boundary snapshots only",
+        "device": "unknown Android SDK built for x86_64",
+        "android": 28,
+        "runtime": "sherpa-onnx 2.0.1",
+        "backend": "GigaAM v3 E2E RNNT INT8 \/ sherpa-onnx 2.0.1",
+        "threads": 2,
+        "vadThreads": 1,
+        "sampleRate": 16000,
+        "originalPcmPeak": 0.29056987,
+        "recognitionInputGain": 1,
+        "quietGainTriggerPeak": 0.01,
+        "quietGainMax": 20,
+        "quietGainScope": "temporary VAD and ASR arrays only; original PCM\/playback\/diarization preserved",
+        "expectedSpeakers": 1,
+        "clusterThreshold": 0.5,
+        "vadThreshold": 0.5,
+        "maxAsrSegmentMs": 20000,
+        "audioMs": 6901,
+        "totalMs": 9356,
+        "pipelineRtf": 1.35574554412404,
+        "pipelineTimingScope": "validation through ASR release; persistenceMs and telemetry.elapsedMs reported separately",
+        "asrStageRtf": 0.2822779307346761,
+        "asrInferenceRtf": 0.21706998985654252,
+        "runCondition": "uncontrolled device caches\/temperature; sequential ML stages; CPU provider",
+        "diarizationTurns": [
+          {
+            "startMs": 0,
+            "endMs": 6901,
+            "speakerId": 0
+          }
+        ],
+        "clusteringMode": "single",
+        "clusterThresholdApplied": false,
+        "automaticValidation": "not accepted on independent long Russian dialogue",
+        "segmentationWindowShiftRatio": 0.1,
+        "diarMinDurationOnSec": 0.2,
+        "diarMinDurationOffSec": 0.5,
+        "vadMinSpeechSec": 0.25,
+        "vadMinSilenceSec": 0.25,
+        "vadWindowSamples": 512,
+        "vadMaxSpeechSec": 20,
+        "preRollMs": 100,
+        "postRollMs": 0,
+        "vadSpans": [
+          {
+            "startMs": 582,
+            "endMs": 966
+          },
+          {
+            "startMs": 1606,
+            "endMs": 3558
+          },
+          {
+            "startMs": 4230,
+            "endMs": 6598
+          }
+        ],
+        "asrSpeechSpans": [
+          {
+            "startMs": 482,
+            "endMs": 966
+          },
+          {
+            "startMs": 1506,
+            "endMs": 3558
+          },
+          {
+            "startMs": 4130,
+            "endMs": 6598
+          }
+        ],
+        "asrSlices": [
+          {
+            "startMs": 482,
+            "endMs": 966,
+            "speakerId": 0,
+            "text": "Маша",
+            "blank": false,
+            "inferenceMs": 201,
+            "warnings": [
+              "Короткая реплика возле границы"
+            ]
+          },
+          {
+            "startMs": 1506,
+            "endMs": 3558,
+            "speakerId": 0,
+            "text": "Это настоящий триумф!",
+            "blank": false,
+            "inferenceMs": 704,
+            "warnings": []
+          },
+          {
+            "startMs": 4130,
+            "endMs": 6598,
+            "speakerId": 0,
+            "text": "И я рад, что мы сделали это вместе.",
+            "blank": false,
+            "inferenceMs": 725,
+            "warnings": []
+          }
+        ],
+        "modelBytes": 278127730,
+        "stagesMs": {
+          "thermalWaitMs": 0,
+          "provisioningWaitMs": 0,
+          "nativeGateWaitMs": 0,
+          "validationMs": 1029,
+          "decodeMs": 510,
+          "metadataPersistenceMs": 12,
+          "vadLoadMs": 104,
+          "vadMs": 218,
+          "diarizationMs": 0,
+          "diarizationLoadMs": 0,
+          "diarizationInferenceMs": 0,
+          "alignmentMs": 13,
+          "asrLoadMs": 5179,
+          "asrReadMs": 4,
+          "asrInferenceMs": 1498,
+          "asrMs": 1948,
+          "persistenceMs": 23
+        },
+        "telemetry": {
+          "run": "0bb5029e-e338-4eae-95ad-e8b4354acc17",
+          "elapsedMs": 9689,
+          "stagesMs": {
+            "thermalWaitMs": 0,
+            "provisioningWaitMs": 0,
+            "nativeGateWaitMs": 0,
+            "validationMs": 1029,
+            "decodeMs": 510,
+            "metadataPersistenceMs": 12,
+            "vadLoadMs": 104,
+            "vadMs": 218,
+            "diarizationMs": 0,
+            "diarizationLoadMs": 0,
+            "diarizationInferenceMs": 0,
+            "alignmentMs": 13,
+            "asrLoadMs": 5179,
+            "asrReadMs": 4,
+            "asrInferenceMs": 1498,
+            "asrMs": 1948,
+            "persistenceMs": 23
+          },
+          "observedMaxPssKb": 380485,
+          "memoryScope": "stage boundary PSS snapshots; not continuous peak memory",
+          "thermalStatus": -1,
+          "thermalEvents": [],
+          "thermalApiSupported": false
+        }
+      }
+    },
+    {
+      "id": "masha_dima_part9_222",
+      "reference": "Это место такое спокойное. Здесь можно подумать о многом.",
+      "hypothesis": "Это место такое спокойное. Здесь можно подумать о многом.",
+      "wordErrors": 0,
+      "referenceWords": 9,
+      "charErrors": 0,
+      "referenceChars": 55,
+      "originalSha256": "7bb03126fb720925c2439d6b29d807c6f425a05bf60f5b1f1bcf1e6527ba9d15",
+      "afterSha256": "7bb03126fb720925c2439d6b29d807c6f425a05bf60f5b1f1bcf1e6527ba9d15",
+      "diagnostics": {
+        "vadPrimarySpanCount": 2,
+        "vadPrimarySpans": [
+          {
+            "startMs": 454,
+            "endMs": 2758
+          },
+          {
+            "startMs": 3398,
+            "endMs": 5190
+          }
+        ],
+        "vadRescueAttempted": false,
+        "vadRescueApplied": false,
+        "vadDetectorGain": 1,
+        "vadRescueRms": null,
+        "vadRescueRmsSamples": 0,
+        "vadRescueSpanCount": 0,
+        "vadRescueReason": "primary_nonempty",
+        "vadRescueTargetRms": 0.02,
+        "vadRescueMaxGain": 20,
+        "vadRescuePeakHeadroom": 0.95,
+        "vadRescueMinGainRatio": 1.01,
+        "vadRescueScope": "detector-only empty-primary retry; ASR input, original PCM and diarization unchanged",
+        "finalPssKb": 386348,
+        "peakMemory": "N\/A; stage boundary snapshots only",
+        "device": "unknown Android SDK built for x86_64",
+        "android": 28,
+        "runtime": "sherpa-onnx 2.0.1",
+        "backend": "GigaAM v3 E2E RNNT INT8 \/ sherpa-onnx 2.0.1",
+        "threads": 2,
+        "vadThreads": 1,
+        "sampleRate": 16000,
+        "originalPcmPeak": 0.07739067,
+        "recognitionInputGain": 1,
+        "quietGainTriggerPeak": 0.01,
+        "quietGainMax": 20,
+        "quietGainScope": "temporary VAD and ASR arrays only; original PCM\/playback\/diarization preserved",
+        "expectedSpeakers": 1,
+        "clusterThreshold": 0.5,
+        "vadThreshold": 0.5,
+        "maxAsrSegmentMs": 20000,
+        "audioMs": 5624,
+        "totalMs": 4756,
+        "pipelineRtf": 0.8456614509246089,
+        "pipelineTimingScope": "validation through ASR release; persistenceMs and telemetry.elapsedMs reported separately",
+        "asrStageRtf": 0.21017069701280228,
+        "asrInferenceRtf": 0.16980796586059743,
+        "runCondition": "uncontrolled device caches\/temperature; sequential ML stages; CPU provider",
+        "diarizationTurns": [
+          {
+            "startMs": 0,
+            "endMs": 5624,
+            "speakerId": 0
+          }
+        ],
+        "clusteringMode": "single",
+        "clusterThresholdApplied": false,
+        "automaticValidation": "not accepted on independent long Russian dialogue",
+        "segmentationWindowShiftRatio": 0.1,
+        "diarMinDurationOnSec": 0.2,
+        "diarMinDurationOffSec": 0.5,
+        "vadMinSpeechSec": 0.25,
+        "vadMinSilenceSec": 0.25,
+        "vadWindowSamples": 512,
+        "vadMaxSpeechSec": 20,
+        "preRollMs": 100,
+        "postRollMs": 0,
+        "vadSpans": [
+          {
+            "startMs": 454,
+            "endMs": 2758
+          },
+          {
+            "startMs": 3398,
+            "endMs": 5190
+          }
+        ],
+        "asrSpeechSpans": [
+          {
+            "startMs": 354,
+            "endMs": 2758
+          },
+          {
+            "startMs": 3298,
+            "endMs": 5190
+          }
+        ],
+        "asrSlices": [
+          {
+            "startMs": 354,
+            "endMs": 2758,
+            "speakerId": 0,
+            "text": "Это место такое спокойное.",
+            "blank": false,
+            "inferenceMs": 643,
+            "warnings": []
+          },
+          {
+            "startMs": 3298,
+            "endMs": 5190,
+            "speakerId": 0,
+            "text": "Здесь можно подумать о многом.",
+            "blank": false,
+            "inferenceMs": 440,
+            "warnings": []
+          }
+        ],
+        "modelBytes": 278127730,
+        "stagesMs": {
+          "thermalWaitMs": 0,
+          "provisioningWaitMs": 1,
+          "nativeGateWaitMs": 0,
+          "validationMs": 1467,
+          "decodeMs": 384,
+          "metadataPersistenceMs": 9,
+          "vadLoadMs": 16,
+          "vadMs": 94,
+          "diarizationMs": 0,
+          "diarizationLoadMs": 0,
+          "diarizationInferenceMs": 0,
+          "alignmentMs": 1,
+          "asrLoadMs": 1324,
+          "asrReadMs": 3,
+          "asrInferenceMs": 955,
+          "asrMs": 1182,
+          "persistenceMs": 11
+        },
+        "telemetry": {
+          "run": "08797993-07c4-4da9-8418-2ca281157529",
+          "elapsedMs": 4928,
+          "stagesMs": {
+            "thermalWaitMs": 0,
+            "provisioningWaitMs": 1,
+            "nativeGateWaitMs": 0,
+            "validationMs": 1467,
+            "decodeMs": 384,
+            "metadataPersistenceMs": 9,
+            "vadLoadMs": 16,
+            "vadMs": 94,
+            "diarizationMs": 0,
+            "diarizationLoadMs": 0,
+            "diarizationInferenceMs": 0,
+            "alignmentMs": 1,
+            "asrLoadMs": 1324,
+            "asrReadMs": 3,
+            "asrInferenceMs": 955,
+            "asrMs": 1182,
+            "persistenceMs": 11
+          },
+          "observedMaxPssKb": 391216,
+          "memoryScope": "stage boundary PSS snapshots; not continuous peak memory",
+          "thermalStatus": -1,
+          "thermalEvents": [],
+          "thermalApiSupported": false
+        }
+      }
+    },
+    {
+      "id": "masha_dima_part9_397",
+      "reference": "Мне просто нужно время, чтобы пережить это. Я не хочу разговаривать сейчас.",
+      "hypothesis": "Мне просто нужно время. Пережить это. Я не хочу разговаривать сейчас.",
+      "wordErrors": 1,
+      "referenceWords": 12,
+      "charErrors": 6,
+      "referenceChars": 72,
+      "originalSha256": "f4b8a5afbc352d66eab8b26485169732de18691aa3bd4444c6ea90c2b313bb78",
+      "afterSha256": "f4b8a5afbc352d66eab8b26485169732de18691aa3bd4444c6ea90c2b313bb78",
+      "diagnostics": {
+        "vadPrimarySpanCount": 3,
+        "vadPrimarySpans": [
+          {
+            "startMs": 358,
+            "endMs": 2246
+          },
+          {
+            "startMs": 2918,
+            "endMs": 4166
+          },
+          {
+            "startMs": 4582,
+            "endMs": 6496
+          }
+        ],
+        "vadRescueAttempted": false,
+        "vadRescueApplied": false,
+        "vadDetectorGain": 1,
+        "vadRescueRms": null,
+        "vadRescueRmsSamples": 0,
+        "vadRescueSpanCount": 0,
+        "vadRescueReason": "primary_nonempty",
+        "vadRescueTargetRms": 0.02,
+        "vadRescueMaxGain": 20,
+        "vadRescuePeakHeadroom": 0.95,
+        "vadRescueMinGainRatio": 1.01,
+        "vadRescueScope": "detector-only empty-primary retry; ASR input, original PCM and diarization unchanged",
+        "finalPssKb": 392878,
+        "peakMemory": "N\/A; stage boundary snapshots only",
+        "device": "unknown Android SDK built for x86_64",
+        "android": 28,
+        "runtime": "sherpa-onnx 2.0.1",
+        "backend": "GigaAM v3 E2E RNNT INT8 \/ sherpa-onnx 2.0.1",
+        "threads": 2,
+        "vadThreads": 1,
+        "sampleRate": 16000,
+        "originalPcmPeak": 0.07910032,
+        "recognitionInputGain": 1,
+        "quietGainTriggerPeak": 0.01,
+        "quietGainMax": 20,
+        "quietGainScope": "temporary VAD and ASR arrays only; original PCM\/playback\/diarization preserved",
+        "expectedSpeakers": 1,
+        "clusterThreshold": 0.5,
+        "vadThreshold": 0.5,
+        "maxAsrSegmentMs": 20000,
+        "audioMs": 6476,
+        "totalMs": 4999,
+        "pipelineRtf": 0.7719271155033972,
+        "pipelineTimingScope": "validation through ASR release; persistenceMs and telemetry.elapsedMs reported separately",
+        "asrStageRtf": 0.24861025324274244,
+        "asrInferenceRtf": 0.18777022853613343,
+        "runCondition": "uncontrolled device caches\/temperature; sequential ML stages; CPU provider",
+        "diarizationTurns": [
+          {
+            "startMs": 0,
+            "endMs": 6476,
+            "speakerId": 0
+          }
+        ],
+        "clusteringMode": "single",
+        "clusterThresholdApplied": false,
+        "automaticValidation": "not accepted on independent long Russian dialogue",
+        "segmentationWindowShiftRatio": 0.1,
+        "diarMinDurationOnSec": 0.2,
+        "diarMinDurationOffSec": 0.5,
+        "vadMinSpeechSec": 0.25,
+        "vadMinSilenceSec": 0.25,
+        "vadWindowSamples": 512,
+        "vadMaxSpeechSec": 20,
+        "preRollMs": 100,
+        "postRollMs": 0,
+        "vadSpans": [
+          {
+            "startMs": 358,
+            "endMs": 2246
+          },
+          {
+            "startMs": 2918,
+            "endMs": 4166
+          },
+          {
+            "startMs": 4582,
+            "endMs": 6496
+          }
+        ],
+        "asrSpeechSpans": [
+          {
+            "startMs": 258,
+            "endMs": 2246
+          },
+          {
+            "startMs": 2818,
+            "endMs": 4166
+          },
+          {
+            "startMs": 4482,
+            "endMs": 6476
+          }
+        ],
+        "asrSlices": [
+          {
+            "startMs": 258,
+            "endMs": 2246,
+            "speakerId": 0,
+            "text": "Мне просто нужно время.",
+            "blank": false,
+            "inferenceMs": 611,
+            "warnings": []
+          },
+          {
+            "startMs": 2818,
+            "endMs": 4166,
+            "speakerId": 0,
+            "text": "Пережить это.",
+            "blank": false,
+            "inferenceMs": 335,
+            "warnings": []
+          },
+          {
+            "startMs": 4482,
+            "endMs": 6476,
+            "speakerId": 0,
+            "text": "Я не хочу разговаривать сейчас.",
+            "blank": false,
+            "inferenceMs": 428,
+            "warnings": []
+          }
+        ],
+        "modelBytes": 278127730,
+        "stagesMs": {
+          "thermalWaitMs": 0,
+          "provisioningWaitMs": 0,
+          "nativeGateWaitMs": 0,
+          "validationMs": 1207,
+          "decodeMs": 197,
+          "metadataPersistenceMs": 6,
+          "vadLoadMs": 16,
+          "vadMs": 98,
+          "diarizationMs": 0,
+          "diarizationLoadMs": 0,
+          "diarizationInferenceMs": 0,
+          "alignmentMs": 2,
+          "asrLoadMs": 1489,
+          "asrReadMs": 10,
+          "asrInferenceMs": 1216,
+          "asrMs": 1610,
+          "persistenceMs": 10
+        },
+        "telemetry": {
+          "run": "05fcca24-3640-4893-a8a3-95d0f33e8a25",
+          "elapsedMs": 5426,
+          "stagesMs": {
+            "thermalWaitMs": 0,
+            "provisioningWaitMs": 0,
+            "nativeGateWaitMs": 0,
+            "validationMs": 1207,
+            "decodeMs": 197,
+            "metadataPersistenceMs": 6,
+            "vadLoadMs": 16,
+            "vadMs": 98,
+            "diarizationMs": 0,
+            "diarizationLoadMs": 0,
+            "diarizationInferenceMs": 0,
+            "alignmentMs": 2,
+            "asrLoadMs": 1489,
+            "asrReadMs": 10,
+            "asrInferenceMs": 1216,
+            "asrMs": 1610,
+            "persistenceMs": 10
+          },
+          "observedMaxPssKb": 392962,
+          "memoryScope": "stage boundary PSS snapshots; not continuous peak memory",
+          "thermalStatus": -1,
+          "thermalEvents": [],
+          "thermalApiSupported": false
+        }
+      }
+    },
+    {
+      "id": "masha_dima_part11_287",
+      "reference": "Дима, кстати, я слышала, что скоро у нас в городе открывается новый магазин с эксклюзивными брендами. Может быть, нам стоит туда заглянуть вместе?",
+      "hypothesis": "Я слышала, что скоро у нас в городе открывается новый магазин с эксклюзивными брендами. Может быть, нам стоит туда заглянуть вместе.",
+      "wordErrors": 2,
+      "referenceWords": 23,
+      "charErrors": 12,
+      "referenceChars": 140,
+      "originalSha256": "8c9b3b5b5b4cdff4d13872aa5e9cbda98f3e2c5829ba7d31752d5906663f04af",
+      "afterSha256": "8c9b3b5b5b4cdff4d13872aa5e9cbda98f3e2c5829ba7d31752d5906663f04af",
+      "diagnostics": {
+        "vadPrimarySpanCount": 0,
+        "vadPrimarySpans": [],
+        "vadRescueAttempted": true,
+        "vadRescueApplied": true,
+        "vadDetectorGain": 9.273613,
+        "vadRescueRms": 0.0018098737742305861,
+        "vadRescueRmsSamples": 209967,
+        "vadRescueSpanCount": 2,
+        "vadRescueReason": "retry_applied",
+        "vadRescueTargetRms": 0.02,
+        "vadRescueMaxGain": 20,
+        "vadRescuePeakHeadroom": 0.95,
+        "vadRescueMinGainRatio": 1.01,
+        "vadRescueScope": "detector-only empty-primary retry; ASR input, original PCM and diarization unchanged",
+        "finalPssKb": 397118,
+        "peakMemory": "N\/A; stage boundary snapshots only",
+        "device": "unknown Android SDK built for x86_64",
+        "android": 28,
+        "runtime": "sherpa-onnx 2.0.1",
+        "backend": "GigaAM v3 E2E RNNT INT8 \/ sherpa-onnx 2.0.1",
+        "threads": 2,
+        "vadThreads": 1,
+        "sampleRate": 16000,
+        "originalPcmPeak": 0.10244119,
+        "recognitionInputGain": 1,
+        "quietGainTriggerPeak": 0.01,
+        "quietGainMax": 20,
+        "quietGainScope": "temporary VAD and ASR arrays only; original PCM\/playback\/diarization preserved",
+        "expectedSpeakers": 1,
+        "clusterThreshold": 0.5,
+        "vadThreshold": 0.5,
+        "maxAsrSegmentMs": 20000,
+        "audioMs": 13122,
+        "totalMs": 6359,
+        "pipelineRtf": 0.48460600518213687,
+        "pipelineTimingScope": "validation through ASR release; persistenceMs and telemetry.elapsedMs reported separately",
+        "asrStageRtf": 0.16346593507087334,
+        "asrInferenceRtf": 0.14799573235787228,
+        "runCondition": "uncontrolled device caches\/temperature; sequential ML stages; CPU provider",
+        "diarizationTurns": [
+          {
+            "startMs": 0,
+            "endMs": 13122,
+            "speakerId": 0
+          }
+        ],
+        "clusteringMode": "single",
+        "clusterThresholdApplied": false,
+        "automaticValidation": "not accepted on independent long Russian dialogue",
+        "segmentationWindowShiftRatio": 0.1,
+        "diarMinDurationOnSec": 0.2,
+        "diarMinDurationOffSec": 0.5,
+        "vadMinSpeechSec": 0.25,
+        "vadMinSilenceSec": 0.25,
+        "vadWindowSamples": 512,
+        "vadMaxSpeechSec": 20,
+        "preRollMs": 100,
+        "postRollMs": 0,
+        "vadSpans": [
+          {
+            "startMs": 2502,
+            "endMs": 8838
+          },
+          {
+            "startMs": 9414,
+            "endMs": 12390
+          }
+        ],
+        "asrSpeechSpans": [
+          {
+            "startMs": 2402,
+            "endMs": 8838
+          },
+          {
+            "startMs": 9314,
+            "endMs": 12390
+          }
+        ],
+        "asrSlices": [
+          {
+            "startMs": 2402,
+            "endMs": 8838,
+            "speakerId": 0,
+            "text": "Я слышала, что скоро у нас в городе открывается новый магазин с эксклюзивными брендами.",
+            "blank": false,
+            "inferenceMs": 1248,
+            "warnings": []
+          },
+          {
+            "startMs": 9314,
+            "endMs": 12390,
+            "speakerId": 0,
+            "text": "Может быть, нам стоит туда заглянуть вместе.",
+            "blank": false,
+            "inferenceMs": 810,
+            "warnings": []
+          }
+        ],
+        "modelBytes": 278127730,
+        "stagesMs": {
+          "thermalWaitMs": 0,
+          "provisioningWaitMs": 0,
+          "nativeGateWaitMs": 1,
+          "validationMs": 1607,
+          "decodeMs": 281,
+          "metadataPersistenceMs": 8,
+          "vadLoadMs": 33,
+          "vadMs": 366,
+          "vadRescueRmsMs": 58,
+          "vadRescuePassMs": 258,
+          "diarizationMs": 0,
+          "diarizationLoadMs": 0,
+          "diarizationInferenceMs": 0,
+          "alignmentMs": 0,
+          "asrLoadMs": 1441,
+          "asrReadMs": 7,
+          "asrInferenceMs": 1942,
+          "asrMs": 2145,
+          "persistenceMs": 12
+        },
+        "telemetry": {
+          "run": "8829fc4b-b0ad-460c-97d5-3646c45a6cda",
+          "elapsedMs": 6638,
+          "stagesMs": {
+            "thermalWaitMs": 0,
+            "provisioningWaitMs": 0,
+            "nativeGateWaitMs": 1,
+            "validationMs": 1607,
+            "decodeMs": 281,
+            "metadataPersistenceMs": 8,
+            "vadLoadMs": 33,
+            "vadMs": 366,
+            "vadRescueRmsMs": 58,
+            "vadRescuePassMs": 258,
+            "diarizationMs": 0,
+            "diarizationLoadMs": 0,
+            "diarizationInferenceMs": 0,
+            "alignmentMs": 0,
+            "asrLoadMs": 1441,
+            "asrReadMs": 7,
+            "asrInferenceMs": 1942,
+            "asrMs": 2145,
+            "persistenceMs": 12
+          },
+          "observedMaxPssKb": 401118,
+          "memoryScope": "stage boundary PSS snapshots; not continuous peak memory",
+          "thermalStatus": -1,
+          "thermalEvents": [],
+          "thermalApiSupported": false
+        }
+      }
+    },
+    {
+      "id": "masha_dima_part11_296",
+      "reference": "О, я обожаю черепах! Они такие спокойные и умиротворенные. А ты кого больше всего любишь?",
+      "hypothesis": "Я обожаю черепах. Такие спокойные и умиротворённые. Ты кого больше всего любишь?",
+      "wordErrors": 3,
+      "referenceWords": 15,
+      "charErrors": 8,
+      "referenceChars": 85,
+      "originalSha256": "4a9be355e2e55ce8dbffe38b04035f76c8ab23e4846e5735e282ee2bc4bbfc3c",
+      "afterSha256": "4a9be355e2e55ce8dbffe38b04035f76c8ab23e4846e5735e282ee2bc4bbfc3c",
+      "diagnostics": {
+        "vadPrimarySpanCount": 3,
+        "vadPrimarySpans": [
+          {
+            "startMs": 806,
+            "endMs": 3430
+          },
+          {
+            "startMs": 4518,
+            "endMs": 7142
+          },
+          {
+            "startMs": 8486,
+            "endMs": 10950
+          }
+        ],
+        "vadRescueAttempted": false,
+        "vadRescueApplied": false,
+        "vadDetectorGain": 1,
+        "vadRescueRms": null,
+        "vadRescueRmsSamples": 0,
+        "vadRescueSpanCount": 0,
+        "vadRescueReason": "primary_nonempty",
+        "vadRescueTargetRms": 0.02,
+        "vadRescueMaxGain": 20,
+        "vadRescuePeakHeadroom": 0.95,
+        "vadRescueMinGainRatio": 1.01,
+        "vadRescueScope": "detector-only empty-primary retry; ASR input, original PCM and diarization unchanged",
+        "finalPssKb": 400879,
+        "peakMemory": "N\/A; stage boundary snapshots only",
+        "device": "unknown Android SDK built for x86_64",
+        "android": 28,
+        "runtime": "sherpa-onnx 2.0.1",
+        "backend": "GigaAM v3 E2E RNNT INT8 \/ sherpa-onnx 2.0.1",
+        "threads": 2,
+        "vadThreads": 1,
+        "sampleRate": 16000,
+        "originalPcmPeak": 0.09175876,
+        "recognitionInputGain": 1,
+        "quietGainTriggerPeak": 0.01,
+        "quietGainMax": 20,
+        "quietGainScope": "temporary VAD and ASR arrays only; original PCM\/playback\/diarization preserved",
+        "expectedSpeakers": 1,
+        "clusterThreshold": 0.5,
+        "vadThreshold": 0.5,
+        "maxAsrSegmentMs": 20000,
+        "audioMs": 11189,
+        "totalMs": 5411,
+        "pipelineRtf": 0.48359996425060325,
+        "pipelineTimingScope": "validation through ASR release; persistenceMs and telemetry.elapsedMs reported separately",
+        "asrStageRtf": 0.1643578514612566,
+        "asrInferenceRtf": 0.1378139243900259,
+        "runCondition": "uncontrolled device caches\/temperature; sequential ML stages; CPU provider",
+        "diarizationTurns": [
+          {
+            "startMs": 0,
+            "endMs": 11189,
+            "speakerId": 0
+          }
+        ],
+        "clusteringMode": "single",
+        "clusterThresholdApplied": false,
+        "automaticValidation": "not accepted on independent long Russian dialogue",
+        "segmentationWindowShiftRatio": 0.1,
+        "diarMinDurationOnSec": 0.2,
+        "diarMinDurationOffSec": 0.5,
+        "vadMinSpeechSec": 0.25,
+        "vadMinSilenceSec": 0.25,
+        "vadWindowSamples": 512,
+        "vadMaxSpeechSec": 20,
+        "preRollMs": 100,
+        "postRollMs": 0,
+        "vadSpans": [
+          {
+            "startMs": 806,
+            "endMs": 3430
+          },
+          {
+            "startMs": 4518,
+            "endMs": 7142
+          },
+          {
+            "startMs": 8486,
+            "endMs": 10950
+          }
+        ],
+        "asrSpeechSpans": [
+          {
+            "startMs": 706,
+            "endMs": 3430
+          },
+          {
+            "startMs": 4418,
+            "endMs": 7142
+          },
+          {
+            "startMs": 8386,
+            "endMs": 10950
+          }
+        ],
+        "asrSlices": [
+          {
+            "startMs": 706,
+            "endMs": 3430,
+            "speakerId": 0,
+            "text": "Я обожаю черепах.",
+            "blank": false,
+            "inferenceMs": 547,
+            "warnings": []
+          },
+          {
+            "startMs": 4418,
+            "endMs": 7142,
+            "speakerId": 0,
+            "text": "Такие спокойные и умиротворённые.",
+            "blank": false,
+            "inferenceMs": 617,
+            "warnings": []
+          },
+          {
+            "startMs": 8386,
+            "endMs": 10950,
+            "speakerId": 0,
+            "text": "Ты кого больше всего любишь?",
+            "blank": false,
+            "inferenceMs": 495,
+            "warnings": []
+          }
+        ],
+        "modelBytes": 278127730,
+        "stagesMs": {
+          "thermalWaitMs": 0,
+          "provisioningWaitMs": 0,
+          "nativeGateWaitMs": 0,
+          "validationMs": 1273,
+          "decodeMs": 262,
+          "metadataPersistenceMs": 4,
+          "vadLoadMs": 23,
+          "vadMs": 137,
+          "diarizationMs": 0,
+          "diarizationLoadMs": 0,
+          "diarizationInferenceMs": 0,
+          "alignmentMs": 2,
+          "asrLoadMs": 1544,
+          "asrReadMs": 9,
+          "asrInferenceMs": 1542,
+          "asrMs": 1839,
+          "persistenceMs": 7
+        },
+        "telemetry": {
+          "run": "86477782-eca7-4401-8eec-ce0aaf31a815",
+          "elapsedMs": 5759,
+          "stagesMs": {
+            "thermalWaitMs": 0,
+            "provisioningWaitMs": 0,
+            "nativeGateWaitMs": 0,
+            "validationMs": 1273,
+            "decodeMs": 262,
+            "metadataPersistenceMs": 4,
+            "vadLoadMs": 23,
+            "vadMs": 137,
+            "diarizationMs": 0,
+            "diarizationLoadMs": 0,
+            "diarizationInferenceMs": 0,
+            "alignmentMs": 2,
+            "asrLoadMs": 1544,
+            "asrReadMs": 9,
+            "asrInferenceMs": 1542,
+            "asrMs": 1839,
+            "persistenceMs": 7
+          },
+          "observedMaxPssKb": 401011,
+          "memoryScope": "stage boundary PSS snapshots; not continuous peak memory",
+          "thermalStatus": -1,
+          "thermalEvents": [],
+          "thermalApiSupported": false
+        }
+      }
+    },
+    {
+      "id": "masha_sveta_part9_770",
+      "reference": "Обожаю итальянскую кухню. Паста - моя слабость.",
+      "hypothesis": "Обожаю итальянскую кухню. Паста — моя слабость.",
+      "wordErrors": 0,
+      "referenceWords": 6,
+      "charErrors": 0,
+      "referenceChars": 43,
+      "originalSha256": "7e92496adce730aaa80d965c24ae27a24774760328b70c72c374e6517fc59ee5",
+      "afterSha256": "7e92496adce730aaa80d965c24ae27a24774760328b70c72c374e6517fc59ee5",
+      "diagnostics": {
+        "vadPrimarySpanCount": 1,
+        "vadPrimarySpans": [
+          {
+            "startMs": 166,
+            "endMs": 3264
+          }
+        ],
+        "vadRescueAttempted": false,
+        "vadRescueApplied": false,
+        "vadDetectorGain": 1,
+        "vadRescueRms": null,
+        "vadRescueRmsSamples": 0,
+        "vadRescueSpanCount": 0,
+        "vadRescueReason": "primary_nonempty",
+        "vadRescueTargetRms": 0.02,
+        "vadRescueMaxGain": 20,
+        "vadRescuePeakHeadroom": 0.95,
+        "vadRescueMinGainRatio": 1.01,
+        "vadRescueScope": "detector-only empty-primary retry; ASR input, original PCM and diarization unchanged",
+        "finalPssKb": 399849,
+        "peakMemory": "N\/A; stage boundary snapshots only",
+        "device": "unknown Android SDK built for x86_64",
+        "android": 28,
+        "runtime": "sherpa-onnx 2.0.1",
+        "backend": "GigaAM v3 E2E RNNT INT8 \/ sherpa-onnx 2.0.1",
+        "threads": 2,
+        "vadThreads": 1,
+        "sampleRate": 16000,
+        "originalPcmPeak": 0.07747842,
+        "recognitionInputGain": 1,
+        "quietGainTriggerPeak": 0.01,
+        "quietGainMax": 20,
+        "quietGainScope": "temporary VAD and ASR arrays only; original PCM\/playback\/diarization preserved",
+        "expectedSpeakers": 1,
+        "clusterThreshold": 0.5,
+        "vadThreshold": 0.5,
+        "maxAsrSegmentMs": 20000,
+        "audioMs": 3253,
+        "totalMs": 4896,
+        "pipelineRtf": 1.5050722410083,
+        "pipelineTimingScope": "validation through ASR release; persistenceMs and telemetry.elapsedMs reported separately",
+        "asrStageRtf": 0.3489086996618506,
+        "asrInferenceRtf": 0.30433446049800184,
+        "runCondition": "uncontrolled device caches\/temperature; sequential ML stages; CPU provider",
+        "diarizationTurns": [
+          {
+            "startMs": 0,
+            "endMs": 3253,
+            "speakerId": 0
+          }
+        ],
+        "clusteringMode": "single",
+        "clusterThresholdApplied": false,
+        "automaticValidation": "not accepted on independent long Russian dialogue",
+        "segmentationWindowShiftRatio": 0.1,
+        "diarMinDurationOnSec": 0.2,
+        "diarMinDurationOffSec": 0.5,
+        "vadMinSpeechSec": 0.25,
+        "vadMinSilenceSec": 0.25,
+        "vadWindowSamples": 512,
+        "vadMaxSpeechSec": 20,
+        "preRollMs": 100,
+        "postRollMs": 0,
+        "vadSpans": [
+          {
+            "startMs": 166,
+            "endMs": 3264
+          }
+        ],
+        "asrSpeechSpans": [
+          {
+            "startMs": 66,
+            "endMs": 3253
+          }
+        ],
+        "asrSlices": [
+          {
+            "startMs": 66,
+            "endMs": 3253,
+            "speakerId": 0,
+            "text": "Обожаю итальянскую кухню. Паста — моя слабость.",
+            "blank": false,
+            "inferenceMs": 1028,
+            "warnings": []
+          }
+        ],
+        "modelBytes": 278127730,
+        "stagesMs": {
+          "thermalWaitMs": 0,
+          "provisioningWaitMs": 0,
+          "nativeGateWaitMs": 1,
+          "validationMs": 1344,
+          "decodeMs": 167,
+          "metadataPersistenceMs": 11,
+          "vadLoadMs": 30,
+          "vadMs": 63,
+          "diarizationMs": 0,
+          "diarizationLoadMs": 0,
+          "diarizationInferenceMs": 0,
+          "alignmentMs": 5,
+          "asrLoadMs": 1696,
+          "asrReadMs": 2,
+          "asrInferenceMs": 990,
+          "asrMs": 1135,
+          "persistenceMs": 12
+        },
+        "telemetry": {
+          "run": "a419893a-954b-4502-b427-af6ef9ae7b61",
+          "elapsedMs": 5216,
+          "stagesMs": {
+            "thermalWaitMs": 0,
+            "provisioningWaitMs": 0,
+            "nativeGateWaitMs": 1,
+            "validationMs": 1344,
+            "decodeMs": 167,
+            "metadataPersistenceMs": 11,
+            "vadLoadMs": 30,
+            "vadMs": 63,
+            "diarizationMs": 0,
+            "diarizationLoadMs": 0,
+            "diarizationInferenceMs": 0,
+            "alignmentMs": 5,
+            "asrLoadMs": 1696,
+            "asrReadMs": 2,
+            "asrInferenceMs": 990,
+            "asrMs": 1135,
+            "persistenceMs": 12
+          },
+          "observedMaxPssKb": 400429,
+          "memoryScope": "stage boundary PSS snapshots; not continuous peak memory",
+          "thermalStatus": -1,
+          "thermalEvents": [],
+          "thermalApiSupported": false
+        }
+      }
+    },
+    {
+      "id": "masha_sveta_part9_1261",
+      "reference": "Они опять скандалили ночью, спать невозможно.",
+      "hypothesis": "Опять скандалили ночью. Невозможно.",
+      "wordErrors": 2,
+      "referenceWords": 6,
+      "charErrors": 10,
+      "referenceChars": 43,
+      "originalSha256": "9186e96c061d009d8ee55122f0174e06ee8f655017431b51f9ec263da55ac573",
+      "afterSha256": "9186e96c061d009d8ee55122f0174e06ee8f655017431b51f9ec263da55ac573",
+      "diagnostics": {
+        "vadPrimarySpanCount": 2,
+        "vadPrimarySpans": [
+          {
+            "startMs": 582,
+            "endMs": 2054
+          },
+          {
+            "startMs": 2726,
+            "endMs": 3744
+          }
+        ],
+        "vadRescueAttempted": false,
+        "vadRescueApplied": false,
+        "vadDetectorGain": 1,
+        "vadRescueRms": null,
+        "vadRescueRmsSamples": 0,
+        "vadRescueSpanCount": 0,
+        "vadRescueReason": "primary_nonempty",
+        "vadRescueTargetRms": 0.02,
+        "vadRescueMaxGain": 20,
+        "vadRescuePeakHeadroom": 0.95,
+        "vadRescueMinGainRatio": 1.01,
+        "vadRescueScope": "detector-only empty-primary retry; ASR input, original PCM and diarization unchanged",
+        "finalPssKb": 392746,
+        "peakMemory": "N\/A; stage boundary snapshots only",
+        "device": "unknown Android SDK built for x86_64",
+        "android": 28,
+        "runtime": "sherpa-onnx 2.0.1",
+        "backend": "GigaAM v3 E2E RNNT INT8 \/ sherpa-onnx 2.0.1",
+        "threads": 2,
+        "vadThreads": 1,
+        "sampleRate": 16000,
+        "originalPcmPeak": 0.113693245,
+        "recognitionInputGain": 1,
+        "quietGainTriggerPeak": 0.01,
+        "quietGainMax": 20,
+        "quietGainScope": "temporary VAD and ASR arrays only; original PCM\/playback\/diarization preserved",
+        "expectedSpeakers": 1,
+        "clusterThreshold": 0.5,
+        "vadThreshold": 0.5,
+        "maxAsrSegmentMs": 20000,
+        "audioMs": 3730,
+        "totalMs": 4373,
+        "pipelineRtf": 1.1723860589812332,
+        "pipelineTimingScope": "validation through ASR release; persistenceMs and telemetry.elapsedMs reported separately",
+        "asrStageRtf": 0.2970509383378016,
+        "asrInferenceRtf": 0.232171581769437,
+        "runCondition": "uncontrolled device caches\/temperature; sequential ML stages; CPU provider",
+        "diarizationTurns": [
+          {
+            "startMs": 0,
+            "endMs": 3730,
+            "speakerId": 0
+          }
+        ],
+        "clusteringMode": "single",
+        "clusterThresholdApplied": false,
+        "automaticValidation": "not accepted on independent long Russian dialogue",
+        "segmentationWindowShiftRatio": 0.1,
+        "diarMinDurationOnSec": 0.2,
+        "diarMinDurationOffSec": 0.5,
+        "vadMinSpeechSec": 0.25,
+        "vadMinSilenceSec": 0.25,
+        "vadWindowSamples": 512,
+        "vadMaxSpeechSec": 20,
+        "preRollMs": 100,
+        "postRollMs": 0,
+        "vadSpans": [
+          {
+            "startMs": 582,
+            "endMs": 2054
+          },
+          {
+            "startMs": 2726,
+            "endMs": 3744
+          }
+        ],
+        "asrSpeechSpans": [
+          {
+            "startMs": 482,
+            "endMs": 2054
+          },
+          {
+            "startMs": 2626,
+            "endMs": 3730
+          }
+        ],
+        "asrSlices": [
+          {
+            "startMs": 482,
+            "endMs": 2054,
+            "speakerId": 0,
+            "text": "Опять скандалили ночью.",
+            "blank": false,
+            "inferenceMs": 556,
+            "warnings": []
+          },
+          {
+            "startMs": 2626,
+            "endMs": 3730,
+            "speakerId": 0,
+            "text": "Невозможно.",
+            "blank": false,
+            "inferenceMs": 431,
+            "warnings": []
+          }
+        ],
+        "modelBytes": 278127730,
+        "stagesMs": {
+          "thermalWaitMs": 0,
+          "provisioningWaitMs": 0,
+          "nativeGateWaitMs": 0,
+          "validationMs": 1276,
+          "decodeMs": 133,
+          "metadataPersistenceMs": 13,
+          "vadLoadMs": 22,
+          "vadMs": 57,
+          "diarizationMs": 0,
+          "diarizationLoadMs": 0,
+          "diarizationInferenceMs": 0,
+          "alignmentMs": 4,
+          "asrLoadMs": 1370,
+          "asrReadMs": 1,
+          "asrInferenceMs": 866,
+          "asrMs": 1108,
+          "persistenceMs": 12
+        },
+        "telemetry": {
+          "run": "f7d91c1c-084a-4f1b-860c-035daabd557c",
+          "elapsedMs": 4616,
+          "stagesMs": {
+            "thermalWaitMs": 0,
+            "provisioningWaitMs": 0,
+            "nativeGateWaitMs": 0,
+            "validationMs": 1276,
+            "decodeMs": 133,
+            "metadataPersistenceMs": 13,
+            "vadLoadMs": 22,
+            "vadMs": 57,
+            "diarizationMs": 0,
+            "diarizationLoadMs": 0,
+            "diarizationInferenceMs": 0,
+            "alignmentMs": 4,
+            "asrLoadMs": 1370,
+            "asrReadMs": 1,
+            "asrInferenceMs": 866,
+            "asrMs": 1108,
+            "persistenceMs": 12
+          },
+          "observedMaxPssKb": 395582,
+          "memoryScope": "stage boundary PSS snapshots; not continuous peak memory",
+          "thermalStatus": -1,
+          "thermalEvents": [],
+          "thermalApiSupported": false
+        }
+      }
+    }
+  ],
+  "scope": "Actual Android Worker on all seven official author-labelled studio whisper test rows; independent author scripts; not vivo microphone\/phonation\/heat acceptance",
+  "expectedWords": 84,
+  "expectedSpeakers": 1,
+  "referencesUsedOnlyForScoring": true,
+  "wordErrors": 9,
+  "referenceWords": 84,
+  "charErrors": 39,
+  "referenceChars": 500,
+  "wer": 0.10714285714285714,
+  "cer": 0.078,
+  "rescuedClips": 1
+}

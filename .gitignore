@@ -30,3 +30,11 @@ review/*.zip
 # Local installable artifacts (including the preserved V1.2 build).
 release/*.apk
 release/*.idsig
+
+# Tiny original codec fixtures are test inputs, not production model/audio assets.
+!app/src/androidTest/assets/media-import/*.m4a
+
+# Private local development signing key travels with the private workspace only.
+local-dev/
+release/**/*.apk
+release/**/*.idsig

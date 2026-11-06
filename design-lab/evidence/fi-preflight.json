@@ -1,0 +1,258 @@
+{
+  "ready": false,
+  "live_creative_ready": false,
+  "model_called": false,
+  "checks": [
+    {
+      "check": "python",
+      "status": "AVAILABLE",
+      "pass_": true,
+      "detail": "3.14.4; requires >=3.11",
+      "required": true
+    },
+    {
+      "check": "platform",
+      "status": "AVAILABLE",
+      "pass_": true,
+      "detail": "Core uses POSIX fcntl/process groups; supported baseline Linux/WSL",
+      "required": true
+    },
+    {
+      "check": "node",
+      "status": "AVAILABLE",
+      "pass_": true,
+      "detail": "v24.21.0",
+      "required": true,
+      "scope": "executable/version only; no role or authorization proof"
+    },
+    {
+      "check": "codex_cli",
+      "status": "AVAILABLE",
+      "pass_": true,
+      "detail": "codex-cli 0.166.0",
+      "required": false,
+      "scope": "executable/version only; no role or authorization proof"
+    },
+    {
+      "check": "policy",
+      "status": "AVAILABLE",
+      "pass_": true,
+      "detail": "creative-freedom; current OS4 default is creative-freedom",
+      "required": true
+    },
+    {
+      "check": "execution_mode",
+      "status": "AVAILABLE",
+      "pass_": true,
+      "detail": "interactive-codex; recommended supported path: interactive-codex + controller receipts",
+      "required": true
+    },
+    {
+      "check": "interactive_agent_session",
+      "status": "UNKNOWN",
+      "pass_": false,
+      "detail": "Local diagnostics verify registration interfaces, not active Codex/API session authorization or exposed creative tools; operator verifies these in the actual session.",
+      "required": false
+    },
+    {
+      "check": "role:reference_expedition",
+      "status": "AVAILABLE",
+      "pass_": true,
+      "detail": "Explicit interactive agent execution + existing registration/validation APIs; no automatic worker claim.",
+      "required": false,
+      "execution": "agent-assisted"
+    },
+    {
+      "check": "role:creative_explosion",
+      "status": "AVAILABLE",
+      "pass_": true,
+      "detail": "Explicit interactive agent execution + existing registration/validation APIs; no automatic worker claim.",
+      "required": false,
+      "execution": "agent-assisted"
+    },
+    {
+      "check": "role:image_concept_director",
+      "status": "AVAILABLE",
+      "pass_": true,
+      "detail": "Explicit interactive agent execution + existing registration/validation APIs; no automatic worker claim.",
+      "required": false,
+      "execution": "agent-assisted"
+    },
+    {
+      "check": "role:creative_synthesis",
+      "status": "AVAILABLE",
+      "pass_": true,
+      "detail": "Explicit interactive agent execution + existing registration/validation APIs; no automatic worker claim.",
+      "required": false,
+      "execution": "agent-assisted"
+    },
+    {
+      "check": "role:component_expedition",
+      "status": "AVAILABLE",
+      "pass_": true,
+      "detail": "Explicit interactive agent execution + existing registration/validation APIs; no automatic worker claim.",
+      "required": false,
+      "execution": "agent-assisted"
+    },
+    {
+      "check": "role:full_product_builder",
+      "status": "AVAILABLE",
+      "pass_": true,
+      "detail": "Explicit interactive agent execution + existing registration/validation APIs; no automatic worker claim.",
+      "required": false,
+      "execution": "agent-assisted"
+    },
+    {
+      "check": "role:anti_slop",
+      "status": "AVAILABLE",
+      "pass_": true,
+      "detail": "Explicit interactive agent execution + existing registration/validation APIs; no automatic worker claim.",
+      "required": false,
+      "execution": "agent-assisted"
+    },
+    {
+      "check": "role:final_synthesis",
+      "status": "AVAILABLE",
+      "pass_": true,
+      "detail": "Explicit interactive agent execution + existing registration/validation APIs; no automatic worker claim.",
+      "required": false,
+      "execution": "agent-assisted"
+    },
+    {
+      "check": "role:expand",
+      "status": "AVAILABLE",
+      "pass_": true,
+      "detail": "Explicit interactive agent execution + existing registration/validation APIs; no automatic worker claim.",
+      "required": false,
+      "execution": "agent-assisted"
+    },
+    {
+      "check": "role:restraint",
+      "status": "AVAILABLE",
+      "pass_": true,
+      "detail": "Explicit interactive agent execution + existing registration/validation APIs; no automatic worker claim.",
+      "required": false,
+      "execution": "agent-assisted"
+    },
+    {
+      "check": "role:repair",
+      "status": "AVAILABLE",
+      "pass_": true,
+      "detail": "Explicit interactive agent execution + existing registration/validation APIs; no automatic worker claim.",
+      "required": false,
+      "execution": "agent-assisted"
+    },
+    {
+      "check": "image_generation",
+      "status": "UNKNOWN",
+      "pass_": false,
+      "detail": "Route: interactive-native. External authorization and actual generation have not been probed; agent must check tool exposure/access. Preserve prompts if unavailable.",
+      "required": false,
+      "configured_provider": null,
+      "actual_provider": "UNKNOWN",
+      "model": "UNKNOWN"
+    },
+    {
+      "check": "localhost_socket",
+      "status": "AVAILABLE",
+      "pass_": true,
+      "detail": "Loopback bind succeeded.",
+      "required": true
+    },
+    {
+      "check": "writable_scope",
+      "status": "AVAILABLE",
+      "pass_": true,
+      "detail": "/home/egor/frontend-intelligence-runtime/20261102-recovery/production/runs/replika-v14-20261105; writable nearest existing parent, no run initialized",
+      "required": true
+    },
+    {
+      "check": "rendered_chromium",
+      "status": "UNAVAILABLE",
+      "pass_": false,
+      "detail": "node:internal/modules/cjs/loader:1568\n  throw err;\n  ^\n\nError: Cannot find module 'playwright'\nRequire stack:\n- /home/egor/frontend-intelligence-runtime/20261102-recovery/[eval]\n    at Module._resolveFilename (node:internal/modules/cjs/loader:1564:15)\n    at wrapResolveFilename (node:internal/modules/cjs/loader:1118:27)\n    at defaultResolveImplForCJSLoading (node:internal/modules/cjs/loader:1142:10)\n    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1169:12)\n    at Module._load (node:internal/modules/cjs/loader:1341:5)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:261:19)\n    at Module.require (node:internal/modules/cjs/loader:1674:12)\n    at require (node:internal/modules/helpers:157:16)\n    at [eval]:1:18\n    at runScriptInThisContext (node:internal/vm:219:10) {\n  code: 'MODULE_NOT_FOUND',\n  requireStack: [\n    '/home/egor/frontend-intelligence-runtime/20261102-recovery/[eval]'\n  ]\n}\n\nNode.js v24.21.0\nSet node_path/HACKATHON_BROWSER_NODE_PATH and chromium_executable/HACKATHON_CHROMIUM_EXECUTABLE to existing installations; no browser downloaded.",
+      "required": true
+    },
+    {
+      "check": "presentation:PIL",
+      "status": "OPTIONAL",
+      "pass_": false,
+      "detail": "Not installed; only needed for selected presentation route",
+      "required": false,
+      "installed": false
+    },
+    {
+      "check": "presentation:pptx",
+      "status": "OPTIONAL",
+      "pass_": false,
+      "detail": "Not installed; only needed for selected presentation route",
+      "required": false,
+      "installed": false
+    },
+    {
+      "check": "presentation:piper",
+      "status": "OPTIONAL",
+      "pass_": false,
+      "detail": "Not installed; only needed for selected presentation route",
+      "required": false,
+      "installed": false
+    },
+    {
+      "check": "presentation:onnxruntime",
+      "status": "OPTIONAL",
+      "pass_": false,
+      "detail": "Not installed; only needed for selected presentation route",
+      "required": false,
+      "installed": false
+    },
+    {
+      "check": "presentation:ffmpeg",
+      "status": "OPTIONAL",
+      "pass_": false,
+      "detail": "Not on PATH; optional video export",
+      "required": false,
+      "installed": false
+    }
+  ],
+  "identity": {
+    "os_generation": "4.0",
+    "policy": "creative-freedom",
+    "execution_mode": "interactive-codex",
+    "python_package": "0.1.0",
+    "human_review": "1.1.0",
+    "presentation_craft": "1.0.0",
+    "git_head": "UNKNOWN",
+    "source": {
+      "sha256": "921126b1ca028459f677bf9f237dc2cd6234e67529190cff069dbca6f54d927f",
+      "files": {
+        "hackathon_os/__init__.py": "409b369d770c2427bb5a0bb4473febc3c10b199909fbbcb442c564e7eef89bb5",
+        "hackathon_os/adapters.py": "43864c1fa3d1b61b7e95271d5c86f7feeeeb811d4e5916f04bf15ba741242092",
+        "hackathon_os/cli.py": "a2e227b37cfc037e59b2749b245f84d20f6e936270e34a639d761897c0e776ea",
+        "hackathon_os/creative.py": "6978061dc1d5394e3b43f9cde6e441884187704dc4cc945a6737e0b49d4b22be",
+        "hackathon_os/drift.py": "a18e2da76d851c2d25031fb8c2f9a0f99ff395db98b70d428c4834f1752e7067",
+        "hackathon_os/engine.py": "88175529b8d45c3ea8f952381dd42531edd4afd75a1fdee6cc1932ced4e89691",
+        "hackathon_os/freedom.py": "34cbc1b73c1ecb681f4b619a24b02fa8dcb4732b429961e8de4dce832f34045e",
+        "hackathon_os/human_review.py": "e7ab1cd7e8b3f50c7f1362f1486856b468197a711430e1e77a3657f60be896a9",
+        "hackathon_os/ingest.py": "a3745f26383d88105abf1a6e44d29ec91cb60260410575136071d2ba9739c117",
+        "hackathon_os/invariants.py": "31467b15e3a2a3f76e300fa0314f0174fd777a0a8400069df316128f3519a9b8",
+        "hackathon_os/model.py": "62f879e469bf34a5f29d502d94a6546286be9eca9689ca2de8d2149999e6131e",
+        "hackathon_os/operator.py": "592bbb35873db9ece6da7bb6e0b3437ba6b1e525e92a0e43de72ccb13b54a329",
+        "hackathon_os/presentation.py": "86d124b44fb2407b09bbf5c4d9ff3cb5e78efeb028bbce44a17197c7933fe48a",
+        "hackathon_os/provider.py": "fd9fcc1ae3754c4eaa113ad4dda475d8abe2db481f1007cc0242d6a429ea7bb6",
+        "hackathon_os/report.py": "901a33e9cede2c686ffc25026badfde1a788bc31d7b307f87cf2cecebf29d12f",
+        "hackathon_os/runner.py": "fe4bd70ae05aa8e04bb0ff11a520c5b3db5bd3db58f701706c755c02c0b49d68",
+        "hackathon_os/store.py": "876d5a2845de4e90c186678c12bff57b11c4a1bfaea65fd10ca622a0346fb5cb",
+        "hackathon_os/topology.py": "c707a7a780ba4f5799c0fe77d82a8f398e2c530f8a71bff81b9e729c5be44250",
+        "hackathon_os/validation.py": "f01c2a4fd3c797485c705dc5bb32a3f33072b12fb1778c59767c2c4f00033f9d",
+        "hackathon_os/visibility.py": "4f61b1cfc1f23653249858c04c580d74e1ba1d7acf205a4172ba5b2aeb443c8c",
+        "examples/codex_worker.py": "da9c95ccf0066b44c9e7eeabf2592b84a486f37911c5ec4a8554ddefb23ec156",
+        "browser.cjs": "3fa56780549a0fee95ff316c042af455894fbba5d503eb459001813e0fb970d1",
+        "doctor.py": "095b3d0d2429a3ed524e2e56f0e4b9cf740730707033a61503b19756e5bcd3d6"
+      }
+    },
+    "identity_note": "Package, renderer, Craft and architecture versions are independent; Git HEAD alone does not identify working bytes."
+  },
+  "node_path": null,
+  "chromium_executable": null,
+  "next_action": "Use CLI init / next for interactive work; UNKNOWN image access needs an authorized session, never fixture-as-live proof."
+}

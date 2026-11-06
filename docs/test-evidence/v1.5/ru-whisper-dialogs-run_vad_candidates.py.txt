@@ -1,0 +1,56 @@
+#!/usr/bin/env python3
+"""HOST-ONLY, two predeclared zero-span retries. ASR models are never loaded here."""
+import pathlib,json,sys,hashlib,collections
+repo=pathlib.Path('/mnt/f/Hackathons/ReplikaAndroid');root=pathlib.Path(__file__).parent
+sys.path.insert(0,'/mnt/f/ReplikaToolchain/python');sys.path.insert(0,str(repo/'tools'))
+import numpy as np,sherpa_onnx as sherpa
+import benchmark_asr_v15 as b
+out={'runtime':sherpa.__version__,'scope':'HOST VAD-only; NO ASR/native application configuration changes','vadThreads':1,'seed':104,'policies':{'A':'If default0.5 empty and originalpeak>1e-6: detector-only gain=min(4,0.95/(peak*currentgain)); retry0.5; ASR keeps original currentgain','B':'If default0.5 empty and originalpeak>1e-6: retryexisting diagnostic threshold0.2 with original currentgain'},'shared':{'minSpeechSec':.25,'minSilenceSec':.25,'maxSpeechSec':20,'preRollMs':100,'postRollMs':0,'sampleRate':16000,'blockSamples':512},'speech':[],'controls':[],'scriptSha256':hashlib.sha256(pathlib.Path(__file__).read_bytes()).hexdigest()}
+def save():(root/'vad-candidates.json').write_text(json.dumps(out,ensure_ascii=False,indent=2))
+def vad(x,g,threshold):
+ c=sherpa.VadModelConfig();c.silero_vad.model=str(repo/'model-pack/vad/silero_vad.onnx');c.silero_vad.threshold=threshold;c.silero_vad.min_silence_duration=.25;c.silero_vad.min_speech_duration=.25;c.silero_vad.max_speech_duration=20;c.sample_rate=16000;c.num_threads=1
+ d=sherpa.VoiceActivityDetector(c,buffer_size_in_seconds=60);spans=[]
+ def drain():
+  while not d.empty():
+   s=d.front;spans.append([s.start,s.start+len(s.samples)]);d.pop()
+ for pos in range(0,len(x),512):
+  block=np.zeros(512,dtype=np.float32);n=min(512,len(x)-pos);block[:n]=x[pos:pos+n]*g;d.accept_waveform(block);drain()
+ d.flush();drain();return spans
+def context(spans,n):
+ duration=n//16;ret=[]
+ for start,end in spans:
+  s=max(0,min(duration,start*1000//16000)-100);e=min(duration,end*1000//16000)
+  if e>s:
+   if ret and s<=ret[-1][1]:ret[-1][1]=max(ret[-1][1],e)
+   else:ret.append([s,e])
+ return ret
+def process(label,x,g,expected):
+ peak=float(np.max(np.abs(x)));first=vad(x,g,.5);assert first==expected,(label,'firstpass mismatch',first,expected)
+ candidates={}
+ for name in ('A','B'):
+  multiplier=1.;retry=None
+  if not first and peak>1e-6:
+   if name=='A':multiplier=min(4.,.95/(peak*g));retry=vad(x,g*multiplier,.5)
+   else:retry=vad(x,g,.2)
+  selected=first if first else (retry or [])
+  if first:assert json.dumps(selected)==json.dumps(first)
+  candidates[name]={'retrySpans':retry,'detectorOnlyMultiplier':multiplier,'asrInputGainUnchanged':g,'selectedSpans':selected,'contextMs':context(selected,len(x)),'recoveredEmpty':not first and bool(selected),'firstPassPreserved':bool(first),'contextRetainedSec':sum(e-s for s,e in context(selected,len(x)))/1000}
+ return {'id':label,'audioSec':len(x)/16000,'originalPeak':peak,'originalRms':float(np.sqrt(np.mean(x*x))),'currentGain':g,'defaultSpans':first,'candidates':candidates}
+prior=json.loads((root/'results.json').read_text());speechprior={x['id']:x for x in prior['inputs']}
+for f in json.loads((root/'fixtures.json').read_text())['fixtures']:
+ x=b.read_wav(root/f['path'],np);row=process(f['id'],x,b.candidate_gain(np,x),speechprior[f['id']]['rawVadSpansSamples']);out['speech'].append(row);save();print('speech',f['id'],{n:v['recoveredEmpty'] for n,v in row['candidates'].items()},flush=True)
+rng=np.random.default_rng(104);n=16000*15;t=np.arange(n)/16000
+white=rng.normal(0,1,n);freq=np.fft.rfftfreq(n);pink=np.fft.irfft(np.fft.rfft(white)/np.sqrt(np.maximum(freq,1/n)),n);pink=(pink/np.max(np.abs(pink))*.004).astype(np.float32)
+impulses=np.zeros(n,dtype=np.float32)
+for start in range(0,n,8000):impulses[start:start+800]=(.004*np.exp(-np.arange(800)/90)*rng.normal(0,1,800)).astype(np.float32)
+controls=[('silence',np.zeros(n)),('near_silence',rng.normal(0,1e-8,n)),('white_noise_-60dBFS',white*.001),('white_noise_-40dBFS',white*.01),('pink_noise_peak_004',pink),('hum_80Hz_peak_003',.003*np.sin(2*np.pi*80*t)),('hum_50Hz_harmonics',.001*(np.sin(2*np.pi*50*t)+np.sin(2*np.pi*100*t)+np.sin(2*np.pi*150*t))),('repeating_short_impulses',impulses),('quiet_repeating_short_impulses',impulses*.1),('synthetic_stationary_chord',.001*(np.sin(2*np.pi*220*t)+np.sin(2*np.pi*277*t)+np.sin(2*np.pi*330*t))),('fan_hum_and_noise',.001*np.sin(2*np.pi*120*t)+white*.0003)]
+negprior={(x['id'],x['mode']):x for x in json.loads((root/'zero-span-backoff.json').read_text())['controls']}
+for label,x in controls:
+ x=x.astype(np.float32)
+ for mode,g in [('original',1.),('production-bounded-gain',b.candidate_gain(np,x))]:
+  row=process(label,x,g,negprior[label,mode]['defaultSpans']);row['mode']=mode;out['controls'].append(row);save();print('negative',label,mode,{n:v['recoveredEmpty'] for n,v in row['candidates'].items()},flush=True)
+out['summary']={}
+for name in ('A','B'):
+ positive=[x['id'] for x in out['speech'] if x['candidates'][name]['recoveredEmpty']];negative=[x for x in out['controls'] if x['candidates'][name]['recoveredEmpty']]
+ out['summary'][name]={'recoveredEmptySpeechIds':positive,'recoveredEmptySpeechFiles':len(positive),'firstPassNonemptySpeechPreserved':sum(bool(x['defaultSpans']) for x in out['speech']),'newFalseVadRuns':len(negative),'newFalseVadIds':sorted(set(x['id'] for x in negative)),'negativeRuns':len(out['controls']),'contextRetainedSec':sum(x['candidates'][name]['contextRetainedSec'] for x in out['speech'])}
+save();print(json.dumps(out['summary'],indent=2),flush=True)

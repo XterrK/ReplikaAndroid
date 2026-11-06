@@ -43,7 +43,8 @@ class TranscriptModesV13Test {
   File(folder,name).outputStream().use { image.compress(Bitmap.CompressFormat.PNG,100,it) };image.recycle()
  }
  @Test fun readingCopyEditAndRecreationShareRoomDataWithoutInference() {
-  compose.onNodeWithTag("logical-turn-$id-a").assertExists()
+  compose.onNodeWithTag("segment-$id-a").assertExists()
+  compose.onNodeWithTag("segment-$id-b").assertExists()
   capture("01-dialogue-controlled.png")
   compose.onNodeWithTag("mode-reading").performClick()
   compose.onNodeWithText("Первая часть мысли. Продолжение мысли.").assertIsDisplayed()

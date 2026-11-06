@@ -35,6 +35,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.core.content.FileProvider
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
@@ -92,8 +93,6 @@ private val EditorRowSaver=listSaver<SegmentRow?,Any>(
  }
  val clipboard=LocalClipboardManager.current
  val groups=remember(rows) { TranscriptPresentation.groups(rows.map { it.domain() }) }
- val rowsById=remember(rows) { rows.associateBy { it.id } }
- val shownGroups=remember(groups,filter) { groups.filter { filter==null || it.speakerId==filter } }
  val visible=remember(rows,filter) { rows.filter { filter==null || it.speakerId==filter } }
  val pending=remember(rows) { rows.count { !it.reviewed && reviewIssues(it).isNotEmpty() } }
  val active=rows.firstOrNull { position>=it.startMs && position<it.endMs }
@@ -124,7 +123,7 @@ private val EditorRowSaver=listSaver<SegmentRow?,Any>(
  }
  LaunchedEffect(active?.id,follow,filter,review,reading) {
   if(follow && !review && !reading && active!=null) {
-   val index=shownGroups.indexOfFirst { group -> group.parts.any { it.id==active.id } }
+   val index=visible.indexOfFirst { it.id==active.id }
    if(index>=0) listState.animateScrollToItem(index)
   }
  }
@@ -147,7 +146,7 @@ private val EditorRowSaver=listSaver<SegmentRow?,Any>(
     ProcessingPane(vm,rec,Modifier.weight(1f))
    } else {
     AudioDock(
-     peaks,rows,rec.durationMs,position,playing,speed,stopAt,compact,
+     peaks,rows,rec.durationMs,position,playing,speed,stopAt,compact,minimal=reading || review,
      onSeek={seek(it)},onToggle={if(playing || player.playWhenReady) player.pause() else player.play()},
      onBack={seek(position-10000)},onForward={seek(position+10000)},
      onSpeed={speed=when(speed) { 1f->1.25f;1.25f->1.5f;1.5f->2f;else->1f };player.setPlaybackSpeed(speed)}
@@ -165,7 +164,7 @@ private val EditorRowSaver=listSaver<SegmentRow?,Any>(
      IconToggleButton(checked=follow,onCheckedChange={follow=it}) { Icon(Icons.Outlined.Sync,"Следовать за воспроизведением",tint=if(follow) Blue else Muted) }
      TextButton(onClick={review=!review},modifier=Modifier.heightIn(min=48.dp).testTag("smart-review-toggle")) {
       Icon(Icons.Outlined.FactCheck,null,Modifier.size(18.dp));Spacer(Modifier.width(6.dp))
-      Text("Smart Review"+if(pending>0) " · "+pending else "",style=MaterialTheme.typography.labelMedium,color=if(review) Mint else Blue)
+      Text("Проверка"+if(pending>0) " · "+pending else "",style=MaterialTheme.typography.labelMedium,color=if(review) Mint else Blue)
      }
     }
     HorizontalDivider(color=SurfaceLine.copy(alpha=.65f))
@@ -175,7 +174,7 @@ private val EditorRowSaver=listSaver<SegmentRow?,Any>(
      }
      reading -> LazyColumn(Modifier.weight(1f).testTag("reading-text"),contentPadding=PaddingValues(20.dp),verticalArrangement=Arrangement.spacedBy(20.dp)) {
       items(groups,key={it.id}) { group ->
-       SelectionContainer { Text(group.text,style=MaterialTheme.typography.bodyLarge,modifier=Modifier.fillMaxWidth().testTag("reading-paragraph-"+group.id)) }
+       SelectionContainer { Text(group.text,style=MaterialTheme.typography.bodyLarge.copy(fontSize=18.sp,lineHeight=29.sp),modifier=Modifier.fillMaxWidth().testTag("reading-paragraph-"+group.id)) }
       }
      }
      review -> SmartReviewQueue(
@@ -186,7 +185,7 @@ private val EditorRowSaver=listSaver<SegmentRow?,Any>(
      rows.isEmpty() -> ProductEmptyState(
       "В стенограмме нет реплик","Послушайте исходное аудио. Пустой результат не доказывает отсутствия речи.",
       Modifier.weight(1f).testTag("transcript-empty")
-     ) { OutlinedButton(onClick={listenAll()},modifier=Modifier.heightIn(min=48.dp)) { Text("Прослушать запись") } }
+     ) { OutlinedButton(shape=ProductShape.control,onClick={listenAll()},modifier=Modifier.heightIn(min=48.dp)) { Text("Прослушать запись") } }
      visible.isEmpty() -> ProductEmptyState(
       "У этого участника нет реплик","Выберите другого участника или вернитесь к полному диалогу.",
       Modifier.weight(1f)
@@ -195,12 +194,8 @@ private val EditorRowSaver=listSaver<SegmentRow?,Any>(
       state=listState,modifier=Modifier.weight(1f).testTag("transcript-list"),
       contentPadding=PaddingValues(top=8.dp,bottom=24.dp)
      ) {
-      itemsIndexed(shownGroups,key={_,group -> group.id}) { index,group ->
-       val parts=group.parts.mapNotNull { rowsById[it.id] }
-       if(parts.size==1) {
-        val row=parts.single()
-        DialogueRow(row,::name,active?.id==row.id,index<shownGroups.lastIndex,onPlay={play(row)},onEdit={editing=row},onRename={renaming=row.speakerId})
-       } else LogicalDialogue(group,parts,::name,active?.id,onPlay={play(it)},onEdit={editing=it},onRename={renaming=group.speakerId})
+      itemsIndexed(visible,key={_,row -> row.id}) { index,row ->
+       DialogueRow(row,::name,active?.id==row.id,index<visible.lastIndex,onPlay={play(row)},onEdit={editing=row},onRename={renaming=row.speakerId})
       }
      }
     }
@@ -225,97 +220,47 @@ private val EditorRowSaver=listSaver<SegmentRow?,Any>(
  if(exporting) TranscriptExport(vm,rec,onDismiss={exporting=false})
 }
 
-@Composable private fun AudioDock(
- peaks: List<Float>,rows: List<SegmentRow>,duration: Long,position: Long,playing: Boolean,speed: Float,stopAt: Long?,compact: Boolean,
- onSeek: (Long)->Unit,onToggle: ()->Unit,onBack: ()->Unit,onForward: ()->Unit,onSpeed: ()->Unit
-) {
- Column(Modifier.fillMaxWidth().padding(horizontal=16.dp,vertical=4.dp).background(SurfaceBase,ProductShape.panel).padding(horizontal=12.dp,vertical=10.dp)) {
-  val currentSeek by rememberUpdatedState(onSeek)
-  Box(
-   Modifier.fillMaxWidth().height(if(compact) 56.dp else 64.dp).testTag("audio-waveform")
-    .semantics {
-     contentDescription="Аудиодорожка и участники. Цвета совпадают с метками говорящих в тексте."
-     progressBarRangeInfo=ProgressBarRangeInfo((position.toFloat()/duration.coerceAtLeast(1)).coerceIn(0f,1f),0f..1f)
-     setProgress { value -> currentSeek((value.coerceIn(0f,1f)*duration).toLong());true }
-    }.pointerInput(duration) { detectTapGestures { currentSeek((it.x/size.width*duration).toLong()) } }
-  ) {
-   Waveform(peaks,position.toFloat()/duration.coerceAtLeast(1),Modifier.fillMaxWidth().height(if(compact) 44.dp else 52.dp).clearAndSetSemantics {},Blue) { currentSeek((it*duration).toLong()) }
-   Box(Modifier.fillMaxWidth().align(Alignment.BottomCenter)) { SpeakerTimeline(rows,duration,position) }
-  }
-  Row(Modifier.fillMaxWidth(),verticalAlignment=Alignment.CenterVertically) {
-   Column(Modifier.weight(1f)) {
-    Text(if(compact) audioClock(position,duration) else audioClock(position,duration)+" / "+audioClock(duration),style=MaterialTheme.typography.labelSmall,color=Muted,maxLines=1,modifier=Modifier.testTag("playback-clock"))
-    if(stopAt!=null) Text("До "+formatElapsed(stopAt),style=MaterialTheme.typography.labelSmall,color=Blue,maxLines=1)
-    else if(!compact) Text("Цвет — участник",style=MaterialTheme.typography.labelSmall,color=Muted,maxLines=1)
-   }
-   IconButton(onClick=onBack) { Icon(Icons.Outlined.Replay10,"Назад 10 секунд") }
-   FilledIconButton(onClick=onToggle,modifier=Modifier.size(48.dp)) { Icon(if(playing) Icons.Outlined.Pause else Icons.Outlined.PlayArrow,if(playing) "Пауза" else "Воспроизвести") }
-   IconButton(onClick=onForward) { Icon(Icons.Outlined.Forward10,"Вперёд 10 секунд") }
-   TextButton(onClick=onSpeed,modifier=Modifier.widthIn(min=48.dp).heightIn(min=48.dp).testTag("playback-speed"),contentPadding=PaddingValues(horizontal=4.dp)) { Text(speed.toString()+"×",style=MaterialTheme.typography.labelMedium) }
-  }
- }
-}
-
 @Composable private fun SpeakerTimeline(rows: List<SegmentRow>,duration: Long,position: Long) {
+ val colors=rows.map { speakerColor(it.speakerId) };val blue=Blue
  Canvas(
-  Modifier.fillMaxWidth().height(6.dp).clip(ProductShape.control).background(SurfaceLine)
+  Modifier.fillMaxWidth().height(4.dp).clip(ProductShape.control).background(SurfaceLine)
    .testTag("speaker-timeline").clearAndSetSemantics {}
  ) {
-  rows.forEach { row ->
+  rows.forEachIndexed { index,row ->
    val a=(row.startMs.toFloat()/duration.coerceAtLeast(1)).coerceIn(0f,1f)*size.width
    val b=(row.endMs.toFloat()/duration.coerceAtLeast(1)).coerceIn(0f,1f)*size.width
-   drawRect(speakerColor(row.speakerId),Offset(a,0f),Size((b-a).coerceAtLeast(0f),size.height))
+   drawRect(colors[index],Offset(a,0f),Size((b-a).coerceAtLeast(0f),size.height))
   }
   val x=(position.toFloat()/duration.coerceAtLeast(1)).coerceIn(0f,1f)*size.width
-  drawLine(Blue,Offset(x,0f),Offset(x,size.height),2.dp.toPx())
- }
-}
-
-@Composable private fun LogicalDialogue(group: LogicalTurn,parts: List<SegmentRow>,name: (Int)->String,activeId: String?,onPlay: (SegmentRow)->Unit,onEdit: (SegmentRow)->Unit,onRename: ()->Unit) {
- Column(Modifier.fillMaxWidth().padding(horizontal=20.dp,vertical=12.dp).testTag("logical-turn-"+group.id)) {
-  Row(verticalAlignment=Alignment.CenterVertically,horizontalArrangement=Arrangement.spacedBy(10.dp)) {
-   SpeakerAvatar(group.speakerId)
-   Text(name(group.speakerId),style=MaterialTheme.typography.labelMedium,color=speakerColor(group.speakerId),modifier=Modifier.weight(1f).heightIn(min=48.dp).clickable(onClick=onRename).wrapContentHeight())
-   Text(segmentIntervalLabel(group.startMs,group.endMs),style=MaterialTheme.typography.labelSmall,color=Muted)
-  }
-  parts.forEach { row ->
-   Row(Modifier.fillMaxWidth().background(if(activeId==row.id) Blue.copy(alpha=.09f) else Ink).testTag("segment-"+row.id).semantics { selected=activeId==row.id }.clickable { onPlay(row) },verticalAlignment=Alignment.CenterVertically) {
-    Column(Modifier.weight(1f)) {
-     Text(row.text,style=MaterialTheme.typography.bodyLarge)
-     Text(segmentIntervalLabel(row.startMs,row.endMs)+(if(row.edited) " · Изменено" else "")+(if(row.reviewed) " · Проверено" else if(reviewIssues(row).isNotEmpty()) " · Нужна проверка" else ""),style=MaterialTheme.typography.labelSmall,color=Muted)
-    }
-    IconButton(onClick={onEdit(row)},modifier=Modifier.size(48.dp)) { Icon(Icons.Outlined.MoreHoriz,"Изменить реплику",tint=Muted) }
-   }
-  }
+  drawLine(blue,Offset(x,0f),Offset(x,size.height),2.dp.toPx())
  }
 }
 
 @Composable private fun DialogueRow(row: SegmentRow,name: (Int)->String,active: Boolean,hasNext: Boolean,onPlay: ()->Unit,onEdit: ()->Unit,onRename: ()->Unit) {
+ val blue=Blue;val line=SurfaceLine;val largeFont=LocalDensity.current.fontScale>=1.2f
  val issues=remember(row.reasons,row.speakerId) { reviewIssues(row) }
- Row(
-  Modifier.fillMaxWidth().background(if(active) Blue.copy(alpha=.09f) else Ink)
-   .drawBehind {
-    if(active) drawRect(Blue,Offset.Zero,Size(3.dp.toPx(),size.height))
-    if(hasNext) drawLine(SurfaceLine.copy(alpha=.7f),Offset(32.dp.toPx(),34.dp.toPx()),Offset(32.dp.toPx(),size.height),1.dp.toPx())
-   }.testTag("segment-"+row.id).semantics { selected=active }.clickable(onClick=onPlay).padding(start=20.dp,end=12.dp,top=12.dp,bottom=12.dp),
-  horizontalArrangement=Arrangement.spacedBy(12.dp),verticalAlignment=Alignment.Top
- ) {
-  SpeakerAvatar(row.speakerId,Modifier.padding(top=4.dp))
-  Column(Modifier.weight(1f),verticalArrangement=Arrangement.spacedBy(5.dp)) {
-   Row(verticalAlignment=Alignment.CenterVertically) {
-    Text(name(row.speakerId),style=MaterialTheme.typography.labelMedium,color=speakerColor(row.speakerId),modifier=Modifier.weight(1f).heightIn(min=48.dp).clickable(onClick=onRename).wrapContentHeight(Alignment.CenterVertically),maxLines=2,overflow=TextOverflow.Ellipsis)
-    IconButton(onClick=onEdit,modifier=Modifier.size(48.dp)) { Icon(Icons.Outlined.MoreHoriz,"Изменить реплику",Modifier.size(20.dp),tint=Muted) }
+ Column(Modifier.fillMaxWidth().background(if(active) Blue.copy(alpha=.09f) else Ink)
+  .drawBehind { if(active) drawRect(blue,Offset.Zero,Size(3.dp.toPx(),size.height)) }
+  .testTag("segment-"+row.id).semantics { selected=active }.clickable(onClick=onPlay).padding(horizontal=20.dp)) {
+  Row(Modifier.fillMaxWidth(),verticalAlignment=Alignment.CenterVertically,horizontalArrangement=Arrangement.spacedBy(8.dp)) {
+   SpeakerAvatar(row.speakerId,Modifier.size(22.dp))
+   Column(Modifier.weight(1f).heightIn(min=48.dp).clickable(onClick=onRename),verticalArrangement=Arrangement.Center) {
+    Text(name(row.speakerId),style=MaterialTheme.typography.labelMedium,color=speakerColor(row.speakerId),maxLines=2,overflow=TextOverflow.Ellipsis)
+    if(largeFont) Text(segmentIntervalLabel(row.startMs,row.endMs),style=MaterialTheme.typography.labelSmall,color=Muted)
    }
-   Text(segmentIntervalLabel(row.startMs,row.endMs),style=MaterialTheme.typography.labelSmall,color=if(active) Blue else Muted)
-   Text(row.text,style=MaterialTheme.typography.bodyLarge)
-   if(row.edited || row.reviewed || issues.isNotEmpty()) {
-    Row(Modifier.fillMaxWidth(),horizontalArrangement=Arrangement.spacedBy(10.dp),verticalAlignment=Alignment.CenterVertically) {
-     if(row.reviewed) Text("Проверено",style=MaterialTheme.typography.labelSmall,color=Mint)
-     if(row.edited) Text("Изменено",style=MaterialTheme.typography.labelSmall,color=Muted)
-     if(!row.reviewed && issues.isNotEmpty()) Text("Нужна проверка",style=MaterialTheme.typography.labelSmall,color=Amber)
-    }
+   if(!largeFont) Text(segmentIntervalLabel(row.startMs,row.endMs),style=MaterialTheme.typography.labelSmall,color=Muted)
+   IconButton(onClick=onEdit,modifier=Modifier.size(48.dp)) { Icon(Icons.Outlined.MoreHoriz,"Изменить реплику",Modifier.size(20.dp),tint=Muted) }
+  }
+  Text(row.text,style=MaterialTheme.typography.bodyLarge)
+  if(row.edited || row.reviewed || issues.isNotEmpty()) {
+   Row(Modifier.padding(top=6.dp),horizontalArrangement=Arrangement.spacedBy(10.dp)) {
+    if(row.reviewed) Text("Проверено",style=MaterialTheme.typography.labelSmall,color=Mint)
+    if(row.edited) Text("Изменено",style=MaterialTheme.typography.labelSmall,color=Muted)
+    if(!row.reviewed && issues.isNotEmpty()) Text("Нужна проверка",style=MaterialTheme.typography.labelSmall,color=Amber)
    }
   }
+  Spacer(Modifier.height(12.dp))
+  if(hasNext) HorizontalDivider(color=line)
  }
 }
 
@@ -335,7 +280,7 @@ private val EditorRowSaver=listSaver<SegmentRow?,Any>(
      LinearProgressIndicator(Modifier.fillMaxWidth())
      Text(if(rec.status=="CANCELLING") "Текущую нативную операцию нельзя прервать мгновенно. Завершаем её; запись останется в библиотеке." else "Аудио обрабатывается на устройстве. Можно вернуться к библиотеке — задание продолжится.",style=MaterialTheme.typography.bodyMedium,color=Muted)
     }
-    if(rec.status!="CANCELLING") OutlinedButton(onClick={vm.cancel(rec.id)},modifier=Modifier.heightIn(min=48.dp)) { Text("Отменить обработку") }
+    if(rec.status!="CANCELLING") OutlinedButton(shape=ProductShape.control,onClick={vm.cancel(rec.id)},modifier=Modifier.heightIn(min=48.dp)) { Text("Отменить обработку") }
    }
    else -> {
     Text(if(rec.status=="ERROR") "Не удалось обработать аудио" else if(rec.status=="CANCELLED") "Обработка остановлена" else "Готово к обработке",style=MaterialTheme.typography.headlineMedium)
@@ -358,14 +303,14 @@ private val EditorRowSaver=listSaver<SegmentRow?,Any>(
       FilterChip(selected=threads==2,onClick={threads=2},label={Text("Обычная")})
      }
     }
-    Button(onClick={vm.process(rec.id,when(speakerMode) { "single"->1;"fixed"->count.toInt();else->-1 },threads)},enabled=speakerMode!="fixed" || count.toIntOrNull()?.let { it in 2..20 }==true,modifier=Modifier.fillMaxWidth().heightIn(min=52.dp)) { Text(if(rec.status=="IMPORTED") "Создать стенограмму" else "Повторить обработку") }
+    Button(shape=ProductShape.control,onClick={vm.process(rec.id,when(speakerMode) { "single"->1;"fixed"->count.toInt();else->-1 },threads)},enabled=speakerMode!="fixed" || count.toIntOrNull()?.let { it in 2..20 }==true,modifier=Modifier.fillMaxWidth().heightIn(min=52.dp)) { Text(if(rec.status=="IMPORTED") "Создать стенограмму" else "Повторить обработку") }
     Text("Нужны выбранная модель распознавания и VAD; для нескольких участников — модели говорящих. Управление установкой — в разделе «Модели».",style=MaterialTheme.typography.bodySmall,color=Muted)
    }
   }
  }
 }
 
-@Composable private fun TranscriptExport(vm: AppViewModel,rec: Recording,onDismiss: ()->Unit) {
+@Composable fun TranscriptExport(vm: AppViewModel,rec: Recording,onDismiss: ()->Unit) {
  val context=LocalContext.current
  val app=context.applicationContext as ReplikaApp
  val scope=rememberCoroutineScope()

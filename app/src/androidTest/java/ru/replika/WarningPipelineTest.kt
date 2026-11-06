@@ -55,7 +55,7 @@ class WarningPipelineTest {
   val source=File(app.filesDir,"integration-example.wav")
   assertTrue("Stage the official public Russian WAV before running this test",source.isFile)
   assertEquals("This fixture must not silently use personal or replacement audio",SOURCE_SHA256,sha256(source))
-  app.models.requireReady("giga-v2")
+  app.models.requireReady()
   assertEquals(100L,ProcessingWorker.PRE_ROLL_MS)
   assertEquals(0L,ProcessingWorker.POST_ROLL_MS)
 
@@ -64,7 +64,7 @@ class WarningPipelineTest {
   val outcomes=JSONArray()
   val report=JSONObject().put("schemaVersion",1).put("recordingId",RECORDING_ID)
    .put("source","official GigaAM conversion Russian mono WAV; a controlled excerpt, not a new dialogue")
-   .put("sourceSha256",SOURCE_SHA256).put("sampleRate",16000).put("backend","giga-v2")
+   .put("sourceSha256",SOURCE_SHA256).put("sampleRate",16000).put("backend",app.models.asrId)
    .put("transform","decode source to mono 16 kHz; crop real samples; write signed PCM16 little-endian WAV")
    .put("timestampScope","timestamps are global within the new excerpt file; add sourceOffsetMs only when relating back to the source")
    .put("warningPolicy","unchanged production conditions; no injected text, speaker turns or warning reasons")
@@ -97,7 +97,7 @@ class WarningPipelineTest {
      outcomes.put(candidate);saveReport()
      // Only this dedicated QA record is replaced. The source and all other recordings remain intact.
      dao.clearSegments(RECORDING_ID)
-     dao.insert(Recording(RECORDING_ID,TITLE,audio.path,backend="giga-v2",expectedSpeakers=-1))
+     dao.insert(Recording(RECORDING_ID,TITLE,audio.path,backend=app.models.asrId,expectedSpeakers=-1))
      if(index==0) {
       app.startActivity(Intent(app,MainActivity::class.java).putExtra("recordingId",RECORDING_ID)
        .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK))

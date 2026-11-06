@@ -35,6 +35,7 @@ abstract class ReplikaDao {
  @Query("SELECT * FROM recordings WHERE id=:id") abstract suspend fun recording(id: String): Recording?
  @Query("SELECT * FROM segments WHERE id=:id") abstract suspend fun segment(id: String): SegmentRow?
  @Query("SELECT * FROM recordings ORDER BY createdAt DESC") abstract suspend fun recordingList(): List<Recording>
+ @Query("SELECT EXISTS(SELECT 1 FROM recordings WHERE audioPath IN (:paths))") abstract suspend fun audioPathsReferenced(paths: List<String>): Boolean
  @Query("SELECT * FROM segments WHERE recordingId=:id ORDER BY startMs,endMs") abstract fun segments(id: String): Flow<List<SegmentRow>>
  @Query("SELECT * FROM segments WHERE recordingId=:id ORDER BY startMs,endMs") abstract suspend fun segmentList(id: String): List<SegmentRow>
  @Query("SELECT * FROM speakers WHERE recordingId=:id") abstract fun speakers(id: String): Flow<List<SpeakerRow>>

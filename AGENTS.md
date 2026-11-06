@@ -1,0 +1,13 @@
+# REPLIKA Android — продолжение работы
+
+- Сначала прочитать `PROJECT_STATE.md`, `KNOWN_ISSUES.md`, `TEST_REPORT_V1_6.md` и `HANDOFF.md`. Актуальная версия 1.6/code 8, ML pack 1.5. Корневые V1.2–V1.5 отчёты исторические.
+- Нативный Kotlin/Jetpack Compose, приложение `ru.replika.offline`. Не переписывать на React/WebView; React Bits и другие веб-работы — только референсы.
+- Текущая главная: `ui/RecordingHome.kt`; шар и fallback: `LiquidVoiceOrb.kt`; динамика: `OrbDynamics.kt`; выход/нижняя панель: `Screens.kt`; рекордер: `AppViewModel.kt`.
+- Голосовой уровень приходит из реального MediaRecorder. Touch не должен подмешиваться в микрофонный индикатор. Амплитудная волна у правой стенки — overlay, не колонка с layout weight. Сохранять центр шара/статуса/таймера.
+- «Назад», стрелка, «Завершить» ведут к одному выбору сохранить/удалить. Черновик не публикуется в Room до сохранения. Закрытие выбора восстанавливает только ранее работающую запись. После завершения сбрасывать elapsed, но сохранять durationMs в метаданных.
+- Для новой машины: `tools/build_portable.py`, `tools/verify_workspace.py`, `PORTABILITY.md`. `build_local.py` предназначен только для старого F:/WSL окружения. Не добавлять новые абсолютные пути.
+- Модели, native .so и `local-dev/debug.keystore` игнорируются Git, но нужны в приватной рабочей копии. Не удалять их и не публиковать ключ. Подпись должна позволять обновление поверх прежнего APK без удаления записей.
+- Не использовать `git reset --hard`/`git clean -xfd`: в рабочем дереве много предыдущей незакоммиченной работы. `.git` сохранять. История APK находится в `release/archive/`.
+- Не менять ML/VAD/quiet gain/диаризацию при UI-задаче. Automatic diarization остаётся известным дефектом.
+- Проверки UI: `RecordingExperienceV16Test`, `EdgeMicrophoneV16Test`, `OrbRendererV14Test`, `OrbInteractionV15Test`. Runner: `tools/run_ui_v16.py` (только явно выбранный эмулятор, без очистки app data). Проверять portrait compact/large font и обе темы; важны реальные нативные скриншоты.
+- Синтетическая огибающая — только visual fixture. Не выдавать эмулятор за физический микрофон, GPU, батарею или benchmark качества. Итоги и фактические ограничения записывать в текущий отчёт.

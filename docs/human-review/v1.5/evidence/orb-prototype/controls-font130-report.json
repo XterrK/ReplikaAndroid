@@ -1,0 +1,765 @@
+{
+  "stage": "after",
+  "scope": "Conceptual browser prototype; simulated amplitude, no microphone/Android verification",
+  "browser": "Browser plugin not available; existing Playwright 1.64.1 and Chromium",
+  "url": "http://localhost:4174",
+  "checks": {
+    "identity": "PASS",
+    "notBlank": "PASS",
+    "frameworkOverlay": "none",
+    "consoleHealth": "PASS",
+    "interactionProof": "start/pause/resume/stop state assertions passed"
+  },
+  "results": [
+    {
+      "theme": "light",
+      "viewport": {
+        "width": 360,
+        "height": 640
+      },
+      "controlFontScale": 1.3,
+      "states": [
+        {
+          "state": "idle",
+          "controls": [
+            {
+              "text": "Начать запись",
+              "lines": 1,
+              "textWidth": 128.9375,
+              "available": 280,
+              "fontSize": "18.2px",
+              "x": 24,
+              "y": 425,
+              "width": 312,
+              "height": 50,
+              "inViewport": true
+            }
+          ],
+          "horizontalOverflow": false,
+          "pass": true
+        },
+        {
+          "state": "recording",
+          "controls": [
+            {
+              "text": "Пауза",
+              "lines": 1,
+              "textWidth": 53.71875,
+              "available": 117,
+              "fontSize": "18.2px",
+              "x": 24,
+              "y": 425,
+              "width": 151,
+              "height": 50,
+              "inViewport": true
+            },
+            {
+              "text": "Остановить",
+              "lines": 1,
+              "textWidth": 104.671875,
+              "available": 119,
+              "fontSize": "18.2px",
+              "x": 185,
+              "y": 425,
+              "width": 151,
+              "height": 50,
+              "inViewport": true
+            }
+          ],
+          "horizontalOverflow": false,
+          "pass": true
+        },
+        {
+          "state": "paused",
+          "controls": [
+            {
+              "text": "Продолжить",
+              "lines": 1,
+              "textWidth": 111.640625,
+              "available": 117,
+              "fontSize": "18.2px",
+              "x": 24,
+              "y": 425,
+              "width": 151,
+              "height": 50,
+              "inViewport": true
+            },
+            {
+              "text": "Остановить",
+              "lines": 1,
+              "textWidth": 104.671875,
+              "available": 119,
+              "fontSize": "18.2px",
+              "x": 185,
+              "y": 425,
+              "width": 151,
+              "height": 50,
+              "inViewport": true
+            }
+          ],
+          "horizontalOverflow": false,
+          "pass": true
+        },
+        {
+          "state": "resumed",
+          "controls": [
+            {
+              "text": "Пауза",
+              "lines": 1,
+              "textWidth": 53.71875,
+              "available": 117,
+              "fontSize": "18.2px",
+              "x": 24,
+              "y": 425,
+              "width": 151,
+              "height": 50,
+              "inViewport": true
+            },
+            {
+              "text": "Остановить",
+              "lines": 1,
+              "textWidth": 104.671875,
+              "available": 119,
+              "fontSize": "18.2px",
+              "x": 185,
+              "y": 425,
+              "width": 151,
+              "height": 50,
+              "inViewport": true
+            }
+          ],
+          "horizontalOverflow": false,
+          "pass": true
+        }
+      ]
+    },
+    {
+      "theme": "light",
+      "viewport": {
+        "width": 320,
+        "height": 640
+      },
+      "controlFontScale": 1.3,
+      "states": [
+        {
+          "state": "idle",
+          "controls": [
+            {
+              "text": "Начать запись",
+              "lines": 1,
+              "textWidth": 128.9375,
+              "available": 240,
+              "fontSize": "18.2px",
+              "x": 24,
+              "y": 408,
+              "width": 272,
+              "height": 50,
+              "inViewport": true
+            }
+          ],
+          "horizontalOverflow": false,
+          "pass": true
+        },
+        {
+          "state": "recording",
+          "controls": [
+            {
+              "text": "Пауза",
+              "lines": 1,
+              "textWidth": 53.71875,
+              "available": 238,
+              "fontSize": "18.2px",
+              "x": 24,
+              "y": 375.78125,
+              "width": 272,
+              "height": 50,
+              "inViewport": true
+            },
+            {
+              "text": "Остановить",
+              "lines": 1,
+              "textWidth": 104.671875,
+              "available": 240,
+              "fontSize": "18.2px",
+              "x": 24,
+              "y": 435.78125,
+              "width": 272,
+              "height": 50,
+              "inViewport": true
+            }
+          ],
+          "horizontalOverflow": false,
+          "pass": true
+        },
+        {
+          "state": "paused",
+          "controls": [
+            {
+              "text": "Продолжить",
+              "lines": 1,
+              "textWidth": 111.640625,
+              "available": 238,
+              "fontSize": "18.2px",
+              "x": 24,
+              "y": 375.78125,
+              "width": 272,
+              "height": 50,
+              "inViewport": true
+            },
+            {
+              "text": "Остановить",
+              "lines": 1,
+              "textWidth": 104.671875,
+              "available": 240,
+              "fontSize": "18.2px",
+              "x": 24,
+              "y": 435.78125,
+              "width": 272,
+              "height": 50,
+              "inViewport": true
+            }
+          ],
+          "horizontalOverflow": false,
+          "pass": true
+        },
+        {
+          "state": "resumed",
+          "controls": [
+            {
+              "text": "Пауза",
+              "lines": 1,
+              "textWidth": 53.71875,
+              "available": 238,
+              "fontSize": "18.2px",
+              "x": 24,
+              "y": 375.78125,
+              "width": 272,
+              "height": 50,
+              "inViewport": true
+            },
+            {
+              "text": "Остановить",
+              "lines": 1,
+              "textWidth": 104.671875,
+              "available": 240,
+              "fontSize": "18.2px",
+              "x": 24,
+              "y": 435.78125,
+              "width": 272,
+              "height": 50,
+              "inViewport": true
+            }
+          ],
+          "horizontalOverflow": false,
+          "pass": true
+        }
+      ]
+    },
+    {
+      "theme": "light",
+      "viewport": {
+        "width": 392,
+        "height": 640
+      },
+      "controlFontScale": 1.3,
+      "states": [
+        {
+          "state": "idle",
+          "controls": [
+            {
+              "text": "Начать запись",
+              "lines": 1,
+              "textWidth": 128.9375,
+              "available": 312,
+              "fontSize": "18.2px",
+              "x": 24,
+              "y": 425,
+              "width": 344,
+              "height": 50,
+              "inViewport": true
+            }
+          ],
+          "horizontalOverflow": false,
+          "pass": true
+        },
+        {
+          "state": "recording",
+          "controls": [
+            {
+              "text": "Пауза",
+              "lines": 1,
+              "textWidth": 53.71875,
+              "available": 133,
+              "fontSize": "18.2px",
+              "x": 24,
+              "y": 425,
+              "width": 167,
+              "height": 50,
+              "inViewport": true
+            },
+            {
+              "text": "Остановить",
+              "lines": 1,
+              "textWidth": 104.671875,
+              "available": 135,
+              "fontSize": "18.2px",
+              "x": 201,
+              "y": 425,
+              "width": 167,
+              "height": 50,
+              "inViewport": true
+            }
+          ],
+          "horizontalOverflow": false,
+          "pass": true
+        },
+        {
+          "state": "paused",
+          "controls": [
+            {
+              "text": "Продолжить",
+              "lines": 1,
+              "textWidth": 111.640625,
+              "available": 133,
+              "fontSize": "18.2px",
+              "x": 24,
+              "y": 425,
+              "width": 167,
+              "height": 50,
+              "inViewport": true
+            },
+            {
+              "text": "Остановить",
+              "lines": 1,
+              "textWidth": 104.671875,
+              "available": 135,
+              "fontSize": "18.2px",
+              "x": 201,
+              "y": 425,
+              "width": 167,
+              "height": 50,
+              "inViewport": true
+            }
+          ],
+          "horizontalOverflow": false,
+          "pass": true
+        },
+        {
+          "state": "resumed",
+          "controls": [
+            {
+              "text": "Пауза",
+              "lines": 1,
+              "textWidth": 53.71875,
+              "available": 133,
+              "fontSize": "18.2px",
+              "x": 24,
+              "y": 425,
+              "width": 167,
+              "height": 50,
+              "inViewport": true
+            },
+            {
+              "text": "Остановить",
+              "lines": 1,
+              "textWidth": 104.671875,
+              "available": 135,
+              "fontSize": "18.2px",
+              "x": 201,
+              "y": 425,
+              "width": 167,
+              "height": 50,
+              "inViewport": true
+            }
+          ],
+          "horizontalOverflow": false,
+          "pass": true
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "viewport": {
+        "width": 360,
+        "height": 640
+      },
+      "controlFontScale": 1.3,
+      "states": [
+        {
+          "state": "idle",
+          "controls": [
+            {
+              "text": "Начать запись",
+              "lines": 1,
+              "textWidth": 128.9375,
+              "available": 280,
+              "fontSize": "18.2px",
+              "x": 24,
+              "y": 425,
+              "width": 312,
+              "height": 50,
+              "inViewport": true
+            }
+          ],
+          "horizontalOverflow": false,
+          "pass": true
+        },
+        {
+          "state": "recording",
+          "controls": [
+            {
+              "text": "Пауза",
+              "lines": 1,
+              "textWidth": 53.71875,
+              "available": 117,
+              "fontSize": "18.2px",
+              "x": 24,
+              "y": 425,
+              "width": 151,
+              "height": 50,
+              "inViewport": true
+            },
+            {
+              "text": "Остановить",
+              "lines": 1,
+              "textWidth": 104.671875,
+              "available": 119,
+              "fontSize": "18.2px",
+              "x": 185,
+              "y": 425,
+              "width": 151,
+              "height": 50,
+              "inViewport": true
+            }
+          ],
+          "horizontalOverflow": false,
+          "pass": true
+        },
+        {
+          "state": "paused",
+          "controls": [
+            {
+              "text": "Продолжить",
+              "lines": 1,
+              "textWidth": 111.640625,
+              "available": 117,
+              "fontSize": "18.2px",
+              "x": 24,
+              "y": 425,
+              "width": 151,
+              "height": 50,
+              "inViewport": true
+            },
+            {
+              "text": "Остановить",
+              "lines": 1,
+              "textWidth": 104.671875,
+              "available": 119,
+              "fontSize": "18.2px",
+              "x": 185,
+              "y": 425,
+              "width": 151,
+              "height": 50,
+              "inViewport": true
+            }
+          ],
+          "horizontalOverflow": false,
+          "pass": true
+        },
+        {
+          "state": "resumed",
+          "controls": [
+            {
+              "text": "Пауза",
+              "lines": 1,
+              "textWidth": 53.71875,
+              "available": 117,
+              "fontSize": "18.2px",
+              "x": 24,
+              "y": 425,
+              "width": 151,
+              "height": 50,
+              "inViewport": true
+            },
+            {
+              "text": "Остановить",
+              "lines": 1,
+              "textWidth": 104.671875,
+              "available": 119,
+              "fontSize": "18.2px",
+              "x": 185,
+              "y": 425,
+              "width": 151,
+              "height": 50,
+              "inViewport": true
+            }
+          ],
+          "horizontalOverflow": false,
+          "pass": true
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "viewport": {
+        "width": 320,
+        "height": 640
+      },
+      "controlFontScale": 1.3,
+      "states": [
+        {
+          "state": "idle",
+          "controls": [
+            {
+              "text": "Начать запись",
+              "lines": 1,
+              "textWidth": 128.9375,
+              "available": 240,
+              "fontSize": "18.2px",
+              "x": 24,
+              "y": 408,
+              "width": 272,
+              "height": 50,
+              "inViewport": true
+            }
+          ],
+          "horizontalOverflow": false,
+          "pass": true
+        },
+        {
+          "state": "recording",
+          "controls": [
+            {
+              "text": "Пауза",
+              "lines": 1,
+              "textWidth": 53.71875,
+              "available": 238,
+              "fontSize": "18.2px",
+              "x": 24,
+              "y": 375.78125,
+              "width": 272,
+              "height": 50,
+              "inViewport": true
+            },
+            {
+              "text": "Остановить",
+              "lines": 1,
+              "textWidth": 104.671875,
+              "available": 240,
+              "fontSize": "18.2px",
+              "x": 24,
+              "y": 435.78125,
+              "width": 272,
+              "height": 50,
+              "inViewport": true
+            }
+          ],
+          "horizontalOverflow": false,
+          "pass": true
+        },
+        {
+          "state": "paused",
+          "controls": [
+            {
+              "text": "Продолжить",
+              "lines": 1,
+              "textWidth": 111.640625,
+              "available": 238,
+              "fontSize": "18.2px",
+              "x": 24,
+              "y": 375.78125,
+              "width": 272,
+              "height": 50,
+              "inViewport": true
+            },
+            {
+              "text": "Остановить",
+              "lines": 1,
+              "textWidth": 104.671875,
+              "available": 240,
+              "fontSize": "18.2px",
+              "x": 24,
+              "y": 435.78125,
+              "width": 272,
+              "height": 50,
+              "inViewport": true
+            }
+          ],
+          "horizontalOverflow": false,
+          "pass": true
+        },
+        {
+          "state": "resumed",
+          "controls": [
+            {
+              "text": "Пауза",
+              "lines": 1,
+              "textWidth": 53.71875,
+              "available": 238,
+              "fontSize": "18.2px",
+              "x": 24,
+              "y": 375.78125,
+              "width": 272,
+              "height": 50,
+              "inViewport": true
+            },
+            {
+              "text": "Остановить",
+              "lines": 1,
+              "textWidth": 104.671875,
+              "available": 240,
+              "fontSize": "18.2px",
+              "x": 24,
+              "y": 435.78125,
+              "width": 272,
+              "height": 50,
+              "inViewport": true
+            }
+          ],
+          "horizontalOverflow": false,
+          "pass": true
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "viewport": {
+        "width": 392,
+        "height": 640
+      },
+      "controlFontScale": 1.3,
+      "states": [
+        {
+          "state": "idle",
+          "controls": [
+            {
+              "text": "Начать запись",
+              "lines": 1,
+              "textWidth": 128.9375,
+              "available": 312,
+              "fontSize": "18.2px",
+              "x": 24,
+              "y": 425,
+              "width": 344,
+              "height": 50,
+              "inViewport": true
+            }
+          ],
+          "horizontalOverflow": false,
+          "pass": true
+        },
+        {
+          "state": "recording",
+          "controls": [
+            {
+              "text": "Пауза",
+              "lines": 1,
+              "textWidth": 53.71875,
+              "available": 133,
+              "fontSize": "18.2px",
+              "x": 24,
+              "y": 425,
+              "width": 167,
+              "height": 50,
+              "inViewport": true
+            },
+            {
+              "text": "Остановить",
+              "lines": 1,
+              "textWidth": 104.671875,
+              "available": 135,
+              "fontSize": "18.2px",
+              "x": 201,
+              "y": 425,
+              "width": 167,
+              "height": 50,
+              "inViewport": true
+            }
+          ],
+          "horizontalOverflow": false,
+          "pass": true
+        },
+        {
+          "state": "paused",
+          "controls": [
+            {
+              "text": "Продолжить",
+              "lines": 1,
+              "textWidth": 111.640625,
+              "available": 133,
+              "fontSize": "18.2px",
+              "x": 24,
+              "y": 425,
+              "width": 167,
+              "height": 50,
+              "inViewport": true
+            },
+            {
+              "text": "Остановить",
+              "lines": 1,
+              "textWidth": 104.671875,
+              "available": 135,
+              "fontSize": "18.2px",
+              "x": 201,
+              "y": 425,
+              "width": 167,
+              "height": 50,
+              "inViewport": true
+            }
+          ],
+          "horizontalOverflow": false,
+          "pass": true
+        },
+        {
+          "state": "resumed",
+          "controls": [
+            {
+              "text": "Пауза",
+              "lines": 1,
+              "textWidth": 53.71875,
+              "available": 133,
+              "fontSize": "18.2px",
+              "x": 24,
+              "y": 425,
+              "width": 167,
+              "height": 50,
+              "inViewport": true
+            },
+            {
+              "text": "Остановить",
+              "lines": 1,
+              "textWidth": 104.671875,
+              "available": 135,
+              "fontSize": "18.2px",
+              "x": 201,
+              "y": 425,
+              "width": 167,
+              "height": 50,
+              "inViewport": true
+            }
+          ],
+          "horizontalOverflow": false,
+          "pass": true
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "execution": {
+    "browserPlugin": "not available",
+    "runner": "existing Playwright 1.64.1 via Windows Node; isolated headless Chromium browser profile",
+    "browser": "Microsoft Edge Chromium 156.0.4314.58",
+    "executable": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe",
+    "fallbackReason": "Existing Linux Chromium launch stalled before CDP even after using existing libnspr/nss/asound library root; no installation or project dependency changes.",
+    "server": "Existing static design-lab server at http://localhost:4174",
+    "nativeRuntime": "Not exercised by these browser checks; amplitude is explicitly simulated; no microphone session is opened."
+  },
+  "validation": {
+    "scenarioGroups": 6,
+    "stateLayouts": 24,
+    "singleLineLabels": "PASS",
+    "horizontalOverflow": "none",
+    "allControlsInViewport": "PASS",
+    "scope": "Light/dark, 320/360/392 x 640, 130% control font; idle/start/pause/resume/stop interactions; visual review of 360px light paused and dark recording plus desktop two-theme gallery."
+  }
+}

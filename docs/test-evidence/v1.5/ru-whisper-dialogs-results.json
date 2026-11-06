@@ -1,0 +1,908 @@
+{
+  "platform": "Linux WSL CPU, not Android/phone microphone/performance; uncontrolled cache/temperature",
+  "runtime": "2.0.1",
+  "threads": 2,
+  "vadThreads": 1,
+  "selection": "ALL 7 emotion=whisper rows of official test.csv at pinned revision; fixed before any inference; 3 speakers; independent author transcripts",
+  "datasetRevision": "a74ff44d8d27ca3d21098ea3ed4d31a32923fbdd",
+  "modelSelectedBeforeThisHoldout": "giga-v3 E2E RNNT INT8",
+  "preprocessing": "original PCM16 WAV, shared existing windowed-sinc 63tap resampler to float mono16k; no attenuation/no added noise; same constant gain rule as production",
+  "normalization": "same benchmark_asr_v15.words: lowercase, ё→е, Unicode word tokens; punctuation ignored; CER on space-joined tokens",
+  "gainPolicy": {
+    "triggerPeak": 0.01,
+    "silenceFloor": 1e-06,
+    "targetPeak": 0.1,
+    "maximumGain": 20
+  },
+  "vadPolicy": {
+    "threshold": 0.5,
+    "minSpeechSec": 0.25,
+    "minSilenceSec": 0.25,
+    "maxSpeechSec": 20,
+    "preRollMs": 100,
+    "postRollMs": 0,
+    "maxAsrSliceMs": 20000
+  },
+  "limitations": [
+    "ALL7 official test rows, 84words, 3actors; too small/controlled for population claims",
+    "whisper is author/crowd style label; not phonation-audited by us",
+    "studio/possibly normalized actor audio, not phone whisper/noisy room",
+    "scripts GPT-assisted before live actor recording; paper says manually segmented/aligned transcripts; supplied reference correctness not word-by-word audited by us",
+    "training overlap unknown",
+    "direct whole-clip ASR vs host single-speaker VAD/context emulation; no Android Room/MediaCodec/diarization equivalence claim"
+  ],
+  "inputs": [
+    {
+      "id": "masha_dima_part9_158",
+      "speaker": "D",
+      "audioSec": 6.9016875,
+      "originalSignalPeak": 0.29042744636535645,
+      "originalSignalRms": 0.031597718596458435,
+      "boundedGain": 1.0,
+      "rawVadSpansSamples": [
+        [
+          25696,
+          56928
+        ],
+        [
+          67680,
+          105568
+        ]
+      ],
+      "rawVadDetectedSec": 4.32,
+      "productionContextMs": [
+        [
+          1506,
+          3558
+        ],
+        [
+          4130,
+          6598
+        ]
+      ],
+      "productionAsrSlicesMs": [
+        [
+          1506,
+          3558
+        ],
+        [
+          4130,
+          6598
+        ]
+      ],
+      "contextRetainedSec": 4.52,
+      "referenceWords": 13
+    },
+    {
+      "id": "masha_dima_part9_222",
+      "speaker": "M",
+      "audioSec": 5.624875,
+      "originalSignalPeak": 0.07738964259624481,
+      "originalSignalRms": 0.009771294891834259,
+      "boundedGain": 1.0,
+      "rawVadSpansSamples": [
+        [
+          7264,
+          44128
+        ],
+        [
+          54368,
+          83040
+        ]
+      ],
+      "rawVadDetectedSec": 4.096,
+      "productionContextMs": [
+        [
+          354,
+          2758
+        ],
+        [
+          3298,
+          5190
+        ]
+      ],
+      "productionAsrSlicesMs": [
+        [
+          354,
+          2758
+        ],
+        [
+          3298,
+          5190
+        ]
+      ],
+      "contextRetainedSec": 4.296,
+      "referenceWords": 9
+    },
+    {
+      "id": "masha_dima_part9_397",
+      "speaker": "D",
+      "audioSec": 6.476,
+      "originalSignalPeak": 0.07911507040262222,
+      "originalSignalRms": 0.008363146334886551,
+      "boundedGain": 1.0,
+      "rawVadSpansSamples": [
+        [
+          5728,
+          35936
+        ],
+        [
+          46688,
+          66656
+        ],
+        [
+          73312,
+          103936
+        ]
+      ],
+      "rawVadDetectedSec": 5.05,
+      "productionContextMs": [
+        [
+          258,
+          2246
+        ],
+        [
+          2818,
+          4166
+        ],
+        [
+          4482,
+          6476
+        ]
+      ],
+      "productionAsrSlicesMs": [
+        [
+          258,
+          2246
+        ],
+        [
+          2818,
+          4166
+        ],
+        [
+          4482,
+          6476
+        ]
+      ],
+      "contextRetainedSec": 5.33,
+      "referenceWords": 12
+    },
+    {
+      "id": "masha_dima_part11_287",
+      "speaker": "M",
+      "audioSec": 13.1229375,
+      "originalSignalPeak": 0.10204988718032837,
+      "originalSignalRms": 0.0018098881701007485,
+      "boundedGain": 1.0,
+      "rawVadSpansSamples": [],
+      "rawVadDetectedSec": 0.0,
+      "productionContextMs": [],
+      "productionAsrSlicesMs": [],
+      "contextRetainedSec": 0.0,
+      "referenceWords": 23
+    },
+    {
+      "id": "masha_dima_part11_296",
+      "speaker": "D",
+      "audioSec": 11.189125,
+      "originalSignalPeak": 0.09162935614585876,
+      "originalSignalRms": 0.009844423271715641,
+      "boundedGain": 1.0,
+      "rawVadSpansSamples": [
+        [
+          12896,
+          54880
+        ],
+        [
+          72288,
+          114272
+        ],
+        [
+          135776,
+          175200
+        ]
+      ],
+      "rawVadDetectedSec": 7.712,
+      "productionContextMs": [
+        [
+          706,
+          3430
+        ],
+        [
+          4418,
+          7142
+        ],
+        [
+          8386,
+          10950
+        ]
+      ],
+      "productionAsrSlicesMs": [
+        [
+          706,
+          3430
+        ],
+        [
+          4418,
+          7142
+        ],
+        [
+          8386,
+          10950
+        ]
+      ],
+      "contextRetainedSec": 8.012,
+      "referenceWords": 15
+    },
+    {
+      "id": "masha_sveta_part9_770",
+      "speaker": "M",
+      "audioSec": 3.254,
+      "originalSignalPeak": 0.0775054469704628,
+      "originalSignalRms": 0.01032452192157507,
+      "boundedGain": 1.0,
+      "rawVadSpansSamples": [
+        [
+          2656,
+          52224
+        ]
+      ],
+      "rawVadDetectedSec": 3.098,
+      "productionContextMs": [
+        [
+          66,
+          3254
+        ]
+      ],
+      "productionAsrSlicesMs": [
+        [
+          66,
+          3254
+        ]
+      ],
+      "contextRetainedSec": 3.188,
+      "referenceWords": 6
+    },
+    {
+      "id": "masha_sveta_part9_1261",
+      "speaker": "S",
+      "audioSec": 3.7305625,
+      "originalSignalPeak": 0.11373744904994965,
+      "originalSignalRms": 0.02197030559182167,
+      "boundedGain": 1.0,
+      "rawVadSpansSamples": [
+        [
+          9312,
+          32864
+        ],
+        [
+          43616,
+          59904
+        ]
+      ],
+      "rawVadDetectedSec": 2.49,
+      "productionContextMs": [
+        [
+          482,
+          2054
+        ],
+        [
+          2626,
+          3730
+        ]
+      ],
+      "productionAsrSlicesMs": [
+        [
+          482,
+          2054
+        ],
+        [
+          2626,
+          3730
+        ]
+      ],
+      "contextRetainedSec": 2.676,
+      "referenceWords": 6
+    }
+  ],
+  "models": {
+    "giga-v2": {
+      "encoder.int8.onnx": {
+        "bytes": 236314144,
+        "sha256": "b51efc61e3c0037ad1cb804079975468de3d175324fe8323aef5be4f5c6a38a1"
+      },
+      "decoder.onnx": {
+        "bytes": 3331651,
+        "sha256": "208e24cc150fb0ebca3fab169502796daa12e0255dcf7b4acf65015c436e9f76"
+      },
+      "joiner.onnx": {
+        "bytes": 1440448,
+        "sha256": "4b02eced18e033fc5173e6c47b6ab166b5efea8d35c3f33a6755ff0d622fb5b0"
+      },
+      "tokens.txt": {
+        "bytes": 196,
+        "sha256": "17cc514451bcceac9c280068c71502f8448f99e9fb1456b8d0761651fd0392f2"
+      }
+    },
+    "giga-v3": {
+      "encoder.int8.onnx": {
+        "bytes": 224570820,
+        "sha256": "369f35a71bf288d3b8e0391fabd8dba5f2314088d440bca474056b7b4b6e66bf"
+      },
+      "decoder.onnx": {
+        "bytes": 4600132,
+        "sha256": "38fc7475443ea2a26f63211ca350f73ac50fff824ab7a3876ee2bd610c53bbc4"
+      },
+      "joiner.onnx": {
+        "bytes": 2712896,
+        "sha256": "602ff7017a93311aad34df1437c8d7f49911353c13d6eae7a6ee7b041339465c"
+      },
+      "tokens.txt": {
+        "bytes": 13354,
+        "sha256": "39abae20e692998290c574e606f11a9edef2902a1995463fcff63d1490cf22b7"
+      }
+    },
+    "giga-v3-rnnt": {
+      "encoder.int8.onnx": {
+        "bytes": 224570814,
+        "sha256": "0ec54e5f130a91c0f228d21795ede10b31c992a1f73e45dcd827e843a71a9b50"
+      },
+      "decoder.onnx": {
+        "bytes": 3331651,
+        "sha256": "5d1cfef155d8e07f213bd2f3229b5f6c5c29355c7fa5c1b9eb62cb1925725254"
+      },
+      "joiner.onnx": {
+        "bytes": 1440448,
+        "sha256": "fd1d02f45c2ad3d6b67cc149811ad794ab4b020ed49a0a9e2790a8619d1cddd8"
+      },
+      "tokens.txt": {
+        "bytes": 196,
+        "sha256": "17cc514451bcceac9c280068c71502f8448f99e9fb1456b8d0761651fd0392f2"
+      }
+    }
+  },
+  "asr": [
+    {
+      "id": "masha_dima_part9_158",
+      "model": "giga-v2",
+      "scope": "whole-clip",
+      "reference": "Да, Маша. Это настоящий триумф. И я рад, что мы сделали это вместе.",
+      "hypothesis": "да маша это настоящий триумф и я рад что мы сделали это вместе",
+      "wordErrors": 0,
+      "referenceWords": 13,
+      "charErrors": 0,
+      "referenceChars": 62,
+      "gain": 1.0,
+      "inferenceSec": 1.5147725889983121,
+      "loadSec": 28.407865825000044,
+      "sliceHypotheses": [
+        "да маша это настоящий триумф и я рад что мы сделали это вместе"
+      ]
+    },
+    {
+      "id": "masha_dima_part9_222",
+      "model": "giga-v2",
+      "scope": "whole-clip",
+      "reference": "Это место такое спокойное. Здесь можно подумать о многом.",
+      "hypothesis": "это место такое спокойное здесь можно подумать о многом",
+      "wordErrors": 0,
+      "referenceWords": 9,
+      "charErrors": 0,
+      "referenceChars": 55,
+      "gain": 1.0,
+      "inferenceSec": 0.8034197439992568,
+      "loadSec": 28.407865825000044,
+      "sliceHypotheses": [
+        "это место такое спокойное здесь можно подумать о многом"
+      ]
+    },
+    {
+      "id": "masha_dima_part9_397",
+      "model": "giga-v2",
+      "scope": "whole-clip",
+      "reference": "Мне просто нужно время, чтобы пережить это. Я не хочу разговаривать сейчас.",
+      "hypothesis": "мне просто нужно время чтобы пережить это я не хочу разговаривать сейчас",
+      "wordErrors": 0,
+      "referenceWords": 12,
+      "charErrors": 0,
+      "referenceChars": 72,
+      "gain": 1.0,
+      "inferenceSec": 0.9034271560012712,
+      "loadSec": 28.407865825000044,
+      "sliceHypotheses": [
+        "мне просто нужно время чтобы пережить это я не хочу разговаривать сейчас"
+      ]
+    },
+    {
+      "id": "masha_dima_part11_287",
+      "model": "giga-v2",
+      "scope": "whole-clip",
+      "reference": "Дима, кстати, я слышала, что скоро у нас в городе открывается новый магазин с эксклюзивными брендами. Может быть, нам стоит туда заглянуть вместе?",
+      "hypothesis": "тима кстати я слышала что скоро у нас в городе открывается новый магазин с эксклюзивными брендами может быть нам стоит туда заглянуть вместе",
+      "wordErrors": 1,
+      "referenceWords": 23,
+      "charErrors": 1,
+      "referenceChars": 140,
+      "gain": 1.0,
+      "inferenceSec": 1.8655463050017715,
+      "loadSec": 28.407865825000044,
+      "sliceHypotheses": [
+        "тима кстати я слышала что скоро у нас в городе открывается новый магазин с эксклюзивными брендами может быть нам стоит туда заглянуть вместе"
+      ]
+    },
+    {
+      "id": "masha_dima_part11_296",
+      "model": "giga-v2",
+      "scope": "whole-clip",
+      "reference": "О, я обожаю черепах! Они такие спокойные и умиротворенные. А ты кого больше всего любишь?",
+      "hypothesis": "о я обожаю черепах они такие спокойные и умиротворенные а ты кого больше всего любишь",
+      "wordErrors": 0,
+      "referenceWords": 15,
+      "charErrors": 0,
+      "referenceChars": 85,
+      "gain": 1.0,
+      "inferenceSec": 1.486416158000793,
+      "loadSec": 28.407865825000044,
+      "sliceHypotheses": [
+        "о я обожаю черепах они такие спокойные и умиротворенные а ты кого больше всего любишь"
+      ]
+    },
+    {
+      "id": "masha_sveta_part9_770",
+      "model": "giga-v2",
+      "scope": "whole-clip",
+      "reference": "Обожаю итальянскую кухню. Паста - моя слабость.",
+      "hypothesis": "обожаю итальянскую кухню паста моя слабость",
+      "wordErrors": 0,
+      "referenceWords": 6,
+      "charErrors": 0,
+      "referenceChars": 43,
+      "gain": 1.0,
+      "inferenceSec": 0.47035401899847784,
+      "loadSec": 28.407865825000044,
+      "sliceHypotheses": [
+        "обожаю итальянскую кухню паста моя слабость"
+      ]
+    },
+    {
+      "id": "masha_sveta_part9_1261",
+      "model": "giga-v2",
+      "scope": "whole-clip",
+      "reference": "Они опять скандалили ночью, спать невозможно.",
+      "hypothesis": "они опять скандалили ночью спать невозможно",
+      "wordErrors": 0,
+      "referenceWords": 6,
+      "charErrors": 0,
+      "referenceChars": 43,
+      "gain": 1.0,
+      "inferenceSec": 0.5283050899997761,
+      "loadSec": 28.407865825000044,
+      "sliceHypotheses": [
+        "они опять скандалили ночью спать невозможно"
+      ]
+    },
+    {
+      "id": "masha_dima_part9_158",
+      "model": "giga-v3",
+      "scope": "whole-clip",
+      "reference": "Да, Маша. Это настоящий триумф. И я рад, что мы сделали это вместе.",
+      "hypothesis": "Да, Маша, это настоящий триумф! И я рад, что мы сделали это вместе.",
+      "wordErrors": 0,
+      "referenceWords": 13,
+      "charErrors": 0,
+      "referenceChars": 62,
+      "gain": 1.0,
+      "inferenceSec": 0.5276414670006488,
+      "loadSec": 0.9563352830009535,
+      "sliceHypotheses": [
+        "Да, Маша, это настоящий триумф! И я рад, что мы сделали это вместе."
+      ]
+    },
+    {
+      "id": "masha_dima_part9_158",
+      "model": "giga-v3",
+      "scope": "production-vad-context-single-speaker",
+      "reference": "Да, Маша. Это настоящий триумф. И я рад, что мы сделали это вместе.",
+      "hypothesis": "Это настоящий триумф! И я рад, что мы сделали это вместе.",
+      "wordErrors": 2,
+      "referenceWords": 13,
+      "charErrors": 8,
+      "referenceChars": 62,
+      "gain": 1.0,
+      "inferenceSec": 0.3384639620016969,
+      "loadSec": 0.9563352830009535,
+      "sliceHypotheses": [
+        "Это настоящий триумф!",
+        "И я рад, что мы сделали это вместе."
+      ]
+    },
+    {
+      "id": "masha_dima_part9_222",
+      "model": "giga-v3",
+      "scope": "whole-clip",
+      "reference": "Это место такое спокойное. Здесь можно подумать о многом.",
+      "hypothesis": "Это место такое спокойное. Здесь можно подумать о многом.",
+      "wordErrors": 0,
+      "referenceWords": 9,
+      "charErrors": 0,
+      "referenceChars": 55,
+      "gain": 1.0,
+      "inferenceSec": 0.42122803299935185,
+      "loadSec": 0.9563352830009535,
+      "sliceHypotheses": [
+        "Это место такое спокойное. Здесь можно подумать о многом."
+      ]
+    },
+    {
+      "id": "masha_dima_part9_222",
+      "model": "giga-v3",
+      "scope": "production-vad-context-single-speaker",
+      "reference": "Это место такое спокойное. Здесь можно подумать о многом.",
+      "hypothesis": "Это место такое спокойное. Здесь можно подумать о многом.",
+      "wordErrors": 0,
+      "referenceWords": 9,
+      "charErrors": 0,
+      "referenceChars": 55,
+      "gain": 1.0,
+      "inferenceSec": 0.3253041450007004,
+      "loadSec": 0.9563352830009535,
+      "sliceHypotheses": [
+        "Это место такое спокойное.",
+        "Здесь можно подумать о многом."
+      ]
+    },
+    {
+      "id": "masha_dima_part9_397",
+      "model": "giga-v3",
+      "scope": "whole-clip",
+      "reference": "Мне просто нужно время, чтобы пережить это. Я не хочу разговаривать сейчас.",
+      "hypothesis": "Мне просто нужно время, чтобы пережить это. Я не хочу разговаривать сейчас.",
+      "wordErrors": 0,
+      "referenceWords": 12,
+      "charErrors": 0,
+      "referenceChars": 72,
+      "gain": 1.0,
+      "inferenceSec": 0.4617975440014561,
+      "loadSec": 0.9563352830009535,
+      "sliceHypotheses": [
+        "Мне просто нужно время, чтобы пережить это. Я не хочу разговаривать сейчас."
+      ]
+    },
+    {
+      "id": "masha_dima_part9_397",
+      "model": "giga-v3",
+      "scope": "production-vad-context-single-speaker",
+      "reference": "Мне просто нужно время, чтобы пережить это. Я не хочу разговаривать сейчас.",
+      "hypothesis": "Мне просто нужно время. Пережить это. Я не хочу разговаривать сейчас.",
+      "wordErrors": 1,
+      "referenceWords": 12,
+      "charErrors": 6,
+      "referenceChars": 72,
+      "gain": 1.0,
+      "inferenceSec": 0.4289784300053725,
+      "loadSec": 0.9563352830009535,
+      "sliceHypotheses": [
+        "Мне просто нужно время.",
+        "Пережить это.",
+        "Я не хочу разговаривать сейчас."
+      ]
+    },
+    {
+      "id": "masha_dima_part11_287",
+      "model": "giga-v3",
+      "scope": "whole-clip",
+      "reference": "Дима, кстати, я слышала, что скоро у нас в городе открывается новый магазин с эксклюзивными брендами. Может быть, нам стоит туда заглянуть вместе?",
+      "hypothesis": "Тима. Кстати, я слышала, что скоро у нас в городе открывается новый магазин с эксклюзивными брендами. Может быть, нам стоит туда заглянуть вместе?",
+      "wordErrors": 1,
+      "referenceWords": 23,
+      "charErrors": 1,
+      "referenceChars": 140,
+      "gain": 1.0,
+      "inferenceSec": 0.9817532130000473,
+      "loadSec": 0.9563352830009535,
+      "sliceHypotheses": [
+        "Тима. Кстати, я слышала, что скоро у нас в городе открывается новый магазин с эксклюзивными брендами. Может быть, нам стоит туда заглянуть вместе?"
+      ]
+    },
+    {
+      "id": "masha_dima_part11_287",
+      "model": "giga-v3",
+      "scope": "production-vad-context-single-speaker",
+      "reference": "Дима, кстати, я слышала, что скоро у нас в городе открывается новый магазин с эксклюзивными брендами. Может быть, нам стоит туда заглянуть вместе?",
+      "hypothesis": "",
+      "wordErrors": 23,
+      "referenceWords": 23,
+      "charErrors": 140,
+      "referenceChars": 140,
+      "gain": 1.0,
+      "inferenceSec": 0,
+      "loadSec": 0.9563352830009535,
+      "sliceHypotheses": []
+    },
+    {
+      "id": "masha_dima_part11_296",
+      "model": "giga-v3",
+      "scope": "whole-clip",
+      "reference": "О, я обожаю черепах! Они такие спокойные и умиротворенные. А ты кого больше всего любишь?",
+      "hypothesis": "Ох, я обожаю черепах! Они такие спокойные и умиротворённые. А ты кого больше всего любишь?",
+      "wordErrors": 1,
+      "referenceWords": 15,
+      "charErrors": 1,
+      "referenceChars": 85,
+      "gain": 1.0,
+      "inferenceSec": 0.7981031719973544,
+      "loadSec": 0.9563352830009535,
+      "sliceHypotheses": [
+        "Ох, я обожаю черепах! Они такие спокойные и умиротворённые. А ты кого больше всего любишь?"
+      ]
+    },
+    {
+      "id": "masha_dima_part11_296",
+      "model": "giga-v3",
+      "scope": "production-vad-context-single-speaker",
+      "reference": "О, я обожаю черепах! Они такие спокойные и умиротворенные. А ты кого больше всего любишь?",
+      "hypothesis": "Я обожаю черепах. Такие спокойные и умиротворённые. Ты кого больше всего любишь?",
+      "wordErrors": 3,
+      "referenceWords": 15,
+      "charErrors": 8,
+      "referenceChars": 85,
+      "gain": 1.0,
+      "inferenceSec": 0.5900953390046197,
+      "loadSec": 0.9563352830009535,
+      "sliceHypotheses": [
+        "Я обожаю черепах.",
+        "Такие спокойные и умиротворённые.",
+        "Ты кого больше всего любишь?"
+      ]
+    },
+    {
+      "id": "masha_sveta_part9_770",
+      "model": "giga-v3",
+      "scope": "whole-clip",
+      "reference": "Обожаю итальянскую кухню. Паста - моя слабость.",
+      "hypothesis": "Обожаю итальянскую кухню. Паста — моя слабость.",
+      "wordErrors": 0,
+      "referenceWords": 6,
+      "charErrors": 0,
+      "referenceChars": 43,
+      "gain": 1.0,
+      "inferenceSec": 0.2483890799994697,
+      "loadSec": 0.9563352830009535,
+      "sliceHypotheses": [
+        "Обожаю итальянскую кухню. Паста — моя слабость."
+      ]
+    },
+    {
+      "id": "masha_sveta_part9_770",
+      "model": "giga-v3",
+      "scope": "production-vad-context-single-speaker",
+      "reference": "Обожаю итальянскую кухню. Паста - моя слабость.",
+      "hypothesis": "Обожаю итальянскую кухню. Паста — моя слабость.",
+      "wordErrors": 0,
+      "referenceWords": 6,
+      "charErrors": 0,
+      "referenceChars": 43,
+      "gain": 1.0,
+      "inferenceSec": 0.22653814599834732,
+      "loadSec": 0.9563352830009535,
+      "sliceHypotheses": [
+        "Обожаю итальянскую кухню. Паста — моя слабость."
+      ]
+    },
+    {
+      "id": "masha_sveta_part9_1261",
+      "model": "giga-v3",
+      "scope": "whole-clip",
+      "reference": "Они опять скандалили ночью, спать невозможно.",
+      "hypothesis": "Они опять скандалили ночью. Спать невозможно.",
+      "wordErrors": 0,
+      "referenceWords": 6,
+      "charErrors": 0,
+      "referenceChars": 43,
+      "gain": 1.0,
+      "inferenceSec": 0.27885412300020107,
+      "loadSec": 0.9563352830009535,
+      "sliceHypotheses": [
+        "Они опять скандалили ночью. Спать невозможно."
+      ]
+    },
+    {
+      "id": "masha_sveta_part9_1261",
+      "model": "giga-v3",
+      "scope": "production-vad-context-single-speaker",
+      "reference": "Они опять скандалили ночью, спать невозможно.",
+      "hypothesis": "Опять скандалили ночью. Невозможно.",
+      "wordErrors": 2,
+      "referenceWords": 6,
+      "charErrors": 10,
+      "referenceChars": 43,
+      "gain": 1.0,
+      "inferenceSec": 0.2217109020020871,
+      "loadSec": 0.9563352830009535,
+      "sliceHypotheses": [
+        "Опять скандалили ночью.",
+        "Невозможно."
+      ]
+    },
+    {
+      "id": "masha_dima_part9_158",
+      "model": "giga-v3-rnnt",
+      "scope": "whole-clip",
+      "reference": "Да, Маша. Это настоящий триумф. И я рад, что мы сделали это вместе.",
+      "hypothesis": "да маша это настоящий триумф и я рад что мы сделали это вместе",
+      "wordErrors": 0,
+      "referenceWords": 13,
+      "charErrors": 0,
+      "referenceChars": 62,
+      "gain": 1.0,
+      "inferenceSec": 0.4994397519985796,
+      "loadSec": 0.9795663229997444,
+      "sliceHypotheses": [
+        "да маша это настоящий триумф и я рад что мы сделали это вместе"
+      ]
+    },
+    {
+      "id": "masha_dima_part9_222",
+      "model": "giga-v3-rnnt",
+      "scope": "whole-clip",
+      "reference": "Это место такое спокойное. Здесь можно подумать о многом.",
+      "hypothesis": "это место такое спокойное здесь можно подумать о многом",
+      "wordErrors": 0,
+      "referenceWords": 9,
+      "charErrors": 0,
+      "referenceChars": 55,
+      "gain": 1.0,
+      "inferenceSec": 0.40432782899733866,
+      "loadSec": 0.9795663229997444,
+      "sliceHypotheses": [
+        "это место такое спокойное здесь можно подумать о многом"
+      ]
+    },
+    {
+      "id": "masha_dima_part9_397",
+      "model": "giga-v3-rnnt",
+      "scope": "whole-clip",
+      "reference": "Мне просто нужно время, чтобы пережить это. Я не хочу разговаривать сейчас.",
+      "hypothesis": "мне просто нужно время чтобы пережить это я не хочу разговаривать сейчас",
+      "wordErrors": 0,
+      "referenceWords": 12,
+      "charErrors": 0,
+      "referenceChars": 72,
+      "gain": 1.0,
+      "inferenceSec": 0.49424103400087915,
+      "loadSec": 0.9795663229997444,
+      "sliceHypotheses": [
+        "мне просто нужно время чтобы пережить это я не хочу разговаривать сейчас"
+      ]
+    },
+    {
+      "id": "masha_dima_part11_287",
+      "model": "giga-v3-rnnt",
+      "scope": "whole-clip",
+      "reference": "Дима, кстати, я слышала, что скоро у нас в городе открывается новый магазин с эксклюзивными брендами. Может быть, нам стоит туда заглянуть вместе?",
+      "hypothesis": "дима кстати я слышала что скоро у нас в городе открывается новый магазин с эксклюзивными брендами может быть нам стоит туда заглянуть вместе",
+      "wordErrors": 0,
+      "referenceWords": 23,
+      "charErrors": 0,
+      "referenceChars": 140,
+      "gain": 1.0,
+      "inferenceSec": 1.0155903799968655,
+      "loadSec": 0.9795663229997444,
+      "sliceHypotheses": [
+        "дима кстати я слышала что скоро у нас в городе открывается новый магазин с эксклюзивными брендами может быть нам стоит туда заглянуть вместе"
+      ]
+    },
+    {
+      "id": "masha_dima_part11_296",
+      "model": "giga-v3-rnnt",
+      "scope": "whole-clip",
+      "reference": "О, я обожаю черепах! Они такие спокойные и умиротворенные. А ты кого больше всего любишь?",
+      "hypothesis": "о я обожаю черепах они такие спокойные и умиротворенные а ты кого больше всего любишь",
+      "wordErrors": 0,
+      "referenceWords": 15,
+      "charErrors": 0,
+      "referenceChars": 85,
+      "gain": 1.0,
+      "inferenceSec": 0.8275424599996768,
+      "loadSec": 0.9795663229997444,
+      "sliceHypotheses": [
+        "о я обожаю черепах они такие спокойные и умиротворенные а ты кого больше всего любишь"
+      ]
+    },
+    {
+      "id": "masha_sveta_part9_770",
+      "model": "giga-v3-rnnt",
+      "scope": "whole-clip",
+      "reference": "Обожаю итальянскую кухню. Паста - моя слабость.",
+      "hypothesis": "обожаю итальянскую кухню паста моя слабость",
+      "wordErrors": 0,
+      "referenceWords": 6,
+      "charErrors": 0,
+      "referenceChars": 43,
+      "gain": 1.0,
+      "inferenceSec": 0.24414006500228425,
+      "loadSec": 0.9795663229997444,
+      "sliceHypotheses": [
+        "обожаю итальянскую кухню паста моя слабость"
+      ]
+    },
+    {
+      "id": "masha_sveta_part9_1261",
+      "model": "giga-v3-rnnt",
+      "scope": "whole-clip",
+      "reference": "Они опять скандалили ночью, спать невозможно.",
+      "hypothesis": "они опять скандалили ночью спать невозможно",
+      "wordErrors": 0,
+      "referenceWords": 6,
+      "charErrors": 0,
+      "referenceChars": 43,
+      "gain": 1.0,
+      "inferenceSec": 0.2687100420007482,
+      "loadSec": 0.9795663229997444,
+      "sliceHypotheses": [
+        "они опять скандалили ночью спать невозможно"
+      ]
+    }
+  ],
+  "scriptSha256": "842faff49e86b2d6d4d14dd74bc3a6c5da71fa0ef6a61a776d92536276411005",
+  "sharedBenchmarkScriptSha256": "2d5ab1f45def38e9708e7e6719bb3a6515d2c04aeff4910468798360c5e0e125",
+  "summary": [
+    {
+      "model": "giga-v2",
+      "scope": "whole-clip",
+      "files": 7,
+      "wordErrors": 1,
+      "referenceWords": 84,
+      "wer": 0.011904761904761904,
+      "charErrors": 1,
+      "referenceChars": 500,
+      "cer": 0.002,
+      "inferenceSec": 7.572241060999659
+    },
+    {
+      "model": "giga-v3",
+      "scope": "whole-clip",
+      "files": 7,
+      "wordErrors": 2,
+      "referenceWords": 84,
+      "wer": 0.023809523809523808,
+      "charErrors": 2,
+      "referenceChars": 500,
+      "cer": 0.004,
+      "inferenceSec": 3.717766631998529
+    },
+    {
+      "model": "giga-v3",
+      "scope": "production-vad-context-single-speaker",
+      "files": 7,
+      "wordErrors": 31,
+      "referenceWords": 84,
+      "wer": 0.36904761904761907,
+      "charErrors": 172,
+      "referenceChars": 500,
+      "cer": 0.344,
+      "inferenceSec": 2.131090924012824
+    },
+    {
+      "model": "giga-v3-rnnt",
+      "scope": "whole-clip",
+      "files": 7,
+      "wordErrors": 0,
+      "referenceWords": 84,
+      "wer": 0.0,
+      "charErrors": 0,
+      "referenceChars": 500,
+      "cer": 0.0,
+      "inferenceSec": 3.753991561996372
+    }
+  ],
+  "vadSummary": {
+    "files": 7,
+    "filesWithEmptyVad": 1,
+    "audioSec": 50.2991875,
+    "rawVadDetectedSec": 26.766,
+    "contextRetainedSec": 28.022000000000002,
+    "slices": 13,
+    "filesGainAboveOne": 0
+  }
+}

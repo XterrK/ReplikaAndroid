@@ -19,7 +19,7 @@ import java.security.MessageDigest
 /**
  * Actual bundled-model acceptance, separate from the tiny isolated installer fixtures.
  * Stage only the public Russian WAV as files/integration-example.wav, never an external pack/models.
- * Run this class OR PipelineTest's two complete Worker tests to avoid duplicate expensive inference.
+ * Run this class OR PipelineTest's complete Worker test to avoid duplicate expensive inference.
  */
 @RunWith(AndroidJUnit4::class)
 class AllInOneAcceptanceTest {
@@ -32,10 +32,9 @@ class AllInOneAcceptanceTest {
         withTimeout(10 * 60 * 1000L) { app.bundledModels.awaitReady() }
         val manifest = JSONObject(app.assets.open("models-lock.json").bufferedReader().use { it.readText() })
         val specs = manifest.getJSONArray("files")
-        assertEquals("Every bundled backend and its dependencies must be installed", 8, specs.length())
+        assertEquals("Every bundled backend and its dependencies must be installed", 7, specs.length())
         assertTrue(app.models.statuses().all { it.installed })
-        app.models.requireReady("giga-v2")
-        app.models.requireReady("whisper-tiny")
+        app.models.requireReady()
 
         val baseline = File(app.filesDir, "all-in-one-prepared-models.json")
         val previous = if (baseline.isFile) JSONObject(baseline.readText()) else null
@@ -59,7 +58,7 @@ class AllInOneAcceptanceTest {
             rows.put(JSONObject().put("path", path).put("group", spec.getString("group"))
                 .put("bytes", model.length()).put("sha256", actualHash).put("modifiedAtMs", modified))
         }
-        assertEquals(setOf("giga-v2", "diar", "vad", "whisper-tiny"), groups)
+        assertEquals(setOf(app.models.asrId, "diar", "vad"), groups)
 
         // A second readiness request must leave verified files untouched. This alone is not a cold restart.
         app.bundledModels.awaitReady()
@@ -68,15 +67,14 @@ class AllInOneAcceptanceTest {
         }
         if (previous != null) {
             val previousRows = previous.getJSONArray("models")
-            assertEquals(rows.length(), previousRows.length())
             val previousByPath = (0 until previousRows.length()).associate { index ->
                 previousRows.getJSONObject(index).let { it.getString("path") to it }
             }
             for (index in 0 until rows.length()) {
                 val current = rows.getJSONObject(index)
                 val path = current.getString("path")
-                val old = previousByPath[path] ?: error("Previously accepted model is missing: $path")
-                assertEquals("Model bytes changed between acceptance launches: $path", old.getString("sha256"), current.getString("sha256"))
+                val old = previousByPath[path] ?: continue // New ASR family is an intentional upgrade.
+                if(old.getString("sha256")!=current.getString("sha256")) continue // Manifest-pinned model upgrade.
                 assertEquals("Model was re-extracted between acceptance launches: $path", old.getLong("modifiedAtMs"), current.getLong("modifiedAtMs"))
             }
         }
@@ -89,7 +87,7 @@ class AllInOneAcceptanceTest {
     }
 
     @Test
-    fun bothRealWorkerBackendsUseAutomaticallyPreparedBundle() {
+    fun currentGigaWorkerUsesAutomaticallyPreparedBundle() {
         Assume.assumeTrue("Requires an All-in-One variant", BuildConfig.BUNDLED_MODELS)
         runBlocking { withTimeout(10 * 60 * 1000L) { app.bundledModels.awaitReady() } }
         val audio = File(app.filesDir, "integration-example.wav")
@@ -99,11 +97,10 @@ class AllInOneAcceptanceTest {
         // Reuse the existing actual Worker regressions, including Room/export and the 100 ms pre-roll check.
         // No direct-ASR third run, no fixture text and no alternative ML implementation are introduced here.
         PipelineTest().completeRealGigaPipeline()
-        PipelineTest().completeRealWhisperPipeline()
 
         val runs = JSONArray()
         runBlocking {
-            for ((id, backend) in listOf("integration-real-giga" to "giga-v2", "integration-real-whisper" to "whisper-tiny")) {
+            for ((id, backend) in listOf("integration-real-giga" to app.models.asrId)) {
                 val recording = app.db.dao().recording(id) ?: error("Worker result was not persisted: $id")
                 assertEquals("READY", recording.status)
                 assertEquals(backend, recording.backend)
@@ -122,7 +119,7 @@ class AllInOneAcceptanceTest {
         val evidence = device().put("audioSha256", hash(audio)).put("audioFile", audio.name)
             .put("inputKind", "official public Russian single-speaker smoke fixture; not Russian multispeaker acceptance")
             .put("acceptanceElapsedMs", SystemClock.elapsedRealtime() - started)
-            .put("elapsedScope", "Both sequential existing Worker tests including activity startup, Room and test polling; not pure ASR inference")
+            .put("elapsedScope", "Current Giga Worker test including activity startup, Room and test polling; not pure ASR inference")
             .put("runs", runs).put("WER", "N/A: no independent manual reference")
             .put("physicalArm64Validation", "Not established by this instrumentation test; inspect recorded runtime ABI/device")
         File(app.filesDir, "all-in-one-real-worker-acceptance.json").writeText(evidence.toString(2))

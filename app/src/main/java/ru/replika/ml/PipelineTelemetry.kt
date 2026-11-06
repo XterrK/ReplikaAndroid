@@ -48,7 +48,7 @@ class PipelineTelemetry(context: Context): AutoCloseable {
  }
  fun config(backend: String,threads: Int,audioMs: Long,mode: String) {
   // Backend and mode are validated constants, never data derived from transcript content.
-  require(backend in setOf("giga-v2","whisper-tiny"));require(mode in setOf("single","fixed","automatic"))
+  require(backend in setOf("giga-v2","giga-v3"));require(mode in setOf("single","fixed","automatic"))
   Log.i("ReplikaPerf",JSONObject().put("run",run).put("stage","config").put("backend",backend)
    .put("threads",threads).put("vadThreads",1).put("audioMs",audioMs).put("mode",mode).toString())
  }

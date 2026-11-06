@@ -1,0 +1,1 @@
+Current named compact130 proofs come from the source11 ProductExperience/ReviewScreenshots runs. Timestamp-suffixed and older-profile history is retained separately in product-public-history; those files are not labelled final source11 acceptance. All text/audio hashes refer to public or explicit synthetic QA fixtures, never the disconnected phone.

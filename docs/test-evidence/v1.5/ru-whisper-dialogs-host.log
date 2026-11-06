@@ -1,0 +1,89 @@
+giga-v2 whole-clip masha_dima_part9_158 0 13
+giga-v2 whole-clip masha_dima_part9_222 0 9
+giga-v2 whole-clip masha_dima_part9_397 0 12
+giga-v2 whole-clip masha_dima_part11_287 1 23
+giga-v2 whole-clip masha_dima_part11_296 0 15
+giga-v2 whole-clip masha_sveta_part9_770 0 6
+giga-v2 whole-clip masha_sveta_part9_1261 0 6
+giga-v3 whole-clip masha_dima_part9_158 0 13
+giga-v3 production-vad-context-single-speaker masha_dima_part9_158 2 13
+giga-v3 whole-clip masha_dima_part9_222 0 9
+giga-v3 production-vad-context-single-speaker masha_dima_part9_222 0 9
+giga-v3 whole-clip masha_dima_part9_397 0 12
+giga-v3 production-vad-context-single-speaker masha_dima_part9_397 1 12
+giga-v3 whole-clip masha_dima_part11_287 1 23
+giga-v3 production-vad-context-single-speaker masha_dima_part11_287 23 23
+giga-v3 whole-clip masha_dima_part11_296 1 15
+giga-v3 production-vad-context-single-speaker masha_dima_part11_296 3 15
+giga-v3 whole-clip masha_sveta_part9_770 0 6
+giga-v3 production-vad-context-single-speaker masha_sveta_part9_770 0 6
+giga-v3 whole-clip masha_sveta_part9_1261 0 6
+giga-v3 production-vad-context-single-speaker masha_sveta_part9_1261 2 6
+giga-v3-rnnt whole-clip masha_dima_part9_158 0 13
+giga-v3-rnnt whole-clip masha_dima_part9_222 0 9
+giga-v3-rnnt whole-clip masha_dima_part9_397 0 12
+giga-v3-rnnt whole-clip masha_dima_part11_287 0 23
+giga-v3-rnnt whole-clip masha_dima_part11_296 0 15
+giga-v3-rnnt whole-clip masha_sveta_part9_770 0 6
+giga-v3-rnnt whole-clip masha_sveta_part9_1261 0 6
+{
+  "summary": [
+    {
+      "model": "giga-v2",
+      "scope": "whole-clip",
+      "files": 7,
+      "wordErrors": 1,
+      "referenceWords": 84,
+      "wer": 0.011904761904761904,
+      "charErrors": 1,
+      "referenceChars": 500,
+      "cer": 0.002,
+      "inferenceSec": 7.572241060999659
+    },
+    {
+      "model": "giga-v3",
+      "scope": "whole-clip",
+      "files": 7,
+      "wordErrors": 2,
+      "referenceWords": 84,
+      "wer": 0.023809523809523808,
+      "charErrors": 2,
+      "referenceChars": 500,
+      "cer": 0.004,
+      "inferenceSec": 3.717766631998529
+    },
+    {
+      "model": "giga-v3",
+      "scope": "production-vad-context-single-speaker",
+      "files": 7,
+      "wordErrors": 31,
+      "referenceWords": 84,
+      "wer": 0.36904761904761907,
+      "charErrors": 172,
+      "referenceChars": 500,
+      "cer": 0.344,
+      "inferenceSec": 2.131090924012824
+    },
+    {
+      "model": "giga-v3-rnnt",
+      "scope": "whole-clip",
+      "files": 7,
+      "wordErrors": 0,
+      "referenceWords": 84,
+      "wer": 0.0,
+      "charErrors": 0,
+      "referenceChars": 500,
+      "cer": 0.0,
+      "inferenceSec": 3.753991561996372
+    }
+  ],
+  "vadSummary": {
+    "files": 7,
+    "filesWithEmptyVad": 1,
+    "audioSec": 50.2991875,
+    "rawVadDetectedSec": 26.766,
+    "contextRetainedSec": 28.022000000000002,
+    "slices": 13,
+    "filesGainAboveOne": 0
+  }
+}

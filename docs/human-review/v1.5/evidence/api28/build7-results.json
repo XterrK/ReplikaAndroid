@@ -1,0 +1,133 @@
+{
+  "build": "7",
+  "sdk": 28,
+  "serial": "emulator-5558",
+  "distinctTests": 26,
+  "currentPass": 24,
+  "currentFail": 2,
+  "findings": [
+    "Delayed MP4 edit-list offset normalized to zero by Android9 extractor; AAC remux lost leading silence",
+    "Cancellation fixture did not enter decode progress due to the same incorrect remux gate"
+  ],
+  "preconditionFailure": "First Navigation attempted Home before AIO preparation; warm rerun passed",
+  "initialRuns": [
+    {
+      "serial": "emulator-5558",
+      "sdk": 28,
+      "filter": "ru.replika.OrbRendererV14Test#canvasFallbackAndAgslRenderBothThemesWithoutRuntimeErrors",
+      "seconds": 6.53,
+      "failed": false,
+      "timedOut": false,
+      "result": [
+        "OK (1 test)"
+      ],
+      "log": "OrbRendererV14Test-canvasFallbackAndAgslRenderBothThemesWithoutRuntimeErrors-20261105T212535Z.log"
+    },
+    {
+      "serial": "emulator-5558",
+      "sdk": 28,
+      "filter": "ru.replika.OrbInteractionV15Test",
+      "seconds": 6.26,
+      "failed": false,
+      "timedOut": false,
+      "result": [
+        "OK (1 test)"
+      ],
+      "log": "OrbInteractionV15Test-20261105T212541Z.log"
+    },
+    {
+      "serial": "emulator-5558",
+      "sdk": 28,
+      "filter": "ru.replika.MediaImportV15Test",
+      "seconds": 4.23,
+      "failed": true,
+      "timedOut": false,
+      "result": [
+        "Tests run: 12,  Failures: 2"
+      ],
+      "log": "MediaImportV15Test-20261105T212548Z.log"
+    },
+    {
+      "serial": "emulator-5558",
+      "sdk": 28,
+      "filter": "ru.replika.ImportJournalV15Test",
+      "seconds": 3.26,
+      "failed": false,
+      "timedOut": false,
+      "result": [
+        "OK (8 tests)"
+      ],
+      "log": "ImportJournalV15Test-20261105T212552Z.log"
+    },
+    {
+      "serial": "emulator-5558",
+      "sdk": 28,
+      "filter": "ru.replika.NavigationTest",
+      "seconds": 8.55,
+      "failed": true,
+      "timedOut": false,
+      "result": [
+        "Tests run: 1,  Failures: 1"
+      ],
+      "log": "NavigationTest-20261105T212555Z.log"
+    },
+    {
+      "serial": "emulator-5558",
+      "sdk": 28,
+      "filter": "ru.replika.HomeExperienceV15Test#largeMonoWaveformAndTransportStayCenteredAndSeekIsAccessible",
+      "seconds": 35.68,
+      "failed": false,
+      "timedOut": false,
+      "result": [
+        "OK (1 test)"
+      ],
+      "log": "HomeExperienceV15Test-largeMonoWaveformAndTransportStayCenteredAndSeekIsAccessible-20261105T212604Z.log"
+    },
+    {
+      "serial": "emulator-5558",
+      "sdk": 28,
+      "filter": "ru.replika.EditorialV14UiTest#keyboardSaveAndUndoKeepTheOriginalRoomSegment",
+      "seconds": 17.87,
+      "failed": false,
+      "timedOut": false,
+      "result": [
+        "OK (1 test)"
+      ],
+      "log": "EditorialV14UiTest-keyboardSaveAndUndoKeepTheOriginalRoomSegment-20261105T212640Z.log"
+    }
+  ],
+  "warmNavigation": [
+    {
+      "serial": "emulator-5558",
+      "sdk": 28,
+      "filter": "ru.replika.NavigationTest",
+      "seconds": 8.32,
+      "failed": false,
+      "timedOut": false,
+      "result": [
+        "OK (1 test)"
+      ],
+      "log": "NavigationTest-20261105T212814Z.log"
+    }
+  ],
+  "physicalPhoneClaim": false,
+  "bothThemesEightScreensAndKeyboard": [
+    {
+      "serial": "emulator-5558",
+      "sdk": 28,
+      "filter": "ru.replika.EditorialV14UiTest#bothThemesEightScreensAndKeyboard",
+      "seconds": 41.47,
+      "failed": false,
+      "timedOut": false,
+      "result": [
+        "OK (1 test)"
+      ],
+      "log": "EditorialV14UiTest-bothThemesEightScreensAndKeyboard-20261105T214731Z.log"
+    }
+  ],
+  "actualAppCaptures": {
+    "folder": "build7-ui",
+    "count": 24,
+    "scope": "Both themes, actual API28 automatic Canvas fallback, public controlled fixture records only"
+  }
+}

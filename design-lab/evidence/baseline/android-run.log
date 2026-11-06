@@ -1,0 +1,424 @@
+START bundle
+END bundle FAILED 2
+INSTRUMENTATION_STATUS: class=ru.replika.AllInOneAcceptanceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+ru.replika.AllInOneAcceptanceTest:
+INSTRUMENTATION_STATUS: test=bothRealWorkerBackendsUseAutomaticallyPreparedBundle
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=ru.replika.AllInOneAcceptanceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=bothRealWorkerBackendsUseAutomaticallyPreparedBundle
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=ru.replika.AllInOneAcceptanceTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=preparedBundleHashesAndNoExtractionOnRepeatedLaunch
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=ru.replika.AllInOneAcceptanceTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Model was re-extracted between acceptance launches: giga-v2/encoder.int8.onnx expected:<1793636363744> but was:<1793816630780>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:647)
+	at ru.replika.AllInOneAcceptanceTest$preparedBundleHashesAndNoExtractionOnRepeatedLaunch$1.invokeSuspend(AllInOneAcceptanceTest.kt:80)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:33)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:100)
+	at kotlinx.coroutines.EventLoopImplBase.processNextEvent(EventLoop.common.kt:263)
+	at kotlinx.coroutines.BlockingCoroutine.joinBlocking(Builders.kt:94)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking(Builders.kt:70)
+	at kotlinx.coroutines.BuildersKt.runBlocking(Unknown Source:1)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking$default(Builders.kt:48)
+	at kotlinx.coroutines.BuildersKt.runBlocking$default(Unknown Source:1)
+	at ru.replika.AllInOneAcceptanceTest.preparedBundleHashesAndNoExtractionOnRepeatedLaunch(AllInOneAcceptanceTest.kt:30)
+
+INSTRUMENTATION_STATUS: stream=
+Error in preparedBundleHashesAndNoExtractionOnRepeatedLaunch(ru.replika.AllInOneAcceptanceTest):
+java.lang.AssertionError: Model was re-extracted between acceptance launches: giga-v2/encoder.int8.onnx expected:<1793636363744> but was:<1793816630780>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:647)
+	at ru.replika.AllInOneAcceptanceTest$preparedBundleHashesAndNoExtractionOnRepeatedLaunch$1.invokeSuspend(AllInOneAcceptanceTest.kt:80)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:33)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:100)
+	at kotlinx.coroutines.EventLoopImplBase.processNextEvent(EventLoop.common.kt:263)
+	at kotlinx.coroutines.BlockingCoroutine.joinBlocking(Builders.kt:94)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking(Builders.kt:70)
+	at kotlinx.coroutines.BuildersKt.runBlocking(Unknown Source:1)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking$default(Builders.kt:48)
+	at kotlinx.coroutines.BuildersKt.runBlocking$default(Unknown Source:1)
+	at ru.replika.AllInOneAcceptanceTest.preparedBundleHashesAndNoExtractionOnRepeatedLaunch(AllInOneAcceptanceTest.kt:30)
+
+INSTRUMENTATION_STATUS: test=preparedBundleHashesAndNoExtractionOnRepeatedLaunch
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 70.109
+There was 1 failure:
+1) preparedBundleHashesAndNoExtractionOnRepeatedLaunch(ru.replika.AllInOneAcceptanceTest)
+java.lang.AssertionError: Model was re-extracted between acceptance launches: giga-v2/encoder.int8.onnx expected:<1793636363744> but was:<1793816630780>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:647)
+	at ru.replika.AllInOneAcceptanceTest$preparedBundleHashesAndNoExtractionOnRepeatedLaunch$1.invokeSuspend(AllInOneAcceptanceTest.kt:80)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:33)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:100)
+	at kotlinx.coroutines.EventLoopImplBase.processNextEvent(EventLoop.common.kt:263)
+	at kotlinx.coroutines.BlockingCoroutine.joinBlocking(Builders.kt:94)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking(Builders.kt:70)
+	at kotlinx.coroutines.BuildersKt.runBlocking(Unknown Source:1)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking$default(Builders.kt:48)
+	at kotlinx.coroutines.BuildersKt.runBlocking$default(Unknown Source:1)
+	at ru.replika.AllInOneAcceptanceTest.preparedBundleHashesAndNoExtractionOnRepeatedLaunch(AllInOneAcceptanceTest.kt:30)
+
+FAILURES!!!
+Tests run: 2,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1
+
+START core
+END core PASS 36
+START ml
+END ml PASS 3
+START warning
+END warning PASS 1
+START recovery
+END recovery FAILED 6
+INSTRUMENTATION_STATUS: class=ru.replika.RecoveryV13InstrumentedTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=
+ru.replika.RecoveryV13InstrumentedTest:
+INSTRUMENTATION_STATUS: test=thermalGateWaitResumeAndCancellationWithActualPowerManager
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=ru.replika.RecoveryV13InstrumentedTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=thermalGateWaitResumeAndCancellationWithActualPowerManager
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=ru.replika.RecoveryV13InstrumentedTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=fourMinuteSingleSpeakerWorkerSkipsDiarizationAndKeepsBounds
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=ru.replika.RecoveryV13InstrumentedTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=fourMinuteSingleSpeakerWorkerSkipsDiarizationAndKeepsBounds
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=ru.replika.RecoveryV13InstrumentedTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=fourMinuteAutomaticDiarizationRetainsOneSpeakerOnControlledRepeat
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=ru.replika.RecoveryV13InstrumentedTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=fourMinuteAutomaticDiarizationRetainsOneSpeakerOnControlledRepeat
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=ru.replika.RecoveryV13InstrumentedTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=gigaThreadsOneTwoFourSequentialWithIdenticalInput
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=ru.replika.RecoveryV13InstrumentedTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=gigaThreadsOneTwoFourSequentialWithIdenticalInput
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=ru.replika.RecoveryV13InstrumentedTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=bufferedPcmReadMatchesEverySampleAndOriginalClock
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=ru.replika.RecoveryV13InstrumentedTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=bufferedPcmReadMatchesEverySampleAndOriginalClock
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=ru.replika.TranscriptModesV13Test
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=
+ru.replika.TranscriptModesV13Test:
+INSTRUMENTATION_STATUS: test=readingCopyEditAndRecreationShareRoomDataWithoutInference
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=ru.replika.TranscriptModesV13Test
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stack=java.lang.NullPointerException
+	at ru.replika.TranscriptModesV13Test.readingCopyEditAndRecreationShareRoomDataWithoutInference$lambda$3(TranscriptModesV13Test.kt:52)
+	at ru.replika.TranscriptModesV13Test.$r8$lambda$lWR4FdW3FgIKrFCtdYOH0lWGPEo(Unknown Source:0)
+	at ru.replika.TranscriptModesV13Test$$ExternalSyntheticLambda1.perform(D8$$SyntheticClass:0)
+	at androidx.test.core.app.ActivityScenario.lambda$onActivity$2$androidx-test-core-app-ActivityScenario(ActivityScenario.java:794)
+	at androidx.test.core.app.ActivityScenario$$ExternalSyntheticLambda2.run(D8$$SyntheticClass:0)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:487)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at android.app.Instrumentation$SyncRunnable.run(Instrumentation.java:2612)
+	at android.os.Handler.handleCallback(Handler.java:959)
+	at android.os.Handler.dispatchMessage(Handler.java:100)
+	at android.os.Looper.loopOnce(Looper.java:232)
+	at android.os.Looper.loop(Looper.java:317)
+	at android.app.ActivityThread.main(ActivityThread.java:8705)
+	at java.lang.reflect.Method.invoke(Native Method)
+	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:580)
+	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:886)
+
+INSTRUMENTATION_STATUS: stream=
+Error in readingCopyEditAndRecreationShareRoomDataWithoutInference(ru.replika.TranscriptModesV13Test):
+java.lang.NullPointerException
+	at ru.replika.TranscriptModesV13Test.readingCopyEditAndRecreationShareRoomDataWithoutInference$lambda$3(TranscriptModesV13Test.kt:52)
+	at ru.replika.TranscriptModesV13Test.$r8$lambda$lWR4FdW3FgIKrFCtdYOH0lWGPEo(Unknown Source:0)
+	at ru.replika.TranscriptModesV13Test$$ExternalSyntheticLambda1.perform(D8$$SyntheticClass:0)
+	at androidx.test.core.app.ActivityScenario.lambda$onActivity$2$androidx-test-core-app-ActivityScenario(ActivityScenario.java:794)
+	at androidx.test.core.app.ActivityScenario$$ExternalSyntheticLambda2.run(D8$$SyntheticClass:0)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:487)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at android.app.Instrumentation$SyncRunnable.run(Instrumentation.java:2612)
+	at android.os.Handler.handleCallback(Handler.java:959)
+	at android.os.Handler.dispatchMessage(Handler.java:100)
+	at android.os.Looper.loopOnce(Looper.java:232)
+	at android.os.Looper.loop(Looper.java:317)
+	at android.app.ActivityThread.main(ActivityThread.java:8705)
+	at java.lang.reflect.Method.invoke(Native Method)
+	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:580)
+	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:886)
+
+INSTRUMENTATION_STATUS: test=readingCopyEditAndRecreationShareRoomDataWithoutInference
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 171.656
+There was 1 failure:
+1) readingCopyEditAndRecreationShareRoomDataWithoutInference(ru.replika.TranscriptModesV13Test)
+java.lang.NullPointerException
+	at ru.replika.TranscriptModesV13Test.readingCopyEditAndRecreationShareRoomDataWithoutInference$lambda$3(TranscriptModesV13Test.kt:52)
+	at ru.replika.TranscriptModesV13Test.$r8$lambda$lWR4FdW3FgIKrFCtdYOH0lWGPEo(Unknown Source:0)
+	at ru.replika.TranscriptModesV13Test$$ExternalSyntheticLambda1.perform(D8$$SyntheticClass:0)
+	at androidx.test.core.app.ActivityScenario.lambda$onActivity$2$androidx-test-core-app-ActivityScenario(ActivityScenario.java:794)
+	at androidx.test.core.app.ActivityScenario$$ExternalSyntheticLambda2.run(D8$$SyntheticClass:0)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:487)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at android.app.Instrumentation$SyncRunnable.run(Instrumentation.java:2612)
+	at android.os.Handler.handleCallback(Handler.java:959)
+	at android.os.Handler.dispatchMessage(Handler.java:100)
+	at android.os.Looper.loopOnce(Looper.java:232)
+	at android.os.Looper.loop(Looper.java:317)
+	at android.app.ActivityThread.main(ActivityThread.java:8705)
+	at java.lang.reflect.Method.invoke(Native Method)
+	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:580)
+	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:886)
+
+FAILURES!!!
+Tests run: 6,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1
+
+START ui
+END ui FAILED 11
+RAW_STATUS_BAR_BACKGROUND FIT_INSETS_CONTROLLED
+  bhv=DEFAULT
+  fitSides=
+  frameRateBoostOnTouch=true
+  dvrrWindowFrameRateHint=true}, tag=null, root-is-layout-requested=false, has-input-connection=false, x=0.0, y=0.0, child-count=1}}
+	at dalvik.system.VMStack.getThreadStackTrace(Native Method)
+	at java.lang.Thread.getStackTrace(Thread.java:1841)
+	at androidx.test.espresso.base.EspressoExceptionHandler.handleSafely(EspressoExceptionHandler.java:34)
+	at androidx.test.espresso.base.EspressoExceptionHandler.handleSafely(EspressoExceptionHandler.java:26)
+	at androidx.test.espresso.base.DefaultFailureHandler$TypedFailureHandler.handle(DefaultFailureHandler.java:158)
+	at androidx.test.espresso.base.DefaultFailureHandler.handle(DefaultFailureHandler.java:120)
+	at androidx.test.espresso.ViewInteraction.waitForAndHandleInteractionResults(ViewInteraction.java:385)
+	at androidx.test.espresso.ViewInteraction.desugaredPerform(ViewInteraction.java:212)
+	at androidx.test.espresso.ViewInteraction.perform(ViewInteraction.java:140)
+	at androidx.test.espresso.Espresso.closeSoftKeyboard(Espresso.java:206)
+	at ru.replika.ProductExperienceTest.hideKeyboard(ProductExperienceTest.kt:56)
+	at ru.replika.ProductExperienceTest.findFixtureInLibrary(ProductExperienceTest.kt:128)
+	at ru.replika.ProductExperienceTest.libraryDeleteConfirmationRemovesOnlyOwnedCopy(ProductExperienceTest.kt:253)
+5) editorLongRosterSaveUndoAndDiscard(ru.replika.ProductExperienceTest)
+androidx.test.espresso.base.RootViewPicker$RootViewWithoutFocusException: Waited for the root of the view hierarchy to have window focus and not request layout for 10 seconds. If you specified a non default root matcher, it may be picking a root that never takes focus. Root:
+Root{application-window-token=android.view.ViewRootImpl$W@916300d, window-token=android.view.ViewRootImpl$W@916300d, has-window-focus=false, layout-params-type=1, layout-params-string={(0,0)(fillxfill) sim={forwardNavigation} layoutInDisplayCutoutMode=always ty=BASE_APPLICATION wanim=0x1030309
+  fl=LAYOUT_IN_SCREEN LAYOUT_INSET_DECOR SPLIT_TOUCH HARDWARE_ACCELERATED DRAWS_SYSTEM_BAR_BACKGROUNDS
+  pfl=NO_MOVE_ANIMATION EDGE_TO_EDGE_ENFORCED FORCE_DRAW_STATUS_BAR_BACKGROUND FIT_INSETS_CONTROLLED
+  bhv=DEFAULT
+  fitSides=
+  frameRateBoostOnTouch=true
+  dvrrWindowFrameRateHint=true}, decor-view-string=DecorView{id=-1, visibility=VISIBLE, width=432, height=936, has-focus=true, has-focusable=true, has-window-focus=false, is-clickable=false, is-enabled=true, is-focused=false, is-focusable=false, is-layout-requested=false, is-selected=false, layout-params={(0,0)(fillxfill) sim={forwardNavigation} layoutInDisplayCutoutMode=always ty=BASE_APPLICATION wanim=0x1030309
+  fl=LAYOUT_IN_SCREEN LAYOUT_INSET_DECOR SPLIT_TOUCH HARDWARE_ACCELERATED DRAWS_SYSTEM_BAR_BACKGROUNDS
+  pfl=NO_MOVE_ANIMATION EDGE_TO_EDGE_ENFORCED FORCE_DRAW_STATUS_BAR_BACKGROUND FIT_INSETS_CONTROLLED
+  bhv=DEFAULT
+  fitSides=
+  frameRateBoostOnTouch=true
+  dvrrWindowFrameRateHint=true}, tag=null, root-is-layout-requested=false, has-input-connection=false, x=0.0, y=0.0, child-count=1}}
+	at dalvik.system.VMStack.getThreadStackTrace(Native Method)
+	at java.lang.Thread.getStackTrace(Thread.java:1841)
+	at androidx.test.espresso.base.EspressoExceptionHandler.handleSafely(EspressoExceptionHandler.java:34)
+	at androidx.test.espresso.base.EspressoExceptionHandler.handleSafely(EspressoExceptionHandler.java:26)
+	at androidx.test.espresso.base.DefaultFailureHandler$TypedFailureHandler.handle(DefaultFailureHandler.java:158)
+	at androidx.test.espresso.base.DefaultFailureHandler.handle(DefaultFailureHandler.java:120)
+	at androidx.test.espresso.ViewInteraction.waitForAndHandleInteractionResults(ViewInteraction.java:385)
+	at androidx.test.espresso.ViewInteraction.desugaredPerform(ViewInteraction.java:212)
+	at androidx.test.espresso.ViewInteraction.perform(ViewInteraction.java:140)
+	at androidx.test.espresso.Espresso.closeSoftKeyboard(Espresso.java:206)
+	at ru.replika.ProductExperienceTest.hideKeyboard(ProductExperienceTest.kt:56)
+	at ru.replika.ProductExperienceTest.findFixtureInLibrary(ProductExperienceTest.kt:128)
+	at ru.replika.ProductExperienceTest.openFixture(ProductExperienceTest.kt:132)
+	at ru.replika.ProductExperienceTest.editorLongRosterSaveUndoAndDiscard(ProductExperienceTest.kt:151)
+6) actualShortSpeechReviewQueue(ru.replika.ReviewScreenshotsTest)
+androidx.test.espresso.base.RootViewPicker$RootViewWithoutFocusException: Waited for the root of the view hierarchy to have window focus and not request layout for 10 seconds. If you specified a non default root matcher, it may be picking a root that never takes focus. Root:
+Root{application-window-token=android.view.ViewRootImpl$W@c2ba893, window-token=android.view.ViewRootImpl$W@c2ba893, has-window-focus=false, layout-params-type=1, layout-params-string={(0,0)(fillxfill) sim={forwardNavigation} layoutInDisplayCutoutMode=always ty=BASE_APPLICATION wanim=0x1030309
+  fl=LAYOUT_IN_SCREEN LAYOUT_INSET_DECOR SPLIT_TOUCH HARDWARE_ACCELERATED DRAWS_SYSTEM_BAR_BACKGROUNDS
+  pfl=NO_MOVE_ANIMATION EDGE_TO_EDGE_ENFORCED FORCE_DRAW_STATUS_BAR_BACKGROUND FIT_INSETS_CONTROLLED
+  bhv=DEFAULT
+  fitSides=
+  frameRateBoostOnTouch=true
+  dvrrWindowFrameRateHint=true}, decor-view-string=DecorView{id=-1, visibility=VISIBLE, width=432, height=936, has-focus=true, has-focusable=true, has-window-focus=false, is-clickable=false, is-enabled=true, is-focused=false, is-focusable=false, is-layout-requested=false, is-selected=false, layout-params={(0,0)(fillxfill) sim={forwardNavigation} layoutInDisplayCutoutMode=always ty=BASE_APPLICATION wanim=0x1030309
+  fl=LAYOUT_IN_SCREEN LAYOUT_INSET_DECOR SPLIT_TOUCH HARDWARE_ACCELERATED DRAWS_SYSTEM_BAR_BACKGROUNDS
+  pfl=NO_MOVE_ANIMATION EDGE_TO_EDGE_ENFORCED FORCE_DRAW_STATUS_BAR_BACKGROUND FIT_INSETS_CONTROLLED
+  bhv=DEFAULT
+  fitSides=
+  frameRateBoostOnTouch=true
+  dvrrWindowFrameRateHint=true}, tag=null, root-is-layout-requested=false, has-input-connection=false, x=0.0, y=0.0, child-count=1}}
+	at dalvik.system.VMStack.getThreadStackTrace(Native Method)
+	at java.lang.Thread.getStackTrace(Thread.java:1841)
+	at androidx.test.espresso.base.EspressoExceptionHandler.handleSafely(EspressoExceptionHandler.java:34)
+	at androidx.test.espresso.base.EspressoExceptionHandler.handleSafely(EspressoExceptionHandler.java:26)
+	at androidx.test.espresso.base.DefaultFailureHandler$TypedFailureHandler.handle(DefaultFailureHandler.java:158)
+	at androidx.test.espresso.base.DefaultFailureHandler.handle(DefaultFailureHandler.java:120)
+	at androidx.test.espresso.ViewInteraction.waitForAndHandleInteractionResults(ViewInteraction.java:385)
+	at androidx.test.espresso.ViewInteraction.desugaredPerform(ViewInteraction.java:212)
+	at androidx.test.espresso.ViewInteraction.perform(ViewInteraction.java:140)
+	at androidx.test.espresso.Espresso.closeSoftKeyboard(Espresso.java:206)
+	at ru.replika.ReviewScreenshotsTest.hideKeyboard(ReviewScreenshotsTest.kt:30)
+	at ru.replika.ReviewScreenshotsTest.actualShortSpeechReviewQueue(ReviewScreenshotsTest.kt:98)
+7) realTranscriptReviewAndSpeakerEditing(ru.replika.ReviewScreenshotsTest)
+androidx.test.espresso.base.RootViewPicker$RootViewWithoutFocusException: Waited for the root of the view hierarchy to have window focus and not request layout for 10 seconds. If you specified a non default root matcher, it may be picking a root that never takes focus. Root:
+Root{application-window-token=android.view.ViewRootImpl$W@2a028f2, window-token=android.view.ViewRootImpl$W@2a028f2, has-window-focus=false, layout-params-type=1, layout-params-string={(0,0)(fillxfill) sim={forwardNavigation} layoutInDisplayCutoutMode=always ty=BASE_APPLICATION wanim=0x1030309
+  fl=LAYOUT_IN_SCREEN LAYOUT_INSET_DECOR SPLIT_TOUCH HARDWARE_ACCELERATED DRAWS_SYSTEM_BAR_BACKGROUNDS
+  pfl=NO_MOVE_ANIMATION EDGE_TO_EDGE_ENFORCED FORCE_DRAW_STATUS_BAR_BACKGROUND FIT_INSETS_CONTROLLED
+  bhv=DEFAULT
+  fitSides=
+  frameRateBoostOnTouch=true
+  dvrrWindowFrameRateHint=true}, decor-view-string=DecorView{id=-1, visibility=VISIBLE, width=432, height=936, has-focus=false, has-focusable=true, has-window-focus=false, is-clickable=false, is-enabled=true, is-focused=false, is-focusable=false, is-layout-requested=false, is-selected=false, layout-params={(0,0)(fillxfill) sim={forwardNavigation} layoutInDisplayCutoutMode=always ty=BASE_APPLICATION wanim=0x1030309
+  fl=LAYOUT_IN_SCREEN LAYOUT_INSET_DECOR SPLIT_TOUCH HARDWARE_ACCELERATED DRAWS_SYSTEM_BAR_BACKGROUNDS
+  pfl=NO_MOVE_ANIMATION EDGE_TO_EDGE_ENFORCED FORCE_DRAW_STATUS_BAR_BACKGROUND FIT_INSETS_CONTROLLED
+  bhv=DEFAULT
+  fitSides=
+  frameRateBoostOnTouch=true
+  dvrrWindowFrameRateHint=true}, tag=null, root-is-layout-requested=false, has-input-connection=false, x=0.0, y=0.0, child-count=1}}
+	at dalvik.system.VMStack.getThreadStackTrace(Native Method)
+	at java.lang.Thread.getStackTrace(Thread.java:1841)
+	at androidx.test.espresso.base.EspressoExceptionHandler.handleSafely(EspressoExceptionHandler.java:34)
+	at androidx.test.espresso.base.EspressoExceptionHandler.handleSafely(EspressoExceptionHandler.java:26)
+	at androidx.test.espresso.base.DefaultFailureHandler$TypedFailureHandler.handle(DefaultFailureHandler.java:158)
+	at androidx.test.espresso.base.DefaultFailureHandler.handle(DefaultFailureHandler.java:120)
+	at androidx.test.espresso.ViewInteraction.waitForAndHandleInteractionResults(ViewInteraction.java:385)
+	at androidx.test.espresso.ViewInteraction.desugaredPerform(ViewInteraction.java:212)
+	at androidx.test.espresso.ViewInteraction.perform(ViewInteraction.java:140)
+	at androidx.test.espresso.Espresso.closeSoftKeyboard(Espresso.java:206)
+	at ru.replika.ReviewScreenshotsTest.hideKeyboard(ReviewScreenshotsTest.kt:30)
+	at ru.replika.ReviewScreenshotsTest.realTranscriptReviewAndSpeakerEditing(ReviewScreenshotsTest.kt:153)
+
+FAILURES!!!
+Tests run: 11,  Failures: 7
+
+
+INSTRUMENTATION_CODE: -1
+
+START persist
+END persist FAILED 1
+INSTRUMENTATION_STATUS: class=ru.replika.PersistedEditsTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+ru.replika.PersistedEditsTest:
+INSTRUMENTATION_STATUS: test=actualUiCorrectionsSurviveProcessRelaunch
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=ru.replika.PersistedEditsTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.util.NoSuchElementException: Collection contains no element matching the predicate.
+	at ru.replika.PersistedEditsTest$actualUiCorrectionsSurviveProcessRelaunch$1.invokeSuspend(PersistedEditsTest.kt:34)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:33)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:100)
+	at kotlinx.coroutines.EventLoopImplBase.processNextEvent(EventLoop.common.kt:263)
+	at kotlinx.coroutines.BlockingCoroutine.joinBlocking(Builders.kt:94)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking(Builders.kt:70)
+	at kotlinx.coroutines.BuildersKt.runBlocking(Unknown Source:1)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking$default(Builders.kt:48)
+	at kotlinx.coroutines.BuildersKt.runBlocking$default(Unknown Source:1)
+	at ru.replika.PersistedEditsTest.actualUiCorrectionsSurviveProcessRelaunch(PersistedEditsTest.kt:17)
+
+INSTRUMENTATION_STATUS: stream=
+Error in actualUiCorrectionsSurviveProcessRelaunch(ru.replika.PersistedEditsTest):
+java.util.NoSuchElementException: Collection contains no element matching the predicate.
+	at ru.replika.PersistedEditsTest$actualUiCorrectionsSurviveProcessRelaunch$1.invokeSuspend(PersistedEditsTest.kt:34)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:33)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:100)
+	at kotlinx.coroutines.EventLoopImplBase.processNextEvent(EventLoop.common.kt:263)
+	at kotlinx.coroutines.BlockingCoroutine.joinBlocking(Builders.kt:94)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking(Builders.kt:70)
+	at kotlinx.coroutines.BuildersKt.runBlocking(Unknown Source:1)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking$default(Builders.kt:48)
+	at kotlinx.coroutines.BuildersKt.runBlocking$default(Unknown Source:1)
+	at ru.replika.PersistedEditsTest.actualUiCorrectionsSurviveProcessRelaunch(PersistedEditsTest.kt:17)
+
+INSTRUMENTATION_STATUS: test=actualUiCorrectionsSurviveProcessRelaunch
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 0.088
+There was 1 failure:
+1) actualUiCorrectionsSurviveProcessRelaunch(ru.replika.PersistedEditsTest)
+java.util.NoSuchElementException: Collection contains no element matching the predicate.
+	at ru.replika.PersistedEditsTest$actualUiCorrectionsSurviveProcessRelaunch$1.invokeSuspend(PersistedEditsTest.kt:34)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:33)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:100)
+	at kotlinx.coroutines.EventLoopImplBase.processNextEvent(EventLoop.common.kt:263)
+	at kotlinx.coroutines.BlockingCoroutine.joinBlocking(Builders.kt:94)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking(Builders.kt:70)
+	at kotlinx.coroutines.BuildersKt.runBlocking(Unknown Source:1)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking$default(Builders.kt:48)
+	at kotlinx.coroutines.BuildersKt.runBlocking$default(Unknown Source:1)
+	at ru.replika.PersistedEditsTest.actualUiCorrectionsSurviveProcessRelaunch(PersistedEditsTest.kt:17)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1
+
+FINISHED

@@ -16,7 +16,4 @@ with tarfile.open(s) as t:
    if '/'+abi+'/' in '/'+m.name and pathlib.PurePosixPath(m.name).name in ['libsherpa-onnx-jni.so','libonnxruntime.so']:
     p=ROOT/'app/src/main/jniLibs'/abi/pathlib.PurePosixPath(m.name).name;p.parent.mkdir(parents=True,exist_ok=True)
     with t.extractfile(m) as src,p.open('wb') as dst:shutil.copyfileobj(src,dst)
-w=fetch('https://github.com/ggml-org/whisper.cpp/archive/refs/tags/v1.7.6.tar.gz','whisper-v1.7.6.tar.gz')
-if not (ROOT/'third_party/whisper.cpp-1.7.6/src/whisper.cpp').exists():
- with tarfile.open(w) as t:t.extractall(ROOT/'third_party',filter='data')
-for p in [s,w]:print(p.name,hashlib.file_digest(p.open('rb'),'sha256').hexdigest())
+print(s.name,hashlib.file_digest(s.open('rb'),'sha256').hexdigest())

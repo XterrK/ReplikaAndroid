@@ -1,0 +1,18 @@
+V1.5 packager guard verification — 2026-11-05
+Production packaging was NOT executed. No real Human Review V1.5 ZIP was created. Tests use temporary dummy files and a memory sink.
+
+Command: python3 -m unittest discover -s tools/tests -p test_package_review_v15.py -v
+
+test_collection_includes_fixtures_but_excludes_private_and_weight_files (test_package_review_v15.ReviewPackageGuards.test_collection_includes_fixtures_but_excludes_private_and_weight_files) ... ok
+test_existing_zip_or_checksum_is_refused_without_modification (test_package_review_v15.ReviewPackageGuards.test_existing_zip_or_checksum_is_refused_without_modification) ... ok
+test_payload_allows_reproducible_source_and_only_the_final_apk (test_package_review_v15.ReviewPackageGuards.test_payload_allows_reproducible_source_and_only_the_final_apk) ... ok
+test_preservation_detects_old_artifact_changes_and_never_rewrites_them (test_package_review_v15.ReviewPackageGuards.test_preservation_detects_old_artifact_changes_and_never_rewrites_them) ... ok
+test_renamed_sqlite_content_is_rejected_before_it_is_written (test_package_review_v15.ReviewPackageGuards.test_renamed_sqlite_content_is_rejected_before_it_is_written) ... ok
+test_static_report_must_match_final_bytes_and_have_no_errors (test_package_review_v15.ReviewPackageGuards.test_static_report_must_match_final_bytes_and_have_no_errors) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.013s
+
+OK
+
+Independent read-only audit: no significant remaining findings. Production CRC/per-entry SHA/ZIP SHA checks are implemented but await the parent final packaging run; they were not executed by these guard tests.

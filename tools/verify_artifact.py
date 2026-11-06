@@ -18,7 +18,7 @@ SYSTEM_LIBRARIES = {
     "libandroid.so", "liblog.so", "libm.so", "libdl.so", "libc.so", "libz.so",
     "libEGL.so", "libGLESv2.so", "libGLESv3.so", "libOpenSLES.so", "libjnigraphics.so",
 }
-REQUIRED_LIBRARIES = {"libsherpa-onnx-jni.so", "libonnxruntime.so", "libreplika-whisper.so"}
+REQUIRED_LIBRARIES = {"libsherpa-onnx-jni.so", "libonnxruntime.so"}
 
 
 def elf_report(data):
@@ -84,6 +84,8 @@ def main():
             result["weightsBundled"] = weights
             if weights:
                 errors.append("Model weights bundled in APK")
+            if any(name.endswith("/libreplika-whisper.so") for name in archive.namelist()):
+                errors.append("Removed custom Whisper runtime is still packaged")
             natives = [i for i in archive.infolist() if i.filename.startswith("lib/") and i.filename.endswith(".so")]
             result["nativeLibraries"] = []
             names = {i.filename for i in natives}

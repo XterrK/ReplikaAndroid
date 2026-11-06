@@ -77,6 +77,8 @@ def main():
                     if (metadata["generatedSha256"] != result["embeddedPack"]["sha256"]
                             or metadata["generatedBytes"] != pack.file_size):
                         errors.append("Embedded pack differs from generated pack metadata")
+            if any(name.endswith("/libreplika-whisper.so") for name in archive.namelist()):
+                errors.append("Removed custom Whisper runtime is still packaged")
             natives = [entry for entry in entries if entry.filename.startswith("lib/") and entry.filename.endswith(".so")]
             native_names = {entry.filename for entry in natives}
             actual_abis = {entry.filename.split("/")[1] for entry in natives}

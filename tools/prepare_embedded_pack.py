@@ -11,7 +11,7 @@ import zipfile
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 CHUNK = 1024 * 1024
-REQUIRED_GROUPS = {"giga-v2", "diar", "vad", "whisper-tiny"}
+SUPPORT_GROUPS = {"diar", "vad"}
 
 
 def sha256_file(path):
@@ -43,8 +43,10 @@ def read_lock(path):
         if len(digest) != 64 or any(c not in "0123456789abcdef" for c in digest):
             raise ValueError(f"Invalid SHA-256 in lock: {name}")
         expected[name] = item
-    if len(expected) != 8 or {item["group"] for item in files} != REQUIRED_GROUPS:
-        raise ValueError("Expected the complete eight-file GigaAM/VAD/diarization/Whisper lock")
+    groups = {item["group"] for item in files}
+    asr = groups - SUPPORT_GROUPS
+    if len(expected) != 7 or len(asr) != 1 or not next(iter(asr)).startswith("giga-") or not SUPPORT_GROUPS <= groups:
+        raise ValueError("Expected one seven-file GigaAM/VAD/diarization lock")
     return raw, manifest, expected
 
 
@@ -157,7 +159,7 @@ def prepare(source, lock, output, metadata):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--source", type=pathlib.Path, default=ROOT / "model-pack/replika-offline-pack.zip")
+    parser.add_argument("--source", type=pathlib.Path, default=ROOT / "model-pack/replika-offline-pack-v1.5.zip")
     parser.add_argument("--manifest", type=pathlib.Path, default=ROOT / "app/src/main/assets/models-lock.json")
     parser.add_argument("--output", type=pathlib.Path, default=ROOT / "app/build/generated/embedded-models/assets/offline/replika-models.zip")
     parser.add_argument("--metadata", type=pathlib.Path, default=ROOT / "app/build/generated/embedded-models/pack-verification.json")

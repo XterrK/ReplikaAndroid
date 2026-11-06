@@ -1,0 +1,911 @@
+{
+  "initialExecutions": 60,
+  "initialPass": 50,
+  "initialFail": 10,
+  "totalExecutionsIncludingRetries": 71,
+  "distinctMethods": 60,
+  "latestPass": 59,
+  "latestFail": 1,
+  "skipped": 0,
+  "latestResults": [
+    {
+      "class": "ru.replika.AllInOneAcceptanceTest",
+      "test": "bothRealWorkerBackendsUseAutomaticallyPreparedBundle",
+      "code": 0,
+      "attempt": "initial",
+      "group": "bundle"
+    },
+    {
+      "class": "ru.replika.AllInOneAcceptanceTest",
+      "test": "preparedBundleHashesAndNoExtractionOnRepeatedLaunch",
+      "code": -2,
+      "attempt": "initial",
+      "group": "bundle"
+    },
+    {
+      "class": "ru.replika.ModelPackTest",
+      "test": "incompleteModelsCannotReachInference",
+      "code": 0,
+      "attempt": "initial",
+      "group": "core"
+    },
+    {
+      "class": "ru.replika.ModelPackTest",
+      "test": "corruptPackCannotReplaceVerifiedModel",
+      "code": 0,
+      "attempt": "initial",
+      "group": "core"
+    },
+    {
+      "class": "ru.replika.ModelPackTest",
+      "test": "importRealOfflinePack",
+      "code": 0,
+      "attempt": "initial",
+      "group": "core"
+    },
+    {
+      "class": "ru.replika.StorageAudioTest",
+      "test": "corruptedImportReturnsErrorAndRemovesPcm",
+      "code": 0,
+      "attempt": "initial",
+      "group": "core"
+    },
+    {
+      "class": "ru.replika.StorageAudioTest",
+      "test": "corruptWorkerPreservesPreviousTranscript",
+      "code": 0,
+      "attempt": "initial",
+      "group": "core"
+    },
+    {
+      "class": "ru.replika.StorageAudioTest",
+      "test": "sessionSurvivesDatabaseReopen",
+      "code": 0,
+      "attempt": "initial",
+      "group": "core"
+    },
+    {
+      "class": "ru.replika.StorageAudioTest",
+      "test": "stereo48kNormalizesTo16kWithoutTimeDrift",
+      "code": 0,
+      "attempt": "initial",
+      "group": "core"
+    },
+    {
+      "class": "ru.replika.StorageAudioTest",
+      "test": "realWavMp3M4aDecode",
+      "code": 0,
+      "attempt": "initial",
+      "group": "core"
+    },
+    {
+      "class": "ru.replika.StorageAudioTest",
+      "test": "realModelValidationAndAsr",
+      "code": 0,
+      "attempt": "initial",
+      "group": "core"
+    },
+    {
+      "class": "ru.replika.ProductStorageTest",
+      "test": "deletionStagingRecoversBothSidesOfDatabaseCommit",
+      "code": 0,
+      "attempt": "initial",
+      "group": "core"
+    },
+    {
+      "class": "ru.replika.ProductStorageTest",
+      "test": "editAndUndoArePersistedAndExported",
+      "code": 0,
+      "attempt": "initial",
+      "group": "core"
+    },
+    {
+      "class": "ru.replika.ProductStorageTest",
+      "test": "busyDeletionIsRejectedWithoutChangingData",
+      "code": 0,
+      "attempt": "initial",
+      "group": "core"
+    },
+    {
+      "class": "ru.replika.ProductStorageTest",
+      "test": "symlinkOutsideOwnedDirectoryIsNeverDeleted",
+      "code": 0,
+      "attempt": "initial",
+      "group": "core"
+    },
+    {
+      "class": "ru.replika.ProductStorageTest",
+      "test": "staleUndoAndStaleEditorNeverOverwriteNewerData",
+      "code": 0,
+      "attempt": "initial",
+      "group": "core"
+    },
+    {
+      "class": "ru.replika.ProductStorageTest",
+      "test": "externalAndSharedAudioArePreserved",
+      "code": 0,
+      "attempt": "initial",
+      "group": "core"
+    },
+    {
+      "class": "ru.replika.ProductStorageTest",
+      "test": "deletingOwnedAudioRemovesOnlyItsRowsAndFile",
+      "code": 0,
+      "attempt": "initial",
+      "group": "core"
+    },
+    {
+      "class": "ru.replika.ProcessingRecoveryTest",
+      "test": "duplicateRequestsAndQueuedCancellationPreserveTranscript",
+      "code": 0,
+      "attempt": "initial",
+      "group": "core"
+    },
+    {
+      "class": "ru.replika.ProcessingRecoveryTest",
+      "test": "orphanedProgressRecoversWithoutDeletingSavedEdits",
+      "code": 0,
+      "attempt": "initial",
+      "group": "core"
+    },
+    {
+      "class": "ru.replika.BundledModelInstallerTest",
+      "test": "unsafeZipPathsAreRejectedWithoutEscapingPrivateDirectories",
+      "code": 0,
+      "attempt": "initial",
+      "group": "core"
+    },
+    {
+      "class": "ru.replika.BundledModelInstallerTest",
+      "test": "missingRequiredFileCannotBeBypassedWithPreexistingStages",
+      "code": 0,
+      "attempt": "initial",
+      "group": "core"
+    },
+    {
+      "class": "ru.replika.BundledModelInstallerTest",
+      "test": "interruptedPublicationCanExposeOnlyVerifiedFilesAndRetryCompletes",
+      "code": 0,
+      "attempt": "initial",
+      "group": "core"
+    },
+    {
+      "class": "ru.replika.BundledModelInstallerTest",
+      "test": "duplicateZipPathsAreRejectedEvenWhenAllStagesWereAlreadyWritten",
+      "code": 0,
+      "attempt": "initial",
+      "group": "core"
+    },
+    {
+      "class": "ru.replika.BundledModelInstallerTest",
+      "test": "crcCorruptionCannotPublishFiles",
+      "code": 0,
+      "attempt": "initial",
+      "group": "core"
+    },
+    {
+      "class": "ru.replika.BundledModelInstallerTest",
+      "test": "replacingMissingModelsPreservesExistingValidModelsAndScansSkippedEntryBytes",
+      "code": 0,
+      "attempt": "initial",
+      "group": "core"
+    },
+    {
+      "class": "ru.replika.BundledModelInstallerTest",
+      "test": "corruptStageIsReplacedButCompleteVerifiedStageIsReused",
+      "code": 0,
+      "attempt": "initial",
+      "group": "core"
+    },
+    {
+      "class": "ru.replika.BundledModelInstallerTest",
+      "test": "insufficientStorageDoesNotOpenPackOrChangeLiveModel",
+      "code": 0,
+      "attempt": "initial",
+      "group": "core"
+    },
+    {
+      "class": "ru.replika.BundledModelInstallerTest",
+      "test": "completePackPublishesOnlyVerifiedFilesAndReportsActualBytes",
+      "code": 0,
+      "attempt": "initial",
+      "group": "core"
+    },
+    {
+      "class": "ru.replika.BundledModelInstallerTest",
+      "test": "interruptedPreparationRetainsVerifiedStageAndSafelyRetries",
+      "code": 0,
+      "attempt": "initial",
+      "group": "core"
+    },
+    {
+      "class": "ru.replika.BundledModelInstallerTest",
+      "test": "boundedMetadataRejectsArchiveBombWithoutPublishingModels",
+      "code": 0,
+      "attempt": "initial",
+      "group": "core"
+    },
+    {
+      "class": "ru.replika.BundledModelInstallerTest",
+      "test": "wrongHashDoesNotPublishAnythingOrDestroyExistingFiles",
+      "code": 0,
+      "attempt": "initial",
+      "group": "core"
+    },
+    {
+      "class": "ru.replika.BundledModelInstallerTest",
+      "test": "validModelsAreNotRewrittenAndPackIsNeverOpened",
+      "code": 0,
+      "attempt": "initial",
+      "group": "core"
+    },
+    {
+      "class": "ru.replika.BundledModelInstallerTest",
+      "test": "unsafeManifestPathsAreRejectedBeforeOpeningPack",
+      "code": 0,
+      "attempt": "initial",
+      "group": "core"
+    },
+    {
+      "class": "ru.replika.BundledModelInstallerTest",
+      "test": "manifestFingerprintIsStableAndChangesWithPinnedWeights",
+      "code": 0,
+      "attempt": "initial",
+      "group": "core"
+    },
+    {
+      "class": "ru.replika.BundledModelInstallerTest",
+      "test": "oversizedAndUnknownEntriesAreRejectedBeforePublication",
+      "code": 0,
+      "attempt": "initial",
+      "group": "core"
+    },
+    {
+      "class": "ru.replika.DiarizationTest",
+      "test": "realAutomaticMultispeakerDiarization",
+      "code": 0,
+      "attempt": "initial",
+      "group": "core"
+    },
+    {
+      "class": "ru.replika.PipelineTest",
+      "test": "realWhisperBackend",
+      "code": 0,
+      "attempt": "initial",
+      "group": "core"
+    },
+    {
+      "class": "ru.replika.MLComparisonTest",
+      "test": "vadBoundaryComparisons",
+      "code": 0,
+      "attempt": "initial",
+      "group": "ml"
+    },
+    {
+      "class": "ru.replika.MLComparisonTest",
+      "test": "diarizationAutomaticVersusKnownFour",
+      "code": 0,
+      "attempt": "initial",
+      "group": "ml"
+    },
+    {
+      "class": "ru.replika.MLComparisonTest",
+      "test": "directAsrSameInputColdThenWarm",
+      "code": 0,
+      "attempt": "initial",
+      "group": "ml"
+    },
+    {
+      "class": "ru.replika.WarningPipelineTest",
+      "test": "completeRealShortSpeechWarningPipeline",
+      "code": 0,
+      "attempt": "initial",
+      "group": "warning"
+    },
+    {
+      "class": "ru.replika.RecoveryV13InstrumentedTest",
+      "test": "thermalGateWaitResumeAndCancellationWithActualPowerManager",
+      "code": 0,
+      "attempt": "initial",
+      "group": "recovery"
+    },
+    {
+      "class": "ru.replika.RecoveryV13InstrumentedTest",
+      "test": "fourMinuteSingleSpeakerWorkerSkipsDiarizationAndKeepsBounds",
+      "code": 0,
+      "attempt": "initial",
+      "group": "recovery"
+    },
+    {
+      "class": "ru.replika.RecoveryV13InstrumentedTest",
+      "test": "fourMinuteAutomaticDiarizationRetainsOneSpeakerOnControlledRepeat",
+      "code": 0,
+      "attempt": "initial",
+      "group": "recovery"
+    },
+    {
+      "class": "ru.replika.RecoveryV13InstrumentedTest",
+      "test": "gigaThreadsOneTwoFourSequentialWithIdenticalInput",
+      "code": 0,
+      "attempt": "initial",
+      "group": "recovery"
+    },
+    {
+      "class": "ru.replika.RecoveryV13InstrumentedTest",
+      "test": "bufferedPcmReadMatchesEverySampleAndOriginalClock",
+      "code": 0,
+      "attempt": "initial",
+      "group": "recovery"
+    },
+    {
+      "class": "ru.replika.TranscriptModesV13Test",
+      "test": "readingCopyEditAndRecreationShareRoomDataWithoutInference",
+      "code": 0,
+      "attempt": "remaining-two-warm.log"
+    },
+    {
+      "class": "ru.replika.NavigationTest",
+      "test": "libraryModelsNavigation",
+      "code": 0,
+      "attempt": "initial",
+      "group": "ui"
+    },
+    {
+      "class": "ru.replika.AllInOneUiTest",
+      "test": "preparationErrorRetryRemainsAccessibleWithLongTextAtFontScale130",
+      "code": 0,
+      "attempt": "initial",
+      "group": "ui"
+    },
+    {
+      "class": "ru.replika.AllInOneUiTest",
+      "test": "installedBundleHasOptionalAdvancedImportAndBothBackendChoices",
+      "code": 0,
+      "attempt": "initial",
+      "group": "ui"
+    },
+    {
+      "class": "ru.replika.ProductExperienceTest",
+      "test": "corruptImportedFixtureDoesNotPrematurelyPreparePlayer",
+      "code": 0,
+      "attempt": "remaining-two-warm.log"
+    },
+    {
+      "class": "ru.replika.ProductExperienceTest",
+      "test": "workspaceSeekSpeedAndBackgroundPause",
+      "code": 0,
+      "attempt": "affected-ui.log"
+    },
+    {
+      "class": "ru.replika.ProductExperienceTest",
+      "test": "corruptedWorkerExplainsRecoveryAndKeepsSavedRows",
+      "code": 0,
+      "attempt": "affected-ui.log"
+    },
+    {
+      "class": "ru.replika.ProductExperienceTest",
+      "test": "libraryDeleteConfirmationRemovesOnlyOwnedCopy",
+      "code": 0,
+      "attempt": "affected-ui.log"
+    },
+    {
+      "class": "ru.replika.ProductExperienceTest",
+      "test": "editorLongRosterSaveUndoAndDiscard",
+      "code": 0,
+      "attempt": "affected-ui.log"
+    },
+    {
+      "class": "ru.replika.ReviewScreenshotsTest",
+      "test": "libraryModelsAndRecording",
+      "code": 0,
+      "attempt": "initial",
+      "group": "ui"
+    },
+    {
+      "class": "ru.replika.ReviewScreenshotsTest",
+      "test": "actualShortSpeechReviewQueue",
+      "code": 0,
+      "attempt": "affected-ui.log"
+    },
+    {
+      "class": "ru.replika.ReviewScreenshotsTest",
+      "test": "realTranscriptReviewAndSpeakerEditing",
+      "code": 0,
+      "attempt": "affected-ui.log"
+    },
+    {
+      "class": "ru.replika.PersistedEditsTest",
+      "test": "actualUiCorrectionsSurviveProcessRelaunch",
+      "code": 0,
+      "attempt": "persist.log"
+    }
+  ],
+  "allExecutions": [
+    {
+      "class": "ru.replika.AllInOneAcceptanceTest",
+      "test": "bothRealWorkerBackendsUseAutomaticallyPreparedBundle",
+      "code": 0,
+      "attempt": "initial",
+      "group": "bundle"
+    },
+    {
+      "class": "ru.replika.AllInOneAcceptanceTest",
+      "test": "preparedBundleHashesAndNoExtractionOnRepeatedLaunch",
+      "code": -2,
+      "attempt": "initial",
+      "group": "bundle"
+    },
+    {
+      "class": "ru.replika.ModelPackTest",
+      "test": "incompleteModelsCannotReachInference",
+      "code": 0,
+      "attempt": "initial",
+      "group": "core"
+    },
+    {
+      "class": "ru.replika.ModelPackTest",
+      "test": "corruptPackCannotReplaceVerifiedModel",
+      "code": 0,
+      "attempt": "initial",
+      "group": "core"
+    },
+    {
+      "class": "ru.replika.ModelPackTest",
+      "test": "importRealOfflinePack",
+      "code": 0,
+      "attempt": "initial",
+      "group": "core"
+    },
+    {
+      "class": "ru.replika.StorageAudioTest",
+      "test": "corruptedImportReturnsErrorAndRemovesPcm",
+      "code": 0,
+      "attempt": "initial",
+      "group": "core"
+    },
+    {
+      "class": "ru.replika.StorageAudioTest",
+      "test": "corruptWorkerPreservesPreviousTranscript",
+      "code": 0,
+      "attempt": "initial",
+      "group": "core"
+    },
+    {
+      "class": "ru.replika.StorageAudioTest",
+      "test": "sessionSurvivesDatabaseReopen",
+      "code": 0,
+      "attempt": "initial",
+      "group": "core"
+    },
+    {
+      "class": "ru.replika.StorageAudioTest",
+      "test": "stereo48kNormalizesTo16kWithoutTimeDrift",
+      "code": 0,
+      "attempt": "initial",
+      "group": "core"
+    },
+    {
+      "class": "ru.replika.StorageAudioTest",
+      "test": "realWavMp3M4aDecode",
+      "code": 0,
+      "attempt": "initial",
+      "group": "core"
+    },
+    {
+      "class": "ru.replika.StorageAudioTest",
+      "test": "realModelValidationAndAsr",
+      "code": 0,
+      "attempt": "initial",
+      "group": "core"
+    },
+    {
+      "class": "ru.replika.ProductStorageTest",
+      "test": "deletionStagingRecoversBothSidesOfDatabaseCommit",
+      "code": 0,
+      "attempt": "initial",
+      "group": "core"
+    },
+    {
+      "class": "ru.replika.ProductStorageTest",
+      "test": "editAndUndoArePersistedAndExported",
+      "code": 0,
+      "attempt": "initial",
+      "group": "core"
+    },
+    {
+      "class": "ru.replika.ProductStorageTest",
+      "test": "busyDeletionIsRejectedWithoutChangingData",
+      "code": 0,
+      "attempt": "initial",
+      "group": "core"
+    },
+    {
+      "class": "ru.replika.ProductStorageTest",
+      "test": "symlinkOutsideOwnedDirectoryIsNeverDeleted",
+      "code": 0,
+      "attempt": "initial",
+      "group": "core"
+    },
+    {
+      "class": "ru.replika.ProductStorageTest",
+      "test": "staleUndoAndStaleEditorNeverOverwriteNewerData",
+      "code": 0,
+      "attempt": "initial",
+      "group": "core"
+    },
+    {
+      "class": "ru.replika.ProductStorageTest",
+      "test": "externalAndSharedAudioArePreserved",
+      "code": 0,
+      "attempt": "initial",
+      "group": "core"
+    },
+    {
+      "class": "ru.replika.ProductStorageTest",
+      "test": "deletingOwnedAudioRemovesOnlyItsRowsAndFile",
+      "code": 0,
+      "attempt": "initial",
+      "group": "core"
+    },
+    {
+      "class": "ru.replika.ProcessingRecoveryTest",
+      "test": "duplicateRequestsAndQueuedCancellationPreserveTranscript",
+      "code": 0,
+      "attempt": "initial",
+      "group": "core"
+    },
+    {
+      "class": "ru.replika.ProcessingRecoveryTest",
+      "test": "orphanedProgressRecoversWithoutDeletingSavedEdits",
+      "code": 0,
+      "attempt": "initial",
+      "group": "core"
+    },
+    {
+      "class": "ru.replika.BundledModelInstallerTest",
+      "test": "unsafeZipPathsAreRejectedWithoutEscapingPrivateDirectories",
+      "code": 0,
+      "attempt": "initial",
+      "group": "core"
+    },
+    {
+      "class": "ru.replika.BundledModelInstallerTest",
+      "test": "missingRequiredFileCannotBeBypassedWithPreexistingStages",
+      "code": 0,
+      "attempt": "initial",
+      "group": "core"
+    },
+    {
+      "class": "ru.replika.BundledModelInstallerTest",
+      "test": "interruptedPublicationCanExposeOnlyVerifiedFilesAndRetryCompletes",
+      "code": 0,
+      "attempt": "initial",
+      "group": "core"
+    },
+    {
+      "class": "ru.replika.BundledModelInstallerTest",
+      "test": "duplicateZipPathsAreRejectedEvenWhenAllStagesWereAlreadyWritten",
+      "code": 0,
+      "attempt": "initial",
+      "group": "core"
+    },
+    {
+      "class": "ru.replika.BundledModelInstallerTest",
+      "test": "crcCorruptionCannotPublishFiles",
+      "code": 0,
+      "attempt": "initial",
+      "group": "core"
+    },
+    {
+      "class": "ru.replika.BundledModelInstallerTest",
+      "test": "replacingMissingModelsPreservesExistingValidModelsAndScansSkippedEntryBytes",
+      "code": 0,
+      "attempt": "initial",
+      "group": "core"
+    },
+    {
+      "class": "ru.replika.BundledModelInstallerTest",
+      "test": "corruptStageIsReplacedButCompleteVerifiedStageIsReused",
+      "code": 0,
+      "attempt": "initial",
+      "group": "core"
+    },
+    {
+      "class": "ru.replika.BundledModelInstallerTest",
+      "test": "insufficientStorageDoesNotOpenPackOrChangeLiveModel",
+      "code": 0,
+      "attempt": "initial",
+      "group": "core"
+    },
+    {
+      "class": "ru.replika.BundledModelInstallerTest",
+      "test": "completePackPublishesOnlyVerifiedFilesAndReportsActualBytes",
+      "code": 0,
+      "attempt": "initial",
+      "group": "core"
+    },
+    {
+      "class": "ru.replika.BundledModelInstallerTest",
+      "test": "interruptedPreparationRetainsVerifiedStageAndSafelyRetries",
+      "code": 0,
+      "attempt": "initial",
+      "group": "core"
+    },
+    {
+      "class": "ru.replika.BundledModelInstallerTest",
+      "test": "boundedMetadataRejectsArchiveBombWithoutPublishingModels",
+      "code": 0,
+      "attempt": "initial",
+      "group": "core"
+    },
+    {
+      "class": "ru.replika.BundledModelInstallerTest",
+      "test": "wrongHashDoesNotPublishAnythingOrDestroyExistingFiles",
+      "code": 0,
+      "attempt": "initial",
+      "group": "core"
+    },
+    {
+      "class": "ru.replika.BundledModelInstallerTest",
+      "test": "validModelsAreNotRewrittenAndPackIsNeverOpened",
+      "code": 0,
+      "attempt": "initial",
+      "group": "core"
+    },
+    {
+      "class": "ru.replika.BundledModelInstallerTest",
+      "test": "unsafeManifestPathsAreRejectedBeforeOpeningPack",
+      "code": 0,
+      "attempt": "initial",
+      "group": "core"
+    },
+    {
+      "class": "ru.replika.BundledModelInstallerTest",
+      "test": "manifestFingerprintIsStableAndChangesWithPinnedWeights",
+      "code": 0,
+      "attempt": "initial",
+      "group": "core"
+    },
+    {
+      "class": "ru.replika.BundledModelInstallerTest",
+      "test": "oversizedAndUnknownEntriesAreRejectedBeforePublication",
+      "code": 0,
+      "attempt": "initial",
+      "group": "core"
+    },
+    {
+      "class": "ru.replika.DiarizationTest",
+      "test": "realAutomaticMultispeakerDiarization",
+      "code": 0,
+      "attempt": "initial",
+      "group": "core"
+    },
+    {
+      "class": "ru.replika.PipelineTest",
+      "test": "realWhisperBackend",
+      "code": 0,
+      "attempt": "initial",
+      "group": "core"
+    },
+    {
+      "class": "ru.replika.MLComparisonTest",
+      "test": "vadBoundaryComparisons",
+      "code": 0,
+      "attempt": "initial",
+      "group": "ml"
+    },
+    {
+      "class": "ru.replika.MLComparisonTest",
+      "test": "diarizationAutomaticVersusKnownFour",
+      "code": 0,
+      "attempt": "initial",
+      "group": "ml"
+    },
+    {
+      "class": "ru.replika.MLComparisonTest",
+      "test": "directAsrSameInputColdThenWarm",
+      "code": 0,
+      "attempt": "initial",
+      "group": "ml"
+    },
+    {
+      "class": "ru.replika.WarningPipelineTest",
+      "test": "completeRealShortSpeechWarningPipeline",
+      "code": 0,
+      "attempt": "initial",
+      "group": "warning"
+    },
+    {
+      "class": "ru.replika.RecoveryV13InstrumentedTest",
+      "test": "thermalGateWaitResumeAndCancellationWithActualPowerManager",
+      "code": 0,
+      "attempt": "initial",
+      "group": "recovery"
+    },
+    {
+      "class": "ru.replika.RecoveryV13InstrumentedTest",
+      "test": "fourMinuteSingleSpeakerWorkerSkipsDiarizationAndKeepsBounds",
+      "code": 0,
+      "attempt": "initial",
+      "group": "recovery"
+    },
+    {
+      "class": "ru.replika.RecoveryV13InstrumentedTest",
+      "test": "fourMinuteAutomaticDiarizationRetainsOneSpeakerOnControlledRepeat",
+      "code": 0,
+      "attempt": "initial",
+      "group": "recovery"
+    },
+    {
+      "class": "ru.replika.RecoveryV13InstrumentedTest",
+      "test": "gigaThreadsOneTwoFourSequentialWithIdenticalInput",
+      "code": 0,
+      "attempt": "initial",
+      "group": "recovery"
+    },
+    {
+      "class": "ru.replika.RecoveryV13InstrumentedTest",
+      "test": "bufferedPcmReadMatchesEverySampleAndOriginalClock",
+      "code": 0,
+      "attempt": "initial",
+      "group": "recovery"
+    },
+    {
+      "class": "ru.replika.TranscriptModesV13Test",
+      "test": "readingCopyEditAndRecreationShareRoomDataWithoutInference",
+      "code": -2,
+      "attempt": "initial",
+      "group": "recovery"
+    },
+    {
+      "class": "ru.replika.NavigationTest",
+      "test": "libraryModelsNavigation",
+      "code": 0,
+      "attempt": "initial",
+      "group": "ui"
+    },
+    {
+      "class": "ru.replika.AllInOneUiTest",
+      "test": "preparationErrorRetryRemainsAccessibleWithLongTextAtFontScale130",
+      "code": 0,
+      "attempt": "initial",
+      "group": "ui"
+    },
+    {
+      "class": "ru.replika.AllInOneUiTest",
+      "test": "installedBundleHasOptionalAdvancedImportAndBothBackendChoices",
+      "code": 0,
+      "attempt": "initial",
+      "group": "ui"
+    },
+    {
+      "class": "ru.replika.ProductExperienceTest",
+      "test": "corruptImportedFixtureDoesNotPrematurelyPreparePlayer",
+      "code": -2,
+      "attempt": "initial",
+      "group": "ui"
+    },
+    {
+      "class": "ru.replika.ProductExperienceTest",
+      "test": "workspaceSeekSpeedAndBackgroundPause",
+      "code": -2,
+      "attempt": "initial",
+      "group": "ui"
+    },
+    {
+      "class": "ru.replika.ProductExperienceTest",
+      "test": "corruptedWorkerExplainsRecoveryAndKeepsSavedRows",
+      "code": -2,
+      "attempt": "initial",
+      "group": "ui"
+    },
+    {
+      "class": "ru.replika.ProductExperienceTest",
+      "test": "libraryDeleteConfirmationRemovesOnlyOwnedCopy",
+      "code": -2,
+      "attempt": "initial",
+      "group": "ui"
+    },
+    {
+      "class": "ru.replika.ProductExperienceTest",
+      "test": "editorLongRosterSaveUndoAndDiscard",
+      "code": -2,
+      "attempt": "initial",
+      "group": "ui"
+    },
+    {
+      "class": "ru.replika.ReviewScreenshotsTest",
+      "test": "libraryModelsAndRecording",
+      "code": 0,
+      "attempt": "initial",
+      "group": "ui"
+    },
+    {
+      "class": "ru.replika.ReviewScreenshotsTest",
+      "test": "actualShortSpeechReviewQueue",
+      "code": -2,
+      "attempt": "initial",
+      "group": "ui"
+    },
+    {
+      "class": "ru.replika.ReviewScreenshotsTest",
+      "test": "realTranscriptReviewAndSpeakerEditing",
+      "code": -2,
+      "attempt": "initial",
+      "group": "ui"
+    },
+    {
+      "class": "ru.replika.PersistedEditsTest",
+      "test": "actualUiCorrectionsSurviveProcessRelaunch",
+      "code": -2,
+      "attempt": "initial",
+      "group": "persist"
+    },
+    {
+      "class": "ru.replika.TranscriptModesV13Test",
+      "test": "readingCopyEditAndRecreationShareRoomDataWithoutInference",
+      "code": -2,
+      "attempt": "affected-ui.log"
+    },
+    {
+      "class": "ru.replika.ProductExperienceTest",
+      "test": "corruptImportedFixtureDoesNotPrematurelyPreparePlayer",
+      "code": -2,
+      "attempt": "affected-ui.log"
+    },
+    {
+      "class": "ru.replika.ProductExperienceTest",
+      "test": "workspaceSeekSpeedAndBackgroundPause",
+      "code": 0,
+      "attempt": "affected-ui.log"
+    },
+    {
+      "class": "ru.replika.ProductExperienceTest",
+      "test": "corruptedWorkerExplainsRecoveryAndKeepsSavedRows",
+      "code": 0,
+      "attempt": "affected-ui.log"
+    },
+    {
+      "class": "ru.replika.ProductExperienceTest",
+      "test": "libraryDeleteConfirmationRemovesOnlyOwnedCopy",
+      "code": 0,
+      "attempt": "affected-ui.log"
+    },
+    {
+      "class": "ru.replika.ProductExperienceTest",
+      "test": "editorLongRosterSaveUndoAndDiscard",
+      "code": 0,
+      "attempt": "affected-ui.log"
+    },
+    {
+      "class": "ru.replika.ReviewScreenshotsTest",
+      "test": "actualShortSpeechReviewQueue",
+      "code": 0,
+      "attempt": "affected-ui.log"
+    },
+    {
+      "class": "ru.replika.ReviewScreenshotsTest",
+      "test": "realTranscriptReviewAndSpeakerEditing",
+      "code": 0,
+      "attempt": "affected-ui.log"
+    },
+    {
+      "class": "ru.replika.PersistedEditsTest",
+      "test": "actualUiCorrectionsSurviveProcessRelaunch",
+      "code": 0,
+      "attempt": "persist.log"
+    },
+    {
+      "class": "ru.replika.TranscriptModesV13Test",
+      "test": "readingCopyEditAndRecreationShareRoomDataWithoutInference",
+      "code": 0,
+      "attempt": "remaining-two-warm.log"
+    },
+    {
+      "class": "ru.replika.ProductExperienceTest",
+      "test": "corruptImportedFixtureDoesNotPrematurelyPreparePlayer",
+      "code": 0,
+      "attempt": "remaining-two-warm.log"
+    }
+  ]
+}

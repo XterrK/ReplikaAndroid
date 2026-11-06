@@ -1,0 +1,162 @@
+{
+  "device": "unknown Android SDK built for x86_64",
+  "api": 35,
+  "abis": [
+    "x86_64"
+  ],
+  "originalVideoSha256": "e05cefe96c748b0bd519cf4193702ddb1283d5b1c994e22681ea471757842e66",
+  "audioArtifactSha256": "84ec7e627b640374994fc2f336ecbaa0aaf7ff628b6059f1c0f1228118094e7f",
+  "audioArtifactBytes": 93806,
+  "importMode": "AAC_REMUX",
+  "recordingId": "integration-video-v15",
+  "backend": "giga-v3",
+  "segments": 2,
+  "durationMs": 11392,
+  "databaseReopen": true,
+  "exportsReadBack": [
+    "json",
+    "txt",
+    "srt"
+  ],
+  "flowElapsedMs": 17615,
+  "actualPipelineDiagnostics": {
+    "finalPssKb": 176306,
+    "peakMemory": "N\/A; stage boundary snapshots only",
+    "device": "unknown Android SDK built for x86_64",
+    "android": 35,
+    "runtime": "sherpa-onnx 2.0.1",
+    "backend": "GigaAM v3 E2E RNNT INT8 \/ sherpa-onnx 2.0.1",
+    "threads": 2,
+    "vadThreads": 1,
+    "sampleRate": 16000,
+    "originalPcmPeak": 0.28189087,
+    "recognitionInputGain": 1,
+    "quietGainTriggerPeak": 0.01,
+    "quietGainMax": 20,
+    "quietGainScope": "temporary VAD and ASR arrays only; original PCM\/playback\/diarization preserved",
+    "expectedSpeakers": 1,
+    "clusterThreshold": 0.5,
+    "vadThreshold": 0.5,
+    "maxAsrSegmentMs": 20000,
+    "audioMs": 11392,
+    "totalMs": 12826,
+    "pipelineRtf": 1.125877808988764,
+    "pipelineTimingScope": "validation through ASR release; persistenceMs and telemetry.elapsedMs reported separately",
+    "asrStageRtf": 0.27861657303370785,
+    "asrInferenceRtf": 0.24947331460674158,
+    "runCondition": "uncontrolled device caches\/temperature; sequential ML stages; CPU provider",
+    "diarizationTurns": [
+      {
+        "startMs": 0,
+        "endMs": 11392,
+        "speakerId": 0
+      }
+    ],
+    "clusteringMode": "single",
+    "clusterThresholdApplied": false,
+    "automaticValidation": "not accepted on independent long Russian dialogue",
+    "segmentationWindowShiftRatio": 0.1,
+    "diarMinDurationOnSec": 0.2,
+    "diarMinDurationOffSec": 0.5,
+    "vadMinSpeechSec": 0.25,
+    "vadMinSilenceSec": 0.25,
+    "vadWindowSamples": 512,
+    "vadMaxSpeechSec": 20,
+    "preRollMs": 100,
+    "postRollMs": 0,
+    "vadSpans": [
+      {
+        "startMs": 38,
+        "endMs": 8614
+      },
+      {
+        "startMs": 9318,
+        "endMs": 11078
+      }
+    ],
+    "asrSpeechSpans": [
+      {
+        "startMs": 0,
+        "endMs": 8614
+      },
+      {
+        "startMs": 9218,
+        "endMs": 11078
+      }
+    ],
+    "asrSlices": [
+      {
+        "startMs": 0,
+        "endMs": 8614,
+        "speakerId": 0,
+        "text": "Ничьих не требуя похвал, счастлив уж я надеждой сладкой, Что дева с трепетом любви посмотрит, может быть, украдкой на песни грешные мои.",
+        "blank": false,
+        "inferenceMs": 2408,
+        "warnings": []
+      },
+      {
+        "startMs": 9218,
+        "endMs": 11078,
+        "speakerId": 0,
+        "text": "У лукоморья дуб зелёный.",
+        "blank": false,
+        "inferenceMs": 548,
+        "warnings": []
+      }
+    ],
+    "modelBytes": 278127730,
+    "stagesMs": {
+      "thermalWaitMs": 0,
+      "provisioningWaitMs": 0,
+      "nativeGateWaitMs": 0,
+      "validationMs": 568,
+      "decodeMs": 4629,
+      "metadataPersistenceMs": 43,
+      "vadLoadMs": 416,
+      "vadMs": 241,
+      "diarizationMs": 0,
+      "diarizationLoadMs": 0,
+      "diarizationInferenceMs": 0,
+      "alignmentMs": 3,
+      "asrLoadMs": 3412,
+      "asrReadMs": 31,
+      "asrInferenceMs": 2842,
+      "asrMs": 3174,
+      "persistenceMs": 18
+    },
+    "telemetry": {
+      "run": "8641adad-99fc-4ddb-9c1e-7cbe3e1a8be4",
+      "elapsedMs": 13566,
+      "stagesMs": {
+        "thermalWaitMs": 0,
+        "provisioningWaitMs": 0,
+        "nativeGateWaitMs": 0,
+        "validationMs": 568,
+        "decodeMs": 4629,
+        "metadataPersistenceMs": 43,
+        "vadLoadMs": 416,
+        "vadMs": 241,
+        "diarizationMs": 0,
+        "diarizationLoadMs": 0,
+        "diarizationInferenceMs": 0,
+        "alignmentMs": 3,
+        "asrLoadMs": 3412,
+        "asrReadMs": 31,
+        "asrInferenceMs": 2842,
+        "asrMs": 3174,
+        "persistenceMs": 18
+      },
+      "observedMaxPssKb": 409910,
+      "memoryScope": "stage boundary PSS snapshots; not continuous peak memory",
+      "thermalStatus": 0,
+      "thermalEvents": [
+        {
+          "elapsedMs": 851,
+          "status": 0
+        }
+      ],
+      "thermalApiSupported": true
+    }
+  },
+  "scope": "Real platform AAC extraction and production offline Worker on recorded device; video\/speech fixture is public, not a microphone recording"
+}

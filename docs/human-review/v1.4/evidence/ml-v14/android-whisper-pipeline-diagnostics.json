@@ -1,0 +1,145 @@
+{
+  "finalPssKb": 133012,
+  "peakMemory": "N\/A; stage boundary snapshots only",
+  "device": "unknown Android SDK built for x86_64",
+  "android": 35,
+  "runtime": "sherpa-onnx 2.0.1",
+  "backend": "Whisper tiny multilingual \/ whisper.cpp 1.7.6 \/ ru",
+  "threads": 2,
+  "vadThreads": 1,
+  "sampleRate": 16000,
+  "expectedSpeakers": -1,
+  "clusterThreshold": 0.5,
+  "vadThreshold": 0.5,
+  "maxAsrSegmentMs": 20000,
+  "audioMs": 11290,
+  "totalMs": 43443,
+  "pipelineRtf": 3.8479185119574844,
+  "pipelineTimingScope": "validation through ASR release; persistenceMs and telemetry.elapsedMs reported separately",
+  "asrStageRtf": 3.404960141718335,
+  "asrInferenceRtf": 3.3846767050487157,
+  "runCondition": "uncontrolled device caches\/temperature; sequential ML stages; CPU provider",
+  "diarizationTurns": [
+    {
+      "startMs": 31,
+      "endMs": 8485,
+      "speakerId": 0
+    },
+    {
+      "startMs": 9245,
+      "endMs": 10966,
+      "speakerId": 0
+    }
+  ],
+  "clusteringMode": "automatic",
+  "clusterThresholdApplied": true,
+  "automaticValidation": "not accepted on independent long Russian dialogue",
+  "segmentationWindowShiftRatio": 0.1,
+  "diarMinDurationOnSec": 0.2,
+  "diarMinDurationOffSec": 0.5,
+  "vadMinSpeechSec": 0.25,
+  "vadMinSilenceSec": 0.25,
+  "vadWindowSamples": 512,
+  "vadMaxSpeechSec": 20,
+  "preRollMs": 100,
+  "postRollMs": 0,
+  "vadSpans": [
+    {
+      "startMs": 102,
+      "endMs": 8550
+    },
+    {
+      "startMs": 9254,
+      "endMs": 10982
+    }
+  ],
+  "asrSpeechSpans": [
+    {
+      "startMs": 2,
+      "endMs": 8550
+    },
+    {
+      "startMs": 9154,
+      "endMs": 10982
+    }
+  ],
+  "asrSlices": [
+    {
+      "startMs": 2,
+      "endMs": 8550,
+      "speakerId": 0,
+      "text": "Ничего не требую похвал, все слиф уж я надежды сладкой, что дево стрепитом любви, посмотрит может быть украдкой, написник решные мои.",
+      "blank": false,
+      "inferenceMs": 19132,
+      "warnings": [
+        "Короткая граница диаризации: проверьте слова"
+      ]
+    },
+    {
+      "startMs": 9154,
+      "endMs": 10982,
+      "speakerId": 0,
+      "text": "Олукамори эту обзеленый.",
+      "blank": false,
+      "inferenceMs": 19158,
+      "warnings": [
+        "Короткая граница диаризации: проверьте слова"
+      ]
+    }
+  ],
+  "modelBytes": 365008680,
+  "stagesMs": {
+    "thermalWaitMs": 0,
+    "provisioningWaitMs": 0,
+    "nativeGateWaitMs": 0,
+    "validationMs": 219,
+    "decodeMs": 245,
+    "metadataPersistenceMs": 11,
+    "vadLoadMs": 42,
+    "vadMs": 426,
+    "diarizationLoadMs": 936,
+    "diarizationReadMs": 2,
+    "diarizationInferenceMs": 1922,
+    "diarizationMs": 3059,
+    "alignmentMs": 2,
+    "asrLoadMs": 354,
+    "asrReadMs": 9,
+    "asrInferenceMs": 38213,
+    "asrMs": 38442,
+    "persistenceMs": 4
+  },
+  "telemetry": {
+    "run": "8fe53755-59ab-4674-95f2-0fc5bcbfe925",
+    "elapsedMs": 43685,
+    "stagesMs": {
+      "thermalWaitMs": 0,
+      "provisioningWaitMs": 0,
+      "nativeGateWaitMs": 0,
+      "validationMs": 219,
+      "decodeMs": 245,
+      "metadataPersistenceMs": 11,
+      "vadLoadMs": 42,
+      "vadMs": 426,
+      "diarizationLoadMs": 936,
+      "diarizationReadMs": 2,
+      "diarizationInferenceMs": 1922,
+      "diarizationMs": 3059,
+      "alignmentMs": 2,
+      "asrLoadMs": 354,
+      "asrReadMs": 9,
+      "asrInferenceMs": 38213,
+      "asrMs": 38442,
+      "persistenceMs": 4
+    },
+    "observedMaxPssKb": 340936,
+    "memoryScope": "stage boundary PSS snapshots; not continuous peak memory",
+    "thermalStatus": 0,
+    "thermalEvents": [
+      {
+        "elapsedMs": 27,
+        "status": 0
+      }
+    ],
+    "thermalApiSupported": true
+  }
+}

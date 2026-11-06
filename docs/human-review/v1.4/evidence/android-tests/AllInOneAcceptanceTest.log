@@ -1,0 +1,85 @@
+INSTRUMENTATION_STATUS: class=ru.replika.AllInOneAcceptanceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+ru.replika.AllInOneAcceptanceTest:
+INSTRUMENTATION_STATUS: test=bothRealWorkerBackendsUseAutomaticallyPreparedBundle
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=ru.replika.AllInOneAcceptanceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=bothRealWorkerBackendsUseAutomaticallyPreparedBundle
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=ru.replika.AllInOneAcceptanceTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=preparedBundleHashesAndNoExtractionOnRepeatedLaunch
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=ru.replika.AllInOneAcceptanceTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Model was re-extracted between acceptance launches: giga-v2/encoder.int8.onnx expected:<1793636363744> but was:<1793902402150>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:647)
+	at ru.replika.AllInOneAcceptanceTest$preparedBundleHashesAndNoExtractionOnRepeatedLaunch$1.invokeSuspend(AllInOneAcceptanceTest.kt:80)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:33)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:100)
+	at kotlinx.coroutines.EventLoopImplBase.processNextEvent(EventLoop.common.kt:263)
+	at kotlinx.coroutines.BlockingCoroutine.joinBlocking(Builders.kt:94)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking(Builders.kt:70)
+	at kotlinx.coroutines.BuildersKt.runBlocking(Unknown Source:1)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking$default(Builders.kt:48)
+	at kotlinx.coroutines.BuildersKt.runBlocking$default(Unknown Source:1)
+	at ru.replika.AllInOneAcceptanceTest.preparedBundleHashesAndNoExtractionOnRepeatedLaunch(AllInOneAcceptanceTest.kt:30)
+
+INSTRUMENTATION_STATUS: stream=
+Error in preparedBundleHashesAndNoExtractionOnRepeatedLaunch(ru.replika.AllInOneAcceptanceTest):
+java.lang.AssertionError: Model was re-extracted between acceptance launches: giga-v2/encoder.int8.onnx expected:<1793636363744> but was:<1793902402150>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:647)
+	at ru.replika.AllInOneAcceptanceTest$preparedBundleHashesAndNoExtractionOnRepeatedLaunch$1.invokeSuspend(AllInOneAcceptanceTest.kt:80)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:33)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:100)
+	at kotlinx.coroutines.EventLoopImplBase.processNextEvent(EventLoop.common.kt:263)
+	at kotlinx.coroutines.BlockingCoroutine.joinBlocking(Builders.kt:94)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking(Builders.kt:70)
+	at kotlinx.coroutines.BuildersKt.runBlocking(Unknown Source:1)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking$default(Builders.kt:48)
+	at kotlinx.coroutines.BuildersKt.runBlocking$default(Unknown Source:1)
+	at ru.replika.AllInOneAcceptanceTest.preparedBundleHashesAndNoExtractionOnRepeatedLaunch(AllInOneAcceptanceTest.kt:30)
+
+INSTRUMENTATION_STATUS: test=preparedBundleHashesAndNoExtractionOnRepeatedLaunch
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 83.705
+There was 1 failure:
+1) preparedBundleHashesAndNoExtractionOnRepeatedLaunch(ru.replika.AllInOneAcceptanceTest)
+java.lang.AssertionError: Model was re-extracted between acceptance launches: giga-v2/encoder.int8.onnx expected:<1793636363744> but was:<1793902402150>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:647)
+	at ru.replika.AllInOneAcceptanceTest$preparedBundleHashesAndNoExtractionOnRepeatedLaunch$1.invokeSuspend(AllInOneAcceptanceTest.kt:80)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:33)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:100)
+	at kotlinx.coroutines.EventLoopImplBase.processNextEvent(EventLoop.common.kt:263)
+	at kotlinx.coroutines.BlockingCoroutine.joinBlocking(Builders.kt:94)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking(Builders.kt:70)
+	at kotlinx.coroutines.BuildersKt.runBlocking(Unknown Source:1)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking$default(Builders.kt:48)
+	at kotlinx.coroutines.BuildersKt.runBlocking$default(Unknown Source:1)
+	at ru.replika.AllInOneAcceptanceTest.preparedBundleHashesAndNoExtractionOnRepeatedLaunch(AllInOneAcceptanceTest.kt:30)
+
+FAILURES!!!
+Tests run: 2,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

@@ -1,0 +1,15 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/egor/frontend-intelligence-runtime/20261102-recovery/production/hackathon_os/cli.py", line 236, in <module>
+    if __name__=='__main__':sys.exit(main() or 0)
+                                     ~~~~^^
+  File "/home/egor/frontend-intelligence-runtime/20261102-recovery/production/hackathon_os/cli.py", line 194, in main
+    register_receipt(store,args.kind,json.loads(Path(args.file).read_text()),args.candidate)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/egor/frontend-intelligence-runtime/20261102-recovery/production/hackathon_os/operator.py", line 73, in register_receipt
+    elif kind=='explosion':f.explode(data)
+                           ~~~~~~~~~^^^^^^
+  File "/home/egor/frontend-intelligence-runtime/20261102-recovery/production/hackathon_os/freedom.py", line 197, in explode
+    raise GateError('creative explosion requires 6–10 product theses')
+hackathon_os.engine.GateError: creative explosion requires 6–10 product theses

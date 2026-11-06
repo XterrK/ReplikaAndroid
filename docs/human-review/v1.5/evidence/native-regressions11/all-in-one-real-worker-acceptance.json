@@ -1,0 +1,185 @@
+{
+  "package": "ru.replika.offline",
+  "device": "unknown Android SDK built for x86_64",
+  "api": 35,
+  "abis": [
+    "x86_64"
+  ],
+  "processIs64Bit": true,
+  "audioSha256": "d8aaaa18a5098d7c6de0595ae7ac1e64cacd0d4022af3595213bdaf23be77e69",
+  "audioFile": "integration-example.wav",
+  "inputKind": "official public Russian single-speaker smoke fixture; not Russian multispeaker acceptance",
+  "acceptanceElapsedMs": 13807,
+  "elapsedScope": "Current Giga Worker test including activity startup, Room and test polling; not pure ASR inference",
+  "runs": [
+    {
+      "recordingId": "integration-real-giga",
+      "backend": "giga-v3",
+      "segments": 2,
+      "diagnostics": {
+        "vadPrimarySpanCount": 2,
+        "vadPrimarySpans": [
+          {
+            "startMs": 102,
+            "endMs": 8550
+          },
+          {
+            "startMs": 9254,
+            "endMs": 10982
+          }
+        ],
+        "vadRescueAttempted": false,
+        "vadRescueApplied": false,
+        "vadDetectorGain": 1,
+        "vadRescueRms": null,
+        "vadRescueRmsSamples": 0,
+        "vadRescueSpanCount": 0,
+        "vadRescueReason": "primary_nonempty",
+        "vadRescueTargetRms": 0.02,
+        "vadRescueMaxGain": 20,
+        "vadRescuePeakHeadroom": 0.95,
+        "vadRescueMinGainRatio": 1.01,
+        "vadRescueScope": "detector-only empty-primary retry; ASR input, original PCM and diarization unchanged",
+        "finalPssKb": 182040,
+        "peakMemory": "N\/A; stage boundary snapshots only",
+        "device": "unknown Android SDK built for x86_64",
+        "android": 35,
+        "runtime": "sherpa-onnx 2.0.1",
+        "backend": "GigaAM v3 E2E RNNT INT8 \/ sherpa-onnx 2.0.1",
+        "threads": 2,
+        "vadThreads": 1,
+        "sampleRate": 16000,
+        "originalPcmPeak": 0.28579712,
+        "recognitionInputGain": 1,
+        "quietGainTriggerPeak": 0.01,
+        "quietGainMax": 20,
+        "quietGainScope": "temporary VAD and ASR arrays only; original PCM\/playback\/diarization preserved",
+        "expectedSpeakers": 1,
+        "clusterThreshold": 0.5,
+        "vadThreshold": 0.5,
+        "maxAsrSegmentMs": 20000,
+        "audioMs": 11290,
+        "totalMs": 9502,
+        "pipelineRtf": 0.84162976085031,
+        "pipelineTimingScope": "validation through ASR release; persistenceMs and telemetry.elapsedMs reported separately",
+        "asrStageRtf": 0.2796279893711249,
+        "asrInferenceRtf": 0.24189548272807795,
+        "runCondition": "uncontrolled device caches\/temperature; sequential ML stages; CPU provider",
+        "diarizationTurns": [
+          {
+            "startMs": 0,
+            "endMs": 11290,
+            "speakerId": 0
+          }
+        ],
+        "clusteringMode": "single",
+        "clusterThresholdApplied": false,
+        "automaticValidation": "not accepted on independent long Russian dialogue",
+        "segmentationWindowShiftRatio": 0.1,
+        "diarMinDurationOnSec": 0.2,
+        "diarMinDurationOffSec": 0.5,
+        "vadMinSpeechSec": 0.25,
+        "vadMinSilenceSec": 0.25,
+        "vadWindowSamples": 512,
+        "vadMaxSpeechSec": 20,
+        "preRollMs": 100,
+        "postRollMs": 0,
+        "vadSpans": [
+          {
+            "startMs": 102,
+            "endMs": 8550
+          },
+          {
+            "startMs": 9254,
+            "endMs": 10982
+          }
+        ],
+        "asrSpeechSpans": [
+          {
+            "startMs": 2,
+            "endMs": 8550
+          },
+          {
+            "startMs": 9154,
+            "endMs": 10982
+          }
+        ],
+        "asrSlices": [
+          {
+            "startMs": 2,
+            "endMs": 8550,
+            "speakerId": 0,
+            "text": "Ничьих не требуя похвал, счастлив уж я надеждой сладкой, что дева с трепетом любви посмотрит, может быть, украдкой на песни грешные мои.",
+            "blank": false,
+            "inferenceMs": 2121,
+            "warnings": []
+          },
+          {
+            "startMs": 9154,
+            "endMs": 10982,
+            "speakerId": 0,
+            "text": "У лукоморья дуб зелёный.",
+            "blank": false,
+            "inferenceMs": 745,
+            "warnings": []
+          }
+        ],
+        "modelBytes": 278127730,
+        "stagesMs": {
+          "thermalWaitMs": 0,
+          "provisioningWaitMs": 0,
+          "nativeGateWaitMs": 0,
+          "validationMs": 387,
+          "decodeMs": 2088,
+          "metadataPersistenceMs": 9,
+          "vadLoadMs": 147,
+          "vadMs": 410,
+          "diarizationMs": 0,
+          "diarizationLoadMs": 0,
+          "diarizationInferenceMs": 0,
+          "alignmentMs": 4,
+          "asrLoadMs": 2859,
+          "asrReadMs": 40,
+          "asrInferenceMs": 2731,
+          "asrMs": 3157,
+          "persistenceMs": 54
+        },
+        "telemetry": {
+          "run": "979cb9fd-32a6-4d43-806e-098d38ad03c5",
+          "elapsedMs": 9844,
+          "stagesMs": {
+            "thermalWaitMs": 0,
+            "provisioningWaitMs": 0,
+            "nativeGateWaitMs": 0,
+            "validationMs": 387,
+            "decodeMs": 2088,
+            "metadataPersistenceMs": 9,
+            "vadLoadMs": 147,
+            "vadMs": 410,
+            "diarizationMs": 0,
+            "diarizationLoadMs": 0,
+            "diarizationInferenceMs": 0,
+            "alignmentMs": 4,
+            "asrLoadMs": 2859,
+            "asrReadMs": 40,
+            "asrInferenceMs": 2731,
+            "asrMs": 3157,
+            "persistenceMs": 54
+          },
+          "observedMaxPssKb": 422172,
+          "memoryScope": "stage boundary PSS snapshots; not continuous peak memory",
+          "thermalStatus": 0,
+          "thermalEvents": [
+            {
+              "elapsedMs": 941,
+              "status": 0
+            }
+          ],
+          "thermalApiSupported": true
+        }
+      }
+    }
+  ],
+  "WER": "N\/A: no independent manual reference",
+  "physicalArm64Validation": "Not established by this instrumentation test; inspect recorded runtime ABI\/device"
+}

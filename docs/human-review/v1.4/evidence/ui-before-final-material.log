@@ -1,0 +1,161 @@
+START AllInOneAcceptanceTest
+END {'suite': 'AllInOneAcceptanceTest', 'seconds': 86.18, 'failed': True, 'result': ['Tests run: 2,  Failures: 1']}
+INSTRUMENTATION_STATUS: class=ru.replika.AllInOneAcceptanceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+ru.replika.AllInOneAcceptanceTest:
+INSTRUMENTATION_STATUS: test=bothRealWorkerBackendsUseAutomaticallyPreparedBundle
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=ru.replika.AllInOneAcceptanceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=bothRealWorkerBackendsUseAutomaticallyPreparedBundle
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=ru.replika.AllInOneAcceptanceTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=preparedBundleHashesAndNoExtractionOnRepeatedLaunch
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=ru.replika.AllInOneAcceptanceTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Model was re-extracted between acceptance launches: giga-v2/encoder.int8.onnx expected:<1793636363744> but was:<1793902402150>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:647)
+	at ru.replika.AllInOneAcceptanceTest$preparedBundleHashesAndNoExtractionOnRepeatedLaunch$1.invokeSuspend(AllInOneAcceptanceTest.kt:80)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:33)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:100)
+	at kotlinx.coroutines.EventLoopImplBase.processNextEvent(EventLoop.common.kt:263)
+	at kotlinx.coroutines.BlockingCoroutine.joinBlocking(Builders.kt:94)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking(Builders.kt:70)
+	at kotlinx.coroutines.BuildersKt.runBlocking(Unknown Source:1)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking$default(Builders.kt:48)
+	at kotlinx.coroutines.BuildersKt.runBlocking$default(Unknown Source:1)
+	at ru.replika.AllInOneAcceptanceTest.preparedBundleHashesAndNoExtractionOnRepeatedLaunch(AllInOneAcceptanceTest.kt:30)
+
+INSTRUMENTATION_STATUS: stream=
+Error in preparedBundleHashesAndNoExtractionOnRepeatedLaunch(ru.replika.AllInOneAcceptanceTest):
+java.lang.AssertionError: Model was re-extracted between acceptance launches: giga-v2/encoder.int8.onnx expected:<1793636363744> but was:<1793902402150>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:647)
+	at ru.replika.AllInOneAcceptanceTest$preparedBundleHashesAndNoExtractionOnRepeatedLaunch$1.invokeSuspend(AllInOneAcceptanceTest.kt:80)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:33)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:100)
+	at kotlinx.coroutines.EventLoopImplBase.processNextEvent(EventLoop.common.kt:263)
+	at kotlinx.coroutines.BlockingCoroutine.joinBlocking(Builders.kt:94)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking(Builders.kt:70)
+	at kotlinx.coroutines.BuildersKt.runBlocking(Unknown Source:1)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking$default(Builders.kt:48)
+	at kotlinx.coroutines.BuildersKt.runBlocking$default(Unknown Source:1)
+	at ru.replika.AllInOneAcceptanceTest.preparedBundleHashesAndNoExtractionOnRepeatedLaunch(AllInOneAcceptanceTest.kt:30)
+
+INSTRUMENTATION_STATUS: test=preparedBundleHashesAndNoExtractionOnRepeatedLaunch
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 83.705
+There was 1 failure:
+1) preparedBundleHashesAndNoExtractionOnRepeatedLaunch(ru.replika.AllInOneAcceptanceTest)
+java.lang.AssertionError: Model was re-extracted between acceptance launches: giga-v2/encoder.int8.onnx expected:<1793636363744> but was:<1793902402150>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:647)
+	at ru.replika.AllInOneAcceptanceTest$preparedBundleHashesAndNoExtractionOnRepeatedLaunch$1.invokeSuspend(AllInOneAcceptanceTest.kt:80)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:33)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:100)
+	at kotlinx.coroutines.EventLoopImplBase.processNextEvent(EventLoop.common.kt:263)
+	at kotlinx.coroutines.BlockingCoroutine.joinBlocking(Builders.kt:94)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking(Builders.kt:70)
+	at kotlinx.coroutines.BuildersKt.runBlocking(Unknown Source:1)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking$default(Builders.kt:48)
+	at kotlinx.coroutines.BuildersKt.runBlocking$default(Unknown Source:1)
+	at ru.replika.AllInOneAcceptanceTest.preparedBundleHashesAndNoExtractionOnRepeatedLaunch(AllInOneAcceptanceTest.kt:30)
+
+FAILURES!!!
+Tests run: 2,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1
+
+START EditorialV14UiTest
+END {'suite': 'EditorialV14UiTest', 'seconds': 59.85, 'failed': False, 'result': ['OK (3 tests)']}
+START OrbRendererV14Test
+END {'suite': 'OrbRendererV14Test', 'seconds': 10.55, 'failed': False, 'result': ['OK (2 tests)']}
+START NavigationTest
+END {'suite': 'NavigationTest', 'seconds': 9.32, 'failed': False, 'result': ['OK (1 test)']}
+START AllInOneUiTest
+END {'suite': 'AllInOneUiTest', 'seconds': 130.91, 'failed': True, 'result': ['Tests run: 2,  Failures: 1']}
+INSTRUMENTATION_STATUS: class=ru.replika.AllInOneUiTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+ru.replika.AllInOneUiTest:
+INSTRUMENTATION_STATUS: test=preparationErrorRetryRemainsAccessibleWithLongTextAtFontScale130
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=ru.replika.AllInOneUiTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=preparationErrorRetryRemainsAccessibleWithLongTextAtFontScale130
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=ru.replika.AllInOneUiTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=installedBundleHasOptionalAdvancedImportAndBothBackendChoices
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=ru.replika.AllInOneUiTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 120000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:504)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:339)
+	at ru.replika.AllInOneUiTest.installedBundleHasOptionalAdvancedImportAndBothBackendChoices(AllInOneUiTest.kt:51)
+
+INSTRUMENTATION_STATUS: stream=
+Error in installedBundleHasOptionalAdvancedImportAndBothBackendChoices(ru.replika.AllInOneUiTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 120000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:504)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:339)
+	at ru.replika.AllInOneUiTest.installedBundleHasOptionalAdvancedImportAndBothBackendChoices(AllInOneUiTest.kt:51)
+
+INSTRUMENTATION_STATUS: test=installedBundleHasOptionalAdvancedImportAndBothBackendChoices
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 128.509
+There was 1 failure:
+1) installedBundleHasOptionalAdvancedImportAndBothBackendChoices(ru.replika.AllInOneUiTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 120000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:504)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:339)
+	at ru.replika.AllInOneUiTest.installedBundleHasOptionalAdvancedImportAndBothBackendChoices(AllInOneUiTest.kt:51)
+
+FAILURES!!!
+Tests run: 2,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1
+
+START TranscriptModesV13Test
+END {'suite': 'TranscriptModesV13Test', 'seconds': 16.56, 'failed': False, 'result': ['OK (1 test)']}
+START ProductExperienceTest
+END {'suite': 'ProductExperienceTest', 'seconds': 50.85, 'failed': False, 'result': ['OK (5 tests)']}
+START ReviewScreenshotsTest
+END {'suite': 'ReviewScreenshotsTest', 'seconds': 39.29, 'failed': False, 'result': ['OK (3 tests)']}
+START PersistedEditsTest
+END {'suite': 'PersistedEditsTest', 'seconds': 1.81, 'failed': False, 'result': ['OK (1 test)']}
+DONE

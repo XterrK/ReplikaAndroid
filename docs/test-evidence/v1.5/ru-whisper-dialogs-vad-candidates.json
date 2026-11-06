@@ -1,0 +1,1384 @@
+{
+  "runtime": "2.0.1",
+  "scope": "HOST VAD-only; NO ASR/native application configuration changes",
+  "vadThreads": 1,
+  "seed": 104,
+  "policies": {
+    "A": "If default0.5 empty and originalpeak>1e-6: detector-only gain=min(4,0.95/(peak*currentgain)); retry0.5; ASR keeps original currentgain",
+    "B": "If default0.5 empty and originalpeak>1e-6: retryexisting diagnostic threshold0.2 with original currentgain"
+  },
+  "shared": {
+    "minSpeechSec": 0.25,
+    "minSilenceSec": 0.25,
+    "maxSpeechSec": 20,
+    "preRollMs": 100,
+    "postRollMs": 0,
+    "sampleRate": 16000,
+    "blockSamples": 512
+  },
+  "speech": [
+    {
+      "id": "masha_dima_part9_158",
+      "audioSec": 6.9016875,
+      "originalPeak": 0.29042744636535645,
+      "originalRms": 0.031597718596458435,
+      "currentGain": 1.0,
+      "defaultSpans": [
+        [
+          25696,
+          56928
+        ],
+        [
+          67680,
+          105568
+        ]
+      ],
+      "candidates": {
+        "A": {
+          "retrySpans": null,
+          "detectorOnlyMultiplier": 1.0,
+          "asrInputGainUnchanged": 1.0,
+          "selectedSpans": [
+            [
+              25696,
+              56928
+            ],
+            [
+              67680,
+              105568
+            ]
+          ],
+          "contextMs": [
+            [
+              1506,
+              3558
+            ],
+            [
+              4130,
+              6598
+            ]
+          ],
+          "recoveredEmpty": false,
+          "firstPassPreserved": true,
+          "contextRetainedSec": 4.52
+        },
+        "B": {
+          "retrySpans": null,
+          "detectorOnlyMultiplier": 1.0,
+          "asrInputGainUnchanged": 1.0,
+          "selectedSpans": [
+            [
+              25696,
+              56928
+            ],
+            [
+              67680,
+              105568
+            ]
+          ],
+          "contextMs": [
+            [
+              1506,
+              3558
+            ],
+            [
+              4130,
+              6598
+            ]
+          ],
+          "recoveredEmpty": false,
+          "firstPassPreserved": true,
+          "contextRetainedSec": 4.52
+        }
+      }
+    },
+    {
+      "id": "masha_dima_part9_222",
+      "audioSec": 5.624875,
+      "originalPeak": 0.07738964259624481,
+      "originalRms": 0.009771294891834259,
+      "currentGain": 1.0,
+      "defaultSpans": [
+        [
+          7264,
+          44128
+        ],
+        [
+          54368,
+          83040
+        ]
+      ],
+      "candidates": {
+        "A": {
+          "retrySpans": null,
+          "detectorOnlyMultiplier": 1.0,
+          "asrInputGainUnchanged": 1.0,
+          "selectedSpans": [
+            [
+              7264,
+              44128
+            ],
+            [
+              54368,
+              83040
+            ]
+          ],
+          "contextMs": [
+            [
+              354,
+              2758
+            ],
+            [
+              3298,
+              5190
+            ]
+          ],
+          "recoveredEmpty": false,
+          "firstPassPreserved": true,
+          "contextRetainedSec": 4.296
+        },
+        "B": {
+          "retrySpans": null,
+          "detectorOnlyMultiplier": 1.0,
+          "asrInputGainUnchanged": 1.0,
+          "selectedSpans": [
+            [
+              7264,
+              44128
+            ],
+            [
+              54368,
+              83040
+            ]
+          ],
+          "contextMs": [
+            [
+              354,
+              2758
+            ],
+            [
+              3298,
+              5190
+            ]
+          ],
+          "recoveredEmpty": false,
+          "firstPassPreserved": true,
+          "contextRetainedSec": 4.296
+        }
+      }
+    },
+    {
+      "id": "masha_dima_part9_397",
+      "audioSec": 6.476,
+      "originalPeak": 0.07911507040262222,
+      "originalRms": 0.008363146334886551,
+      "currentGain": 1.0,
+      "defaultSpans": [
+        [
+          5728,
+          35936
+        ],
+        [
+          46688,
+          66656
+        ],
+        [
+          73312,
+          103936
+        ]
+      ],
+      "candidates": {
+        "A": {
+          "retrySpans": null,
+          "detectorOnlyMultiplier": 1.0,
+          "asrInputGainUnchanged": 1.0,
+          "selectedSpans": [
+            [
+              5728,
+              35936
+            ],
+            [
+              46688,
+              66656
+            ],
+            [
+              73312,
+              103936
+            ]
+          ],
+          "contextMs": [
+            [
+              258,
+              2246
+            ],
+            [
+              2818,
+              4166
+            ],
+            [
+              4482,
+              6476
+            ]
+          ],
+          "recoveredEmpty": false,
+          "firstPassPreserved": true,
+          "contextRetainedSec": 5.33
+        },
+        "B": {
+          "retrySpans": null,
+          "detectorOnlyMultiplier": 1.0,
+          "asrInputGainUnchanged": 1.0,
+          "selectedSpans": [
+            [
+              5728,
+              35936
+            ],
+            [
+              46688,
+              66656
+            ],
+            [
+              73312,
+              103936
+            ]
+          ],
+          "contextMs": [
+            [
+              258,
+              2246
+            ],
+            [
+              2818,
+              4166
+            ],
+            [
+              4482,
+              6476
+            ]
+          ],
+          "recoveredEmpty": false,
+          "firstPassPreserved": true,
+          "contextRetainedSec": 5.33
+        }
+      }
+    },
+    {
+      "id": "masha_dima_part11_287",
+      "audioSec": 13.1229375,
+      "originalPeak": 0.10204988718032837,
+      "originalRms": 0.0018098881701007485,
+      "currentGain": 1.0,
+      "defaultSpans": [],
+      "candidates": {
+        "A": {
+          "retrySpans": [
+            [
+              120416,
+              135776
+            ],
+            [
+              186976,
+              198240
+            ]
+          ],
+          "detectorOnlyMultiplier": 4.0,
+          "asrInputGainUnchanged": 1.0,
+          "selectedSpans": [
+            [
+              120416,
+              135776
+            ],
+            [
+              186976,
+              198240
+            ]
+          ],
+          "contextMs": [
+            [
+              7426,
+              8486
+            ],
+            [
+              11586,
+              12390
+            ]
+          ],
+          "recoveredEmpty": true,
+          "firstPassPreserved": false,
+          "contextRetainedSec": 1.864
+        },
+        "B": {
+          "retrySpans": [
+            [
+              121440,
+              132192
+            ],
+            [
+              188000,
+              201312
+            ]
+          ],
+          "detectorOnlyMultiplier": 1.0,
+          "asrInputGainUnchanged": 1.0,
+          "selectedSpans": [
+            [
+              121440,
+              132192
+            ],
+            [
+              188000,
+              201312
+            ]
+          ],
+          "contextMs": [
+            [
+              7490,
+              8262
+            ],
+            [
+              11650,
+              12582
+            ]
+          ],
+          "recoveredEmpty": true,
+          "firstPassPreserved": false,
+          "contextRetainedSec": 1.704
+        }
+      }
+    },
+    {
+      "id": "masha_dima_part11_296",
+      "audioSec": 11.189125,
+      "originalPeak": 0.09162935614585876,
+      "originalRms": 0.009844423271715641,
+      "currentGain": 1.0,
+      "defaultSpans": [
+        [
+          12896,
+          54880
+        ],
+        [
+          72288,
+          114272
+        ],
+        [
+          135776,
+          175200
+        ]
+      ],
+      "candidates": {
+        "A": {
+          "retrySpans": null,
+          "detectorOnlyMultiplier": 1.0,
+          "asrInputGainUnchanged": 1.0,
+          "selectedSpans": [
+            [
+              12896,
+              54880
+            ],
+            [
+              72288,
+              114272
+            ],
+            [
+              135776,
+              175200
+            ]
+          ],
+          "contextMs": [
+            [
+              706,
+              3430
+            ],
+            [
+              4418,
+              7142
+            ],
+            [
+              8386,
+              10950
+            ]
+          ],
+          "recoveredEmpty": false,
+          "firstPassPreserved": true,
+          "contextRetainedSec": 8.012
+        },
+        "B": {
+          "retrySpans": null,
+          "detectorOnlyMultiplier": 1.0,
+          "asrInputGainUnchanged": 1.0,
+          "selectedSpans": [
+            [
+              12896,
+              54880
+            ],
+            [
+              72288,
+              114272
+            ],
+            [
+              135776,
+              175200
+            ]
+          ],
+          "contextMs": [
+            [
+              706,
+              3430
+            ],
+            [
+              4418,
+              7142
+            ],
+            [
+              8386,
+              10950
+            ]
+          ],
+          "recoveredEmpty": false,
+          "firstPassPreserved": true,
+          "contextRetainedSec": 8.012
+        }
+      }
+    },
+    {
+      "id": "masha_sveta_part9_770",
+      "audioSec": 3.254,
+      "originalPeak": 0.0775054469704628,
+      "originalRms": 0.01032452192157507,
+      "currentGain": 1.0,
+      "defaultSpans": [
+        [
+          2656,
+          52224
+        ]
+      ],
+      "candidates": {
+        "A": {
+          "retrySpans": null,
+          "detectorOnlyMultiplier": 1.0,
+          "asrInputGainUnchanged": 1.0,
+          "selectedSpans": [
+            [
+              2656,
+              52224
+            ]
+          ],
+          "contextMs": [
+            [
+              66,
+              3254
+            ]
+          ],
+          "recoveredEmpty": false,
+          "firstPassPreserved": true,
+          "contextRetainedSec": 3.188
+        },
+        "B": {
+          "retrySpans": null,
+          "detectorOnlyMultiplier": 1.0,
+          "asrInputGainUnchanged": 1.0,
+          "selectedSpans": [
+            [
+              2656,
+              52224
+            ]
+          ],
+          "contextMs": [
+            [
+              66,
+              3254
+            ]
+          ],
+          "recoveredEmpty": false,
+          "firstPassPreserved": true,
+          "contextRetainedSec": 3.188
+        }
+      }
+    },
+    {
+      "id": "masha_sveta_part9_1261",
+      "audioSec": 3.7305625,
+      "originalPeak": 0.11373744904994965,
+      "originalRms": 0.02197030559182167,
+      "currentGain": 1.0,
+      "defaultSpans": [
+        [
+          9312,
+          32864
+        ],
+        [
+          43616,
+          59904
+        ]
+      ],
+      "candidates": {
+        "A": {
+          "retrySpans": null,
+          "detectorOnlyMultiplier": 1.0,
+          "asrInputGainUnchanged": 1.0,
+          "selectedSpans": [
+            [
+              9312,
+              32864
+            ],
+            [
+              43616,
+              59904
+            ]
+          ],
+          "contextMs": [
+            [
+              482,
+              2054
+            ],
+            [
+              2626,
+              3730
+            ]
+          ],
+          "recoveredEmpty": false,
+          "firstPassPreserved": true,
+          "contextRetainedSec": 2.676
+        },
+        "B": {
+          "retrySpans": null,
+          "detectorOnlyMultiplier": 1.0,
+          "asrInputGainUnchanged": 1.0,
+          "selectedSpans": [
+            [
+              9312,
+              32864
+            ],
+            [
+              43616,
+              59904
+            ]
+          ],
+          "contextMs": [
+            [
+              482,
+              2054
+            ],
+            [
+              2626,
+              3730
+            ]
+          ],
+          "recoveredEmpty": false,
+          "firstPassPreserved": true,
+          "contextRetainedSec": 2.676
+        }
+      }
+    }
+  ],
+  "controls": [
+    {
+      "id": "silence",
+      "audioSec": 15.0,
+      "originalPeak": 0.0,
+      "originalRms": 0.0,
+      "currentGain": 1.0,
+      "defaultSpans": [],
+      "candidates": {
+        "A": {
+          "retrySpans": null,
+          "detectorOnlyMultiplier": 1.0,
+          "asrInputGainUnchanged": 1.0,
+          "selectedSpans": [],
+          "contextMs": [],
+          "recoveredEmpty": false,
+          "firstPassPreserved": false,
+          "contextRetainedSec": 0.0
+        },
+        "B": {
+          "retrySpans": null,
+          "detectorOnlyMultiplier": 1.0,
+          "asrInputGainUnchanged": 1.0,
+          "selectedSpans": [],
+          "contextMs": [],
+          "recoveredEmpty": false,
+          "firstPassPreserved": false,
+          "contextRetainedSec": 0.0
+        }
+      },
+      "mode": "original"
+    },
+    {
+      "id": "silence",
+      "audioSec": 15.0,
+      "originalPeak": 0.0,
+      "originalRms": 0.0,
+      "currentGain": 1.0,
+      "defaultSpans": [],
+      "candidates": {
+        "A": {
+          "retrySpans": null,
+          "detectorOnlyMultiplier": 1.0,
+          "asrInputGainUnchanged": 1.0,
+          "selectedSpans": [],
+          "contextMs": [],
+          "recoveredEmpty": false,
+          "firstPassPreserved": false,
+          "contextRetainedSec": 0.0
+        },
+        "B": {
+          "retrySpans": null,
+          "detectorOnlyMultiplier": 1.0,
+          "asrInputGainUnchanged": 1.0,
+          "selectedSpans": [],
+          "contextMs": [],
+          "recoveredEmpty": false,
+          "firstPassPreserved": false,
+          "contextRetainedSec": 0.0
+        }
+      },
+      "mode": "production-bounded-gain"
+    },
+    {
+      "id": "near_silence",
+      "audioSec": 15.0,
+      "originalPeak": 4.4989075576040705e-08,
+      "originalRms": 1.0001048877938956e-08,
+      "currentGain": 1.0,
+      "defaultSpans": [],
+      "candidates": {
+        "A": {
+          "retrySpans": null,
+          "detectorOnlyMultiplier": 1.0,
+          "asrInputGainUnchanged": 1.0,
+          "selectedSpans": [],
+          "contextMs": [],
+          "recoveredEmpty": false,
+          "firstPassPreserved": false,
+          "contextRetainedSec": 0.0
+        },
+        "B": {
+          "retrySpans": null,
+          "detectorOnlyMultiplier": 1.0,
+          "asrInputGainUnchanged": 1.0,
+          "selectedSpans": [],
+          "contextMs": [],
+          "recoveredEmpty": false,
+          "firstPassPreserved": false,
+          "contextRetainedSec": 0.0
+        }
+      },
+      "mode": "original"
+    },
+    {
+      "id": "near_silence",
+      "audioSec": 15.0,
+      "originalPeak": 4.4989075576040705e-08,
+      "originalRms": 1.0001048877938956e-08,
+      "currentGain": 1.0,
+      "defaultSpans": [],
+      "candidates": {
+        "A": {
+          "retrySpans": null,
+          "detectorOnlyMultiplier": 1.0,
+          "asrInputGainUnchanged": 1.0,
+          "selectedSpans": [],
+          "contextMs": [],
+          "recoveredEmpty": false,
+          "firstPassPreserved": false,
+          "contextRetainedSec": 0.0
+        },
+        "B": {
+          "retrySpans": null,
+          "detectorOnlyMultiplier": 1.0,
+          "asrInputGainUnchanged": 1.0,
+          "selectedSpans": [],
+          "contextMs": [],
+          "recoveredEmpty": false,
+          "firstPassPreserved": false,
+          "contextRetainedSec": 0.0
+        }
+      },
+      "mode": "production-bounded-gain"
+    },
+    {
+      "id": "white_noise_-60dBFS",
+      "audioSec": 15.0,
+      "originalPeak": 0.0049322242848575115,
+      "originalRms": 0.0009998471941798925,
+      "currentGain": 1.0,
+      "defaultSpans": [],
+      "candidates": {
+        "A": {
+          "retrySpans": [],
+          "detectorOnlyMultiplier": 4.0,
+          "asrInputGainUnchanged": 1.0,
+          "selectedSpans": [],
+          "contextMs": [],
+          "recoveredEmpty": false,
+          "firstPassPreserved": false,
+          "contextRetainedSec": 0.0
+        },
+        "B": {
+          "retrySpans": [],
+          "detectorOnlyMultiplier": 1.0,
+          "asrInputGainUnchanged": 1.0,
+          "selectedSpans": [],
+          "contextMs": [],
+          "recoveredEmpty": false,
+          "firstPassPreserved": false,
+          "contextRetainedSec": 0.0
+        }
+      },
+      "mode": "original"
+    },
+    {
+      "id": "white_noise_-60dBFS",
+      "audioSec": 15.0,
+      "originalPeak": 0.0049322242848575115,
+      "originalRms": 0.0009998471941798925,
+      "currentGain": 20.0,
+      "defaultSpans": [],
+      "candidates": {
+        "A": {
+          "retrySpans": [],
+          "detectorOnlyMultiplier": 4.0,
+          "asrInputGainUnchanged": 20.0,
+          "selectedSpans": [],
+          "contextMs": [],
+          "recoveredEmpty": false,
+          "firstPassPreserved": false,
+          "contextRetainedSec": 0.0
+        },
+        "B": {
+          "retrySpans": [],
+          "detectorOnlyMultiplier": 1.0,
+          "asrInputGainUnchanged": 20.0,
+          "selectedSpans": [],
+          "contextMs": [],
+          "recoveredEmpty": false,
+          "firstPassPreserved": false,
+          "contextRetainedSec": 0.0
+        }
+      },
+      "mode": "production-bounded-gain"
+    },
+    {
+      "id": "white_noise_-40dBFS",
+      "audioSec": 15.0,
+      "originalPeak": 0.04932224005460739,
+      "originalRms": 0.009998471476137638,
+      "currentGain": 1.0,
+      "defaultSpans": [],
+      "candidates": {
+        "A": {
+          "retrySpans": [],
+          "detectorOnlyMultiplier": 4.0,
+          "asrInputGainUnchanged": 1.0,
+          "selectedSpans": [],
+          "contextMs": [],
+          "recoveredEmpty": false,
+          "firstPassPreserved": false,
+          "contextRetainedSec": 0.0
+        },
+        "B": {
+          "retrySpans": [],
+          "detectorOnlyMultiplier": 1.0,
+          "asrInputGainUnchanged": 1.0,
+          "selectedSpans": [],
+          "contextMs": [],
+          "recoveredEmpty": false,
+          "firstPassPreserved": false,
+          "contextRetainedSec": 0.0
+        }
+      },
+      "mode": "original"
+    },
+    {
+      "id": "white_noise_-40dBFS",
+      "audioSec": 15.0,
+      "originalPeak": 0.04932224005460739,
+      "originalRms": 0.009998471476137638,
+      "currentGain": 1.0,
+      "defaultSpans": [],
+      "candidates": {
+        "A": {
+          "retrySpans": [],
+          "detectorOnlyMultiplier": 4.0,
+          "asrInputGainUnchanged": 1.0,
+          "selectedSpans": [],
+          "contextMs": [],
+          "recoveredEmpty": false,
+          "firstPassPreserved": false,
+          "contextRetainedSec": 0.0
+        },
+        "B": {
+          "retrySpans": [],
+          "detectorOnlyMultiplier": 1.0,
+          "asrInputGainUnchanged": 1.0,
+          "selectedSpans": [],
+          "contextMs": [],
+          "recoveredEmpty": false,
+          "firstPassPreserved": false,
+          "contextRetainedSec": 0.0
+        }
+      },
+      "mode": "production-bounded-gain"
+    },
+    {
+      "id": "pink_noise_peak_004",
+      "audioSec": 15.0,
+      "originalPeak": 0.004000000189989805,
+      "originalRms": 0.0008497154340147972,
+      "currentGain": 1.0,
+      "defaultSpans": [],
+      "candidates": {
+        "A": {
+          "retrySpans": [],
+          "detectorOnlyMultiplier": 4.0,
+          "asrInputGainUnchanged": 1.0,
+          "selectedSpans": [],
+          "contextMs": [],
+          "recoveredEmpty": false,
+          "firstPassPreserved": false,
+          "contextRetainedSec": 0.0
+        },
+        "B": {
+          "retrySpans": [],
+          "detectorOnlyMultiplier": 1.0,
+          "asrInputGainUnchanged": 1.0,
+          "selectedSpans": [],
+          "contextMs": [],
+          "recoveredEmpty": false,
+          "firstPassPreserved": false,
+          "contextRetainedSec": 0.0
+        }
+      },
+      "mode": "original"
+    },
+    {
+      "id": "pink_noise_peak_004",
+      "audioSec": 15.0,
+      "originalPeak": 0.004000000189989805,
+      "originalRms": 0.0008497154340147972,
+      "currentGain": 20.0,
+      "defaultSpans": [],
+      "candidates": {
+        "A": {
+          "retrySpans": [],
+          "detectorOnlyMultiplier": 4.0,
+          "asrInputGainUnchanged": 20.0,
+          "selectedSpans": [],
+          "contextMs": [],
+          "recoveredEmpty": false,
+          "firstPassPreserved": false,
+          "contextRetainedSec": 0.0
+        },
+        "B": {
+          "retrySpans": [],
+          "detectorOnlyMultiplier": 1.0,
+          "asrInputGainUnchanged": 20.0,
+          "selectedSpans": [],
+          "contextMs": [],
+          "recoveredEmpty": false,
+          "firstPassPreserved": false,
+          "contextRetainedSec": 0.0
+        }
+      },
+      "mode": "production-bounded-gain"
+    },
+    {
+      "id": "hum_80Hz_peak_003",
+      "audioSec": 15.0,
+      "originalPeak": 0.003000000026077032,
+      "originalRms": 0.0021213204599916935,
+      "currentGain": 1.0,
+      "defaultSpans": [],
+      "candidates": {
+        "A": {
+          "retrySpans": [],
+          "detectorOnlyMultiplier": 4.0,
+          "asrInputGainUnchanged": 1.0,
+          "selectedSpans": [],
+          "contextMs": [],
+          "recoveredEmpty": false,
+          "firstPassPreserved": false,
+          "contextRetainedSec": 0.0
+        },
+        "B": {
+          "retrySpans": [],
+          "detectorOnlyMultiplier": 1.0,
+          "asrInputGainUnchanged": 1.0,
+          "selectedSpans": [],
+          "contextMs": [],
+          "recoveredEmpty": false,
+          "firstPassPreserved": false,
+          "contextRetainedSec": 0.0
+        }
+      },
+      "mode": "original"
+    },
+    {
+      "id": "hum_80Hz_peak_003",
+      "audioSec": 15.0,
+      "originalPeak": 0.003000000026077032,
+      "originalRms": 0.0021213204599916935,
+      "currentGain": 20.0,
+      "defaultSpans": [],
+      "candidates": {
+        "A": {
+          "retrySpans": [],
+          "detectorOnlyMultiplier": 4.0,
+          "asrInputGainUnchanged": 20.0,
+          "selectedSpans": [],
+          "contextMs": [],
+          "recoveredEmpty": false,
+          "firstPassPreserved": false,
+          "contextRetainedSec": 0.0
+        },
+        "B": {
+          "retrySpans": [],
+          "detectorOnlyMultiplier": 1.0,
+          "asrInputGainUnchanged": 20.0,
+          "selectedSpans": [],
+          "contextMs": [],
+          "recoveredEmpty": false,
+          "firstPassPreserved": false,
+          "contextRetainedSec": 0.0
+        }
+      },
+      "mode": "production-bounded-gain"
+    },
+    {
+      "id": "hum_50Hz_harmonics",
+      "audioSec": 15.0,
+      "originalPeak": 0.0024996071588248014,
+      "originalRms": 0.0012247448321431875,
+      "currentGain": 1.0,
+      "defaultSpans": [],
+      "candidates": {
+        "A": {
+          "retrySpans": [],
+          "detectorOnlyMultiplier": 4.0,
+          "asrInputGainUnchanged": 1.0,
+          "selectedSpans": [],
+          "contextMs": [],
+          "recoveredEmpty": false,
+          "firstPassPreserved": false,
+          "contextRetainedSec": 0.0
+        },
+        "B": {
+          "retrySpans": [],
+          "detectorOnlyMultiplier": 1.0,
+          "asrInputGainUnchanged": 1.0,
+          "selectedSpans": [],
+          "contextMs": [],
+          "recoveredEmpty": false,
+          "firstPassPreserved": false,
+          "contextRetainedSec": 0.0
+        }
+      },
+      "mode": "original"
+    },
+    {
+      "id": "hum_50Hz_harmonics",
+      "audioSec": 15.0,
+      "originalPeak": 0.0024996071588248014,
+      "originalRms": 0.0012247448321431875,
+      "currentGain": 20.0,
+      "defaultSpans": [],
+      "candidates": {
+        "A": {
+          "retrySpans": [],
+          "detectorOnlyMultiplier": 4.0,
+          "asrInputGainUnchanged": 20.0,
+          "selectedSpans": [],
+          "contextMs": [],
+          "recoveredEmpty": false,
+          "firstPassPreserved": false,
+          "contextRetainedSec": 0.0
+        },
+        "B": {
+          "retrySpans": [],
+          "detectorOnlyMultiplier": 1.0,
+          "asrInputGainUnchanged": 20.0,
+          "selectedSpans": [],
+          "contextMs": [],
+          "recoveredEmpty": false,
+          "firstPassPreserved": false,
+          "contextRetainedSec": 0.0
+        }
+      },
+      "mode": "production-bounded-gain"
+    },
+    {
+      "id": "repeating_short_impulses",
+      "audioSec": 15.0,
+      "originalPeak": 0.010739007033407688,
+      "originalRms": 0.0002966417814604938,
+      "currentGain": 1.0,
+      "defaultSpans": [
+        [
+          176736,
+          240128
+        ]
+      ],
+      "candidates": {
+        "A": {
+          "retrySpans": null,
+          "detectorOnlyMultiplier": 1.0,
+          "asrInputGainUnchanged": 1.0,
+          "selectedSpans": [
+            [
+              176736,
+              240128
+            ]
+          ],
+          "contextMs": [
+            [
+              10946,
+              15000
+            ]
+          ],
+          "recoveredEmpty": false,
+          "firstPassPreserved": true,
+          "contextRetainedSec": 4.054
+        },
+        "B": {
+          "retrySpans": null,
+          "detectorOnlyMultiplier": 1.0,
+          "asrInputGainUnchanged": 1.0,
+          "selectedSpans": [
+            [
+              176736,
+              240128
+            ]
+          ],
+          "contextMs": [
+            [
+              10946,
+              15000
+            ]
+          ],
+          "recoveredEmpty": false,
+          "firstPassPreserved": true,
+          "contextRetainedSec": 4.054
+        }
+      },
+      "mode": "original"
+    },
+    {
+      "id": "repeating_short_impulses",
+      "audioSec": 15.0,
+      "originalPeak": 0.010739007033407688,
+      "originalRms": 0.0002966417814604938,
+      "currentGain": 1.0,
+      "defaultSpans": [
+        [
+          176736,
+          240128
+        ]
+      ],
+      "candidates": {
+        "A": {
+          "retrySpans": null,
+          "detectorOnlyMultiplier": 1.0,
+          "asrInputGainUnchanged": 1.0,
+          "selectedSpans": [
+            [
+              176736,
+              240128
+            ]
+          ],
+          "contextMs": [
+            [
+              10946,
+              15000
+            ]
+          ],
+          "recoveredEmpty": false,
+          "firstPassPreserved": true,
+          "contextRetainedSec": 4.054
+        },
+        "B": {
+          "retrySpans": null,
+          "detectorOnlyMultiplier": 1.0,
+          "asrInputGainUnchanged": 1.0,
+          "selectedSpans": [
+            [
+              176736,
+              240128
+            ]
+          ],
+          "contextMs": [
+            [
+              10946,
+              15000
+            ]
+          ],
+          "recoveredEmpty": false,
+          "firstPassPreserved": true,
+          "contextRetainedSec": 4.054
+        }
+      },
+      "mode": "production-bounded-gain"
+    },
+    {
+      "id": "quiet_repeating_short_impulses",
+      "audioSec": 15.0,
+      "originalPeak": 0.0010739007266238332,
+      "originalRms": 2.966417741845362e-05,
+      "currentGain": 1.0,
+      "defaultSpans": [
+        [
+          120416,
+          240128
+        ]
+      ],
+      "candidates": {
+        "A": {
+          "retrySpans": null,
+          "detectorOnlyMultiplier": 1.0,
+          "asrInputGainUnchanged": 1.0,
+          "selectedSpans": [
+            [
+              120416,
+              240128
+            ]
+          ],
+          "contextMs": [
+            [
+              7426,
+              15000
+            ]
+          ],
+          "recoveredEmpty": false,
+          "firstPassPreserved": true,
+          "contextRetainedSec": 7.574
+        },
+        "B": {
+          "retrySpans": null,
+          "detectorOnlyMultiplier": 1.0,
+          "asrInputGainUnchanged": 1.0,
+          "selectedSpans": [
+            [
+              120416,
+              240128
+            ]
+          ],
+          "contextMs": [
+            [
+              7426,
+              15000
+            ]
+          ],
+          "recoveredEmpty": false,
+          "firstPassPreserved": true,
+          "contextRetainedSec": 7.574
+        }
+      },
+      "mode": "original"
+    },
+    {
+      "id": "quiet_repeating_short_impulses",
+      "audioSec": 15.0,
+      "originalPeak": 0.0010739007266238332,
+      "originalRms": 2.966417741845362e-05,
+      "currentGain": 20.0,
+      "defaultSpans": [
+        [
+          224864,
+          240128
+        ]
+      ],
+      "candidates": {
+        "A": {
+          "retrySpans": null,
+          "detectorOnlyMultiplier": 1.0,
+          "asrInputGainUnchanged": 20.0,
+          "selectedSpans": [
+            [
+              224864,
+              240128
+            ]
+          ],
+          "contextMs": [
+            [
+              13954,
+              15000
+            ]
+          ],
+          "recoveredEmpty": false,
+          "firstPassPreserved": true,
+          "contextRetainedSec": 1.046
+        },
+        "B": {
+          "retrySpans": null,
+          "detectorOnlyMultiplier": 1.0,
+          "asrInputGainUnchanged": 20.0,
+          "selectedSpans": [
+            [
+              224864,
+              240128
+            ]
+          ],
+          "contextMs": [
+            [
+              13954,
+              15000
+            ]
+          ],
+          "recoveredEmpty": false,
+          "firstPassPreserved": true,
+          "contextRetainedSec": 1.046
+        }
+      },
+      "mode": "production-bounded-gain"
+    },
+    {
+      "id": "synthetic_stationary_chord",
+      "audioSec": 15.0,
+      "originalPeak": 0.0029048030264675617,
+      "originalRms": 0.0012247449485585093,
+      "currentGain": 1.0,
+      "defaultSpans": [],
+      "candidates": {
+        "A": {
+          "retrySpans": [],
+          "detectorOnlyMultiplier": 4.0,
+          "asrInputGainUnchanged": 1.0,
+          "selectedSpans": [],
+          "contextMs": [],
+          "recoveredEmpty": false,
+          "firstPassPreserved": false,
+          "contextRetainedSec": 0.0
+        },
+        "B": {
+          "retrySpans": [],
+          "detectorOnlyMultiplier": 1.0,
+          "asrInputGainUnchanged": 1.0,
+          "selectedSpans": [],
+          "contextMs": [],
+          "recoveredEmpty": false,
+          "firstPassPreserved": false,
+          "contextRetainedSec": 0.0
+        }
+      },
+      "mode": "original"
+    },
+    {
+      "id": "synthetic_stationary_chord",
+      "audioSec": 15.0,
+      "originalPeak": 0.0029048030264675617,
+      "originalRms": 0.0012247449485585093,
+      "currentGain": 20.0,
+      "defaultSpans": [],
+      "candidates": {
+        "A": {
+          "retrySpans": [],
+          "detectorOnlyMultiplier": 4.0,
+          "asrInputGainUnchanged": 20.0,
+          "selectedSpans": [],
+          "contextMs": [],
+          "recoveredEmpty": false,
+          "firstPassPreserved": false,
+          "contextRetainedSec": 0.0
+        },
+        "B": {
+          "retrySpans": [],
+          "detectorOnlyMultiplier": 1.0,
+          "asrInputGainUnchanged": 20.0,
+          "selectedSpans": [],
+          "contextMs": [],
+          "recoveredEmpty": false,
+          "firstPassPreserved": false,
+          "contextRetainedSec": 0.0
+        }
+      },
+      "mode": "production-bounded-gain"
+    },
+    {
+      "id": "fan_hum_and_noise",
+      "audioSec": 15.0,
+      "originalPeak": 0.002204010495916009,
+      "originalRms": 0.0007676639361307025,
+      "currentGain": 1.0,
+      "defaultSpans": [],
+      "candidates": {
+        "A": {
+          "retrySpans": [],
+          "detectorOnlyMultiplier": 4.0,
+          "asrInputGainUnchanged": 1.0,
+          "selectedSpans": [],
+          "contextMs": [],
+          "recoveredEmpty": false,
+          "firstPassPreserved": false,
+          "contextRetainedSec": 0.0
+        },
+        "B": {
+          "retrySpans": [],
+          "detectorOnlyMultiplier": 1.0,
+          "asrInputGainUnchanged": 1.0,
+          "selectedSpans": [],
+          "contextMs": [],
+          "recoveredEmpty": false,
+          "firstPassPreserved": false,
+          "contextRetainedSec": 0.0
+        }
+      },
+      "mode": "original"
+    },
+    {
+      "id": "fan_hum_and_noise",
+      "audioSec": 15.0,
+      "originalPeak": 0.002204010495916009,
+      "originalRms": 0.0007676639361307025,
+      "currentGain": 20.0,
+      "defaultSpans": [],
+      "candidates": {
+        "A": {
+          "retrySpans": [],
+          "detectorOnlyMultiplier": 4.0,
+          "asrInputGainUnchanged": 20.0,
+          "selectedSpans": [],
+          "contextMs": [],
+          "recoveredEmpty": false,
+          "firstPassPreserved": false,
+          "contextRetainedSec": 0.0
+        },
+        "B": {
+          "retrySpans": [],
+          "detectorOnlyMultiplier": 1.0,
+          "asrInputGainUnchanged": 20.0,
+          "selectedSpans": [],
+          "contextMs": [],
+          "recoveredEmpty": false,
+          "firstPassPreserved": false,
+          "contextRetainedSec": 0.0
+        }
+      },
+      "mode": "production-bounded-gain"
+    }
+  ],
+  "scriptSha256": "3b1780e85ec603992dfc361127732bfb8d88d54586580b6a90137483613a132f",
+  "summary": {
+    "A": {
+      "recoveredEmptySpeechIds": [
+        "masha_dima_part11_287"
+      ],
+      "recoveredEmptySpeechFiles": 1,
+      "firstPassNonemptySpeechPreserved": 6,
+      "newFalseVadRuns": 0,
+      "newFalseVadIds": [],
+      "negativeRuns": 22,
+      "contextRetainedSec": 29.886
+    },
+    "B": {
+      "recoveredEmptySpeechIds": [
+        "masha_dima_part11_287"
+      ],
+      "recoveredEmptySpeechFiles": 1,
+      "firstPassNonemptySpeechPreserved": 6,
+      "newFalseVadRuns": 0,
+      "newFalseVadIds": [],
+      "negativeRuns": 22,
+      "contextRetainedSec": 29.726
+    }
+  }
+}

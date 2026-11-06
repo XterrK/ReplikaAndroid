@@ -1,0 +1,15 @@
+{
+  "platform": "Linux WSL x86_64; NOT Android or vivo",
+  "method": "One ps snapshot per active inference process: ps -eo pid,stat,pcpu,rss,wchan:25,comm",
+  "metric": "Linux RSS KiB; not PSS, not measured peak, not total system/model footprint",
+  "limitations": [
+    "Uncontrolled cache and background workload",
+    "Different input file counts and Python waveform arrays",
+    "Weights staged on tmpfs; file cache contributes to system RAM separately",
+    "No phone memory/thermal/battery conclusion"
+  ],
+  "observations": [
+    {"model": "GigaAM v3 non-E2E RNNT INT8", "fixtureFiles": 96, "rssKiB": 525500},
+    {"model": "Parakeet TDT 0.6B v3 INT8", "fixtureFiles": 32, "rssKiB": 1363572}
+  ]
+}

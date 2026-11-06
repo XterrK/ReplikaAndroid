@@ -1,3 +1,9 @@
+# Актуализация V1.6
+
+ML/storage архитектура ниже сохранена. Изменён нативный слой записи: RecordingHome → центрированный LiquidVoiceOrb + отдельный LiveMicrophoneMeter overlay; ReplikaRoot → общая прокручиваемая decision sheet с pause/resume и двумя исходами. AppViewModel очищает UI elapsed после финализации, сохраняя durationMs аудио. Переносимый build entrypoint — tools/build_portable.py, входы — model-pack и src/main/jniLibs; старый build_local.py машинно-зависим. См. HANDOFF.md и TEST_REPORT_V1_6.md.
+
+---
+
 # Архитектура
 
 ## All-in-One provisioning · V1.2.1
