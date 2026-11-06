@@ -1,0 +1,84 @@
+{
+  "status": "COMPLETE",
+  "created_at": "2026-11-06T20:56:05.723367+00:00",
+  "new_model_inference": false,
+  "scope": "Rescoring unchanged preserved native inference; no replacement of source hypotheses",
+  "source_native_run": "artifacts/test-results/step-02/baseline-v16-android",
+  "source_host_run": "artifacts/test-results/step-02/baseline-v16-host-android-decoder",
+  "source_native_report_sha256": "7a137714b6d95f72471678dbed7eae4e0cb64b9e980a7a110b30863db530d804",
+  "source_host_run_sha256": "87e545e555d2544a25f2aeac6a30b7df98a902fd6a820ca424dabe56cf883976",
+  "gate_definition": "User clarified 2026-11-06: fixed-five weighted corpus WER difference <=0.5pp; keep per-file differences",
+  "comparison": {
+    "scope": "Fixed paired corpus, total errors / total reference words; per-file differences retained",
+    "reference_words": 442,
+    "host_errors": 76,
+    "native_errors": 75,
+    "host_wer_raw": 0.17194570135746606,
+    "native_wer_raw": 0.16968325791855204,
+    "wer_delta_percentage_points": -0.22624434389140272,
+    "threshold_percentage_points": 0.5,
+    "gate_pass": true,
+    "per_file_diagnostics": [
+      {
+        "id": "dev-01-two-clean",
+        "reference_words": 140,
+        "native_errors": 22,
+        "host_errors": 22,
+        "native_rtf": 1.185102651101271,
+        "host_rtf": 0.33833557322157687,
+        "source_native_hypothesis_sha256": "e231a0d09254a5f31f35fbfca4d680ff809e3cfb01e2b0474660a98bc56c60aa",
+        "source_host_hypothesis_sha256": "ffa43902e2b2e1ae7390130b4b9b781e8acddc2b1dad0fbc15f3e5fa6e9823e6",
+        "wer_delta_percentage_points": 0.0,
+        "per_file_within_threshold": true
+      },
+      {
+        "id": "dev-03-short",
+        "reference_words": 38,
+        "native_errors": 8,
+        "host_errors": 8,
+        "native_rtf": 1.302913831610658,
+        "host_rtf": 0.4423656220329299,
+        "source_native_hypothesis_sha256": "93c0cd9c14e289a0cdf6d44c5863ecfc1751620a9b0d5add81ec034739bee7ed",
+        "source_host_hypothesis_sha256": "ccf8bcac2a88a2477ce609221c6ee503715f80569493c8cd6d38593a317dc49d",
+        "wer_delta_percentage_points": 0.0,
+        "per_file_within_threshold": true
+      },
+      {
+        "id": "holdout-02-three-clean",
+        "reference_words": 148,
+        "native_errors": 22,
+        "host_errors": 23,
+        "native_rtf": 1.3010871171909644,
+        "host_rtf": 0.3374687532821801,
+        "source_native_hypothesis_sha256": "783358f411193dc2043393b901a92bd3f29ca72ad87d6c9d0b8e60622330b6d3",
+        "source_host_hypothesis_sha256": "7a3d9a38dba877b2951cb805a0479ee8d7b9feb08c0cafe3007308cb033c1d70",
+        "wer_delta_percentage_points": -0.6756756756756757,
+        "per_file_within_threshold": false
+      },
+      {
+        "id": "holdout-04-overlap-expressive",
+        "reference_words": 101,
+        "native_errors": 15,
+        "host_errors": 15,
+        "native_rtf": 1.4098343642326372,
+        "host_rtf": 0.3429585092988501,
+        "source_native_hypothesis_sha256": "340f1b1886e5125d8ee8f1f19732d4f9f718a43ce2408be7169e23d3ab38ce8a",
+        "source_host_hypothesis_sha256": "31191b4d0f9be024569c089276048741180a2a88462f6ebd8e57db215cb1d6f0",
+        "wer_delta_percentage_points": 0.0,
+        "per_file_within_threshold": true
+      },
+      {
+        "id": "dev-mono-s",
+        "reference_words": 15,
+        "native_errors": 8,
+        "host_errors": 8,
+        "native_rtf": 1.3658613611242696,
+        "host_rtf": 0.7562558975209223,
+        "source_native_hypothesis_sha256": "bf536a2990dd799f1608da1586301b7a68d6e8cfd5219ee7a4fcf330403eb162",
+        "source_host_hypothesis_sha256": "f7909eff40e17df345659593a0e8ca5f97e40ef56b2f9063654220fb1409f858",
+        "wer_delta_percentage_points": 0.0,
+        "per_file_within_threshold": true
+      }
+    ]
+  }
+}

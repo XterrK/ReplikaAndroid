@@ -49,3 +49,23 @@
 ## 2026-11-06T22:53:18+03:00 — пункт 1 принят
 
 89 JVM, All-in-One/debug/test APK и static arm64 checks PASS. Два UI-метода на API35/x86_64 прошли за20.036s: экспорт обоих JSON через интерфейс, сохранение strict jury bytes, default automatic и ручной выбор. Фактические JSON и scope сохранены; это controlled fixture, не модельная транскрибация. APK кандидата сохранён отдельно от fallback, SHA256 `cc71c0a811d1d35efdc4186638898234a21171e21bebb1d8df75e67a454c53e5`. Подготовлен отчёт `docs/STEP_01_JURY_JSON.md`; далее commit/PR, затем пункт2.
+
+## 2026-11-06T22:58:34+03:00 — пункт 1 опубликован, начат пункт 2
+
+Commit `763253c` с проверенным Jury JSON опубликован; PR1 слит в `hack/final`, merge `d95c18b` (фактические даты06.11.2026 22:54/22:56+03). APK шага1 доступен в prerelease `hack-step01-20261106`; старый fallback сохранён. Начата ветка `hack/task-02-evaluation`. Параметры/веса не меняются: сначала независимые reference/hypothesis и baseline.
+
+## 2026-11-06T23:28:27+03:00 — baseline host завершён, Android идёт
+
+Все13 файлов прогнаны через модели с независимыми author refs. RawWERdev124/533=23.26%,holdout73/444=16.44%; normalized7.33%/5.43%. Native count exact2/8 и2/5; DER0proxy43.16%/51.55%. Это исходный уровень, улучшение не заявляется. HostRTF0.365/0.357, процессRSS437.2MiB, не phone. Пять matched AndroidWorker cases выполняются offline на AVD; три уже завершены. Создан `docs/TEST_RESULTS.md` со ссылками на сырые JSON/CSV и определениями метрик.
+
+## 2026-11-06T23:35:40+03:00 — Android5 завершён, gate не принят
+
+5actual Worker cases прошли offline (airplane1/Wi-Fi0).4файла exactWER parity; holdout02 отличается одним словом:hostSkeleton/nativeскелетон, rawWER23/148 против22/148, delta−0.6757п.п. Порог0.5не ослабляется; `baseline-v16-android/run.json` честно содержитPORT_PARITY_FAIL. ВсеJSON и исходные outputs сохранены. До inference есть различие peak0.510559082/0.5105543, при одинаковых VAD/turns/slices: исследуется hostidentityPCM против численного interpolation AudioDecoder16k. Добавлен test-only capture actualPCM, mainAndroid/модели не менялись; новый testAPK собирается. Пункт2 не закрыт, пункт3 не начат.
+
+## 2026-11-06T23:43:57+03:00 — численный decoder mismatch доказан, причина слова ещё исследуется
+
+Actual AndroidFloat32PCM захвачен test-only методом (1testPASS,.496s). Generic эмуляция AudioDecoder совпала побитово на всех1190678 samples; directPCM отличается на756167 samples,maxabs7.90e-6. СырыеPCM остаются внеGit, hashes/сравнение сохранены в step-02/decoder-parity. Causal probe на одномhostrecognizer далSkeleton и наdirect, и наactualAndroidPCM, и наgenericemulation: один decoder mismatch не объясняет script flip. Обнаружены разныеCPUtiers:hostFMA/AVX2/VNNI,guestтолькоAVX. Исследуется обратимый process-only qemuuser probe; productionмодели/параметры не меняются. Corpus baseline и исходный PORT_PARITY_FAIL не переписываются.
+
+## 2026-11-07T00:02:35+03:00 — пункт2 принят
+
+65Python tests,89JVM/All-in-One/testAPK checks PASS;13hostcases повторены сgenericAndroid-math decoder. Все reference/hypothesis/metrics/diagnostics/CSV сохранены.5actualWorker cases прошли offline; дополнительно decoder/freshASR probesPASS. По явному уточнению пользователя corpusgate0.226244<0.5п.п.PASS; per-filewordoutlier и первоначальныйgateFAIL сохранены. Обновлён `docs/TEST_RESULTS.md`,добавлен `tools/eval/README.md`,подготовлен immutablebaseline для пункта3. Commit/PR готовится; пункт3 ещё не начат.

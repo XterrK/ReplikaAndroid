@@ -18,3 +18,18 @@
 - Старый расширенный JSON оставлен отдельным пользовательским выбором «Диагностический JSON», с отдельным `.diagnostic.json` файлом. Это доступный fallback прежнего формата; ML-флаги и модели не менялись.
 - Кодирование вынесено с Main в Dispatchers.Default; получение Room snapshot остаётся транзакционным.
 - Новые записи уже имеют expectedSpeakers=-1 (automatic); сохраняем этот default и прежние явные настройки записей. Automatic показывается первым в выборе; added UI regression фиксирует выбор.
+
+## 2026-11-06T23:28:27+03:00 — пункт2: воспроизводимость и область оценки
+
+- Корпус доступен без gated-доступа: immutable Langswap author CSV + publisher LFS hashes. Val→dev/test→holdout,77разных исходников; selection до inference. DER — proxy по utterance placement, не natural-dialogue speech-activity gold; ограничение сохраняется в каждом отчёте.
+- Основной rawWER сохраняет пунктуацию/регистр/ё/числа; normalized, number-normalized, punctuationF1, case, cpWER, DER0/250 и timing coverage — отдельные метрики. Нулевой знаменатель →null.
+- Для native DER используются сырые turns до export-only nearest-speaker projection; число native кластеров учитывается отдельно. В baseline ни text, ни expected K из manifest не входят в process; только глобальная настройкаautomatic=-1.
+- SHA моделей проверяется каждый process, включая одинаковые size/mtime. Config, код, inputs, refs и сохранённые artifacts fingerprinted; повтор не перезаписывает исходные evidence, частичные попытки архивируются.
+- Связь с Android реализована отдельным instrumentation bridge и CLI pull_and_score, без добавления файлового debug-intent в продуктовый UI. Это тот же productionWorker, только заранее staged audio/hash/id; refs остаются на host. QA cleanup затрагивает только своиUUID, не данные пользователя.
+- Baseline выявил реальные v3 tokens/timestamps с ведущими ASCII-пробелами. В пункте3 word grouping должен учитывать реальные tokens, а не предполагать толькоSentencePiece`▁`; текущий runtime/планировщик не менялся.
+
+## 2026-11-07T00:02:35+03:00 — уточнение пользователя и приёмка пункта2
+
+Пользователь явно выбрал:порог0.5п.п. по всей фиксированной пятёрке,различия отдельных файлов оставлять в отчёте. Используем стандартный corpusWERΣerrors/ΣreferenceWords,не среднийWER файлов.76host/75Android ошибок на442словах дают−0.226244п.п.,gatePASS. Прежний per-file PORT_PARITY_FAIL не меняется; отдельная новая сводка пересчитывает сохранённые actual outputs и отмечена newModelInference=false. Текущий collector применяет corpusgate,сохраняя per-file diagnostics.
+
+Host canonicaldecoder исправлен под productionAudioDecoder без изменения main/моделей; полныйбитовыйпаритет доказан. Одинмежплатформенныйвариант Skeleton/скелетон не объяснён какконкретныйkernel-баг и не исправляетсясловнымправилом. Все негативныеPCMtier/CPUprobes сохранены.
