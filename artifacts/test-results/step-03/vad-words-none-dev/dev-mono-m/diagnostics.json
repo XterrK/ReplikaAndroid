@@ -1,0 +1,992 @@
+{
+  "runtime": "sherpa-onnx 2.0.1",
+  "onnxruntimeVersion": "1.28.2",
+  "platform": "Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "pythonVersion": "3.12.3",
+  "scope": "Experimental host VAD-chunk ASR; not enabled production behavior or physical-device acceptance",
+  "pipelineVariant": "vad_words_experimental",
+  "turnsUsedForAsrSlicing": false,
+  "audioSha256": "317b2c84e153f783cd343c5681603c94045f522f2d44fe1f41dc7862f46198f6",
+  "audioMs": 11626,
+  "sampleRate": 16000,
+  "originalPcmPeak": 0.17816162109375,
+  "recognitionInputGain": 1.0,
+  "vadDetectorGain": 1.0,
+  "vadPrimarySpanCount": 4,
+  "vadPrimarySpans": [
+    {
+      "startMs": 166,
+      "endMs": 4326
+    },
+    {
+      "startMs": 4710,
+      "endMs": 6406
+    },
+    {
+      "startMs": 6630,
+      "endMs": 7814
+    },
+    {
+      "startMs": 8070,
+      "endMs": 11648
+    }
+  ],
+  "vadRescueAttempted": false,
+  "vadRescueApplied": false,
+  "vadRescueRms": null,
+  "vadRescueRmsSamples": 0,
+  "vadRescueSpanCount": 0,
+  "vadRescueReason": "primary_nonempty",
+  "vadRescueScope": "unchanged detector-only empty-primary retry; ASR gain and original PCM preserved",
+  "vadSpans": [
+    {
+      "startMs": 166,
+      "endMs": 4326
+    },
+    {
+      "startMs": 4710,
+      "endMs": 6406
+    },
+    {
+      "startMs": 6630,
+      "endMs": 7814
+    },
+    {
+      "startMs": 8070,
+      "endMs": 11648
+    }
+  ],
+  "asrSpeechSpans": [
+    {
+      "startMs": 66,
+      "endMs": 4326
+    },
+    {
+      "startMs": 4610,
+      "endMs": 6406
+    },
+    {
+      "startMs": 6530,
+      "endMs": 7814
+    },
+    {
+      "startMs": 7970,
+      "endMs": 11626
+    }
+  ],
+  "asrChunks": [
+    {
+      "startMs": 66,
+      "endMs": 4326
+    },
+    {
+      "startMs": 4610,
+      "endMs": 6406
+    },
+    {
+      "startMs": 6530,
+      "endMs": 7814
+    },
+    {
+      "startMs": 7970,
+      "endMs": 11626
+    }
+  ],
+  "rawDiarizationTurns": [
+    {
+      "startMs": 31,
+      "endMs": 11489,
+      "speakerId": 0
+    }
+  ],
+  "diarizationTurns": [
+    {
+      "startMs": 31,
+      "endMs": 11489,
+      "speakerId": 0
+    }
+  ],
+  "asrSlices": [
+    {
+      "startMs": 66,
+      "endMs": 4326,
+      "speakerId": -1,
+      "text": "Я принесла несколько вариантов красок, которые, на мой взгляд, могут тебе подойти.",
+      "blank": false,
+      "inferenceMs": 252.719935,
+      "tokens": [
+        " Я",
+        " при",
+        "не",
+        "с",
+        "ла",
+        " несколько",
+        " в",
+        "а",
+        "ри",
+        "ан",
+        "тов",
+        " крас",
+        "ок",
+        ",",
+        " которые",
+        ",",
+        " на",
+        " мо",
+        "й",
+        " в",
+        "з",
+        "г",
+        "ля",
+        "д",
+        ",",
+        " могу",
+        "т",
+        " тебе",
+        " под",
+        "ой",
+        "ти",
+        "."
+      ],
+      "timestamps": [
+        0.11999999731779099,
+        0.2800000011920929,
+        0.4399999976158142,
+        0.5600000023841858,
+        0.6399999856948853,
+        0.7599999904632568,
+        1.159999966621399,
+        1.2400000095367432,
+        1.2799999713897705,
+        1.399999976158142,
+        1.4800000190734863,
+        1.71999990940094,
+        2.0,
+        2.1599998474121094,
+        2.2799999713897705,
+        2.5199999809265137,
+        2.5999999046325684,
+        2.7200000286102295,
+        2.8399999141693115,
+        2.879999876022339,
+        2.9600000381469727,
+        3.0,
+        3.0399999618530273,
+        3.119999885559082,
+        3.1599998474121094,
+        3.240000009536743,
+        3.3999998569488525,
+        3.5199999809265137,
+        3.7200000286102295,
+        3.879999876022339,
+        4.0,
+        4.199999809265137
+      ],
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "words": [
+        {
+          "startMs": 186,
+          "endMs": 226,
+          "text": "Я",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 0
+        },
+        {
+          "startMs": 346,
+          "endMs": 746,
+          "text": "принесла",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 0
+        },
+        {
+          "startMs": 826,
+          "endMs": 866,
+          "text": "несколько",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 0
+        },
+        {
+          "startMs": 1226,
+          "endMs": 1586,
+          "text": "вариантов",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 0
+        },
+        {
+          "startMs": 1786,
+          "endMs": 2106,
+          "text": "красок,",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 0
+        },
+        {
+          "startMs": 2346,
+          "endMs": 2386,
+          "text": "которые,",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 0
+        },
+        {
+          "startMs": 2666,
+          "endMs": 2706,
+          "text": "на",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 0
+        },
+        {
+          "startMs": 2786,
+          "endMs": 2946,
+          "text": "мой",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 0
+        },
+        {
+          "startMs": 2946,
+          "endMs": 3226,
+          "text": "взгляд,",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 0
+        },
+        {
+          "startMs": 3306,
+          "endMs": 3506,
+          "text": "могут",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 0
+        },
+        {
+          "startMs": 3586,
+          "endMs": 3626,
+          "text": "тебе",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 0
+        },
+        {
+          "startMs": 3786,
+          "endMs": 4106,
+          "text": "подойти.",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 0
+        }
+      ],
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "warnings": []
+    },
+    {
+      "startMs": 4610,
+      "endMs": 6406,
+      "speakerId": -1,
+      "text": "Вот, посмотри на эти оттенки.",
+      "blank": false,
+      "inferenceMs": 143.538737,
+      "tokens": [
+        " Вот",
+        ",",
+        " по",
+        "смотр",
+        "и",
+        " на",
+        " эти",
+        " от",
+        "те",
+        "н",
+        "ки",
+        "."
+      ],
+      "timestamps": [
+        0.11999999731779099,
+        0.2800000011920929,
+        0.35999998450279236,
+        0.47999998927116394,
+        0.5999999642372131,
+        0.7599999904632568,
+        0.9199999570846558,
+        1.1200000047683716,
+        1.2799999713897705,
+        1.4399999380111694,
+        1.559999942779541,
+        1.6799999475479126
+      ],
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "words": [
+        {
+          "startMs": 4730,
+          "endMs": 4770,
+          "text": "Вот,",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 1
+        },
+        {
+          "startMs": 4970,
+          "endMs": 5250,
+          "text": "посмотри",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 1
+        },
+        {
+          "startMs": 5370,
+          "endMs": 5410,
+          "text": "на",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 1
+        },
+        {
+          "startMs": 5530,
+          "endMs": 5570,
+          "text": "эти",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 1
+        },
+        {
+          "startMs": 5730,
+          "endMs": 6210,
+          "text": "оттенки.",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 1
+        }
+      ],
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "warnings": []
+    },
+    {
+      "startMs": 6530,
+      "endMs": 7814,
+      "speakerId": -1,
+      "text": "Этот нежно-розовый.",
+      "blank": false,
+      "inferenceMs": 118.323301,
+      "tokens": [
+        " Это",
+        "т",
+        " не",
+        "ж",
+        "но",
+        "-",
+        "ро",
+        "зов",
+        "ый",
+        "."
+      ],
+      "timestamps": [
+        0.11999999731779099,
+        0.2800000011920929,
+        0.4399999976158142,
+        0.5999999642372131,
+        0.6800000071525574,
+        0.7999999523162842,
+        0.8799999952316284,
+        0.9599999785423279,
+        1.1200000047683716,
+        1.2400000095367432
+      ],
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "words": [
+        {
+          "startMs": 6650,
+          "endMs": 6850,
+          "text": "Этот",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 2
+        },
+        {
+          "startMs": 6970,
+          "endMs": 7690,
+          "text": "нежно-розовый.",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 2
+        }
+      ],
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "warnings": []
+    },
+    {
+      "startMs": 7970,
+      "endMs": 11626,
+      "speakerId": -1,
+      "text": "А этот более яркий, почти Fuxia. Какой тебе больше нравится?",
+      "blank": false,
+      "inferenceMs": 233.983619,
+      "tokens": [
+        " А",
+        " этот",
+        " более",
+        " я",
+        "р",
+        "ки",
+        "й",
+        ",",
+        " по",
+        "ч",
+        "ти",
+        " F",
+        "u",
+        "x",
+        "i",
+        "a",
+        ".",
+        " Как",
+        "ой",
+        " тебе",
+        " больше",
+        " ",
+        "н",
+        "ра",
+        "в",
+        "ится",
+        "?"
+      ],
+      "timestamps": [
+        0.07999999821186066,
+        0.23999999463558197,
+        0.47999998927116394,
+        0.7599999904632568,
+        0.9199999570846558,
+        1.0,
+        1.0399999618530273,
+        1.1200000047683716,
+        1.2400000095367432,
+        1.3199999332427979,
+        1.399999976158142,
+        1.5199999809265137,
+        1.6399999856948853,
+        1.71999990940094,
+        1.8799999952316284,
+        1.959999918937683,
+        2.0799999237060547,
+        2.200000047683716,
+        2.319999933242798,
+        2.4800000190734863,
+        2.679999828338623,
+        2.9600000381469727,
+        3.0399999618530273,
+        3.119999885559082,
+        3.1999998092651367,
+        3.2799999713897705,
+        3.43999981880188
+      ],
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "words": [
+        {
+          "startMs": 8050,
+          "endMs": 8090,
+          "text": "А",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 3
+        },
+        {
+          "startMs": 8210,
+          "endMs": 8250,
+          "text": "этот",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 3
+        },
+        {
+          "startMs": 8450,
+          "endMs": 8490,
+          "text": "более",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 3
+        },
+        {
+          "startMs": 8730,
+          "endMs": 9050,
+          "text": "яркий,",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 3
+        },
+        {
+          "startMs": 9210,
+          "endMs": 9410,
+          "text": "почти",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 3
+        },
+        {
+          "startMs": 9490,
+          "endMs": 9970,
+          "text": "Fuxia.",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 3
+        },
+        {
+          "startMs": 10170,
+          "endMs": 10330,
+          "text": "Какой",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 3
+        },
+        {
+          "startMs": 10450,
+          "endMs": 10490,
+          "text": "тебе",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 3
+        },
+        {
+          "startMs": 10650,
+          "endMs": 10690,
+          "text": "больше",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 3
+        },
+        {
+          "startMs": 11010,
+          "endMs": 11290,
+          "text": "нравится?",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 3
+        }
+      ],
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "warnings": []
+    }
+  ],
+  "words": [
+    {
+      "startMs": 186,
+      "endMs": 226,
+      "text": "Я",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 0
+    },
+    {
+      "startMs": 346,
+      "endMs": 746,
+      "text": "принесла",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 0
+    },
+    {
+      "startMs": 826,
+      "endMs": 866,
+      "text": "несколько",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 0
+    },
+    {
+      "startMs": 1226,
+      "endMs": 1586,
+      "text": "вариантов",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 0
+    },
+    {
+      "startMs": 1786,
+      "endMs": 2106,
+      "text": "красок,",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 0
+    },
+    {
+      "startMs": 2346,
+      "endMs": 2386,
+      "text": "которые,",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 0
+    },
+    {
+      "startMs": 2666,
+      "endMs": 2706,
+      "text": "на",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 0
+    },
+    {
+      "startMs": 2786,
+      "endMs": 2946,
+      "text": "мой",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 0
+    },
+    {
+      "startMs": 2946,
+      "endMs": 3226,
+      "text": "взгляд,",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 0
+    },
+    {
+      "startMs": 3306,
+      "endMs": 3506,
+      "text": "могут",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 0
+    },
+    {
+      "startMs": 3586,
+      "endMs": 3626,
+      "text": "тебе",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 0
+    },
+    {
+      "startMs": 3786,
+      "endMs": 4106,
+      "text": "подойти.",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 0
+    },
+    {
+      "startMs": 4730,
+      "endMs": 4770,
+      "text": "Вот,",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 1
+    },
+    {
+      "startMs": 4970,
+      "endMs": 5250,
+      "text": "посмотри",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 1
+    },
+    {
+      "startMs": 5370,
+      "endMs": 5410,
+      "text": "на",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 1
+    },
+    {
+      "startMs": 5530,
+      "endMs": 5570,
+      "text": "эти",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 1
+    },
+    {
+      "startMs": 5730,
+      "endMs": 6210,
+      "text": "оттенки.",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 1
+    },
+    {
+      "startMs": 6650,
+      "endMs": 6850,
+      "text": "Этот",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 2
+    },
+    {
+      "startMs": 6970,
+      "endMs": 7690,
+      "text": "нежно-розовый.",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 2
+    },
+    {
+      "startMs": 8050,
+      "endMs": 8090,
+      "text": "А",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 3
+    },
+    {
+      "startMs": 8210,
+      "endMs": 8250,
+      "text": "этот",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 3
+    },
+    {
+      "startMs": 8450,
+      "endMs": 8490,
+      "text": "более",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 3
+    },
+    {
+      "startMs": 8730,
+      "endMs": 9050,
+      "text": "яркий,",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 3
+    },
+    {
+      "startMs": 9210,
+      "endMs": 9410,
+      "text": "почти",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 3
+    },
+    {
+      "startMs": 9490,
+      "endMs": 9970,
+      "text": "Fuxia.",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 3
+    },
+    {
+      "startMs": 10170,
+      "endMs": 10330,
+      "text": "Какой",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 3
+    },
+    {
+      "startMs": 10450,
+      "endMs": 10490,
+      "text": "тебе",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 3
+    },
+    {
+      "startMs": 10650,
+      "endMs": 10690,
+      "text": "больше",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 3
+    },
+    {
+      "startMs": 11010,
+      "endMs": 11290,
+      "text": "нравится?",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 3
+    }
+  ],
+  "segments": [
+    {
+      "startMs": 186,
+      "endMs": 4106,
+      "speakerId": 0,
+      "text": "Я принесла несколько вариантов красок, которые, на мой взгляд, могут тебе подойти.",
+      "source": "GigaAM v3 E2E RNNT INT8 / sherpa-onnx 2.0.1",
+      "warnings": []
+    },
+    {
+      "startMs": 4730,
+      "endMs": 6210,
+      "speakerId": 0,
+      "text": "Вот, посмотри на эти оттенки.",
+      "source": "GigaAM v3 E2E RNNT INT8 / sherpa-onnx 2.0.1",
+      "warnings": []
+    },
+    {
+      "startMs": 6650,
+      "endMs": 7690,
+      "speakerId": 0,
+      "text": "Этот нежно-розовый.",
+      "source": "GigaAM v3 E2E RNNT INT8 / sherpa-onnx 2.0.1",
+      "warnings": []
+    },
+    {
+      "startMs": 8050,
+      "endMs": 11290,
+      "speakerId": 0,
+      "text": "А этот более яркий, почти Fuxia. Какой тебе больше нравится?",
+      "source": "GigaAM v3 E2E RNNT INT8 / sherpa-onnx 2.0.1",
+      "warnings": []
+    }
+  ],
+  "stagesMs": {
+    "validationMs": 3165.733571,
+    "timestampMetadataMs": 8.595878,
+    "decodeMs": 9.526889,
+    "vadLoadMs": 20.215883,
+    "vadMs": 42.46305,
+    "diarizationLoadMs": 712.742227,
+    "diarizationInferenceMs": 804.213554,
+    "diarizationMs": 1530.700541,
+    "alignmentMs": 0.007777,
+    "asrLoadMs": 2374.801596,
+    "asrReadMs": 0.217933,
+    "asrInferenceMs": 748.4146870000001,
+    "wordAssignmentMs": 1.1407230000000002,
+    "asrMs": 765.475242
+  },
+  "backend": "GigaAM v3 E2E RNNT INT8 / sherpa-onnx 2.0.1",
+  "clusteringMode": "automatic",
+  "expectedSpeakers": -1,
+  "modelFiles": [
+    {
+      "path": "giga-v3/encoder.int8.onnx",
+      "bytes": 224570820,
+      "sha256": "369f35a71bf288d3b8e0391fabd8dba5f2314088d440bca474056b7b4b6e66bf",
+      "hashValidationCached": false
+    },
+    {
+      "path": "giga-v3/decoder.onnx",
+      "bytes": 4600132,
+      "sha256": "38fc7475443ea2a26f63211ca350f73ac50fff824ab7a3876ee2bd610c53bbc4",
+      "hashValidationCached": false
+    },
+    {
+      "path": "giga-v3/joiner.onnx",
+      "bytes": 2712896,
+      "sha256": "602ff7017a93311aad34df1437c8d7f49911353c13d6eae7a6ee7b041339465c",
+      "hashValidationCached": false
+    },
+    {
+      "path": "giga-v3/tokens.txt",
+      "bytes": 13354,
+      "sha256": "39abae20e692998290c574e606f11a9edef2902a1995463fcff63d1490cf22b7",
+      "hashValidationCached": false
+    },
+    {
+      "path": "diar/segmentation.onnx",
+      "bytes": 5992913,
+      "sha256": "220ad67ca923bef2fa91f2390c786097bf305bceb5e261d4af67b38e938e1079",
+      "hashValidationCached": false
+    },
+    {
+      "path": "diar/embedding.onnx",
+      "bytes": 39593761,
+      "sha256": "1a331345f04805badbb495c775a6ddffcdd1a732567d5ec8b3d5749e3c7a5e4b",
+      "hashValidationCached": false
+    },
+    {
+      "path": "vad/silero_vad.onnx",
+      "bytes": 643854,
+      "sha256": "9e2449e1087496d8d4caba907f23e0bd3f78d91fa552479bb9c23ac09cbb1fd6",
+      "hashValidationCached": false
+    }
+  ],
+  "modelBytes": 278127730,
+  "tokenTimestampPolicy": {
+    "verified": true,
+    "feature_frame_shift_ms": 10,
+    "subsampling_factor": 4,
+    "frame_stride_ms": 40,
+    "feature_frame_shift_source": "https://github.com/k2-fsa/sherpa-onnx/blob/v2.0.1/sherpa-onnx/csrc/offline-recognizer-transducer-nemo-impl.h#L208-L211",
+    "model_metadata": {
+      "onnx.infer": "onnxruntime.quant",
+      "vocab_size": "1024",
+      "pred_rnn_layers": "1",
+      "pred_hidden": "320",
+      "normalize_type": "",
+      "subsampling_factor": "4",
+      "model_type": "EncDecRNNTBPEModel",
+      "version": "3",
+      "model_author": "https://github.com/salute-developers/GigaAM",
+      "license": "https://github.com/salute-developers/GigaAM/blob/main/LICENSE",
+      "language": "Russian",
+      "comment": "v3",
+      "is_giga_am": "1"
+    },
+    "precision": "Token emission frame intervals; not acoustic forced-aligned word timestamps"
+  },
+  "tokenTimestampError": null,
+  "wordAssignmentSupported": true,
+  "fallbackChunks": 0,
+  "fallbackPolicy": "Full ASR chunk with unknown speaker and warning; no fabricated word times or second ASR pass",
+  "config": {
+    "asrThreads": 2,
+    "vadThreads": 1,
+    "provider": "cpu",
+    "sampleRate": 16000,
+    "featureDim": 80,
+    "dither": 0,
+    "decodingMethod": "greedy_search",
+    "modelType": "nemo_transducer",
+    "vadThreshold": 0.5,
+    "vadMinSpeechSec": 0.25,
+    "vadMinSilenceSec": 0.25,
+    "vadWindowSamples": 512,
+    "vadMaxSpeechSec": 20,
+    "preRollMs": 100,
+    "postRollMs": 0,
+    "maxAsrSegmentMs": 20000,
+    "clusterThreshold": 0.5,
+    "clusterThresholdApplied": true,
+    "segmentationWindowShiftRatio": 0.1,
+    "diarMinDurationOnSec": 0.2,
+    "diarMinDurationOffSec": 0.5,
+    "quietGainTriggerPeak": 0.01,
+    "quietGainTargetPeak": 0.1,
+    "quietGainMax": 20,
+    "quietGainSilenceFloor": 1e-06,
+    "rescueTargetRms": 0.02,
+    "rescuePeakHeadroom": 0.95,
+    "rescueMinGainRatio": 1.01,
+    "asrSlicing": "bounded VAD only; ignores diarization turns",
+    "energySplit": true,
+    "energyWindowMs": 40,
+    "energySearchMs": 4000,
+    "energyTie": "earliest minimum",
+    "energyCut": "window center",
+    "punctuationMode": "none"
+  },
+  "inputDecoder": {
+    "policy": "unchanged generic AudioDecoder canonical16k timeline emulation",
+    "hostDecoderHelperSha256": "5b5258286138ae5b251de0324c592a968180ef2d90f3c6ee68aa33e82af67044"
+  },
+  "pipelineTimingScope": "per-invocation SHA validation, metadata, canonical decode, unchanged VAD/diarization, VAD chunking, ASR and word assignment; excludes persistence/result JSON serialization",
+  "memoryScope": "Host WAV held in memory; not Android bounded-IO/peak RAM parity",
+  "validationScope": "Every required file hashed per invocation, unchanged production ModelManager policy",
+  "nativeResourcePolicy": "VAD released before diarization; diarizer released before ASR; no retained native model cache",
+  "sourceFiles": {
+    "app/src/main/java/ru/replika/ml/ProcessingWorker.kt": "69be2010ea3fcf5ab865570dac87654c277fea02cd3c0c97d66c3edb75d4e050",
+    "app/src/main/java/ru/replika/ml/AsrEngine.kt": "8be6a422b26de01d3aa3a237c7921e1906bdc03a90fbad016d4cc0763aba09c2",
+    "app/src/main/java/ru/replika/ml/AudioDecoder.kt": "53cb484da019c62cca72f74c1930b50dabd934018aef47528eafbaf690b34b06",
+    "app/src/main/java/ru/replika/domain/QuietAudioGain.kt": "f89037844f79685a7e79bfe1e282af3687202de06325826ac2fc320379225b40",
+    "app/src/main/java/ru/replika/domain/ZeroSpanVadRescue.kt": "ffdeb91451b495e686a52fb6029663387bc53991318f572d992d39fd4b5883b8",
+    "tools/eval/pipeline_words.py": "7b212d8c278e06ff3d8c0875728a68e44e6f325d76dc9f72d8405421c1c4c7c8",
+    "tools/eval/vad_words.py": "523620926cd888fafa0acb2f8ddf9df952a9272a4c5aaca1b0d6acdd40fc2290",
+    "tools/eval/pipeline.py": "fcdea5e2028e2c46226ab24ff0ac4fe33743fb15bfe853789e156f50203b137a",
+    "tools/eval/decoder_parity.py": "5b5258286138ae5b251de0324c592a968180ef2d90f3c6ee68aa33e82af67044"
+  }
+}

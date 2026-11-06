@@ -1,0 +1,33 @@
+{
+  "recorded_at": "2026-11-06T22:24:45.041341+00:00",
+  "result": "PASS",
+  "scope": "Negative CLI preflight only; no inference/install/device command",
+  "argv": [
+    "/usr/bin/python3",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/tools/eval/pull_and_score.py",
+    "--adb",
+    "/nonexistent/replika-native-policy-adb-must-not-run",
+    "--serial",
+    "POLICY_NEGATIVE_NO_SUCH_DEVICE",
+    "--audio-root",
+    "/home/egor/replika-toolchain/eval-audio",
+    "--host-run",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-03/context600-dev",
+    "--cases",
+    "dev-03-short",
+    "--asr-plan",
+    "v16",
+    "--output",
+    "/home/egor/replika-toolchain/evidence/task03-native-negative-policy-20261106T222443954703Z"
+  ],
+  "returncode": 1,
+  "stdout": "",
+  "stderr": "Traceback (most recent call last):\n  File \"/mnt/d/ReplikaAndroid/ReplikaAndroid/tools/eval/pull_and_score.py\", line 210, in <module>\n    raise SystemExit(main())\n                     ^^^^^^\n  File \"/mnt/d/ReplikaAndroid/ReplikaAndroid/tools/eval/pull_and_score.py\", line 61, in main\n    requested_policy = validate_native_policy(host_config, {\n                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/mnt/d/ReplikaAndroid/ReplikaAndroid/tools/eval/native_policy.py\", line 157, in validate_native_policy\n    raise ValueError(f\"Host config does not match native plan {plan!r}\")\nValueError: Host config does not match native plan 'v16'\n",
+  "requested_output": "/home/egor/replika-toolchain/evidence/task03-native-negative-policy-20261106T222443954703Z",
+  "output_created": false,
+  "host_status": "COMPLETE",
+  "host_pre_roll_ms": 600,
+  "requested_asr_plan": "v16",
+  "adb_path_intentionally_nonexistent": true,
+  "device_state_changed": false
+}

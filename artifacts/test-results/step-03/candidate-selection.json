@@ -1,0 +1,110 @@
+{
+  "created_at": "2026-11-06T21:56:25.957631+00:00",
+  "status": "DEV_SELECTION_FROZEN_BEFORE_CANDIDATE_HOLDOUT",
+  "selected_run": "sensitive-short10-dev",
+  "config": "configs/eval/vad-words-sensitive-short10.json",
+  "config_sha256": "432a9f9a79de9db4fcb9e3dc915b889107194644f64a6dec9a079652b3811981",
+  "selection_rule": "Filter dev raw better, normalized no worse, short deletions reduced >=30%; minimize raw then normalized among eligible. No candidate holdout read for selection.",
+  "baseline_dev_raw": {
+    "errors": 124,
+    "substitutions": 103,
+    "deletions": 11,
+    "insertions": 10,
+    "reference_tokens": 533,
+    "hypothesis_tokens": 532,
+    "rate": 0.2326454033771107
+  },
+  "baseline_dev_normalized": {
+    "errors": 39,
+    "substitutions": 19,
+    "deletions": 10,
+    "insertions": 10,
+    "reference_tokens": 532,
+    "hypothesis_tokens": 532,
+    "rate": 0.07330827067669173
+  },
+  "baseline_short_deletions": 2,
+  "candidates": [
+    {
+      "run": "none-v2-dev",
+      "config_id": "vad-words-none",
+      "raw_errors": 93,
+      "raw_wer": 0.17448405253283303,
+      "normalized_errors": 26,
+      "normalized_wer": 0.04887218045112782,
+      "short_deletions": 2,
+      "eligible": false,
+      "run_sha256": "3a4079b6e96a9cd74052248d65155370cb69f24ade823fc5b373ad33bd128fa1"
+    },
+    {
+      "run": "short15-dev",
+      "config_id": "vad-words-short-vad-15",
+      "raw_errors": 92,
+      "raw_wer": 0.1726078799249531,
+      "normalized_errors": 22,
+      "normalized_wer": 0.041353383458646614,
+      "short_deletions": 2,
+      "eligible": false,
+      "run_sha256": "4259288878d315eaecf5dc9da8b9d96bb69d5ebd3d0b7ca7f6697fc7654c47eb"
+    },
+    {
+      "run": "short10-dev",
+      "config_id": "vad-words-short-vad-10",
+      "raw_errors": 99,
+      "raw_wer": 0.18574108818011256,
+      "normalized_errors": 20,
+      "normalized_wer": 0.03759398496240601,
+      "short_deletions": 0,
+      "eligible": true,
+      "run_sha256": "b86909a1bc2f42471012bdb8da8f16083d37db663f7c6e8fd086a4eb19254cb2"
+    },
+    {
+      "run": "sensitive-dev",
+      "config_id": "vad-words-sensitive",
+      "raw_errors": 89,
+      "raw_wer": 0.1669793621013133,
+      "normalized_errors": 22,
+      "normalized_wer": 0.041353383458646614,
+      "short_deletions": 2,
+      "eligible": false,
+      "run_sha256": "0a45083df9b1cdfdcf112ca7cea1e7f3c735c00c3dba7f92154abc11a4cc7a74"
+    },
+    {
+      "run": "seam-v3-dev",
+      "config_id": "vad-words-seam",
+      "raw_errors": 110,
+      "raw_wer": 0.20637898686679174,
+      "normalized_errors": 26,
+      "normalized_wer": 0.04887218045112782,
+      "short_deletions": 2,
+      "eligible": false,
+      "run_sha256": "139cf9b2ac5eeaaa984f541692bab9b11c09bf6276144afdf8473100ec4e8569"
+    },
+    {
+      "run": "short10-seam-dev",
+      "config_id": "vad-words-short10-seam",
+      "raw_errors": 119,
+      "raw_wer": 0.22326454033771106,
+      "normalized_errors": 20,
+      "normalized_wer": 0.03759398496240601,
+      "short_deletions": 0,
+      "eligible": true,
+      "run_sha256": "53d925369b3810d2a5f5c3d72e3fa8b2017af33e56bdb78d596ab60768da7844"
+    },
+    {
+      "run": "sensitive-short10-dev",
+      "config_id": "vad-words-sensitive-short10",
+      "raw_errors": 96,
+      "raw_wer": 0.1801125703564728,
+      "normalized_errors": 18,
+      "normalized_wer": 0.03383458646616541,
+      "short_deletions": 0,
+      "eligible": true,
+      "run_sha256": "794d0e367bc94fd789f6ee2d2d1da404fde5b37a46c0a23f796a4f1211da9645"
+    }
+  ],
+  "word_timing_acceptance": null,
+  "word_timing_scope": "No independent word gold; coarse clip timing is diagnostic and cannot prove <200ms.",
+  "holdout_rule": "One selected profile checked freshly on all13. If holdout fails, no automatic alternative chosen using that holdout; preserve legacy and report failed gate.",
+  "android_promotion": "Not applied yet; requires selected dev replication/holdout gate and native fixed-five parity. Legacy path preserved."
+}

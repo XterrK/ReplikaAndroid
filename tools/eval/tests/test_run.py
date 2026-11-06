@@ -54,6 +54,20 @@ class RunnerContractTest(unittest.TestCase):
             with self.assertRaises(ValueError):
                 runner.validated_hypothesis([dict(row, **changes)])
 
+    def test_experimental_vad_settings_are_explicit_bounded_and_do_not_leak_into_baseline(self):
+        word = {"schema_version": 1, "id": "word-dev", "pipeline": "vad_words_v1",
+                "expected_speakers": -1, "threads": 2, "punctuation_mode": "none", "energy_split": True}
+        runner.validate_configuration(dict(word, vad_threshold=.35, vad_min_speech_sec=.15, vad_min_silence_sec=.25))
+        for changes in ({"energy_split": 1}, {"punctuation_mode": "autocorrect"}, {"vad_threshold": True},
+                        {"vad_threshold": float("nan")}, {"vad_min_speech_sec": .001},
+                        {"vad_min_silence_sec": 2}, {"pre_roll_ms": True}, {"pre_roll_ms": 100.0},
+                        {"pre_roll_ms": 1001}, {"use_reference_speaker_count": True}):
+            with self.subTest(changes=changes), self.assertRaises(ValueError):
+                runner.validate_configuration(dict(word, **changes))
+        baseline = {key: value for key, value in word.items() if key not in ("punctuation_mode", "energy_split")}
+        with self.assertRaises(ValueError):
+            runner.validate_configuration(dict(baseline, pipeline="v16", vad_threshold=.35))
+
 
 if __name__ == "__main__":
     unittest.main()

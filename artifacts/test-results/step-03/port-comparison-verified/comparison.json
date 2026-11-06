@@ -1,0 +1,140 @@
+{
+  "status": "COMPLETE",
+  "created_at": "2026-11-06T23:19:19.957148+00:00",
+  "new_model_inference": false,
+  "scope": "Rescoring unchanged preserved native inference; no replacement of source hypotheses",
+  "source_native_run": "artifacts/test-results/step-03/context600-android",
+  "source_host_run": "artifacts/test-results/step-03/context600-selected-host",
+  "source_native_report_sha256": "917f040d76de20ab2a450dabace6cc702091269df978d8355855f7e714526f64",
+  "source_host_run_sha256": "a388cc7e35ed099b3ab268bf908255e4fbefcdd69723f95b7b649565a99ba631",
+  "matched_asr_policy": {
+    "pipeline": "vad_words_v1",
+    "punctuation_mode": "none",
+    "energy_split": true,
+    "vad_threshold": 0.5,
+    "vad_min_speech_sec": 0.25,
+    "vad_min_silence_sec": 0.25,
+    "pre_roll_ms": 600
+  },
+  "word_evidence_cases": [
+    {
+      "id": "dev-01-two-clean",
+      "validated": true,
+      "slices": 11,
+      "tokenCount": 365,
+      "timestampCount": 365,
+      "wordCount": 137,
+      "scope": "Complete native QA payload structure; not token-timing revalidation, word-gold accuracy or microphone acceptance"
+    },
+    {
+      "id": "dev-03-short",
+      "validated": true,
+      "slices": 4,
+      "tokenCount": 104,
+      "timestampCount": 104,
+      "wordCount": 38,
+      "scope": "Complete native QA payload structure; not token-timing revalidation, word-gold accuracy or microphone acceptance"
+    },
+    {
+      "id": "holdout-02-three-clean",
+      "validated": true,
+      "slices": 9,
+      "tokenCount": 432,
+      "timestampCount": 432,
+      "wordCount": 143,
+      "scope": "Complete native QA payload structure; not token-timing revalidation, word-gold accuracy or microphone acceptance"
+    },
+    {
+      "id": "holdout-04-overlap-expressive",
+      "validated": true,
+      "slices": 7,
+      "tokenCount": 281,
+      "timestampCount": 281,
+      "wordCount": 102,
+      "scope": "Complete native QA payload structure; not token-timing revalidation, word-gold accuracy or microphone acceptance"
+    },
+    {
+      "id": "dev-mono-s",
+      "validated": true,
+      "slices": 1,
+      "tokenCount": 42,
+      "timestampCount": 42,
+      "wordCount": 14,
+      "scope": "Complete native QA payload structure; not token-timing revalidation, word-gold accuracy or microphone acceptance"
+    }
+  ],
+  "gate_definition": "User clarified 2026-11-06: fixed-five weighted corpus WER difference <=0.5pp; keep per-file differences",
+  "comparison": {
+    "scope": "Fixed paired corpus, total errors / total reference words; per-file differences retained",
+    "reference_words": 442,
+    "host_errors": 44,
+    "native_errors": 43,
+    "host_wer_raw": 0.09954751131221719,
+    "native_wer_raw": 0.09728506787330317,
+    "wer_delta_percentage_points": -0.22624434389140272,
+    "threshold_percentage_points": 0.5,
+    "gate_pass": true,
+    "per_file_diagnostics": [
+      {
+        "id": "dev-01-two-clean",
+        "reference_words": 140,
+        "native_errors": 10,
+        "host_errors": 11,
+        "native_rtf": 4.605267697969981,
+        "host_rtf": 0.5984518218701479,
+        "source_native_hypothesis_sha256": "6298a2680a7bbcc0d932a9e262a5db789127f9c4dde83929ddec1495d7dd5810",
+        "source_host_hypothesis_sha256": "49aa3320547ddb09bb6798d0f877fa3c99e19891427ae04419eb2cead6ec2fe5",
+        "wer_delta_percentage_points": -0.7142857142857143,
+        "per_file_within_threshold": false
+      },
+      {
+        "id": "dev-03-short",
+        "reference_words": 38,
+        "native_errors": 6,
+        "host_errors": 6,
+        "native_rtf": 4.036565730016101,
+        "host_rtf": 0.7022920343842518,
+        "source_native_hypothesis_sha256": "bbd95248dc2d9077728b782531591f17b5579f91318fdde6509e56101dae4af7",
+        "source_host_hypothesis_sha256": "1038723185e1191948e624d784ae5ada57fea8a061d6cdc5aa9fc1d707cbf5c3",
+        "wer_delta_percentage_points": 0.0,
+        "per_file_within_threshold": true
+      },
+      {
+        "id": "holdout-02-three-clean",
+        "reference_words": 148,
+        "native_errors": 16,
+        "host_errors": 16,
+        "native_rtf": 4.686388862759853,
+        "host_rtf": 0.7676334084416195,
+        "source_native_hypothesis_sha256": "7250612d2b5ff7393312628dff5fe32b5b871345ab186cccbf81a9cc55178131",
+        "source_host_hypothesis_sha256": "424efbd19a133eef55871aed16bd862b53c130e84b77fe7313a8eb780597369c",
+        "wer_delta_percentage_points": 0.0,
+        "per_file_within_threshold": true
+      },
+      {
+        "id": "holdout-04-overlap-expressive",
+        "reference_words": 101,
+        "native_errors": 10,
+        "host_errors": 10,
+        "native_rtf": 4.911225040474905,
+        "host_rtf": 0.8400443316036366,
+        "source_native_hypothesis_sha256": "a5d97f8e9c2fb141be93242d0e1018dd987618e1d3fcc82ce77e2ee9761190d9",
+        "source_host_hypothesis_sha256": "0961759b3bed424c0a06d1dc09b161ef27b9c3161ad0f3a29ec80538558c9d1d",
+        "wer_delta_percentage_points": 0.0,
+        "per_file_within_threshold": true
+      },
+      {
+        "id": "dev-mono-s",
+        "reference_words": 15,
+        "native_errors": 1,
+        "host_errors": 1,
+        "native_rtf": 3.6158218853623874,
+        "host_rtf": 1.5729867522501184,
+        "source_native_hypothesis_sha256": "a56459f78d00ba174d2f7aa4041a3f4edebb34edda988f58d79614e40806f348",
+        "source_host_hypothesis_sha256": "bbdc95aad0290549d25a3c03114cc2e36db4628cf5c66a6dc991812e1ee71605",
+        "wer_delta_percentage_points": 0.0,
+        "per_file_within_threshold": true
+      }
+    ]
+  }
+}

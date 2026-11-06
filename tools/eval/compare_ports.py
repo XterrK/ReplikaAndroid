@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Rescore preserved v16 native outputs against the same inputs on a corrected host port.
+"""Rescore preserved native outputs against the same inputs and matched host policy.
 
 No inference and no alteration of the source runs. The user's 0.5pp gate applies to the
 weighted fixed corpus; all per-file outliers and the previous gate status remain visible.
@@ -16,6 +16,7 @@ sys.dont_write_bytecode = True
 from run import digest, write_json, confined
 from score import score, der
 from port_comparison import summarize
+from native_policy import validate_native_policy, validate_word_evidence
 
 
 def main():
@@ -31,9 +32,9 @@ def main():
     if native["status"] != "COMPLETE" or host_run["status"] != "COMPLETE":
         parser.error("Both source inferences must have completed")
     config = host_run["config"]
-    if config["pipeline"] != "v16" or native["threads"] != config["threads"] or native["expectedSpeakers"] != config["expected_speakers"]:
-        parser.error("This adapter only compares matched, unchanged v16 policies")
+    matched_policy = validate_native_policy(config, native)
     rows = []
+    word_evidence = []
     ids = [row["id"] for row in native["cases"]]
     if len(set(ids)) != len(ids) or any(not re.fullmatch(r"[A-Za-z0-9_-]+", i) for i in ids):
         parser.error("Unsafe or duplicate case IDs")
@@ -47,6 +48,9 @@ def main():
             raise ValueError("Comparison inputs changed: " + case_id)
         hypothesis = json.loads((native_dir / "hypothesis.json").read_text())
         diagnostic = json.loads((native_dir / "diagnostics.json").read_text())
+        validate_native_policy(config, diagnostic)
+        if matched_policy["pipeline"] == "vad_words_v1":
+            word_evidence.append({"id": case_id, **validate_word_evidence(diagnostic)})
         metric = score(reference, hypothesis, native_case["duration_ms"], processing_ms=native_case["processing_ms"])
         turns = [{"speaker_id": "native_" + str(t["speakerId"]), "start_ms": t["startMs"], "end_ms": t["endMs"], "text": ""}
                  for t in diagnostic["diarizationTurns"]]
@@ -68,6 +72,8 @@ def main():
               "source_native_run": str(args.native_run), "source_host_run": str(args.host_run),
               "source_native_report_sha256": digest(args.native_run / "android-report.json"),
               "source_host_run_sha256": digest(args.host_run / "run.json"),
+              "matched_asr_policy": matched_policy,
+              "word_evidence_cases": word_evidence,
               "gate_definition": "User clarified 2026-11-06: fixed-five weighted corpus WER difference <=0.5pp; keep per-file differences",
               "comparison": comparison}
     write_json(args.output / "comparison.json", result)

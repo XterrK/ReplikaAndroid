@@ -1,5 +1,11 @@
 # Результаты тестирования — PLAN_19H
 
+**WER / CER / cpWER / DER показывают ошибки — меньше лучше.** Например,
+3,01% normalized WER = 16 исправлений на 532 слова, а не 3% успеха.
+Главный raw WER сохраняет знаки и регистр; normalized — диагностика лексики.
+Доля файлов с верным числом спикеров и punctuation F1 имеют обратное направление:
+больше лучше. [Пояснения и формулы](../tools/eval/SCORING.md).
+
 ## Методика и независимые эталоны
 
 Свежий baseline ML V1.6 / pack V1.5, без смены моделей и параметров: automatic−1 на всех файлах,CPU2threads,sherpa2.0.1/ORT1.28.2. Эталонный текст и число спикеров не передаются в recognizer/diarizer. Основная метрика — rawWER с регистром,пунктуацией,ё/е и числительными. NormalizedWER,CER,number-normalizedWER,punctuationF1,initial-case,cpWER,DER0/250,ошибки таймкодов/coverage и RTF считаются отдельно. [Полный протокол](../tools/eval/SCORING.md).
@@ -40,3 +46,20 @@ RTF настоящего Worker на этих5файлах1.185–1.410. Это 
 Модели SHA-проверяются каждый process. Config,код,helper,зависимости,refs и savedartifacts fingerprinted; resume проверяетцелостность, partialattempt архивируется,failedexperiment получаетCSVстроку. Нулевой знаменатель→null, не выдуманный ноль. Реальныеtokens/timestamps GigaAM сохранены; tokens содержат ASCII-пробелы, не только`▁`. Word assignment ещё не внедрён.
 
 Это baseline до улучшений. Automatic diarization по-прежнему плоха; корпус малый,3актёра,монтажный,не unseen-speaker/natural-dialogue acceptance. ARM/физический микрофон/энергопотребление/длинные записи остаются отдельными проверками. Последнее обновление:2026-11-07T00:02:35+03:00.
+
+## 07.11.2026 — пункт 3, opt-in ASR context600
+
+WER — ошибки, меньше лучше. Модели/VAD/gain/диаризация прежние; реальный ASR pre-roll600мс и word assignment по token emission frames. Обычный build-defaultv16 сохранён.
+
+| Набор | Baseline raw WER ↓ | Context600 raw WER ↓ |
+| --- | ---: | ---: |
+| Host dev |124/533=23,265%|71/533=13,321%|
+| Host прежний holdout |73/444=16,441%|49/444=11,036%|
+| Host новый disjoint reserve |135/743=18,170%|83/743=11,171%|
+| Actual Android, фиксированная пятёрка |75/442=16,968%|43/442=9,729%|
+
+Normalized dev16/532=3,008% означает16 исправлений на532слова, а не3% успеха. Actual Android normalized11/439=2,506% против20/439=4,556% baseline. Short dev deletions2→0. Полная независимая word-time/diarization/speed приёмка не установлена: это ASR quality/port PASS за флагом. Старый holdout после первого отклонённого профиля используется как regression validation; reserve selection заморожена до второго выбора и проверяется отдельно.
+
+Host fixed-five44/442, Android43/442, delta−0,226п.п.≤0,5PASS; per-file outlier−0,714п.п. и все текстовые/временные различия сохранены. 32native chunks/1224tokens/434words полностью восстановлены из actualpayload; fallback/truncation0. 125Python/111JVM/build/static/2nativeUI PASS; первая UI-попытка сохранена, исправлена только синхронизация теста.
+
+Current-APK one-file timing control: legacyRTF4,739, word4,605; historicallegacy1,185. Обе текущиеSD стадии~219/217с против прежних50,7с. Причина отличия не установлена; benchmark не доказывает ускорение/ARM/телефон. Полная приёмка ещё открыта, defaultlegacy сохранён. [Полный отчёт D](STEP_03_VAD_WORD_ASR.md), [индекс](../artifacts/test-results/step-03/results.csv), [граница приёмки](../artifacts/test-results/step-03/acceptance.json), [контроль времени](../artifacts/test-results/step-03/performance-control.md).

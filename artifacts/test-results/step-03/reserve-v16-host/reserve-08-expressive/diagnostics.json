@@ -1,0 +1,1063 @@
+{
+  "runtime": "sherpa-onnx 2.0.1",
+  "onnxruntimeVersion": "1.28.2",
+  "platform": "Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "pythonVersion": "3.12.3",
+  "scope": "Host configuration/planner baseline; canonical PCM16 input; not Android/ARM/phone performance acceptance",
+  "audioSha256": "59eb5b21a3f86ce820c6838052250334cd044815476d90586dc690449e98cddd",
+  "audioMs": 36501,
+  "sampleRate": 16000,
+  "inputDecoder": {
+    "policy": "canonical mono PCM16/16k through unchanged AudioDecoder timeline math",
+    "wavPacketBytes": 32768,
+    "wavPacketFrames": 16384,
+    "packetPts": "floor(packetStartFrame*1000000/16000) integer microseconds",
+    "outputClock": "Double nextTime=0; repeated nextTime+=1.0/16000 per emit",
+    "emitToleranceSeconds": 1e-09,
+    "interpolation": "Float32 factor, subtraction, multiplication and addition; no FMA",
+    "sourceDecoderSha256": "53cb484da019c62cca72f74c1930b50dabd934018aef47528eafbaf690b34b06",
+    "sourceLowPassSha256": "e0c409c771ddf6f9eb9849e0f23b3a0028895c6db4a33616378c767f88adc05a",
+    "hostDecoderHelperSha256": "5b5258286138ae5b251de0324c592a968180ef2d90f3c6ee68aa33e82af67044",
+    "scope": "AOSP canonical-WAV framing; other rates/formats intentionally rejected; runtime math differences remain independently evaluated"
+  },
+  "originalPcmPeak": 0.596527099609375,
+  "recognitionInputGain": 1.0,
+  "vadDetectorGain": 1.0,
+  "vadPrimarySpanCount": 12,
+  "vadPrimarySpans": [
+    {
+      "startMs": 454,
+      "endMs": 966
+    },
+    {
+      "startMs": 1478,
+      "endMs": 4006
+    },
+    {
+      "startMs": 4806,
+      "endMs": 5766
+    },
+    {
+      "startMs": 6502,
+      "endMs": 9094
+    },
+    {
+      "startMs": 9606,
+      "endMs": 12198
+    },
+    {
+      "startMs": 13574,
+      "endMs": 16038
+    },
+    {
+      "startMs": 16614,
+      "endMs": 18566
+    },
+    {
+      "startMs": 19046,
+      "endMs": 19622
+    },
+    {
+      "startMs": 20390,
+      "endMs": 22694
+    },
+    {
+      "startMs": 23526,
+      "endMs": 26438
+    },
+    {
+      "startMs": 26886,
+      "endMs": 31078
+    },
+    {
+      "startMs": 32326,
+      "endMs": 36038
+    }
+  ],
+  "vadRescueAttempted": false,
+  "vadRescueApplied": false,
+  "vadRescueRms": null,
+  "vadRescueRmsSamples": 0,
+  "vadRescueSpanCount": 0,
+  "vadRescueReason": "primary_nonempty",
+  "vadRescueScope": "detector-only empty-primary retry; ASR gain and stored input unchanged",
+  "vadSpans": [
+    {
+      "startMs": 454,
+      "endMs": 966
+    },
+    {
+      "startMs": 1478,
+      "endMs": 4006
+    },
+    {
+      "startMs": 4806,
+      "endMs": 5766
+    },
+    {
+      "startMs": 6502,
+      "endMs": 9094
+    },
+    {
+      "startMs": 9606,
+      "endMs": 12198
+    },
+    {
+      "startMs": 13574,
+      "endMs": 16038
+    },
+    {
+      "startMs": 16614,
+      "endMs": 18566
+    },
+    {
+      "startMs": 19046,
+      "endMs": 19622
+    },
+    {
+      "startMs": 20390,
+      "endMs": 22694
+    },
+    {
+      "startMs": 23526,
+      "endMs": 26438
+    },
+    {
+      "startMs": 26886,
+      "endMs": 31078
+    },
+    {
+      "startMs": 32326,
+      "endMs": 36038
+    }
+  ],
+  "asrSpeechSpans": [
+    {
+      "startMs": 354,
+      "endMs": 966
+    },
+    {
+      "startMs": 1378,
+      "endMs": 4006
+    },
+    {
+      "startMs": 4706,
+      "endMs": 5766
+    },
+    {
+      "startMs": 6402,
+      "endMs": 9094
+    },
+    {
+      "startMs": 9506,
+      "endMs": 12198
+    },
+    {
+      "startMs": 13474,
+      "endMs": 16038
+    },
+    {
+      "startMs": 16514,
+      "endMs": 18566
+    },
+    {
+      "startMs": 18946,
+      "endMs": 19622
+    },
+    {
+      "startMs": 20290,
+      "endMs": 22694
+    },
+    {
+      "startMs": 23426,
+      "endMs": 26438
+    },
+    {
+      "startMs": 26786,
+      "endMs": 31078
+    },
+    {
+      "startMs": 32226,
+      "endMs": 36038
+    }
+  ],
+  "rawDiarizationTurns": [
+    {
+      "startMs": 31,
+      "endMs": 3980,
+      "speakerId": 1
+    },
+    {
+      "startMs": 4773,
+      "endMs": 12198,
+      "speakerId": 0
+    },
+    {
+      "startMs": 13548,
+      "endMs": 14965,
+      "speakerId": 2
+    },
+    {
+      "startMs": 14965,
+      "endMs": 16045,
+      "speakerId": 4
+    },
+    {
+      "startMs": 16585,
+      "endMs": 19623,
+      "speakerId": 4
+    },
+    {
+      "startMs": 20348,
+      "endMs": 22677,
+      "speakerId": 4
+    },
+    {
+      "startMs": 23487,
+      "endMs": 31081,
+      "speakerId": 0
+    },
+    {
+      "startMs": 32313,
+      "endMs": 36025,
+      "speakerId": 7
+    }
+  ],
+  "diarizationTurns": [
+    {
+      "startMs": 31,
+      "endMs": 3980,
+      "speakerId": 0
+    },
+    {
+      "startMs": 4773,
+      "endMs": 12198,
+      "speakerId": 1
+    },
+    {
+      "startMs": 13548,
+      "endMs": 14965,
+      "speakerId": 2
+    },
+    {
+      "startMs": 14965,
+      "endMs": 16045,
+      "speakerId": 3
+    },
+    {
+      "startMs": 16585,
+      "endMs": 19623,
+      "speakerId": 3
+    },
+    {
+      "startMs": 20348,
+      "endMs": 22677,
+      "speakerId": 3
+    },
+    {
+      "startMs": 23487,
+      "endMs": 31081,
+      "speakerId": 1
+    },
+    {
+      "startMs": 32313,
+      "endMs": 36025,
+      "speakerId": 4
+    }
+  ],
+  "asrSlices": [
+    {
+      "startMs": 354,
+      "endMs": 966,
+      "speakerId": 0,
+      "text": "Клин",
+      "blank": false,
+      "inferenceMs": 204.12642,
+      "warnings": [
+        "Короткая реплика возле границы"
+      ],
+      "tokens": [
+        " К",
+        "ли",
+        "н"
+      ],
+      "timestamps": [
+        0.07999999821186066,
+        0.23999999463558197,
+        0.4399999976158142
+      ],
+      "timestampUnit": "seconds within ASR slice"
+    },
+    {
+      "startMs": 1378,
+      "endMs": 4006,
+      "speakerId": 0,
+      "text": "Улица Ленина, дом 14.",
+      "blank": false,
+      "inferenceMs": 641.02951,
+      "warnings": [
+        "Короткая граница диаризации: проверьте слова"
+      ],
+      "tokens": [
+        " У",
+        "ли",
+        "ца",
+        " Ле",
+        "ни",
+        "на",
+        ",",
+        " дом",
+        " 1",
+        "4",
+        "."
+      ],
+      "timestamps": [
+        0.11999999731779099,
+        0.23999999463558197,
+        0.3999999761581421,
+        0.5600000023841858,
+        0.7999999523162842,
+        0.9199999570846558,
+        1.1200000047683716,
+        1.3600000143051147,
+        1.71999990940094,
+        1.959999918937683,
+        2.5199999809265137
+      ],
+      "timestampUnit": "seconds within ASR slice"
+    },
+    {
+      "startMs": 4706,
+      "endMs": 5766,
+      "speakerId": 1,
+      "text": "Да, конечно.",
+      "blank": false,
+      "inferenceMs": 303.217816,
+      "warnings": [
+        "Короткая граница диаризации: проверьте слова"
+      ],
+      "tokens": [
+        " Да",
+        ",",
+        " конечно",
+        "."
+      ],
+      "timestamps": [
+        0.11999999731779099,
+        0.3199999928474426,
+        0.5600000023841858,
+        0.9199999570846558
+      ],
+      "timestampUnit": "seconds within ASR slice"
+    },
+    {
+      "startMs": 6402,
+      "endMs": 9094,
+      "speakerId": 1,
+      "text": "Те музыкальные вечера были особенными для нас.",
+      "blank": false,
+      "inferenceMs": 613.836511,
+      "warnings": [],
+      "tokens": [
+        " Т",
+        "е",
+        " ",
+        "му",
+        "зы",
+        "ка",
+        "ль",
+        "ные",
+        " вечер",
+        "а",
+        " бы",
+        "ли",
+        " ос",
+        "об",
+        "е",
+        "н",
+        "ным",
+        "и",
+        " для",
+        " нас",
+        "."
+      ],
+      "timestamps": [
+        0.03999999910593033,
+        0.1599999964237213,
+        0.2800000011920929,
+        0.35999998450279236,
+        0.4399999976158142,
+        0.5600000023841858,
+        0.6800000071525574,
+        0.7599999904632568,
+        0.8399999737739563,
+        1.0799999237060547,
+        1.2400000095367432,
+        1.399999976158142,
+        1.5199999809265137,
+        1.71999990940094,
+        1.7999999523162842,
+        1.9199999570846558,
+        2.0399999618530273,
+        2.119999885559082,
+        2.240000009536743,
+        2.3999998569488525,
+        2.5999999046325684
+      ],
+      "timestampUnit": "seconds within ASR slice"
+    },
+    {
+      "startMs": 9506,
+      "endMs": 12198,
+      "speakerId": 1,
+      "text": "Мы всегда обсуждали впечатления после концертов.",
+      "blank": false,
+      "inferenceMs": 561.945829,
+      "warnings": [],
+      "tokens": [
+        " Мы",
+        " всегда",
+        " об",
+        "су",
+        "ж",
+        "да",
+        "ли",
+        " в",
+        "п",
+        "е",
+        "ча",
+        "т",
+        "л",
+        "ения",
+        " после",
+        " кон",
+        "це",
+        "р",
+        "тов",
+        "."
+      ],
+      "timestamps": [
+        0.07999999821186066,
+        0.3199999928474426,
+        0.5999999642372131,
+        0.7199999690055847,
+        0.8399999737739563,
+        0.8799999952316284,
+        1.0,
+        1.1200000047683716,
+        1.1999999284744263,
+        1.2799999713897705,
+        1.3600000143051147,
+        1.4399999380111694,
+        1.5199999809265137,
+        1.6399999856948853,
+        1.8799999952316284,
+        2.1599998474121094,
+        2.319999933242798,
+        2.440000057220459,
+        2.5199999809265137,
+        2.6399998664855957
+      ],
+      "timestampUnit": "seconds within ASR slice"
+    },
+    {
+      "startMs": 13474,
+      "endMs": 14965,
+      "speakerId": 2,
+      "text": "Конечно, я всегда",
+      "blank": false,
+      "inferenceMs": 407.135912,
+      "warnings": [
+        "Короткая граница диаризации: проверьте слова"
+      ],
+      "tokens": [
+        " Ко",
+        "не",
+        "чно",
+        ",",
+        " я",
+        " всегда"
+      ],
+      "timestamps": [
+        0.19999998807907104,
+        0.3199999928474426,
+        0.4399999976158142,
+        0.6399999856948853,
+        0.9199999570846558,
+        1.0799999237060547
+      ],
+      "timestampUnit": "seconds within ASR slice"
+    },
+    {
+      "startMs": 14965,
+      "endMs": 16038,
+      "speakerId": 3,
+      "text": "Рядом и слежу за ним.",
+      "blank": false,
+      "inferenceMs": 337.792193,
+      "warnings": [],
+      "tokens": [
+        " Р",
+        "я",
+        "д",
+        "ом",
+        " и",
+        " с",
+        "ле",
+        "жу",
+        " за",
+        " ",
+        "ним",
+        "."
+      ],
+      "timestamps": [
+        0.07999999821186066,
+        0.11999999731779099,
+        0.19999998807907104,
+        0.23999999463558197,
+        0.35999998450279236,
+        0.47999998927116394,
+        0.5199999809265137,
+        0.5999999642372131,
+        0.7599999904632568,
+        0.8399999737739563,
+        0.9199999570846558,
+        1.0
+      ],
+      "timestampUnit": "seconds within ASR slice"
+    },
+    {
+      "startMs": 16514,
+      "endMs": 18566,
+      "speakerId": 3,
+      "text": "Но важно учить их быть самостоятельными.",
+      "blank": false,
+      "inferenceMs": 539.796836,
+      "warnings": [
+        "Короткая граница диаризации: проверьте слова"
+      ],
+      "tokens": [
+        " Но",
+        " в",
+        "а",
+        "ж",
+        "но",
+        " у",
+        "чи",
+        "ть",
+        " и",
+        "х",
+        " быть",
+        " само",
+        "сто",
+        "я",
+        "те",
+        "ль",
+        "ным",
+        "и",
+        "."
+      ],
+      "timestamps": [
+        0.03999999910593033,
+        0.23999999463558197,
+        0.2800000011920929,
+        0.35999998450279236,
+        0.3999999761581421,
+        0.5199999809265137,
+        0.6399999856948853,
+        0.7199999690055847,
+        0.7999999523162842,
+        0.8799999952316284,
+        0.9599999785423279,
+        1.159999966621399,
+        1.399999976158142,
+        1.5199999809265137,
+        1.6399999856948853,
+        1.7599999904632568,
+        1.8399999141693115,
+        1.9199999570846558,
+        2.0
+      ],
+      "timestampUnit": "seconds within ASR slice"
+    },
+    {
+      "startMs": 18946,
+      "endMs": 19622,
+      "speakerId": 3,
+      "text": "Ты знаешь?",
+      "blank": false,
+      "inferenceMs": 176.590153,
+      "warnings": [
+        "Короткая реплика возле границы"
+      ],
+      "tokens": [
+        " Ты",
+        " знаешь",
+        "?"
+      ],
+      "timestamps": [
+        0.07999999821186066,
+        0.23999999463558197,
+        0.5600000023841858
+      ],
+      "timestampUnit": "seconds within ASR slice"
+    },
+    {
+      "startMs": 20290,
+      "endMs": 22694,
+      "speakerId": 3,
+      "text": "Я иногда чувствую презрение к некоторым людям.",
+      "blank": false,
+      "inferenceMs": 589.089341,
+      "warnings": [
+        "Короткая граница диаризации: проверьте слова"
+      ],
+      "tokens": [
+        " Я",
+        " и",
+        "но",
+        "г",
+        "да",
+        " ",
+        "чу",
+        "в",
+        "ству",
+        "ю",
+        " пре",
+        "з",
+        "р",
+        "ение",
+        " к",
+        " не",
+        "ко",
+        "то",
+        "ры",
+        "м",
+        " ",
+        "лю",
+        "д",
+        "я",
+        "м",
+        "."
+      ],
+      "timestamps": [
+        0.11999999731779099,
+        0.2800000011920929,
+        0.3999999761581421,
+        0.47999998927116394,
+        0.5199999809265137,
+        0.5999999642372131,
+        0.6399999856948853,
+        0.7199999690055847,
+        0.7999999523162842,
+        0.9199999570846558,
+        1.0399999618530273,
+        1.1999999284744263,
+        1.2799999713897705,
+        1.399999976158142,
+        1.559999942779541,
+        1.6399999856948853,
+        1.7599999904632568,
+        1.8399999141693115,
+        1.8799999952316284,
+        1.959999918937683,
+        2.0799999237060547,
+        2.119999885559082,
+        2.200000047683716,
+        2.240000009536743,
+        2.240000009536743,
+        2.319999933242798
+      ],
+      "timestampUnit": "seconds within ASR slice"
+    },
+    {
+      "startMs": 23426,
+      "endMs": 26438,
+      "speakerId": 1,
+      "text": "Ты всегда всё знаешь лучше всех, Маша.",
+      "blank": false,
+      "inferenceMs": 690.736461,
+      "warnings": [
+        "Короткая граница диаризации: проверьте слова"
+      ],
+      "tokens": [
+        " Ты",
+        " всегда",
+        " всё",
+        " знаешь",
+        " лучше",
+        " все",
+        "х",
+        ",",
+        " Ма",
+        "ша",
+        "."
+      ],
+      "timestamps": [
+        0.11999999731779099,
+        0.3999999761581421,
+        0.9599999785423279,
+        1.2400000095367432,
+        1.7999999523162842,
+        2.119999885559082,
+        2.319999933242798,
+        2.440000057220459,
+        2.5999999046325684,
+        2.799999952316284,
+        2.9600000381469727
+      ],
+      "timestampUnit": "seconds within ASR slice"
+    },
+    {
+      "startMs": 26786,
+      "endMs": 31078,
+      "speakerId": 1,
+      "text": "Может, проблема в том, что ты не можешь никому доверять?",
+      "blank": false,
+      "inferenceMs": 859.11567,
+      "warnings": [],
+      "tokens": [
+        " Может",
+        ",",
+        " проблем",
+        "а",
+        " в",
+        " то",
+        "м",
+        ",",
+        " что",
+        " ты",
+        " не",
+        " можешь",
+        " ",
+        "ни",
+        "ком",
+        "у",
+        " до",
+        "вер",
+        "я",
+        "ть",
+        "?"
+      ],
+      "timestamps": [
+        0.1599999964237213,
+        0.5199999809265137,
+        0.7999999523162842,
+        1.159999966621399,
+        1.2799999713897705,
+        1.399999976158142,
+        1.5199999809265137,
+        1.5999999046325684,
+        1.71999990940094,
+        2.0399999618530273,
+        2.2799999713897705,
+        2.4800000190734863,
+        2.919999837875366,
+        3.0399999618530273,
+        3.119999885559082,
+        3.2799999713897705,
+        3.4800000190734863,
+        3.679999828338623,
+        3.879999876022339,
+        4.039999961853027,
+        4.199999809265137
+      ],
+      "timestampUnit": "seconds within ASR slice"
+    },
+    {
+      "startMs": 32226,
+      "endMs": 36038,
+      "speakerId": 4,
+      "text": "Маша, а ты знала, что Ваня начал интересоваться астрономией?",
+      "blank": false,
+      "inferenceMs": 781.786282,
+      "warnings": [
+        "Короткая граница диаризации: проверьте слова"
+      ],
+      "tokens": [
+        " Ма",
+        "ша",
+        ",",
+        " а",
+        " ты",
+        " ",
+        "зна",
+        "ла",
+        ",",
+        " что",
+        " В",
+        "а",
+        "ня",
+        " начал",
+        " интерес",
+        "ов",
+        "аться",
+        " а",
+        "стро",
+        "но",
+        "ми",
+        "ей",
+        "?"
+      ],
+      "timestamps": [
+        0.11999999731779099,
+        0.2800000011920929,
+        0.3999999761581421,
+        0.47999998927116394,
+        0.5999999642372131,
+        0.7199999690055847,
+        0.7599999904632568,
+        0.8799999952316284,
+        1.0,
+        1.0799999237060547,
+        1.1999999284744263,
+        1.2799999713897705,
+        1.399999976158142,
+        1.5999999046325684,
+        1.9199999570846558,
+        2.2799999713897705,
+        2.4800000190734863,
+        2.7200000286102295,
+        2.9600000381469727,
+        3.240000009536743,
+        3.3999998569488525,
+        3.559999942779541,
+        3.7200000286102295
+      ],
+      "timestampUnit": "seconds within ASR slice"
+    }
+  ],
+  "segments": [
+    {
+      "startMs": 354,
+      "endMs": 966,
+      "speakerId": 0,
+      "text": "Клин",
+      "source": "GigaAM v3 E2E RNNT INT8 / sherpa-onnx 2.0.1",
+      "warnings": [
+        "Короткая реплика возле границы"
+      ]
+    },
+    {
+      "startMs": 1378,
+      "endMs": 4006,
+      "speakerId": 0,
+      "text": "Улица Ленина, дом 14.",
+      "source": "GigaAM v3 E2E RNNT INT8 / sherpa-onnx 2.0.1",
+      "warnings": [
+        "Короткая граница диаризации: проверьте слова"
+      ]
+    },
+    {
+      "startMs": 4706,
+      "endMs": 5766,
+      "speakerId": 1,
+      "text": "Да, конечно.",
+      "source": "GigaAM v3 E2E RNNT INT8 / sherpa-onnx 2.0.1",
+      "warnings": [
+        "Короткая граница диаризации: проверьте слова"
+      ]
+    },
+    {
+      "startMs": 6402,
+      "endMs": 9094,
+      "speakerId": 1,
+      "text": "Те музыкальные вечера были особенными для нас.",
+      "source": "GigaAM v3 E2E RNNT INT8 / sherpa-onnx 2.0.1",
+      "warnings": []
+    },
+    {
+      "startMs": 9506,
+      "endMs": 12198,
+      "speakerId": 1,
+      "text": "Мы всегда обсуждали впечатления после концертов.",
+      "source": "GigaAM v3 E2E RNNT INT8 / sherpa-onnx 2.0.1",
+      "warnings": []
+    },
+    {
+      "startMs": 13474,
+      "endMs": 14965,
+      "speakerId": 2,
+      "text": "Конечно, я всегда",
+      "source": "GigaAM v3 E2E RNNT INT8 / sherpa-onnx 2.0.1",
+      "warnings": [
+        "Короткая граница диаризации: проверьте слова"
+      ]
+    },
+    {
+      "startMs": 14965,
+      "endMs": 16038,
+      "speakerId": 3,
+      "text": "Рядом и слежу за ним.",
+      "source": "GigaAM v3 E2E RNNT INT8 / sherpa-onnx 2.0.1",
+      "warnings": []
+    },
+    {
+      "startMs": 16514,
+      "endMs": 18566,
+      "speakerId": 3,
+      "text": "Но важно учить их быть самостоятельными.",
+      "source": "GigaAM v3 E2E RNNT INT8 / sherpa-onnx 2.0.1",
+      "warnings": [
+        "Короткая граница диаризации: проверьте слова"
+      ]
+    },
+    {
+      "startMs": 18946,
+      "endMs": 19622,
+      "speakerId": 3,
+      "text": "Ты знаешь?",
+      "source": "GigaAM v3 E2E RNNT INT8 / sherpa-onnx 2.0.1",
+      "warnings": [
+        "Короткая реплика возле границы"
+      ]
+    },
+    {
+      "startMs": 20290,
+      "endMs": 22694,
+      "speakerId": 3,
+      "text": "Я иногда чувствую презрение к некоторым людям.",
+      "source": "GigaAM v3 E2E RNNT INT8 / sherpa-onnx 2.0.1",
+      "warnings": [
+        "Короткая граница диаризации: проверьте слова"
+      ]
+    },
+    {
+      "startMs": 23426,
+      "endMs": 26438,
+      "speakerId": 1,
+      "text": "Ты всегда всё знаешь лучше всех, Маша.",
+      "source": "GigaAM v3 E2E RNNT INT8 / sherpa-onnx 2.0.1",
+      "warnings": [
+        "Короткая граница диаризации: проверьте слова"
+      ]
+    },
+    {
+      "startMs": 26786,
+      "endMs": 31078,
+      "speakerId": 1,
+      "text": "Может, проблема в том, что ты не можешь никому доверять?",
+      "source": "GigaAM v3 E2E RNNT INT8 / sherpa-onnx 2.0.1",
+      "warnings": []
+    },
+    {
+      "startMs": 32226,
+      "endMs": 36038,
+      "speakerId": 4,
+      "text": "Маша, а ты знала, что Ваня начал интересоваться астрономией?",
+      "source": "GigaAM v3 E2E RNNT INT8 / sherpa-onnx 2.0.1",
+      "warnings": [
+        "Короткая граница диаризации: проверьте слова"
+      ]
+    }
+  ],
+  "stagesMs": {
+    "validationMs": 3126.301603,
+    "decodeMs": 73.099566,
+    "vadLoadMs": 29.557021,
+    "vadMs": 330.305243,
+    "diarizationLoadMs": 1289.633044,
+    "diarizationInferenceMs": 15976.778752,
+    "diarizationMs": 17279.737648,
+    "alignmentMs": 0.25689,
+    "asrLoadMs": 4259.377342,
+    "asrReadMs": 1.581235,
+    "asrInferenceMs": 6705.200095999999,
+    "asrMs": 6830.592196
+  },
+  "backend": "GigaAM v3 E2E RNNT INT8 / sherpa-onnx 2.0.1",
+  "clusteringMode": "automatic",
+  "expectedSpeakers": -1,
+  "modelFiles": [
+    {
+      "path": "giga-v3/encoder.int8.onnx",
+      "bytes": 224570820,
+      "sha256": "369f35a71bf288d3b8e0391fabd8dba5f2314088d440bca474056b7b4b6e66bf",
+      "hashValidationCached": false
+    },
+    {
+      "path": "giga-v3/decoder.onnx",
+      "bytes": 4600132,
+      "sha256": "38fc7475443ea2a26f63211ca350f73ac50fff824ab7a3876ee2bd610c53bbc4",
+      "hashValidationCached": false
+    },
+    {
+      "path": "giga-v3/joiner.onnx",
+      "bytes": 2712896,
+      "sha256": "602ff7017a93311aad34df1437c8d7f49911353c13d6eae7a6ee7b041339465c",
+      "hashValidationCached": false
+    },
+    {
+      "path": "giga-v3/tokens.txt",
+      "bytes": 13354,
+      "sha256": "39abae20e692998290c574e606f11a9edef2902a1995463fcff63d1490cf22b7",
+      "hashValidationCached": false
+    },
+    {
+      "path": "diar/segmentation.onnx",
+      "bytes": 5992913,
+      "sha256": "220ad67ca923bef2fa91f2390c786097bf305bceb5e261d4af67b38e938e1079",
+      "hashValidationCached": false
+    },
+    {
+      "path": "diar/embedding.onnx",
+      "bytes": 39593761,
+      "sha256": "1a331345f04805badbb495c775a6ddffcdd1a732567d5ec8b3d5749e3c7a5e4b",
+      "hashValidationCached": false
+    },
+    {
+      "path": "vad/silero_vad.onnx",
+      "bytes": 643854,
+      "sha256": "9e2449e1087496d8d4caba907f23e0bd3f78d91fa552479bb9c23ac09cbb1fd6",
+      "hashValidationCached": false
+    }
+  ],
+  "modelBytes": 278127730,
+  "config": {
+    "asrThreads": 2,
+    "vadThreads": 1,
+    "provider": "cpu",
+    "sampleRate": 16000,
+    "featureDim": 80,
+    "dither": 0,
+    "decodingMethod": "greedy_search",
+    "modelType": "nemo_transducer",
+    "vadThreshold": 0.5,
+    "vadMinSpeechSec": 0.25,
+    "vadMinSilenceSec": 0.25,
+    "vadWindowSamples": 512,
+    "vadMaxSpeechSec": 20,
+    "preRollMs": 100,
+    "postRollMs": 0,
+    "maxAsrSegmentMs": 20000,
+    "edgeToleranceMs": 300,
+    "clusterThreshold": 0.5,
+    "clusterThresholdApplied": true,
+    "segmentationWindowShiftRatio": 0.1,
+    "diarMinDurationOnSec": 0.2,
+    "diarMinDurationOffSec": 0.5,
+    "quietGainTriggerPeak": 0.01,
+    "quietGainTargetPeak": 0.1,
+    "quietGainMax": 20,
+    "quietGainSilenceFloor": 1e-06,
+    "rescueTargetRms": 0.02,
+    "rescuePeakHeadroom": 0.95,
+    "rescueMinGainRatio": 1.01,
+    "arithmetic": "Float32 gains and buffers; sequential Double RMS"
+  },
+  "pipelineTimingScope": "host per-invocation SHA validation, canonical WAV read, VAD, diarization, planner, ASR release; excludes persistence and result JSON serialization",
+  "validationScope": "Every required model is hashed on every invocation, matching ModelManager.requireReady; no cross-case SHA cache",
+  "memoryScope": "Host WAV held in memory; no claim of Android bounded-IO/peak RAM parity",
+  "nativeResourcePolicy": "VAD released before diarization; diarizer released before ASR; no retained native model cache",
+  "sourceFiles": {
+    "app/src/main/java/ru/replika/ml/ProcessingWorker.kt": "69be2010ea3fcf5ab865570dac87654c277fea02cd3c0c97d66c3edb75d4e050",
+    "app/src/main/java/ru/replika/ml/AsrEngine.kt": "8be6a422b26de01d3aa3a237c7921e1906bdc03a90fbad016d4cc0763aba09c2",
+    "app/src/main/java/ru/replika/ml/AudioDecoder.kt": "53cb484da019c62cca72f74c1930b50dabd934018aef47528eafbaf690b34b06",
+    "app/src/main/java/ru/replika/domain/PcmLowPass.kt": "e0c409c771ddf6f9eb9849e0f23b3a0028895c6db4a33616378c767f88adc05a",
+    "app/src/main/java/ru/replika/domain/Transcript.kt": "6abf363d1c630476f05dc91c26d4d47d352b4e79b637b87e23c63976a6e4383a",
+    "app/src/main/java/ru/replika/domain/TranscriptPresentation.kt": "c3766b30f98420968cabe153fdc716accdfc1dad0511232c88558af219635260",
+    "app/src/main/java/ru/replika/domain/QuietAudioGain.kt": "f89037844f79685a7e79bfe1e282af3687202de06325826ac2fc320379225b40",
+    "app/src/main/java/ru/replika/domain/ZeroSpanVadRescue.kt": "ffdeb91451b495e686a52fb6029663387bc53991318f572d992d39fd4b5883b8",
+    "app/src/main/java/ru/replika/domain/JuryJson.kt": "f048a7f670cacb28f0e2a047fa603b73d1358621b9f7907fa718a5ee28305b6f"
+  }
+}

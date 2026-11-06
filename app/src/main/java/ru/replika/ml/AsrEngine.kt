@@ -1,9 +1,11 @@
 package ru.replika.ml
 
 import com.k2fsa.sherpa.onnx.*
+data class AsrHypothesis(val text: String,val tokens: List<String>,val timestampsSeconds: FloatArray,val frameStrideMs: Long)
 interface AsrEngine: AutoCloseable {
  val source: String
  fun recognize(samples: FloatArray): String
+ fun recognizeDetailed(samples: FloatArray)=AsrHypothesis(recognize(samples),emptyList(),FloatArray(0),0)
 }
 class GigaAmEngine(models: ModelManager, threads: Int = 2): AsrEngine {
  private val modelId=models.asrId.also { require(it=="giga-v2" || it=="giga-v3") { "Unsupported GigaAM family" } }
@@ -19,6 +21,16 @@ class GigaAmEngine(models: ModelManager, threads: Int = 2): AsrEngine {
   val stream=recognizer.createStream()
   try { stream.acceptWaveform(samples,16000);recognizer.decode(stream);return recognizer.getResult(stream).text.trim() }
   finally { stream.release() }
+ }
+ override fun recognizeDetailed(samples: FloatArray): AsrHypothesis {
+  val stream=recognizer.createStream()
+  try {
+   stream.acceptWaveform(samples,16000);recognizer.decode(stream)
+   val result=recognizer.getResult(stream)
+   // GigaAM v3's pinned encoder metadata: subsampling_factor=4, feature frame shift=10ms.
+   // Unknown families must fall back rather than invent word boundaries.
+   return AsrHypothesis(result.text.trim(),result.tokens.toList(),result.timestamps.copyOf(),if(modelId=="giga-v3") 40L else 0L)
+  } finally { stream.release() }
  }
  override fun close()=recognizer.release()
  companion object {

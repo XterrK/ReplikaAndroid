@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "status": "COMPLETE",
+  "started_at": "2026-11-06T22:14:33.780235+00:00",
+  "fingerprint": {
+    "config_sha256": "1da9cada7145495bccd8698e635a00a39fa7096199d0a4a3ef6d832edb4564a0",
+    "manifest_sha256": "765e8bb8ecb83d84fcc61081d82ee995faf4741718c01d99f84c078ec0fed5d3",
+    "model_lock_sha256": "bd18076e29b225ae51a9c43dd347bf0fd7ed8f2e9c5ed10bba56a0899df1dcb9",
+    "models": {
+      "giga-v3/encoder.int8.onnx": "369f35a71bf288d3b8e0391fabd8dba5f2314088d440bca474056b7b4b6e66bf",
+      "giga-v3/decoder.onnx": "38fc7475443ea2a26f63211ca350f73ac50fff824ab7a3876ee2bd610c53bbc4",
+      "giga-v3/joiner.onnx": "602ff7017a93311aad34df1437c8d7f49911353c13d6eae7a6ee7b041339465c",
+      "giga-v3/tokens.txt": "39abae20e692998290c574e606f11a9edef2902a1995463fcff63d1490cf22b7",
+      "diar/segmentation.onnx": "220ad67ca923bef2fa91f2390c786097bf305bceb5e261d4af67b38e938e1079",
+      "diar/embedding.onnx": "1a331345f04805badbb495c775a6ddffcdd1a732567d5ec8b3d5749e3c7a5e4b",
+      "vad/silero_vad.onnx": "9e2449e1087496d8d4caba907f23e0bd3f78d91fa552479bb9c23ac09cbb1fd6"
+    },
+    "runtime": "2.0.1",
+    "pipeline_code_sha256": "68183283067a0bff8da6b0912e850b1097875fef47fb09164d03b5ae3ab29f6c",
+    "baseline_helpers_sha256": "fcdea5e2028e2c46226ab24ff0ac4fe33743fb15bfe853789e156f50203b137a",
+    "decoder_code_sha256": "5b5258286138ae5b251de0324c592a968180ef2d90f3c6ee68aa33e82af67044",
+    "requirements_lock_sha256": "675ae0a88edf92262ab1d84bf7ba9ce2b060308f4cc1f7d10b5273d724963cb3",
+    "scorer_code_sha256": "d9415f7fcac76261fc2c0749d0a640a0a03fa8c6e32f8e5856c4bc0e30ccd85f",
+    "runner_code_sha256": "74b4d5daaa8f7aeb959c0d6a88860bc865f48d049607280569c06d32ba2840c9",
+    "references": {
+      "reserve-01-two-clean": "8c45382c5fcd198752bc4eb3f3b5de43316ed0c9bd986ab55d121eb6ce3e2656",
+      "reserve-02-two-clean": "f4dd3fa2f034c752ac16c3d57618b4eb0ff38494e035e52b123b47c214dc450f",
+      "reserve-03-three-clean": "b66f338ff2f844a260b2f78da5ea53a1b57fb72f962b697f9dd621696eb2bcc8",
+      "reserve-04-three-clean": "0c47e169e2c9110038f67eed55d8b6f770bc18674ba8cc0efa65b0addd59854a",
+      "reserve-05-short": "d8bc52d536f25bd78fb3a19e4ad635cf30a6f81baac6c2320d7f21ce9583ce29",
+      "reserve-06-short": "8174cd6d7156dbc8dbcde9082ca702cf18286ced384a8a7b815902ace0f1a8f3",
+      "reserve-07-expressive": "957cd2b39223f580cb727900b5b6a1d3acf3db12900251a7721dd76a42a6acaa",
+      "reserve-08-expressive": "7698b56c223b5a680acbf2d4081dab0ee0f0cf7596649b2ae01c0a3f08f1a7f9",
+      "reserve-09-overlap": "7c41c1c9b2554344d08923fd1ff1eae6df41e0cdf5f48ad284f1aad203d589af",
+      "reserve-10-overlap": "894a8653de3d9e368ac2041355995f4c516417bc47a6bd4f109a2e7dfcd4af1e"
+    },
+    "selected_ids": [
+      "reserve-01-two-clean",
+      "reserve-02-two-clean",
+      "reserve-03-three-clean",
+      "reserve-04-three-clean",
+      "reserve-05-short",
+      "reserve-06-short",
+      "reserve-07-expressive",
+      "reserve-08-expressive",
+      "reserve-09-overlap",
+      "reserve-10-overlap"
+    ],
+    "word_planner_code_sha256": "1310361aecdab50e6c977032b73f01352d870af7416904b6dca22b682f3c76a7"
+  },
+  "config": {
+    "schema_version": 1,
+    "id": "vad-words-context600",
+    "pipeline": "vad_words_v1",
+    "expected_speakers": -1,
+    "threads": 2,
+    "punctuation_mode": "none",
+    "energy_split": true,
+    "notes": "D iteration2 DEV-only. Preserve original VAD .5/.25/.25; globally expand actual preceding audio context. No per-file settings and no changes based on holdout text.",
+    "pre_roll_ms": 600
+  },
+  "host": {
+    "platform": "Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+    "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+    "machine": "x86_64",
+    "logical_cpus": 18
+  },
+  "scope": "Host CPU baseline; not Android/ARM/phone performance. Reference texts/counts never enter inference.",
+  "completed_at": "2026-11-06T22:19:58.036224+00:00",
+  "host_process_peak_rss_kib_cumulative": 444608,
+  "memory_scope": "Linux process high-water RSS for the whole run; not per-file PSS or phone memory"
+}

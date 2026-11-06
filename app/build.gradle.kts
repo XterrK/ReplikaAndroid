@@ -7,6 +7,11 @@ plugins {
 
 // Models remain local build inputs. Only the All-in-One variants package this generated asset.
 val embeddedAssets = layout.buildDirectory.dir("generated/embedded-models/assets")
+// Explicit opt-in candidate builds retain the V1.6 default for ordinary builds.
+val defaultAsrPlan = providers.gradleProperty("replikaAsrPlan").orElse("v16").get()
+require(defaultAsrPlan in setOf("v16", "vad_words_none", "vad_words_seam", "vad_words_short15",
+ "vad_words_short10", "vad_words_sensitive", "vad_words_short10_seam", "vad_words_sensitive_short10",
+ "vad_words_context300", "vad_words_context600")) { "Unsupported replikaAsrPlan" }
 val prepareEmbeddedModelPack by tasks.registering(Exec::class) {
  group = "replika"
  description = "Verify and package the existing local offline models without downloading weights"
@@ -34,6 +39,7 @@ android {
   applicationId = "ru.replika.offline"; minSdk = 26; targetSdk = 35
   versionCode = 8; versionName = "1.6"
   buildConfigField("boolean", "BUNDLED_MODELS", "false")
+  buildConfigField("String", "DEFAULT_ASR_PLAN", "\"$defaultAsrPlan\"")
   buildConfigField("String", "EMBEDDED_MODEL_ASSET", "\"offline/replika-models.zip\"")
   // Model SHA-256 values come from models-lock.json; the generated ZIP fingerprint is build evidence.
   buildConfigField("String", "EMBEDDED_MODEL_PACK_SHA256", "\"\"")

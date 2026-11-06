@@ -1,0 +1,462 @@
+{
+  "at": "2026-11-06T23:05:27.949864+00:00",
+  "status": "SAVED_NATIVE_AUDIT_PASS",
+  "new_model_inference": false,
+  "original_gates_modified": false,
+  "checks_passed": 463,
+  "checks_total": 463,
+  "failures": [],
+  "native_fixed_five_corpus_gate": {
+    "scope": "Fixed paired corpus, total errors / total reference words; per-file differences retained",
+    "reference_words": 442,
+    "host_errors": 44,
+    "native_errors": 43,
+    "host_wer_raw": 0.09954751131221719,
+    "native_wer_raw": 0.09728506787330317,
+    "wer_delta_percentage_points": -0.22624434389140272,
+    "threshold_percentage_points": 0.5,
+    "gate_pass": true,
+    "per_file_diagnostics": [
+      {
+        "id": "dev-01-two-clean",
+        "split": "dev",
+        "wer_raw": 0.07142857142857142,
+        "host_wer_raw": 0.07857142857142857,
+        "wer_delta_percentage_points": -0.7142857142857143,
+        "per_file_diagnostic_pass": false,
+        "rtf": 4.605267697969981,
+        "reference_words": 140,
+        "native_errors": 10,
+        "host_errors": 11,
+        "per_file_within_threshold": false
+      },
+      {
+        "id": "dev-03-short",
+        "split": "dev",
+        "wer_raw": 0.15789473684210525,
+        "host_wer_raw": 0.15789473684210525,
+        "wer_delta_percentage_points": 0.0,
+        "per_file_diagnostic_pass": true,
+        "rtf": 4.036565730016101,
+        "reference_words": 38,
+        "native_errors": 6,
+        "host_errors": 6,
+        "per_file_within_threshold": true
+      },
+      {
+        "id": "holdout-02-three-clean",
+        "split": "holdout",
+        "wer_raw": 0.10810810810810811,
+        "host_wer_raw": 0.10810810810810811,
+        "wer_delta_percentage_points": 0.0,
+        "per_file_diagnostic_pass": true,
+        "rtf": 4.686388862759853,
+        "reference_words": 148,
+        "native_errors": 16,
+        "host_errors": 16,
+        "per_file_within_threshold": true
+      },
+      {
+        "id": "holdout-04-overlap-expressive",
+        "split": "holdout",
+        "wer_raw": 0.09900990099009901,
+        "host_wer_raw": 0.09900990099009901,
+        "wer_delta_percentage_points": 0.0,
+        "per_file_diagnostic_pass": true,
+        "rtf": 4.911225040474905,
+        "reference_words": 101,
+        "native_errors": 10,
+        "host_errors": 10,
+        "per_file_within_threshold": true
+      },
+      {
+        "id": "dev-mono-s",
+        "split": "dev",
+        "wer_raw": 0.06666666666666667,
+        "host_wer_raw": 0.06666666666666667,
+        "wer_delta_percentage_points": 0.0,
+        "per_file_diagnostic_pass": true,
+        "rtf": 3.6158218853623874,
+        "reference_words": 15,
+        "native_errors": 1,
+        "host_errors": 1,
+        "per_file_within_threshold": true
+      }
+    ]
+  },
+  "full_payload": {
+    "slices": 32,
+    "tokenCount": 1224,
+    "timestampCount": 1224,
+    "wordCount": 434
+  },
+  "full_native_token_word_speaker_and_jury_reconstruction_case_ids": [
+    "dev-01-two-clean",
+    "dev-03-short",
+    "holdout-02-three-clean",
+    "holdout-04-overlap-expressive",
+    "dev-mono-s"
+  ],
+  "host_native_structure_comparison": [
+    {
+      "id": "dev-01-two-clean",
+      "same_vad_spans": true,
+      "same_asr_chunks": true,
+      "same_native_turns": true,
+      "same_jury_intervals_speakers": true
+    },
+    {
+      "id": "dev-03-short",
+      "same_vad_spans": true,
+      "same_asr_chunks": true,
+      "same_native_turns": true,
+      "same_jury_intervals_speakers": true
+    },
+    {
+      "id": "holdout-02-three-clean",
+      "same_vad_spans": true,
+      "same_asr_chunks": true,
+      "same_native_turns": true,
+      "same_jury_intervals_speakers": true
+    },
+    {
+      "id": "holdout-04-overlap-expressive",
+      "same_vad_spans": true,
+      "same_asr_chunks": true,
+      "same_native_turns": true,
+      "same_jury_intervals_speakers": false
+    },
+    {
+      "id": "dev-mono-s",
+      "same_vad_spans": true,
+      "same_asr_chunks": true,
+      "same_native_turns": true,
+      "same_jury_intervals_speakers": true
+    }
+  ],
+  "preserved_text_differences": [
+    {
+      "id": "dev-01-two-clean",
+      "differences": [
+        {
+          "operation": "replace",
+          "host_range": [
+            59,
+            60
+          ],
+          "native_range": [
+            59,
+            60
+          ],
+          "host_tokens": [
+            "идеально!"
+          ],
+          "native_tokens": [
+            "идеально."
+          ]
+        }
+      ],
+      "host_normalized_errors": 2,
+      "native_normalized_errors": 2
+    },
+    {
+      "id": "holdout-02-three-clean",
+      "differences": [
+        {
+          "operation": "replace",
+          "host_range": [
+            11,
+            12
+          ],
+          "native_range": [
+            11,
+            12
+          ],
+          "host_tokens": [
+            "кунсткамеру"
+          ],
+          "native_tokens": [
+            "консткамеру"
+          ]
+        }
+      ],
+      "host_normalized_errors": 5,
+      "native_normalized_errors": 6
+    }
+  ],
+  "legacy_control": {
+    "case": "dev-01-two-clean",
+    "jury_hypothesis_exact_host_legacy": true,
+    "current_word_rtf": 4.605267697969981,
+    "current_legacy_rtf": 4.739274828914831,
+    "historical_legacy_rtf": 1.185102651101271,
+    "current_word_diarization_ms": 217471,
+    "current_legacy_diarization_ms": 219381,
+    "historical_legacy_diarization_ms": 50710
+  },
+  "interpretation": [
+    "Fixed-five user corpus gate passes at absolute 0.226244 percentage points; dev01 per-file 0.714286 pp outlier remains visible and is not relabelled a per-file pass.",
+    "Both observed cross-platform text differences remain literal; punctuation improves raw WER by one error in dev01, while hold02 has equal raw WER but one extra normalized error on Android.",
+    "Every saved native word interval and speaker/reason assignment reconstructs exactly from the actual native tokens, Float32 timestamps and native turns. This validates implementation parity, not acoustic word accuracy.",
+    "Only audio/hash/id were present in staged batch rows; automatic expectedSpeakers=-1 and ASR2 are explicit global configuration, not reference speaker counts.",
+    "Current legacy control also has high runtime and comparable diarization time. The historical slowdown cause is unestablished; the single-case control cannot prove an algorithm speed improvement.",
+    "x86_64 API35 offline proxy acceptance does not establish ARM, physical microphone, thermal, battery, <200ms word timing, peak RAM or end-to-end performance acceptance.",
+    "Keep ordinary V1.6 default and explicit D flag; preserve the failed first candidate, all negative probes and all remaining DER/cpWER/timing limitations."
+  ],
+  "source_evidence_sha256": {
+    "artifacts/test-results/step-03/context600-android/run.json": "6d419c2f06ec1211e7337f165be47a6e1335aba950f22bd9947b7c7e3be52154",
+    "artifacts/test-results/step-03/context600-android/android-report.json": "917f040d76de20ab2a450dabace6cc702091269df978d8355855f7e714526f64",
+    "artifacts/test-results/step-03/context600-android/batch.json": "4e54c5283c8b0364e11501b2b155c2501decb1883e5eed1e81fcfacc9ec6af68",
+    "artifacts/test-results/step-03/legacy-current-environment-control/run.json": "0b23dfa565dc9a641435ebf5deb0a7ddcef84537d05669d5326b809426d26afc",
+    "artifacts/test-results/step-03/legacy-current-environment-control/android-report.json": "6fed9061f8611d8c1e3a3b3da4349bd85b1b305ae957f86082fb91592309dc85",
+    "artifacts/test-results/step-03/native-port-differences.json": "20b946e19285676c5c141c0e72ae826998c2f16e40ee6cbe0ef3a62808ae7992",
+    "artifacts/test-results/step-03/performance-control.json": "234596996a0a21c89b1200aefe1ad8d14a9f833606968b10a8922de1ed77effe",
+    "tools/eval/native_policy.py": "b6d7fd2de6a7ca7f1776de9fa3924c623918709e0358977bae059569ef4da36b",
+    "tools/eval/vad_words.py": "1310361aecdab50e6c977032b73f01352d870af7416904b6dca22b682f3c76a7",
+    "tools/eval/pipeline.py": "fcdea5e2028e2c46226ab24ff0ac4fe33743fb15bfe853789e156f50203b137a",
+    "tools/eval/score.py": "d9415f7fcac76261fc2c0749d0a640a0a03fa8c6e32f8e5856c4bc0e30ccd85f"
+  },
+  "audit_script_sha256": "02e7ad1d23ddd545e4b499fd3a2a9ccc3bb1dbf883ddfb58a3c773723e689567",
+  "literal_jury_boundary_differences": [
+    {
+      "id": "holdout-04-overlap-expressive",
+      "zero_based_jury_row": 1,
+      "host": {
+        "start_ms": 8750,
+        "end_ms": 13270,
+        "speaker_id": "speaker_2"
+      },
+      "native": {
+        "start_ms": 8710,
+        "end_ms": 13270,
+        "speaker_id": "speaker_2"
+      },
+      "same_text": true
+    }
+  ],
+  "token_emission_timing_differences": [
+    {
+      "id": "dev-01-two-clean",
+      "identical_token_sequence_chunks": 10,
+      "timestamp_difference_count_in_identical_token_sequences": 9,
+      "timestamp_differences": [
+        {
+          "chunk": 1,
+          "token_index": 10,
+          "host_seconds": 2.0399999618530273,
+          "native_seconds": 2.0799999237060547
+        },
+        {
+          "chunk": 1,
+          "token_index": 13,
+          "host_seconds": 2.440000057220459,
+          "native_seconds": 2.3999998569488525
+        },
+        {
+          "chunk": 1,
+          "token_index": 33,
+          "host_seconds": 5.359999656677246,
+          "native_seconds": 5.400000095367432
+        },
+        {
+          "chunk": 4,
+          "token_index": 3,
+          "host_seconds": 1.2799999713897705,
+          "native_seconds": 1.3199999332427979
+        },
+        {
+          "chunk": 4,
+          "token_index": 34,
+          "host_seconds": 6.199999809265137,
+          "native_seconds": 6.239999771118164
+        },
+        {
+          "chunk": 4,
+          "token_index": 40,
+          "host_seconds": 7.440000057220459,
+          "native_seconds": 7.480000019073486
+        },
+        {
+          "chunk": 6,
+          "token_index": 7,
+          "host_seconds": 2.2799999713897705,
+          "native_seconds": 2.319999933242798
+        },
+        {
+          "chunk": 10,
+          "token_index": 10,
+          "host_seconds": 3.359999895095825,
+          "native_seconds": 3.319999933242798
+        },
+        {
+          "chunk": 10,
+          "token_index": 11,
+          "host_seconds": 3.5199999809265137,
+          "native_seconds": 3.4800000190734863
+        }
+      ]
+    },
+    {
+      "id": "dev-03-short",
+      "identical_token_sequence_chunks": 4,
+      "timestamp_difference_count_in_identical_token_sequences": 2,
+      "timestamp_differences": [
+        {
+          "chunk": 0,
+          "token_index": 14,
+          "host_seconds": 3.0799999237060547,
+          "native_seconds": 3.119999885559082
+        },
+        {
+          "chunk": 0,
+          "token_index": 27,
+          "host_seconds": 4.799999713897705,
+          "native_seconds": 4.759999752044678
+        }
+      ]
+    },
+    {
+      "id": "holdout-02-three-clean",
+      "identical_token_sequence_chunks": 8,
+      "timestamp_difference_count_in_identical_token_sequences": 6,
+      "timestamp_differences": [
+        {
+          "chunk": 2,
+          "token_index": 63,
+          "host_seconds": 9.800000190734863,
+          "native_seconds": 9.760000228881836
+        },
+        {
+          "chunk": 2,
+          "token_index": 65,
+          "host_seconds": 10.119999885559082,
+          "native_seconds": 10.079999923706055
+        },
+        {
+          "chunk": 3,
+          "token_index": 6,
+          "host_seconds": 1.6799999475479126,
+          "native_seconds": 1.71999990940094
+        },
+        {
+          "chunk": 5,
+          "token_index": 18,
+          "host_seconds": 3.359999895095825,
+          "native_seconds": 3.3999998569488525
+        },
+        {
+          "chunk": 7,
+          "token_index": 25,
+          "host_seconds": 5.679999828338623,
+          "native_seconds": 5.639999866485596
+        },
+        {
+          "chunk": 8,
+          "token_index": 21,
+          "host_seconds": 3.0799999237060547,
+          "native_seconds": 3.0399999618530273
+        }
+      ]
+    },
+    {
+      "id": "holdout-04-overlap-expressive",
+      "identical_token_sequence_chunks": 7,
+      "timestamp_difference_count_in_identical_token_sequences": 12,
+      "timestamp_differences": [
+        {
+          "chunk": 0,
+          "token_index": 24,
+          "host_seconds": 4.880000114440918,
+          "native_seconds": 4.839999675750732
+        },
+        {
+          "chunk": 1,
+          "token_index": 0,
+          "host_seconds": 0.6399999856948853,
+          "native_seconds": 0.5999999642372131
+        },
+        {
+          "chunk": 1,
+          "token_index": 9,
+          "host_seconds": 2.5199999809265137,
+          "native_seconds": 2.559999942779541
+        },
+        {
+          "chunk": 2,
+          "token_index": 25,
+          "host_seconds": 4.239999771118164,
+          "native_seconds": 4.279999732971191
+        },
+        {
+          "chunk": 2,
+          "token_index": 47,
+          "host_seconds": 8.559999465942383,
+          "native_seconds": 8.519999504089355
+        },
+        {
+          "chunk": 2,
+          "token_index": 50,
+          "host_seconds": 8.960000038146973,
+          "native_seconds": 8.920000076293945
+        },
+        {
+          "chunk": 2,
+          "token_index": 69,
+          "host_seconds": 12.359999656677246,
+          "native_seconds": 12.319999694824219
+        },
+        {
+          "chunk": 3,
+          "token_index": 24,
+          "host_seconds": 3.8399999141693115,
+          "native_seconds": 3.879999876022339
+        },
+        {
+          "chunk": 4,
+          "token_index": 5,
+          "host_seconds": 1.3600000143051147,
+          "native_seconds": 1.399999976158142
+        },
+        {
+          "chunk": 5,
+          "token_index": 26,
+          "host_seconds": 3.3999998569488525,
+          "native_seconds": 3.359999895095825
+        },
+        {
+          "chunk": 5,
+          "token_index": 51,
+          "host_seconds": 6.239999771118164,
+          "native_seconds": 6.199999809265137
+        },
+        {
+          "chunk": 6,
+          "token_index": 5,
+          "host_seconds": 1.1200000047683716,
+          "native_seconds": 1.0799999237060547
+        }
+      ]
+    },
+    {
+      "id": "dev-mono-s",
+      "identical_token_sequence_chunks": 1,
+      "timestamp_difference_count_in_identical_token_sequences": 2,
+      "timestamp_differences": [
+        {
+          "chunk": 0,
+          "token_index": 14,
+          "host_seconds": 2.240000009536743,
+          "native_seconds": 2.200000047683716
+        },
+        {
+          "chunk": 0,
+          "token_index": 17,
+          "host_seconds": 2.5199999809265137,
+          "native_seconds": 2.559999942779541
+        }
+      ]
+    }
+  ],
+  "timing_difference_scope": "Compare token timestamps only for identical token sequences. Actual native times reparse exactly; frame differences are retained without claiming a specific numerical cause or word-timing accuracy.",
+  "supplemental_timing_audit_script_sha256": "dfe17695c51f42bb8533c6ef845195f2b3bc789a1d4a732b787ec03c620f4fde"
+}

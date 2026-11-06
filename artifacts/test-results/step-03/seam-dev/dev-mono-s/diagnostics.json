@@ -1,0 +1,671 @@
+{
+  "runtime": "sherpa-onnx 2.0.1",
+  "onnxruntimeVersion": "1.28.2",
+  "platform": "Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "pythonVersion": "3.12.3",
+  "scope": "Experimental host VAD-chunk ASR; not enabled production behavior or physical-device acceptance",
+  "pipelineVariant": "vad_words_experimental",
+  "turnsUsedForAsrSlicing": false,
+  "audioSha256": "97943f4d90c2b56166031263a6820c41e0f80b94643a9d3737327debdc8fbe53",
+  "audioMs": 6333,
+  "sampleRate": 16000,
+  "originalPcmPeak": 0.303985595703125,
+  "recognitionInputGain": 1.0,
+  "vadDetectorGain": 1.0,
+  "vadPrimarySpanCount": 3,
+  "vadPrimarySpans": [
+    {
+      "startMs": 102,
+      "endMs": 518
+    },
+    {
+      "startMs": 774,
+      "endMs": 3622
+    },
+    {
+      "startMs": 3942,
+      "endMs": 6336
+    }
+  ],
+  "vadRescueAttempted": false,
+  "vadRescueApplied": false,
+  "vadRescueRms": null,
+  "vadRescueRmsSamples": 0,
+  "vadRescueSpanCount": 0,
+  "vadRescueReason": "primary_nonempty",
+  "vadRescueScope": "detector-only empty-primary retry with the same explicit threshold/min-speech/min-silence policy as primary; ASR gain and original PCM preserved",
+  "vadSpans": [
+    {
+      "startMs": 102,
+      "endMs": 518
+    },
+    {
+      "startMs": 774,
+      "endMs": 3622
+    },
+    {
+      "startMs": 3942,
+      "endMs": 6336
+    }
+  ],
+  "asrSpeechSpans": [
+    {
+      "startMs": 2,
+      "endMs": 518
+    },
+    {
+      "startMs": 674,
+      "endMs": 3622
+    },
+    {
+      "startMs": 3842,
+      "endMs": 6333
+    }
+  ],
+  "asrChunks": [
+    {
+      "startMs": 2,
+      "endMs": 518
+    },
+    {
+      "startMs": 674,
+      "endMs": 3622
+    },
+    {
+      "startMs": 3842,
+      "endMs": 6333
+    }
+  ],
+  "rawDiarizationTurns": [
+    {
+      "startMs": 31,
+      "endMs": 5397,
+      "speakerId": 1
+    },
+    {
+      "startMs": 4300,
+      "endMs": 4655,
+      "speakerId": 2
+    },
+    {
+      "startMs": 5397,
+      "endMs": 6275,
+      "speakerId": 2
+    }
+  ],
+  "diarizationTurns": [
+    {
+      "startMs": 31,
+      "endMs": 5397,
+      "speakerId": 0
+    },
+    {
+      "startMs": 4300,
+      "endMs": 4655,
+      "speakerId": 1
+    },
+    {
+      "startMs": 5397,
+      "endMs": 6275,
+      "speakerId": 1
+    }
+  ],
+  "asrSlices": [
+    {
+      "startMs": 2,
+      "endMs": 518,
+      "speakerId": -1,
+      "text": "Да.",
+      "blank": false,
+      "inferenceMs": 158.159575,
+      "tokens": [
+        " Да",
+        "."
+      ],
+      "timestamps": [
+        0.11999999731779099,
+        0.3999999761581421
+      ],
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "words": [
+        {
+          "startMs": 122,
+          "endMs": 162,
+          "text": "Да.",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 0
+        }
+      ],
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "warnings": []
+    },
+    {
+      "startMs": 674,
+      "endMs": 3622,
+      "speakerId": -1,
+      "text": "История — это ключ к пониманию прошлого и настоящего.",
+      "blank": false,
+      "inferenceMs": 549.315549,
+      "tokens": [
+        " И",
+        "сто",
+        "ри",
+        "я",
+        " —",
+        " это",
+        " ",
+        "ключ",
+        " к",
+        " по",
+        "ни",
+        "ма",
+        "ни",
+        "ю",
+        " про",
+        "ш",
+        "ло",
+        "го",
+        " и",
+        " на",
+        "сто",
+        "я",
+        "ще",
+        "го",
+        "."
+      ],
+      "timestamps": [
+        0.11999999731779099,
+        0.23999999463558197,
+        0.3999999761581421,
+        0.47999998927116394,
+        0.5999999642372131,
+        0.6800000071525574,
+        0.7999999523162842,
+        0.8399999737739563,
+        1.0799999237060547,
+        1.159999966621399,
+        1.2799999713897705,
+        1.3600000143051147,
+        1.4800000190734863,
+        1.559999942779541,
+        1.6399999856948853,
+        1.7999999523162842,
+        1.8799999952316284,
+        1.959999918937683,
+        2.0399999618530273,
+        2.200000047683716,
+        2.319999933242798,
+        2.440000057220459,
+        2.5199999809265137,
+        2.679999828338623,
+        2.799999952316284
+      ],
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "words": [
+        {
+          "startMs": 794,
+          "endMs": 1194,
+          "text": "История —",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 1
+        },
+        {
+          "startMs": 1354,
+          "endMs": 1394,
+          "text": "это",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 1
+        },
+        {
+          "startMs": 1514,
+          "endMs": 1554,
+          "text": "ключ",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 1
+        },
+        {
+          "startMs": 1754,
+          "endMs": 1794,
+          "text": "к",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 1
+        },
+        {
+          "startMs": 1834,
+          "endMs": 2274,
+          "text": "пониманию",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 1
+        },
+        {
+          "startMs": 2314,
+          "endMs": 2674,
+          "text": "прошлого",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 1
+        },
+        {
+          "startMs": 2714,
+          "endMs": 2754,
+          "text": "и",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 1
+        },
+        {
+          "startMs": 2874,
+          "endMs": 3394,
+          "text": "настоящего.",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 1
+        }
+      ],
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "warnings": []
+    },
+    {
+      "startMs": 3842,
+      "endMs": 6333,
+      "speakerId": -1,
+      "text": "А тебе нравится изучать историю?",
+      "blank": false,
+      "inferenceMs": 475.740868,
+      "tokens": [
+        " А",
+        " тебе",
+        " ",
+        "н",
+        "ра",
+        "в",
+        "ится",
+        " из",
+        "у",
+        "ча",
+        "ть",
+        " и",
+        "сто",
+        "ри",
+        "ю",
+        "?"
+      ],
+      "timestamps": [
+        0.07999999821186066,
+        0.3199999928474426,
+        0.9599999785423279,
+        1.0399999618530273,
+        1.159999966621399,
+        1.2400000095367432,
+        1.3199999332427979,
+        1.5199999809265137,
+        1.6399999856948853,
+        1.71999990940094,
+        1.8399999141693115,
+        1.959999918937683,
+        2.0799999237060547,
+        2.200000047683716,
+        2.319999933242798,
+        2.3999998569488525
+      ],
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "words": [
+        {
+          "startMs": 3922,
+          "endMs": 3962,
+          "text": "А",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 2
+        },
+        {
+          "startMs": 4162,
+          "endMs": 4202,
+          "text": "тебе",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 2
+        },
+        {
+          "startMs": 4882,
+          "endMs": 5202,
+          "text": "нравится",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 2
+        },
+        {
+          "startMs": 5362,
+          "endMs": 5722,
+          "text": "изучать",
+          "speakerId": 1,
+          "warnings": [
+            "Смена говорящего на границе слова"
+          ],
+          "chunkIndex": 2
+        },
+        {
+          "startMs": 5802,
+          "endMs": 6202,
+          "text": "историю?",
+          "speakerId": 1,
+          "warnings": [],
+          "chunkIndex": 2
+        }
+      ],
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "warnings": []
+    }
+  ],
+  "words": [
+    {
+      "startMs": 122,
+      "endMs": 162,
+      "text": "Да.",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 0
+    },
+    {
+      "startMs": 794,
+      "endMs": 1194,
+      "text": "История —",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 1
+    },
+    {
+      "startMs": 1354,
+      "endMs": 1394,
+      "text": "это",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 1
+    },
+    {
+      "startMs": 1514,
+      "endMs": 1554,
+      "text": "ключ",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 1
+    },
+    {
+      "startMs": 1754,
+      "endMs": 1794,
+      "text": "к",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 1
+    },
+    {
+      "startMs": 1834,
+      "endMs": 2274,
+      "text": "пониманию",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 1
+    },
+    {
+      "startMs": 2314,
+      "endMs": 2674,
+      "text": "прошлого",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 1
+    },
+    {
+      "startMs": 2714,
+      "endMs": 2754,
+      "text": "и",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 1
+    },
+    {
+      "startMs": 2874,
+      "endMs": 3394,
+      "text": "настоящего.",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 1
+    },
+    {
+      "startMs": 3922,
+      "endMs": 3962,
+      "text": "А",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 2
+    },
+    {
+      "startMs": 4162,
+      "endMs": 4202,
+      "text": "тебе",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 2
+    },
+    {
+      "startMs": 4882,
+      "endMs": 5202,
+      "text": "нравится",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 2
+    },
+    {
+      "startMs": 5362,
+      "endMs": 5722,
+      "text": "изучать",
+      "speakerId": 1,
+      "warnings": [
+        "Смена говорящего на границе слова"
+      ],
+      "chunkIndex": 2
+    },
+    {
+      "startMs": 5802,
+      "endMs": 6202,
+      "text": "историю?",
+      "speakerId": 1,
+      "warnings": [],
+      "chunkIndex": 2
+    }
+  ],
+  "segments": [
+    {
+      "startMs": 122,
+      "endMs": 162,
+      "speakerId": 0,
+      "text": "Да.",
+      "source": "GigaAM v3 E2E RNNT INT8 / sherpa-onnx 2.0.1",
+      "warnings": []
+    },
+    {
+      "startMs": 794,
+      "endMs": 3394,
+      "speakerId": 0,
+      "text": "История — это ключ к пониманию прошлого и настоящего.",
+      "source": "GigaAM v3 E2E RNNT INT8 / sherpa-onnx 2.0.1",
+      "warnings": []
+    },
+    {
+      "startMs": 3922,
+      "endMs": 5202,
+      "speakerId": 0,
+      "text": "А тебе нравится.",
+      "source": "GigaAM v3 E2E RNNT INT8 / sherpa-onnx 2.0.1",
+      "warnings": [
+        "Пунктуация на границе реплики: проверьте текст"
+      ]
+    },
+    {
+      "startMs": 5362,
+      "endMs": 6202,
+      "speakerId": 1,
+      "text": "Изучать историю?",
+      "source": "GigaAM v3 E2E RNNT INT8 / sherpa-onnx 2.0.1",
+      "warnings": [
+        "Смена говорящего на границе слова",
+        "Пунктуация на границе реплики: проверьте текст"
+      ]
+    }
+  ],
+  "stagesMs": {
+    "validationMs": 3374.875678,
+    "timestampMetadataMs": 2.97797,
+    "decodeMs": 8.218584,
+    "vadLoadMs": 27.915464,
+    "vadMs": 48.107405,
+    "diarizationLoadMs": 1220.032927,
+    "diarizationInferenceMs": 75.988382,
+    "diarizationMs": 1316.620618,
+    "alignmentMs": 0.010894,
+    "asrLoadMs": 3772.031372,
+    "asrReadMs": 0.22158,
+    "asrInferenceMs": 1182.904648,
+    "wordAssignmentMs": 1.236617,
+    "asrMs": 1198.837427
+  },
+  "backend": "GigaAM v3 E2E RNNT INT8 / sherpa-onnx 2.0.1",
+  "clusteringMode": "automatic",
+  "expectedSpeakers": -1,
+  "modelFiles": [
+    {
+      "path": "giga-v3/encoder.int8.onnx",
+      "bytes": 224570820,
+      "sha256": "369f35a71bf288d3b8e0391fabd8dba5f2314088d440bca474056b7b4b6e66bf",
+      "hashValidationCached": false
+    },
+    {
+      "path": "giga-v3/decoder.onnx",
+      "bytes": 4600132,
+      "sha256": "38fc7475443ea2a26f63211ca350f73ac50fff824ab7a3876ee2bd610c53bbc4",
+      "hashValidationCached": false
+    },
+    {
+      "path": "giga-v3/joiner.onnx",
+      "bytes": 2712896,
+      "sha256": "602ff7017a93311aad34df1437c8d7f49911353c13d6eae7a6ee7b041339465c",
+      "hashValidationCached": false
+    },
+    {
+      "path": "giga-v3/tokens.txt",
+      "bytes": 13354,
+      "sha256": "39abae20e692998290c574e606f11a9edef2902a1995463fcff63d1490cf22b7",
+      "hashValidationCached": false
+    },
+    {
+      "path": "diar/segmentation.onnx",
+      "bytes": 5992913,
+      "sha256": "220ad67ca923bef2fa91f2390c786097bf305bceb5e261d4af67b38e938e1079",
+      "hashValidationCached": false
+    },
+    {
+      "path": "diar/embedding.onnx",
+      "bytes": 39593761,
+      "sha256": "1a331345f04805badbb495c775a6ddffcdd1a732567d5ec8b3d5749e3c7a5e4b",
+      "hashValidationCached": false
+    },
+    {
+      "path": "vad/silero_vad.onnx",
+      "bytes": 643854,
+      "sha256": "9e2449e1087496d8d4caba907f23e0bd3f78d91fa552479bb9c23ac09cbb1fd6",
+      "hashValidationCached": false
+    }
+  ],
+  "modelBytes": 278127730,
+  "tokenTimestampPolicy": {
+    "verified": true,
+    "feature_frame_shift_ms": 10,
+    "subsampling_factor": 4,
+    "frame_stride_ms": 40,
+    "feature_frame_shift_source": "https://github.com/k2-fsa/sherpa-onnx/blob/v2.0.1/sherpa-onnx/csrc/offline-recognizer-transducer-nemo-impl.h#L208-L211",
+    "model_metadata": {
+      "onnx.infer": "onnxruntime.quant",
+      "vocab_size": "1024",
+      "pred_rnn_layers": "1",
+      "pred_hidden": "320",
+      "normalize_type": "",
+      "subsampling_factor": "4",
+      "model_type": "EncDecRNNTBPEModel",
+      "version": "3",
+      "model_author": "https://github.com/salute-developers/GigaAM",
+      "license": "https://github.com/salute-developers/GigaAM/blob/main/LICENSE",
+      "language": "Russian",
+      "comment": "v3",
+      "is_giga_am": "1"
+    },
+    "precision": "Token emission frame intervals; not acoustic forced-aligned word timestamps"
+  },
+  "tokenTimestampError": null,
+  "wordAssignmentSupported": true,
+  "fallbackChunks": 0,
+  "fallbackPolicy": "Full ASR chunk with unknown speaker and warning; no fabricated word times or second ASR pass",
+  "config": {
+    "asrThreads": 2,
+    "vadThreads": 1,
+    "provider": "cpu",
+    "sampleRate": 16000,
+    "featureDim": 80,
+    "dither": 0,
+    "decodingMethod": "greedy_search",
+    "modelType": "nemo_transducer",
+    "vadThreshold": 0.5,
+    "vadMinSpeechSec": 0.25,
+    "vadMinSilenceSec": 0.25,
+    "vadWindowSamples": 512,
+    "vadMaxSpeechSec": 20,
+    "preRollMs": 100,
+    "postRollMs": 0,
+    "maxAsrSegmentMs": 20000,
+    "clusterThreshold": 0.5,
+    "clusterThresholdApplied": true,
+    "segmentationWindowShiftRatio": 0.1,
+    "diarMinDurationOnSec": 0.2,
+    "diarMinDurationOffSec": 0.5,
+    "quietGainTriggerPeak": 0.01,
+    "quietGainTargetPeak": 0.1,
+    "quietGainMax": 20,
+    "quietGainSilenceFloor": 1e-06,
+    "rescueTargetRms": 0.02,
+    "rescuePeakHeadroom": 0.95,
+    "rescueMinGainRatio": 1.01,
+    "asrSlicing": "bounded VAD only; ignores diarization turns",
+    "energySplit": true,
+    "energyWindowMs": 40,
+    "energySearchMs": 4000,
+    "energyTie": "earliest minimum",
+    "energyCut": "window center",
+    "punctuationMode": "seam"
+  },
+  "inputDecoder": {
+    "policy": "unchanged generic AudioDecoder canonical16k timeline emulation",
+    "hostDecoderHelperSha256": "5b5258286138ae5b251de0324c592a968180ef2d90f3c6ee68aa33e82af67044"
+  },
+  "pipelineTimingScope": "per-invocation SHA validation, metadata, canonical decode, unchanged VAD/diarization, VAD chunking, ASR and word assignment; excludes persistence/result JSON serialization",
+  "memoryScope": "Host WAV held in memory; not Android bounded-IO/peak RAM parity",
+  "validationScope": "Every required file hashed per invocation, unchanged production ModelManager policy",
+  "nativeResourcePolicy": "VAD released before diarization; diarizer released before ASR; no retained native model cache",
+  "sourceFiles": {
+    "app/src/main/java/ru/replika/ml/ProcessingWorker.kt": "69be2010ea3fcf5ab865570dac87654c277fea02cd3c0c97d66c3edb75d4e050",
+    "app/src/main/java/ru/replika/ml/AsrEngine.kt": "8be6a422b26de01d3aa3a237c7921e1906bdc03a90fbad016d4cc0763aba09c2",
+    "app/src/main/java/ru/replika/ml/AudioDecoder.kt": "53cb484da019c62cca72f74c1930b50dabd934018aef47528eafbaf690b34b06",
+    "app/src/main/java/ru/replika/domain/QuietAudioGain.kt": "f89037844f79685a7e79bfe1e282af3687202de06325826ac2fc320379225b40",
+    "app/src/main/java/ru/replika/domain/ZeroSpanVadRescue.kt": "ffdeb91451b495e686a52fb6029663387bc53991318f572d992d39fd4b5883b8",
+    "tools/eval/pipeline_words.py": "a75c1973e8789a49e0240df5437786c4de908cfa34785e73dc157d495c8fb1e1",
+    "tools/eval/vad_words.py": "1b5f27dfafe6159be1adb7df8302ac811052087d8123a49afbef4042d5e94e44",
+    "tools/eval/pipeline.py": "fcdea5e2028e2c46226ab24ff0ac4fe33743fb15bfe853789e156f50203b137a",
+    "tools/eval/decoder_parity.py": "5b5258286138ae5b251de0324c592a968180ef2d90f3c6ee68aa33e82af67044"
+  }
+}

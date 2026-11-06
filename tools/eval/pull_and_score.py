@@ -17,6 +17,7 @@ sys.dont_write_bytecode = True
 from run import REPO, confined, digest, write_json
 from score import score, der
 from port_comparison import summarize
+from native_policy import PLAN_POLICIES, policy_for_plan, validate_native_policy, validate_word_evidence
 
 
 def main():
@@ -33,6 +34,7 @@ def main():
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--threads", type=int, choices=(1, 2, 4), default=2)
     parser.add_argument("--expected-speakers", type=int, default=-1)
+    parser.add_argument("--asr-plan", choices=tuple(PLAN_POLICIES), default="v16")
     parser.add_argument("--install", action="store_true")
     parser.add_argument("--app-apk", type=Path, default=REPO / "app/build/outputs/apk/debug/app-debug.apk")
     parser.add_argument("--test-apk", type=Path, default=REPO / "app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk")
@@ -52,11 +54,25 @@ def main():
     for case_id in args.cases:
         if not re.fullmatch(r"[A-Za-z0-9_-]+", case_id):
             parser.error("Unsafe case ID")
+    host_meta = json.loads((args.host_run / "run.json").read_text())
+    if host_meta.get("status") != "COMPLETE":
+        parser.error("Host inference must complete before a paired native run")
+    host_config = host_meta["config"]
+    requested_policy = validate_native_policy(host_config, {
+        "threads": args.threads, "expectedSpeakers": args.expected_speakers,
+        "asrPlan": args.asr_plan, "asrPolicy": policy_for_plan(args.asr_plan)})
+    for case_id in args.cases:
+        host_case = json.loads((args.host_run / case_id / "case.json").read_text())
+        case = chosen[case_id]
+        if host_case["audio_sha256"] != case["audio_sha256"] or host_case["reference_sha256"] != digest(confined(args.manifest.parent, case["reference"])):
+            parser.error("Host/native input fingerprints differ: " + case_id)
     args.output.mkdir(parents=True)
     run_id = "eval" + datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S%fZ")
     report = {"status": "STAGING", "run": run_id, "serial": args.serial, "cases": [],
               "scope": "Actual production Worker; explicit device. x86 emulator is not ARM/phone acceptance.",
               "reference_text_or_counts_staged": False, "new_model_inference": False, "inference_requested": False}
+    report.update(requested_asr_plan=args.asr_plan, requested_asr_policy=requested_policy,
+                  source_host_run_sha256=digest(args.host_run / "run.json"), word_evidence_cases=[])
     write_json(args.output / "run.json", report)
     command_log = args.output / "commands.jsonl"
 
@@ -129,6 +145,7 @@ def main():
         write_json(args.output / "run.json", report)
         actual = adb("shell", "am", "instrument", "-w", "-r", "-e", "evalRun", run_id,
                      "-e", "evalThreads", args.threads, "-e", "evalExpectedSpeakers", args.expected_speakers,
+                     "-e", "evalAsrPlan", args.asr_plan,
                      "-e", "class", "ru.replika.EvaluationBatchTest#stagedCanonicalInputsThroughProductionWorker",
                      args.package + ".test/androidx.test.runner.AndroidJUnitRunner")
         log = actual.stdout.decode("utf-8", "replace") + actual.stderr.decode("utf-8", "replace")
@@ -140,6 +157,7 @@ def main():
         completed = json.loads(native_report)
         if completed["status"] != "COMPLETE" or {r["id"] for r in completed["cases"]} != set(args.cases):
             raise ValueError("Incomplete native evidence")
+        report["matched_asr_policy"] = validate_native_policy(host_config, completed)
         report["new_model_inference"] = True
         for case_id in args.cases:
             case = chosen[case_id]
@@ -156,12 +174,16 @@ def main():
             write_json(case_dir / "reference.json", reference)
             hypothesis = json.loads((case_dir / "hypothesis.json").read_text())
             diagnostics = json.loads((case_dir / "diagnostics.json").read_text())
+            validate_native_policy(host_config, diagnostics)
             metric = score(reference, hypothesis, native["duration_ms"], processing_ms=native["processing_ms"])
             turns = [{"speaker_id": "native_" + str(t["speakerId"]), "start_ms": t["startMs"],
                       "end_ms": t["endMs"], "text": ""} for t in diagnostics["diarizationTurns"]]
             metric["native_der_collar_0ms"] = der(reference["transcript"], turns, native["duration_ms"])
             metric["native_der_collar_250ms"] = der(reference["transcript"], turns, native["duration_ms"], collar_ms=250)
             write_json(case_dir / "metrics.json", metric)
+            if requested_policy["pipeline"] == "vad_words_v1":
+                evidence = validate_word_evidence(diagnostics)
+                report["word_evidence_cases"].append({"id": case_id, **evidence})
             host = json.loads((args.host_run / case_id / "case.json").read_text())
             if host["audio_sha256"] != case["audio_sha256"] or host["reference_sha256"] != digest(confined(args.manifest.parent, case["reference"])):
                 raise ValueError("Host/native scoring inputs differ: " + case_id)

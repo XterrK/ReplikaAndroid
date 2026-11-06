@@ -1,6 +1,6 @@
 # Evaluation stand
 
-Baseline reproduces current V1.6/V1.5 ML on canonical16k monoPCM16 WAV. References stay outside inference. The code does not train models, tune weights, alter recognition text or call cloud services. Full metric definitions: [SCORING.md](SCORING.md). Results: [docs/TEST_RESULTS.md](../../docs/TEST_RESULTS.md).
+Baseline reproduces V1.6/V1.5 ML on canonical16k monoPCM16 WAV. References stay outside inference. Models run locally without training or weight tuning; the actual recognition text remains in diagnostics. Experimental seam profiles explicitly test punctuation/case changes and are scored separately. Full metric definitions: [SCORING.md](SCORING.md). Results: [docs/TEST_RESULTS.md](../../docs/TEST_RESULTS.md).
 
 ## Setup and corpus
 
@@ -30,15 +30,46 @@ Each case saves reference.json, hypothesis.json, diagnostics.json, metrics.json 
 
 Existing output is rejected by default. --resume is permitted only for identical config/code/helper/dependencies/model/audio/reference fingerprints. Saved artifact hashes are rechecked. Incomplete attempts are moved under attempts/, not deleted; failures get a CSV row. Choose a fresh output after code/config changes.
 
+Task D's experimental `vad_words_v1` pipeline is separate from the frozen `v16`
+helper. `configs/eval/vad-words-context600.json` preserves the VAD/model/gain
+settings and adds 600 ms of actual preceding ASR context. Real token-emission
+times drive word speaker assignment; they are timing estimates, not forced
+alignment. The failed earlier VAD profile and all original outputs remain saved.
+[Task D report](../../docs/STEP_03_VAD_WORD_ASR.md) separates dev selection,
+original holdout and the independent `benchmark/eval-reserve` checks.
+
+**WER/CER/cpWER/DER are error rates (lower is better).** A 3% WER is about three
+edits per hundred reference words, not a 3% success rate. Speaker-count exact
+rate, punctuation F1 and case accuracy have the opposite direction.
+
 ## Android bridge and paired scoring
 
-Install a matching debug/testAPK and use an explicit serial, preferably a dedicated fresh AVD. The bridge invokes the unchanged productionWorker and exports actual Jury JSON/diagnostics. It does not put eval UI or a filesystem intent into the production application. Only audio/id/SHA are staged; text and speaker-count gold remain on the host.
+Install a matching debug/testAPK and use an explicit serial, preferably a dedicated fresh AVD. The bridge invokes the production Worker with an explicit profile and exports actual Jury JSON/diagnostics. It does not put eval UI or a filesystem intent into the production application. Only audio/id/SHA are staged; text and speaker-count gold remain on the host.
 
 ```bash
 local-dev/eval-venv/bin/python tools/eval/pull_and_score.py   --serial emulator-5556 --audio-root "$REPLIKA_EVAL_AUDIO"   --host-run artifacts/test-results/my-fresh-baseline   --cases dev-01-two-clean dev-03-short holdout-02-three-clean holdout-04-overlap-expressive dev-mono-s   --output artifacts/test-results/my-fresh-native --install --stage-models --offline
 ```
 
 --stage-models and automatic offline switching are emulator-only. Model staging stops the QA app before copying, never wipes data; use a dedicated AVD. A physical device needs explicit --allow-physical and existing normal model provisioning. Successful QA rows use UUIDs and only their own rows are cleaned; inputs and failed records remain for diagnosis. Cancellation requests target only the own QA job, with the existing non-immediate JNI limitation.
+
+The bridge defaults to `--asr-plan v16`. A word-profile run needs, for example,
+`--asr-plan vad_words_context600` and a completed host run using that same config.
+Threads, expected-speaker mode and all seven profile fields are checked before
+any ADB operation, then checked against the actual native report and diagnostics.
+Word QA also requires complete token/timestamp/word payloads without truncation
+or fallback. Rescoring cannot bypass that requirement.
+
+Ordinary application builds retain `v16`. To build the explicit candidate:
+
+```bash
+python3 tools/build_portable.py :app:testDebugUnitTest :app:assembleAllInOne :app:assembleDebug :app:assembleDebugAndroidTest -PreplikaAsrPlan=vad_words_context600
+```
+
+The property chooses the default for newly enqueued requests. Historical
+WorkData without a profile always stays legacy. Full token/word diagnostics are
+QA-only and bounded; ordinary processing stores compact summaries. Candidate
+quality/port gates do not establish the separate <200 ms word-timing target or
+ARM/physical-phone performance.
 
 The user clarified the0.5percentage-point gate applies to total errors/total reference words on the fixed paired corpus. Each per-file delta/outlier remains visible. To compare preserved native inference after a host-port correction without rerunning or rewriting it:
 

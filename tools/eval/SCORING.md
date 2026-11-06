@@ -1,5 +1,14 @@
 # Evaluation protocols
 
+**Как читать проценты:** WER, CER, cpWER и DER — это **ошибки: меньше = лучше**.
+Например, normalized WER 3,01% означает 16 исправлений на 532 эталонных слова,
+а не 3% успешных слов. Raw WER дополнительно учитывает пунктуацию и регистр
+и остаётся главной метрикой по §0.4. Это не вероятность успеха модели.
+Punctuation F1, initial-case accuracy и доля файлов с верным числом спикеров,
+наоборот, **лучше при больших значениях**. Не смешивайте эти направления.
+Разница WER между ПК и Android в процентных пунктах — отдельная проверка
+переноса. Например, gap 0,226 п.п. не означает WER 0,226% или точность 99,774%.
+
 `score.py` compares an independent reference with a saved hypothesis. It performs
 no inference, never sends reference text into a model, and does not edit input
 files. Its measurements describe this protocol; the organizers' exact scorer
