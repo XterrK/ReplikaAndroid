@@ -1,0 +1,84 @@
+{
+  "status": "PASS",
+  "at": "2026-11-07T00:45:50.076852+00:00",
+  "tests": 13,
+  "test_exit_code": 0,
+  "cohorts": [
+    {
+      "cohort": "original-holdout",
+      "gate_pass": true,
+      "cases": 5,
+      "raw_candidate": {
+        "errors": 49,
+        "reference_tokens": 444,
+        "rate": 0.11036036036036036
+      },
+      "raw_baseline": {
+        "errors": 73,
+        "reference_tokens": 444,
+        "rate": 0.16441441441441443
+      },
+      "native_der0_candidate": 0.2029968500404716,
+      "native_der0_baseline": 0.5154572317414498,
+      "native_der250_candidate": 0.1729939515100825,
+      "native_der250_baseline": 0.4936608153731602,
+      "cpwer_raw_candidate": {
+        "errors": 147,
+        "reference_tokens": 444,
+        "rate": 0.3310810810810811
+      },
+      "cpwer_raw_baseline": {
+        "errors": 446,
+        "reference_tokens": 444,
+        "rate": 1.0045045045045045
+      },
+      "count_exact_candidate": 3,
+      "count_exact_baseline": 2,
+      "report": "artifacts/test-results/step-04/candidate-c1-validation-gates/original-holdout.json",
+      "report_sha256": "86a981ec7b7787179559e17e2d11255f82a83ac61ba2a4b0973864c304ccbbc4"
+    },
+    {
+      "cohort": "reserve",
+      "gate_pass": true,
+      "cases": 10,
+      "raw_candidate": {
+        "errors": 83,
+        "reference_tokens": 743,
+        "rate": 0.1117092866756393
+      },
+      "raw_baseline": {
+        "errors": 135,
+        "reference_tokens": 743,
+        "rate": 0.1816958277254374
+      },
+      "native_der0_candidate": 0.2923593410368249,
+      "native_der0_baseline": 0.4765907575420801,
+      "native_der250_candidate": 0.26174857250404493,
+      "native_der250_baseline": 0.4540636203300923,
+      "cpwer_raw_candidate": {
+        "errors": 352,
+        "reference_tokens": 743,
+        "rate": 0.4737550471063257
+      },
+      "cpwer_raw_baseline": {
+        "errors": 572,
+        "reference_tokens": 743,
+        "rate": 0.7698519515477793
+      },
+      "count_exact_candidate": 3,
+      "count_exact_baseline": 1,
+      "report": "artifacts/test-results/step-04/candidate-c1-validation-gates/reserve.json",
+      "report_sha256": "b4acda5a757ef519dad8bf5579aaf04e784629da6310c68e7c36a77e546f92c6"
+    }
+  ],
+  "all_cohorts_source_policy_and_replay_pass": true,
+  "new_model_inference": false,
+  "android_accepted": false,
+  "full_pipeline_accepted": false,
+  "word_timing_acceptance": null,
+  "scope": "Two separate previously seen D regression validations; no pooling, no blind/natural-dialogue/Android/performance acceptance",
+  "source_sha256": {
+    "tools/eval/diar_validation.py": "2dd5dd59a877a5cf152c612204395a9d327705794e14f83748b57fd949fa601b",
+    "tools/eval/tests/test_diar_validation.py": "2407d68a8a19e0eadd941b3d79e92cd585a64eebbd3dc823d42a4c70b29d0a62"
+  }
+}

@@ -63,3 +63,48 @@ Normalized dev16/532=3,008% означает16 исправлений на532с�
 Host fixed-five44/442, Android43/442, delta−0,226п.п.≤0,5PASS; per-file outlier−0,714п.п. и все текстовые/временные различия сохранены. 32native chunks/1224tokens/434words полностью восстановлены из actualpayload; fallback/truncation0. 125Python/111JVM/build/static/2nativeUI PASS; первая UI-попытка сохранена, исправлена только синхронизация теста.
 
 Current-APK one-file timing control: legacyRTF4,739, word4,605; historicallegacy1,185. Обе текущиеSD стадии~219/217с против прежних50,7с. Причина отличия не установлена; benchmark не доказывает ускорение/ARM/телефон. Полная приёмка ещё открыта, defaultlegacy сохранён. [Полный отчёт D](STEP_03_VAD_WORD_ASR.md), [индекс](../artifacts/test-results/step-03/results.csv), [граница приёмки](../artifacts/test-results/step-03/acceptance.json), [контроль времени](../artifacts/test-results/step-03/performance-control.md).
+
+
+## 07.11.2026 — пункт4 C2, host проверен; Android ML pending
+
+Все48fixed-K и672automatic SD cases сохранены. Выбран один глобальный C2 на исходном
+ERes2Net512: nativeSDthreshold0,30/shift0,1, clean1,5s/step0,75s, averageHCτ0,36,
+reassign-small, grid125ms,max8,mincluster2s/3%,smooth500ms. Старые7моделей/pack1.5 прежние.
+
+| Набор | Native DER0 baseline ↓ | C2 ↓ | Точное K baseline ↑ | C2 ↑ | C2 rawWER ↓ |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Dev8 |43,1567%|18,2985%|2/8|7/8|71/533|
+| Original holdout5 |51,5457%|13,8896%|2/5|4/5|49/444|
+| Reserve10 |47,6591%|22,4396%|1/10|5/10|83/743|
+
+Новые полныеVAD/SD/windowembedding/HC/GigaAM прогоны13+10 COMPLETE; независимыйfullC2audit3164checksPASS.
+ВсеJuryJSON/ASRtokens+timestamps/749vectors/refinedturns/coremetrics совпали сзафиксированными
+исследовательскимивыходами, rawWER unchanged относительноD. Это previouslyseen regression cohorts,
+не blind/natural-dialogue и не87,5% точности всехслов/реплик. Reserve K50% остаётся слабымместом.
+
+Kotlin C2:157differential включая23actualcases без exactturn/IDs/acceptedрасхождений.
+Gradle170JVM/0fail/0skip, All-in-One/debug/testAPK, staticARM64pack/signature и2AndroidUI PASS.
+ПервыйUIFAIL приAsleepэмуляторе сохранён; wakeи повторбезизмененияAPK дали2/2PASS10,327s.
+КандидатAPK305476189B SHA6a73427638ccd3e1e04e725d1080d604c5941d571e796544c1fa2733f4f965fd
+сохранён отдельно; V1.6 иD hashes прежние. ActualAndroidC2ML, fixedfiveWERportgate иdev8nativeDER/count
+ещё не выполнены. [Подробности](STEP_04_DIARIZATION.md), [аудит](../artifacts/test-results/step-04/full-c2-equivalence-audit.json),
+[сборка/JVM](../artifacts/test-results/step-04/build-c2-v1/summary.json), [UI](../artifacts/test-results/step-04/ui-v2/summary.json).
+
+
+### Итог C: actual Android10 и сохранённый контрольный профиль
+
+Native8dev: K7/8, nativeDER0 **18,2985%**, raw70/533=13,1332%, normalized16/532=3,0075%,
+cpWER145/533=27,2045%. Порогcount/DERпройден. Fixed5raw43/442vs44/442host,
+Δ−0,226244п.п.≤0,5PASS; dev01−0,714286п.п. сохранён какдиагностика.
+Все10sidecars:344реальных512dimвектора,56ASRчанков/2169токенов/767слов;
+независимыйnativeaudit564checksPASS. Вектораhost/nativeнепобайтноравны,
+текстовые/временныедиффысохранены; разметкаголосов/nativeDERсовпала.
+
+Дополнительные32SDdevпрогонаподтвердилиотказотminOff0,25/1,0 иshift0,25/0,5:
+K6/4/5/4из8, DER21,6134/19,7999/18,9807/24,2211%вместо7/8/18,2985%.
+ИхASR—явныйreplayреальногоD,неповторныйGigaAM. КонтрольныйAPKне меняется.
+Финальные345Python/173JVM/UI2/staticPASS. [ГраницаCприёмки](../artifacts/test-results/step-04/acceptance.json),
+[нативныйаудит](../artifacts/test-results/step-04/context600-c2-android-v3/independent-audit.json),
+[дополнительныепробы](../artifacts/test-results/step-04/final-native-parameter-audit.json).
+ЕстественныйAMIпо-прежнемуK0/3,на третьемclipDERхужеlegacyна2,2794п.п.;
+ARM/телефоннаяскорость/независимыеwordtimingsнеприняты.

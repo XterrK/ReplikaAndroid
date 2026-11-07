@@ -1,0 +1,86 @@
+{
+  "status": "PASS",
+  "at": "2026-11-07T01:01:27.117317+00:00",
+  "tests": 17,
+  "test_exit_code": 0,
+  "cohorts": [
+    {
+      "cohort": "original-holdout",
+      "gate_pass": true,
+      "cases": 5,
+      "algorithm": "window-overcluster-v1",
+      "raw_candidate": {
+        "errors": 49,
+        "reference_tokens": 444,
+        "rate": 0.11036036036036036
+      },
+      "raw_baseline": {
+        "errors": 73,
+        "reference_tokens": 444,
+        "rate": 0.16441441441441443
+      },
+      "native_der0_candidate": 0.13889566124769603,
+      "native_der0_baseline": 0.5154572317414498,
+      "native_der250_candidate": 0.10795483522199896,
+      "native_der250_baseline": 0.4936608153731602,
+      "cpwer_raw_candidate": {
+        "errors": 95,
+        "reference_tokens": 444,
+        "rate": 0.21396396396396397
+      },
+      "cpwer_raw_baseline": {
+        "errors": 446,
+        "reference_tokens": 444,
+        "rate": 1.0045045045045045
+      },
+      "count_exact_candidate": 4,
+      "count_exact_baseline": 2,
+      "report": "artifacts/test-results/step-04/candidate-c2-validation-gates/original-holdout.json",
+      "report_sha256": "58330b56b5353fe9f614e7c802f2b29ca61b4a649ee8d5a610feeab0a8401294"
+    },
+    {
+      "cohort": "reserve",
+      "gate_pass": true,
+      "cases": 10,
+      "algorithm": "window-overcluster-v1",
+      "raw_candidate": {
+        "errors": 83,
+        "reference_tokens": 743,
+        "rate": 0.1117092866756393
+      },
+      "raw_baseline": {
+        "errors": 135,
+        "reference_tokens": 743,
+        "rate": 0.1816958277254374
+      },
+      "native_der0_candidate": 0.22439618616546822,
+      "native_der0_baseline": 0.4765907575420801,
+      "native_der250_candidate": 0.1926611074515137,
+      "native_der250_baseline": 0.4540636203300923,
+      "cpwer_raw_candidate": {
+        "errors": 284,
+        "reference_tokens": 743,
+        "rate": 0.3822341857335128
+      },
+      "cpwer_raw_baseline": {
+        "errors": 572,
+        "reference_tokens": 743,
+        "rate": 0.7698519515477793
+      },
+      "count_exact_candidate": 5,
+      "count_exact_baseline": 1,
+      "report": "artifacts/test-results/step-04/candidate-c2-validation-gates/reserve.json",
+      "report_sha256": "656d023bffbaec97dd208a02291d7d88c98ed9700c7a0274952aac400308f32c"
+    }
+  ],
+  "all_cohorts_source_policy_and_replay_pass": true,
+  "new_model_inference": false,
+  "android_accepted": false,
+  "full_pipeline_accepted": false,
+  "word_timing_acceptance": null,
+  "scope": "Two separate previously seen D/C1 regression validations; no pooling, no blind/natural-dialogue/Android/performance acceptance",
+  "source_sha256": {
+    "tools/eval/diar_validation.py": "bcb4ea6b7ebe045c82d84b78fb5f1329f7b898bf4babe043c1cb1f1d2155c52c",
+    "tools/eval/tests/test_diar_validation.py": "1cfaecd8c020bfd02e635d8907c2a5c7d439314ca8a740459d94c5e7cc40c170"
+  }
+}

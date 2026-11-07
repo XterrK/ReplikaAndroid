@@ -1,0 +1,386 @@
+{
+  "schema_version": 1,
+  "status": "FAIL",
+  "gate_pass": false,
+  "profile": "auto-0p65",
+  "refiner_algorithm": null,
+  "expected_dev_ids": [
+    "dev-01-two-clean",
+    "dev-02-three-clean",
+    "dev-03-short",
+    "dev-04-expressive",
+    "dev-05-whisper",
+    "dev-06-overlap",
+    "dev-mono-m",
+    "dev-mono-s"
+  ],
+  "conditions": {
+    "complete_same_eight_dev_cases": {
+      "pass": false,
+      "direction": "all required",
+      "required": 8,
+      "observed": 0
+    },
+    "raw_wer_exact_frozen_d": {
+      "pass": false,
+      "direction": "equal per case"
+    },
+    "exact_native_speaker_count": {
+      "pass": false,
+      "direction": "higher is better",
+      "required_exact_cases": 7,
+      "denominator_cases": 8,
+      "observed_exact_cases": 0
+    },
+    "native_der_0_vs_fixed_v16": {
+      "pass": false,
+      "direction": "lower is better",
+      "maximum_increase_percentage_points": 2.0,
+      "candidate": null,
+      "fixed": null,
+      "delta_percentage_points": null
+    },
+    "saved_source_integrity": {
+      "pass": false,
+      "direction": "all required",
+      "failures": 8
+    }
+  },
+  "aggregate": {
+    "candidate": {
+      "cases": 0,
+      "wer_raw": {
+        "errors": 0,
+        "reference_tokens": 0,
+        "rate": null
+      },
+      "cpwer_raw": {
+        "errors": 0,
+        "reference_tokens": 0,
+        "rate": null
+      },
+      "native_der_collar_0ms": {
+        "miss_ms": 0,
+        "false_alarm_ms": 0,
+        "confusion_ms": 0,
+        "reference_speaker_ms": 0,
+        "error_speaker_ms": 0,
+        "rate": null
+      },
+      "native_der_collar_250ms": {
+        "miss_ms": 0,
+        "false_alarm_ms": 0,
+        "confusion_ms": 0,
+        "reference_speaker_ms": 0,
+        "error_speaker_ms": 0,
+        "rate": null
+      },
+      "speaker_count_exact_cases": 0,
+      "speaker_absolute_error_sum": 0,
+      "speaker_count_exact_success_fraction": 0.0
+    },
+    "fixed": {
+      "cases": 0,
+      "wer_raw": {
+        "errors": 0,
+        "reference_tokens": 0,
+        "rate": null
+      },
+      "cpwer_raw": {
+        "errors": 0,
+        "reference_tokens": 0,
+        "rate": null
+      },
+      "native_der_collar_0ms": {
+        "miss_ms": 0,
+        "false_alarm_ms": 0,
+        "confusion_ms": 0,
+        "reference_speaker_ms": 0,
+        "error_speaker_ms": 0,
+        "rate": null
+      },
+      "native_der_collar_250ms": {
+        "miss_ms": 0,
+        "false_alarm_ms": 0,
+        "confusion_ms": 0,
+        "reference_speaker_ms": 0,
+        "error_speaker_ms": 0,
+        "rate": null
+      },
+      "speaker_count_exact_cases": 0,
+      "speaker_absolute_error_sum": 0,
+      "speaker_count_exact_success_fraction": 0.0
+    }
+  },
+  "per_case": [
+    {
+      "id": "dev-01-two-clean",
+      "valid": false,
+      "errors": [
+        "Missing candidate, fixed or ASR dev case"
+      ]
+    },
+    {
+      "id": "dev-02-three-clean",
+      "valid": false,
+      "errors": [
+        "Missing candidate, fixed or ASR dev case"
+      ]
+    },
+    {
+      "id": "dev-03-short",
+      "valid": false,
+      "errors": [
+        "Missing candidate, fixed or ASR dev case"
+      ]
+    },
+    {
+      "id": "dev-04-expressive",
+      "valid": false,
+      "errors": [
+        "Missing candidate, fixed or ASR dev case"
+      ]
+    },
+    {
+      "id": "dev-05-whisper",
+      "valid": false,
+      "errors": [
+        "Missing candidate, fixed or ASR dev case"
+      ]
+    },
+    {
+      "id": "dev-06-overlap",
+      "valid": false,
+      "errors": [
+        "Missing candidate, fixed or ASR dev case"
+      ]
+    },
+    {
+      "id": "dev-mono-m",
+      "valid": false,
+      "errors": [
+        "Missing candidate, fixed or ASR dev case"
+      ]
+    },
+    {
+      "id": "dev-mono-s",
+      "valid": false,
+      "errors": [
+        "Missing candidate, fixed or ASR dev case"
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "id": "dev-01-two-clean",
+      "error": "Missing candidate, fixed or ASR dev case"
+    },
+    {
+      "id": "dev-02-three-clean",
+      "error": "Missing candidate, fixed or ASR dev case"
+    },
+    {
+      "id": "dev-03-short",
+      "error": "Missing candidate, fixed or ASR dev case"
+    },
+    {
+      "id": "dev-04-expressive",
+      "error": "Missing candidate, fixed or ASR dev case"
+    },
+    {
+      "id": "dev-05-whisper",
+      "error": "Missing candidate, fixed or ASR dev case"
+    },
+    {
+      "id": "dev-06-overlap",
+      "error": "Missing candidate, fixed or ASR dev case"
+    },
+    {
+      "id": "dev-mono-m",
+      "error": "Missing candidate, fixed or ASR dev case"
+    },
+    {
+      "id": "dev-mono-s",
+      "error": "Missing candidate, fixed or ASR dev case"
+    },
+    {
+      "id": "dev-01-two-clean",
+      "error": "ValueError: Saved native count does not recompute"
+    },
+    {
+      "id": "dev-02-three-clean",
+      "error": "ValueError: Saved native count does not recompute"
+    },
+    {
+      "id": "dev-03-short",
+      "error": "ValueError: Saved native count does not recompute"
+    },
+    {
+      "id": "dev-04-expressive",
+      "error": "ValueError: Saved native count does not recompute"
+    },
+    {
+      "id": "dev-05-whisper",
+      "error": "ValueError: Saved native count does not recompute"
+    },
+    {
+      "id": "dev-06-overlap",
+      "error": "ValueError: Saved native count does not recompute"
+    },
+    {
+      "id": "dev-mono-m",
+      "error": "ValueError: Saved native count does not recompute"
+    },
+    {
+      "id": "dev-mono-s",
+      "error": "ValueError: Saved native count does not recompute"
+    }
+  ],
+  "full_pipeline_accepted": false,
+  "scope": "C eight-dev count/native-DER montage-proxy gate only; no holdout/Android/natural-dialogue/performance acceptance",
+  "at": "2026-11-07T00:24:47.678838+00:00",
+  "new_model_inference": false,
+  "sources": {
+    "candidate": "artifacts/test-results/step-04/auto-wespeaker-resnet34-lm",
+    "fixed_baseline": "artifacts/test-results/step-04/fixed-v16-production-comparison",
+    "manifest": "benchmark/eval/manifest.json",
+    "asr_run": "artifacts/test-results/step-03/context600-selected-host"
+  },
+  "source_sha256": {
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/configs/eval/diar-protocol.json": "05d8092b19636bb461f7b7a67b4e08df1fe10463187cb0bb15da29ce824f242c",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/benchmark/eval/manifest.json": "47109cb1987624daaf8f4dc28e8eca3198b0c2bbcf01cd334b9611664eb38066",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/auto-wespeaker-resnet34-lm/run.json": "0b2bd6256afb02cf1091555931140f09f0d95dac50f16659ae9019a27a3659a9",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/fixed-v16-production-comparison/run.json": "af176738c5cfcc9d5ff85fdf9ff043d688e59f26163eefb38199f35e6af47182",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-03/context600-selected-host/run.json": "a388cc7e35ed099b3ab268bf908255e4fbefcdd69723f95b7b649565a99ba631",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/benchmark/eval/references/dev-01-two-clean.json": "523b1097852d70d1f6d2cf2f3c632ee5c5ac3bedf8e64487ecbdada21c25d127",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-03/context600-selected-host/dev-01-two-clean/case.json": "e11c94fc39dd4a834fdd796872cfaadc35e01326c635273baef6a4520828662f",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-03/context600-selected-host/dev-01-two-clean/reference.json": "523b1097852d70d1f6d2cf2f3c632ee5c5ac3bedf8e64487ecbdada21c25d127",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-03/context600-selected-host/dev-01-two-clean/hypothesis.json": "49aa3320547ddb09bb6798d0f877fa3c99e19891427ae04419eb2cead6ec2fe5",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-03/context600-selected-host/dev-01-two-clean/diagnostics.json": "f0c781a45c49466123858dd7253f039035060235d2db12713698d9a814680703",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-03/context600-selected-host/dev-01-two-clean/metrics.json": "e22fb9b16db7952bf691ec15f2de1b244d9e20d793ca06397c4b4e8b28059589",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/fixed-v16-production-comparison/dev-01-two-clean/case.json": "ff784356cce34c0970e3dce6079cb8f2d617f5a5de052713b614a8f886b8e409",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/fixed-v16-production-comparison/dev-01-two-clean/reference.json": "523b1097852d70d1f6d2cf2f3c632ee5c5ac3bedf8e64487ecbdada21c25d127",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/fixed-v16-production-comparison/dev-01-two-clean/hypothesis.json": "bf3144af2c69273ff16ee8fb3b081dbd17be2a9917b9681a5e2fe025f9efc870",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/fixed-v16-production-comparison/dev-01-two-clean/diagnostics.json": "c7d7b5da24a0b267450bf0ddc094a6ba517802fe5343299c1409b700e0c41d03",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/fixed-v16-production-comparison/dev-01-two-clean/metrics.json": "b6032478abe5deb853b5ba00a89bbe500e3bb63310637db23880567f4815f32c",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/auto-wespeaker-resnet34-lm/auto-0p65/dev-01-two-clean/case.json": "1c18da5c989a07acecac7e105cbbb94ee07ee3390ec39ab6cb66bfefdab419d9",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/auto-wespeaker-resnet34-lm/auto-0p65/dev-01-two-clean/reference.json": "523b1097852d70d1f6d2cf2f3c632ee5c5ac3bedf8e64487ecbdada21c25d127",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/auto-wespeaker-resnet34-lm/auto-0p65/dev-01-two-clean/hypothesis.json": "236aa441701c99b362fff3f110197edfdac9970562d732251e240c4a02dc288b",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/auto-wespeaker-resnet34-lm/auto-0p65/dev-01-two-clean/diagnostics.json": "0a97c5a5f36ee434d2ac46341a3239751eddee11ef53db2c5f5abb3447154887",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/auto-wespeaker-resnet34-lm/auto-0p65/dev-01-two-clean/metrics.json": "15f6ebf51babd4049d8f72bc32a430ce31c0b8baa7c46e7ddd7e9692310b3977",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/benchmark/eval/references/dev-02-three-clean.json": "0900022595d73de02b3c7459f85a37b39e37ac5cb455e7ee8827399097e01256",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-03/context600-selected-host/dev-02-three-clean/case.json": "891889b222c67f1b1c09f3158133cb8895d409bd7a665ea2b34b2f6b3ae2e766",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-03/context600-selected-host/dev-02-three-clean/reference.json": "0900022595d73de02b3c7459f85a37b39e37ac5cb455e7ee8827399097e01256",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-03/context600-selected-host/dev-02-three-clean/hypothesis.json": "84d050fb0c9e6b2a44cf18bb17bc88a66bb751c14d761ec4bd4956ef9781acde",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-03/context600-selected-host/dev-02-three-clean/diagnostics.json": "6c957e87a1f494a515c581f5a5534727e8d62b4386b3e7de6b6b980f8c557220",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-03/context600-selected-host/dev-02-three-clean/metrics.json": "2101d43b3abc67d31d48fd480ebfcaccb1eb2ead536e01f21229456e88579f4e",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/fixed-v16-production-comparison/dev-02-three-clean/case.json": "d404fd965a7fd2306fb59727134cb3f4e8248d18f367023b15616283fbc0dc57",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/fixed-v16-production-comparison/dev-02-three-clean/reference.json": "0900022595d73de02b3c7459f85a37b39e37ac5cb455e7ee8827399097e01256",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/fixed-v16-production-comparison/dev-02-three-clean/hypothesis.json": "6ece4cb207469018602395f28f82d8c373dc8b3b7fef6c26d144bb4c85de9b2a",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/fixed-v16-production-comparison/dev-02-three-clean/diagnostics.json": "f56c02395ea25b1d00145511643e56be3c89c8fcadcee4d6b5e98eba1005c717",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/fixed-v16-production-comparison/dev-02-three-clean/metrics.json": "fc91d36bf2d00eb32ec53ba99683a9e5f0db33032fd42f9dff1db500189488d2",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/auto-wespeaker-resnet34-lm/auto-0p65/dev-02-three-clean/case.json": "05ec984b6947c3b7b29cab0fb6eaca457204173ade0d0730224a7d12d9947bdb",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/auto-wespeaker-resnet34-lm/auto-0p65/dev-02-three-clean/reference.json": "0900022595d73de02b3c7459f85a37b39e37ac5cb455e7ee8827399097e01256",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/auto-wespeaker-resnet34-lm/auto-0p65/dev-02-three-clean/hypothesis.json": "945fd3fa6a8b0c1699571f8629738728f5c229e785743122bc608c80f320afa9",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/auto-wespeaker-resnet34-lm/auto-0p65/dev-02-three-clean/diagnostics.json": "ac791eec72d0ceb608988c85d79011c7785254a38eaa934c18dfabe87b885c56",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/auto-wespeaker-resnet34-lm/auto-0p65/dev-02-three-clean/metrics.json": "c8f292189e54dc4e24b24ea966c78a60efe03a2b0074999eac9e0398e6b6b968",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/benchmark/eval/references/dev-03-short.json": "dfaf5a84d3c2850a87ebe3b47369ffb87863c6c710abc6cc7f2faea5337be571",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-03/context600-selected-host/dev-03-short/case.json": "db9c02f80339ae5116265f6137db78f54f03fb6a8f9bdbd9f28382929993598c",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-03/context600-selected-host/dev-03-short/reference.json": "dfaf5a84d3c2850a87ebe3b47369ffb87863c6c710abc6cc7f2faea5337be571",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-03/context600-selected-host/dev-03-short/hypothesis.json": "1038723185e1191948e624d784ae5ada57fea8a061d6cdc5aa9fc1d707cbf5c3",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-03/context600-selected-host/dev-03-short/diagnostics.json": "3139de2eedfea3b74ef88ed48cab39eec0ccf610503c8922c710bd39ed785807",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-03/context600-selected-host/dev-03-short/metrics.json": "57be4b645472d75007ef7c281322b314ef7542ba60d7b5ea916a3c4c24f81c73",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/fixed-v16-production-comparison/dev-03-short/case.json": "9b1dd28751502f2617323ca18f58a0cc3dc2811d65e043a5bd228423b824c1d1",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/fixed-v16-production-comparison/dev-03-short/reference.json": "dfaf5a84d3c2850a87ebe3b47369ffb87863c6c710abc6cc7f2faea5337be571",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/fixed-v16-production-comparison/dev-03-short/hypothesis.json": "1038723185e1191948e624d784ae5ada57fea8a061d6cdc5aa9fc1d707cbf5c3",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/fixed-v16-production-comparison/dev-03-short/diagnostics.json": "08f5c040e6333befc27a5fc06dad41467530f3bee6f1bae5a7eb4eb36c34f486",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/fixed-v16-production-comparison/dev-03-short/metrics.json": "e36b92176abc25fe1deddf9dd719bfcd5eaaa8d593ed0514a712347f529adbae",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/auto-wespeaker-resnet34-lm/auto-0p65/dev-03-short/case.json": "dc323b3ef8cb8dce040e4c0d3f280759f72651e36a4bcfa0a77a7b93e6cabbf1",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/auto-wespeaker-resnet34-lm/auto-0p65/dev-03-short/reference.json": "dfaf5a84d3c2850a87ebe3b47369ffb87863c6c710abc6cc7f2faea5337be571",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/auto-wespeaker-resnet34-lm/auto-0p65/dev-03-short/hypothesis.json": "1038723185e1191948e624d784ae5ada57fea8a061d6cdc5aa9fc1d707cbf5c3",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/auto-wespeaker-resnet34-lm/auto-0p65/dev-03-short/diagnostics.json": "43011da10d6f32ff93920a4200db3a571d297379eb5fc46bb2530512d0740b73",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/auto-wespeaker-resnet34-lm/auto-0p65/dev-03-short/metrics.json": "0e508e417b49d080bc0481739ae08a22ea56709092e9997038181feeb6252159",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/benchmark/eval/references/dev-04-expressive.json": "31893577919d7a65863235dc7067a73214f9a9855a7db5ee153fadffbb8606f7",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-03/context600-selected-host/dev-04-expressive/case.json": "c09200fd7c0ee11b92e1dad08c793e7693bc777253d08298f751f58d7fd0de6e",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-03/context600-selected-host/dev-04-expressive/reference.json": "31893577919d7a65863235dc7067a73214f9a9855a7db5ee153fadffbb8606f7",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-03/context600-selected-host/dev-04-expressive/hypothesis.json": "57b430453bb1d88d91297db9c616620d442524ed114ced8741cfce1ce14a28ee",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-03/context600-selected-host/dev-04-expressive/diagnostics.json": "78c0cdaa7411064fcc0d74e16bb467f0dcfd8508435958c3432fe941bc6ddf37",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-03/context600-selected-host/dev-04-expressive/metrics.json": "066a55f0b669f8e9013a24d76791813a3bf93b825ca1b8d2523c529540586844",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/fixed-v16-production-comparison/dev-04-expressive/case.json": "a3e0538fea209d2d0da258d4ab5f07992e5c0a6d0c5dd755130304660d5818bd",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/fixed-v16-production-comparison/dev-04-expressive/reference.json": "31893577919d7a65863235dc7067a73214f9a9855a7db5ee153fadffbb8606f7",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/fixed-v16-production-comparison/dev-04-expressive/hypothesis.json": "2e423c1472ac8d9f15e90bfb0c11dc6a3b4df11b478b74daf1375b7b49c7a785",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/fixed-v16-production-comparison/dev-04-expressive/diagnostics.json": "6d14f2e02dde01941212fe401eac570c6a9cf94f9558f7ef19ab15188a35e69c",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/fixed-v16-production-comparison/dev-04-expressive/metrics.json": "b13009f7a5b25a6e73fcdc5296b308fbc9c33ad297274aa537c8357e43694e7d",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/auto-wespeaker-resnet34-lm/auto-0p65/dev-04-expressive/case.json": "7ccf6df9c583ec9f442136c45e29823de1c2362334d6709a1235f9a06389f1d8",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/auto-wespeaker-resnet34-lm/auto-0p65/dev-04-expressive/reference.json": "31893577919d7a65863235dc7067a73214f9a9855a7db5ee153fadffbb8606f7",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/auto-wespeaker-resnet34-lm/auto-0p65/dev-04-expressive/hypothesis.json": "17838a527a5a64c8f68fd72a6e6cdc10a27f6f4ba00c257483c4c44b99bfcc6e",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/auto-wespeaker-resnet34-lm/auto-0p65/dev-04-expressive/diagnostics.json": "3b854dea4373a8574d6da885f6b71443eec8e4dff45c2e686f2380e3bd3c86ef",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/auto-wespeaker-resnet34-lm/auto-0p65/dev-04-expressive/metrics.json": "06189b3ea8241f3df6e0688f76782ce42972994af5833219e93aed7a1008cc39",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/benchmark/eval/references/dev-05-whisper.json": "d544e0695cf6307c2899f72cdff638c970e4915e9326003c393710545ca7a9f1",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-03/context600-selected-host/dev-05-whisper/case.json": "b39734f48bcfef3e4e3ee922e37213d9ffd346cdeb05011dbb60810a35e0f911",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-03/context600-selected-host/dev-05-whisper/reference.json": "d544e0695cf6307c2899f72cdff638c970e4915e9326003c393710545ca7a9f1",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-03/context600-selected-host/dev-05-whisper/hypothesis.json": "fdf54b03ff22b3450ccc62c3b4b2c8c489c8caf02a1699f90316ff87c1085fb5",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-03/context600-selected-host/dev-05-whisper/diagnostics.json": "99b494fbbd9f08e5e2d2cfc5e9120b17ad0a056828791551a79e24a70030811a",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-03/context600-selected-host/dev-05-whisper/metrics.json": "64f6571d96dd464b388ec565792b82db483c202698a80cfd86627641ea5821d8",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/fixed-v16-production-comparison/dev-05-whisper/case.json": "06a1fddac16e68c65d268ab23c839b2efc5ea82d38112e10a459a4711771127a",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/fixed-v16-production-comparison/dev-05-whisper/reference.json": "d544e0695cf6307c2899f72cdff638c970e4915e9326003c393710545ca7a9f1",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/fixed-v16-production-comparison/dev-05-whisper/hypothesis.json": "cee61ba88847f87fb31e4eeaf929bd34774459fcec92cf54020f3611ea24f2b5",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/fixed-v16-production-comparison/dev-05-whisper/diagnostics.json": "9a59f7ec1c5fd40736f947b60aa6d2433c9b98c69b07abce5a4d6862c257daec",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/fixed-v16-production-comparison/dev-05-whisper/metrics.json": "cd2d5a8464ff8bc0b5811bed0f87f9d09b5024bc71fc4e73d78bdec248f4bbe9",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/auto-wespeaker-resnet34-lm/auto-0p65/dev-05-whisper/case.json": "56a921eed49fda9476085b7c2f1daec92829e0607befb991609f537e508bab36",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/auto-wespeaker-resnet34-lm/auto-0p65/dev-05-whisper/reference.json": "d544e0695cf6307c2899f72cdff638c970e4915e9326003c393710545ca7a9f1",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/auto-wespeaker-resnet34-lm/auto-0p65/dev-05-whisper/hypothesis.json": "41a5d73962b86d437986d3ff77961bacb6d4b2763e58aba33b1a31f6f361371c",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/auto-wespeaker-resnet34-lm/auto-0p65/dev-05-whisper/diagnostics.json": "c76c5af9b9da2df22a8ebae4861285397ff375ffb70044909ec58b61c5f1fab1",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/auto-wespeaker-resnet34-lm/auto-0p65/dev-05-whisper/metrics.json": "9a05beac79d25c0e8b4dc7242e6b48004ce441b6494602e99bda9a87a0f97ecb",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/benchmark/eval/references/dev-06-overlap.json": "7b23bb601328e721ebc51b2f2cf0d3292b64bf65cd6250332e45688756e53713",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-03/context600-selected-host/dev-06-overlap/case.json": "f70024e27886a92a012d941a6ee8d65876ecfc540c154f74defc683cd53a2c24",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-03/context600-selected-host/dev-06-overlap/reference.json": "7b23bb601328e721ebc51b2f2cf0d3292b64bf65cd6250332e45688756e53713",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-03/context600-selected-host/dev-06-overlap/hypothesis.json": "a8cae44bfe1bb1bc04594482ab6dbadd994b08f694236d633eb1167aafedf42e",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-03/context600-selected-host/dev-06-overlap/diagnostics.json": "6e77129fe4642a77a9ddc3d963742be731631bcea1eaf1c69dedb3ea4e216547",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-03/context600-selected-host/dev-06-overlap/metrics.json": "c91991eea3f654e5dd62b7c6c55d33b02d958cacdab40216416fd3eba7329420",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/fixed-v16-production-comparison/dev-06-overlap/case.json": "cc6873cbe3406d8b8a211b1801941d30ef235d934e60294ecf79863554f287bb",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/fixed-v16-production-comparison/dev-06-overlap/reference.json": "7b23bb601328e721ebc51b2f2cf0d3292b64bf65cd6250332e45688756e53713",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/fixed-v16-production-comparison/dev-06-overlap/hypothesis.json": "2eba2cf31421ef168d7cfabc5e8cefbc7657545dca4ed45b254615db7423f2a1",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/fixed-v16-production-comparison/dev-06-overlap/diagnostics.json": "325db37e1fcc38e65ad3bfa2b970a1a36c3e592c67d216f03b44f9b5ee05ffbf",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/fixed-v16-production-comparison/dev-06-overlap/metrics.json": "5e3baa43fa26a2c085abee9d1864e3ebd9aed7892bfd6a8b9eab52f8f2961b15",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/auto-wespeaker-resnet34-lm/auto-0p65/dev-06-overlap/case.json": "04217f08741d8f966772cede32e3c72307f6422dd7eced1fe674f6a71a042045",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/auto-wespeaker-resnet34-lm/auto-0p65/dev-06-overlap/reference.json": "7b23bb601328e721ebc51b2f2cf0d3292b64bf65cd6250332e45688756e53713",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/auto-wespeaker-resnet34-lm/auto-0p65/dev-06-overlap/hypothesis.json": "2eba2cf31421ef168d7cfabc5e8cefbc7657545dca4ed45b254615db7423f2a1",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/auto-wespeaker-resnet34-lm/auto-0p65/dev-06-overlap/diagnostics.json": "497b355f3fd16f7986672a5e78feb8348ab38a023453f196cc6442b0be4390bd",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/auto-wespeaker-resnet34-lm/auto-0p65/dev-06-overlap/metrics.json": "8867beaac1cf4872c22f78f4bb7bbd80c6b7b752b151aecf3024a9ef67d13d26",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/benchmark/eval/references/dev-mono-m.json": "c027484abb892d54d2b3eb1601344a7c29e1e1ada7d09e490d15e104ed3e71f5",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-03/context600-selected-host/dev-mono-m/case.json": "8e935a0f1d4aa0dcdae4cc930722e907745f6ab0a05ebbb278781a500b3735ae",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-03/context600-selected-host/dev-mono-m/reference.json": "c027484abb892d54d2b3eb1601344a7c29e1e1ada7d09e490d15e104ed3e71f5",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-03/context600-selected-host/dev-mono-m/hypothesis.json": "b0f0936303065bb6363f5bc2ad50684c004de297cdac7cbb5ee87ee3f47dbccb",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-03/context600-selected-host/dev-mono-m/diagnostics.json": "620731da19d49ff696d3b4b5c11cc66935be699a2f8f656d1d35d4730ad32de7",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-03/context600-selected-host/dev-mono-m/metrics.json": "cbd2ed4bfb3a91149fc85e4d85a4d3d88c5fdac93c83054f1b7e12013632d2b2",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/fixed-v16-production-comparison/dev-mono-m/case.json": "8d8e5dfe4722e6e0fe2765e206f9771ad9384ea72eef508bf816e1b3f61ffdd7",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/fixed-v16-production-comparison/dev-mono-m/reference.json": "c027484abb892d54d2b3eb1601344a7c29e1e1ada7d09e490d15e104ed3e71f5",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/fixed-v16-production-comparison/dev-mono-m/hypothesis.json": "b0f0936303065bb6363f5bc2ad50684c004de297cdac7cbb5ee87ee3f47dbccb",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/fixed-v16-production-comparison/dev-mono-m/diagnostics.json": "174fcdd15e7ca765f6c855745e812796138037403599e77af69b97d6e1dfeb11",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/fixed-v16-production-comparison/dev-mono-m/metrics.json": "297ef7ef8a0bf100c326a36341650fae4d0b9084944c607798a11fcff7a1b4f7",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/auto-wespeaker-resnet34-lm/auto-0p65/dev-mono-m/case.json": "9649d6a9a50a1839f81e3ffd214555359fa78fe7098562355d6f0bf212a9c9c2",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/auto-wespeaker-resnet34-lm/auto-0p65/dev-mono-m/reference.json": "c027484abb892d54d2b3eb1601344a7c29e1e1ada7d09e490d15e104ed3e71f5",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/auto-wespeaker-resnet34-lm/auto-0p65/dev-mono-m/hypothesis.json": "b0f0936303065bb6363f5bc2ad50684c004de297cdac7cbb5ee87ee3f47dbccb",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/auto-wespeaker-resnet34-lm/auto-0p65/dev-mono-m/diagnostics.json": "cbd99b7343be313ba2744ffcf173477e897e50fe7d1a8d5e15a787f69290d5c0",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/auto-wespeaker-resnet34-lm/auto-0p65/dev-mono-m/metrics.json": "e2a0bd8234b67bd2f83c1276355b1c8b3fb51ba9682ddf9f8535b8828dadc05b",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/benchmark/eval/references/dev-mono-s.json": "9259341e0d2aa8bc8bf6bdc9f616ea30e5025aa4e1adca14dc09f2089dcb15e1",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-03/context600-selected-host/dev-mono-s/case.json": "196fe99eadd959957a5a541ca676589efb5a732b894df437fd97ba586b047904",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-03/context600-selected-host/dev-mono-s/reference.json": "9259341e0d2aa8bc8bf6bdc9f616ea30e5025aa4e1adca14dc09f2089dcb15e1",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-03/context600-selected-host/dev-mono-s/hypothesis.json": "bbdc95aad0290549d25a3c03114cc2e36db4628cf5c66a6dc991812e1ee71605",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-03/context600-selected-host/dev-mono-s/diagnostics.json": "740ea72d7a29cb6c0061586ac234943443bb0927c534513ca6bc34de50738882",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-03/context600-selected-host/dev-mono-s/metrics.json": "25f431291b2500b47b2244a20d1a8daab73135abd72852043610640f5029c646",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/fixed-v16-production-comparison/dev-mono-s/case.json": "dcde1d6ba3f0f626c22032f252e38db681f7e51e43f7a2300bc2db715b4b2d55",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/fixed-v16-production-comparison/dev-mono-s/reference.json": "9259341e0d2aa8bc8bf6bdc9f616ea30e5025aa4e1adca14dc09f2089dcb15e1",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/fixed-v16-production-comparison/dev-mono-s/hypothesis.json": "fe812b0473e14dd09ab1a20bdcfd141aba957479c24a57177a78417c4462c013",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/fixed-v16-production-comparison/dev-mono-s/diagnostics.json": "875a52c57b35eff7ba7fc6e1a26b84249bc22eefeefdb71c25145b2988b805f4",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/fixed-v16-production-comparison/dev-mono-s/metrics.json": "8ffab967e976a83bbb0d6cc3fd734de1afb856ed43ebde7a542c1696b692c1c2",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/auto-wespeaker-resnet34-lm/auto-0p65/dev-mono-s/case.json": "7812b4aee7c19572ca7a804a728144dc62a37ad89c84576ae80cb1b5bb36e7ef",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/auto-wespeaker-resnet34-lm/auto-0p65/dev-mono-s/reference.json": "9259341e0d2aa8bc8bf6bdc9f616ea30e5025aa4e1adca14dc09f2089dcb15e1",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/auto-wespeaker-resnet34-lm/auto-0p65/dev-mono-s/hypothesis.json": "bbdc95aad0290549d25a3c03114cc2e36db4628cf5c66a6dc991812e1ee71605",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/auto-wespeaker-resnet34-lm/auto-0p65/dev-mono-s/diagnostics.json": "123e3aa1ae1c920a52b80672472588e3907e1a4d5fef3f22958b220ac773c5b1",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/auto-wespeaker-resnet34-lm/auto-0p65/dev-mono-s/metrics.json": "666d5127af8563bde9dfa266583a3541ae4626a44663fb5a229f55dd22f8f4ca"
+  },
+  "audit_code_sha256": "e2799a4a94cc4a2f31071d8f86319135f5f51730eb6c5ae6b9473a3d011cb7a4",
+  "scorer_code_sha256": "d9415f7fcac76261fc2c0749d0a640a0a03fa8c6e32f8e5856c4bc0e30ccd85f"
+}

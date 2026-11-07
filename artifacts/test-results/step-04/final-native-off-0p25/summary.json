@@ -1,0 +1,71 @@
+{
+  "gate_pass": false,
+  "conditions": {
+    "complete_dev8": true,
+    "raw_asr_invariant": true,
+    "native_count_at_least7": false,
+    "native_der_no_regrowth": false
+  },
+  "aggregate": {
+    "cases": 8,
+    "speaker_count_exact_cases": 6,
+    "audio_ms": 270480,
+    "diarization_inference_ms": 50139.68010499957,
+    "speaker_absolute_error_sum": 2,
+    "wer_raw": {
+      "errors": 71,
+      "reference_tokens": 533,
+      "rate": 0.13320825515947468
+    },
+    "wer_normalized": {
+      "errors": 16,
+      "reference_tokens": 532,
+      "rate": 0.03007518796992481
+    },
+    "cpwer_raw": {
+      "errors": 172,
+      "reference_tokens": 533,
+      "rate": 0.3227016885553471
+    },
+    "cpwer_normalized": {
+      "errors": 122,
+      "reference_tokens": 532,
+      "rate": 0.22932330827067668
+    },
+    "native_der_collar_0ms": {
+      "miss_ms": 29349.0,
+      "false_alarm_ms": 1514.0,
+      "confusion_ms": 24329.0,
+      "reference_speaker_ms": 255360.0,
+      "rate": 0.2161340852130326
+    },
+    "native_der_collar_250ms": {
+      "miss_ms": 21619.0,
+      "false_alarm_ms": 607.0,
+      "confusion_ms": 23141.0,
+      "reference_speaker_ms": 243110.0,
+      "rate": 0.1866109991361935
+    },
+    "der_collar_0ms": {
+      "miss_ms": 39991.0,
+      "false_alarm_ms": 1391.0,
+      "confusion_ms": 23077.0,
+      "reference_speaker_ms": 255360.0,
+      "rate": 0.2524240288220551
+    },
+    "der_collar_250ms": {
+      "miss_ms": 30590.0,
+      "false_alarm_ms": 300.0,
+      "confusion_ms": 22025.0,
+      "reference_speaker_ms": 243110.0,
+      "rate": 0.21765867302867015
+    },
+    "speaker_count_exact_success_fraction": 0.75,
+    "rtf_diarization_stage": null,
+    "timing_scope": "New SD/embedding stage observations only; no full-pipeline or concurrent speed acceptance",
+    "rtf": null
+  },
+  "strictly_better_der": false,
+  "tie_policy": "retain existing C2",
+  "baseline_native_der0": 0.18298480576441103
+}

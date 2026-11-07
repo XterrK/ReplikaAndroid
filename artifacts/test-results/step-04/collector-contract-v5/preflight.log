@@ -1,0 +1,145 @@
+{
+  "status": "PREFLIGHT_PASS",
+  "cases": [
+    "dev-01-two-clean",
+    "dev-02-three-clean",
+    "dev-03-short",
+    "dev-04-expressive",
+    "dev-05-whisper",
+    "dev-06-overlap",
+    "dev-mono-m",
+    "dev-mono-s",
+    "holdout-02-three-clean",
+    "holdout-04-overlap-expressive"
+  ],
+  "fixed_five_ids": [
+    "dev-01-two-clean",
+    "dev-03-short",
+    "holdout-02-three-clean",
+    "holdout-04-overlap-expressive",
+    "dev-mono-s"
+  ],
+  "scope": "Actual production Worker C2 QA; no reference text/counts staged. WER parity is weighted over the historical fixed five only; dev8 native count/DER reported separately. Canonical source WAV hash/shape/clock and frameStride40 are checked; unchanged AudioDecoder has separate D PCM parity evidence, no new native PCM SHA is claimed. x86 emulator evidence is not ARM/phone speed, memory or natural-dialogue acceptance.",
+  "fingerprint": {
+    "host_run_sha256": "c2053545e8248ef66d759f0f3988af43eb14b0da0083ef3ec000956f9427bd45",
+    "fixed_five_run_sha256": "6d419c2f06ec1211e7337f165be47a6e1335aba950f22bd9947b7c7e3be52154",
+    "manifest_sha256": "47109cb1987624daaf8f4dc28e8eca3198b0c2bbcf01cd334b9611664eb38066",
+    "model_lock_sha256": "bd18076e29b225ae51a9c43dd347bf0fd7ed8f2e9c5ed10bba56a0899df1dcb9",
+    "fixed_dev_baseline_summary_sha256": "6cf29600a98830f2b9fd76d9728f4aadaca0233c5d9de437dbf76e347e13417d",
+    "fixed_dev_baseline_run_sha256": "af176738c5cfcc9d5ff85fdf9ff043d688e59f26163eefb38199f35e6af47182",
+    "host_fingerprint": {
+      "manifest_sha256": "47109cb1987624daaf8f4dc28e8eca3198b0c2bbcf01cd334b9611664eb38066",
+      "config_sha256": "6e3a0f10a291e9121bae8df01dca0db3a67c4ac5c828f3fca38ace26b21ef189",
+      "model_lock_sha256": "bd18076e29b225ae51a9c43dd347bf0fd7ed8f2e9c5ed10bba56a0899df1dcb9",
+      "packaged_models": {
+        "giga-v3/encoder.int8.onnx": "369f35a71bf288d3b8e0391fabd8dba5f2314088d440bca474056b7b4b6e66bf",
+        "giga-v3/decoder.onnx": "38fc7475443ea2a26f63211ca350f73ac50fff824ab7a3876ee2bd610c53bbc4",
+        "giga-v3/joiner.onnx": "602ff7017a93311aad34df1437c8d7f49911353c13d6eae7a6ee7b041339465c",
+        "giga-v3/tokens.txt": "39abae20e692998290c574e606f11a9edef2902a1995463fcff63d1490cf22b7",
+        "diar/segmentation.onnx": "220ad67ca923bef2fa91f2390c786097bf305bceb5e261d4af67b38e938e1079",
+        "diar/embedding.onnx": "1a331345f04805badbb495c775a6ddffcdd1a732567d5ec8b3d5749e3c7a5e4b",
+        "vad/silero_vad.onnx": "9e2449e1087496d8d4caba907f23e0bd3f78d91fa552479bb9c23ac09cbb1fd6"
+      },
+      "external_embedding": {
+        "id": "eres2net_zh",
+        "sha256": "1a331345f04805badbb495c775a6ddffcdd1a732567d5ec8b3d5749e3c7a5e4b",
+        "size": 39593761,
+        "dimension": 512,
+        "catalog_sha256": "743624f2f25be1635fe60b11c3e11324c6dd8480f793cdbe196542733d29f7a3"
+      },
+      "runtime": {
+        "version": "2.0.1",
+        "git": "af2d8d81",
+        "git_date": "Mon Oct 26 14:57:12 2026",
+        "onnxruntime": "1.28.2",
+        "extension_sha256": "501b153b863912521f2ccf8e11c7e4566740d0543849a2096dbdea50a674f780"
+      },
+      "code": {
+        "tools/eval/run_refined.py": "d96119a1f778d09a064886e004353518b1d3fbe50a89f5e52bd520cd30df2505",
+        "tools/eval/pipeline_refined.py": "ea3439929f461e6010c98dac93d80d927a574dd28756237355656cc25bae8d2f",
+        "tools/eval/score.py": "d9415f7fcac76261fc2c0749d0a640a0a03fa8c6e32f8e5856c4bc0e30ccd85f",
+        "tools/eval/pipeline.py": "fcdea5e2028e2c46226ab24ff0ac4fe33743fb15bfe853789e156f50203b137a",
+        "tools/eval/pipeline_words.py": "68183283067a0bff8da6b0912e850b1097875fef47fb09164d03b5ae3ab29f6c",
+        "tools/eval/diar_sweep.py": "5e9314e239374c8abf5287465b9a3d4e659cb31abbed1d6150b77d4f7a0567d9",
+        "tools/eval/decoder_parity.py": "5b5258286138ae5b251de0324c592a968180ef2d90f3c6ee68aa33e82af67044",
+        "tools/eval/vad_words.py": "1310361aecdab50e6c977032b73f01352d870af7416904b6dca22b682f3c76a7",
+        "tools/eval/speaker_refiner.py": "4f52854185c9ad4b2e54b9679a9670b5415d5a9fcc1c16d0c5f392eb6aa69eb1",
+        "tools/eval/run.py": "74b4d5daaa8f7aeb959c0d6a88860bc865f48d049607280569c06d32ba2840c9",
+        "tools/eval/window_overcluster.py": "23cffbba55b75e69695a2b508093505dcad74c804cb7913fd77356b67196acd4"
+      },
+      "selected_ids": [
+        "dev-01-two-clean",
+        "dev-02-three-clean",
+        "dev-03-short",
+        "dev-04-expressive",
+        "dev-05-whisper",
+        "dev-06-overlap",
+        "holdout-01-two-clean",
+        "holdout-02-three-clean",
+        "holdout-03-short",
+        "holdout-04-overlap-expressive",
+        "dev-mono-m",
+        "dev-mono-s",
+        "holdout-mono-d"
+      ],
+      "references": {
+        "dev-01-two-clean": "523b1097852d70d1f6d2cf2f3c632ee5c5ac3bedf8e64487ecbdada21c25d127",
+        "dev-02-three-clean": "0900022595d73de02b3c7459f85a37b39e37ac5cb455e7ee8827399097e01256",
+        "dev-03-short": "dfaf5a84d3c2850a87ebe3b47369ffb87863c6c710abc6cc7f2faea5337be571",
+        "dev-04-expressive": "31893577919d7a65863235dc7067a73214f9a9855a7db5ee153fadffbb8606f7",
+        "dev-05-whisper": "d544e0695cf6307c2899f72cdff638c970e4915e9326003c393710545ca7a9f1",
+        "dev-06-overlap": "7b23bb601328e721ebc51b2f2cf0d3292b64bf65cd6250332e45688756e53713",
+        "holdout-01-two-clean": "3fd896996b8244d98bfb21584657ea872d827b935aa2ceac97b4ef81ce16a4a9",
+        "holdout-02-three-clean": "b3d0daa4ea7d84008352961e70dd72fa85bb4052de546858651e08c87d79721a",
+        "holdout-03-short": "d3e024461e9ccf8624b4f77d47250198134f6c048a2945086eaf80026f4fd97e",
+        "holdout-04-overlap-expressive": "6523f1fd9c61b901b71a21a8b01f64b6cac7909da3cd579cedc95a21a4b6aefe",
+        "dev-mono-m": "c027484abb892d54d2b3eb1601344a7c29e1e1ada7d09e490d15e104ed3e71f5",
+        "dev-mono-s": "9259341e0d2aa8bc8bf6bdc9f616ea30e5025aa4e1adca14dc09f2089dcb15e1",
+        "holdout-mono-d": "191beae3a90fb880b0c20bcbe8b2dc5a11ade31e8beb790c46fef638af88d151"
+      },
+      "audio": {
+        "dev-01-two-clean": "80bdb11e4d9e313d2440c01b80babc0dbe319c9dbea371988ef62716ffb9d77b",
+        "dev-02-three-clean": "54dd41aa60e05602adcebc10d38a3a4f1cb2cf3ebdcc014d46a1387fbcc8a040",
+        "dev-03-short": "a3255bc32a41cc9f6ccd691bfc6a0861e82e160370f2b403b1339133465c94b4",
+        "dev-04-expressive": "f79ee42bac3ce68fa7bad5afeb68117e2135ea22facf95314fe0020288f1b11e",
+        "dev-05-whisper": "20443dba1db8cbd8ca5594ef1fc6edbd2ba257973f8c7621d7d20267a1a9095d",
+        "dev-06-overlap": "dd232cf4b15efa710887fc38785b1c7377cc30046b45719aa5f6a867bb0b009c",
+        "holdout-01-two-clean": "68050d739b081714bbf883806a8eff429f816e4701c4036bf03ee12678c878eb",
+        "holdout-02-three-clean": "453c3b47484600ba183a43a04f72a7c57faa51691d6ccd099939bb2dc99a1354",
+        "holdout-03-short": "c107bd7c657245278204950dc80ca07346a035ba997c3e2b99771867f9a4dc49",
+        "holdout-04-overlap-expressive": "e5d96325a3f726a355c013757e42c250cff8b7457d6ccb2f5875fb4a6cad7514",
+        "dev-mono-m": "317b2c84e153f783cd343c5681603c94045f522f2d44fe1f41dc7862f46198f6",
+        "dev-mono-s": "97943f4d90c2b56166031263a6820c41e0f80b94643a9d3737327debdc8fbe53",
+        "holdout-mono-d": "3bf46b08257257dc5bc1ba75805113999adb67c0d598abb2dd624d46889a2285"
+      }
+    },
+    "apk": {
+      "app": {
+        "sha256": "eec64359b319348b3ecdba0797693f35c7aac27d5a15a5f407e4e3127c50005c",
+        "bytes": 127296377
+      },
+      "test": {
+        "sha256": "2706922b2fc21611add57a95f4992093dd60bdf05a639f369e96fe19614a20d8",
+        "bytes": 3774524
+      }
+    },
+    "collector_code": {
+      "tools/eval/pull_refined_android.py": "7cc15015f1fd328d61a5a4495700af907aba3104e03e8d6baa275efbe014737c",
+      "tools/eval/native_diar_policy.py": "82af9dd27356ac4b84f3793404b55d4515fbdd0ebcd19ab17758199273034609",
+      "tools/eval/native_policy.py": "b6d7fd2de6a7ca7f1776de9fa3924c623918709e0358977bae059569ef4da36b",
+      "tools/eval/port_comparison.py": "8705abd0f4696520047032020f19069308b343008af3d7ed976b895c62e398c4"
+    },
+    "selected_case_sha256": {
+      "dev-01-two-clean": "569e54cf24d6007c5cbc0af3f2b104ab3e1026742417aa074448ca89aec51da6",
+      "dev-02-three-clean": "c5eee3dd1652f8ea4bda9e522e618b83f7bea0ee132fa4800c3e68656c146482",
+      "dev-03-short": "38b8fe1311309aa8c56ee612ceb485c0d18bf58e1ef52069adc63400f820b328",
+      "dev-04-expressive": "9a52fad8573ea44b92381c73a17310a1cb464246bbe7794e6d3fdf0fe09efdb0",
+      "dev-05-whisper": "9ac19fded98383ac3d706486b962b82353e517b2cc8a2e419bbe444b34a9a9b7",
+      "dev-06-overlap": "92f925fb79bc7fc0fb0b9550b3c4ea862054d20a3c4141b7d17cc7857543c0f3",
+      "dev-mono-m": "29940e9866b7f1831a43a4fbb2c8324c6c551c97ad6d9f37db9d0d0406416ca8",
+      "dev-mono-s": "eb8883ea1448c7d91fcd1101e7bece1f7a6d24d1bf1058f7a8973440427b47c8",
+      "holdout-02-three-clean": "5feb2fa3a2fdd3f1022eb30882d9e5ec81fbeab18a247c9d8e64fe3ab7b4b255",
+      "holdout-04-overlap-expressive": "3a7bec62301183ba98799fe32a351426a7435f323c7291e75d427739df824749"
+    }
+  }
+}

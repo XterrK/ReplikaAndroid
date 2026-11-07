@@ -1,0 +1,78 @@
+{
+  "rawDiarizationTurns": [
+    {
+      "startMs": 31,
+      "endMs": 13160,
+      "speakerId": 0
+    },
+    {
+      "startMs": 12822,
+      "endMs": 17885,
+      "speakerId": 1
+    },
+    {
+      "startMs": 18847,
+      "endMs": 28837,
+      "speakerId": 0
+    },
+    {
+      "startMs": 24770,
+      "endMs": 24989,
+      "speakerId": 1
+    },
+    {
+      "startMs": 29495,
+      "endMs": 35502,
+      "speakerId": 1
+    }
+  ],
+  "diarizationTurns": [
+    {
+      "startMs": 31,
+      "endMs": 13160,
+      "speakerId": 0
+    },
+    {
+      "startMs": 12822,
+      "endMs": 17885,
+      "speakerId": 1
+    },
+    {
+      "startMs": 18847,
+      "endMs": 28837,
+      "speakerId": 0
+    },
+    {
+      "startMs": 24770,
+      "endMs": 24989,
+      "speakerId": 1
+    },
+    {
+      "startMs": 29495,
+      "endMs": 35502,
+      "speakerId": 1
+    }
+  ],
+  "mode": "fixed",
+  "numClustersPassed": 3,
+  "threshold": 0.5,
+  "thresholdApplied": false,
+  "windowShiftRatio": 0.1,
+  "threads": 2,
+  "modelId": "eres2net_zh",
+  "modelSha256": "1a331345f04805badbb495c775a6ddffcdd1a732567d5ec8b3d5749e3c7a5e4b",
+  "diarizationInferenceMs": 7261.364689002221,
+  "modelLoadMs": 0.0,
+  "sessionReuse": "Same model config; set_config changes clustering only. Every process recomputes neural outputs.",
+  "newAsrInference": false,
+  "asrEvidenceSha256": {
+    "reference.json": "7b23bb601328e721ebc51b2f2cf0d3292b64bf65cd6250332e45688756e53713",
+    "hypothesis.json": "a8cae44bfe1bb1bc04594482ab6dbadd994b08f694236d633eb1167aafedf42e",
+    "diagnostics.json": "6e77129fe4642a77a9ddc3d963742be731631bcea1eaf1c69dedb3ea4e216547",
+    "metrics.json": "c91991eea3f654e5dd62b7c6c55d33b02d958cacdab40216416fd3eba7329420"
+  },
+  "fixedCountSource": "manifest known-K research oracle, not deployment",
+  "singleBypass": false,
+  "fixedSinglePolicy": "Actual diarizer process even K=1; separate production V1.6 single bypass comparison required",
+  "shortChunkCaveat": "Sherpa single-segmentation-chunk special case may skip embedding/clustering; no claim every threshold exercises those on short files."
+}

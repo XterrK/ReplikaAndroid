@@ -12,6 +12,12 @@ val defaultAsrPlan = providers.gradleProperty("replikaAsrPlan").orElse("v16").ge
 require(defaultAsrPlan in setOf("v16", "vad_words_none", "vad_words_seam", "vad_words_short15",
  "vad_words_short10", "vad_words_sensitive", "vad_words_short10_seam", "vad_words_sensitive_short10",
  "vad_words_context300", "vad_words_context600")) { "Unsupported replikaAsrPlan" }
+// Explicit C2 build opt-in; missing historical WorkData still resolves to legacy in DiarizationPlan.
+val defaultDiarPlan = providers.gradleProperty("replikaDiarPlan").orElse("v16").get()
+require(defaultDiarPlan in setOf("v16", "eres2net_window_v1")) { "Unsupported replikaDiarPlan" }
+require(defaultDiarPlan == "v16" || defaultAsrPlan == "vad_words_context600") {
+ "eres2net_window_v1 requires -PreplikaAsrPlan=vad_words_context600"
+}
 val prepareEmbeddedModelPack by tasks.registering(Exec::class) {
  group = "replika"
  description = "Verify and package the existing local offline models without downloading weights"
@@ -40,6 +46,7 @@ android {
   versionCode = 8; versionName = "1.6"
   buildConfigField("boolean", "BUNDLED_MODELS", "false")
   buildConfigField("String", "DEFAULT_ASR_PLAN", "\"$defaultAsrPlan\"")
+  buildConfigField("String", "DEFAULT_DIAR_PLAN", "\"$defaultDiarPlan\"")
   buildConfigField("String", "EMBEDDED_MODEL_ASSET", "\"offline/replika-models.zip\"")
   // Model SHA-256 values come from models-lock.json; the generated ZIP fingerprint is build evidence.
   buildConfigField("String", "EMBEDDED_MODEL_PACK_SHA256", "\"\"")

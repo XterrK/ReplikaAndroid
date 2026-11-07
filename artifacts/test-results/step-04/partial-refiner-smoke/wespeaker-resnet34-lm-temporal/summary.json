@@ -1,0 +1,1017 @@
+{
+  "schema_version": 1,
+  "status": "COMPLETE",
+  "started_at": "2026-11-06T23:55:57.309473+00:00",
+  "completed_at": "2026-11-06T23:56:06.337767+00:00",
+  "config": {
+    "schema_version": 1,
+    "profile": "auto-0p30",
+    "thresholds": [
+      0.3,
+      0.35,
+      0.4,
+      0.45,
+      0.5,
+      0.55,
+      0.6,
+      0.65,
+      0.7,
+      0.75,
+      0.8,
+      0.85,
+      0.9,
+      0.95
+    ],
+    "split": "dev",
+    "stages": [
+      "baseline",
+      "refined"
+    ],
+    "refiner_config": {
+      "merge_threshold": 0.85,
+      "max_speakers": 8,
+      "min_cluster_ms": 2000,
+      "min_cluster_fraction": 0.03,
+      "smooth_ms": 500,
+      "merge_similar": true,
+      "use_eigengap": true,
+      "reassign_small": true,
+      "smooth": true,
+      "complete_link_guard": false,
+      "minimum_reassignment_similarity": null,
+      "small_missing_centroid_policy": "temporal"
+    },
+    "cases": [
+      "dev-01-two-clean"
+    ]
+  },
+  "source_fingerprint_sha256": "1a33b1719e25b8cac3e3e8ee052e5e6edf08e5371f0e62e54bd76b4fbdb97311",
+  "summaries": {
+    "baseline": {
+      "cases": 1,
+      "speaker_count_exact_cases": 0,
+      "audio_ms": 69556,
+      "speaker_absolute_error_sum": 9,
+      "wer_raw": {
+        "errors": 11,
+        "reference_tokens": 140,
+        "rate": 0.07857142857142857
+      },
+      "wer_normalized": {
+        "errors": 2,
+        "reference_tokens": 137,
+        "rate": 0.014598540145985401
+      },
+      "cpwer_raw": {
+        "errors": 191,
+        "reference_tokens": 140,
+        "rate": 1.3642857142857143
+      },
+      "cpwer_normalized": {
+        "errors": 186,
+        "reference_tokens": 137,
+        "rate": 1.3576642335766422
+      },
+      "native_der_collar_0ms": {
+        "miss_ms": 6537.0,
+        "false_alarm_ms": 0.0,
+        "confusion_ms": 42306.0,
+        "reference_speaker_ms": 66546.0,
+        "rate": 0.7339734920205572
+      },
+      "native_der_collar_250ms": {
+        "miss_ms": 4733.0,
+        "false_alarm_ms": 0.0,
+        "confusion_ms": 42110.0,
+        "reference_speaker_ms": 64546.0,
+        "rate": 0.7257304867846187
+      },
+      "der_collar_0ms": {
+        "miss_ms": 11586.0,
+        "false_alarm_ms": 0.0,
+        "confusion_ms": 38560.0,
+        "reference_speaker_ms": 66546.0,
+        "rate": 0.7535539326180386
+      },
+      "der_collar_250ms": {
+        "miss_ms": 9643.0,
+        "false_alarm_ms": 0.0,
+        "confusion_ms": 38503.0,
+        "reference_speaker_ms": 64546.0,
+        "rate": 0.7459176401326186
+      },
+      "speaker_count_exact_success_fraction": 0.0,
+      "timing_scope": "Saved neural outputs; refiner-only wall time. No whole-pipeline or Android RTF.",
+      "expected_cases": 1,
+      "complete_case_coverage": true,
+      "new_diarization_inference": false,
+      "new_asr_inference": false,
+      "refiner_only_ms": 0.0,
+      "refiner_accepted_cases": 0,
+      "refiner_unsupported_cases": 0,
+      "raw_wer_invariant": true
+    },
+    "tau-0p3": {
+      "cases": 1,
+      "speaker_count_exact_cases": 0,
+      "audio_ms": 69556,
+      "speaker_absolute_error_sum": 1,
+      "wer_raw": {
+        "errors": 11,
+        "reference_tokens": 140,
+        "rate": 0.07857142857142857
+      },
+      "wer_normalized": {
+        "errors": 2,
+        "reference_tokens": 137,
+        "rate": 0.014598540145985401
+      },
+      "cpwer_raw": {
+        "errors": 130,
+        "reference_tokens": 140,
+        "rate": 0.9285714285714286
+      },
+      "cpwer_normalized": {
+        "errors": 125,
+        "reference_tokens": 137,
+        "rate": 0.9124087591240876
+      },
+      "native_der_collar_0ms": {
+        "miss_ms": 6537.0,
+        "false_alarm_ms": 0.0,
+        "confusion_ms": 29278.0,
+        "reference_speaker_ms": 66546.0,
+        "rate": 0.538199140444204
+      },
+      "native_der_collar_250ms": {
+        "miss_ms": 4733.0,
+        "false_alarm_ms": 0.0,
+        "confusion_ms": 29161.0,
+        "reference_speaker_ms": 64546.0,
+        "rate": 0.5251138722771357
+      },
+      "der_collar_0ms": {
+        "miss_ms": 9726.0,
+        "false_alarm_ms": 180.0,
+        "confusion_ms": 27832.0,
+        "reference_speaker_ms": 66546.0,
+        "rate": 0.567096444564662
+      },
+      "der_collar_250ms": {
+        "miss_ms": 7976.0,
+        "false_alarm_ms": 0.0,
+        "confusion_ms": 27707.0,
+        "reference_speaker_ms": 64546.0,
+        "rate": 0.5528305394602299
+      },
+      "speaker_count_exact_success_fraction": 0.0,
+      "timing_scope": "Saved neural outputs; refiner-only wall time. No whole-pipeline or Android RTF.",
+      "expected_cases": 1,
+      "complete_case_coverage": true,
+      "new_diarization_inference": false,
+      "new_asr_inference": false,
+      "refiner_only_ms": 60.203607001312776,
+      "refiner_accepted_cases": 1,
+      "refiner_unsupported_cases": 0,
+      "raw_wer_invariant": true
+    },
+    "tau-0p35": {
+      "cases": 1,
+      "speaker_count_exact_cases": 0,
+      "audio_ms": 69556,
+      "speaker_absolute_error_sum": 1,
+      "wer_raw": {
+        "errors": 11,
+        "reference_tokens": 140,
+        "rate": 0.07857142857142857
+      },
+      "wer_normalized": {
+        "errors": 2,
+        "reference_tokens": 137,
+        "rate": 0.014598540145985401
+      },
+      "cpwer_raw": {
+        "errors": 130,
+        "reference_tokens": 140,
+        "rate": 0.9285714285714286
+      },
+      "cpwer_normalized": {
+        "errors": 125,
+        "reference_tokens": 137,
+        "rate": 0.9124087591240876
+      },
+      "native_der_collar_0ms": {
+        "miss_ms": 6537.0,
+        "false_alarm_ms": 0.0,
+        "confusion_ms": 29278.0,
+        "reference_speaker_ms": 66546.0,
+        "rate": 0.538199140444204
+      },
+      "native_der_collar_250ms": {
+        "miss_ms": 4733.0,
+        "false_alarm_ms": 0.0,
+        "confusion_ms": 29161.0,
+        "reference_speaker_ms": 64546.0,
+        "rate": 0.5251138722771357
+      },
+      "der_collar_0ms": {
+        "miss_ms": 9726.0,
+        "false_alarm_ms": 180.0,
+        "confusion_ms": 27832.0,
+        "reference_speaker_ms": 66546.0,
+        "rate": 0.567096444564662
+      },
+      "der_collar_250ms": {
+        "miss_ms": 7976.0,
+        "false_alarm_ms": 0.0,
+        "confusion_ms": 27707.0,
+        "reference_speaker_ms": 64546.0,
+        "rate": 0.5528305394602299
+      },
+      "speaker_count_exact_success_fraction": 0.0,
+      "timing_scope": "Saved neural outputs; refiner-only wall time. No whole-pipeline or Android RTF.",
+      "expected_cases": 1,
+      "complete_case_coverage": true,
+      "new_diarization_inference": false,
+      "new_asr_inference": false,
+      "refiner_only_ms": 64.03256499834242,
+      "refiner_accepted_cases": 1,
+      "refiner_unsupported_cases": 0,
+      "raw_wer_invariant": true
+    },
+    "tau-0p4": {
+      "cases": 1,
+      "speaker_count_exact_cases": 0,
+      "audio_ms": 69556,
+      "speaker_absolute_error_sum": 1,
+      "wer_raw": {
+        "errors": 11,
+        "reference_tokens": 140,
+        "rate": 0.07857142857142857
+      },
+      "wer_normalized": {
+        "errors": 2,
+        "reference_tokens": 137,
+        "rate": 0.014598540145985401
+      },
+      "cpwer_raw": {
+        "errors": 130,
+        "reference_tokens": 140,
+        "rate": 0.9285714285714286
+      },
+      "cpwer_normalized": {
+        "errors": 125,
+        "reference_tokens": 137,
+        "rate": 0.9124087591240876
+      },
+      "native_der_collar_0ms": {
+        "miss_ms": 6537.0,
+        "false_alarm_ms": 0.0,
+        "confusion_ms": 29278.0,
+        "reference_speaker_ms": 66546.0,
+        "rate": 0.538199140444204
+      },
+      "native_der_collar_250ms": {
+        "miss_ms": 4733.0,
+        "false_alarm_ms": 0.0,
+        "confusion_ms": 29161.0,
+        "reference_speaker_ms": 64546.0,
+        "rate": 0.5251138722771357
+      },
+      "der_collar_0ms": {
+        "miss_ms": 9726.0,
+        "false_alarm_ms": 180.0,
+        "confusion_ms": 27832.0,
+        "reference_speaker_ms": 66546.0,
+        "rate": 0.567096444564662
+      },
+      "der_collar_250ms": {
+        "miss_ms": 7976.0,
+        "false_alarm_ms": 0.0,
+        "confusion_ms": 27707.0,
+        "reference_speaker_ms": 64546.0,
+        "rate": 0.5528305394602299
+      },
+      "speaker_count_exact_success_fraction": 0.0,
+      "timing_scope": "Saved neural outputs; refiner-only wall time. No whole-pipeline or Android RTF.",
+      "expected_cases": 1,
+      "complete_case_coverage": true,
+      "new_diarization_inference": false,
+      "new_asr_inference": false,
+      "refiner_only_ms": 51.376031999097904,
+      "refiner_accepted_cases": 1,
+      "refiner_unsupported_cases": 0,
+      "raw_wer_invariant": true
+    },
+    "tau-0p45": {
+      "cases": 1,
+      "speaker_count_exact_cases": 0,
+      "audio_ms": 69556,
+      "speaker_absolute_error_sum": 1,
+      "wer_raw": {
+        "errors": 11,
+        "reference_tokens": 140,
+        "rate": 0.07857142857142857
+      },
+      "wer_normalized": {
+        "errors": 2,
+        "reference_tokens": 137,
+        "rate": 0.014598540145985401
+      },
+      "cpwer_raw": {
+        "errors": 130,
+        "reference_tokens": 140,
+        "rate": 0.9285714285714286
+      },
+      "cpwer_normalized": {
+        "errors": 125,
+        "reference_tokens": 137,
+        "rate": 0.9124087591240876
+      },
+      "native_der_collar_0ms": {
+        "miss_ms": 6537.0,
+        "false_alarm_ms": 0.0,
+        "confusion_ms": 29278.0,
+        "reference_speaker_ms": 66546.0,
+        "rate": 0.538199140444204
+      },
+      "native_der_collar_250ms": {
+        "miss_ms": 4733.0,
+        "false_alarm_ms": 0.0,
+        "confusion_ms": 29161.0,
+        "reference_speaker_ms": 64546.0,
+        "rate": 0.5251138722771357
+      },
+      "der_collar_0ms": {
+        "miss_ms": 9726.0,
+        "false_alarm_ms": 180.0,
+        "confusion_ms": 27832.0,
+        "reference_speaker_ms": 66546.0,
+        "rate": 0.567096444564662
+      },
+      "der_collar_250ms": {
+        "miss_ms": 7976.0,
+        "false_alarm_ms": 0.0,
+        "confusion_ms": 27707.0,
+        "reference_speaker_ms": 64546.0,
+        "rate": 0.5528305394602299
+      },
+      "speaker_count_exact_success_fraction": 0.0,
+      "timing_scope": "Saved neural outputs; refiner-only wall time. No whole-pipeline or Android RTF.",
+      "expected_cases": 1,
+      "complete_case_coverage": true,
+      "new_diarization_inference": false,
+      "new_asr_inference": false,
+      "refiner_only_ms": 37.8695119979966,
+      "refiner_accepted_cases": 1,
+      "refiner_unsupported_cases": 0,
+      "raw_wer_invariant": true
+    },
+    "tau-0p5": {
+      "cases": 1,
+      "speaker_count_exact_cases": 0,
+      "audio_ms": 69556,
+      "speaker_absolute_error_sum": 1,
+      "wer_raw": {
+        "errors": 11,
+        "reference_tokens": 140,
+        "rate": 0.07857142857142857
+      },
+      "wer_normalized": {
+        "errors": 2,
+        "reference_tokens": 137,
+        "rate": 0.014598540145985401
+      },
+      "cpwer_raw": {
+        "errors": 130,
+        "reference_tokens": 140,
+        "rate": 0.9285714285714286
+      },
+      "cpwer_normalized": {
+        "errors": 125,
+        "reference_tokens": 137,
+        "rate": 0.9124087591240876
+      },
+      "native_der_collar_0ms": {
+        "miss_ms": 6537.0,
+        "false_alarm_ms": 0.0,
+        "confusion_ms": 29278.0,
+        "reference_speaker_ms": 66546.0,
+        "rate": 0.538199140444204
+      },
+      "native_der_collar_250ms": {
+        "miss_ms": 4733.0,
+        "false_alarm_ms": 0.0,
+        "confusion_ms": 29161.0,
+        "reference_speaker_ms": 64546.0,
+        "rate": 0.5251138722771357
+      },
+      "der_collar_0ms": {
+        "miss_ms": 9726.0,
+        "false_alarm_ms": 180.0,
+        "confusion_ms": 27832.0,
+        "reference_speaker_ms": 66546.0,
+        "rate": 0.567096444564662
+      },
+      "der_collar_250ms": {
+        "miss_ms": 7976.0,
+        "false_alarm_ms": 0.0,
+        "confusion_ms": 27707.0,
+        "reference_speaker_ms": 64546.0,
+        "rate": 0.5528305394602299
+      },
+      "speaker_count_exact_success_fraction": 0.0,
+      "timing_scope": "Saved neural outputs; refiner-only wall time. No whole-pipeline or Android RTF.",
+      "expected_cases": 1,
+      "complete_case_coverage": true,
+      "new_diarization_inference": false,
+      "new_asr_inference": false,
+      "refiner_only_ms": 57.655967997561675,
+      "refiner_accepted_cases": 1,
+      "refiner_unsupported_cases": 0,
+      "raw_wer_invariant": true
+    },
+    "tau-0p55": {
+      "cases": 1,
+      "speaker_count_exact_cases": 1,
+      "audio_ms": 69556,
+      "speaker_absolute_error_sum": 0,
+      "wer_raw": {
+        "errors": 11,
+        "reference_tokens": 140,
+        "rate": 0.07857142857142857
+      },
+      "wer_normalized": {
+        "errors": 2,
+        "reference_tokens": 137,
+        "rate": 0.014598540145985401
+      },
+      "cpwer_raw": {
+        "errors": 11,
+        "reference_tokens": 140,
+        "rate": 0.07857142857142857
+      },
+      "cpwer_normalized": {
+        "errors": 2,
+        "reference_tokens": 137,
+        "rate": 0.014598540145985401
+      },
+      "native_der_collar_0ms": {
+        "miss_ms": 6537.0,
+        "false_alarm_ms": 0.0,
+        "confusion_ms": 0.0,
+        "reference_speaker_ms": 66546.0,
+        "rate": 0.09823280137048057
+      },
+      "native_der_collar_250ms": {
+        "miss_ms": 4733.0,
+        "false_alarm_ms": 0.0,
+        "confusion_ms": 0.0,
+        "reference_speaker_ms": 64546.0,
+        "rate": 0.07332754934465342
+      },
+      "der_collar_0ms": {
+        "miss_ms": 10226.0,
+        "false_alarm_ms": 0.0,
+        "confusion_ms": 0.0,
+        "reference_speaker_ms": 66546.0,
+        "rate": 0.15366813933219126
+      },
+      "der_collar_250ms": {
+        "miss_ms": 8283.0,
+        "false_alarm_ms": 0.0,
+        "confusion_ms": 0.0,
+        "reference_speaker_ms": 64546.0,
+        "rate": 0.1283270845598488
+      },
+      "speaker_count_exact_success_fraction": 1.0,
+      "timing_scope": "Saved neural outputs; refiner-only wall time. No whole-pipeline or Android RTF.",
+      "expected_cases": 1,
+      "complete_case_coverage": true,
+      "new_diarization_inference": false,
+      "new_asr_inference": false,
+      "refiner_only_ms": 67.00069700309541,
+      "refiner_accepted_cases": 1,
+      "refiner_unsupported_cases": 0,
+      "raw_wer_invariant": true
+    },
+    "tau-0p6": {
+      "cases": 1,
+      "speaker_count_exact_cases": 1,
+      "audio_ms": 69556,
+      "speaker_absolute_error_sum": 0,
+      "wer_raw": {
+        "errors": 11,
+        "reference_tokens": 140,
+        "rate": 0.07857142857142857
+      },
+      "wer_normalized": {
+        "errors": 2,
+        "reference_tokens": 137,
+        "rate": 0.014598540145985401
+      },
+      "cpwer_raw": {
+        "errors": 11,
+        "reference_tokens": 140,
+        "rate": 0.07857142857142857
+      },
+      "cpwer_normalized": {
+        "errors": 2,
+        "reference_tokens": 137,
+        "rate": 0.014598540145985401
+      },
+      "native_der_collar_0ms": {
+        "miss_ms": 6537.0,
+        "false_alarm_ms": 0.0,
+        "confusion_ms": 0.0,
+        "reference_speaker_ms": 66546.0,
+        "rate": 0.09823280137048057
+      },
+      "native_der_collar_250ms": {
+        "miss_ms": 4733.0,
+        "false_alarm_ms": 0.0,
+        "confusion_ms": 0.0,
+        "reference_speaker_ms": 64546.0,
+        "rate": 0.07332754934465342
+      },
+      "der_collar_0ms": {
+        "miss_ms": 10226.0,
+        "false_alarm_ms": 0.0,
+        "confusion_ms": 0.0,
+        "reference_speaker_ms": 66546.0,
+        "rate": 0.15366813933219126
+      },
+      "der_collar_250ms": {
+        "miss_ms": 8283.0,
+        "false_alarm_ms": 0.0,
+        "confusion_ms": 0.0,
+        "reference_speaker_ms": 64546.0,
+        "rate": 0.1283270845598488
+      },
+      "speaker_count_exact_success_fraction": 1.0,
+      "timing_scope": "Saved neural outputs; refiner-only wall time. No whole-pipeline or Android RTF.",
+      "expected_cases": 1,
+      "complete_case_coverage": true,
+      "new_diarization_inference": false,
+      "new_asr_inference": false,
+      "refiner_only_ms": 50.24509400027455,
+      "refiner_accepted_cases": 1,
+      "refiner_unsupported_cases": 0,
+      "raw_wer_invariant": true
+    },
+    "tau-0p65": {
+      "cases": 1,
+      "speaker_count_exact_cases": 1,
+      "audio_ms": 69556,
+      "speaker_absolute_error_sum": 0,
+      "wer_raw": {
+        "errors": 11,
+        "reference_tokens": 140,
+        "rate": 0.07857142857142857
+      },
+      "wer_normalized": {
+        "errors": 2,
+        "reference_tokens": 137,
+        "rate": 0.014598540145985401
+      },
+      "cpwer_raw": {
+        "errors": 11,
+        "reference_tokens": 140,
+        "rate": 0.07857142857142857
+      },
+      "cpwer_normalized": {
+        "errors": 2,
+        "reference_tokens": 137,
+        "rate": 0.014598540145985401
+      },
+      "native_der_collar_0ms": {
+        "miss_ms": 6537.0,
+        "false_alarm_ms": 0.0,
+        "confusion_ms": 0.0,
+        "reference_speaker_ms": 66546.0,
+        "rate": 0.09823280137048057
+      },
+      "native_der_collar_250ms": {
+        "miss_ms": 4733.0,
+        "false_alarm_ms": 0.0,
+        "confusion_ms": 0.0,
+        "reference_speaker_ms": 64546.0,
+        "rate": 0.07332754934465342
+      },
+      "der_collar_0ms": {
+        "miss_ms": 10226.0,
+        "false_alarm_ms": 0.0,
+        "confusion_ms": 0.0,
+        "reference_speaker_ms": 66546.0,
+        "rate": 0.15366813933219126
+      },
+      "der_collar_250ms": {
+        "miss_ms": 8283.0,
+        "false_alarm_ms": 0.0,
+        "confusion_ms": 0.0,
+        "reference_speaker_ms": 64546.0,
+        "rate": 0.1283270845598488
+      },
+      "speaker_count_exact_success_fraction": 1.0,
+      "timing_scope": "Saved neural outputs; refiner-only wall time. No whole-pipeline or Android RTF.",
+      "expected_cases": 1,
+      "complete_case_coverage": true,
+      "new_diarization_inference": false,
+      "new_asr_inference": false,
+      "refiner_only_ms": 53.43616000027396,
+      "refiner_accepted_cases": 1,
+      "refiner_unsupported_cases": 0,
+      "raw_wer_invariant": true
+    },
+    "tau-0p7": {
+      "cases": 1,
+      "speaker_count_exact_cases": 1,
+      "audio_ms": 69556,
+      "speaker_absolute_error_sum": 0,
+      "wer_raw": {
+        "errors": 11,
+        "reference_tokens": 140,
+        "rate": 0.07857142857142857
+      },
+      "wer_normalized": {
+        "errors": 2,
+        "reference_tokens": 137,
+        "rate": 0.014598540145985401
+      },
+      "cpwer_raw": {
+        "errors": 11,
+        "reference_tokens": 140,
+        "rate": 0.07857142857142857
+      },
+      "cpwer_normalized": {
+        "errors": 2,
+        "reference_tokens": 137,
+        "rate": 0.014598540145985401
+      },
+      "native_der_collar_0ms": {
+        "miss_ms": 6537.0,
+        "false_alarm_ms": 0.0,
+        "confusion_ms": 0.0,
+        "reference_speaker_ms": 66546.0,
+        "rate": 0.09823280137048057
+      },
+      "native_der_collar_250ms": {
+        "miss_ms": 4733.0,
+        "false_alarm_ms": 0.0,
+        "confusion_ms": 0.0,
+        "reference_speaker_ms": 64546.0,
+        "rate": 0.07332754934465342
+      },
+      "der_collar_0ms": {
+        "miss_ms": 10226.0,
+        "false_alarm_ms": 0.0,
+        "confusion_ms": 0.0,
+        "reference_speaker_ms": 66546.0,
+        "rate": 0.15366813933219126
+      },
+      "der_collar_250ms": {
+        "miss_ms": 8283.0,
+        "false_alarm_ms": 0.0,
+        "confusion_ms": 0.0,
+        "reference_speaker_ms": 64546.0,
+        "rate": 0.1283270845598488
+      },
+      "speaker_count_exact_success_fraction": 1.0,
+      "timing_scope": "Saved neural outputs; refiner-only wall time. No whole-pipeline or Android RTF.",
+      "expected_cases": 1,
+      "complete_case_coverage": true,
+      "new_diarization_inference": false,
+      "new_asr_inference": false,
+      "refiner_only_ms": 71.37885100019048,
+      "refiner_accepted_cases": 1,
+      "refiner_unsupported_cases": 0,
+      "raw_wer_invariant": true
+    },
+    "tau-0p75": {
+      "cases": 1,
+      "speaker_count_exact_cases": 0,
+      "audio_ms": 69556,
+      "speaker_absolute_error_sum": 1,
+      "wer_raw": {
+        "errors": 11,
+        "reference_tokens": 140,
+        "rate": 0.07857142857142857
+      },
+      "wer_normalized": {
+        "errors": 2,
+        "reference_tokens": 137,
+        "rate": 0.014598540145985401
+      },
+      "cpwer_raw": {
+        "errors": 77,
+        "reference_tokens": 140,
+        "rate": 0.55
+      },
+      "cpwer_normalized": {
+        "errors": 68,
+        "reference_tokens": 137,
+        "rate": 0.49635036496350365
+      },
+      "native_der_collar_0ms": {
+        "miss_ms": 6537.0,
+        "false_alarm_ms": 0.0,
+        "confusion_ms": 12656.0,
+        "reference_speaker_ms": 66546.0,
+        "rate": 0.2884170348330478
+      },
+      "native_der_collar_250ms": {
+        "miss_ms": 4733.0,
+        "false_alarm_ms": 0.0,
+        "confusion_ms": 12539.0,
+        "reference_speaker_ms": 64546.0,
+        "rate": 0.26759210485545193
+      },
+      "der_collar_0ms": {
+        "miss_ms": 10226.0,
+        "false_alarm_ms": 0.0,
+        "confusion_ms": 11640.0,
+        "reference_speaker_ms": 66546.0,
+        "rate": 0.3285847383764614
+      },
+      "der_collar_250ms": {
+        "miss_ms": 8283.0,
+        "false_alarm_ms": 0.0,
+        "confusion_ms": 11640.0,
+        "reference_speaker_ms": 64546.0,
+        "rate": 0.3086635887584049
+      },
+      "speaker_count_exact_success_fraction": 0.0,
+      "timing_scope": "Saved neural outputs; refiner-only wall time. No whole-pipeline or Android RTF.",
+      "expected_cases": 1,
+      "complete_case_coverage": true,
+      "new_diarization_inference": false,
+      "new_asr_inference": false,
+      "refiner_only_ms": 57.30861000120058,
+      "refiner_accepted_cases": 1,
+      "refiner_unsupported_cases": 0,
+      "raw_wer_invariant": true
+    },
+    "tau-0p8": {
+      "cases": 1,
+      "speaker_count_exact_cases": 0,
+      "audio_ms": 69556,
+      "speaker_absolute_error_sum": 2,
+      "wer_raw": {
+        "errors": 11,
+        "reference_tokens": 140,
+        "rate": 0.07857142857142857
+      },
+      "wer_normalized": {
+        "errors": 2,
+        "reference_tokens": 137,
+        "rate": 0.014598540145985401
+      },
+      "cpwer_raw": {
+        "errors": 77,
+        "reference_tokens": 140,
+        "rate": 0.55
+      },
+      "cpwer_normalized": {
+        "errors": 68,
+        "reference_tokens": 137,
+        "rate": 0.49635036496350365
+      },
+      "native_der_collar_0ms": {
+        "miss_ms": 6537.0,
+        "false_alarm_ms": 0.0,
+        "confusion_ms": 12656.0,
+        "reference_speaker_ms": 66546.0,
+        "rate": 0.2884170348330478
+      },
+      "native_der_collar_250ms": {
+        "miss_ms": 4733.0,
+        "false_alarm_ms": 0.0,
+        "confusion_ms": 12539.0,
+        "reference_speaker_ms": 64546.0,
+        "rate": 0.26759210485545193
+      },
+      "der_collar_0ms": {
+        "miss_ms": 10226.0,
+        "false_alarm_ms": 0.0,
+        "confusion_ms": 11640.0,
+        "reference_speaker_ms": 66546.0,
+        "rate": 0.3285847383764614
+      },
+      "der_collar_250ms": {
+        "miss_ms": 8283.0,
+        "false_alarm_ms": 0.0,
+        "confusion_ms": 11640.0,
+        "reference_speaker_ms": 64546.0,
+        "rate": 0.3086635887584049
+      },
+      "speaker_count_exact_success_fraction": 0.0,
+      "timing_scope": "Saved neural outputs; refiner-only wall time. No whole-pipeline or Android RTF.",
+      "expected_cases": 1,
+      "complete_case_coverage": true,
+      "new_diarization_inference": false,
+      "new_asr_inference": false,
+      "refiner_only_ms": 56.99182999887853,
+      "refiner_accepted_cases": 1,
+      "refiner_unsupported_cases": 0,
+      "raw_wer_invariant": true
+    },
+    "tau-0p85": {
+      "cases": 1,
+      "speaker_count_exact_cases": 0,
+      "audio_ms": 69556,
+      "speaker_absolute_error_sum": 4,
+      "wer_raw": {
+        "errors": 11,
+        "reference_tokens": 140,
+        "rate": 0.07857142857142857
+      },
+      "wer_normalized": {
+        "errors": 2,
+        "reference_tokens": 137,
+        "rate": 0.014598540145985401
+      },
+      "cpwer_raw": {
+        "errors": 128,
+        "reference_tokens": 140,
+        "rate": 0.9142857142857143
+      },
+      "cpwer_normalized": {
+        "errors": 119,
+        "reference_tokens": 137,
+        "rate": 0.8686131386861314
+      },
+      "native_der_collar_0ms": {
+        "miss_ms": 6537.0,
+        "false_alarm_ms": 0.0,
+        "confusion_ms": 24873.0,
+        "reference_speaker_ms": 66546.0,
+        "rate": 0.4720043278333784
+      },
+      "native_der_collar_250ms": {
+        "miss_ms": 4733.0,
+        "false_alarm_ms": 0.0,
+        "confusion_ms": 24831.0,
+        "reference_speaker_ms": 64546.0,
+        "rate": 0.4580299321414185
+      },
+      "der_collar_0ms": {
+        "miss_ms": 10906.0,
+        "false_alarm_ms": 0.0,
+        "confusion_ms": 22320.0,
+        "reference_speaker_ms": 66546.0,
+        "rate": 0.4992937216361614
+      },
+      "der_collar_250ms": {
+        "miss_ms": 8963.0,
+        "false_alarm_ms": 0.0,
+        "confusion_ms": 22320.0,
+        "reference_speaker_ms": 64546.0,
+        "rate": 0.48466210144703004
+      },
+      "speaker_count_exact_success_fraction": 0.0,
+      "timing_scope": "Saved neural outputs; refiner-only wall time. No whole-pipeline or Android RTF.",
+      "expected_cases": 1,
+      "complete_case_coverage": true,
+      "new_diarization_inference": false,
+      "new_asr_inference": false,
+      "refiner_only_ms": 57.06847699912032,
+      "refiner_accepted_cases": 1,
+      "refiner_unsupported_cases": 0,
+      "raw_wer_invariant": true
+    },
+    "tau-0p9": {
+      "cases": 1,
+      "speaker_count_exact_cases": 0,
+      "audio_ms": 69556,
+      "speaker_absolute_error_sum": 4,
+      "wer_raw": {
+        "errors": 11,
+        "reference_tokens": 140,
+        "rate": 0.07857142857142857
+      },
+      "wer_normalized": {
+        "errors": 2,
+        "reference_tokens": 137,
+        "rate": 0.014598540145985401
+      },
+      "cpwer_raw": {
+        "errors": 128,
+        "reference_tokens": 140,
+        "rate": 0.9142857142857143
+      },
+      "cpwer_normalized": {
+        "errors": 119,
+        "reference_tokens": 137,
+        "rate": 0.8686131386861314
+      },
+      "native_der_collar_0ms": {
+        "miss_ms": 6537.0,
+        "false_alarm_ms": 0.0,
+        "confusion_ms": 24873.0,
+        "reference_speaker_ms": 66546.0,
+        "rate": 0.4720043278333784
+      },
+      "native_der_collar_250ms": {
+        "miss_ms": 4733.0,
+        "false_alarm_ms": 0.0,
+        "confusion_ms": 24831.0,
+        "reference_speaker_ms": 64546.0,
+        "rate": 0.4580299321414185
+      },
+      "der_collar_0ms": {
+        "miss_ms": 10906.0,
+        "false_alarm_ms": 0.0,
+        "confusion_ms": 22320.0,
+        "reference_speaker_ms": 66546.0,
+        "rate": 0.4992937216361614
+      },
+      "der_collar_250ms": {
+        "miss_ms": 8963.0,
+        "false_alarm_ms": 0.0,
+        "confusion_ms": 22320.0,
+        "reference_speaker_ms": 64546.0,
+        "rate": 0.48466210144703004
+      },
+      "speaker_count_exact_success_fraction": 0.0,
+      "timing_scope": "Saved neural outputs; refiner-only wall time. No whole-pipeline or Android RTF.",
+      "expected_cases": 1,
+      "complete_case_coverage": true,
+      "new_diarization_inference": false,
+      "new_asr_inference": false,
+      "refiner_only_ms": 67.53064499935135,
+      "refiner_accepted_cases": 1,
+      "refiner_unsupported_cases": 0,
+      "raw_wer_invariant": true
+    },
+    "tau-0p95": {
+      "cases": 1,
+      "speaker_count_exact_cases": 0,
+      "audio_ms": 69556,
+      "speaker_absolute_error_sum": 4,
+      "wer_raw": {
+        "errors": 11,
+        "reference_tokens": 140,
+        "rate": 0.07857142857142857
+      },
+      "wer_normalized": {
+        "errors": 2,
+        "reference_tokens": 137,
+        "rate": 0.014598540145985401
+      },
+      "cpwer_raw": {
+        "errors": 128,
+        "reference_tokens": 140,
+        "rate": 0.9142857142857143
+      },
+      "cpwer_normalized": {
+        "errors": 119,
+        "reference_tokens": 137,
+        "rate": 0.8686131386861314
+      },
+      "native_der_collar_0ms": {
+        "miss_ms": 6537.0,
+        "false_alarm_ms": 0.0,
+        "confusion_ms": 24873.0,
+        "reference_speaker_ms": 66546.0,
+        "rate": 0.4720043278333784
+      },
+      "native_der_collar_250ms": {
+        "miss_ms": 4733.0,
+        "false_alarm_ms": 0.0,
+        "confusion_ms": 24831.0,
+        "reference_speaker_ms": 64546.0,
+        "rate": 0.4580299321414185
+      },
+      "der_collar_0ms": {
+        "miss_ms": 10906.0,
+        "false_alarm_ms": 0.0,
+        "confusion_ms": 22320.0,
+        "reference_speaker_ms": 66546.0,
+        "rate": 0.4992937216361614
+      },
+      "der_collar_250ms": {
+        "miss_ms": 8963.0,
+        "false_alarm_ms": 0.0,
+        "confusion_ms": 22320.0,
+        "reference_speaker_ms": 64546.0,
+        "rate": 0.48466210144703004
+      },
+      "speaker_count_exact_success_fraction": 0.0,
+      "timing_scope": "Saved neural outputs; refiner-only wall time. No whole-pipeline or Android RTF.",
+      "expected_cases": 1,
+      "complete_case_coverage": true,
+      "new_diarization_inference": false,
+      "new_asr_inference": false,
+      "refiner_only_ms": 60.44565099728061,
+      "refiner_accepted_cases": 1,
+      "refiner_unsupported_cases": 0,
+      "raw_wer_invariant": true
+    }
+  },
+  "failures": [],
+  "pending_cases": [],
+  "new_diarization_inference": false,
+  "new_asr_inference": false,
+  "timing_scope": "Saved neural outputs; refiner-only wall time. No whole-pipeline or Android RTF.",
+  "scope": "Saved-evidence refiner research; montage interval DER proxy. No release gate or Android performance claim."
+}

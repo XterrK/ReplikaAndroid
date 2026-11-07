@@ -1,0 +1,77 @@
+{
+  "status": "RUNNING",
+  "run": "eval20261107T023031761011Z",
+  "cases": [
+    {
+      "id": "dev-01-two-clean",
+      "status": "COMPLETE",
+      "audio_sha256": "80bdb11e4d9e313d2440c01b80babc0dbe319c9dbea371988ef62716ffb9d77b",
+      "duration_ms": 69556,
+      "processing_ms": 101306,
+      "worker_wall_ms": 102684,
+      "segments": 13,
+      "newModelInference": true,
+      "recordingId": "qa-evaluation-387600ff-aa32-4066-b617-b5ca4f9bc982",
+      "workId": "943b16b2-012b-488d-894a-3bdd9d4f981c",
+      "diarizationEvidenceSha256": "e504a7100534099e0dd108873ad3e37a67f77a2a9148d21f6e1f70de6e40bd41",
+      "diarizationEvidenceBytes": 799176,
+      "diarizationEvidenceFile": "dev-01-two-clean.diarization-evidence.json"
+    },
+    {
+      "id": "dev-02-three-clean",
+      "status": "COMPLETE",
+      "audio_sha256": "54dd41aa60e05602adcebc10d38a3a4f1cb2cf3ebdcc014d46a1387fbcc8a040",
+      "duration_ms": 59280,
+      "processing_ms": 74223,
+      "worker_wall_ms": 75066,
+      "segments": 10,
+      "newModelInference": true,
+      "recordingId": "qa-evaluation-acf77792-c946-4d85-8abf-440a618c0eb5",
+      "workId": "3c6f4987-01ed-4146-ba9e-e5e0637e3573",
+      "diarizationEvidenceSha256": "e88e4635e61ee9619e9ca51961763d1372444a67a94e13d7ea9368ac0e79d35f",
+      "diarizationEvidenceBytes": 709971,
+      "diarizationEvidenceFile": "dev-02-three-clean.diarization-evidence.json"
+    }
+  ],
+  "scope": "Actual Android production Worker; independent reference text\/counts are not staged or passed to recognition",
+  "api": 35,
+  "supportedAbis": [
+    "x86_64"
+  ],
+  "threads": 2,
+  "expectedSpeakers": -1,
+  "newModelInference": true,
+  "asrPlan": "vad_words_context600",
+  "asrPolicy": {
+    "pipeline": "vad_words_v1",
+    "punctuation_mode": "none",
+    "energy_split": true,
+    "vad_threshold": 0.5,
+    "vad_min_speech_sec": 0.25,
+    "vad_min_silence_sec": 0.25,
+    "pre_roll_ms": 600
+  },
+  "diarizationPlanRequested": "eres2net_window_v1",
+  "diarizationPlan": "eres2net_window_v1",
+  "diarizationPolicy": {
+    "plan": "eres2net_window_v1",
+    "algorithm": "window-overcluster-v1",
+    "embedding_path": "diar\/embedding.onnx",
+    "native_threshold": 0.30000001192092896,
+    "window_shift": 0.10000000149011612,
+    "min_duration_on": 0.20000000298023224,
+    "min_duration_off": 0.5,
+    "window_config": {
+      "tau": 0.36,
+      "method": "average",
+      "grid_ms": 125,
+      "max_speakers": 8,
+      "reassign_small": true,
+      "min_cluster_ms": 2000,
+      "min_cluster_fraction": 0.03,
+      "minimum_reassignment_similarity": null,
+      "smooth": true,
+      "smooth_ms": 500
+    }
+  }
+}

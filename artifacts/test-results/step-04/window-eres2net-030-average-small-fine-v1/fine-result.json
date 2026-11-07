@@ -1,0 +1,558 @@
+{
+  "schema_version": 1,
+  "audited_at": "2026-11-07T00:52:31.121347+00:00",
+  "status": "PASS",
+  "scope": "Dev-only bounded saved-vector C2 experiment. No holdout, Android, whole-pipeline or release acceptance; no new neural inference.",
+  "protocol": {
+    "path": "configs/eval/diar-protocol-window-fine-v1.json",
+    "sha256": "231830a6cf5e9516720b3cc4d64644935574de59ef01e124e7151bb6c712c951",
+    "frozen_at": "2026-11-07T00:46:09.058368+00:00"
+  },
+  "run": {
+    "started_at": "2026-11-07T00:46:11.810790+00:00",
+    "completed_at": "2026-11-07T00:46:46.781147+00:00",
+    "sha256": "9725640aeb022b6f2f2a9ba85a15b0472a3e1643a35f2d155a447ed62e459122",
+    "source_fingerprint_sha256": "5c6fbc513bfbfa5f0c85f1d161704f1703e0fd6d05d171d3df2fbaacb15502b6",
+    "summary_sha256": "9031fe5a3d4ac02668682711125a5b0e640a496051866e308346ee0fbe1347c9"
+  },
+  "unchanged_gates": {
+    "native_count_exact_minimum": 7,
+    "cases": 8,
+    "native_der_0ms_maximum": 0.2888518170426065,
+    "raw_wer": "exact saved D words; primary raw still includes punctuation/case"
+  },
+  "audit": {
+    "saved_case_records_checked": 168,
+    "literal_streams_checked": 168,
+    "saved_and_source_evidence_sha_checked": true,
+    "frozen_code_sha_checked": true,
+    "native_der_case_scores_recomputed": 336,
+    "selected_all_standard_metrics_rescored_cases": 8,
+    "complete_profiles": 21,
+    "all_profiles_supported": true,
+    "raw_wer_all_profiles": {
+      "errors": 71,
+      "reference_tokens": 533
+    }
+  },
+  "passing_profiles": [
+    {
+      "profile": "tau-0p36",
+      "tau": 0.36,
+      "exact_cases": 7,
+      "cases": 8,
+      "native_der0": 0.18298480576441103,
+      "native_der250": 0.15144996092303895,
+      "cpwer_raw": {
+        "errors": 146,
+        "reference_tokens": 533,
+        "rate": 0.27392120075046905
+      },
+      "raw_wer": {
+        "errors": 71,
+        "reference_tokens": 533,
+        "rate": 0.13320825515947468
+      },
+      "joint_gate_pass": true
+    }
+  ],
+  "selected_global_profile": {
+    "profile": "tau-0p36",
+    "tau": 0.36,
+    "exact_cases": 7,
+    "cases": 8,
+    "native_der0": 0.18298480576441103,
+    "native_der250": 0.15144996092303895,
+    "cpwer_raw": {
+      "errors": 146,
+      "reference_tokens": 533,
+      "rate": 0.27392120075046905
+    },
+    "raw_wer": {
+      "errors": 71,
+      "reference_tokens": 533,
+      "rate": 0.13320825515947468
+    },
+    "joint_gate_pass": true
+  },
+  "selected_cases": [
+    {
+      "id": "dev-01-two-clean",
+      "native_k": 2,
+      "reference_k": 2,
+      "native_der0": 0.09949508610585159,
+      "cpwer_raw": 0.07857142857142857
+    },
+    {
+      "id": "dev-02-three-clean",
+      "native_k": 3,
+      "reference_k": 3,
+      "native_der0": 0.09215721464465183,
+      "cpwer_raw": 0.15254237288135594
+    },
+    {
+      "id": "dev-03-short",
+      "native_k": 2,
+      "reference_k": 2,
+      "native_der0": 0.3778242935418334,
+      "cpwer_raw": 0.7105263157894737
+    },
+    {
+      "id": "dev-04-expressive",
+      "native_k": 3,
+      "reference_k": 3,
+      "native_der0": 0.14959078508638982,
+      "cpwer_raw": 0.2
+    },
+    {
+      "id": "dev-05-whisper",
+      "native_k": 3,
+      "reference_k": 3,
+      "native_der0": 0.42373939911905856,
+      "cpwer_raw": 0.35555555555555557
+    },
+    {
+      "id": "dev-06-overlap",
+      "native_k": 2,
+      "reference_k": 3,
+      "native_der0": 0.30301578354002257,
+      "cpwer_raw": 0.717948717948718
+    },
+    {
+      "id": "dev-mono-m",
+      "native_k": 1,
+      "reference_k": 1,
+      "native_der0": 0.014450369860657147,
+      "cpwer_raw": 0.10344827586206896
+    },
+    {
+      "id": "dev-mono-s",
+      "native_k": 1,
+      "reference_k": 1,
+      "native_der0": 0.01405337123006474,
+      "cpwer_raw": 0.06666666666666667
+    }
+  ],
+  "minimum_der_profile": {
+    "profile": "tau-0p36",
+    "tau": 0.36,
+    "exact_cases": 7,
+    "cases": 8,
+    "native_der0": 0.18298480576441103,
+    "native_der250": 0.15144996092303895,
+    "cpwer_raw": {
+      "errors": 146,
+      "reference_tokens": 533,
+      "rate": 0.27392120075046905
+    },
+    "raw_wer": {
+      "errors": 71,
+      "reference_tokens": 533,
+      "rate": 0.13320825515947468
+    },
+    "joint_gate_pass": true
+  },
+  "rows": [
+    {
+      "profile": "tau-0p25",
+      "tau": 0.25,
+      "exact_cases": 4,
+      "cases": 8,
+      "native_der0": 0.2723175125313283,
+      "native_der250": 0.2413598782444161,
+      "cpwer_raw": {
+        "errors": 233,
+        "reference_tokens": 533,
+        "rate": 0.4371482176360225
+      },
+      "raw_wer": {
+        "errors": 71,
+        "reference_tokens": 533,
+        "rate": 0.13320825515947468
+      },
+      "joint_gate_pass": false
+    },
+    {
+      "profile": "tau-0p26",
+      "tau": 0.26,
+      "exact_cases": 4,
+      "cases": 8,
+      "native_der0": 0.2723175125313283,
+      "native_der250": 0.2413598782444161,
+      "cpwer_raw": {
+        "errors": 233,
+        "reference_tokens": 533,
+        "rate": 0.4371482176360225
+      },
+      "raw_wer": {
+        "errors": 71,
+        "reference_tokens": 533,
+        "rate": 0.13320825515947468
+      },
+      "joint_gate_pass": false
+    },
+    {
+      "profile": "tau-0p27",
+      "tau": 0.27,
+      "exact_cases": 4,
+      "cases": 8,
+      "native_der0": 0.2723175125313283,
+      "native_der250": 0.2413598782444161,
+      "cpwer_raw": {
+        "errors": 233,
+        "reference_tokens": 533,
+        "rate": 0.4371482176360225
+      },
+      "raw_wer": {
+        "errors": 71,
+        "reference_tokens": 533,
+        "rate": 0.13320825515947468
+      },
+      "joint_gate_pass": false
+    },
+    {
+      "profile": "tau-0p28",
+      "tau": 0.28,
+      "exact_cases": 4,
+      "cases": 8,
+      "native_der0": 0.2723175125313283,
+      "native_der250": 0.2413598782444161,
+      "cpwer_raw": {
+        "errors": 233,
+        "reference_tokens": 533,
+        "rate": 0.4371482176360225
+      },
+      "raw_wer": {
+        "errors": 71,
+        "reference_tokens": 533,
+        "rate": 0.13320825515947468
+      },
+      "joint_gate_pass": false
+    },
+    {
+      "profile": "tau-0p29",
+      "tau": 0.29,
+      "exact_cases": 5,
+      "cases": 8,
+      "native_der0": 0.2632675438596491,
+      "native_der250": 0.23333470445477356,
+      "cpwer_raw": {
+        "errors": 227,
+        "reference_tokens": 533,
+        "rate": 0.425891181988743
+      },
+      "raw_wer": {
+        "errors": 71,
+        "reference_tokens": 533,
+        "rate": 0.13320825515947468
+      },
+      "joint_gate_pass": false
+    },
+    {
+      "profile": "tau-0p3",
+      "tau": 0.3,
+      "exact_cases": 5,
+      "cases": 8,
+      "native_der0": 0.2632675438596491,
+      "native_der250": 0.23333470445477356,
+      "cpwer_raw": {
+        "errors": 227,
+        "reference_tokens": 533,
+        "rate": 0.425891181988743
+      },
+      "raw_wer": {
+        "errors": 71,
+        "reference_tokens": 533,
+        "rate": 0.13320825515947468
+      },
+      "joint_gate_pass": false
+    },
+    {
+      "profile": "tau-0p31",
+      "tau": 0.31,
+      "exact_cases": 5,
+      "cases": 8,
+      "native_der0": 0.2632675438596491,
+      "native_der250": 0.23333470445477356,
+      "cpwer_raw": {
+        "errors": 227,
+        "reference_tokens": 533,
+        "rate": 0.425891181988743
+      },
+      "raw_wer": {
+        "errors": 71,
+        "reference_tokens": 533,
+        "rate": 0.13320825515947468
+      },
+      "joint_gate_pass": false
+    },
+    {
+      "profile": "tau-0p32",
+      "tau": 0.32,
+      "exact_cases": 5,
+      "cases": 8,
+      "native_der0": 0.2632675438596491,
+      "native_der250": 0.23333470445477356,
+      "cpwer_raw": {
+        "errors": 227,
+        "reference_tokens": 533,
+        "rate": 0.425891181988743
+      },
+      "raw_wer": {
+        "errors": 71,
+        "reference_tokens": 533,
+        "rate": 0.13320825515947468
+      },
+      "joint_gate_pass": false
+    },
+    {
+      "profile": "tau-0p33",
+      "tau": 0.33,
+      "exact_cases": 5,
+      "cases": 8,
+      "native_der0": 0.2632675438596491,
+      "native_der250": 0.23333470445477356,
+      "cpwer_raw": {
+        "errors": 227,
+        "reference_tokens": 533,
+        "rate": 0.425891181988743
+      },
+      "raw_wer": {
+        "errors": 71,
+        "reference_tokens": 533,
+        "rate": 0.13320825515947468
+      },
+      "joint_gate_pass": false
+    },
+    {
+      "profile": "tau-0p34",
+      "tau": 0.34,
+      "exact_cases": 5,
+      "cases": 8,
+      "native_der0": 0.2632675438596491,
+      "native_der250": 0.23333470445477356,
+      "cpwer_raw": {
+        "errors": 227,
+        "reference_tokens": 533,
+        "rate": 0.425891181988743
+      },
+      "raw_wer": {
+        "errors": 71,
+        "reference_tokens": 533,
+        "rate": 0.13320825515947468
+      },
+      "joint_gate_pass": false
+    },
+    {
+      "profile": "tau-0p35",
+      "tau": 0.35,
+      "exact_cases": 6,
+      "cases": 8,
+      "native_der0": 0.23723370927318296,
+      "native_der250": 0.20666776356381886,
+      "cpwer_raw": {
+        "errors": 206,
+        "reference_tokens": 533,
+        "rate": 0.38649155722326456
+      },
+      "raw_wer": {
+        "errors": 71,
+        "reference_tokens": 533,
+        "rate": 0.13320825515947468
+      },
+      "joint_gate_pass": false
+    },
+    {
+      "profile": "tau-0p36",
+      "tau": 0.36,
+      "exact_cases": 7,
+      "cases": 8,
+      "native_der0": 0.18298480576441103,
+      "native_der250": 0.15144996092303895,
+      "cpwer_raw": {
+        "errors": 146,
+        "reference_tokens": 533,
+        "rate": 0.27392120075046905
+      },
+      "raw_wer": {
+        "errors": 71,
+        "reference_tokens": 533,
+        "rate": 0.13320825515947468
+      },
+      "joint_gate_pass": true
+    },
+    {
+      "profile": "tau-0p37",
+      "tau": 0.37,
+      "exact_cases": 6,
+      "cases": 8,
+      "native_der0": 0.19196036967418548,
+      "native_der250": 0.16087779194603266,
+      "cpwer_raw": {
+        "errors": 156,
+        "reference_tokens": 533,
+        "rate": 0.2926829268292683
+      },
+      "raw_wer": {
+        "errors": 71,
+        "reference_tokens": 533,
+        "rate": 0.13320825515947468
+      },
+      "joint_gate_pass": false
+    },
+    {
+      "profile": "tau-0p38",
+      "tau": 0.38,
+      "exact_cases": 5,
+      "cases": 8,
+      "native_der0": 0.19331923558897243,
+      "native_der250": 0.16144954958660687,
+      "cpwer_raw": {
+        "errors": 158,
+        "reference_tokens": 533,
+        "rate": 0.2964352720450281
+      },
+      "raw_wer": {
+        "errors": 71,
+        "reference_tokens": 533,
+        "rate": 0.13320825515947468
+      },
+      "joint_gate_pass": false
+    },
+    {
+      "profile": "tau-0p39",
+      "tau": 0.39,
+      "exact_cases": 5,
+      "cases": 8,
+      "native_der0": 0.18889019423558898,
+      "native_der250": 0.15734029863024968,
+      "cpwer_raw": {
+        "errors": 156,
+        "reference_tokens": 533,
+        "rate": 0.2926829268292683
+      },
+      "raw_wer": {
+        "errors": 71,
+        "reference_tokens": 533,
+        "rate": 0.13320825515947468
+      },
+      "joint_gate_pass": false
+    },
+    {
+      "profile": "tau-0p4",
+      "tau": 0.4,
+      "exact_cases": 4,
+      "cases": 8,
+      "native_der0": 0.20944940476190477,
+      "native_der250": 0.17893546131380855,
+      "cpwer_raw": {
+        "errors": 175,
+        "reference_tokens": 533,
+        "rate": 0.32833020637898686
+      },
+      "raw_wer": {
+        "errors": 71,
+        "reference_tokens": 533,
+        "rate": 0.13320825515947468
+      },
+      "joint_gate_pass": false
+    },
+    {
+      "profile": "tau-0p41",
+      "tau": 0.41,
+      "exact_cases": 3,
+      "cases": 8,
+      "native_der0": 0.21985432330827068,
+      "native_der250": 0.1906091892558924,
+      "cpwer_raw": {
+        "errors": 178,
+        "reference_tokens": 533,
+        "rate": 0.3339587242026266
+      },
+      "raw_wer": {
+        "errors": 71,
+        "reference_tokens": 533,
+        "rate": 0.13320825515947468
+      },
+      "joint_gate_pass": false
+    },
+    {
+      "profile": "tau-0p42",
+      "tau": 0.42,
+      "exact_cases": 3,
+      "cases": 8,
+      "native_der0": 0.21985432330827068,
+      "native_der250": 0.1906091892558924,
+      "cpwer_raw": {
+        "errors": 178,
+        "reference_tokens": 533,
+        "rate": 0.3339587242026266
+      },
+      "raw_wer": {
+        "errors": 71,
+        "reference_tokens": 533,
+        "rate": 0.13320825515947468
+      },
+      "joint_gate_pass": false
+    },
+    {
+      "profile": "tau-0p43",
+      "tau": 0.43,
+      "exact_cases": 3,
+      "cases": 8,
+      "native_der0": 0.35664160401002504,
+      "native_der250": 0.3330303154950434,
+      "cpwer_raw": {
+        "errors": 336,
+        "reference_tokens": 533,
+        "rate": 0.6303939962476548
+      },
+      "raw_wer": {
+        "errors": 71,
+        "reference_tokens": 533,
+        "rate": 0.13320825515947468
+      },
+      "joint_gate_pass": false
+    },
+    {
+      "profile": "tau-0p44",
+      "tau": 0.44,
+      "exact_cases": 3,
+      "cases": 8,
+      "native_der0": 0.35664160401002504,
+      "native_der250": 0.3330303154950434,
+      "cpwer_raw": {
+        "errors": 336,
+        "reference_tokens": 533,
+        "rate": 0.6303939962476548
+      },
+      "raw_wer": {
+        "errors": 71,
+        "reference_tokens": 533,
+        "rate": 0.13320825515947468
+      },
+      "joint_gate_pass": false
+    },
+    {
+      "profile": "tau-0p45",
+      "tau": 0.45,
+      "exact_cases": 2,
+      "cases": 8,
+      "native_der0": 0.3655701754385965,
+      "native_der250": 0.34240878614618897,
+      "cpwer_raw": {
+        "errors": 347,
+        "reference_tokens": 533,
+        "rate": 0.651031894934334
+      },
+      "raw_wer": {
+        "errors": 71,
+        "reference_tokens": 533,
+        "rate": 0.13320825515947468
+      },
+      "joint_gate_pass": false
+    }
+  ],
+  "next_boundary": "Freeze selected global tau0.36 before any separate original-holdout/reserve regression scoring. Dev is not validation acceptance.",
+  "performance": "Pure saved-window clustering only; no RTF/speed claim. CPU1/BLAS1 job overlapped live full C1 host run."
+}

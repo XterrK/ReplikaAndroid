@@ -1,0 +1,113 @@
+{
+  "schema_version": 1,
+  "status": "PASS",
+  "created_at": "2026-11-07T02:24:49.836782+00:00",
+  "case_id": "dev-mono-s",
+  "scope": "Pure validation of one actual Android C2 functional smoke. No new NN/ADB/build. Not corpus quality, WER/DER gate, ARM/phone performance or release acceptance.",
+  "new_model_inference": false,
+  "source_native_inference": true,
+  "source_collector_version": 3,
+  "source_collector_frozen_at": "2026-11-07T02:08:27.558698+00:00",
+  "source_code_sha256": {
+    "tools/eval/native_diar_policy.py": "82af9dd27356ac4b84f3793404b55d4515fbdd0ebcd19ab17758199273034609",
+    "tools/eval/pull_refined_android.py": "28f86e9d56eab705835310637b682d5de6dfb15fb353178d7cbd8e78bb38e159",
+    "tools/eval/native_policy.py": "b6d7fd2de6a7ca7f1776de9fa3924c623918709e0358977bae059569ef4da36b",
+    "tools/eval/port_comparison.py": "8705abd0f4696520047032020f19069308b343008af3d7ed976b895c62e398c4",
+    "tools/eval/window_overcluster.py": "23cffbba55b75e69695a2b508093505dcad74c804cb7913fd77356b67196acd4",
+    "tools/eval/speaker_refiner.py": "4f52854185c9ad4b2e54b9679a9670b5415d5a9fcc1c16d0c5f392eb6aa69eb1",
+    "tools/eval/vad_words.py": "1310361aecdab50e6c977032b73f01352d870af7416904b6dca22b682f3c76a7",
+    "tools/eval/pipeline.py": "fcdea5e2028e2c46226ab24ff0ac4fe33743fb15bfe853789e156f50203b137a",
+    "app/src/main/java/ru/replika/ml/DiarizationEvidence.kt": "9a66afaedc296e369e26fdb903917e3cf54cb6da170ba5ea3f31cef16e67160c",
+    "app/src/main/java/ru/replika/ml/ProcessingWorker.kt": "2b308afe069604063094a33fc27679052fa6b524007870461c9badb4c30293ef",
+    "app/src/main/java/ru/replika/domain/WindowSpeakerRefiner.kt": "69498c73d0489a8381ef2a00dd53afde6c3c4fb02e54a348d63beae89c3e4d67",
+    "app/src/main/java/ru/replika/domain/SpeakerRefiner.kt": "d0701bb38241c9631daf7445ce00d19c04d5b7b5de1473ea7d4d523ff500885d",
+    "app/src/androidTest/java/ru/replika/EvaluationBatchTest.kt": "1c1ba991d4fa6961f88c5300446fcaf053a26f09e68733a391cf87e0a78bb636"
+  },
+  "input_audio_sha256": "97943f4d90c2b56166031263a6820c41e0f80b94643a9d3737327debdc8fbe53",
+  "duration_ms": 6333,
+  "source_files_sha256": {
+    "artifacts/test-results/step-04/native-c2-smoke-v2/dev-mono-s.case.json": "050018fe7f5f10b83eba18cf343c251f52158f8e500114defbc3652a19203cc8",
+    "artifacts/test-results/step-04/native-c2-smoke-v2/dev-mono-s.diagnostics.json": "03410df3def8e6ec0355364b476af9738a4c489cac7d4b052af4e852eaf5fc41",
+    "artifacts/test-results/step-04/native-c2-smoke-v2/dev-mono-s.hypothesis.json": "da717d03f8b6091548a6b903332e62313efe1efbfb18464503922703af13b858",
+    "artifacts/test-results/step-04/native-c2-smoke-v2/dev-mono-s.diarization-evidence.json": "a4b4171d0350b1b347a7a1fdf6378ff7852703b70fe24ae7b08ad2985cb3750e",
+    "artifacts/test-results/step-04/native-c2-smoke-v2/report.json": "3775c98719209da024e84d39192113daf6d08810946ff282d00adefaadef3e1a",
+    "artifacts/test-results/step-04/native-c2-smoke-v2/run.json": "e3ef9aeffaea246a21c8c5484941ab77355c36a2058388dd8439a07ad94c0517",
+    "artifacts/test-results/step-04/native-c2-smoke-v2/batch.json": "1f48d2733bb353af6ee00f383a631030b8e4fe8c1fa2c2cc639fd93c603d4bbd",
+    "artifacts/test-results/step-04/native-c2-smoke-v2/instrumentation.log": "d49a8555f73657f93a30b928f9eac07d5e5d3e9ffd2e80d43dbe8452fb319479",
+    "benchmark/eval/manifest.json": "47109cb1987624daaf8f4dc28e8eca3198b0c2bbcf01cd334b9611664eb38066",
+    "artifacts/test-results/step-04/candidate-c2-full-original/run.json": "c2053545e8248ef66d759f0f3988af43eb14b0da0083ef3ec000956f9427bd45",
+    "artifacts/test-results/step-04/build-c2-v2/summary.json": "623b284f3075514ad4359a11a9eb57db6ea758dea1a3ad3fd945c78c9405cc4c"
+  },
+  "source_apk_sha256": {
+    "allInOne": "a83bfe95cf7db72ddb65177a33586fdc52074a92759aa721212cc335f6b2a496",
+    "debug": "eec64359b319348b3ecdba0797693f35c7aac27d5a15a5f407e4e3127c50005c",
+    "androidTest": "2706922b2fc21611add57a95f4992093dd60bdf05a639f369e96fe19614a20d8"
+  },
+  "validation": {
+    "sidecar_sha256": "a4b4171d0350b1b347a7a1fdf6378ff7852703b70fe24ae7b08ad2985cb3750e",
+    "sidecar_bytes": 70224,
+    "work_id": "3ff25a4f-bc96-45c1-9d64-fec3bcda43d8",
+    "recording_id": "qa-evaluation-d61e77c3-d645-44f8-86ec-697d93db7ab9",
+    "measured_windows": 4,
+    "dimension": 512,
+    "resources_released": true,
+    "python_replay_exact_turns": true,
+    "status": "PARTIAL_TEMPORAL",
+    "native_speaker_count": 1,
+    "temporal_voting_is_explicit_algorithm_policy": true
+  },
+  "actual_embedding_lifecycle": {
+    "plannedWindows": 4,
+    "extractorLoads": 1,
+    "readWindows": 4,
+    "createdStreams": 4,
+    "releasedStreams": 4,
+    "computeAttempts": 4,
+    "embeddingForwardCalls": 4,
+    "measuredWindows": 4,
+    "embeddingDimension": 512
+  },
+  "exact_replayed_turns": [
+    {
+      "startMs": 31,
+      "endMs": 6275,
+      "speakerId": 0
+    }
+  ],
+  "word_evidence": {
+    "validated": true,
+    "slices": 1,
+    "tokenCount": 42,
+    "timestampCount": 42,
+    "wordCount": 14,
+    "scope": "Complete native QA payload structure; not token-timing revalidation, word-gold accuracy or microphone acceptance"
+  },
+  "actual_jury_reconstruction_exact": true,
+  "jury_segments": 1,
+  "strict_schemas": {
+    "native_report_case_copy_exact": true,
+    "batch_only_id_audio_sha256": true,
+    "reference_text_or_counts_staged": false,
+    "sidecar_wrapper_exact": true,
+    "canonical_work_uuid_and_record_binding": true,
+    "sidecar_size_hash_budget_valid": true,
+    "metadata_input_clock_model_policy_match": true,
+    "planned_clean_windows_complete_and_exact": true,
+    "actual_float32_promoted_dimension_512": true,
+    "resources_released_and_counts_balanced": true,
+    "compact_room_vs_full_qa_projection_match": true,
+    "full_qa_python_replay_turns_exact": true,
+    "full_qa_double_math_abs_rel_tolerance": 1e-08,
+    "cutoff_exact_numeric_allowlist": "adapter.refiner.small_cluster_cutoff_ms only",
+    "qa_cutoff_json_number_type": "float",
+    "room_cutoff_json_number_type": "int",
+    "word_frame_stride_ms": 40,
+    "word_token_clock_and_actual_assignments_reconstructed": true,
+    "actual_jury_schema_text_case_punctuation_exact": true
+  },
+  "limitations": [
+    "PARTIAL_TEMPORAL is the frozen C2 voting fallback for activity with no same-source measured window; it is explicit policy, not native/unsupported-refiner fallback.",
+    "No new native decoded-PCM SHA is claimed. Source audio hash, canonical clock, unchanged D-audited decoder and actual frameStride40 evidence are the scope.",
+    "Single mono smoke does not establish the planned fixed-five weighted WER or eight-dev count/DER gates."
+  ]
+}

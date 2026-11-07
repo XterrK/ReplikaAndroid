@@ -1,0 +1,40 @@
+{
+  "status": "NN_ASR_SUCCEEDED_QA_PUBLICATION_FAILED",
+  "recorded_at": "2026-11-07T02:12:46.948746+00:00",
+  "old_helper_sha256": "53f64ccd41e98cdd50585084f67f8e64765911de3da9022fbf2662ea980a85a7",
+  "source_native_artifacts": "artifacts/test-results/step-04/native-c2-smoke-v1",
+  "source_sha256": {
+    "artifacts/test-results/step-04/native-c2-smoke-v1/batch.json": "717b13b8dc87e5e526d7a7e925cc0e55d6f55bee87b3537fe5f87ef7f23d9d91",
+    "artifacts/test-results/step-04/native-c2-smoke-v1/commands.json": "cd7b0076c42976eef3af827254e0fec36517e1ae78245293a5b9cd831f42ded7",
+    "artifacts/test-results/step-04/native-c2-smoke-v1/dev-mono-s.case.json": "6df93b5c54b116e4646601b0419513814f4e93fd4b8d78e60bd88fd80b7147c9",
+    "artifacts/test-results/step-04/native-c2-smoke-v1/dev-mono-s.diagnostics.json": "b363b6f13ad7e3a0804781ca165067ce629829ad919c8f287b71d1521f89236d",
+    "artifacts/test-results/step-04/native-c2-smoke-v1/dev-mono-s.diarization-evidence.json": "4bb865bbf7833d08a82048082c095892f265fae16a678397e56373354f5f6434",
+    "artifacts/test-results/step-04/native-c2-smoke-v1/dev-mono-s.hypothesis.json": "da717d03f8b6091548a6b903332e62313efe1efbfb18464503922703af13b858",
+    "artifacts/test-results/step-04/native-c2-smoke-v1/instrumentation.log": "4b2a68ec6049c2504de9bcb4059ed7b420b58bc3628121b39688ca86e059cc24",
+    "artifacts/test-results/step-04/native-c2-smoke-v1/logcat-after.log": "06c972409a735967ed2c6b34d0758f4646cad932b8fc4808dde759a2b295813d",
+    "artifacts/test-results/step-04/native-c2-smoke-v1/qa-directory.log": "d30c743001ecbc2a3dd706252fd85ba8a79a288076ac37458e4af865f3550e53",
+    "artifacts/test-results/step-04/native-c2-smoke-v1/report.json": "34ad9cf664b29af956e339f43a213d284777f1f2019f9134876512176a04fada",
+    "artifacts/test-results/step-04/native-c2-smoke-v1/run.json": "fd6aee1bfffeaca52eab379044ed8b3665b46489bf021ac8ee590e3a5600f615",
+    "artifacts/test-results/step-04/native-c2-smoke-v1/selinux.log": "4fefafd0dcddf54b31a0fef448083e7b77576d86a9ec97c14bfd92479c404290"
+  },
+  "qa_error": "AccessDeniedException",
+  "qa_truncated": true,
+  "refiner_accepted": true,
+  "embedding_counts": {
+    "plannedWindows": 4,
+    "extractorLoads": 1,
+    "readWindows": 4,
+    "createdStreams": 4,
+    "releasedStreams": 4,
+    "computeAttempts": 4,
+    "embeddingForwardCalls": 4,
+    "measuredWindows": 4,
+    "embeddingDimension": 512
+  },
+  "native_resources_released": true,
+  "processing_ms": 10259,
+  "selinux_reason": "Enforcing AVC denies {link} on the temporary QA file; private QA directory is writable. Hard-link-specific publication failure, not NN failure.",
+  "model_inference_performed_in_root_smoke": true,
+  "new_model_inference_by_fix": false,
+  "scope": "Actual Android smoke completed ML/ASR and Worker READY but QA bridge rejected missing complete sidecar. Preserve this negative QA result; no quality/port/pipeline acceptance inferred."
+}

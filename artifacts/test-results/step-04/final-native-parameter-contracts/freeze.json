@@ -1,0 +1,85 @@
+{
+  "frozen_at": "2026-11-07T03:03:10.816660+00:00",
+  "status": "READY",
+  "tests": 8,
+  "tests_pass": true,
+  "all8dev_actual_preflight_pass": true,
+  "no_output_created": true,
+  "nn_constructors_mock_forbidden_and_called_zero": true,
+  "metadata_only_real_sdk": {
+    "off-0p25": {
+      "observed": {
+        "native_threshold": 0.30000001192092896,
+        "window_shift": 0.10000000149011612,
+        "min_duration_on": 0.20000000298023224,
+        "min_duration_off": 0.25
+      },
+      "float32_bits": {
+        "native_threshold": "3e99999a",
+        "window_shift": "3dcccccd",
+        "min_duration_on": "3e4ccccd",
+        "min_duration_off": "3e800000"
+      },
+      "num_clusters": -1,
+      "threads": 2,
+      "new_neural_inference": false
+    },
+    "off-1p0": {
+      "observed": {
+        "native_threshold": 0.30000001192092896,
+        "window_shift": 0.10000000149011612,
+        "min_duration_on": 0.20000000298023224,
+        "min_duration_off": 1.0
+      },
+      "float32_bits": {
+        "native_threshold": "3e99999a",
+        "window_shift": "3dcccccd",
+        "min_duration_on": "3e4ccccd",
+        "min_duration_off": "3f800000"
+      },
+      "num_clusters": -1,
+      "threads": 2,
+      "new_neural_inference": false
+    },
+    "shift-0p25": {
+      "observed": {
+        "native_threshold": 0.30000001192092896,
+        "window_shift": 0.25,
+        "min_duration_on": 0.20000000298023224,
+        "min_duration_off": 0.5
+      },
+      "float32_bits": {
+        "native_threshold": "3e99999a",
+        "window_shift": "3e800000",
+        "min_duration_on": "3e4ccccd",
+        "min_duration_off": "3f000000"
+      },
+      "num_clusters": -1,
+      "threads": 2,
+      "new_neural_inference": false
+    },
+    "shift-0p5": {
+      "observed": {
+        "native_threshold": 0.30000001192092896,
+        "window_shift": 0.5,
+        "min_duration_on": 0.20000000298023224,
+        "min_duration_off": 0.5
+      },
+      "float32_bits": {
+        "native_threshold": "3e99999a",
+        "window_shift": "3f000000",
+        "min_duration_on": "3e4ccccd",
+        "min_duration_off": "3f000000"
+      },
+      "num_clusters": -1,
+      "threads": 2,
+      "new_neural_inference": false
+    }
+  },
+  "protocol_sha256": "43a81721b9341a0c713efcca9fa41915dda6b11eb7c8f5d898c9ea5338cfc0af",
+  "files": {
+    "tools/eval/probe_c2_native_parameters.py": "96c7a330483b2890f7ce9438a584e9191460568ce999296a0d9639c07b11f4d8",
+    "tools/eval/tests/test_probe_c2_native_parameters.py": "a7d28db666378fd6a25b8654b9a41c6feab49f302af108a2154e2c70683bb2cd"
+  },
+  "no_NN_ADB_Gradle": true
+}

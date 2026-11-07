@@ -1,0 +1,335 @@
+[
+  {
+    "at": "2026-11-07T02:22:43.096631+00:00",
+    "argv": [
+      "/home/egor/replika-toolchain/android-sdk/platform-tools/adb",
+      "-s",
+      "emulator-5556",
+      "shell",
+      "getprop",
+      "ro.kernel.qemu"
+    ],
+    "returncode": 0
+  },
+  {
+    "at": "2026-11-07T02:22:43.124848+00:00",
+    "argv": [
+      "/home/egor/replika-toolchain/android-sdk/platform-tools/adb",
+      "-s",
+      "emulator-5556",
+      "shell",
+      "settings",
+      "get",
+      "global",
+      "stay_on_while_plugged_in"
+    ],
+    "returncode": 0
+  },
+  {
+    "at": "2026-11-07T02:22:43.152447+00:00",
+    "argv": [
+      "/home/egor/replika-toolchain/android-sdk/platform-tools/adb",
+      "-s",
+      "emulator-5556",
+      "shell",
+      "input",
+      "keyevent",
+      "KEYCODE_WAKEUP"
+    ],
+    "returncode": 0
+  },
+  {
+    "at": "2026-11-07T02:22:43.178908+00:00",
+    "argv": [
+      "/home/egor/replika-toolchain/android-sdk/platform-tools/adb",
+      "-s",
+      "emulator-5556",
+      "shell",
+      "wm",
+      "dismiss-keyguard"
+    ],
+    "returncode": 0
+  },
+  {
+    "at": "2026-11-07T02:22:44.235534+00:00",
+    "argv": [
+      "/home/egor/replika-toolchain/android-sdk/platform-tools/adb",
+      "-s",
+      "emulator-5556",
+      "shell",
+      "svc",
+      "power",
+      "stayon",
+      "true"
+    ],
+    "returncode": 0
+  },
+  {
+    "at": "2026-11-07T02:22:44.260793+00:00",
+    "argv": [
+      "/home/egor/replika-toolchain/android-sdk/platform-tools/adb",
+      "-s",
+      "emulator-5556",
+      "shell",
+      "settings",
+      "get",
+      "global",
+      "airplane_mode_on"
+    ],
+    "returncode": 0
+  },
+  {
+    "at": "2026-11-07T02:22:44.285657+00:00",
+    "argv": [
+      "/home/egor/replika-toolchain/android-sdk/platform-tools/adb",
+      "-s",
+      "emulator-5556",
+      "shell",
+      "settings",
+      "get",
+      "global",
+      "wifi_on"
+    ],
+    "returncode": 0
+  },
+  {
+    "at": "2026-11-07T02:22:44.316360+00:00",
+    "argv": [
+      "/home/egor/replika-toolchain/android-sdk/platform-tools/adb",
+      "-s",
+      "emulator-5556",
+      "shell",
+      "run-as",
+      "ru.replika.offline",
+      "test",
+      "-e",
+      "files/evaluation/c2smoke20261107T022243063527Z"
+    ],
+    "returncode": 1
+  },
+  {
+    "at": "2026-11-07T02:22:44.341253+00:00",
+    "argv": [
+      "/home/egor/replika-toolchain/android-sdk/platform-tools/adb",
+      "-s",
+      "emulator-5556",
+      "shell",
+      "run-as",
+      "ru.replika.offline",
+      "mkdir",
+      "-p",
+      "files/evaluation/c2smoke20261107T022243063527Z/audio"
+    ],
+    "returncode": 0
+  },
+  {
+    "at": "2026-11-07T02:22:44.355336+00:00",
+    "argv": [
+      "/home/egor/replika-toolchain/android-sdk/platform-tools/adb",
+      "-s",
+      "emulator-5556",
+      "push",
+      "/home/egor/replika-toolchain/eval-audio/dev/dev-mono-s.wav",
+      "/data/local/tmp/c2smoke20261107T022243063527Z"
+    ],
+    "returncode": 0
+  },
+  {
+    "at": "2026-11-07T02:22:44.379317+00:00",
+    "argv": [
+      "/home/egor/replika-toolchain/android-sdk/platform-tools/adb",
+      "-s",
+      "emulator-5556",
+      "shell",
+      "run-as",
+      "ru.replika.offline",
+      "cp",
+      "/data/local/tmp/c2smoke20261107T022243063527Z",
+      "files/evaluation/c2smoke20261107T022243063527Z/audio/dev-mono-s.wav"
+    ],
+    "returncode": 0
+  },
+  {
+    "at": "2026-11-07T02:22:44.398392+00:00",
+    "argv": [
+      "/home/egor/replika-toolchain/android-sdk/platform-tools/adb",
+      "-s",
+      "emulator-5556",
+      "shell",
+      "rm",
+      "/data/local/tmp/c2smoke20261107T022243063527Z"
+    ],
+    "returncode": 0
+  },
+  {
+    "at": "2026-11-07T02:22:44.438582+00:00",
+    "argv": [
+      "/home/egor/replika-toolchain/android-sdk/platform-tools/adb",
+      "-s",
+      "emulator-5556",
+      "push",
+      "artifacts/test-results/step-04/native-c2-smoke-v2/batch.json",
+      "/data/local/tmp/c2smoke20261107T022243063527Z"
+    ],
+    "returncode": 0
+  },
+  {
+    "at": "2026-11-07T02:22:44.461812+00:00",
+    "argv": [
+      "/home/egor/replika-toolchain/android-sdk/platform-tools/adb",
+      "-s",
+      "emulator-5556",
+      "shell",
+      "run-as",
+      "ru.replika.offline",
+      "cp",
+      "/data/local/tmp/c2smoke20261107T022243063527Z",
+      "files/evaluation/c2smoke20261107T022243063527Z/batch.json"
+    ],
+    "returncode": 0
+  },
+  {
+    "at": "2026-11-07T02:22:44.481750+00:00",
+    "argv": [
+      "/home/egor/replika-toolchain/android-sdk/platform-tools/adb",
+      "-s",
+      "emulator-5556",
+      "shell",
+      "rm",
+      "/data/local/tmp/c2smoke20261107T022243063527Z"
+    ],
+    "returncode": 0
+  },
+  {
+    "at": "2026-11-07T02:22:57.146671+00:00",
+    "argv": [
+      "/home/egor/replika-toolchain/android-sdk/platform-tools/adb",
+      "-s",
+      "emulator-5556",
+      "shell",
+      "am",
+      "instrument",
+      "-w",
+      "-r",
+      "-e",
+      "class",
+      "ru.replika.EvaluationBatchTest#stagedCanonicalInputsThroughProductionWorker",
+      "-e",
+      "evalRun",
+      "c2smoke20261107T022243063527Z",
+      "-e",
+      "evalThreads",
+      "2",
+      "-e",
+      "evalAsrPlan",
+      "vad_words_context600",
+      "-e",
+      "evalDiarPlan",
+      "eres2net_window_v1",
+      "-e",
+      "evalExpectedSpeakers",
+      "-1",
+      "ru.replika.offline.test/androidx.test.runner.AndroidJUnitRunner"
+    ],
+    "returncode": 0
+  },
+  {
+    "at": "2026-11-07T02:22:57.187896+00:00",
+    "argv": [
+      "/home/egor/replika-toolchain/android-sdk/platform-tools/adb",
+      "-s",
+      "emulator-5556",
+      "exec-out",
+      "run-as",
+      "ru.replika.offline",
+      "cat",
+      "files/evaluation/c2smoke20261107T022243063527Z/output/report.json"
+    ],
+    "returncode": 0
+  },
+  {
+    "at": "2026-11-07T02:22:57.263949+00:00",
+    "argv": [
+      "/home/egor/replika-toolchain/android-sdk/platform-tools/adb",
+      "-s",
+      "emulator-5556",
+      "exec-out",
+      "run-as",
+      "ru.replika.offline",
+      "cat",
+      "files/evaluation/c2smoke20261107T022243063527Z/output/dev-mono-s.case.json"
+    ],
+    "returncode": 0
+  },
+  {
+    "at": "2026-11-07T02:22:57.322443+00:00",
+    "argv": [
+      "/home/egor/replika-toolchain/android-sdk/platform-tools/adb",
+      "-s",
+      "emulator-5556",
+      "exec-out",
+      "run-as",
+      "ru.replika.offline",
+      "cat",
+      "files/evaluation/c2smoke20261107T022243063527Z/output/dev-mono-s.diagnostics.json"
+    ],
+    "returncode": 0
+  },
+  {
+    "at": "2026-11-07T02:22:57.371954+00:00",
+    "argv": [
+      "/home/egor/replika-toolchain/android-sdk/platform-tools/adb",
+      "-s",
+      "emulator-5556",
+      "exec-out",
+      "run-as",
+      "ru.replika.offline",
+      "cat",
+      "files/evaluation/c2smoke20261107T022243063527Z/output/dev-mono-s.hypothesis.json"
+    ],
+    "returncode": 0
+  },
+  {
+    "at": "2026-11-07T02:22:57.438309+00:00",
+    "argv": [
+      "/home/egor/replika-toolchain/android-sdk/platform-tools/adb",
+      "-s",
+      "emulator-5556",
+      "exec-out",
+      "run-as",
+      "ru.replika.offline",
+      "cat",
+      "files/evaluation/c2smoke20261107T022243063527Z/output/dev-mono-s.diarization-evidence.json"
+    ],
+    "returncode": 0
+  },
+  {
+    "at": "2026-11-07T02:22:57.510118+00:00",
+    "argv": [
+      "/home/egor/replika-toolchain/android-sdk/platform-tools/adb",
+      "-s",
+      "emulator-5556",
+      "shell",
+      "settings",
+      "put",
+      "global",
+      "stay_on_while_plugged_in",
+      "1"
+    ],
+    "returncode": 0
+  },
+  {
+    "at": "2026-11-07T02:22:57.535786+00:00",
+    "argv": [
+      "/home/egor/replika-toolchain/android-sdk/platform-tools/adb",
+      "-s",
+      "emulator-5556",
+      "shell",
+      "settings",
+      "get",
+      "global",
+      "stay_on_while_plugged_in"
+    ],
+    "returncode": 0
+  }
+]

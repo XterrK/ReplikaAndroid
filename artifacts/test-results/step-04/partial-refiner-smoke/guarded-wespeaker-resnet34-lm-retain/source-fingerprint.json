@@ -1,0 +1,64 @@
+{
+  "runner": "5d23de0dc0d123490efba399e51a707bfa458ce54c9de3c774a3b83631349e3c",
+  "refiner": "4f52854185c9ad4b2e54b9679a9670b5415d5a9fcc1c16d0c5f392eb6aa69eb1",
+  "diar_helpers": "5e9314e239374c8abf5287465b9a3d4e659cb31abbed1d6150b77d4f7a0567d9",
+  "word_helpers": "1310361aecdab50e6c977032b73f01352d870af7416904b6dca22b682f3c76a7",
+  "scorer": "d9415f7fcac76261fc2c0749d0a640a0a03fa8c6e32f8e5856c4bc0e30ccd85f",
+  "baseline_helpers": "fcdea5e2028e2c46226ab24ff0ac4fe33743fb15bfe853789e156f50203b137a",
+  "manifest": "47109cb1987624daaf8f4dc28e8eca3198b0c2bbcf01cd334b9611664eb38066",
+  "diar_run": "2d5d45203bca6b6e151c1591c7f17436b4c75154400c5412f90c9ee7565d700e",
+  "asr_run": "a388cc7e35ed099b3ab268bf908255e4fbefcdd69723f95b7b649565a99ba631",
+  "diar_source_status": "RUNNING",
+  "cases": {
+    "dev-01-two-clean": {
+      "diar": {
+        "case.json": "944b99de5fa9ece217c104fae853965f8f2586e16e8311b740e906305491dc8b",
+        "reference.json": "523b1097852d70d1f6d2cf2f3c632ee5c5ac3bedf8e64487ecbdada21c25d127",
+        "hypothesis.json": "d7d0ccfc2653c92c33e173a3759fa41498140c69783663c7973bf1a770dbdc70",
+        "diagnostics.json": "6d49516d1ae7803c024962500bf5eb1af2a68d857b826d46d77ac01b431f2d70",
+        "metrics.json": "83b923dad18f0941dcaf7121b0b8b603ed8e7ef498979d2973b7caff5a48f089"
+      },
+      "asr": {
+        "case.json": "e11c94fc39dd4a834fdd796872cfaadc35e01326c635273baef6a4520828662f",
+        "reference.json": "523b1097852d70d1f6d2cf2f3c632ee5c5ac3bedf8e64487ecbdada21c25d127",
+        "hypothesis.json": "49aa3320547ddb09bb6798d0f877fa3c99e19891427ae04419eb2cead6ec2fe5",
+        "diagnostics.json": "f0c781a45c49466123858dd7253f039035060235d2db12713698d9a814680703",
+        "metrics.json": "e22fb9b16db7952bf691ec15f2de1b244d9e20d793ca06397c4b4e8b28059589"
+      },
+      "reference": "523b1097852d70d1f6d2cf2f3c632ee5c5ac3bedf8e64487ecbdada21c25d127",
+      "original_audio": "80bdb11e4d9e313d2440c01b80babc0dbe319c9dbea371988ef62716ffb9d77b"
+    }
+  },
+  "selected_ids": [
+    "dev-01-two-clean"
+  ],
+  "config": {
+    "schema_version": 1,
+    "profile": "auto-0p30",
+    "thresholds": [
+      0.55
+    ],
+    "split": "dev",
+    "stages": [
+      "baseline",
+      "refined"
+    ],
+    "refiner_config": {
+      "merge_threshold": 0.85,
+      "max_speakers": 8,
+      "min_cluster_ms": 2000,
+      "min_cluster_fraction": 0.03,
+      "smooth_ms": 500,
+      "merge_similar": true,
+      "use_eigengap": true,
+      "reassign_small": true,
+      "smooth": true,
+      "complete_link_guard": false,
+      "minimum_reassignment_similarity": null,
+      "small_missing_centroid_policy": "retain"
+    },
+    "cases": [
+      "dev-01-two-clean"
+    ]
+  }
+}

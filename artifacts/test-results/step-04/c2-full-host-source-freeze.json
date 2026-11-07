@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "status": "FROZEN_READY_FOR_ACTUAL_INFERENCE",
+  "at": "2026-11-07T01:06:14.120870+00:00",
+  "candidate": "C2-eres2net-sd030-average-small-tau036",
+  "pipeline": "window_words_v1",
+  "strategy": "window_v1",
+  "config": {
+    "schema_version": 1,
+    "id": "C2-eres2net-sd030-average-small-tau036",
+    "pipeline": "window_words_v1",
+    "expected_speakers": -1,
+    "threads": 2,
+    "model_id": "eres2net_zh",
+    "window_shift": 0.1,
+    "native_threshold": 0.3,
+    "window_config": {
+      "tau": 0.36,
+      "method": "average",
+      "grid_ms": 125,
+      "max_speakers": 8,
+      "reassign_small": true,
+      "min_cluster_ms": 2000,
+      "min_cluster_fraction": 0.03,
+      "minimum_reassignment_similarity": null,
+      "smooth": true,
+      "smooth_ms": 500
+    }
+  },
+  "sha256": {
+    "tools/eval/pipeline_refined.py": "ea3439929f461e6010c98dac93d80d927a574dd28756237355656cc25bae8d2f",
+    "tools/eval/run_refined.py": "d96119a1f778d09a064886e004353518b1d3fbe50a89f5e52bd520cd30df2505",
+    "tools/eval/tests/test_pipeline_refined.py": "9cea4dd9b59c0204e7e5f2a53d647991d2940ef9fe371af321d9ea9b087cd3fd",
+    "tools/eval/tests/test_run_refined.py": "6a88fcd447ceb9fd9e9d7ae3b9e2d03471139077cefb0eb7b385806a1a608194"
+  },
+  "candidate_freeze_sha256": "2e81175388b45d204554d0c95eca27ba3a2a09b2c9d62dbfdd9a0bc60f360409",
+  "pre_extension_boundary_sha256": "c44611b02099624e974c90472ed07fdde5584162924fe4837ab9e15cf028fe92",
+  "unchanged_frozen_sources_and_models": true,
+  "tests": {
+    "status": "PASS",
+    "count": 269,
+    "seconds": 7.689,
+    "log": "/home/egor/replika-toolchain/logs/step04-c2-full-python-suite.log",
+    "scope": "All Python tests; neural constructors replaced in full-pipeline contracts. Final edit after suite only clarified C2 diagnostic scope strings."
+  },
+  "neural_inference_by_this_agent": false,
+  "implementation_scope": "Host Python/SciPy; no Android/ARM/phone/full neural-result acceptance implied. C1 remains the default and its historical completed source snapshots remain intact."
+}

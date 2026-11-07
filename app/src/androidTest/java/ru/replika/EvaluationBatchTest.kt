@@ -20,7 +20,9 @@ import ru.replika.data.Recording
 import ru.replika.domain.JuryJson
 import ru.replika.domain.MlPolicy
 import ru.replika.domain.AsrPlan
+import ru.replika.domain.DiarizationPlan
 import ru.replika.ml.ProcessingWorker
+import ru.replika.ml.DiarizationEvidence
 import ru.replika.ml.AudioDecoder
 import ru.replika.ml.GigaAmEngine
 import java.io.File
@@ -103,8 +105,12 @@ class EvaluationBatchTest {
   check(!output.exists() && output.mkdir()) { "Choose a fresh evalRun; previous evidence must remain intact" }
   val threads=MlPolicy.threads(arguments.getString("evalThreads")?.toInt()?:2)
   val asrPlan=AsrPlan.fromPersistedId(arguments.getString("evalAsrPlan"))
+  // Explicit QA selection is independent of the installed APK's defaults.
+  val requestedDiarPlan=DiarizationPlan.fromPersistedId(arguments.getString("evalDiarPlan"))
   val speakers=arguments.getString("evalExpectedSpeakers")?.toInt()?:-1
   MlPolicy.mode(speakers)
+  val diarPlan=requestedDiarPlan.forExpectedSpeakers(speakers)
+  diarPlan.requirePairedAsr(asrPlan)
   withTimeout(10*60*1000L) { app.bundledModels.awaitReady() }
   app.models.requireReady(app.models.asrId,speakers!=1)
   assertEquals("giga-v3",app.models.asrId)
@@ -114,6 +120,8 @@ class EvaluationBatchTest {
    .put("api",Build.VERSION.SDK_INT).put("supportedAbis",JSONArray(Build.SUPPORTED_ABIS.toList()))
    .put("threads",threads).put("expectedSpeakers",speakers).put("newModelInference",true)
    .put("asrPlan",asrPlan.wireId).put("asrPolicy",ProcessingWorker.asrPolicyJson(asrPlan))
+   .put("diarizationPlanRequested",requestedDiarPlan.wireId).put("diarizationPlan",diarPlan.wireId)
+   .put("diarizationPolicy",DiarizationEvidence.jsonObject(ProcessingWorker.diarizationPolicy(diarPlan)))
   fun save() {
    val temporary=File(output,"report.json.tmp")
    temporary.writeText(report.toString(2),Charsets.UTF_8)
@@ -144,7 +152,7 @@ class EvaluationBatchTest {
       }
      }
      val wallStart=SystemClock.elapsedRealtime()
-     ProcessingWorker.enqueue(app,recordId,threads,asrPlan,collectWordEvidence=true)
+     ProcessingWorker.enqueue(app,recordId,threads,asrPlan,collectWordEvidence=true,diarizationPlan=requestedDiarPlan)
      withTimeout(20*60*1000L) {
       while(true) {
        val current=app.db.dao().recording(recordId)?:error("Evaluation record disappeared")
@@ -157,6 +165,8 @@ class EvaluationBatchTest {
      val current=app.db.dao().recording(recordId)!!
      val diagnostic=JSONObject(current.diagnostics)
      assertEquals(asrPlan.wireId,diagnostic.getString("asrPlan"))
+     assertEquals(requestedDiarPlan.wireId,diagnostic.getString("diarizationPlanRequested"))
+     assertEquals(diarPlan.wireId,diagnostic.getString("diarizationPlan"))
      val segments=app.db.dao().segmentList(recordId).map { it.domain() }
      assertTrue(segments.none { it.edited })
      File(output,"$caseId.hypothesis.json").writeText(JuryJson.encode(segments),Charsets.UTF_8)
@@ -165,7 +175,46 @@ class EvaluationBatchTest {
      val result=JSONObject().put("id",caseId).put("status","COMPLETE").put("audio_sha256",before)
       .put("duration_ms",current.durationMs).put("processing_ms",diagnostic.getLong("totalMs"))
       .put("worker_wall_ms",SystemClock.elapsedRealtime()-wallStart).put("segments",segments.size)
-      .put("newModelInference",true)
+      .put("newModelInference",true).put("recordingId",recordId)
+     if(diarPlan.refined) {
+      assertTrue(diagnostic.getBoolean("diarizationRefinementAccepted"))
+      assertTrue(diagnostic.getJSONObject("diarizationRefinement").getBoolean("nativeResourcesReleasedBeforeRefiner"))
+      val counts=diagnostic.getJSONObject("diarizationEmbeddingCounts")
+      assertTrue(counts.getInt("measuredWindows")>0)
+      assertEquals(512,counts.getInt("embeddingDimension"))
+      assertEquals(1,counts.getInt("extractorLoads"))
+      for(key in listOf("plannedWindows","readWindows","createdStreams","releasedStreams","computeAttempts","embeddingForwardCalls")) {
+       assertEquals(key,counts.getInt("measuredWindows"),counts.getInt(key))
+      }
+      assertTrue(diagnostic.getBoolean("diarizationEvidenceRequested"))
+      assertFalse(diagnostic.getBoolean("diarizationEvidenceTruncated"))
+      assertTrue(diagnostic.isNull("diarizationEvidenceOmittedReason"))
+      val relative=diagnostic.getString("diarizationEvidenceFile")
+      require(Regex("diarization-qa/diarization-[0-9a-f-]{36}\\.json").matches(relative))
+      val evidence=File(app.filesDir,relative).canonicalFile
+      require(evidence.parentFile==File(app.filesDir,"diarization-qa").canonicalFile)
+      val evidenceSha=sha(evidence)
+      assertEquals(diagnostic.getLong("diarizationEvidenceBytes"),evidence.length())
+      assertTrue(evidence.length() in 1L..DiarizationEvidence.DEFAULT_MAX_BYTES.toLong())
+      assertEquals(diagnostic.getString("diarizationEvidenceSha256"),evidenceSha)
+      val payload=JSONObject(evidence.readText(Charsets.UTF_8))
+      assertEquals(1,payload.getInt("schema_version"));assertFalse(payload.getBoolean("truncated"))
+      assertEquals(recordId,payload.getString("recording_id"))
+      val workId=UUID.fromString(payload.getString("work_id")).toString()
+      assertEquals("diarization-qa/diarization-$workId.json",relative)
+      val metadata=payload.getJSONObject("metadata")
+      assertEquals(before,metadata.getString("inputAudioSha256"))
+      assertEquals(current.durationMs,metadata.getLong("audioMs"))
+      assertEquals(diarPlan.wireId,metadata.getString("diarizationPlan"))
+      assertTrue(metadata.getBoolean("accepted"))
+      assertEquals(counts.getInt("measuredWindows"),payload.getJSONArray("windows").length())
+      val captured=File(output,"$caseId.diarization-evidence.json")
+      check(!captured.exists())
+      evidence.copyTo(captured,overwrite=false)
+      assertEquals(evidenceSha,sha(captured))
+      result.put("workId",workId).put("diarizationEvidenceSha256",evidenceSha)
+       .put("diarizationEvidenceBytes",captured.length()).put("diarizationEvidenceFile",captured.name)
+     }
      cases.put(result);File(output,"$caseId.case.json").writeText(result.toString(2),Charsets.UTF_8);save()
      complete=true
     } finally {

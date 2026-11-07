@@ -1,0 +1,86 @@
+{
+  "schema_version": 1,
+  "status": "READY_FOR_ACTUAL_COLLECTION",
+  "at": "2026-11-07T02:09:49.118408+00:00",
+  "scope": "Independent read-only review of frozen C2 native QA policy/collector/tests against actual Worker, bridge, sidecar and pure Kotlin adapter. Reproducer readiness only; no Android quality result implied.",
+  "reviewer_actions": {
+    "source_edits": false,
+    "tests_run": false,
+    "model_inference": false,
+    "builds": false,
+    "adb": false
+  },
+  "owner_reported_validation": {
+    "version": "v3",
+    "focused_tests": 36,
+    "status": "PASS",
+    "actual_check_only": "PASS; no output/ADB",
+    "independently_rerun_by_reviewer": false
+  },
+  "source_sha256": {
+    "tools/eval/native_diar_policy.py": "82af9dd27356ac4b84f3793404b55d4515fbdd0ebcd19ab17758199273034609",
+    "tools/eval/pull_refined_android.py": "28f86e9d56eab705835310637b682d5de6dfb15fb353178d7cbd8e78bb38e159",
+    "tools/eval/tests/test_native_diar_policy.py": "37147d9f9f0612606be70cbc5b63296900f81317f750bc16138494d19e4ae639",
+    "tools/eval/tests/test_pull_refined_android.py": "937982961ea25a0928f66284d38726f69de41d3d6a6d2f6a2f9f2764f1fa78f2",
+    "tools/eval/native_policy.py": "b6d7fd2de6a7ca7f1776de9fa3924c623918709e0358977bae059569ef4da36b",
+    "tools/eval/port_comparison.py": "8705abd0f4696520047032020f19069308b343008af3d7ed976b895c62e398c4",
+    "app/src/main/java/ru/replika/ml/ProcessingWorker.kt": "2b308afe069604063094a33fc27679052fa6b524007870461c9badb4c30293ef",
+    "app/src/androidTest/java/ru/replika/EvaluationBatchTest.kt": "1c1ba991d4fa6961f88c5300446fcaf053a26f09e68733a391cf87e0a78bb636",
+    "app/src/main/java/ru/replika/ml/DiarizationEvidence.kt": "53f64ccd41e98cdd50585084f67f8e64765911de3da9022fbf2662ea980a85a7",
+    "app/src/main/java/ru/replika/ml/DiarizationRefiner.kt": "8d474238c779b86352489271e974e9cb97a91ff42a21e0c3b0e1751ecb2d93b3",
+    "app/src/main/java/ru/replika/domain/WindowSpeakerRefiner.kt": "69498c73d0489a8381ef2a00dd53afde6c3c4fb02e54a348d63beae89c3e4d67",
+    "app/src/main/java/ru/replika/domain/SpeakerRefiner.kt": "d0701bb38241c9631daf7445ce00d19c04d5b7b5de1473ea7d4d523ff500885d",
+    "app/src/main/java/ru/replika/domain/DiarizationPlan.kt": "209efb1121b40a091d99d629fd3f1e67515fde4ab7b99af96eaf634de6195432"
+  },
+  "findings": [
+    {
+      "id": "R1",
+      "severity": "blocking_before_collection",
+      "found_in": "v1",
+      "issue": "Worker Room diagnostic is compactRefinerDiagnostic(full adapter), while sidecar diagnostics are full. Exact whole-object equality falsely rejected genuine evidence.",
+      "fixed_in": "v2",
+      "v3_review": "Room projection mirrors actual scalar/null/config/recursive-refiner rules; full QA remains independently replayed, including vectors/tree."
+    },
+    {
+      "id": "R2",
+      "severity": "blocking_before_collection",
+      "found_in": "v2",
+      "issue": "Kotlin small_cluster_cutoff_ms always Double; sidecar2000.0, Room2000, Python max may int2000. Strict numeric type equality falsely rejected the same mathematical diagnostic.",
+      "fixed_in": "v3",
+      "v3_review": "Only refiner.small_cluster_cutoff_ms bridges finite exact integral int/Double forms up to2^53. No tolerance. Policies, clocks, labels, counters, BigInteger and unrelated paths remain strict."
+    },
+    {
+      "id": "R3",
+      "severity": "provenance_gap",
+      "found_in": "v1",
+      "issue": "Imported ASR/word-validation and WER-gate semantic modules lacked recorded source SHA.",
+      "fixed_in": "v2",
+      "v3_review": "native_policy.py and port_comparison.py join collector/policy in four-module fingerprint, rechecked before ADB, immediately before and after inference."
+    },
+    {
+      "id": "R4",
+      "severity": "partial_capture_robustness",
+      "found_in": "v2",
+      "issue": "Nonzero ADB instrumentation exit raised before local raw-output pulls. Remote evidence remained but local capture was skipped.",
+      "fixed_in": "v3",
+      "v3_review": "Instrumentation runs check=False; stdout/stderr and all available raw evidence are captured before nonzero exit is rejected."
+    }
+  ],
+  "remaining_blocking_findings": [],
+  "verified_contracts": [
+    "Exact seven-model lock and actual installed APK/remote model hashes; full host model/code/catalog/config/reference/audio provenance checked before device calls.",
+    "Requested and effective C2/paired context600 policies, native Float32 SDK fields and exact nullable Double window config are distinct and validated.",
+    "Canonical audio shape/floor duration/source SHA, real promoted Float32 512-dimensional vectors, exact clean-window clocks and lifecycle counts; no fabricated decoded-PCM SHA.",
+    "Work UUID/recording identity bound across native case, path, sidecar and metadata; identities unique across complete10.",
+    "Sidecar hash/byte budget and explicit null/truncation/unsupported/resource-failure guards; full QA vectors and pure C2 turn replay retained.",
+    "Actual token/timestamp/word evidence reconstructs exact JuryJSON with original lexical punctuation/case; no references or known K passed to inference/replay.",
+    "Weighted raw WER port gate uses historical fixed5 only, abs delta<=0.5percentage points; per-file outliers remain diagnostics.",
+    "Separate complete dev8 native quality gate requires at least7 exact counts and nativeDER0<=frozen fixed-V1.6+0.02; union10 is collection coverage, not an expanded WER pool.",
+    "Per-case failures/partial raw outputs and power-setting restoration failures remain explicit and cannot claim successful full collection."
+  ],
+  "limitations": [
+    "No native NN or device command was executed by this reviewer.",
+    "Readiness is not Android/ARM/phone quality/performance acceptance; actual10 evidence must still pass unchanged gates.",
+    "DER remains an authored montage interval proxy, with no independent word gold or general natural-dialogue claim."
+  ]
+}

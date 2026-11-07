@@ -1,0 +1,1730 @@
+{
+  "schema_version": 1,
+  "status": "CORE_C_REQUIREMENTS_AND_NATIVE_GATES_PROVEN_GIT_FINALIZATION_PENDING",
+  "created_at_utc": "2026-11-07T02:52:03.115359+00:00",
+  "scope": "Read-only requirements/evidence audit. No new NN, scoring, ADB, build, Git commands, network or external-service messages. Only these two new audit files written; main docs/source/models/corpora unchanged.",
+  "status_legend": {
+    "proven": "Прямое подтверждение названной работы в пределах указанного evidence scope.",
+    "pending": "Нет завершающего доказательства в снимке; не означает новый выдуманный gate.",
+    "scope-limited": "Работа или данные есть, но буквальный охват/обобщение/финальный runtime ограничены.",
+    "contradicted": "Прямое противоречие требованию; не используется для необоснованных новых требований."
+  },
+  "overall": {
+    "actual_android_run": "artifacts/test-results/step-04/context600-c2-android-v3/run.json",
+    "actual_status": "COMPLETE",
+    "actual_cases": 10,
+    "collector_gate_pass": true,
+    "fixed_five_port_gate": {
+      "scope": "Fixed paired corpus, total errors / total reference words; per-file differences retained",
+      "reference_words": 442,
+      "host_errors": 44,
+      "native_errors": 43,
+      "host_wer_raw": 0.09954751131221719,
+      "native_wer_raw": 0.09728506787330317,
+      "wer_delta_percentage_points": -0.22624434389140272,
+      "threshold_percentage_points": 0.5,
+      "gate_pass": true,
+      "per_file_diagnostics": [
+        {
+          "id": "dev-01-two-clean",
+          "split": "dev",
+          "reference_words": 140,
+          "native_errors": 10,
+          "host_errors": 11,
+          "wer_delta_percentage_points": -0.7142857142857143,
+          "per_file_within_threshold": false
+        },
+        {
+          "id": "dev-03-short",
+          "split": "dev",
+          "reference_words": 38,
+          "native_errors": 6,
+          "host_errors": 6,
+          "wer_delta_percentage_points": 0.0,
+          "per_file_within_threshold": true
+        },
+        {
+          "id": "holdout-02-three-clean",
+          "split": "holdout",
+          "reference_words": 148,
+          "native_errors": 16,
+          "host_errors": 16,
+          "wer_delta_percentage_points": 0.0,
+          "per_file_within_threshold": true
+        },
+        {
+          "id": "holdout-04-overlap-expressive",
+          "split": "holdout",
+          "reference_words": 101,
+          "native_errors": 10,
+          "host_errors": 10,
+          "wer_delta_percentage_points": 0.0,
+          "per_file_within_threshold": true
+        },
+        {
+          "id": "dev-mono-s",
+          "split": "dev",
+          "reference_words": 15,
+          "native_errors": 1,
+          "host_errors": 1,
+          "wer_delta_percentage_points": 0.0,
+          "per_file_within_threshold": true
+        }
+      ]
+    },
+    "dev_quality_gate": {
+      "gate_pass": true,
+      "defined_complete_eight_dev": true,
+      "count_pass": true,
+      "native_count_exact": 7,
+      "count_required": 7,
+      "cases_required": 8,
+      "native_der0_pass": true,
+      "native_der0": 0.18298480576441103,
+      "fixed_v16_native_der0": 0.2688518170426065,
+      "maximum_native_der0": 0.28885181704260654,
+      "der_allowance_percentage_points": 2,
+      "wer_corpus_unchanged": "historical fixed five only",
+      "scope": "Montage utterance-interval DER proxy; independent of weighted five-file WER port parity"
+    },
+    "word_replay_cases": 10,
+    "sidecar_replay_cases": 10,
+    "power_restoration": {
+      "original_stay_on_while_plugged_in": "1",
+      "pre_inference_awake_resumed": true,
+      "restored_stay_on_while_plugged_in": "1",
+      "restoration_errors": []
+    },
+    "jvm_tests": 173,
+    "python_tests": 337,
+    "independent_full_native_audit": {
+      "path": "artifacts/test-results/step-04/context600-c2-android-v3/independent-audit.json",
+      "status": "PASS",
+      "checks": 564,
+      "cases": 10,
+      "native_vector_replay_cases": 10,
+      "token_word_jury_replay_cases": 10,
+      "all_core_metrics_rescored_cases": 10,
+      "auditor_source_snapshot": "artifacts/test-results/step-04/runner-snapshots/dbc8139203b7e2e3f6624db900430db5845dd5fb6bdc00955502c7f757e673da.py",
+      "auditor_neural_inference": false
+    },
+    "full_project_accepted": false,
+    "arm_phone_performance_accepted": false,
+    "c_core_quality_and_port_gates_proven": true,
+    "c_named_algorithm_implementation_proven": true
+  },
+  "eigengap_interpretation": {
+    "plan_quotes": [
+      {
+        "source": "PLAN_19H.md",
+        "line": 271,
+        "text": "3. **Оценка числа спикеров** по eigengap матрицы сходства центроидов (NME-SC-подобно), ограничение `K ≤ 8`."
+      },
+      {
+        "source": "PLAN_19H.md",
+        "line": 377,
+        "text": "2. Over-cluster-then-merge + eigengap + мелкие кластеры + сглаживание (задача C), сначала на host в Python, потом порт в Kotlin (`domain/`, чистые функции + JVM-тесты)."
+      },
+      {
+        "source": "PLAN_19H.md",
+        "line": 421,
+        "text": "> В `tools/eval/diar_sweep.py`: для каждой embedding-модели из списка [текущая eres2net_base_zh, wespeaker_en_voxceleb_resnet34_LM, 3dspeaker campplus voxceleb, wespeaker CAM++_LM, nemo titanet_small, titanet_large] и порогов 0.3..0.95 шаг 0.05 прогоняй sherpa-onnx 2.0.1 OfflineSpeakerDiarization на dev, считай DER (collar 0/0.25) и ошибку числа спикеров. Затем реализуй пост-обработку: центроиды кластеров через SpeakerEmbeddingExtractor по чистым окнам 1.5 с/0.75 с, итеративное слияние по cosine > τ, оценка K по eigengap (K ≤ 8), переназначение кластеров < max(2 с, 3%) длительности, сглаживание вставок < 0.5 с. Подбери τ на dev, проверь на holdout. Результаты в results.csv. Потом перенеси пост-обработку в Kotlin (`domain/SpeakerRefiner.kt`, чистые функции) с JVM-тестами."
+      }
+    ],
+    "literal_implementation_requirement": "План прямо называет реализацию оценки K по eigengap и её перенос в Kotlin. §0.4 это не отменяет.",
+    "implementation_and_research": "C1 Python/Kotlin реализован сuse_eigengap=true, включая спектральные контрольные примеры/274 parity. Абляция196профилей/1568case-вариантов на232baseline-векторах включает full иno_eigengap; дополнительныхeigengap-слияний в этой матрице0. Это ограниченное измерение, не универсальная оценка полезности.",
+    "selected_c2_observation": "C2 average-window HC явно сохраняетeigengap_applied=false. Оценка K вычисляется диагностически и не управляет его разбиением; C2 нельзя называтьeigengap/NME-SC.",
+    "interpretation": "В плане нет отдельного acceptance gate «eigengap применён» и нет прямой фразы, что каждый итоговый выбранный альтернативный профиль обязан исполнять все исследованные стадии. Поэтому реализация+порт C1 закрывают названную исследовательскую работу. Выбор C2 — документированная измеренная альтернатива, которую root должен так и описать, не выдавая её за буквальное исполнение всех шагов C1. Новый числовой gate или принудительное включениеeigengap задним числом не предлагаются.",
+    "owner_disposition": "Root подтвердил достаточность реализации/исследования/порта C1 для названного компонента и явный выбор C2 как измеренной альтернативы. Отсутствие применения eigengap в C2 не вводится как новый blocker или числовой gate; C2 не называется eigengap/NME-SC. Общая приёмка проекта отдельно открыта."
+  },
+  "no_new_gates": [
+    "Natural AMI does not replace/add numerical RU dev or holdout thresholds.",
+    "No new per-file0.5pp WER requirement: original weighted fixedfive gate and outliers retained.",
+    "No forced eigengap pass/fail number added.",
+    "CPU-aware threading, ARM/16KiB, phone speed/import/wordgold/final delivery remain separately scoped project work."
+  ],
+  "requirements": [
+    {
+      "id": "G01",
+      "requirement": "Приоритет §0.4 > §0.3 > §0.2 > §0.1",
+      "status": "proven",
+      "authority": {
+        "path": "PLAN_19H.md",
+        "section": "Введение; §0.4",
+        "lines": [
+          3,
+          5,
+          101,
+          106,
+          122,
+          126
+        ]
+      },
+      "evidence": [
+        "PLAN_19H.md",
+        "AGENTS.md",
+        "configs/eval/diar-protocol.json"
+      ],
+      "finding": "Главная текстовая метрика — raw WER с пунктуацией; более ранняя идея удалить пунктуацию и заменить E2E отменена.",
+      "scope_or_remaining": "",
+      "completion_scope": "Core C or explicitly stated research/scope evidence"
+    },
+    {
+      "id": "G02",
+      "requirement": "Последовательность D→C; Codex вместо GLM/Kimi",
+      "status": "proven",
+      "authority": {
+        "path": "PLAN_19H.md",
+        "section": "Очередь задач",
+        "lines": [
+          10,
+          14,
+          15
+        ]
+      },
+      "evidence": [
+        "STATUS.md",
+        "UPDATES.md",
+        "AGENTS.md",
+        "artifacts/test-results/step-03/acceptance.json"
+      ],
+      "finding": "Исследование C следует за реализацией D; английский ASR/LLM не добавлены в критический путь.",
+      "scope_or_remaining": "Открытые общие цели времени слов/скорости D не объявляются закрытыми.",
+      "completion_scope": "Core C or explicitly stated research/scope evidence"
+    },
+    {
+      "id": "G03",
+      "requirement": "Сначала выигрыш dev и отсутствие регресса holdout, затем Android",
+      "status": "proven",
+      "authority": {
+        "path": "PLAN_19H.md",
+        "section": "Правила; §7",
+        "lines": [
+          22,
+          441
+        ]
+      },
+      "evidence": [
+        "artifacts/test-results/step-04/candidate-c2-validation-freeze.json",
+        "artifacts/test-results/step-04/candidate-c2-validation-gates/summary.json",
+        "artifacts/test-results/step-04/full-c2-equivalence-audit.json",
+        "artifacts/test-results/step-04/build-c2-v1/summary.json"
+      ],
+      "finding": "C2 выбран и отдельно проверен на holdout5/reserve10 до Android-переноса; везде одна замороженная политика.",
+      "scope_or_remaining": "",
+      "completion_scope": "Core C or explicitly stated research/scope evidence"
+    },
+    {
+      "id": "G04",
+      "requirement": "Новое поведение за флагом; сохранить V1.6 до приёмки",
+      "status": "proven",
+      "authority": {
+        "path": "PLAN_19H.md",
+        "section": "Правила; §5",
+        "lines": [
+          23,
+          400
+        ]
+      },
+      "evidence": [
+        "app/build.gradle.kts",
+        "app/src/main/java/ru/replika/domain/DiarizationPlan.kt",
+        "app/src/main/java/ru/replika/ml/ProcessingWorker.kt",
+        "DECISIONS.md",
+        "release/fallback"
+      ],
+      "finding": "Обычные defaults v16; C2 требует явных build/WorkData параметров и context600. Старый APK и поведение сохранены.",
+      "scope_or_remaining": "",
+      "completion_scope": "Core C or explicitly stated research/scope evidence"
+    },
+    {
+      "id": "G05",
+      "requirement": "Каждый эксперимент имеет результаты и сохранённые исходники",
+      "status": "scope-limited",
+      "authority": {
+        "path": "PLAN_19H.md",
+        "section": "Правила; §4; §6C",
+        "lines": [
+          22,
+          334,
+          421
+        ]
+      },
+      "evidence": [
+        "artifacts/test-results/step-04/acceptance-native-results-v2.csv",
+        "artifacts/test-results/step-04/refiner-ablation-baseline-v1/results.csv",
+        "artifacts/test-results/step-04/candidate-c2-full-original/results.csv",
+        "artifacts/test-results/step-04/candidate-c2-full-reserve/results.csv",
+        "artifacts/test-results/step-04/context600-c2-android-v3/results.csv",
+        "artifacts/test-results/step-04/runner-snapshots/README.md"
+      ],
+      "finding": "Завершённые сравниваемые эксперименты имеют CSV, JSON, метрики/хеши; неудачные runtime/QA-попытки сохранены отдельно.",
+      "scope_or_remaining": "Не утверждается, что каждая историческая ошибка запуска до NN представлена полноценной строкой scored-case CSV; отсутствующие метрики не выдумываются.",
+      "completion_scope": "Core C or explicitly stated research/scope evidence"
+    },
+    {
+      "id": "G06",
+      "requirement": "Нет хардкода под записи и внешних вычислений в обработке APK",
+      "status": "proven",
+      "authority": {
+        "path": "PLAN_19H.md",
+        "section": "Правила; §1",
+        "lines": [
+          25,
+          164
+        ]
+      },
+      "evidence": [
+        "app/src/main/java/ru/replika/ml/ProcessingWorker.kt",
+        "app/src/main/java/ru/replika/ml/DiarizationRefiner.kt",
+        "tools/eval/speaker_refiner.py",
+        "tools/eval/window_overcluster.py",
+        "artifacts/test-results/step-04/context600-c2-android-v3/run.json"
+      ],
+      "finding": "Профиль глобален; автоматический инференс получает аудио/модель/параметры, без эталонных текстов или K. Исследование host отделено от обработки APK.",
+      "scope_or_remaining": "",
+      "completion_scope": "Core C or explicitly stated research/scope evidence"
+    },
+    {
+      "id": "M00",
+      "requirement": "Сначала fixed K, затем автоматическая сетка",
+      "status": "proven",
+      "authority": {
+        "path": "PLAN_19H.md",
+        "section": "§5, Ч4–10",
+        "lines": [
+          376
+        ]
+      },
+      "evidence": [
+        "artifacts/test-results/step-04/fixed-eres2net-zh-v2/summary.json",
+        "artifacts/test-results/step-04/acceptance-native-overview-v2.json",
+        "configs/eval/diar-protocol.json"
+      ],
+      "finding": "Выполнены 48 fixed-исследований и 672 автоматических SD-вызова. Fixed K помечен как непроизводственный oracle; auto использует −1.",
+      "scope_or_remaining": "",
+      "completion_scope": "Core C or explicitly stated research/scope evidence"
+    },
+    {
+      "id": "M01",
+      "requirement": "Названный эмбеддер: eres2net_zh",
+      "status": "proven",
+      "authority": {
+        "path": "PLAN_19H.md",
+        "section": "§3.2; §6C",
+        "lines": [
+          258,
+          259,
+          260,
+          261,
+          262,
+          264,
+          421
+        ]
+      },
+      "evidence": [
+        "configs/eval/diar-models.json",
+        "artifacts/test-results/step-04/fixed-eres2net-zh-v2/summary.json",
+        "artifacts/test-results/step-04/auto-eres2net-zh/summary.json"
+      ],
+      "finding": "Модель с точными байтами/лицензией исследована на всех8 dev в fixed и auto; для auto проверены14 порогов.",
+      "scope_or_remaining": "Исследовательские веса не означают их включение в APK; C2 использует исходный ERes2Net.",
+      "completion_scope": "Core C or explicitly stated research/scope evidence"
+    },
+    {
+      "id": "M02",
+      "requirement": "Названный эмбеддер: wespeaker_resnet34_lm",
+      "status": "proven",
+      "authority": {
+        "path": "PLAN_19H.md",
+        "section": "§3.2; §6C",
+        "lines": [
+          258,
+          259,
+          260,
+          261,
+          262,
+          264,
+          421
+        ]
+      },
+      "evidence": [
+        "configs/eval/diar-models.json",
+        "artifacts/test-results/step-04/fixed-wespeaker-resnet34-lm-v2/summary.json",
+        "artifacts/test-results/step-04/auto-wespeaker-resnet34-lm/summary.json"
+      ],
+      "finding": "Модель с точными байтами/лицензией исследована на всех8 dev в fixed и auto; для auto проверены14 порогов.",
+      "scope_or_remaining": "Исследовательские веса не означают их включение в APK; C2 использует исходный ERes2Net.",
+      "completion_scope": "Core C or explicitly stated research/scope evidence"
+    },
+    {
+      "id": "M03",
+      "requirement": "Названный эмбеддер: campplus_en",
+      "status": "proven",
+      "authority": {
+        "path": "PLAN_19H.md",
+        "section": "§3.2; §6C",
+        "lines": [
+          258,
+          259,
+          260,
+          261,
+          262,
+          264,
+          421
+        ]
+      },
+      "evidence": [
+        "configs/eval/diar-models.json",
+        "artifacts/test-results/step-04/fixed-campplus-en/summary.json",
+        "artifacts/test-results/step-04/auto-campplus-en/summary.json"
+      ],
+      "finding": "Модель с точными байтами/лицензией исследована на всех8 dev в fixed и auto; для auto проверены14 порогов.",
+      "scope_or_remaining": "Исследовательские веса не означают их включение в APK; C2 использует исходный ERes2Net.",
+      "completion_scope": "Core C or explicitly stated research/scope evidence"
+    },
+    {
+      "id": "M04",
+      "requirement": "Названный эмбеддер: wespeaker_camplus_lm",
+      "status": "proven",
+      "authority": {
+        "path": "PLAN_19H.md",
+        "section": "§3.2; §6C",
+        "lines": [
+          258,
+          259,
+          260,
+          261,
+          262,
+          264,
+          421
+        ]
+      },
+      "evidence": [
+        "configs/eval/diar-models.json",
+        "artifacts/test-results/step-04/fixed-wespeaker-camplus-lm/summary.json",
+        "artifacts/test-results/step-04/auto-wespeaker-camplus-lm/summary.json"
+      ],
+      "finding": "Модель с точными байтами/лицензией исследована на всех8 dev в fixed и auto; для auto проверены14 порогов.",
+      "scope_or_remaining": "Исследовательские веса не означают их включение в APK; C2 использует исходный ERes2Net.",
+      "completion_scope": "Core C or explicitly stated research/scope evidence"
+    },
+    {
+      "id": "M05",
+      "requirement": "Названный эмбеддер: titanet_small",
+      "status": "proven",
+      "authority": {
+        "path": "PLAN_19H.md",
+        "section": "§3.2; §6C",
+        "lines": [
+          258,
+          259,
+          260,
+          261,
+          262,
+          264,
+          421
+        ]
+      },
+      "evidence": [
+        "configs/eval/diar-models.json",
+        "artifacts/test-results/step-04/fixed-titanet-small/summary.json",
+        "artifacts/test-results/step-04/auto-titanet-small/summary.json"
+      ],
+      "finding": "Модель с точными байтами/лицензией исследована на всех8 dev в fixed и auto; для auto проверены14 порогов.",
+      "scope_or_remaining": "Исследовательские веса не означают их включение в APK; C2 использует исходный ERes2Net.",
+      "completion_scope": "Core C or explicitly stated research/scope evidence"
+    },
+    {
+      "id": "M06",
+      "requirement": "Названный эмбеддер: titanet_large",
+      "status": "proven",
+      "authority": {
+        "path": "PLAN_19H.md",
+        "section": "§3.2; §6C",
+        "lines": [
+          258,
+          259,
+          260,
+          261,
+          262,
+          264,
+          421
+        ]
+      },
+      "evidence": [
+        "configs/eval/diar-models.json",
+        "artifacts/test-results/step-04/fixed-titanet-large/summary.json",
+        "artifacts/test-results/step-04/auto-titanet-large/summary.json"
+      ],
+      "finding": "Модель с точными байтами/лицензией исследована на всех8 dev в fixed и auto; для auto проверены14 порогов.",
+      "scope_or_remaining": "Исследовательские веса не означают их включение в APK; C2 использует исходный ERes2Net.",
+      "completion_scope": "Core C or explicitly stated research/scope evidence"
+    },
+    {
+      "id": "M07",
+      "requirement": "Пороги 0.30..0.95 с шагом0.05; runtime2.0.1; DER0/250 и ошибка K",
+      "status": "proven",
+      "authority": {
+        "path": "PLAN_19H.md",
+        "section": "§3.2; §6C",
+        "lines": [
+          269,
+          421
+        ]
+      },
+      "evidence": [
+        "configs/eval/diar-protocol.json",
+        "artifacts/test-results/step-04/acceptance-native-overview-v2.json",
+        "artifacts/test-results/step-04/acceptance-native-summary-v2.json",
+        "tools/eval/diar_sweep.py"
+      ],
+      "finding": "84 профиля/672 case-аудита; все шесть моделей ×14 порогов ×8 dev. Исходные профили без постобработки не прошли совместный gate.",
+      "scope_or_remaining": "",
+      "completion_scope": "Core C or explicitly stated research/scope evidence"
+    },
+    {
+      "id": "M08",
+      "requirement": "Кандидаты ERes2Net v2/large из обзорного списка",
+      "status": "scope-limited",
+      "authority": {
+        "path": "PLAN_19H.md",
+        "section": "§3.2",
+        "lines": [
+          263
+        ]
+      },
+      "evidence": [
+        "configs/eval/diar-models.json",
+        "PLAN_19H.md"
+      ],
+      "finding": "Дополнительные ERes2Net v2/large не исследованы.",
+      "scope_or_remaining": "§3.2 называет их неточным обзорным шаблоном; конкретный список §6C содержит6 моделей и выполнен. Не добавляется новый седьмой обязательный кандидат.",
+      "completion_scope": "Core C or explicitly stated research/scope evidence"
+    },
+    {
+      "id": "M09",
+      "requirement": "Pyannote segmentation3.0 и исходный стек сохраняются",
+      "status": "proven",
+      "authority": {
+        "path": "PLAN_19H.md",
+        "section": "§3.2",
+        "lines": [
+          268,
+          280
+        ]
+      },
+      "evidence": [
+        "app/src/main/assets/models-lock.json",
+        "app/src/main/java/ru/replika/domain/DiarizationPlan.kt",
+        "tools/eval/diar_sweep.py",
+        "artifacts/test-results/step-04/build-c2-v2/summary.json"
+      ],
+      "finding": "Сегментация и семь исходных весов не менялись; C2 добавляет обработку реальных окон поверх текущего API.",
+      "scope_or_remaining": "",
+      "completion_scope": "Core C or explicitly stated research/scope evidence"
+    },
+    {
+      "id": "M10",
+      "requirement": "Sortformer — только необязательное будущее исследование",
+      "status": "scope-limited",
+      "authority": {
+        "path": "PLAN_19H.md",
+        "section": "§3.2 Ultra",
+        "lines": [
+          278
+        ]
+      },
+      "evidence": [
+        "PLAN_19H.md",
+        "configs/eval/diar-models.json"
+      ],
+      "finding": "Sortformer не внедрялся; план прямо говорит «Не в эти19часов».",
+      "scope_or_remaining": "Не считается блокирующим C требованием.",
+      "completion_scope": "Core C or explicitly stated research/scope evidence"
+    },
+    {
+      "id": "ALG01",
+      "requirement": "Измерить центроиды через реальные чистые окна1.5с/.75с, минимум1с, без overlap",
+      "status": "proven",
+      "authority": {
+        "path": "PLAN_19H.md",
+        "section": "§3.2; §6C",
+        "lines": [
+          270,
+          421
+        ]
+      },
+      "evidence": [
+        "tools/eval/speaker_refiner.py",
+        "tools/eval/window_overcluster.py",
+        "tools/eval/diar_sweep.py",
+        "app/src/main/java/ru/replika/ml/DiarizationRefiner.kt",
+        "artifacts/test-results/step-04/baseline-clean-windows/summary.json",
+        "artifacts/test-results/step-04/context600-c2-android-v3/run.json"
+      ],
+      "finding": "C1/C2 получают реальные эмбеддинги исходного PCM. Короткий чистый участок1..1.5с берётся целиком; нет дополнения/фиктивных векторов.",
+      "scope_or_remaining": "",
+      "completion_scope": "Core C or explicitly stated research/scope evidence"
+    },
+    {
+      "id": "ALG02",
+      "requirement": "Нормализованные центроиды и итеративное cosine>τ слияние",
+      "status": "proven",
+      "authority": {
+        "path": "PLAN_19H.md",
+        "section": "§3.2; §6C",
+        "lines": [
+          270,
+          421
+        ]
+      },
+      "evidence": [
+        "tools/eval/speaker_refiner.py",
+        "app/src/main/java/ru/replika/domain/SpeakerRefiner.kt",
+        "artifacts/test-results/step-04/candidate-c1-full-original/dev-01-two-clean/diagnostics.json",
+        "artifacts/test-results/step-04/kotlin-refiner/differential-report.json"
+      ],
+      "finding": "C1 реализован на Python и Kotlin, включая нормализацию и повторный пересчёт измеренных центроидов.",
+      "scope_or_remaining": "Выбранный C2 вместо этой схемы использует отдельные окна и average HC; это явно названная альтернатива.",
+      "completion_scope": "Core C or explicitly stated research/scope evidence"
+    },
+    {
+      "id": "ALG03",
+      "requirement": "Оценка K по eigengap сходства центроидов",
+      "status": "proven",
+      "authority": {
+        "path": "PLAN_19H.md",
+        "section": "§3.2; §5; §6C",
+        "lines": [
+          271,
+          377,
+          421
+        ]
+      },
+      "evidence": [
+        "tools/eval/speaker_refiner.py",
+        "app/src/main/java/ru/replika/domain/SpeakerRefiner.kt",
+        "artifacts/test-results/step-04/candidate-c1-full-original/dev-01-two-clean/diagnostics.json",
+        "artifacts/test-results/step-04/kotlin-refiner/differential-report.json"
+      ],
+      "finding": "Реализация C1 use_eigengap=true есть на обоих языках; спектральные и другие контрольные примеры входят в274 сравнений.",
+      "scope_or_remaining": "Это пороговая нормализованная лапласианная эвристика, а не заявление о полном опубликованном NME-SC.",
+      "completion_scope": "Core C or explicitly stated research/scope evidence"
+    },
+    {
+      "id": "ALG04",
+      "requirement": "Должен ли каждый выбранный профиль применять eigengap",
+      "status": "proven",
+      "authority": {
+        "path": "PLAN_19H.md",
+        "section": "§3.2; §5; §6C",
+        "lines": [
+          271,
+          377,
+          421
+        ]
+      },
+      "evidence": [
+        "tools/eval/window_overcluster.py",
+        "app/src/main/java/ru/replika/domain/WindowSpeakerRefiner.kt",
+        "artifacts/test-results/step-04/candidate-c2-full-original/dev-01-two-clean/diagnostics.json",
+        "artifacts/test-results/step-04/refiner-ablation-baseline-v1/diagnosis.json",
+        "DECISIONS.md"
+      ],
+      "finding": "В C1 eigengap реализован, исследован и перенесён. Выбранный C2 явно помечаетeigengap_applied=false и использует average-window HC; отличие описано и принято root как измеренная альтернатива.",
+      "scope_or_remaining": "План требует named implementation, но не содержит отдельного gate исполнения eigengap каждым исследованным или выбранным альтернативным профилем. Диагностика C2 не выдаётся за применённый eigengap; новый blocker не придуман.",
+      "completion_scope": "Core C or explicitly stated research/scope evidence"
+    },
+    {
+      "id": "ALG05",
+      "requirement": "Ограничение K≤8",
+      "status": "proven",
+      "authority": {
+        "path": "PLAN_19H.md",
+        "section": "§3.2; §6C",
+        "lines": [
+          271,
+          421
+        ]
+      },
+      "evidence": [
+        "tools/eval/speaker_refiner.py",
+        "tools/eval/window_overcluster.py",
+        "app/src/main/java/ru/replika/domain/SpeakerRefiner.kt",
+        "app/src/main/java/ru/replika/domain/WindowSpeakerRefiner.kt",
+        "configs/eval/c2-window-selected-full.json",
+        "artifacts/test-results/step-04/context600-c2-android-v3/run.json"
+      ],
+      "finding": "При принятой вычислительной поддержке C1/C2 ограничивают результат8 голосами.",
+      "scope_or_remaining": "При unsupported алгоритм сохраняет исходные интервалы и явный отказ; не удаляет голоса ради красивого K. Такой fallback не выдаётся за успешную поддержку.",
+      "completion_scope": "Core C or explicitly stated research/scope evidence"
+    },
+    {
+      "id": "ALG06",
+      "requirement": "Кластеры <max(2с,3%записи) назначать ближайшему центроиду",
+      "status": "proven",
+      "authority": {
+        "path": "PLAN_19H.md",
+        "section": "§3.2; §6C",
+        "lines": [
+          272,
+          421
+        ]
+      },
+      "evidence": [
+        "tools/eval/speaker_refiner.py",
+        "tools/eval/window_overcluster.py",
+        "app/src/main/java/ru/replika/domain/SpeakerRefiner.kt",
+        "app/src/main/java/ru/replika/domain/WindowSpeakerRefiner.kt",
+        "configs/eval/c2-window-selected-full.json",
+        "artifacts/test-results/step-04/refiner-ablation-baseline-v1/run.json"
+      ],
+      "finding": "Правило реализовано; в выбранном C2 включено, без дополнительного minimum-similarity порога. Для C1 отдельно исследованы глобальные защитные пороги.",
+      "scope_or_remaining": "",
+      "completion_scope": "Core C or explicitly stated research/scope evidence"
+    },
+    {
+      "id": "ALG07",
+      "requirement": "Сгладить короткую вставку между одинаковыми говорящими",
+      "status": "proven",
+      "authority": {
+        "path": "PLAN_19H.md",
+        "section": "§3.2; §6C",
+        "lines": [
+          273,
+          421
+        ]
+      },
+      "evidence": [
+        "tools/eval/speaker_refiner.py",
+        "tools/eval/window_overcluster.py",
+        "app/src/main/java/ru/replika/domain/SpeakerRefiner.kt",
+        "app/src/main/java/ru/replika/domain/WindowSpeakerRefiner.kt",
+        "app/src/test/java/ru/replika/domain/WindowSpeakerRefinerTest.kt"
+      ],
+      "finding": "Порог500мс соответствует точной формулировке §6C <0.5с и диапазону400..600мс в §3.2; паузы/наложения не заполняются выдуманной речью.",
+      "scope_or_remaining": "",
+      "completion_scope": "Core C or explicitly stated research/scope evidence"
+    },
+    {
+      "id": "ALG08",
+      "requirement": "Подобрать minDurationOff",
+      "status": "scope-limited",
+      "authority": {
+        "path": "PLAN_19H.md",
+        "section": "§3.2",
+        "lines": [
+          273
+        ]
+      },
+      "evidence": [
+        "app/src/main/java/ru/replika/domain/DiarizationPlan.kt",
+        "configs/eval/diar-protocol.json",
+        "tools/eval/diar_sweep.py"
+      ],
+      "finding": "minDurationOff оставлен0.5с; отдельный sweep этого native-параметра не найден.",
+      "scope_or_remaining": "Остаётся ограничением покрытия исследовательских рекомендаций. Не превращается в новый неописанный числовой критерий C.",
+      "completion_scope": "Core C or explicitly stated research/scope evidence"
+    },
+    {
+      "id": "ALG09",
+      "requirement": "Назначать говорящего словам и резать по границе слова",
+      "status": "proven",
+      "authority": {
+        "path": "PLAN_19H.md",
+        "section": "§3.2; §6D",
+        "lines": [
+          274,
+          424
+        ]
+      },
+      "evidence": [
+        "app/src/main/java/ru/replika/domain/VadWordPlanner.kt",
+        "app/src/main/java/ru/replika/ml/ProcessingWorker.kt",
+        "configs/eval/c2-window-selected-full.json",
+        "artifacts/test-results/step-04/context600-c2-android-v3/run.json"
+      ],
+      "finding": "C2 спарен с D context600; слова назначаются по реальным turns, ASR не режется по смене голоса. Все10 native QA-восстановлений Jury прошли.",
+      "scope_or_remaining": "",
+      "completion_scope": "Core C or explicitly stated research/scope evidence"
+    },
+    {
+      "id": "ALG10",
+      "requirement": "В Jury JSON нет−1; speaker_1..N по первому появлению",
+      "status": "proven",
+      "authority": {
+        "path": "PLAN_19H.md",
+        "section": "§3.2; §6A",
+        "lines": [
+          275,
+          276,
+          415
+        ]
+      },
+      "evidence": [
+        "app/src/main/java/ru/replika/domain/JuryJson.kt",
+        "app/src/test/java/ru/replika/JuryJsonTest.kt",
+        "artifacts/test-results/step-04/ui-v3/summary.json",
+        "artifacts/test-results/step-04/context600-c2-android-v3/run.json"
+      ],
+      "finding": "Неизвестные внутренние назначения явно помечены, экспорт использует ближайшего известного и последовательные строковые IDs; строгая схема подтверждена.",
+      "scope_or_remaining": "",
+      "completion_scope": "Core C or explicitly stated research/scope evidence"
+    },
+    {
+      "id": "ALG11",
+      "requirement": "Python сначала, затем чистый Kotlin domain и JVM-тесты",
+      "status": "proven",
+      "authority": {
+        "path": "PLAN_19H.md",
+        "section": "§5; §6C",
+        "lines": [
+          377,
+          421
+        ]
+      },
+      "evidence": [
+        "tools/eval/speaker_refiner.py",
+        "tools/eval/window_overcluster.py",
+        "app/src/main/java/ru/replika/domain/SpeakerRefiner.kt",
+        "app/src/main/java/ru/replika/domain/WindowSpeakerRefiner.kt",
+        "artifacts/test-results/step-04/kotlin-refiner/differential-report.json",
+        "artifacts/test-results/step-04/kotlin-window-refiner/differential-report.json",
+        "artifacts/test-results/step-04/build-c2-v2/summary.json"
+      ],
+      "finding": "274 C1 и157 C2 сравнений; полный Kotlin/JVM набор173PASS. Чистые помощники не вызывают Android/NN/эталон.",
+      "scope_or_remaining": "",
+      "completion_scope": "Core C or explicitly stated research/scope evidence"
+    },
+    {
+      "id": "ALG12",
+      "requirement": "Проверить вклад стадий, не скрывать неудачные варианты",
+      "status": "proven",
+      "authority": {
+        "path": "PLAN_19H.md",
+        "section": "Исследовательское уточнение внутри C",
+        "lines": [
+          270,
+          271,
+          272,
+          273
+        ]
+      },
+      "evidence": [
+        "artifacts/test-results/step-04/refiner-ablation-baseline-v1/summary.json",
+        "artifacts/test-results/step-04/refiner-ablation-baseline-v1/diagnosis.json",
+        "tools/eval/refiner_ablation.py"
+      ],
+      "finding": "196 профилей/1568 case-вариантов,40 различных scoring-входов; full/no_eigengap/merge_only/small_smooth_only и guards. На этих232 исходных векторах eigengap не добавил слияний.",
+      "scope_or_remaining": "Абляция — дополнительная диагностика, не новый критерий из плана; отсутствие эффекта здесь не доказывает ненужность eigengap на всех данных.",
+      "completion_scope": "Core C or explicitly stated research/scope evidence"
+    },
+    {
+      "id": "ALG13",
+      "requirement": "Реальные данные, no-GT, честные unknown/temporal/overlap статусы",
+      "status": "proven",
+      "authority": {
+        "path": "PLAN_19H.md",
+        "section": "Правила; §3.2",
+        "lines": [
+          25,
+          270,
+          275
+        ]
+      },
+      "evidence": [
+        "tools/eval/speaker_refiner.py",
+        "tools/eval/window_overcluster.py",
+        "tools/eval/diar_acceptance.py",
+        "tools/eval/diar_validation.py",
+        "artifacts/test-results/step-04/context600-c2-android-v3/run.json"
+      ],
+      "finding": "Невалидные/нулевые/nonfinite векторы отклоняются; missing-centroid/temporal назначения названы отдельно; original activity и потери speaker-time диагностируются.",
+      "scope_or_remaining": "",
+      "completion_scope": "Core C or explicitly stated research/scope evidence"
+    },
+    {
+      "id": "SHIFT01",
+      "requirement": "Проверить windowShiftRatio0.1→0.25/0.5 и оставлять без роста DER",
+      "status": "proven",
+      "authority": {
+        "path": "PLAN_19H.md",
+        "section": "§3.2; §5",
+        "lines": [
+          280,
+          378
+        ]
+      },
+      "evidence": [
+        "artifacts/test-results/step-04/candidate-c1-shift0p25-refined/summary.json",
+        "artifacts/test-results/step-04/candidate-c1-shift0p5-refined/summary.json",
+        "DECISIONS.md"
+      ],
+      "finding": "Измерен C1:0.25 даёт7/8 и DER26.618108% (+0.067747п.п.);0.5 даёт6/8 и26.272321%. Оба отклонены, оставлен0.1.",
+      "scope_or_remaining": "Это выполненное C1-исследование; отдельный C2-shift sweep и контролируемое доказательство выигрыша скорости не заявляются.",
+      "completion_scope": "Core C or explicitly stated research/scope evidence"
+    },
+    {
+      "id": "CPU01",
+      "requirement": "CPU backend; sherpa2.0.1 и совпадающие модели/политики",
+      "status": "proven",
+      "authority": {
+        "path": "PLAN_19H.md",
+        "section": "§0.3; §4",
+        "lines": [
+          138,
+          334
+        ]
+      },
+      "evidence": [
+        "configs/eval/diar-models.json",
+        "app/src/main/assets/models-lock.json",
+        "artifacts/test-results/step-04/full-c2-equivalence-audit.json",
+        "artifacts/test-results/step-04/context600-c2-android-v3/run.json"
+      ],
+      "finding": "CPU provider,2 потока исследовательского/выбранного профиля, одинаковые исходные семь весов; nativeFloat32-политики и Doubleτ проверены.",
+      "scope_or_remaining": "",
+      "completion_scope": "Core C or explicitly stated research/scope evidence"
+    },
+    {
+      "id": "CPU02",
+      "requirement": "Потоки от availableProcessors вместо фиксированных2",
+      "status": "pending",
+      "authority": {
+        "path": "PLAN_19H.md",
+        "section": "§0.3; очередь п5",
+        "lines": [
+          16,
+          139
+        ]
+      },
+      "evidence": [
+        "PLAN_19H.md",
+        "STATUS.md",
+        "app/src/main/java/ru/replika/domain/TranscriptPresentation.kt",
+        "app/src/main/java/ru/replika/ml/ProcessingWorker.kt"
+      ],
+      "finding": "В C зафиксированы2 потока для парного измерения. Динамический выбор от ядер — следующая отдельная задача5.",
+      "scope_or_remaining": "Не объявляется выполненным и не добавляется в задним числом числовой gate C.",
+      "completion_scope": "Later task or overall delivery boundary, not a new numerical C gate"
+    },
+    {
+      "id": "CPU03",
+      "requirement": "Термоконтроль не блокирует NONE/недоступный API",
+      "status": "scope-limited",
+      "authority": {
+        "path": "PLAN_19H.md",
+        "section": "§0.3; очередь п5",
+        "lines": [
+          16,
+          140
+        ]
+      },
+      "evidence": [
+        "app/src/main/java/ru/replika/ml/PipelineTelemetry.kt",
+        "artifacts/test-results/step-04/build-c2-v2/summary.json",
+        "artifacts/test-results/step-04/context600-c2-android-v3/run.json"
+      ],
+      "finding": "Код не ждёт при status<SEVERE; реальный пакет10 завершён.",
+      "scope_or_remaining": "Полная отдельная проверка сценариев emulator/thermal принадлежит задаче5; нельзя обещать физическую температуру по эмулятору.",
+      "completion_scope": "Core C or explicitly stated research/scope evidence"
+    },
+    {
+      "id": "MEM01",
+      "requirement": "Загружать модели по стадиям; без OOM/скрытого native cache",
+      "status": "proven",
+      "authority": {
+        "path": "PLAN_19H.md",
+        "section": "§0.3",
+        "lines": [
+          141
+        ]
+      },
+      "evidence": [
+        "app/src/main/java/ru/replika/ml/ProcessingWorker.kt",
+        "app/src/main/java/ru/replika/ml/DiarizationRefiner.kt",
+        "app/src/test/java/ru/replika/ml/DiarizationRefinerTest.kt",
+        "artifacts/test-results/step-04/context600-c2-android-v3/run.json"
+      ],
+      "finding": "SD освобождается до extra extractor, все streams/session до ASR; десять случаев завершены с подтверждённым закрытием и реальными512-компонентными векторами.",
+      "scope_or_remaining": "Пограничные PSS-снимки не выдаются за непрерывный пик RAM.",
+      "completion_scope": "Core C or explicitly stated research/scope evidence"
+    },
+    {
+      "id": "MEM02",
+      "requirement": "Три длинные записи подряд, чистая установка и реальный ARM",
+      "status": "pending",
+      "authority": {
+        "path": "PLAN_19H.md",
+        "section": "§0.3; §5",
+        "lines": [
+          141,
+          142,
+          145,
+          398,
+          399
+        ]
+      },
+      "evidence": [
+        "artifacts/test-results/step-04/context600-c2-android-v3/run.json",
+        "artifacts/test-results/step-04/build-c2-v2/summary.json",
+        "STATUS.md"
+      ],
+      "finding": "Последовательный пакет10 проверен на x86_64; ARM64/подпись проверены статически.",
+      "scope_or_remaining": "Три длинные естественные RU-записи, чистая установка на физическом телефоне и ARM runtime этим не доказаны; общая приёмка проекта открыта.",
+      "completion_scope": "Later task or overall delivery boundary, not a new numerical C gate"
+    },
+    {
+      "id": "ARM01",
+      "requirement": "ARM без SIGILL и образ16KiB pages",
+      "status": "pending",
+      "authority": {
+        "path": "PLAN_19H.md",
+        "section": "§0.3",
+        "lines": [
+          142,
+          143
+        ]
+      },
+      "evidence": [
+        "artifacts/test-results/step-04/build-c2-v2/summary.json",
+        "artifacts/test-results/step-04/context600-c2-android-v3/run.json"
+      ],
+      "finding": "Есть статические ARM64/подпись; фактический стенд x86_64.",
+      "scope_or_remaining": "Ни фактический ARM-запуск, ни16KiB Android-образ в C не подтверждены.",
+      "completion_scope": "Later task or overall delivery boundary, not a new numerical C gate"
+    },
+    {
+      "id": "DATA01",
+      "requirement": "Независимые references; dev/holdout; не гипотеза модели как gold",
+      "status": "proven",
+      "authority": {
+        "path": "PLAN_19H.md",
+        "section": "§4.1; AGENTS",
+        "lines": [
+          337,
+          338,
+          340
+        ]
+      },
+      "evidence": [
+        "benchmark/eval/manifest.json",
+        "benchmark/eval-reserve/manifest.json",
+        "artifacts/test-results/step-04/evaluation-validity.md",
+        "artifacts/test-results/step-04/candidate-c2-validation-gates/summary.json"
+      ],
+      "finding": "Эталонные тексты/IDs исходников независимы от проверяемого ASR; Android получает только audio/id/hash; всегдаK=−1 для auto.",
+      "scope_or_remaining": "",
+      "completion_scope": "Core C or explicitly stated research/scope evidence"
+    },
+    {
+      "id": "DATA02",
+      "requirement": "Holdout действительно не видели до финала",
+      "status": "scope-limited",
+      "authority": {
+        "path": "PLAN_19H.md",
+        "section": "§4.1",
+        "lines": [
+          340
+        ]
+      },
+      "evidence": [
+        "configs/eval/diar-protocol.json",
+        "artifacts/test-results/step-04/candidate-c1-validation-freeze.json",
+        "artifacts/test-results/step-04/candidate-c2-validation-freeze.json",
+        "artifacts/test-results/step-04/candidate-c2-validation-gates/summary.json"
+      ],
+      "finding": "Профили фиксировались до собственных C1/C2 валидаций; группы5/10 проверены отдельно.",
+      "scope_or_remaining": "Эти группы уже видели в D/C1, поэтому явно называются regression validation, а не слепым untouched holdout.",
+      "completion_scope": "Core C or explicitly stated research/scope evidence"
+    },
+    {
+      "id": "MET01",
+      "requirement": "Raw WER главный; пунктуация/регистр/цифры сохранены; E2E не менять",
+      "status": "proven",
+      "authority": {
+        "path": "PLAN_19H.md",
+        "section": "§0.4",
+        "lines": [
+          106,
+          118,
+          122,
+          123,
+          124,
+          125,
+          126
+        ]
+      },
+      "evidence": [
+        "tools/eval/score.py",
+        "tools/eval/SCORING.md",
+        "app/src/main/assets/models-lock.json",
+        "artifacts/test-results/step-04/full-c2-equivalence-audit.json",
+        "artifacts/test-results/step-04/context600-c2-android-v3/run.json"
+      ],
+      "finding": "Raw, пунктуационные токены/F1/регистр и normalized диагностика доступны; основной GigaAMv3 E2E не заменён и текст не нормализуется перед Jury.",
+      "scope_or_remaining": "",
+      "completion_scope": "Core C or explicitly stated research/scope evidence"
+    },
+    {
+      "id": "MET02",
+      "requirement": "DER0/250 с оптимальной перестановкой, overlap и native K error",
+      "status": "proven",
+      "authority": {
+        "path": "PLAN_19H.md",
+        "section": "§4.2; §6C",
+        "lines": [
+          346,
+          421
+        ]
+      },
+      "evidence": [
+        "tools/eval/score.py",
+        "tools/eval/tests/test_score.py",
+        "artifacts/test-results/step-04/full-c2-equivalence-audit.json",
+        "artifacts/test-results/step-04/context600-c2-android-v3/run.json"
+      ],
+      "finding": "Используется полный временной интервал и реальные native turns до экспортной проекции. Пустой текст не удаляет DER-активность.",
+      "scope_or_remaining": "Коллар250 здесь полная ширина±125мс, протокол явно записан.",
+      "completion_scope": "Core C or explicitly stated research/scope evidence"
+    },
+    {
+      "id": "MET03",
+      "requirement": "cpWER, CER, S/D/I и временные/RTF диагностики",
+      "status": "proven",
+      "authority": {
+        "path": "PLAN_19H.md",
+        "section": "§4.2",
+        "lines": [
+          344,
+          345,
+          347,
+          348,
+          349
+        ]
+      },
+      "evidence": [
+        "tools/eval/score.py",
+        "tools/eval/SCORING.md",
+        "artifacts/test-results/step-04/full-c2-equivalence-audit.json",
+        "artifacts/test-results/step-04/context600-c2-android-v3/run.json"
+      ],
+      "finding": "Метрики вычисляются; native dev raw70/533 против host71/533, norm16/532 одинаков; native cpWER145/533 против146/533.",
+      "scope_or_remaining": "Временные метрики по монтажным интервалам не являются независимым gold границ слов; RTF x86 не скорость ARM/телефона.",
+      "completion_scope": "Core C or explicitly stated research/scope evidence"
+    },
+    {
+      "id": "SEL01",
+      "requirement": "Dev: Kerror0 минимум80%, DER≤fixedV1.6+2п.п.",
+      "status": "proven",
+      "authority": {
+        "path": "PLAN_19H.md",
+        "section": "§5 Ч4–10",
+        "lines": [
+          379
+        ]
+      },
+      "evidence": [
+        "configs/eval/diar-protocol.json",
+        "artifacts/test-results/step-04/fixed-v16-production-comparison/summary.json",
+        "artifacts/test-results/step-04/acceptance-window-eres030-fine-v1/tau-0p36.json",
+        "artifacts/test-results/step-04/context600-c2-android-v3/run.json"
+      ],
+      "finding": "ceil(.8×8)=7. Host и actual native:7/8, DER0=.18298480576441103, ниже лимита.28885181704260654; fixed baseline.2688518170426065.",
+      "scope_or_remaining": "",
+      "completion_scope": "Core C or explicitly stated research/scope evidence"
+    },
+    {
+      "id": "SEL02",
+      "requirement": "Подобратьτ только на dev, подтвердить отдельные holdout/reserve",
+      "status": "proven",
+      "authority": {
+        "path": "PLAN_19H.md",
+        "section": "§6C; правила",
+        "lines": [
+          22,
+          421
+        ]
+      },
+      "evidence": [
+        "artifacts/test-results/step-04/candidate-c2-validation-freeze.json",
+        "configs/eval/diar-protocol-window-fine-v1.json",
+        "artifacts/test-results/step-04/candidate-c2-validation-gates/summary.json"
+      ],
+      "finding": "Fine21τ дал один совместно прошедший профиль. Freeze предшествует C2-проверкам: holdout4/5 и DER13.8896%, reserve5/10 и DER22.4396%; raw49/444 и83/743.",
+      "scope_or_remaining": "",
+      "completion_scope": "Core C or explicitly stated research/scope evidence"
+    },
+    {
+      "id": "SEL03",
+      "requirement": "Полный новый host, не выдавать переиспользование ASR за NN",
+      "status": "proven",
+      "authority": {
+        "path": "PLAN_19H.md",
+        "section": "§4; §6C",
+        "lines": [
+          334,
+          421
+        ]
+      },
+      "evidence": [
+        "artifacts/test-results/step-04/candidate-c2-full-original/run.json",
+        "artifacts/test-results/step-04/candidate-c2-full-reserve/run.json",
+        "artifacts/test-results/step-04/full-c2-equivalence-audit.json"
+      ],
+      "finding": "Заново запущены все стадии на23 записях;3164 независимых проверки подтвердили данные. Более ранние сохранённые ASR-проекции названы отдельно.",
+      "scope_or_remaining": "",
+      "completion_scope": "Core C or explicitly stated research/scope evidence"
+    },
+    {
+      "id": "AND01",
+      "requirement": "Перед релизом те же5 Android/host; расхождение WER≤0.5п.п.",
+      "status": "proven",
+      "authority": {
+        "path": "PLAN_19H.md",
+        "section": "§4.3",
+        "lines": [
+          353
+        ]
+      },
+      "evidence": [
+        "artifacts/test-results/step-04/context600-c2-android-v3/run.json",
+        "DECISIONS.md",
+        "tools/eval/pull_refined_android.py"
+      ],
+      "finding": "Взвешенная фиксированная пятёрка:43/442 native против44/442 host, дельта−0.22624434389140272п.п.; threshold0.5, PASS.",
+      "scope_or_remaining": "Проверяется согласованный корпус пяти, не расширяется dev8. Выброс dev01−0.7142857п.п. сохранён; не навязан новый per-file gate.",
+      "completion_scope": "Core C or explicitly stated research/scope evidence"
+    },
+    {
+      "id": "AND02",
+      "requirement": "Фактическая Android-обработка полного набора, не один smoke",
+      "status": "proven",
+      "authority": {
+        "path": "PLAN_19H.md",
+        "section": "§4.3; правила",
+        "lines": [
+          24,
+          352,
+          353
+        ]
+      },
+      "evidence": [
+        "artifacts/test-results/step-04/context600-c2-android-v3/run.json",
+        "artifacts/test-results/step-04/context600-c2-android-v3/android-report.json",
+        "artifacts/test-results/step-04/context600-c2-android-v3/results.csv"
+      ],
+      "finding": "Пакет DEV8∪fixed5 завершён:10/10, gate_pass=true, все10 sidecar и word/Jury replay подтверждены; состояние экрана восстановлено1.",
+      "scope_or_remaining": "Отдельный независимый аудит полного10 такжеPASS; общая приёмка проекта/ARM/телефонной скорости не объявляется.",
+      "completion_scope": "Core C or explicitly stated research/scope evidence"
+    },
+    {
+      "id": "AND03",
+      "requirement": "Независимый финальный native audit после завершения полного10",
+      "status": "proven",
+      "authority": {
+        "path": "PLAN_19H.md",
+        "section": "Дополнительный контроль происхождения C",
+        "lines": [
+          22,
+          24
+        ]
+      },
+      "evidence": [
+        "artifacts/test-results/step-04/context600-c2-android-v3/independent-audit.json",
+        "artifacts/test-results/step-04/runner-snapshots/dbc8139203b7e2e3f6624db900430db5845dd5fb6bdc00955502c7f757e673da.py",
+        "artifacts/test-results/step-04/context600-c2-android-v3/run.json"
+      ],
+      "finding": "Независимый аудит полного10: PASS564checks, все10 реальных векторных replay, token→word→Jury и пересчётов основных метрик; fixed5 иdev8 gates сохранены отдельно.",
+      "scope_or_remaining": "Аудитор не запускал новые NN/ADB/build; результат не является ARM/телефонной или полной проектной приёмкой.",
+      "completion_scope": "Core C or explicitly stated research/scope evidence"
+    },
+    {
+      "id": "AND04",
+      "requirement": "Каждая задача: зелёные JVM и All-in-One сборка",
+      "status": "proven",
+      "authority": {
+        "path": "PLAN_19H.md",
+        "section": "Правила",
+        "lines": [
+          24
+        ]
+      },
+      "evidence": [
+        "artifacts/test-results/step-04/build-c2-v2/summary.json",
+        "artifacts/test-results/step-04/python-integrated-v5/summary.json"
+      ],
+      "finding": "173 JVM и337 Python PASS; All-in-One/debug/test APK собраны и подписаны.",
+      "scope_or_remaining": "Сборка и staticARM64 сами по себе не доказывают ARM runtime.",
+      "completion_scope": "Core C or explicitly stated research/scope evidence"
+    },
+    {
+      "id": "AND05",
+      "requirement": "UI и строгий JSON сохраняются",
+      "status": "proven",
+      "authority": {
+        "path": "PLAN_19H.md",
+        "section": "AGENTS; §5",
+        "lines": [
+          398
+        ]
+      },
+      "evidence": [
+        "artifacts/test-results/step-04/ui-v3/summary.json",
+        "artifacts/test-results/step-04/build-c2-v2/summary.json"
+      ],
+      "finding": "UI2/2 на текущем APK, оба JSON-экспорта и automatic/manual проверены; модельных гипотез в UI-fixture нет.",
+      "scope_or_remaining": "",
+      "completion_scope": "Core C or explicitly stated research/scope evidence"
+    },
+    {
+      "id": "SAFE01",
+      "requirement": "Manual/single и отсутствующие WorkData-ключи сохраняют legacy",
+      "status": "proven",
+      "authority": {
+        "path": "PLAN_19H.md",
+        "section": "§3.2; §5; риск §9",
+        "lines": [
+          275,
+          400,
+          463
+        ]
+      },
+      "evidence": [
+        "app/src/main/java/ru/replika/domain/DiarizationPlan.kt",
+        "app/src/main/java/ru/replika/ml/ProcessingWorker.kt",
+        "app/src/test/java/ru/replika/domain/DiarizationPlanTest.kt",
+        "artifacts/test-results/step-04/build-c2-v2/summary.json"
+      ],
+      "finding": "Выбор C2 действует только на automatic−1; ручноеK/mono обходят refinement. Отсутствующий ключ всегда v16 независимо от defaults сборки.",
+      "scope_or_remaining": "",
+      "completion_scope": "Core C or explicitly stated research/scope evidence"
+    },
+    {
+      "id": "SAFE02",
+      "requirement": "Отдельно переключать старый конвейер и постобработку",
+      "status": "scope-limited",
+      "authority": {
+        "path": "PLAN_19H.md",
+        "section": "§9",
+        "lines": [
+          463
+        ]
+      },
+      "evidence": [
+        "app/src/main/java/ru/replika/domain/DiarizationPlan.kt",
+        "app/src/main/java/ru/replika/domain/AsrPlan.kt",
+        "app/src/main/java/ru/replika/ml/ProcessingWorker.kt",
+        "DECISIONS.md"
+      ],
+      "finding": "Есть отдельные ASR/DiarPlan-флаги, сохранён legacy и чистые настраиваемые исследовательские стадии.",
+      "scope_or_remaining": "Android C2 разрешён только вместе с context600 и валидированным целым профилем; произвольные комбинации всех стадий в продукт не выведены.",
+      "completion_scope": "Core C or explicitly stated research/scope evidence"
+    },
+    {
+      "id": "SAFE03",
+      "requirement": "Отмена, ошибки и последовательное освобождение native ресурсов",
+      "status": "proven",
+      "authority": {
+        "path": "PLAN_19H.md",
+        "section": "§5; AGENTS",
+        "lines": [
+          398
+        ]
+      },
+      "evidence": [
+        "app/src/main/java/ru/replika/ml/DiarizationRefiner.kt",
+        "app/src/test/java/ru/replika/ml/DiarizationRefinerTest.kt",
+        "app/src/main/java/ru/replika/ml/ProcessingWorker.kt",
+        "artifacts/test-results/step-04/context600-c2-android-v3/run.json"
+      ],
+      "finding": "use/finally закрывают extractor/streams при read/compute/cancel/close failure; Worker не стартует ASR при неподтверждённом закрытии. Все10 actual закрытия подтверждены.",
+      "scope_or_remaining": "Текущий JNI-вызов внутри не прерывается: отмена проверяется на границах вызовов.",
+      "completion_scope": "Core C or explicitly stated research/scope evidence"
+    },
+    {
+      "id": "SAFE04",
+      "requirement": "Исходный PCM не усиливать/не дополнять для диаризации",
+      "status": "proven",
+      "authority": {
+        "path": "PLAN_19H.md",
+        "section": "§3.2; сохранение поведения AGENTS",
+        "lines": [
+          270
+        ]
+      },
+      "evidence": [
+        "app/src/main/java/ru/replika/ml/ProcessingWorker.kt",
+        "app/src/main/java/ru/replika/ml/DiarizationRefiner.kt",
+        "artifacts/test-results/step-04/context600-c2-android-v3/run.json"
+      ],
+      "finding": "Дополнительные окна читаются из оригинального PCM по строгим индексам; QuietAudioGain применяется только к временным VAD/ASR массивам.",
+      "scope_or_remaining": "",
+      "completion_scope": "Core C or explicitly stated research/scope evidence"
+    },
+    {
+      "id": "SAFE05",
+      "requirement": "QA-векторы вне Room, bounded, finite/null/BigInteger, без перезаписи",
+      "status": "proven",
+      "authority": {
+        "path": "PLAN_19H.md",
+        "section": "Дополнительная безопасность реализации C",
+        "lines": [
+          23
+        ]
+      },
+      "evidence": [
+        "app/src/main/java/ru/replika/ml/DiarizationEvidence.kt",
+        "app/src/test/java/ru/replika/DiarizationEvidenceTest.kt",
+        "artifacts/test-results/step-04/build-c2-v2/summary.json",
+        "artifacts/test-results/step-04/native-c2-smoke-v2/pure-validation.json",
+        "artifacts/test-results/step-04/context600-c2-android-v3/run.json"
+      ],
+      "finding": "QA только explicit flag;8MiB; SHA/UUID/record/input/model/policy; атомарный rename под JVM+FileChannel lock.17 JVM-тестов и настоящий Android подтвердили публикацию.",
+      "scope_or_remaining": "Гарантия для согласованных писателей в закрытом каталоге; persistent lock inode не удаляется. Нет заявления о защите от root.",
+      "completion_scope": "Core C or explicitly stated research/scope evidence"
+    },
+    {
+      "id": "SAFE06",
+      "requirement": "Сохранить реальные отказы, не подменять доказательства",
+      "status": "proven",
+      "authority": {
+        "path": "PLAN_19H.md",
+        "section": "Правила; AGENTS",
+        "lines": [
+          22,
+          24
+        ]
+      },
+      "evidence": [
+        "artifacts/test-results/step-04/native-c2-smoke-v1/run.json",
+        "artifacts/test-results/step-04/diarization-evidence-link-failure-v1/failure.json",
+        "artifacts/test-results/step-04/natural-diar-runtime-import-failure-v1/failure.json",
+        "artifacts/test-results/step-04/ui-v1/summary.json"
+      ],
+      "finding": "SELinux hardlink FAIL, pre-NN SciPy import FAIL, спящий UI и неуспешные запуски collector сохранены; успешный v2 не переписывает их.",
+      "scope_or_remaining": "",
+      "completion_scope": "Core C or explicitly stated research/scope evidence"
+    },
+    {
+      "id": "PERF01",
+      "requirement": "Скорость/RTF и ресурсные цели по настоящему устройству",
+      "status": "pending",
+      "authority": {
+        "path": "PLAN_19H.md",
+        "section": "§0.3; §5 Ч10–13",
+        "lines": [
+          154,
+          392,
+          394,
+          395
+        ]
+      },
+      "evidence": [
+        "artifacts/test-results/step-04/context600-c2-android-v3/run.json",
+        "artifacts/test-results/step-04/candidate-c2-full-original/summary.json",
+        "STATUS.md"
+      ],
+      "finding": "Времена host и x86 emulator записаны, но не являются контролируемой скоростью ARM/телефона.",
+      "scope_or_remaining": "RTF≤.3/.6 и прочая работа задачи5/финальной сдачи не доказаны; не добавляются как новые числовые gate C.",
+      "completion_scope": "Later task or overall delivery boundary, not a new numerical C gate"
+    },
+    {
+      "id": "PERF02",
+      "requirement": "Независимая точность времени слов",
+      "status": "scope-limited",
+      "authority": {
+        "path": "PLAN_19H.md",
+        "section": "§5 D; §4.2",
+        "lines": [
+          348,
+          386
+        ]
+      },
+      "evidence": [
+        "tools/eval/SCORING.md",
+        "docs/STEP_03_VAD_WORD_ASR.md",
+        "artifacts/test-results/step-04/context600-c2-android-v3/run.json"
+      ],
+      "finding": "Есть реальные token-emission timestamps40мс и согласованное словное назначение.",
+      "scope_or_remaining": "Нет независимого word-boundary gold, поэтому медиана<200мс не доказана; условие D/общей приёмки не заменяется прокси DER.",
+      "completion_scope": "Core C or explicitly stated research/scope evidence"
+    },
+    {
+      "id": "FINAL01",
+      "requirement": "Режим полёта, форматы импорта,16KiB и чистое устройство",
+      "status": "pending",
+      "authority": {
+        "path": "PLAN_19H.md",
+        "section": "§0.3; §5 интеграция",
+        "lines": [
+          143,
+          144,
+          398,
+          399
+        ]
+      },
+      "evidence": [
+        "PLAN_19H.md",
+        "STATUS.md",
+        "artifacts/test-results/step-04/build-c2-v2/summary.json"
+      ],
+      "finding": "Эти общие задачи не объявлены закрытыми C-аудитом.",
+      "scope_or_remaining": "Форматы WAV/MP3/M4A/OGG/FLAC, частоты/стерео и три длинных записи — последующий пункт5/интеграция; не выдумывается новый C acceptance threshold.",
+      "completion_scope": "Later task or overall delivery boundary, not a new numerical C gate"
+    },
+    {
+      "id": "NAT01",
+      "requirement": "Естественный разговор проверен отдельно и без подбора по нему",
+      "status": "scope-limited",
+      "authority": {
+        "path": "PLAN_19H.md",
+        "section": "§9; дополнительная диагностика C",
+        "lines": [
+          463,
+          464
+        ]
+      },
+      "evidence": [
+        "benchmark/eval-natural-ami/README.md",
+        "artifacts/test-results/step-04/natural-ami-diar-only-v2/summary.json",
+        "artifacts/test-results/step-04/natural-ami-diar-only-v2/results.csv",
+        "DECISIONS.md"
+      ],
+      "finding": "9 real SD на3 связанных AMI-кропах, без ASR/VAD/LID; goldK4/4/3; C2K6/8/5 (0/3), наEN2002c DER хужеlegacy на2.2794118п.п.",
+      "scope_or_remaining": "AMI не подменяет RU dev/holdout и не создаёт новый gate. Регресс, shared participants/channels и неизвестное training overlap явно сохранены; нет claims generalization.",
+      "completion_scope": "Core C or explicitly stated research/scope evidence"
+    },
+    {
+      "id": "GIT01",
+      "requirement": "Одна задача/ветка/коммит-PR; журнал и короткий отчёт",
+      "status": "pending",
+      "authority": {
+        "path": "PLAN_19H.md",
+        "section": "Введение; §7; AGENTS",
+        "lines": [
+          10,
+          24,
+          438
+        ]
+      },
+      "evidence": [
+        ".git/HEAD",
+        "AGENTS.md",
+        "STATUS.md",
+        "UPDATES.md",
+        "DECISIONS.md",
+        "docs/STEP_04_DIARIZATION.md"
+      ],
+      "finding": "Текущая ветка hack/task-04-diarization, отчёты/журналы есть; root готовит C commit после проверок.",
+      "scope_or_remaining": "Git/PR/push не выполнялись этим аудитором; финальный C commit/PR ещё не подтверждён в этом снимке.",
+      "completion_scope": "C commit/PR closure by root"
+    },
+    {
+      "id": "GIT02",
+      "requirement": "Не коммитить веса/.so/APK/ключ; сохранить подпись и запасной V1.6",
+      "status": "scope-limited",
+      "authority": {
+        "path": "PLAN_19H.md",
+        "section": "Введение; AGENTS",
+        "lines": [
+          11,
+          365
+        ]
+      },
+      "evidence": [
+        ".gitignore",
+        "AGENTS.md",
+        "artifacts/test-results/step-00/publication-scan.json",
+        "artifacts/test-results/step-00/preservation.json",
+        "artifacts/test-results/step-04/build-c2-v2/summary.json",
+        "release/fallback"
+      ],
+      "finding": "Ignore-правила и прежний publication scan есть; baseline fallback сохранён; подпись APK совпадает для обновления.",
+      "scope_or_remaining": "Аудитор не делает Git/network/secret scan текущего коммита и не утверждает свежую remote-публикацию C.",
+      "completion_scope": "Core C or explicitly stated research/scope evidence"
+    },
+    {
+      "id": "GIT03",
+      "requirement": "APK Release и финальная структура сдачи по шаблону",
+      "status": "pending",
+      "authority": {
+        "path": "PLAN_19H.md",
+        "section": "§5 Ч16–19",
+        "lines": [
+          403,
+          404,
+          405,
+          406,
+          408
+        ]
+      },
+      "evidence": [
+        "artifacts/test-results/step-00/github-publication.json",
+        "STATUS.md",
+        "artifacts/test-results/step-04/build-c2-v2/summary.json"
+      ],
+      "finding": "Есть прежняя приватная публикация и локальный C2 APK-кандидат.",
+      "scope_or_remaining": "Финальный Release/шаблон src/mobile/android/презентация/видео/лендинг относятся к сдаче и этим C-аудитом не завершены.",
+      "completion_scope": "Later task or overall delivery boundary, not a new numerical C gate"
+    },
+    {
+      "id": "AG01",
+      "requirement": "Нативный Kotlin/Compose, без переписывания UI/удаления данных",
+      "status": "proven",
+      "authority": {
+        "path": "PLAN_19H.md",
+        "section": "AGENTS",
+        "lines": [
+          23
+        ]
+      },
+      "evidence": [
+        "AGENTS.md",
+        "app/src/main/java/ru/replika/ml/ProcessingWorker.kt",
+        "artifacts/test-results/step-04/ui-v3/summary.json",
+        "app/src/androidTest/java/ru/replika/EvaluationBatchTest.kt"
+      ],
+      "finding": "C меняет ML domain/adapter/QA, не переписывает продукт на веб. QA удаляет только своиUUID-записи; очистка пользовательских данных не выполнялась.",
+      "scope_or_remaining": "",
+      "completion_scope": "Core C or explicitly stated research/scope evidence"
+    },
+    {
+      "id": "AG02",
+      "requirement": "Исторические отчёты отделять от свежих; эмулятор не физический телефон",
+      "status": "proven",
+      "authority": {
+        "path": "PLAN_19H.md",
+        "section": "AGENTS",
+        "lines": [
+          24
+        ]
+      },
+      "evidence": [
+        "AGENTS.md",
+        "artifacts/test-results/step-04/build-c2-v2/summary.json",
+        "artifacts/test-results/step-04/context600-c2-android-v3/run.json",
+        "artifacts/test-results/step-04/full-c2-equivalence-audit.json",
+        "docs/STEP_04_DIARIZATION.md"
+      ],
+      "finding": "Отчёты маркируют версии, источники и ограничения; текущий actual full10 отделён от прежних smoke/fixed/replay/host и x86 от ARM.",
+      "scope_or_remaining": "",
+      "completion_scope": "Core C or explicitly stated research/scope evidence"
+    }
+  ],
+  "status_counts": {
+    "proven": 48,
+    "pending": 7,
+    "scope-limited": 10,
+    "contradicted": 0
+  },
+  "evidence_sha256_at_snapshot": {
+    ".git/HEAD": "3ba6fba264a5c2ac7b56db1c2db153e118788ba0f28cd0c4da80156efe310842",
+    ".gitignore": "1b312d97789cb7030945ce0a39b32850f49dd91f0470fb4c5cef09f82c023231",
+    "AGENTS.md": "117293978db2b00e281027360486f2235ff9ae6f15750591bee36e127a16fc50",
+    "DECISIONS.md": "9b4d6879eda4ab973e866fd1482124936026bdb7e79dfae14439dacbab5dc2b9",
+    "PLAN_19H.md": "25849347c67aceb7c5072333383f064e6bfec8b3a0900ed9a80e8045ecd1464f",
+    "STATUS.md": "0c676134b5f14e44f97ce7d4ccc37884784192f25d62fe237a15b9ca630e07fd",
+    "UPDATES.md": "addd50ab29964cbcd84e73566d77667307475d42a6cb28bca6ffb105121fa51e",
+    "app/build.gradle.kts": "e508416bc4c5fab2fd58fc226fa0e1effb90d1e0630a2358ed7a4622943bfc1d",
+    "app/src/androidTest/java/ru/replika/EvaluationBatchTest.kt": "1c1ba991d4fa6961f88c5300446fcaf053a26f09e68733a391cf87e0a78bb636",
+    "app/src/main/assets/models-lock.json": "bd18076e29b225ae51a9c43dd347bf0fd7ed8f2e9c5ed10bba56a0899df1dcb9",
+    "app/src/main/java/ru/replika/domain/AsrPlan.kt": "ee17f7540655007b7de57894672c8da560e32d40c76ac46b275a06ac3c7b7d5a",
+    "app/src/main/java/ru/replika/domain/DiarizationPlan.kt": "209efb1121b40a091d99d629fd3f1e67515fde4ab7b99af96eaf634de6195432",
+    "app/src/main/java/ru/replika/domain/JuryJson.kt": "f048a7f670cacb28f0e2a047fa603b73d1358621b9f7907fa718a5ee28305b6f",
+    "app/src/main/java/ru/replika/domain/SpeakerRefiner.kt": "d0701bb38241c9631daf7445ce00d19c04d5b7b5de1473ea7d4d523ff500885d",
+    "app/src/main/java/ru/replika/domain/TranscriptPresentation.kt": "c3766b30f98420968cabe153fdc716accdfc1dad0511232c88558af219635260",
+    "app/src/main/java/ru/replika/domain/VadWordPlanner.kt": "2705be4a4226641065a914d5adfcec0b6c11da963fa6933494e47b58deb26138",
+    "app/src/main/java/ru/replika/domain/WindowSpeakerRefiner.kt": "69498c73d0489a8381ef2a00dd53afde6c3c4fb02e54a348d63beae89c3e4d67",
+    "app/src/main/java/ru/replika/ml/DiarizationEvidence.kt": "9a66afaedc296e369e26fdb903917e3cf54cb6da170ba5ea3f31cef16e67160c",
+    "app/src/main/java/ru/replika/ml/DiarizationRefiner.kt": "8d474238c779b86352489271e974e9cb97a91ff42a21e0c3b0e1751ecb2d93b3",
+    "app/src/main/java/ru/replika/ml/PipelineTelemetry.kt": "29f0e390b85c920c47b425df57d4234cad626d8d14373dd4b4b576f275375bee",
+    "app/src/main/java/ru/replika/ml/ProcessingWorker.kt": "2b308afe069604063094a33fc27679052fa6b524007870461c9badb4c30293ef",
+    "app/src/test/java/ru/replika/DiarizationEvidenceTest.kt": "39c5190a39e14cf353cbb145c8aa7f7458e936bf7809e2e9e3caa016f74faa8e",
+    "app/src/test/java/ru/replika/JuryJsonTest.kt": "cccbd31a336a56a100a7a7eaf0248ce00d2ae277b0e257f772ed8d10b700d685",
+    "app/src/test/java/ru/replika/domain/DiarizationPlanTest.kt": "9ad0d9157ad2b6fcc9bcd77321d207ecf47e7044786af4f44d477a0fc2381355",
+    "app/src/test/java/ru/replika/domain/WindowSpeakerRefinerTest.kt": "b09ed2d2e4a2fd7336bbf1c77935c6ce83797a76e969991eaaabcfa7e6276abc",
+    "app/src/test/java/ru/replika/ml/DiarizationRefinerTest.kt": "918ab3f4579001c480c4bb9024e86ae1ad19ab562f2b88ef0902d2b9b206d59b",
+    "artifacts/test-results/step-00/github-publication.json": "5d98d962c34ee2e26fdeea2f9e4e4ae845494005932b5446a0bfe67dc9ba5107",
+    "artifacts/test-results/step-00/preservation.json": "8e5cb868bd8e170f65b354b1d15d2a0a0a29e718ba718fa8da4ddabd7f450479",
+    "artifacts/test-results/step-00/publication-scan.json": "f3ef4a10e7ca1759898d054a07cfe71366be06720143ff2b3f245a6ad03e46df",
+    "artifacts/test-results/step-03/acceptance.json": "5b619af6aab069da9bc5c64a8237f53f505b45432ca9e3708db4e135df29a434",
+    "artifacts/test-results/step-04/acceptance-native-overview-v2.json": "38bf6597ee09bb4fc1258b573ba4f9a3c756cae3ad517a449a8a3936b99c529b",
+    "artifacts/test-results/step-04/acceptance-native-results-v2.csv": "4dd7c3997798b2384aebdb158c97755b7e85f0c78ae1b2f0cb4ff8532f597829",
+    "artifacts/test-results/step-04/acceptance-native-summary-v2.json": "b898ad4bcbcc049fe874902dc33e79803964112de2926bacb5588e183c299c97",
+    "artifacts/test-results/step-04/acceptance-window-eres030-fine-v1/tau-0p36.json": "3c9539b7d02e8748ad24486cabcfae9740ec6f21e0811bb92ef076aae192f099",
+    "artifacts/test-results/step-04/auto-campplus-en/summary.json": "e27a5fd135359d00badacc21d6bf5bc694072ec4c7aef0e82a424b46e6ea1870",
+    "artifacts/test-results/step-04/auto-eres2net-zh/summary.json": "5f0bcd36aa5526be51163755fdf02f307e225ec0722f0e4791bf5ecdd0ddd4bc",
+    "artifacts/test-results/step-04/auto-titanet-large/summary.json": "e7916554321f76af80f06a8f039246a65eb4a8846b0c225f4c6d196e12a7ddfc",
+    "artifacts/test-results/step-04/auto-titanet-small/summary.json": "3eba91d38c5be96bab4eaabbee299073021edf1fd618a8fdaf108b9784985ed1",
+    "artifacts/test-results/step-04/auto-wespeaker-camplus-lm/summary.json": "2be435cf35d44e9b600078764c8acf3f3f96f6e621b509df870932375aaf7d1b",
+    "artifacts/test-results/step-04/auto-wespeaker-resnet34-lm/summary.json": "93e3fa14b12247814a0e6160e86cab68c3f46ddf7d7a594f5db5bf00515c8fd7",
+    "artifacts/test-results/step-04/baseline-clean-windows/summary.json": "29e3ec3198ec07f5887604a3fa33516eaa44ea7e3278e02dea9c6c0abdfb5746",
+    "artifacts/test-results/step-04/build-c2-v1/summary.json": "16d9cc13c4f3447dd7d31e8beba4cbb0a1f77126e0de41515c79a0e6b1e8d1ad",
+    "artifacts/test-results/step-04/build-c2-v2/summary.json": "623b284f3075514ad4359a11a9eb57db6ea758dea1a3ad3fd945c78c9405cc4c",
+    "artifacts/test-results/step-04/candidate-c1-full-original/dev-01-two-clean/diagnostics.json": "46c41d45815b172d07389ddb24fc1d59a60279aaa645fe31a3c0ed34f66b6f4c",
+    "artifacts/test-results/step-04/candidate-c1-shift0p25-refined/summary.json": "7cdd5f41129629c322f620d1a1443fda056c82eb8bf3f879233068a698e8e79f",
+    "artifacts/test-results/step-04/candidate-c1-shift0p5-refined/summary.json": "0476ae366cd35cbff6eb606915192e94ba5273943b9482c34de0d552a5423aea",
+    "artifacts/test-results/step-04/candidate-c1-validation-freeze.json": "b436d4baa21e9ade7abc1bb07aaa01abafc93d0966b5c8372bc15b8439924b61",
+    "artifacts/test-results/step-04/candidate-c2-full-original/dev-01-two-clean/diagnostics.json": "2ed71e2b1e806d6524785c7cf6a7d1f555c0582e78e997cfcb971fadbd07c390",
+    "artifacts/test-results/step-04/candidate-c2-full-original/results.csv": "512f6733df49535d296f848d5e86c010989f2546565a7c0c5bc66adae377bad8",
+    "artifacts/test-results/step-04/candidate-c2-full-original/run.json": "c2053545e8248ef66d759f0f3988af43eb14b0da0083ef3ec000956f9427bd45",
+    "artifacts/test-results/step-04/candidate-c2-full-original/summary.json": "2dd71f4a5e64cc5378914c8f4f9eb017f9533ff2ca21d798d30779067c157e54",
+    "artifacts/test-results/step-04/candidate-c2-full-reserve/results.csv": "7c34170fec95b7b1fa59407d7ab9ac1fac2b1db7ec658454daed327ab6f9c3cb",
+    "artifacts/test-results/step-04/candidate-c2-full-reserve/run.json": "9dce4ed0dc635f0298a4a26454e115cc282da30e161af87f679e42c2fd672c3d",
+    "artifacts/test-results/step-04/candidate-c2-validation-freeze.json": "2e81175388b45d204554d0c95eca27ba3a2a09b2c9d62dbfdd9a0bc60f360409",
+    "artifacts/test-results/step-04/candidate-c2-validation-gates/summary.json": "92b751622ef000ab8c02ba1d803022cb0901f5726b6a5cda0d213615901e4ef0",
+    "artifacts/test-results/step-04/context600-c2-android-v3/android-report.json": "64b5eb29bf6fbf8ef9b3df04d14eab8242068f7006485c801e5ff4f675520687",
+    "artifacts/test-results/step-04/context600-c2-android-v3/results.csv": "15a0b30cef76ba692136bc40b8cb31803274e5ce090b7cc913b39ff73a878832",
+    "artifacts/test-results/step-04/context600-c2-android-v3/run.json": "488f4f192a4547e579e9fce46634eb7613e3261dc1df1d8c525e539560fa6686",
+    "artifacts/test-results/step-04/diarization-evidence-link-failure-v1/failure.json": "ea9dde53f42842c7045d4c2416e40f659a205b0619a6be50db16b826ab9784c9",
+    "artifacts/test-results/step-04/evaluation-validity.md": "01669a2bc35851bb55097fa659ed25fd3be5ff76da709201f7c597d8aa7b6730",
+    "artifacts/test-results/step-04/fixed-campplus-en/summary.json": "6338027042ca6311553ea5b9dc14ee538f5135c8abf679d09dc7f489ab7d1300",
+    "artifacts/test-results/step-04/fixed-eres2net-zh-v2/summary.json": "c2ac215f15bf578539c19ee04f30746a6646cf9c005d6aabacd5bbd0cedb27b4",
+    "artifacts/test-results/step-04/fixed-titanet-large/summary.json": "00a4e9a6371a71c9ac95a72eb3f59e204452ab5bdca913bb8704448ba2cc04c8",
+    "artifacts/test-results/step-04/fixed-titanet-small/summary.json": "90bf7fd293fe6e6c8d85d0067c4adbd776e853e0721af9898752ab7f69057f04",
+    "artifacts/test-results/step-04/fixed-v16-production-comparison/summary.json": "6cf29600a98830f2b9fd76d9728f4aadaca0233c5d9de437dbf76e347e13417d",
+    "artifacts/test-results/step-04/fixed-wespeaker-camplus-lm/summary.json": "fcb121d10c7b8a59f5cb2aa479a1638f54651be3186df5f8190e1e449ecd842d",
+    "artifacts/test-results/step-04/fixed-wespeaker-resnet34-lm-v2/summary.json": "06e8043d16cb8bfa723a8c8eaa20090677ba74a90cc8739d6df735ae463408c6",
+    "artifacts/test-results/step-04/full-c2-equivalence-audit.json": "93baa43e5efd0c3b439e64ffbf580c55f00de21765b65ea19fb7dc967404f862",
+    "artifacts/test-results/step-04/kotlin-refiner/differential-report.json": "bf551c9c6f8f668f4101041d8dbd26eec9343f5a26ada65038062164666d5409",
+    "artifacts/test-results/step-04/kotlin-window-refiner/differential-report.json": "38222bf12f4df684328e0431f5709252ff6a4ad36c902bf1782a2d25b98df5a6",
+    "artifacts/test-results/step-04/native-c2-smoke-v1/run.json": "fd6aee1bfffeaca52eab379044ed8b3665b46489bf021ac8ee590e3a5600f615",
+    "artifacts/test-results/step-04/native-c2-smoke-v2/pure-validation.json": "2727955837048cb95b21e00fc9fcf79a635eb237f8355c32a20016ac1b1c29e7",
+    "artifacts/test-results/step-04/natural-ami-diar-only-v2/results.csv": "f19466c4aebd017bd318b59729dc6be32505d4baf1b743f2d17f32b835caf15e",
+    "artifacts/test-results/step-04/natural-ami-diar-only-v2/summary.json": "c316c95ddac8f1035640824d55e59aefd7455cb98f75bb5460c0b0ab6285a2cf",
+    "artifacts/test-results/step-04/natural-diar-runtime-import-failure-v1/failure.json": "49f54f46b409e03c36731f041519f4ea3e3cd43234318b4f8bf67b62e604dd71",
+    "artifacts/test-results/step-04/python-integrated-v5/summary.json": "3118466501c7a5c17b05cc0c0b6814e4e04043730f4496c4d28d54ac527cc64b",
+    "artifacts/test-results/step-04/refiner-ablation-baseline-v1/diagnosis.json": "2562d6b68575d33c6a2576f790fb5593cfd667494609797365e17fb5b4fefa63",
+    "artifacts/test-results/step-04/refiner-ablation-baseline-v1/results.csv": "7c77cd45516c4c30417a014d62de53c3f6356fe611d61c49a3dc6baa2584ef78",
+    "artifacts/test-results/step-04/refiner-ablation-baseline-v1/run.json": "c6aa99a8b021342896661c45816d80d94e5bcdb7f1196d9d62b1f86dfaef9c58",
+    "artifacts/test-results/step-04/refiner-ablation-baseline-v1/summary.json": "27c0719c356d0df1d7a808aef921ba57c96358bf2863fc85ac11567e66aac401",
+    "artifacts/test-results/step-04/runner-snapshots/README.md": "99cf2936cf684d382c19de824fbe5b668a9417c9c853ba6ab743994026918470",
+    "artifacts/test-results/step-04/ui-v1/summary.json": "b98c3df947b8e3de25e6a5bedb541f15e78ee6a9d6f87b33d60e0998a4f9e490",
+    "artifacts/test-results/step-04/ui-v3/summary.json": "6f4d3fb99cb0dc5c92f48daededbf512d847511fea8df6787d3f5c80fb346d1d",
+    "benchmark/eval-natural-ami/README.md": "89f5e75d8d9886454fbdb4b807278153e1519b62945f326058ff9540b7e6cb1c",
+    "benchmark/eval-reserve/manifest.json": "765e8bb8ecb83d84fcc61081d82ee995faf4741718c01d99f84c078ec0fed5d3",
+    "benchmark/eval/manifest.json": "47109cb1987624daaf8f4dc28e8eca3198b0c2bbcf01cd334b9611664eb38066",
+    "configs/eval/c2-window-selected-full.json": "6e3a0f10a291e9121bae8df01dca0db3a67c4ac5c828f3fca38ace26b21ef189",
+    "configs/eval/diar-models.json": "743624f2f25be1635fe60b11c3e11324c6dd8480f793cdbe196542733d29f7a3",
+    "configs/eval/diar-protocol-window-fine-v1.json": "231830a6cf5e9516720b3cc4d64644935574de59ef01e124e7151bb6c712c951",
+    "configs/eval/diar-protocol.json": "05d8092b19636bb461f7b7a67b4e08df1fe10463187cb0bb15da29ce824f242c",
+    "docs/STEP_03_VAD_WORD_ASR.md": "fab157341ca4210fb29eb3b6cc7f3a749b8c7a36e0d48b7ce16834b6eb2ec283",
+    "docs/STEP_04_DIARIZATION.md": "72b56087dbdc2746c0825d035d6bf9e91b90167c92e7483d8c5351cc1cbadc08",
+    "tools/eval/SCORING.md": "34162341974031a85af711522a7ec60b1f807bd2a07806530a7692898b22c1ec",
+    "tools/eval/diar_acceptance.py": "23d1336621c98a45abfb67c5deefb635aba47662028e78781989a5f8b7978346",
+    "tools/eval/diar_sweep.py": "5e9314e239374c8abf5287465b9a3d4e659cb31abbed1d6150b77d4f7a0567d9",
+    "tools/eval/diar_validation.py": "bcb4ea6b7ebe045c82d84b78fb5f1329f7b898bf4babe043c1cb1f1d2155c52c",
+    "tools/eval/pull_refined_android.py": "7cc15015f1fd328d61a5a4495700af907aba3104e03e8d6baa275efbe014737c",
+    "tools/eval/refiner_ablation.py": "4ce47f5ec0698e92bb21df601d36182b42f27b2c39e12ecdaa0fc96bdfe3178f",
+    "tools/eval/score.py": "d9415f7fcac76261fc2c0749d0a640a0a03fa8c6e32f8e5856c4bc0e30ccd85f",
+    "tools/eval/speaker_refiner.py": "4f52854185c9ad4b2e54b9679a9670b5415d5a9fcc1c16d0c5f392eb6aa69eb1",
+    "tools/eval/tests/test_score.py": "1b7a5d358fe58d28155bad6ab94d4fdffaa28829b94e8793da0c5a019981c6fe",
+    "tools/eval/window_overcluster.py": "23cffbba55b75e69695a2b508093505dcad74c804cb7913fd77356b67196acd4",
+    "artifacts/test-results/step-04/context600-c2-android-v3/independent-audit.json": "25cdb4dc45bbe9aabe13947eebb720c0d215bce90e5d8f0332eb2609b2b92623",
+    "artifacts/test-results/step-04/runner-snapshots/dbc8139203b7e2e3f6624db900430db5845dd5fb6bdc00955502c7f757e673da.py": "dbc8139203b7e2e3f6624db900430db5845dd5fb6bdc00955502c7f757e673da"
+  },
+  "audit_neural_inference": false,
+  "audit_score_recomputation": false
+}

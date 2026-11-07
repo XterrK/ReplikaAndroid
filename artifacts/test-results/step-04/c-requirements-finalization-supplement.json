@@ -1,0 +1,44 @@
+{
+  "status": "FINAL_C_VALIDATION_COMPLETE_GIT_PUBLICATION_PENDING",
+  "at": "2026-11-07T06:14:46+03:00",
+  "initial_matrix": "c-requirements-audit-pending.json",
+  "closed_followups": {
+    "ALG08_minDurationOff": {
+      "status": "PROVEN_BY_ADDITIONAL_MEASUREMENT",
+      "profile_values_seconds": [
+        0.25,
+        0.5,
+        1.0
+      ],
+      "evidence": "final-native-parameter-audit.json",
+      "checks": 3648,
+      "decision": "Retain0.5; both alternatives worsen count and DER"
+    },
+    "selected_C2_window_shift": {
+      "status": "PROVEN_BY_ADDITIONAL_MEASUREMENT",
+      "profile_values": [
+        0.1,
+        0.25,
+        0.5
+      ],
+      "evidence": "final-native-parameter-selection.json",
+      "decision": "Retain0.1; both alternatives worsen count and DER"
+    }
+  },
+  "final_tests": {
+    "python": 345,
+    "jvm": 173,
+    "ui": 2,
+    "all_pass": true
+  },
+  "core_c_proxy_gates_pass": true,
+  "open_global_boundaries": [
+    "ARM/physical-device performance",
+    "independent word-boundary gold/<200ms",
+    "CPU/thermal/import task5",
+    "English/stereo task6",
+    "final repository template/presentation/video/delivery"
+  ],
+  "full_project_accepted": false,
+  "publication": "Root finalizes one C commit/PR/experimental Release; live Git/GitHub state is authoritative"
+}

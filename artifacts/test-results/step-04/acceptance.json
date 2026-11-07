@@ -1,0 +1,226 @@
+{
+  "schema_version": 1,
+  "at": "2026-11-07T03:13:24.255773+00:00",
+  "status": "PASS_FOR_EXPERIMENTAL_C2_PROFILE",
+  "scope": "Task C implementation/research and prescribed montage-proxy gates; no full-project, natural-dialogue, word-boundary, ARM or physical performance acceptance",
+  "selected_config": "configs/eval/c2-window-selected-full.json",
+  "selected_config_sha256": "6e3a0f10a291e9121bae8df01dca0db3a67c4ac5c828f3fca38ace26b21ef189",
+  "model_pack_unchanged": true,
+  "original_model_files": 7,
+  "source_defaults_remain_v16": true,
+  "asr_build_flag": "vad_words_context600",
+  "diarization_build_flag": "eres2net_window_v1",
+  "c_dev_proxy_gate_pass": {
+    "gate_pass": true,
+    "defined_complete_eight_dev": true,
+    "count_pass": true,
+    "native_count_exact": 7,
+    "count_required": 7,
+    "cases_required": 8,
+    "native_der0_pass": true,
+    "native_der0": 0.18298480576441103,
+    "fixed_v16_native_der0": 0.2688518170426065,
+    "maximum_native_der0": 0.28885181704260654,
+    "der_allowance_percentage_points": 2,
+    "wer_corpus_unchanged": "historical fixed five only",
+    "scope": "Montage utterance-interval DER proxy; independent of weighted five-file WER port parity"
+  },
+  "fixed_five_wer_port_gate": {
+    "scope": "Fixed paired corpus, total errors / total reference words; per-file differences retained",
+    "reference_words": 442,
+    "host_errors": 44,
+    "native_errors": 43,
+    "host_wer_raw": 0.09954751131221719,
+    "native_wer_raw": 0.09728506787330317,
+    "wer_delta_percentage_points": -0.22624434389140272,
+    "threshold_percentage_points": 0.5,
+    "gate_pass": true,
+    "per_file_diagnostics": [
+      {
+        "id": "dev-01-two-clean",
+        "split": "dev",
+        "reference_words": 140,
+        "native_errors": 10,
+        "host_errors": 11,
+        "wer_delta_percentage_points": -0.7142857142857143,
+        "per_file_within_threshold": false
+      },
+      {
+        "id": "dev-03-short",
+        "split": "dev",
+        "reference_words": 38,
+        "native_errors": 6,
+        "host_errors": 6,
+        "wer_delta_percentage_points": 0.0,
+        "per_file_within_threshold": true
+      },
+      {
+        "id": "holdout-02-three-clean",
+        "split": "holdout",
+        "reference_words": 148,
+        "native_errors": 16,
+        "host_errors": 16,
+        "wer_delta_percentage_points": 0.0,
+        "per_file_within_threshold": true
+      },
+      {
+        "id": "holdout-04-overlap-expressive",
+        "split": "holdout",
+        "reference_words": 101,
+        "native_errors": 10,
+        "host_errors": 10,
+        "wer_delta_percentage_points": 0.0,
+        "per_file_within_threshold": true
+      },
+      {
+        "id": "dev-mono-s",
+        "split": "dev",
+        "reference_words": 15,
+        "native_errors": 1,
+        "host_errors": 1,
+        "wer_delta_percentage_points": 0.0,
+        "per_file_within_threshold": true
+      }
+    ]
+  },
+  "independent_native_checks": 564,
+  "host_validation_separate_cohorts": [
+    {
+      "cohort": "original-holdout",
+      "gate_pass": true,
+      "cases": 5,
+      "algorithm": "window-overcluster-v1",
+      "raw_candidate": {
+        "errors": 49,
+        "reference_tokens": 444,
+        "rate": 0.11036036036036036
+      },
+      "raw_baseline": {
+        "errors": 73,
+        "reference_tokens": 444,
+        "rate": 0.16441441441441443
+      },
+      "native_der0_candidate": 0.13889566124769603,
+      "native_der0_baseline": 0.5154572317414498,
+      "native_der250_candidate": 0.10795483522199896,
+      "native_der250_baseline": 0.4936608153731602,
+      "cpwer_raw_candidate": {
+        "errors": 95,
+        "reference_tokens": 444,
+        "rate": 0.21396396396396397
+      },
+      "cpwer_raw_baseline": {
+        "errors": 446,
+        "reference_tokens": 444,
+        "rate": 1.0045045045045045
+      },
+      "count_exact_candidate": 4,
+      "count_exact_baseline": 2,
+      "report": "artifacts/test-results/step-04/candidate-c2-validation-gates/original-holdout.json",
+      "report_sha256": "58330b56b5353fe9f614e7c802f2b29ca61b4a649ee8d5a610feeab0a8401294"
+    },
+    {
+      "cohort": "reserve",
+      "gate_pass": true,
+      "cases": 10,
+      "algorithm": "window-overcluster-v1",
+      "raw_candidate": {
+        "errors": 83,
+        "reference_tokens": 743,
+        "rate": 0.1117092866756393
+      },
+      "raw_baseline": {
+        "errors": 135,
+        "reference_tokens": 743,
+        "rate": 0.1816958277254374
+      },
+      "native_der0_candidate": 0.22439618616546822,
+      "native_der0_baseline": 0.4765907575420801,
+      "native_der250_candidate": 0.1926611074515137,
+      "native_der250_baseline": 0.4540636203300923,
+      "cpwer_raw_candidate": {
+        "errors": 284,
+        "reference_tokens": 743,
+        "rate": 0.3822341857335128
+      },
+      "cpwer_raw_baseline": {
+        "errors": 572,
+        "reference_tokens": 743,
+        "rate": 0.7698519515477793
+      },
+      "count_exact_candidate": 5,
+      "count_exact_baseline": 1,
+      "report": "artifacts/test-results/step-04/candidate-c2-validation-gates/reserve.json",
+      "report_sha256": "656d023bffbaec97dd208a02291d7d88c98ed9700c7a0274952aac400308f32c"
+    }
+  ],
+  "final_parameter_probes": {
+    "status": "BASELINE_RETAINED",
+    "fresh_sd_process_calls": 32,
+    "fresh_embedding_calls": 902,
+    "audit_checks": 3648,
+    "all_four_alternatives_rejected": true,
+    "no_asr_inference": true
+  },
+  "native_evidence": {
+    "cases": 10,
+    "embedding_vectors": 344,
+    "embedding_dimension": 512,
+    "asr_chunks": 56,
+    "tokens": 2169,
+    "words": 767,
+    "all_sidecar_and_word_replays_pass": true,
+    "all_cases_partial_temporal": true,
+    "abi": "x86_64",
+    "api": 35,
+    "screen_restored": true,
+    "offline": true
+  },
+  "tests": {
+    "jvm": 173,
+    "python": 345,
+    "ui": 2,
+    "all_pass": true
+  },
+  "apk": {
+    "path": "app/build/outputs/apk/allInOne/app-allInOne.apk",
+    "bytes": 305478017,
+    "sha256": "a83bfe95cf7db72ddb65177a33586fdc52074a92759aa721212cc335f6b2a496",
+    "signer_sha256": "f40399356577bcd0a5c220818ba13e9686768a02830a7f6e3af81d5a487947ab",
+    "preserved_release_path": "release/REPLIKA-Hack-Step04-C2-v2-AllInOne-arm64.apk"
+  },
+  "preserved_apk_sha256": {
+    "release/fallback/REPLIKA-V1.6-AllInOne-arm64.apk": "dec7523de9403248358a5b590f12069be47e821460cb6095af4c1424edb7febd",
+    "release/REPLIKA-Hack-Step03-Context600-AllInOne-arm64.apk": "048c42fd1ad6f48db10c90583baae3a94ad389ef4e6a9dbb50535879b442ae9d",
+    "release/REPLIKA-Hack-Step04-C2-AllInOne-arm64.apk": "6a73427638ccd3e1e04e725d1080d604c5941d571e796544c1fa2733f4f965fd"
+  },
+  "eigengap": "C1 centroid/eigengap Python/Kotlin implementation and measured ablation completed. Selected C2 is an explicitly different average-window HC method; eigengap is diagnostic, not applied to its clustering.",
+  "full_project_accepted": false,
+  "natural_dialogue_accepted": false,
+  "word_boundary_accuracy_accepted": null,
+  "arm_phone_performance_accepted": false,
+  "known_limits": [
+    "Narrow 3-actor RU montage proxy; original holdout/reserve are previously seen regression validations, not blind/unseen-speaker acceptance",
+    "Reserve correct speaker count5/10",
+    "Natural AMI related samples: C2 correct count0/3, third DER regression+2.2794117647058854pp; retained without tuning",
+    "Real host/native embeddings are not byte-exact; exact algorithm replay uses actual native vectors; text/time differences preserved",
+    "C2 computationally accepted PARTIAL_TEMPORAL uses explicit temporal assignments where clean measurements are unavailable",
+    "No independent word-boundary gold/<200ms proof, no ARM or physical-phone performance acceptance"
+  ],
+  "evidence_sha256": {
+    "artifacts/test-results/step-04/acceptance-window-eres030-fine-v1/tau-0p36.json": "3c9539b7d02e8748ad24486cabcfae9740ec6f21e0811bb92ef076aae192f099",
+    "artifacts/test-results/step-04/candidate-c2-validation-gates/summary.json": "92b751622ef000ab8c02ba1d803022cb0901f5726b6a5cda0d213615901e4ef0",
+    "artifacts/test-results/step-04/full-c2-equivalence-audit.json": "93baa43e5efd0c3b439e64ffbf580c55f00de21765b65ea19fb7dc967404f862",
+    "artifacts/test-results/step-04/context600-c2-android-v3/run.json": "488f4f192a4547e579e9fce46634eb7613e3261dc1df1d8c525e539560fa6686",
+    "artifacts/test-results/step-04/context600-c2-android-v3/independent-audit.json": "25cdb4dc45bbe9aabe13947eebb720c0d215bce90e5d8f0332eb2609b2b92623",
+    "artifacts/test-results/step-04/final-native-parameter-selection.json": "ee31793a0e8d8c40d44c99dc66e45e10cb5d1bf12653d39f6d3c47c836e83723",
+    "artifacts/test-results/step-04/final-native-parameter-audit.json": "f6fc054fe0cb725bf5f116bc51511618e71244892abeb2ff57ebde44d2f057c1",
+    "artifacts/test-results/step-04/natural-ami-diar-only-v2/independent-audit.json": "ce8ea6190a08fdde945759cc5adc53ab160a95ad694c793218b15a7b256eac6f",
+    "artifacts/test-results/step-04/build-c2-v2/summary.json": "623b284f3075514ad4359a11a9eb57db6ea758dea1a3ad3fd945c78c9405cc4c",
+    "artifacts/test-results/step-04/apk-static-v2.json": "1396857c895b18784081f67534bdb8305da9d5c1207c811338b22c87f0506994",
+    "artifacts/test-results/step-04/python-final/summary.json": "c562b18e795659c96d7a013bec4520233184ba676abc0f8cae82e87effe6e0cc",
+    "artifacts/test-results/step-04/ui-v3/summary.json": "6f4d3fb99cb0dc5c92f48daededbf512d847511fea8df6787d3f5c80fb346d1d",
+    "artifacts/test-results/step-04/c-requirements-audit-pending.json": "60c4aa87a6a35e282c2e54c095a348e622b65f1783631a5ae3ae72c91a2e3815"
+  },
+  "new_neural_inference_by_acceptance_report": false
+}

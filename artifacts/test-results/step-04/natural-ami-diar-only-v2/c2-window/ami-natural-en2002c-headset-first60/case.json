@@ -1,0 +1,206 @@
+{
+  "id": "ami-natural-en2002c-headset-first60",
+  "profile": "c2-window",
+  "policy": {
+    "id": "c2-window",
+    "model_id": "eres2net_zh",
+    "native_threshold": 0.3,
+    "algorithm": "window-overcluster-v1",
+    "config": {
+      "tau": 0.36,
+      "method": "average",
+      "grid_ms": 125,
+      "max_speakers": 8,
+      "reassign_small": true,
+      "min_cluster_ms": 2000,
+      "min_cluster_fraction": 0.03,
+      "minimum_reassignment_similarity": null,
+      "smooth": true,
+      "smooth_ms": 500
+    },
+    "threads": 2,
+    "expected_speakers": -1,
+    "window_shift": 0.1,
+    "min_duration_on": 0.2,
+    "min_duration_off": 0.5,
+    "embedding_dimension": 512,
+    "embedding_sha256": "1a331345f04805badbb495c775a6ddffcdd1a732567d5ec8b3d5749e3c7a5e4b"
+  },
+  "status": "COMPLETE",
+  "duration_ms": 60000,
+  "processing_ms": 5399.232278,
+  "metrics": {
+    "reference_speakers": 3,
+    "scope": "Separate natural-meeting diarization diagnostic: EN2002a headset/array share a reference; EN2002a/c share participants; training overlap unknown. Not independent splits, English ASR task E, Android/phone timing, a new dev gate or corpus-general acceptance.",
+    "raw": {
+      "speakers": 6,
+      "speaker_count_error": 3,
+      "speaker_count_exact": false,
+      "der_collar_0ms": {
+        "rate": 0.5794607843137255,
+        "miss_ms": 4940.0,
+        "false_alarm_ms": 2258.0,
+        "confusion_ms": 4623.0,
+        "error_speaker_ms": 11821.0,
+        "reference_speaker_ms": 20400.0,
+        "evaluated_duration_ms": 60000.0,
+        "excluded_duration_ms": 0.0,
+        "reference_overlap_ms": 1810.0,
+        "collar_ms": 0,
+        "collar_half_width_ms": 0.0,
+        "mapping_hypothesis_to_reference": {
+          "native_13": "MEE071",
+          "native_9": "MEE073",
+          "native_12": "FEO072"
+        },
+        "status": "ok"
+      },
+      "der_collar_250ms": {
+        "rate": 0.5626196172248804,
+        "miss_ms": 3948.0,
+        "false_alarm_ms": 1686.0,
+        "confusion_ms": 3773.0,
+        "error_speaker_ms": 9407.0,
+        "reference_speaker_ms": 16720.0,
+        "evaluated_duration_ms": 56120.0,
+        "excluded_duration_ms": 3880.0,
+        "reference_overlap_ms": 930.0,
+        "collar_ms": 250,
+        "collar_half_width_ms": 125.0,
+        "mapping_hypothesis_to_reference": {
+          "native_13": "MEE071",
+          "native_9": "MEE073",
+          "native_12": "FEO072"
+        },
+        "status": "ok"
+      }
+    },
+    "stable": {
+      "speakers": 6,
+      "speaker_count_error": 3,
+      "speaker_count_exact": false,
+      "der_collar_0ms": {
+        "rate": 0.5794607843137255,
+        "miss_ms": 4940.0,
+        "false_alarm_ms": 2258.0,
+        "confusion_ms": 4623.0,
+        "error_speaker_ms": 11821.0,
+        "reference_speaker_ms": 20400.0,
+        "evaluated_duration_ms": 60000.0,
+        "excluded_duration_ms": 0.0,
+        "reference_overlap_ms": 1810.0,
+        "collar_ms": 0,
+        "collar_half_width_ms": 0.0,
+        "mapping_hypothesis_to_reference": {
+          "native_5": "MEE071",
+          "native_3": "MEE073",
+          "native_4": "FEO072"
+        },
+        "status": "ok"
+      },
+      "der_collar_250ms": {
+        "rate": 0.5626196172248804,
+        "miss_ms": 3948.0,
+        "false_alarm_ms": 1686.0,
+        "confusion_ms": 3773.0,
+        "error_speaker_ms": 9407.0,
+        "reference_speaker_ms": 16720.0,
+        "evaluated_duration_ms": 56120.0,
+        "excluded_duration_ms": 3880.0,
+        "reference_overlap_ms": 930.0,
+        "collar_ms": 250,
+        "collar_half_width_ms": 125.0,
+        "mapping_hypothesis_to_reference": {
+          "native_5": "MEE071",
+          "native_3": "MEE073",
+          "native_4": "FEO072"
+        },
+        "status": "ok"
+      }
+    },
+    "final": {
+      "speakers": 5,
+      "speaker_count_error": 2,
+      "speaker_count_exact": false,
+      "der_collar_0ms": {
+        "rate": 0.6022549019607844,
+        "miss_ms": 4940.0,
+        "false_alarm_ms": 1853.0,
+        "confusion_ms": 5493.0,
+        "error_speaker_ms": 12286.0,
+        "reference_speaker_ms": 20400.0,
+        "evaluated_duration_ms": 60000.0,
+        "excluded_duration_ms": 0.0,
+        "reference_overlap_ms": 1810.0,
+        "collar_ms": 0,
+        "collar_half_width_ms": 0.0,
+        "mapping_hypothesis_to_reference": {
+          "native_4": "MEE071",
+          "native_2": "MEE073",
+          "native_3": "FEO072"
+        },
+        "status": "ok"
+      },
+      "der_collar_250ms": {
+        "rate": 0.5830143540669857,
+        "miss_ms": 3948.0,
+        "false_alarm_ms": 1389.0,
+        "confusion_ms": 4411.0,
+        "error_speaker_ms": 9748.0,
+        "reference_speaker_ms": 16720.0,
+        "evaluated_duration_ms": 56120.0,
+        "excluded_duration_ms": 3880.0,
+        "reference_overlap_ms": 930.0,
+        "collar_ms": 250,
+        "collar_half_width_ms": 125.0,
+        "mapping_hypothesis_to_reference": {
+          "native_1": "MEE071",
+          "native_2": "MEE073",
+          "native_3": "FEO072"
+        },
+        "status": "ok"
+      }
+    }
+  },
+  "audio_sha256": "844e1107cf7d79efba07f6ab326ce679d61beefb69299e1bd931c29bce4d42db",
+  "reference_sha256": "88d0ac9340dfa15a5a39851d2eb2a19e0c96715ecb36e05c674f8cf62e396d01",
+  "source_provenance_id": "ami-natural-en2002c-headset-first60",
+  "reference_group": "ami-en2002c-first60",
+  "related_participants_group": "AMI-EN2002",
+  "refiner_accepted": true,
+  "new_model_inference": true,
+  "new_asr_inference": false,
+  "counts": {
+    "diarizer_loads": 1,
+    "diarizer_releases": 1,
+    "diarization_forward_calls": 1,
+    "extractor_loads": 1,
+    "extractor_releases": 1,
+    "planned_windows": 10,
+    "read_windows": 10,
+    "created_streams": 10,
+    "released_streams": 10,
+    "compute_attempts": 10,
+    "embedding_forward_calls": 10,
+    "measured_windows": 10,
+    "new_asr_inference": false,
+    "new_vad_inference": false,
+    "new_lid_inference": false
+  },
+  "stages_ms": {
+    "decode_ms": 88.992589,
+    "diarizer_load_ms": 765.435695,
+    "diarization_inference_ms": 3539.617988,
+    "diarizer_release_ms": 13.357142,
+    "extractor_load_ms": 585.761538,
+    "extra_embedding_ms": 389.170757,
+    "extractor_release_ms": 9.55568,
+    "pure_refiner_ms": 6.500169
+  },
+  "evidence_sha256": {
+    "diagnostics.json": "2047c96d9b58a0bb4dcdc3cec9a8e11cbb2b0ac1e88656fdce3c18d857f2e5a5",
+    "reference.json": "88d0ac9340dfa15a5a39851d2eb2a19e0c96715ecb36e05c674f8cf62e396d01",
+    "hypothesis.json": "f7d88d4f2acc4b51af650874264f1b3f53dbec556d3c3a091b0e755dbb681f62",
+    "metrics.json": "52e8ff38873e51a7e0ac4a5a8eb46b3fdf43fd6a773be06d922e12583788fd10"
+  }
+}

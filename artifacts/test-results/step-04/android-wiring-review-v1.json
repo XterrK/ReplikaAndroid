@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "reviewed_at": "2026-11-07T01:43:37.160432+00:00",
+  "status": "NO_BLOCKING_DEFECT_FOUND",
+  "scope": "Static source inspection only; no build, ADB, native model inference or Android acceptance performed by this review",
+  "new_model_inference": false,
+  "source_sha256": {
+    "app/src/main/java/ru/replika/ml/ProcessingWorker.kt": "2b308afe069604063094a33fc27679052fa6b524007870461c9badb4c30293ef",
+    "app/src/main/java/ru/replika/ml/DiarizationRefiner.kt": "8d474238c779b86352489271e974e9cb97a91ff42a21e0c3b0e1751ecb2d93b3",
+    "app/src/main/java/ru/replika/domain/DiarizationPlan.kt": "209efb1121b40a091d99d629fd3f1e67515fde4ab7b99af96eaf634de6195432",
+    "app/src/main/java/ru/replika/ml/DiarizationEvidence.kt": "53f64ccd41e98cdd50585084f67f8e64765911de3da9022fbf2662ea980a85a7",
+    "app/src/main/java/ru/replika/domain/AsrPlan.kt": "ee17f7540655007b7de57894672c8da560e32d40c76ac46b275a06ac3c7b7d5a",
+    "app/src/main/java/ru/replika/domain/WindowSpeakerRefiner.kt": "69498c73d0489a8381ef2a00dd53afde6c3c4fb02e54a348d63beae89c3e4d67",
+    "app/src/main/java/ru/replika/domain/SpeakerRefiner.kt": "d0701bb38241c9631daf7445ce00d19c04d5b7b5de1473ea7d4d523ff500885d",
+    "app/src/main/java/com/k2fsa/sherpa/onnx/Speaker.kt": "4dcc84f4cf0682e0e4da837ba00130d66ad7aec4f803af4c021de3434246e871",
+    "app/src/main/java/com/k2fsa/sherpa/onnx/OnlineStream.kt": "6b9f8de317e6a0bb51f0f29d940617b781cb31b190e1c725dd438231836c06ab",
+    "app/src/androidTest/java/ru/replika/EvaluationBatchTest.kt": "1c1ba991d4fa6961f88c5300446fcaf053a26f09e68733a391cf87e0a78bb636",
+    "app/build.gradle.kts": "e508416bc4c5fab2fd58fc226fa0e1effb90d1e0630a2358ed7a4622943bfc1d"
+  },
+  "checks": [
+    {
+      "finding": "Missing WorkData remains legacy; manual/fixed/single bypass C2; exact paired ASR policy required",
+      "source": [
+        "ProcessingWorker.kt:44",
+        "ProcessingWorker.kt:59",
+        "DiarizationPlan.kt:19",
+        "DiarizationPlan.kt:23",
+        "DiarizationPlan.kt:27"
+      ]
+    },
+    {
+      "finding": "Original SD release precedes adapter; use{} closes extractor/streams on success, read/compute error and cancellation; no ASR after unconfirmed release",
+      "source": [
+        "ProcessingWorker.kt:169",
+        "ProcessingWorker.kt:189",
+        "DiarizationRefiner.kt:173",
+        "DiarizationRefiner.kt:195",
+        "DiarizationRefiner.kt:217"
+      ]
+    },
+    {
+      "finding": "Original bounded PCM window reads; no gain or padding in extractor path",
+      "source": [
+        "ProcessingWorker.kt:182",
+        "DiarizationRefiner.kt:183",
+        "DiarizationRefiner.kt:187",
+        "DiarizationRefiner.kt:197"
+      ]
+    },
+    {
+      "finding": "Explicit candidate QA binds requested/effective plans; counts/dimension/closure, identity, actual bytes/hash, private path and copied sidecar checked",
+      "source": [
+        "EvaluationBatchTest.kt:109",
+        "EvaluationBatchTest.kt:155",
+        "EvaluationBatchTest.kt:167",
+        "EvaluationBatchTest.kt:179",
+        "EvaluationBatchTest.kt:192",
+        "EvaluationBatchTest.kt:200"
+      ]
+    },
+    {
+      "finding": "Bounded UTF8 JSON preserves nulls and explicit BigInteger integer counters; atomic no-overwrite publication. Existing 14 focused standalone JVM tests cover helper contracts, not Android filesystem behavior",
+      "source": [
+        "DiarizationEvidence.kt:49",
+        "DiarizationEvidence.kt:90",
+        "DiarizationEvidence.kt:103"
+      ]
+    }
+  ],
+  "android_api_source": "https://developer.android.com/reference/java/nio/file/Files#createLink(java.nio.file.Path,%20java.nio.file.Path)",
+  "limitations": [
+    "createLink is available since API26, matching minSdk26; actual filesystem support still requires instrumentation evidence",
+    "Current JNI call cannot be interrupted internally; cancellation is checked at boundaries",
+    "C2 requires exactly two threads; no UI/thread-policy redesign reviewed or authorized",
+    "No performance/quality/whole-pipeline acceptance claim"
+  ],
+  "nonblocking_suggestions": [
+    "Assert sidecar embedding SHA/sample rate/full native policy against selected packaged entry",
+    "Controlled manual/single requested-C2 tests should assert effective legacy, no extra extractor/sidecar, and zero SD for single",
+    "Explicit WorkData with both plan keys absent on candidate APK should assert legacy/legacy"
+  ]
+}

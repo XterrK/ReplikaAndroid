@@ -78,3 +78,52 @@ local-dev/eval-venv/bin/python tools/eval/compare_ports.py   --native-run artifa
 ```
 
 That operation is marked new_model_inference=false and validates matched inputs/policies. It does not make old native outputs represent a new model/planner. Exact equality across Linux/Android builds is not claimed: retained baseline has one Skeleton/скелетон difference, while corpus delta0.226pp passes. Current numerical decoder emulator is verified bit-exact against actual captured AndroidPCM; it reproduces existing behavior rather than improving AndroidASR.
+
+
+## Task C: frozen C2 experiment
+
+[Task C results and limitations](../../docs/STEP_04_DIARIZATION.md) distinguish
+RU montage gates from the separate natural AMI diagnostic. C2 uses the original
+seven-file pack; six alternative embedders were researched on the host. The
+ordinary app default remains legacy; historical WorkData/manual K stay legacy.
+
+A full C2 host run performs fresh VAD, native SD, clean-window embedding,
+window clustering and GigaAM inference. Always pass the explicit C2 config;
+the runner's default provisional policy is C1:
+
+```bash
+local-dev/eval-venv/bin/python tools/eval/run_refined.py \
+  --audio-root "$REPLIKA_EVAL_AUDIO" --embedding-root local-dev/diar-models \
+  --config configs/eval/c2-window-selected-full.json \
+  --output artifacts/test-results/my-fresh-c2-host
+```
+
+Build matching candidate APKs with both flags:
+
+```bash
+python3 tools/build_portable.py :app:testDebugUnitTest :app:assembleAllInOne \
+  :app:assembleDebug :app:assembleDebugAndroidTest \
+  -PreplikaAsrPlan=vad_words_context600 -PreplikaDiarPlan=eres2net_window_v1
+```
+
+C2 has a separate strict collector; the frozen baseline/D collector is unchanged.
+It requires the complete ten-file union of dev8 and historical fixed5. References
+remain local. Native model/APK hashes, real512dim windows, private QA sidecar,
+Python replay and token/word/Jury reconstruction are checked. WER0.5pp applies
+only to weighted fixed5; dev7/8 and fixed-V1.6 DER+2pp are separate gates.
+
+```bash
+local-dev/eval-venv/bin/python tools/eval/pull_refined_android.py \
+  --serial emulator-5556 --audio-root "$REPLIKA_EVAL_AUDIO" \
+  --host-run artifacts/test-results/my-fresh-c2-host \
+  --output artifacts/test-results/my-fresh-c2-native --check
+# After preflight, repeat with --check removed; --install and --offline are explicit.
+```
+
+Read-only --check performs no ADB, output creation or inference. Every actual run
+uses a fresh output. Source/code/input/model fingerprints are rechecked; failed
+attempts remain evidence. Temporary emulator stay-on settings are restored.
+Native windows are explicit bounded QA files outside Room; normal diagnostics
+stay compact. Current C2 runtime acceptance is pending; see STATUS. Neither a
+unit-test PASS nor low normalized WER establishes natural-dialogue, word-time,
+ARM or phone-performance acceptance.

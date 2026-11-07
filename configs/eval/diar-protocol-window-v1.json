@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "id": "window-overcluster-host-v1",
+  "decided_at": "2026-11-07T03:09:31+03:00",
+  "scope": "C2 dev-only follow-up to documented C1 count failures; no holdout or Android promotion yet",
+  "hypothesis": "Native labels can contain heterogeneous real clean-window vectors; a merge-only centroid refiner cannot split a mixed label. Cluster measured windows first, then project labels strictly within original predicted speech activity.",
+  "source": "step-04/baseline-clean-windows and completed actual .30/.50 automatic sources; strict ASR/source evidence links",
+  "new_neural_inference": false,
+  "gold_inputs_to_algorithm": [],
+  "initial_global_grid": {
+    "cosine_thresholds": [
+      0.3,
+      0.35,
+      0.4,
+      0.45,
+      0.5,
+      0.55,
+      0.6,
+      0.65,
+      0.7,
+      0.75,
+      0.8,
+      0.85,
+      0.9,
+      0.95
+    ],
+    "linkage": [
+      "complete",
+      "average"
+    ],
+    "small_cluster_reassignment": [
+      true,
+      false
+    ],
+    "max_speakers": 8,
+    "assignment_grid_ms": 125,
+    "window_ms": 1500,
+    "window_step_ms": 750,
+    "min_clean_ms": 1000
+  },
+  "eigengap": "Existing measured-centroid estimate diagnostic; applying reduction is separately explicit, not claimed to implement published NME-SC",
+  "invariants": [
+    "No generated or padded embedding vectors",
+    "Native speech activity union preserved; overlap collapse reported",
+    "Actual saved ASR tokens/text order/raw WER unchanged",
+    "All8devcases mandatory; no per-file policy or expected K",
+    "Full original holdout and reserve separate regression checks before Android"
+  ],
+  "dev_gates_unchanged": {
+    "native_count_exact_minimum": 7,
+    "cases": 8,
+    "native_der_0ms_maximum": 0.2888518170426065,
+    "raw_wer": "exact saved D words; primary raw still includes punctuation/case"
+  },
+  "references": [
+    "https://docs.scipy.org/doc/scipy/reference/generated/scipy.cluster.hierarchy.linkage.html",
+    "https://docs.scipy.org/doc/scipy/reference/generated/scipy.cluster.hierarchy.fcluster.html",
+    "https://github.com/k2-fsa/sherpa-onnx/blob/af2d8d81dbfa61c4cea4c568da78f3982edca005/sherpa-onnx/csrc/offline-speaker-diarization-pyannote-impl.h"
+  ]
+}

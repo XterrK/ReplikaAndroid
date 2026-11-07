@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "frozen_before_automatic_grid_at": "2026-11-07T02:49:18+03:00",
+  "scope": "Step C dev selection; original holdout and reserve are separately reported regression validations already seen during D.",
+  "dev_ids_manifest": "benchmark/eval/manifest.json",
+  "models_catalog": "configs/eval/diar-models.json",
+  "fixed_k": "Known manifest K is an explicitly nondeployable research oracle; actual diarizer is called even K=1. The production V1.6 fixed-mode comparison separately substitutes its real full-recording single-speaker bypass on mono cases.",
+  "automatic_distance_thresholds": [0.30, 0.35, 0.40, 0.45, 0.50, 0.55, 0.60, 0.65, 0.70, 0.75, 0.80, 0.85, 0.90, 0.95],
+  "refiner_cosine_thresholds": [0.30, 0.35, 0.40, 0.45, 0.50, 0.55, 0.60, 0.65, 0.70, 0.75, 0.80, 0.85, 0.90, 0.95],
+  "missing_centroid_profiles": ["retain", "temporal"],
+  "minimum_reassignment_similarity": null,
+  "complete_link_guard": false,
+  "reference_inputs_to_automatic_inference_or_refinement": [],
+  "dev_acceptance": {
+    "speaker_count_exact_success_fraction_minimum": 0.8,
+    "minimum_exact_cases_of_eight": 7,
+    "native_der_0ms_maximum_above_production_v16_fixed_baseline_percentage_points": 2.0,
+    "raw_wer": "Must not regress; frozen verified actual ASR tokens are reassigned to new turns, text/order must remain unchanged. Final integration still requires full inference and Android port validation."
+  },
+  "selection_order_among_passing_global_profiles": [
+    "lowest dev native DER at collar 0 ms",
+    "lowest dev cpWER raw",
+    "highest exact native speaker-count cases",
+    "simpler policy, baseline weights when tied"
+  ],
+  "if_no_profile_passes": "Do not promote Android parameters or replace stable V1.6. Preserve failures, diagnose and continue C research.",
+  "validation_before_android": "Selected global profile only; original holdout and reserve independently: no raw WER regression and no native DER or exact speaker-count case regression versus their automatic V1.6 baselines. Any failure is kept and blocks promotion.",
+  "later_window_shift_ab": [0.10, 0.25, 0.50],
+  "timing_scope": "Host concurrent sweep is quality research. Diarization-stage timings exclude replayed ASR and are not whole-app/phone RTF.",
+  "gold_limitations": "Speaker identity follows independent actor metadata; interval DER is a constructed utterance-clip proxy, not a natural-dialogue or independent word-alignment acceptance."
+}

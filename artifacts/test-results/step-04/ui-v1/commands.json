@@ -1,0 +1,45 @@
+[
+  {
+    "at": "2026-11-07T01:47:11.610645+00:00",
+    "argv": [
+      "/home/egor/replika-toolchain/android-sdk/platform-tools/adb",
+      "-s",
+      "emulator-5556",
+      "install",
+      "-r",
+      "-g",
+      "app/build/outputs/apk/debug/app-debug.apk"
+    ],
+    "returncode": 0
+  },
+  {
+    "at": "2026-11-07T01:47:13.829566+00:00",
+    "argv": [
+      "/home/egor/replika-toolchain/android-sdk/platform-tools/adb",
+      "-s",
+      "emulator-5556",
+      "install",
+      "-r",
+      "app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk"
+    ],
+    "returncode": 0
+  },
+  {
+    "at": "2026-11-07T01:47:14.097941+00:00",
+    "argv": [
+      "/home/egor/replika-toolchain/android-sdk/platform-tools/adb",
+      "-s",
+      "emulator-5556",
+      "shell",
+      "am",
+      "instrument",
+      "-w",
+      "-r",
+      "-e",
+      "class",
+      "ru.replika.HomeExperienceV15Test#launcherOpensOrbLibraryHasOwnTabAndHomeExportsRoomText,ru.replika.HomeExperienceV15Test#newRecordingDefaultsToAutomaticAndManualModesRemainSelectable",
+      "ru.replika.offline.test/androidx.test.runner.AndroidJUnitRunner"
+    ],
+    "returncode": 0
+  }
+]

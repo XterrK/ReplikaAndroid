@@ -1,0 +1,144 @@
+[
+  {
+    "at": "2026-11-07T02:23:55.199380+00:00",
+    "argv": [
+      "/home/egor/replika-toolchain/android-sdk/platform-tools/adb",
+      "-s",
+      "emulator-5556",
+      "shell",
+      "settings",
+      "get",
+      "global",
+      "stay_on_while_plugged_in"
+    ],
+    "returncode": 0
+  },
+  {
+    "at": "2026-11-07T02:23:55.224788+00:00",
+    "argv": [
+      "/home/egor/replika-toolchain/android-sdk/platform-tools/adb",
+      "-s",
+      "emulator-5556",
+      "shell",
+      "input",
+      "keyevent",
+      "KEYCODE_WAKEUP"
+    ],
+    "returncode": 0
+  },
+  {
+    "at": "2026-11-07T02:23:55.249362+00:00",
+    "argv": [
+      "/home/egor/replika-toolchain/android-sdk/platform-tools/adb",
+      "-s",
+      "emulator-5556",
+      "shell",
+      "wm",
+      "dismiss-keyguard"
+    ],
+    "returncode": 0
+  },
+  {
+    "at": "2026-11-07T02:23:56.249650+00:00",
+    "argv": [
+      "/home/egor/replika-toolchain/android-sdk/platform-tools/adb",
+      "-s",
+      "emulator-5556",
+      "shell",
+      "svc",
+      "power",
+      "stayon",
+      "true"
+    ],
+    "returncode": 0
+  },
+  {
+    "at": "2026-11-07T02:24:07.744096+00:00",
+    "argv": [
+      "/home/egor/replika-toolchain/android-sdk/platform-tools/adb",
+      "-s",
+      "emulator-5556",
+      "shell",
+      "am",
+      "instrument",
+      "-w",
+      "-r",
+      "-e",
+      "class",
+      "ru.replika.HomeExperienceV15Test#launcherOpensOrbLibraryHasOwnTabAndHomeExportsRoomText,ru.replika.HomeExperienceV15Test#newRecordingDefaultsToAutomaticAndManualModesRemainSelectable",
+      "ru.replika.offline.test/androidx.test.runner.AndroidJUnitRunner"
+    ],
+    "returncode": 0
+  },
+  {
+    "at": "2026-11-07T02:24:07.835812+00:00",
+    "argv": [
+      "/home/egor/replika-toolchain/android-sdk/platform-tools/adb",
+      "-s",
+      "emulator-5556",
+      "exec-out",
+      "run-as",
+      "ru.replika.offline",
+      "cat",
+      "files/hack-step01-ui/jury.json"
+    ],
+    "returncode": 0
+  },
+  {
+    "at": "2026-11-07T02:24:07.893422+00:00",
+    "argv": [
+      "/home/egor/replika-toolchain/android-sdk/platform-tools/adb",
+      "-s",
+      "emulator-5556",
+      "exec-out",
+      "run-as",
+      "ru.replika.offline",
+      "cat",
+      "files/hack-step01-ui/diagnostic.json"
+    ],
+    "returncode": 0
+  },
+  {
+    "at": "2026-11-07T02:24:07.932256+00:00",
+    "argv": [
+      "/home/egor/replika-toolchain/android-sdk/platform-tools/adb",
+      "-s",
+      "emulator-5556",
+      "exec-out",
+      "run-as",
+      "ru.replika.offline",
+      "cat",
+      "files/hack-step01-ui/scope.json"
+    ],
+    "returncode": 0
+  },
+  {
+    "at": "2026-11-07T02:24:07.973813+00:00",
+    "argv": [
+      "/home/egor/replika-toolchain/android-sdk/platform-tools/adb",
+      "-s",
+      "emulator-5556",
+      "shell",
+      "settings",
+      "put",
+      "global",
+      "stay_on_while_plugged_in",
+      "1"
+    ],
+    "returncode": 0
+  },
+  {
+    "at": "2026-11-07T02:24:08.008026+00:00",
+    "argv": [
+      "/home/egor/replika-toolchain/android-sdk/platform-tools/adb",
+      "-s",
+      "emulator-5556",
+      "shell",
+      "settings",
+      "get",
+      "global",
+      "stay_on_while_plugged_in"
+    ],
+    "returncode": 0
+  }
+]
