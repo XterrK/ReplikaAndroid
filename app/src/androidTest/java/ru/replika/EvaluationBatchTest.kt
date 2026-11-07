@@ -117,6 +117,13 @@ class EvaluationBatchTest {
   // Explicit QA selection is independent of the installed APK's defaults.
   val requestedDiarPlan=DiarizationPlan.fromPersistedId(arguments.getString("evalDiarPlan"))
   val cpuPlan=CpuPlan.fromPersistedId(arguments.getString("evalCpuPlan"))
+  // Step 14: explicit old/new pipeline selection on the same APK; absent means the production default.
+  val parallelAsrDiar=when(arguments.getString("evalParallel")) {
+   null -> ru.replika.domain.ParallelAsrDiarPolicy.DEFAULT_ENABLED
+   "true" -> true
+   "false" -> false
+   else -> error("evalParallel must be exactly true or false")
+  }
   val speakers=arguments.getString("evalExpectedSpeakers")?.toInt()?:-1
   MlPolicy.mode(speakers)
   val diarPlan=requestedDiarPlan.forExpectedSpeakers(speakers)
@@ -130,7 +137,7 @@ class EvaluationBatchTest {
   val report=JSONObject().put("status","RUNNING").put("run",runName).put("cases",cases)
    .put("scope","Actual Android production Worker; independent reference text/counts are not staged or passed to recognition")
    .put("api",Build.VERSION.SDK_INT).put("supportedAbis",JSONArray(Build.SUPPORTED_ABIS.toList()))
-   .put("collectEvidence",collectEvidence).put("processId",processId)
+   .put("collectEvidence",collectEvidence).put("processId",processId).put("parallelAsrDiarizationRequested",parallelAsrDiar)
    .put("threads",threads).put("requestedThreads",requestedThreads).put("cpuPlan",cpuPlan.wireId)
    .put("cpuPolicy",DiarizationEvidence.jsonObject(cpu.asMap())).put("expectedSpeakers",speakers).put("newModelInference",true)
    .put("asrPlan",asrPlan.wireId).put("asrPolicy",ProcessingWorker.asrPolicyJson(asrPlan))
@@ -166,7 +173,7 @@ class EvaluationBatchTest {
       }
      }
      val wallStart=SystemClock.elapsedRealtime()
-     ProcessingWorker.enqueue(app,recordId,requestedThreads.takeUnless { it==0 },asrPlan,collectWordEvidence=collectEvidence,diarizationPlan=requestedDiarPlan,cpuPlan=cpuPlan)
+     ProcessingWorker.enqueue(app,recordId,requestedThreads.takeUnless { it==0 },asrPlan,collectWordEvidence=collectEvidence,diarizationPlan=requestedDiarPlan,cpuPlan=cpuPlan,parallelAsrDiarization=parallelAsrDiar)
      withTimeout(20*60*1000L) {
       while(true) {
        val current=app.db.dao().recording(recordId)?:error("Evaluation record disappeared")
@@ -213,6 +220,8 @@ class EvaluationBatchTest {
       .put("worker_wall_ms",SystemClock.elapsedRealtime()-wallStart).put("segments",segments.size)
       .put("newModelInference",true).put("recordingId",recordId)
       .put("collectEvidence",collectEvidence).put("processId",processId)
+      .put("parallelAsrDiarization",diagnostic.optJSONObject("parallelAsrDiarization")?:JSONObject.NULL)
+      .put("stagesMs",diagnostic.optJSONObject("stagesMs")?:JSONObject.NULL)
      if(perfWorkInfo!=null) {
       result.put("workId",perfWorkInfo.id.toString()).put("workManagerState",perfWorkInfo.state.name)
      }

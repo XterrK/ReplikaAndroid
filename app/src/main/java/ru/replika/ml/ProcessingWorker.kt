@@ -180,8 +180,12 @@ class ProcessingWorker(context: Context,params: WorkerParameters): CoroutineWork
      // Step 6: only the chunked plan on recordings above its threshold; shorter audio keeps the exact path below.
      val chunkConfig=if(mode=="automatic") diarPlan.chunkedFor(decoded.durationMs) else null
      var chunked: ChunkedDiarizationRunner.Result?=null
+     // Inside the parallel plan the sibling coroutine may fail: check the current job, not only the Worker scope.
+     suspend fun active()=currentCoroutineContext().ensureActive()
+     /** Speaker turns. Writes diagnostics only to [d]; in the parallel plan [d] is private to this coroutine. */
+     suspend fun diarize(dcpu: CpuResolution,d: JSONObject): List<Turn> {
      val nativeTurns=if(mode=="single") {
-      trace.times["diarizationMs"]=0;trace.times["diarizationLoadMs"]=0;trace.times["diarizationInferenceMs"]=0
+      trace.put("diarizationMs",0);trace.put("diarizationLoadMs",0);trace.put("diarizationInferenceMs",0)
       listOf(Turn(0,decoded.durationMs,0))
      } else if(chunkConfig!=null) trace.measure("diarizationMs") {
       guard("Диаризация · длинная запись по окнам")
@@ -196,7 +200,7 @@ class ProcessingWorker(context: Context,params: WorkerParameters): CoroutineWork
         AudioDecoder.read(pcm,first,count).also { workerContext.ensureActive() }
        } },
        sd={samples,windowMs ->
-        val sd=OfflineSpeakerDiarization(config=diarizationConfig(app.models,rec.expectedSpeakers,cpu.diarizationThreads,diarPlan))
+        val sd=OfflineSpeakerDiarization(config=diarizationConfig(app.models,rec.expectedSpeakers,dcpu.diarizationThreads,diarPlan))
         try {
          Alignment.stable(sd.process(samples).map { Turn((it.start*1000).roundToLong().coerceIn(0,windowMs),
           (it.end*1000).roundToLong().coerceIn(0,windowMs),it.speaker) }.filter { it.endMs>it.startMs })
@@ -204,7 +208,7 @@ class ProcessingWorker(context: Context,params: WorkerParameters): CoroutineWork
        },
        refine={windowTurns,windowMs,samples -> DiarizationRefiner.refineOriginalPcm(
         turns=windowTurns,durationMs=windowMs,modelPath=app.models.file(diarPlan.embeddingPath).path,
-        threads=checkNotNull(cpu.refinementThreads),config=diarPlan.windowConfig!!,cpuPlan=cpuPlan,retainWindows=true,
+        threads=checkNotNull(dcpu.refinementThreads),config=diarPlan.windowConfig!!,cpuPlan=cpuPlan,retainWindows=true,
         isStopped={ this@ProcessingWorker.isStopped },
         readOriginalWindow={startMs,endMs ->
          val first=startMs*16L;val last=endMs*16L
@@ -218,32 +222,32 @@ class ProcessingWorker(context: Context,params: WorkerParameters): CoroutineWork
       val available=Runtime.getRuntime().maxMemory()-(Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory())
       require(required<available/2) { "Недостаточно памяти для диаризации этой записи. Выберите одного говорящего для монолога или разделите аудио." }
       progress.stage(ProcessingStage.SPEAKERS,decoded.durationMs)
-      val sd=trace.measure("diarizationLoadMs") { OfflineSpeakerDiarization(config=diarizationConfig(app.models,rec.expectedSpeakers,cpu.diarizationThreads,diarPlan)) }
+      val sd=trace.measure("diarizationLoadMs") { OfflineSpeakerDiarization(config=diarizationConfig(app.models,rec.expectedSpeakers,dcpu.diarizationThreads,diarPlan)) }
       try {
        val samples=trace.measure("diarizationReadMs") { AudioDecoder.read(pcm,0,decoded.samples) }
        guard("Диаризация · Pyannote + 3D-Speaker")
        val result=trace.measure("diarizationInferenceMs") { sd.processWithCallback(samples,DiarizationProgressCallback { done,total -> progress.units(done,total) }) }
-       ensureActive()
+       active()
        rawDiarizationTurns=result.map { Turn((it.start*1000).roundToLong().coerceIn(0,decoded.durationMs),(it.end*1000).roundToLong().coerceIn(0,decoded.durationMs),it.speaker) }.filter { it.endMs>it.startMs }
        Alignment.stable(rawDiarizationTurns)
       } finally { sd.release() }
      }
-     diagnostic.put("rawDiarizationTurns",turnJson(rawDiarizationTurns))
+     d.put("rawDiarizationTurns",turnJson(rawDiarizationTurns))
       .put("nativeDiarizationTurns",turnJson(nativeTurns))
       .put("diarizationRefinementApplicable",diarPlan.refined)
       .put("diarizationRefinementAccepted",false)
      chunked?.let { result ->
-      diagnostic.put("diarizationRefinementAccepted",result.accepted).put("diarizationChunkedApplied",true)
+      d.put("diarizationRefinementAccepted",result.accepted).put("diarizationChunkedApplied",true)
        .put("diarizationChunked",DiarizationEvidence.jsonObject(result.diagnostics))
        .put("diarizationEvidenceOmittedReason","chunked_long_recording")
      }
-     val turns=if(chunked!=null || !diarPlan.refined) nativeTurns else {
+     return if(chunked!=null || !diarPlan.refined) nativeTurns else {
       // The original SD session above is released before the additional extractor opens.
       guard("Уточнение говорящих")
       progress.indeterminate()
       val refined=trace.measure("diarizationRefinementMs") { DiarizationRefiner.refineOriginalPcm(
        turns=nativeTurns,durationMs=decoded.durationMs,modelPath=app.models.file(diarPlan.embeddingPath).path,
-       threads=checkNotNull(cpu.refinementThreads),config=diarPlan.windowConfig!!,collectEvidence=collectWordEvidence,cpuPlan=cpuPlan,
+       threads=checkNotNull(dcpu.refinementThreads),config=diarPlan.windowConfig!!,collectEvidence=collectWordEvidence,cpuPlan=cpuPlan,
        isStopped={ this@ProcessingWorker.isStopped },
        readOriginalWindow={startMs,endMs -> withContext(Dispatchers.IO) {
         workerContext.ensureActive()
@@ -253,7 +257,7 @@ class ProcessingWorker(context: Context,params: WorkerParameters): CoroutineWork
         AudioDecoder.read(pcm,first.toInt(),(last-first).toInt()).also { workerContext.ensureActive() }
        } }) }
       check(refined.diagnostics["nativeResourcesReleasedBeforeRefiner"]==true) { "Не удалось освободить модель говорящих" }
-      diagnostic.put("diarizationRefinementAccepted",refined.accepted)
+      d.put("diarizationRefinementAccepted",refined.accepted)
        .put("diarizationRefinement",DiarizationEvidence.jsonObject(compactRefinerDiagnostic(refined.diagnostics)))
        .put("diarizationRefinementTimingsMs",DiarizationEvidence.jsonObject(refined.timingsMs))
        .put("diarizationEmbeddingCounts",JSONObject().put("plannedWindows",refined.counts.plannedWindows)
@@ -263,7 +267,7 @@ class ProcessingWorker(context: Context,params: WorkerParameters): CoroutineWork
         .put("measuredWindows",refined.counts.measuredWindows).put("embeddingDimension",refined.counts.embeddingDimension?:JSONObject.NULL))
       // Full vectors/tree are QA-only, bounded, and stored outside Room diagnostics.
       if(collectWordEvidence) {
-       diagnostic.put("diarizationEvidenceRequested",true).put("diarizationEvidenceLimitBytes",8*1024*1024)
+       d.put("diarizationEvidenceRequested",true).put("diarizationEvidenceLimitBytes",8*1024*1024)
        try {
         val info=withContext(Dispatchers.IO) { DiarizationEvidence.write(
          directory=File(applicationContext.filesDir,"diarization-qa").apply {
@@ -277,23 +281,24 @@ class ProcessingWorker(context: Context,params: WorkerParameters): CoroutineWork
           "rawDiarizationTurns" to turnMaps(rawDiarizationTurns),"nativeDiarizationTurns" to turnMaps(nativeTurns),
           "refinedDiarizationTurns" to turnMaps(refined.turns),"accepted" to refined.accepted),
          windows=refined.measuredWindowsQA.orEmpty(),diagnostics=refined.diagnostics) }
-        diagnostic.put("diarizationEvidenceTruncated",info.truncated).put("diarizationEvidenceBytes",info.bytes)
+        d.put("diarizationEvidenceTruncated",info.truncated).put("diarizationEvidenceBytes",info.bytes)
          .put("diarizationEvidenceOmittedReason",info.reason?:JSONObject.NULL)
          .put("diarizationEvidenceFile",info.relativeFileName?.let { "diarization-qa/$it" }?:JSONObject.NULL)
          .put("diarizationEvidenceSha256",info.sha256?:JSONObject.NULL)
        } catch(cancelled: CancellationException) { throw cancelled }
         catch(failed: Exception) {
          // QA storage failure must not turn a useful production transcript into a failed job.
-         diagnostic.put("diarizationEvidenceTruncated",true).put("diarizationEvidenceFile",JSONObject.NULL)
+         d.put("diarizationEvidenceTruncated",true).put("diarizationEvidenceFile",JSONObject.NULL)
           .put("diarizationEvidenceOmittedReason",failed.javaClass.simpleName)
         }
       }
       refined.turns
      }
-     if(asrPlan.wordTimestamps) guard("Планирование участков речи") else phase("Сопоставление временных интервалов")
+     }
      val preRollMs=if(asrPlan.wordTimestamps) asrPlan.preRollMs else PRE_ROLL_MS
      val boundedSpans=Alignment.context(spans,decoded.durationMs,preRollMs,POST_ROLL_MS)
-     val slices=trace.measure("alignmentMs") {
+     /** VAD word plans never read [turns]; only the legacy V1.6 planner slices by speaker. */
+     suspend fun planSlices(turns: List<Turn>): List<Slice> = trace.measure("alignmentMs") {
       if(!asrPlan.wordTimestamps) RecognitionPlanner.plan(boundedSpans,turns)
       else withContext(Dispatchers.IO) {
        VadWordPlanner.planChunks(boundedSpans,energy={startMs,endMs ->
@@ -309,124 +314,207 @@ class ProcessingWorker(context: Context,params: WorkerParameters): CoroutineWork
        }).map { Slice(it.startMs,it.endMs,-1,emptyList()) }
       }
      }
-     val sliceResults=JSONArray();val segments=mutableListOf<Segment>()
-     var fallbackChunks=0;var wordProcessedChunks=0;var wordEvidenceBytes=0L;var wordEvidenceTruncated=false
      val verifiedFrameStrideMs=if(backend=="giga-v3") 40L else 0L
-     diagnostic.put("asrChunks",spanJson(slices.map { Span(it.startMs,it.endMs) }))
-      .put("turnsUsedForAsrSlicing",!asrPlan.wordTimestamps)
-      .put("wordAssignmentSupported",asrPlan.wordTimestamps && verifiedFrameStrideMs>0)
-      .put("wordProcessedChunks",0).put("fallbackChunks",0)
-      .put("wordTimestampScope",if(asrPlan.wordTimestamps)
-       "Token-emission proxies; pinned GigaAM v3 stride 40ms; not forced alignment or calibrated confidence"
-       else "Legacy V1.6 ASR segment intervals; word assignment not requested")
-     if(asrPlan.wordTimestamps) {
-      // Keep partial QA evidence on cancellation without publishing a partial transcript as READY.
-      diagnostic.put("asrSlices",sliceResults).put("energyWindowMs",40).put("energySearchMs",4000)
-       .put("energyMetric","sequential Double mean-square of original decoded Float32 PCM")
-       .put("fallbackPolicy","Full actual ASR chunk with unknown speaker and warning; no fabricated word times or second ASR pass")
-       .put("wordEvidenceBudgetScope","Conservative additional pretty-JSON UTF-8 payload bytes, including nesting allowance; summaries excluded")
-     }
-     // Task 07: the language decision only reads audio. A Russian decision keeps the GigaAM path unchanged.
-     if(languageMode==LanguageMode.AUTO && slices.isNotEmpty()) guard("Определение языка")
-     val language=trace.measure("languageIdMs") { LanguageRouting.decide(app.models,languageMode,perSegmentLanguage,
-      slices.map { Span(it.startMs,it.endMs) },threads) { startMs,endMs -> withContext(Dispatchers.IO) {
-       workerContext.ensureActive()
-       val first=startMs*16L;val last=minOf(endMs*16L,decoded.samples.toLong())
-       require(first>=0 && last>first && last<=Int.MAX_VALUE.toLong())
-       AudioDecoder.read(pcm,first.toInt(),(last-first).toInt()).also { QuietAudioGain.apply(it,recognitionGain) }
-      } } }
-     if(AsrLanguage.EN in language.languages && slices.isNotEmpty())
-      trace.measure("languageModelValidationMs") { withContext(Dispatchers.IO) { app.models.requireEnglishReady() } }
-     diagnostic.put("language",LanguageRouting.json(language)).put("asrLanguage",language.summary)
-     // Single-language plans keep the chronological order; mixed plans run Russian first, then English.
-     val asrOrder=LanguagePlan.recognitionOrder(language.chunkLanguages).map { slices[it] to language.chunkLanguages[it] }
-     val engine=if(slices.isEmpty()) {
-      // Silence/no-speech does not need a 230 MB recognizer. Preserve attribution and Room semantics.
-      trace.times["asrLoadMs"]=0;trace.times["asrInferenceMs"]=0;null
-     } else {
-      guard("Загрузка модели распознавания")
-      trace.measure("asrLoadMs") { RoutedAsrEngine(app.models,threads,asrOrder.first().second) { loaded,ms ->
-       trace.times["asrLoad_${loaded.wireId}Ms"]=(trace.times["asrLoad_${loaded.wireId}Ms"]?:0L)+ms } }
-     }
-     val source=engine?.source?:GigaAmEngine.sourceForModel(backend)
-     progress.stage(ProcessingStage.RECOGNITION,decoded.durationMs)
-     trace.measure("asrMs") { engine?.use { activeEngine ->
-      if(!asrPlan.wordTimestamps) {
-      for((i,entry) in asrOrder.withIndex()) {
-       val s=entry.first;activeEngine.select(entry.second);val source=activeEngine.source
-       ensureActive();guard("Распознавание · ${source.substringBefore(" /")} · ${i+1}/${slices.size}")
-       progress.processed(s.startMs)
-       val a=(s.startMs*16).toInt();val b=min((s.endMs*16).toInt(),decoded.samples)
-       val samples=trace.measure("asrReadMs") { AudioDecoder.read(pcm,a,(b-a).coerceAtLeast(0)) }
-       QuietAudioGain.apply(samples,recognitionGain)
-       val inferenceStart=SystemClock.elapsedRealtime()
-       val text=trace.measure("asrInferenceMs") { activeEngine.recognize(samples) }
-       val inferenceMs=SystemClock.elapsedRealtime()-inferenceStart
-       // Private Room diagnostics may contain hypotheses; they are NEVER passed to Logcat.
-       sliceResults.put(JSONObject().put("startMs",s.startMs).put("endMs",s.endMs).put("speakerId",s.speaker).put("text",text).put("blank",text.isBlank()).put("inferenceMs",inferenceMs).put("warnings",JSONArray(s.reasons)))
-       ensureActive()
-       if(text.isNotBlank()) segments+=Segment(startMs=s.startMs,endMs=s.endMs,speakerId=s.speaker,text=text,source=source,reasons=s.reasons)
+     /**
+      * Language decision and one recognizer pass per slice; no speaker data is read here.
+      * [foreground] says whether this stage owns the status line and progress (the parallel plan
+      * hands them over once diarization ends). [beforeEnglish] runs before Parakeet is opened.
+      */
+     suspend fun recognizeSlices(slices: List<Slice>,asrThreads: Int,d: JSONObject,foreground: ()->Boolean,
+      beforeEnglish: suspend ()->Unit): RecognitionRun {
+      suspend fun step(label: String) {
+       if(foreground()) guard(label) else {
+        trace.cool { phase("Android сообщил о сильном нагреве · ожидание охлаждения") }
+        active()
+        if(dao.recording(recordingId)?.status=="CANCELLING") throw CancellationException("User requested cancellation")
+       }
       }
+      d.put("asrChunks",spanJson(slices.map { Span(it.startMs,it.endMs) }))
+       .put("turnsUsedForAsrSlicing",!asrPlan.wordTimestamps)
+       .put("wordTimestampScope",if(asrPlan.wordTimestamps)
+        "Token-emission proxies; pinned GigaAM v3 stride 40ms; not forced alignment or calibrated confidence"
+        else "Legacy V1.6 ASR segment intervals; word assignment not requested")
+      if(asrPlan.wordTimestamps) {
+       d.put("energyWindowMs",40).put("energySearchMs",4000)
+        .put("energyMetric","sequential Double mean-square of original decoded Float32 PCM")
+        .put("fallbackPolicy","Full actual ASR chunk with unknown speaker and warning; no fabricated word times or second ASR pass")
+        .put("wordEvidenceBudgetScope","Conservative additional pretty-JSON UTF-8 payload bytes, including nesting allowance; summaries excluded")
+      }
+      // Task 07: the language decision only reads audio. A Russian decision keeps the GigaAM path unchanged.
+      if(languageMode==LanguageMode.AUTO && slices.isNotEmpty()) step("Определение языка")
+      val language=trace.measure("languageIdMs") { LanguageRouting.decide(app.models,languageMode,perSegmentLanguage,
+       slices.map { Span(it.startMs,it.endMs) },asrThreads) { startMs,endMs -> withContext(Dispatchers.IO) {
+        workerContext.ensureActive()
+        val first=startMs*16L;val last=minOf(endMs*16L,decoded.samples.toLong())
+        require(first>=0 && last>first && last<=Int.MAX_VALUE.toLong())
+        AudioDecoder.read(pcm,first.toInt(),(last-first).toInt()).also { QuietAudioGain.apply(it,recognitionGain) }
+       } } }
+      if(AsrLanguage.EN in language.languages && slices.isNotEmpty()) {
+       trace.measure("languageModelValidationMs") { withContext(Dispatchers.IO) { app.models.requireEnglishReady() } }
+       beforeEnglish()
+      }
+      d.put("language",LanguageRouting.json(language)).put("asrLanguage",language.summary)
+      // Single-language plans keep the chronological order; mixed plans run Russian first, then English.
+      val asrOrder=LanguagePlan.recognitionOrder(language.chunkLanguages).map { slices[it] to language.chunkLanguages[it] }
+      val engine=if(slices.isEmpty()) {
+       // Silence/no-speech does not need a 230 MB recognizer. Preserve attribution and Room semantics.
+       trace.put("asrLoadMs",0);trace.put("asrInferenceMs",0);null
       } else {
+       step("Загрузка модели распознавания")
+       trace.measure("asrLoadMs") { RoutedAsrEngine(app.models,asrThreads,asrOrder.first().second) { loaded,ms ->
+        trace.add("asrLoad_${loaded.wireId}Ms",ms) } }
+      }
+      val source=engine?.source?:GigaAmEngine.sourceForModel(backend)
+      if(foreground()) progress.stage(ProcessingStage.RECOGNITION,decoded.durationMs)
+      val recognized=ArrayList<RecognizedSlice>(slices.size)
+      trace.measure("asrMs") { engine?.use { activeEngine ->
        for((i,entry) in asrOrder.withIndex()) {
-        val s=entry.first;activeEngine.select(entry.second);val source=activeEngine.source
-        ensureActive();guard("Распознавание · ${source.substringBefore(" /")} · ${i+1}/${slices.size}")
-        progress.processed(s.startMs)
-        val first=s.startMs*16L;val last=minOf(s.endMs*16L,decoded.samples.toLong())
-        require(first>=0 && last>=first && last<=Int.MAX_VALUE.toLong())
-        val samples=trace.measure("asrReadMs") { AudioDecoder.read(pcm,first.toInt(),(last-first).toInt()) }
+        val s=entry.first;activeEngine.select(entry.second);val chunkSource=activeEngine.source
+        active();step("Распознавание · ${chunkSource.substringBefore(" /")} · ${i+1}/${slices.size}")
+        if(foreground()) progress.processed(s.startMs)
+        val samples=if(!asrPlan.wordTimestamps) {
+         val a=(s.startMs*16).toInt();val b=min((s.endMs*16).toInt(),decoded.samples)
+         trace.measure("asrReadMs") { AudioDecoder.read(pcm,a,(b-a).coerceAtLeast(0)) }
+        } else {
+         val first=s.startMs*16L;val last=minOf(s.endMs*16L,decoded.samples.toLong())
+         require(first>=0 && last>=first && last<=Int.MAX_VALUE.toLong())
+         trace.measure("asrReadMs") { AudioDecoder.read(pcm,first.toInt(),(last-first).toInt()) }
+        }
         QuietAudioGain.apply(samples,recognitionGain)
         val inferenceStart=SystemClock.elapsedRealtime()
         // One recognizer pass. An unsupported word projection reuses this exact returned text.
-        val hypothesis=trace.measure("asrInferenceMs") { activeEngine.recognizeDetailed(samples) }
-        val inferenceMs=SystemClock.elapsedRealtime()-inferenceStart
-        ensureActive()
-        val (parsed,assigned,chunkSegments)=trace.measure("wordAssignmentMs") {
-         val parsed=VadWordPlanner.words(hypothesis.text,hypothesis.tokens,hypothesis.timestampsSeconds,
-          Span(s.startMs,s.endMs),hypothesis.frameStrideMs)
-         val assigned=if(parsed.supported) VadWordPlanner.assignWords(parsed.words,turns) else emptyList()
-         val grouped=if(parsed.supported) VadWordPlanner.groupWords(assigned,source,asrPlan.seamPunctuation)
-          else if(hypothesis.text.isNotBlank()) listOf(Segment(startMs=s.startMs,endMs=s.endMs,
-           speakerId=-1,text=hypothesis.text,source=source,reasons=listOf(WORD_FALLBACK_WARNING))) else emptyList()
-         Triple(parsed,assigned,grouped)
+        val hypothesis=trace.measure("asrInferenceMs") {
+         if(asrPlan.wordTimestamps) activeEngine.recognizeDetailed(samples)
+         else AsrHypothesis(activeEngine.recognize(samples),emptyList(),FloatArray(0),0)
         }
-        ensureActive()
-        if(!parsed.supported && hypothesis.text.isNotBlank()) fallbackChunks++
-        wordProcessedChunks++
-        // Summary fields remain small in production. Full token/word arrays are explicit QA only.
-        val summary=JSONObject().put("startMs",s.startMs).put("endMs",s.endMs).put("speakerId",-1)
-         .put("text",hypothesis.text).put("blank",hypothesis.text.isBlank()).put("inferenceMs",inferenceMs)
-         .put("tokenCount",hypothesis.tokens.size).put("timestampCount",hypothesis.timestampsSeconds.size)
-         .put("wordCount",assigned.size).put("frameStrideMs",hypothesis.frameStrideMs)
-         .put("wordAssignmentSupported",parsed.supported).put("wordAssignmentReason",parsed.reason)
-         .put("timestampUnit","seconds within ASR VAD chunk")
-         .put("warnings",JSONArray(if(parsed.supported) emptyList<String>() else listOf(WORD_FALLBACK_WARNING)))
-         .put("wordEvidenceIncluded",false)
-        when {
-         !collectWordEvidence -> summary.put("wordEvidenceOmittedReason","not_requested")
-         wordEvidenceTruncated -> summary.put("wordEvidenceOmittedReason","budget_exceeded")
-         else -> {
-          val payload=wordEvidenceJson(hypothesis,assigned)
-          val payloadBytes=conservativeWordEvidenceBytes(payload)
-          if(payloadBytes<=WORD_EVIDENCE_LIMIT_BYTES.toLong()-wordEvidenceBytes) {
-           for(key in payload.keys()) summary.put(key,payload.get(key))
-           wordEvidenceBytes+=payloadBytes
-           summary.put("wordEvidenceIncluded",true)
-          } else {
-           wordEvidenceTruncated=true
-           summary.put("wordEvidenceOmittedReason","budget_exceeded")
-          }
+        val inferenceMs=SystemClock.elapsedRealtime()-inferenceStart
+        active()
+        recognized+=RecognizedSlice(s,chunkSource,hypothesis,inferenceMs)
+       }
+      } }
+      return RecognitionRun(slices,language,source,recognized)
+     }
+     // Step 14: ASR over VAD chunks runs alongside diarization; speakers join only at word assignment.
+     val parallel=run {
+      val activity=applicationContext.getSystemService(ActivityManager::class.java)
+      val memory=ActivityManager.MemoryInfo().also { activity.getMemoryInfo(it) }
+      val asrModelBytes=app.models.specifications().filter { it.group==backend }.sumOf { app.models.file(it.path).length() }
+      val diarModelBytes=listOf(diarPlan.segmentationPath,diarPlan.embeddingPath).sumOf { app.models.file(it).length() }
+      ParallelAsrDiarPolicy.decide(requested=inputData.getBoolean(PARALLEL_ASR_DIAR_KEY,false),
+       speakerIndependentSlicing=asrPlan.wordTimestamps,diarization=mode!="single",cpu=cpu,
+       availableBytes=memory.availMem-memory.threshold,lowMemory=memory.lowMemory,
+       asrModelBytes=asrModelBytes,diarizationModelBytes=diarModelBytes)
+     }
+     diagnostic.put("parallelAsrDiarization",DiarizationEvidence.jsonObject(parallel.asMap()))
+     val (turns,asr)=if(!parallel.enabled) {
+      val turns=diarize(cpu,diagnostic)
+      if(asrPlan.wordTimestamps) guard("Планирование участков речи") else phase("Сопоставление временных интервалов")
+      turns to recognizeSlices(planSlices(turns),threads,diagnostic,{ true },{})
+     } else {
+      val diarCpu=cpu.copy(diarizationThreads=parallel.diarizationThreads,refinementThreads=parallel.refinementThreads)
+      // JSONObject is not thread-safe: each coroutine writes its own object, merged after both end.
+      val diarDiag=JSONObject();val asrDiag=JSONObject()
+      val asrForeground=java.util.concurrent.atomic.AtomicBoolean(false)
+      val asrFinished=java.util.concurrent.atomic.AtomicBoolean(false)
+      val diarDone=CompletableDeferred<Unit>()
+      val parallelStart=SystemClock.elapsedRealtime()
+      try {
+       coroutineScope {
+        val diarJob=async {
+         diarize(diarCpu,diarDiag).also {
+          diarDone.complete(Unit)
+          trace.put("parallelDiarizationEndMs",SystemClock.elapsedRealtime()-parallelStart)
+          // ASR is still running: hand it the status line and the progress bar.
+          if(!asrFinished.get()) { asrForeground.set(true);progress.stage(ProcessingStage.RECOGNITION,decoded.durationMs) }
          }
         }
-        sliceResults.put(summary)
-        diagnostic.put("wordAssignmentSupported",verifiedFrameStrideMs>0 && fallbackChunks==0)
-         .put("wordProcessedChunks",wordProcessedChunks).put("fallbackChunks",fallbackChunks)
-         .put("wordEvidenceBytes",wordEvidenceBytes).put("wordEvidenceTruncated",wordEvidenceTruncated)
-        ensureActive()
-        segments+=chunkSegments
+        val asrJob=async {
+         val slices=planSlices(emptyList())
+         recognizeSlices(slices,parallel.asrThreads,asrDiag,{ asrForeground.get() }) {
+          // Parakeet is far larger than GigaAM: open it beside the diarizer only when memory allows.
+          val activity=applicationContext.getSystemService(ActivityManager::class.java)
+          val memory=ActivityManager.MemoryInfo().also { activity.getMemoryInfo(it) }
+          val englishBytes=app.models.specifications().filter { it.group==ModelManager.ENGLISH_GROUP }.sumOf { app.models.file(it.path).length() }
+          val needed=ParallelAsrDiarPolicy.requiredBytes(englishBytes,0)
+          val fits=!memory.lowMemory && memory.availMem-memory.threshold>=needed
+          asrDiag.put("englishParallelRequiredBytes",needed).put("englishParallelAvailableBytes",memory.availMem-memory.threshold)
+           .put("englishWaitedForDiarization",!fits && !diarDone.isCompleted)
+          if(!fits) diarDone.await()
+         }.also {
+          asrFinished.set(true)
+          trace.put("parallelAsrEndMs",SystemClock.elapsedRealtime()-parallelStart)
+         }
+        }
+        // awaitAll fails as soon as either stage fails; the scope then cancels and joins the other.
+        awaitAll(diarJob,asrJob)
+        diarJob.await() to asrJob.await()
+       }
+      } finally {
+       trace.put("parallelStageMs",SystemClock.elapsedRealtime()-parallelStart)
+       for(part in listOf(diarDiag,asrDiag)) for(key in part.keys().asSequence().toList()) diagnostic.put(key,part.get(key))
+      }
+     }
+     val slices=asr.slices;val language=asr.language;val source=asr.source
+     val sliceResults=JSONArray();val segments=mutableListOf<Segment>()
+     var fallbackChunks=0;var wordProcessedChunks=0;var wordEvidenceBytes=0L;var wordEvidenceTruncated=false
+     diagnostic.put("wordAssignmentSupported",asrPlan.wordTimestamps && verifiedFrameStrideMs>0)
+      .put("wordProcessedChunks",0).put("fallbackChunks",0)
+     // Keep partial QA evidence on cancellation without publishing a partial transcript as READY.
+     if(asrPlan.wordTimestamps) diagnostic.put("asrSlices",sliceResults)
+     for(chunk in asr.recognized) {
+      val s=chunk.slice;val source=chunk.source;val hypothesis=chunk.hypothesis;val inferenceMs=chunk.inferenceMs
+      if(!asrPlan.wordTimestamps) {
+       val text=hypothesis.text
+       // Private Room diagnostics may contain hypotheses; they are NEVER passed to Logcat.
+       sliceResults.put(JSONObject().put("startMs",s.startMs).put("endMs",s.endMs).put("speakerId",s.speaker).put("text",text).put("blank",text.isBlank()).put("inferenceMs",inferenceMs).put("warnings",JSONArray(s.reasons)))
+       active()
+       if(text.isNotBlank()) segments+=Segment(startMs=s.startMs,endMs=s.endMs,speakerId=s.speaker,text=text,source=source,reasons=s.reasons)
+       continue
+      }
+      val (parsed,assigned,chunkSegments)=trace.measure("wordAssignmentMs") {
+       val parsed=VadWordPlanner.words(hypothesis.text,hypothesis.tokens,hypothesis.timestampsSeconds,
+        Span(s.startMs,s.endMs),hypothesis.frameStrideMs)
+       val assigned=if(parsed.supported) VadWordPlanner.assignWords(parsed.words,turns) else emptyList()
+       val grouped=if(parsed.supported) VadWordPlanner.groupWords(assigned,source,asrPlan.seamPunctuation)
+        else if(hypothesis.text.isNotBlank()) listOf(Segment(startMs=s.startMs,endMs=s.endMs,
+         speakerId=-1,text=hypothesis.text,source=source,reasons=listOf(WORD_FALLBACK_WARNING))) else emptyList()
+       Triple(parsed,assigned,grouped)
+      }
+      active()
+      if(!parsed.supported && hypothesis.text.isNotBlank()) fallbackChunks++
+      wordProcessedChunks++
+      // Summary fields remain small in production. Full token/word arrays are explicit QA only.
+      val summary=JSONObject().put("startMs",s.startMs).put("endMs",s.endMs).put("speakerId",-1)
+       .put("text",hypothesis.text).put("blank",hypothesis.text.isBlank()).put("inferenceMs",inferenceMs)
+       .put("tokenCount",hypothesis.tokens.size).put("timestampCount",hypothesis.timestampsSeconds.size)
+       .put("wordCount",assigned.size).put("frameStrideMs",hypothesis.frameStrideMs)
+       .put("wordAssignmentSupported",parsed.supported).put("wordAssignmentReason",parsed.reason)
+       .put("timestampUnit","seconds within ASR VAD chunk")
+       .put("warnings",JSONArray(if(parsed.supported) emptyList<String>() else listOf(WORD_FALLBACK_WARNING)))
+       .put("wordEvidenceIncluded",false)
+      when {
+       !collectWordEvidence -> summary.put("wordEvidenceOmittedReason","not_requested")
+       wordEvidenceTruncated -> summary.put("wordEvidenceOmittedReason","budget_exceeded")
+       else -> {
+        val payload=wordEvidenceJson(hypothesis,assigned)
+        val payloadBytes=conservativeWordEvidenceBytes(payload)
+        if(payloadBytes<=WORD_EVIDENCE_LIMIT_BYTES.toLong()-wordEvidenceBytes) {
+         for(key in payload.keys()) summary.put(key,payload.get(key))
+         wordEvidenceBytes+=payloadBytes
+         summary.put("wordEvidenceIncluded",true)
+        } else {
+         wordEvidenceTruncated=true
+         summary.put("wordEvidenceOmittedReason","budget_exceeded")
+        }
        }
       }
-     } }
+      sliceResults.put(summary)
+      diagnostic.put("wordAssignmentSupported",verifiedFrameStrideMs>0 && fallbackChunks==0)
+       .put("wordProcessedChunks",wordProcessedChunks).put("fallbackChunks",fallbackChunks)
+       .put("wordEvidenceBytes",wordEvidenceBytes).put("wordEvidenceTruncated",wordEvidenceTruncated)
+      active()
+      segments+=chunkSegments
+     }
      // Mixed-language passes are restored to the timeline (stable sort); single language is untouched.
      if(language.mixed) segments.sortBy { it.startMs }
      val total=SystemClock.elapsedRealtime()-start
@@ -441,7 +529,7 @@ class ProcessingWorker(context: Context,params: WorkerParameters): CoroutineWork
       .put("pipelineTimingScope","validation through ASR release; persistenceMs and telemetry.elapsedMs reported separately")
       .put("asrStageRtf",(trace.times["asrMs"]?:0).toDouble()/decoded.durationMs.coerceAtLeast(1))
       .put("asrInferenceRtf",(trace.times["asrInferenceMs"]?:0).toDouble()/decoded.durationMs.coerceAtLeast(1))
-      .put("runCondition","uncontrolled device caches/temperature; sequential ML stages; CPU provider")
+      .put("runCondition",if(parallel.enabled) "uncontrolled device caches/temperature; ASR alongside diarization (step 14); CPU provider" else "uncontrolled device caches/temperature; sequential ML stages; CPU provider")
       .put("diarizationTurns",JSONArray().also { a -> turns.forEach { t -> a.put(JSONObject().put("startMs",t.startMs).put("endMs",t.endMs).put("speakerId",t.speaker)) } })
       .put("clusteringMode",mode).put("clusterThresholdApplied",mode=="automatic").put("automaticValidation","not accepted on independent long Russian dialogue")
       .put("segmentationWindowShiftRatio",diarPlan.segmentationWindowShiftRatio.toDouble())
@@ -462,7 +550,7 @@ class ProcessingWorker(context: Context,params: WorkerParameters): CoroutineWork
      throw e
     } finally {
      withContext(NonCancellable) {
-      runCatching { dao.diagnostics(recordingId,diagnostic.put("stagesMs",JSONObject(trace.times as Map<*,*>)).put("telemetry",trace.snapshot()).toString(2)) }
+      runCatching { dao.diagnostics(recordingId,diagnostic.put("stagesMs",trace.timesJson()).put("telemetry",trace.snapshot()).toString(2)) }
      }
     }
    }
@@ -542,6 +630,8 @@ class ProcessingWorker(context: Context,params: WorkerParameters): CoroutineWork
   const val COLLECT_WORD_EVIDENCE_KEY="collectWordEvidence"
   const val LANGUAGE_MODE_KEY="languageMode"
   const val PER_SEGMENT_LANGUAGE_KEY="perSegmentLanguage"
+  /** Step 14. Missing in historical WorkData means the sequential pipeline. */
+  const val PARALLEL_ASR_DIAR_KEY="parallelAsrDiarization"
   const val WORD_EVIDENCE_LIMIT_BYTES=256*1024
   const val WORD_FALLBACK_WARNING="Время слов недоступно: проверьте говорящего и границы"
   const val PRE_ROLL_MS=100L
@@ -568,15 +658,21 @@ class ProcessingWorker(context: Context,params: WorkerParameters): CoroutineWork
    asrPlan: AsrPlan=AsrPlan.fromPersistedId(BuildConfig.DEFAULT_ASR_PLAN),collectWordEvidence: Boolean=false,
    diarizationPlan: DiarizationPlan=DiarizationPlan.fromPersistedId(BuildConfig.DEFAULT_DIAR_PLAN),
    cpuPlan: CpuPlan=CpuPlan.fromPersistedId(BuildConfig.DEFAULT_CPU_PLAN),
-   languageMode: LanguageMode=LanguageMode.fromPersistedId(BuildConfig.DEFAULT_LANGUAGE_MODE),perSegmentLanguage: Boolean=false) {
+   languageMode: LanguageMode=LanguageMode.fromPersistedId(BuildConfig.DEFAULT_LANGUAGE_MODE),perSegmentLanguage: Boolean=false,
+   parallelAsrDiarization: Boolean=ParallelAsrDiarPolicy.DEFAULT_ENABLED) {
    val requestedThreads=threads?:if(cpuPlan==CpuPlan.AUTO_V1) 0 else 2
    // Validate before scheduling; resolve again from the actual available cores when Worker starts.
    cpuPlan.resolve(requestedThreads,Runtime.getRuntime().availableProcessors(),refined=false)
    val request=OneTimeWorkRequestBuilder<ProcessingWorker>().setInputData(workDataOf("recordingId" to id,
     "mlThreads" to requestedThreads,CPU_PLAN_KEY to cpuPlan.wireId,ASR_PLAN_KEY to asrPlan.wireId,
     COLLECT_WORD_EVIDENCE_KEY to collectWordEvidence,DIAR_PLAN_KEY to diarizationPlan.wireId,
-    LANGUAGE_MODE_KEY to languageMode.wireId,PER_SEGMENT_LANGUAGE_KEY to (perSegmentLanguage && languageMode==LanguageMode.AUTO))).addTag(id).build()
+    LANGUAGE_MODE_KEY to languageMode.wireId,PER_SEGMENT_LANGUAGE_KEY to (perSegmentLanguage && languageMode==LanguageMode.AUTO),
+    PARALLEL_ASR_DIAR_KEY to parallelAsrDiarization)).addTag(id).build()
    WorkManager.getInstance(context).enqueueUniqueWork("replika-$id",ExistingWorkPolicy.KEEP,request)
   }
  }
 }
+
+/** One recognizer pass over a VAD slice, kept until speaker turns are available (step 14). */
+private class RecognizedSlice(val slice: Slice,val source: String,val hypothesis: AsrHypothesis,val inferenceMs: Long)
+private class RecognitionRun(val slices: List<Slice>,val language: LanguageDecision,val source: String,val recognized: List<RecognizedSlice>)
