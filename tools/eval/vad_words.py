@@ -7,6 +7,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass, replace
 import math
+import os
 import re
 
 if __package__:
@@ -180,6 +181,36 @@ def words_from_tokens(text: str, tokens: list[str], timestamps_seconds,
     return WordResult(True, "supported", words)
 
 
+def nearest_speaker(word: Word, turns: list[Turn], limit_ms: int, among=None) -> int:
+    """Speaker of the closest known turn within limit_ms (0 = disabled); a tie keeps -1.
+
+    Word times are token-emission estimates, so a word often lands a few hundred ms
+    outside every diarization turn. Without this fallback it becomes its own
+    unknown-speaker row with a tiny interval.
+    """
+    if limit_ms <= 0:
+        return -1
+    middle = (word.start_ms + word.end_ms) / 2
+    best, best_distance = -1, None
+    for turn in turns:
+        if turn.speaker < 0 or (among is not None and turn.speaker not in among):
+            continue
+        if turn.start_ms <= middle < turn.end_ms:
+            distance = -1  # the word centre lies inside this turn
+        else:
+            distance = max(0, turn.start_ms - word.end_ms, word.start_ms - turn.end_ms)
+        if distance > limit_ms:
+            continue
+        if best_distance is None or distance < best_distance:
+            best, best_distance = turn.speaker, distance
+        elif distance == best_distance and turn.speaker != best:
+            best = -2  # equally close different speakers: stay unknown
+    return best if best >= 0 else -1
+
+
+NEAREST_SPEAKER_MS = int(os.environ.get("REPLIKA_NEAREST_SPEAKER_MS", "1500"))  # app default; 0 = old behaviour
+
+
 def assign_words(words: list[Word], turns: list[Turn]) -> list[AssignedWord]:
     result = []
     for word in words:
@@ -204,6 +235,10 @@ def assign_words(words: list[Word], turns: list[Turn]) -> list[AssignedWord]:
                     max(a.start_ms, b.start_ms, word.start_ms) < min(a.end_ms, b.end_ms, word.end_ms)
                     for i, a in enumerate(active) for b in active[i + 1:])
                 reasons.append(OVERLAPPING_SPEAKERS if simultaneous else BOUNDARY_SPEAKERS)
+        # Only a word outside every turn is rescued: ties and explicitly unknown native turns stay unknown.
+        explicit_unknown = any(t.speaker < 0 and t.start_ms < word.end_ms and t.end_ms > word.start_ms for t in turns)
+        if speaker < 0 and not covered and not explicit_unknown:
+            speaker = nearest_speaker(word, turns, NEAREST_SPEAKER_MS)
         result.append(AssignedWord(word.start_ms, word.end_ms, word.text, speaker, tuple(dict.fromkeys(reasons))))
     return result
 
