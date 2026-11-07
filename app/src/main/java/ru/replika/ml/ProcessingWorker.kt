@@ -153,9 +153,40 @@ class ProcessingWorker(context: Context,params: WorkerParameters): CoroutineWork
       .put("vadRescueScope","detector-only empty-primary retry; ASR input, original PCM and diarization unchanged")
      // Mode A never loads segmentation/embedding, nor allocates a full-recording float array.
      var rawDiarizationTurns=emptyList<Turn>()
+     // Step 6: only the chunked plan on recordings above its threshold; shorter audio keeps the exact path below.
+     val chunkConfig=if(mode=="automatic") diarPlan.chunkedFor(decoded.durationMs) else null
+     var chunked: ChunkedDiarizationRunner.Result?=null
      val nativeTurns=if(mode=="single") {
       trace.times["diarizationMs"]=0;trace.times["diarizationLoadMs"]=0;trace.times["diarizationInferenceMs"]=0
       listOf(Turn(0,decoded.durationMs,0))
+     } else if(chunkConfig!=null) trace.measure("diarizationMs") {
+      guard("Диаризация · длинная запись по окнам")
+      val windowBytes=minOf(chunkConfig.windowMs*16L,decoded.samples.toLong())*4
+      val available=Runtime.getRuntime().maxMemory()-(Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory())
+      require(windowBytes<available/2) { "Недостаточно памяти для диаризации даже одного окна записи." }
+      ChunkedDiarizationRunner.run(decoded.durationMs,decoded.samples,chunkConfig,
+       readPcm={first,count -> withContext(Dispatchers.IO) {
+        workerContext.ensureActive()
+        // Original PCM only, one window at a time; never the whole recording.
+        AudioDecoder.read(pcm,first,count).also { workerContext.ensureActive() }
+       } },
+       sd={samples,windowMs ->
+        val sd=OfflineSpeakerDiarization(config=diarizationConfig(app.models,rec.expectedSpeakers,cpu.diarizationThreads,diarPlan))
+        try {
+         Alignment.stable(sd.process(samples).map { Turn((it.start*1000).roundToLong().coerceIn(0,windowMs),
+          (it.end*1000).roundToLong().coerceIn(0,windowMs),it.speaker) }.filter { it.endMs>it.startMs })
+        } finally { sd.release() }
+       },
+       refine={windowTurns,windowMs,samples -> DiarizationRefiner.refineOriginalPcm(
+        turns=windowTurns,durationMs=windowMs,modelPath=app.models.file(diarPlan.embeddingPath).path,
+        threads=checkNotNull(cpu.refinementThreads),config=diarPlan.windowConfig!!,cpuPlan=cpuPlan,retainWindows=true,
+        isStopped={ this@ProcessingWorker.isStopped },
+        readOriginalWindow={startMs,endMs ->
+         val first=startMs*16L;val last=endMs*16L
+         require(first>=0 && last>first && last<=samples.size.toLong())
+         samples.copyOfRange(first.toInt(),last.toInt())
+        }) },
+       onWindow={index,count -> guard("Диаризация · длинная запись · окно ${index+1}/$count")}).also { chunked=it }.turns
      } else trace.measure("diarizationMs") {
       guard("Диаризация · Pyannote + 3D-Speaker")
       val required=decoded.samples.toLong()*4
@@ -175,7 +206,12 @@ class ProcessingWorker(context: Context,params: WorkerParameters): CoroutineWork
       .put("nativeDiarizationTurns",turnJson(nativeTurns))
       .put("diarizationRefinementApplicable",diarPlan.refined)
       .put("diarizationRefinementAccepted",false)
-     val turns=if(!diarPlan.refined) nativeTurns else {
+     chunked?.let { result ->
+      diagnostic.put("diarizationRefinementAccepted",result.accepted).put("diarizationChunkedApplied",true)
+       .put("diarizationChunked",DiarizationEvidence.jsonObject(result.diagnostics))
+       .put("diarizationEvidenceOmittedReason","chunked_long_recording")
+     }
+     val turns=if(chunked!=null || !diarPlan.refined) nativeTurns else {
       // The original SD session above is released before the additional extractor opens.
       guard("Уточнение говорящих")
       val refined=trace.measure("diarizationRefinementMs") { DiarizationRefiner.refineOriginalPcm(
@@ -453,6 +489,7 @@ class ProcessingWorker(context: Context,params: WorkerParameters): CoroutineWork
    "embedding_path" to plan.embeddingPath,"native_threshold" to plan.clusterThreshold.toDouble(),
    "window_shift" to plan.segmentationWindowShiftRatio.toDouble(),"min_duration_on" to plan.diarMinDurationOnSec.toDouble(),
    "min_duration_off" to plan.diarMinDurationOffSec.toDouble(),"window_config" to plan.windowConfig?.asMap())
+   .also { policy -> plan.chunkConfig?.let { policy["chunk_config"]=it.asMap() } }
   fun asrPolicyJson(plan: AsrPlan): JSONObject = JSONObject().put("pipeline",plan.pipeline)
    .put("punctuation_mode",plan.punctuationMode).put("energy_split",plan.wordTimestamps)
    .put("vad_threshold",plan.vadThreshold.toDouble()).put("vad_min_speech_sec",plan.vadMinSpeechSec.toDouble())

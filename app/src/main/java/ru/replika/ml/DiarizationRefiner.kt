@@ -50,7 +50,7 @@ object DiarizationRefiner {
         /** Computational support, separate from diarization quality acceptance. */
         val accepted: Boolean,
         val diagnostics: Map<String, Any?>,
-        /** Actual Float32 outputs promoted to Double; present only for explicit QA. */
+        /** Actual Float32 outputs promoted to Double; present only for explicit QA or retainWindows. */
         val measuredWindowsQA: List<SpeakerRefiner.EmbeddingWindow>?,
         val timingsMs: Map<String, Double>,
         val counts: Counts,
@@ -100,6 +100,8 @@ object DiarizationRefiner {
         isStopped: () -> Boolean = { false },
         embeddingFactory: EmbeddingFactory = NativeFactory,
         cpuPlan: CpuPlan = CpuPlan.LEGACY,
+        /** Return measured vectors to the caller (step-6 window centroids) without QA storage. */
+        retainWindows: Boolean = false,
     ): Result {
         require(config == SELECTED_CONFIG) { "Only the frozen C2 window policy is supported" }
         cpuPlan.requireRefinementThreads(threads)
@@ -149,7 +151,7 @@ object DiarizationRefiner {
                 diagnostics["failureClass"] = failureClass
                 diagnostics["failureWindowIndex"] = windowIndex
             }
-            val evidence = if (collectEvidence) measured.toList() else null
+            val evidence = if (collectEvidence || retainWindows) measured.toList() else null
             val finalCounts = counts()
             measured.clear()
             stages["totalMs"] = elapsed(began)

@@ -14,7 +14,7 @@ require(defaultAsrPlan in setOf("v16", "vad_words_none", "vad_words_seam", "vad_
  "vad_words_context300", "vad_words_context600")) { "Unsupported replikaAsrPlan" }
 // Explicit C2 build opt-in; missing historical WorkData still resolves to legacy in DiarizationPlan.
 val defaultDiarPlan = providers.gradleProperty("replikaDiarPlan").orElse("eres2net_window_v1").get()
-require(defaultDiarPlan in setOf("v16", "eres2net_window_v1")) { "Unsupported replikaDiarPlan" }
+require(defaultDiarPlan in setOf("v16", "eres2net_window_v1", "eres2net_window_chunked_v1")) { "Unsupported replikaDiarPlan" }
 require(defaultDiarPlan == "v16" || defaultAsrPlan == "vad_words_context600") {
  "eres2net_window_v1 requires -PreplikaAsrPlan=vad_words_context600"
 }
