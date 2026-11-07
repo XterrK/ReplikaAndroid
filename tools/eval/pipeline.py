@@ -15,6 +15,7 @@ from dataclasses import dataclass, replace
 import gc
 import hashlib
 import json
+import os
 import math
 from pathlib import Path
 import platform
@@ -24,6 +25,13 @@ import wave
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 MANIFEST = PROJECT_ROOT / "app/src/main/assets/models-lock.json"
+ENCODER_LOCK_PATH = "giga-v3/encoder.int8.onnx"
+ENCODER_OVERRIDE = os.environ.get("REPLIKA_ENCODER_OVERRIDE", "")
+
+
+def encoder_file(model_root) -> Path:
+    """The GigaAM encoder to load: the pinned INT8 file unless REPLIKA_ENCODER_OVERRIDE is set."""
+    return Path(ENCODER_OVERRIDE) if ENCODER_OVERRIDE else Path(model_root) / ENCODER_LOCK_PATH
 RUNTIME_VERSION = "2.0.1"
 SOURCE = "GigaAM v3 E2E RNNT INT8 / sherpa-onnx 2.0.1"
 SHORT = "Короткая реплика возле границы"
@@ -256,6 +264,12 @@ def _verify_models(model_root: Path, include_diarization: bool) -> tuple[list[di
         if spec["group"] not in groups:
             continue
         path = model_root / spec["path"]
+        if spec["path"] == ENCODER_LOCK_PATH and ENCODER_OVERRIDE:
+            # Experiment-only: an alternative encoder (e.g. FP32) replaces the pinned INT8 file.
+            override = Path(ENCODER_OVERRIDE)
+            records.append({"path": spec["path"], "override": str(override), "bytes": override.stat().st_size,
+                            "sha256": _sha256(override), "hashValidationCached": False})
+            continue
         stat = path.stat()
         if stat.st_size != spec["size"]:
             raise ValueError(f"Model size mismatch: {spec['path']}")

@@ -154,7 +154,7 @@ def process(audio_path, model_root, expected_speakers=-1, threads=2, *,
     stride_error = None
     with base._measure(stages, "timestampMetadataMs"):
         try:
-            stride = words.frame_stride_from_metadata(words.encoder_metadata(model_root / "giga-v3/encoder.int8.onnx"))
+            stride = words.frame_stride_from_metadata(words.encoder_metadata(base.encoder_file(model_root)))
         except (ValueError, OSError) as error:
             stride_error = str(error)
             stride = {"verified": False, "frame_stride_ms": None, "reason": stride_error}
@@ -222,7 +222,7 @@ def process(audio_path, model_root, expected_speakers=-1, threads=2, *,
         stride_ms = strides[pass_language]["frame_stride_ms"]
         with base._measure(stages, "asrLoadMs"):
             recognizer = language_id.make_english_recognizer(model_root, threads) if pass_language == "en" else sherpa.OfflineRecognizer.from_transducer(
-                encoder=str(model_root / "giga-v3/encoder.int8.onnx"), decoder=str(model_root / "giga-v3/decoder.onnx"),
+                encoder=str(base.encoder_file(model_root)), decoder=str(model_root / "giga-v3/decoder.onnx"),
                 joiner=str(model_root / "giga-v3/joiner.onnx"), tokens=str(model_root / "giga-v3/tokens.txt"),
                 model_type="nemo_transducer", num_threads=threads, provider="cpu", debug=False,
                 sample_rate=16000, feature_dim=80, dither=0.0, decoding_method="greedy_search",

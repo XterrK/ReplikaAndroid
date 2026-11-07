@@ -1,0 +1,655 @@
+{
+  "asrPlan": "vad_words_context600",
+  "asrPolicy": {
+    "pipeline": "vad_words_v1",
+    "punctuation_mode": "none",
+    "energy_split": true,
+    "vad_threshold": 0.5,
+    "vad_min_speech_sec": 0.25,
+    "vad_min_silence_sec": 0.25,
+    "pre_roll_ms": 600
+  },
+  "diarizationPlanRequested": "eres2net_window_chunked_v1",
+  "wordEvidenceRequested": false,
+  "wordEvidenceApplicable": true,
+  "wordEvidenceLimitBytes": 262144,
+  "wordEvidenceBytes": 0,
+  "wordEvidenceTruncated": false,
+  "diarizationPlan": "eres2net_window_chunked_v1",
+  "diarizationPolicy": {
+    "plan": "eres2net_window_chunked_v1",
+    "algorithm": "window-overcluster-v1",
+    "embedding_path": "diar\/embedding.onnx",
+    "native_threshold": 0.30000001192092896,
+    "window_shift": 0.10000000149011612,
+    "min_duration_on": 0.20000000298023224,
+    "min_duration_off": 0.5,
+    "window_config": {
+      "tau": 0.36,
+      "method": "average",
+      "grid_ms": 125,
+      "max_speakers": 8,
+      "reassign_small": true,
+      "min_cluster_ms": 2000,
+      "min_cluster_fraction": 0.03,
+      "minimum_reassignment_similarity": null,
+      "smooth": true,
+      "smooth_ms": 500
+    },
+    "chunk_config": {
+      "min_duration_ms": 720000,
+      "window_ms": 600000,
+      "overlap_ms": 30000,
+      "global_tau": 0.5,
+      "max_speakers": 8,
+      "stitch_search_ms": 10000
+    }
+  },
+  "cpuPolicy": {
+    "plan": "auto_v1",
+    "requestedThreads": 0,
+    "availableCores": 4,
+    "asrThreads": 2,
+    "diarizationThreads": 2,
+    "refinementThreads": 2,
+    "diarizationPinned": false,
+    "refinementPinned": false
+  },
+  "noiseGate": {
+    "snrDb": 29.07377545851392,
+    "flatness": 0.12378970833750476,
+    "applied": false
+  },
+  "vadPrimarySpanCount": 4,
+  "vadPrimarySpans": [
+    {
+      "startMs": 326,
+      "endMs": 32956
+    },
+    {
+      "startMs": 33766,
+      "endMs": 38342
+    },
+    {
+      "startMs": 39078,
+      "endMs": 43110
+    },
+    {
+      "startMs": 43526,
+      "endMs": 59296
+    }
+  ],
+  "vadRescueAttempted": false,
+  "vadRescueApplied": false,
+  "vadDetectorGain": 1,
+  "vadRescueRms": null,
+  "vadRescueRmsSamples": 0,
+  "vadRescueSpanCount": 0,
+  "vadRescueReason": "primary_nonempty",
+  "vadRescueTargetRms": 0.02,
+  "vadRescueMaxGain": 20,
+  "vadRescuePeakHeadroom": 0.95,
+  "vadRescueMinGainRatio": 1.01,
+  "vadRescueScope": "detector-only empty-primary retry; ASR input, original PCM and diarization unchanged",
+  "rawDiarizationTurns": [
+    {
+      "startMs": 284,
+      "endMs": 4705,
+      "speakerId": 1
+    },
+    {
+      "startMs": 4705,
+      "endMs": 10696,
+      "speakerId": 0
+    },
+    {
+      "startMs": 11641,
+      "endMs": 16163,
+      "speakerId": 5
+    },
+    {
+      "startMs": 17480,
+      "endMs": 23977,
+      "speakerId": 6
+    },
+    {
+      "startMs": 23977,
+      "endMs": 26120,
+      "speakerId": 9
+    },
+    {
+      "startMs": 26120,
+      "endMs": 32532,
+      "speakerId": 10
+    },
+    {
+      "startMs": 33427,
+      "endMs": 38017,
+      "speakerId": 12
+    },
+    {
+      "startMs": 38607,
+      "endMs": 42252,
+      "speakerId": 14
+    },
+    {
+      "startMs": 43501,
+      "endMs": 47315,
+      "speakerId": 16
+    },
+    {
+      "startMs": 43518,
+      "endMs": 43973,
+      "speakerId": 14
+    },
+    {
+      "startMs": 47956,
+      "endMs": 59077,
+      "speakerId": 18
+    }
+  ],
+  "nativeDiarizationTurns": [
+    {
+      "startMs": 284,
+      "endMs": 4705,
+      "speakerId": 0
+    },
+    {
+      "startMs": 4705,
+      "endMs": 10696,
+      "speakerId": 1
+    },
+    {
+      "startMs": 11641,
+      "endMs": 16163,
+      "speakerId": 2
+    },
+    {
+      "startMs": 17480,
+      "endMs": 23977,
+      "speakerId": 3
+    },
+    {
+      "startMs": 23977,
+      "endMs": 26120,
+      "speakerId": 4
+    },
+    {
+      "startMs": 26120,
+      "endMs": 32532,
+      "speakerId": 5
+    },
+    {
+      "startMs": 33427,
+      "endMs": 38017,
+      "speakerId": 6
+    },
+    {
+      "startMs": 38607,
+      "endMs": 42252,
+      "speakerId": 7
+    },
+    {
+      "startMs": 43501,
+      "endMs": 47315,
+      "speakerId": 8
+    },
+    {
+      "startMs": 43518,
+      "endMs": 43973,
+      "speakerId": 7
+    },
+    {
+      "startMs": 47956,
+      "endMs": 59077,
+      "speakerId": 9
+    }
+  ],
+  "diarizationRefinementApplicable": true,
+  "diarizationRefinementAccepted": true,
+  "diarizationRefinement": {
+    "algorithm": "window-overcluster-v1",
+    "config": {
+      "tau": 0.36,
+      "method": "average",
+      "grid_ms": 125,
+      "max_speakers": 8,
+      "reassign_small": true,
+      "min_cluster_ms": 2000,
+      "min_cluster_fraction": 0.03,
+      "minimum_reassignment_similarity": null,
+      "smooth": true,
+      "smooth_ms": 500
+    },
+    "cpuPlan": "auto_v1",
+    "embeddingThreads": 2,
+    "status": "PARTIAL_TEMPORAL",
+    "computationalSupport": true,
+    "qualityAcceptance": "not evaluated by this adapter",
+    "originalPcm": true,
+    "sampleRate": 16000,
+    "cleanWindowMs": 1500,
+    "cleanWindowStepMs": 750,
+    "cleanMinimumIslandMs": 1000,
+    "embeddingInferenceCompleted": true,
+    "embeddingScope": "Original decoded PCM; no gain, resampling, padding or normalization",
+    "nativeResourcesReleasedBeforeRefiner": true,
+    "retainedNativeModelCache": false,
+    "refiner": {
+      "algorithm": "window-overcluster-v1",
+      "config": {
+        "tau": 0.36,
+        "method": "average",
+        "grid_ms": 125,
+        "max_speakers": 8,
+        "reassign_small": true,
+        "min_cluster_ms": 2000,
+        "min_cluster_fraction": 0.03,
+        "minimum_reassignment_similarity": null,
+        "smooth": true,
+        "smooth_ms": 500
+      },
+      "duration_ms": 59280,
+      "new_neural_inference": false,
+      "eigengap_applied": false,
+      "boundary_timing_scope": "Saved-window votes on an activity-confined grid; no forced alignment or true change-point accuracy claim",
+      "native_input_clusters": 10,
+      "scipy_version": "1.18.1",
+      "hierarchy_backend": "pure Kotlin; scipy_version denotes source algorithm contract, not runtime",
+      "cut_distance": 0.64,
+      "cut_inclusive": true,
+      "linkage_method": "average",
+      "canonical_window_order": "start_ms, end_ms, original speaker",
+      "window_clusters_at_cut": 15,
+      "window_clusters_after_cap": 8,
+      "fully_acoustic_supported": false,
+      "every_native_label_has_measured_windows": true,
+      "clusters_after_voting": 8,
+      "small_cluster_cutoff_ms": 2000,
+      "clusters_after_small": 6,
+      "status": "PARTIAL_TEMPORAL",
+      "measured_unique_windows": 54,
+      "embedding_dimension": 512,
+      "output_clusters": 6,
+      "original_activity_union_ms": 53156,
+      "output_activity_union_ms": 53156,
+      "activity_union_preserved": true,
+      "original_speaker_time_ms": 53611,
+      "output_speaker_time_ms": 53611,
+      "speaker_time_collapsed_ms": 0,
+      "grid_boundary_resolution_ms": 125,
+      "max_assignment_atom_ms": 125
+    }
+  },
+  "diarizationRefinementTimingsMs": {
+    "embeddingLoadMs": 259.2529,
+    "embeddingReadMs": 154.03220000000002,
+    "embeddingComputeMs": 5441.340900000001,
+    "embeddingStageMs": 6153.5576,
+    "refinerMs": 322.4924,
+    "totalMs": 6476.4792
+  },
+  "diarizationEmbeddingCounts": {
+    "plannedWindows": 54,
+    "extractorLoads": 1,
+    "readWindows": 54,
+    "createdStreams": 54,
+    "releasedStreams": 54,
+    "computeAttempts": 54,
+    "embeddingForwardCalls": 54,
+    "measuredWindows": 54,
+    "embeddingDimension": 512
+  },
+  "asrChunks": [
+    {
+      "startMs": 0,
+      "endMs": 16700
+    },
+    {
+      "startMs": 16700,
+      "endMs": 32956
+    },
+    {
+      "startMs": 33166,
+      "endMs": 38342
+    },
+    {
+      "startMs": 38478,
+      "endMs": 54618
+    },
+    {
+      "startMs": 54618,
+      "endMs": 59280
+    }
+  ],
+  "turnsUsedForAsrSlicing": false,
+  "wordAssignmentSupported": true,
+  "wordProcessedChunks": 5,
+  "fallbackChunks": 0,
+  "wordTimestampScope": "Token-emission proxies; pinned GigaAM v3 stride 40ms; not forced alignment or calibrated confidence",
+  "asrSlices": [
+    {
+      "startMs": 0,
+      "endMs": 16700,
+      "speakerId": -1,
+      "text": "Да, конечно, Света. У меня была одна мечта, которая изменила мою жизнь. Да. Уверенность — это ключ к преодолению любых препятствий и пути к мечте. Литература — это такой богатый источник мудрости, вдохновения.",
+      "blank": false,
+      "inferenceMs": 2125,
+      "tokenCount": 88,
+      "timestampCount": 88,
+      "wordCount": 31,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 16700,
+      "endMs": 32956,
+      "speakerId": -1,
+      "text": "Я очень надеюсь, что он быстро найдёт что-то подходящее. Если он нуждается в какой-то поддержке или помощи, мы всегда готовы помочь. Мне нравится пробовать что-то новое, экстремальное, но в пределах разумного. Например, я прыгала с парашютом.",
+      "blank": false,
+      "inferenceMs": 1999,
+      "tokenCount": 104,
+      "timestampCount": 104,
+      "wordCount": 36,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 33166,
+      "endMs": 38342,
+      "speakerId": -1,
+      "text": "Да, конечно. Те вечерние прогулки были таким приятным отдыхом.",
+      "blank": false,
+      "inferenceMs": 604,
+      "tokenCount": 24,
+      "timestampCount": 24,
+      "wordCount": 9,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 38478,
+      "endMs": 54618,
+      "speakerId": -1,
+      "text": "Спасибо, Дима. С тобой я чувствую, что могу всё. Там была потрясающая атмосфера, музыка, танцы. Да. Британские кошки очень дружелюбные. А ты знала, что есть такая порода, как скочишь?",
+      "blank": false,
+      "inferenceMs": 1886,
+      "tokenCount": 86,
+      "timestampCount": 86,
+      "wordCount": 29,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 54618,
+      "endMs": 59280,
+      "speakerId": -1,
+      "text": "Фоут. У них такие забавные ушки, складывающиеся вперёд.",
+      "blank": false,
+      "inferenceMs": 523,
+      "tokenCount": 34,
+      "timestampCount": 34,
+      "wordCount": 8,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    }
+  ],
+  "energyWindowMs": 40,
+  "energySearchMs": 4000,
+  "energyMetric": "sequential Double mean-square of original decoded Float32 PCM",
+  "fallbackPolicy": "Full actual ASR chunk with unknown speaker and warning; no fabricated word times or second ASR pass",
+  "wordEvidenceBudgetScope": "Conservative additional pretty-JSON UTF-8 payload bytes, including nesting allowance; summaries excluded",
+  "language": {
+    "mode": "auto",
+    "perSegment": false,
+    "fileLanguage": "ru",
+    "summary": "ru",
+    "reason": "whisper_vote",
+    "probeLabels": [
+      "ru",
+      "ru",
+      "ru"
+    ],
+    "chunkLanguages": [
+      "ru",
+      "ru",
+      "ru",
+      "ru",
+      "ru"
+    ],
+    "policy": "first 30 s of VAD speech, up to 3 probes x 10 s, strict 'en' majority else ru; chunks < 1.5 s inherit the file decision"
+  },
+  "asrLanguage": "ru",
+  "finalPssKb": 194942,
+  "peakMemory": "N\/A; stage boundary snapshots only",
+  "device": "unknown Android SDK built for x86_64",
+  "android": 35,
+  "runtime": "sherpa-onnx 2.0.1",
+  "backend": "GigaAM v3 E2E RNNT INT8 \/ sherpa-onnx 2.0.1",
+  "threads": 2,
+  "vadThreads": 1,
+  "sampleRate": 16000,
+  "originalPcmPeak": 0.42779538,
+  "recognitionInputGain": 1,
+  "quietGainTriggerPeak": 0.01,
+  "quietGainMax": 20,
+  "quietGainScope": "temporary VAD and ASR arrays only; original PCM\/playback\/diarization preserved",
+  "expectedSpeakers": -1,
+  "clusterThreshold": 0.30000001192092896,
+  "vadThreshold": 0.5,
+  "maxAsrSegmentMs": 20000,
+  "audioMs": 59280,
+  "totalMs": 53680,
+  "pipelineRtf": 0.9055330634278003,
+  "pipelineTimingScope": "validation through ASR release; persistenceMs and telemetry.elapsedMs reported separately",
+  "asrStageRtf": 0.1251518218623482,
+  "asrInferenceRtf": 0.11879217273954117,
+  "runCondition": "uncontrolled device caches\/temperature; sequential ML stages; CPU provider",
+  "diarizationTurns": [
+    {
+      "startMs": 284,
+      "endMs": 4705,
+      "speakerId": 0
+    },
+    {
+      "startMs": 4705,
+      "endMs": 10696,
+      "speakerId": 1
+    },
+    {
+      "startMs": 11641,
+      "endMs": 12750,
+      "speakerId": 2
+    },
+    {
+      "startMs": 12750,
+      "endMs": 16163,
+      "speakerId": 3
+    },
+    {
+      "startMs": 17480,
+      "endMs": 26120,
+      "speakerId": 0
+    },
+    {
+      "startMs": 26120,
+      "endMs": 28750,
+      "speakerId": 4
+    },
+    {
+      "startMs": 28750,
+      "endMs": 32532,
+      "speakerId": 1
+    },
+    {
+      "startMs": 33427,
+      "endMs": 36000,
+      "speakerId": 2
+    },
+    {
+      "startMs": 36000,
+      "endMs": 38017,
+      "speakerId": 5
+    },
+    {
+      "startMs": 38607,
+      "endMs": 42252,
+      "speakerId": 4
+    },
+    {
+      "startMs": 43501,
+      "endMs": 47315,
+      "speakerId": 1
+    },
+    {
+      "startMs": 43518,
+      "endMs": 43973,
+      "speakerId": 4
+    },
+    {
+      "startMs": 47956,
+      "endMs": 59077,
+      "speakerId": 2
+    }
+  ],
+  "clusteringMode": "automatic",
+  "clusterThresholdApplied": true,
+  "automaticValidation": "not accepted on independent long Russian dialogue",
+  "segmentationWindowShiftRatio": 0.10000000149011612,
+  "diarMinDurationOnSec": 0.20000000298023224,
+  "diarMinDurationOffSec": 0.5,
+  "vadMinSpeechSec": 0.25,
+  "vadMinSilenceSec": 0.25,
+  "vadWindowSamples": 512,
+  "vadMaxSpeechSec": 20,
+  "preRollMs": 600,
+  "postRollMs": 0,
+  "vadSpans": [
+    {
+      "startMs": 326,
+      "endMs": 32956
+    },
+    {
+      "startMs": 33766,
+      "endMs": 38342
+    },
+    {
+      "startMs": 39078,
+      "endMs": 43110
+    },
+    {
+      "startMs": 43526,
+      "endMs": 59296
+    }
+  ],
+  "asrSpeechSpans": [
+    {
+      "startMs": 0,
+      "endMs": 32956
+    },
+    {
+      "startMs": 33166,
+      "endMs": 38342
+    },
+    {
+      "startMs": 38478,
+      "endMs": 59280
+    }
+  ],
+  "modelBytes": 1043026159,
+  "stagesMs": {
+    "thermalWaitMs": 0,
+    "provisioningWaitMs": 1,
+    "nativeGateWaitMs": 0,
+    "validationMs": 366,
+    "decodeMs": 665,
+    "noiseAnalysisMs": 1339,
+    "metadataPersistenceMs": 3,
+    "vadLoadMs": 10,
+    "vadMs": 1312,
+    "diarizationLoadMs": 310,
+    "diarizationReadMs": 44,
+    "diarizationInferenceMs": 31557,
+    "diarizationMs": 31976,
+    "diarizationRefinementMs": 6477,
+    "alignmentMs": 22,
+    "languageIdMs": 2686,
+    "asrLoad_ruMs": 1140,
+    "asrLoadMs": 1140,
+    "asrReadMs": 29,
+    "asrInferenceMs": 7042,
+    "wordAssignmentMs": 11,
+    "asrMs": 7419,
+    "persistenceMs": 12
+  },
+  "telemetry": {
+    "run": "72c051aa-3890-457e-b810-d3200fcd5fad",
+    "elapsedMs": 53920,
+    "stagesMs": {
+      "thermalWaitMs": 0,
+      "provisioningWaitMs": 1,
+      "nativeGateWaitMs": 0,
+      "validationMs": 366,
+      "decodeMs": 665,
+      "noiseAnalysisMs": 1339,
+      "metadataPersistenceMs": 3,
+      "vadLoadMs": 10,
+      "vadMs": 1312,
+      "diarizationLoadMs": 310,
+      "diarizationReadMs": 44,
+      "diarizationInferenceMs": 31557,
+      "diarizationMs": 31976,
+      "diarizationRefinementMs": 6477,
+      "alignmentMs": 22,
+      "languageIdMs": 2686,
+      "asrLoad_ruMs": 1140,
+      "asrLoadMs": 1140,
+      "asrReadMs": 29,
+      "asrInferenceMs": 7042,
+      "wordAssignmentMs": 11,
+      "asrMs": 7419,
+      "persistenceMs": 12
+    },
+    "observedMaxPssKb": 450094,
+    "memoryScope": "stage boundary PSS snapshots; not continuous peak memory",
+    "thermalStatus": 0,
+    "thermalEvents": [
+      {
+        "elapsedMs": 55,
+        "status": 0
+      }
+    ],
+    "thermalApiSupported": true,
+    "thermalPowerServiceAvailable": true,
+    "thermalStatusAvailable": true,
+    "thermalListenerRegistered": true,
+    "thermalListenerRegistrationFailed": false,
+    "thermalListenerFailureReason": null,
+    "thermalUnavailableReason": null
+  }
+}

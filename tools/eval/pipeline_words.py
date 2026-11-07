@@ -218,7 +218,7 @@ def process(audio_path, model_root, expected_speakers: int = -1, threads: int = 
     stride_error = None
     with base._measure(stages, "timestampMetadataMs"):
         try:
-            stride = frame_stride_from_metadata(encoder_metadata(model_root / "giga-v3/encoder.int8.onnx"))
+            stride = frame_stride_from_metadata(encoder_metadata(base.encoder_file(model_root)))
         except (ValueError, OSError) as error:
             stride_error = str(error)
             stride = {"verified": False, "frame_stride_ms": None, "reason": stride_error}
@@ -294,7 +294,7 @@ def process(audio_path, model_root, expected_speakers: int = -1, threads: int = 
         if lang == "en":
             return language_id.make_english_recognizer(model_root, threads)
         return sherpa.OfflineRecognizer.from_transducer(
-                encoder=str(model_root / "giga-v3/encoder.int8.onnx"),
+                encoder=str(base.encoder_file(model_root)),
                 decoder=str(model_root / "giga-v3/decoder.onnx"),
                 joiner=str(model_root / "giga-v3/joiner.onnx"),
                 tokens=str(model_root / "giga-v3/tokens.txt"),

@@ -79,6 +79,22 @@ class ProcessingWorker(context: Context,params: WorkerParameters): CoroutineWork
      guard("Подготовка · декодирование PCM 16 kHz")
      progress.stage(ProcessingStage.DECODING,rec.durationMs,speakers=mode!="single")
      val decoded=trace.measure("decodeMs") { withContext(Dispatchers.IO) { AudioDecoder.decode(rec.audioPath,pcm,applicationContext,{ pts,total -> progress.processed(pts/1000,total/1000) }) } }
+     // Steady broadband noise only (docs/STEP_15_NOISE.md): GTCRN cleans the working PCM in place.
+     // Clean, babble and telephone audio never trigger it; playback keeps the original file.
+     if(NoiseCleaner.ENABLED) {
+      val noise=trace.measure("noiseAnalysisMs") { withContext(Dispatchers.IO) { NoiseCleaner.analyse(pcm,decoded.samples) } }
+      diagnostic.put("noiseGate",JSONObject().put("snrDb",if(noise.snrDb.isFinite()) noise.snrDb else JSONObject.NULL)
+       .put("flatness",noise.flatness).put("applied",noise.apply))
+      if(noise.apply) {
+       guard("Подготовка · шумоподавление")
+       trace.measure("denoiseMs") { withContext(Dispatchers.IO) {
+        // A missing/broken denoiser must never fail the recording: keep the original PCM instead.
+        val ok=try { NoiseCleaner.clean(applicationContext.assets,pcm,decoded.samples,threads);true }
+         catch(e: CancellationException) { throw e } catch(e: Exception) { false }
+        diagnostic.getJSONObject("noiseGate").put("denoised",ok)
+       } }
+      }
+     }
      // Only extremely low-level input is boosted. Stored PCM and diarization stay original.
      val inputPeak=decoded.peaks.maxOrNull()?:0f
      val recognitionGain=QuietAudioGain.forPeak(inputPeak)
