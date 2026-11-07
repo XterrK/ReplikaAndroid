@@ -1,0 +1,5645 @@
+{
+  "asrPlan": "vad_words_context600",
+  "asrPolicy": {
+    "pipeline": "vad_words_v1",
+    "punctuation_mode": "none",
+    "energy_split": true,
+    "vad_threshold": 0.5,
+    "vad_min_speech_sec": 0.25,
+    "vad_min_silence_sec": 0.25,
+    "pre_roll_ms": 600
+  },
+  "diarizationPlanRequested": "eres2net_window_chunked_v1",
+  "wordEvidenceRequested": false,
+  "wordEvidenceApplicable": true,
+  "wordEvidenceLimitBytes": 262144,
+  "wordEvidenceBytes": 0,
+  "wordEvidenceTruncated": false,
+  "diarizationPlan": "eres2net_window_chunked_v1",
+  "diarizationPolicy": {
+    "plan": "eres2net_window_chunked_v1",
+    "algorithm": "window-overcluster-v1",
+    "embedding_path": "diar\/embedding.onnx",
+    "native_threshold": 0.30000001192092896,
+    "window_shift": 0.10000000149011612,
+    "min_duration_on": 0.20000000298023224,
+    "min_duration_off": 0.5,
+    "window_config": {
+      "tau": 0.36,
+      "method": "average",
+      "grid_ms": 125,
+      "max_speakers": 8,
+      "reassign_small": true,
+      "min_cluster_ms": 2000,
+      "min_cluster_fraction": 0.03,
+      "minimum_reassignment_similarity": null,
+      "smooth": true,
+      "smooth_ms": 500
+    },
+    "chunk_config": {
+      "min_duration_ms": 720000,
+      "window_ms": 600000,
+      "overlap_ms": 30000,
+      "global_tau": 0.5,
+      "max_speakers": 8,
+      "stitch_search_ms": 10000
+    }
+  },
+  "cpuPolicy": {
+    "plan": "auto_v1",
+    "requestedThreads": 0,
+    "availableCores": 4,
+    "asrThreads": 2,
+    "diarizationThreads": 2,
+    "refinementThreads": 2,
+    "diarizationPinned": false,
+    "refinementPinned": false
+  },
+  "vadPrimarySpanCount": 168,
+  "vadPrimarySpans": [
+    {
+      "startMs": 294,
+      "endMs": 4230
+    },
+    {
+      "startMs": 5542,
+      "endMs": 7270
+    },
+    {
+      "startMs": 8166,
+      "endMs": 10790
+    },
+    {
+      "startMs": 11398,
+      "endMs": 12582
+    },
+    {
+      "startMs": 13510,
+      "endMs": 14118
+    },
+    {
+      "startMs": 15782,
+      "endMs": 19558
+    },
+    {
+      "startMs": 19878,
+      "endMs": 21478
+    },
+    {
+      "startMs": 22470,
+      "endMs": 26374
+    },
+    {
+      "startMs": 27526,
+      "endMs": 28550
+    },
+    {
+      "startMs": 29254,
+      "endMs": 31846
+    },
+    {
+      "startMs": 32326,
+      "endMs": 34950
+    },
+    {
+      "startMs": 36166,
+      "endMs": 39462
+    },
+    {
+      "startMs": 40582,
+      "endMs": 41190
+    },
+    {
+      "startMs": 41574,
+      "endMs": 44774
+    },
+    {
+      "startMs": 44998,
+      "endMs": 47942
+    },
+    {
+      "startMs": 48166,
+      "endMs": 51238
+    },
+    {
+      "startMs": 52070,
+      "endMs": 52774
+    },
+    {
+      "startMs": 53094,
+      "endMs": 55430
+    },
+    {
+      "startMs": 56646,
+      "endMs": 59334
+    },
+    {
+      "startMs": 59814,
+      "endMs": 61318
+    },
+    {
+      "startMs": 61990,
+      "endMs": 63462
+    },
+    {
+      "startMs": 118214,
+      "endMs": 119622
+    },
+    {
+      "startMs": 119974,
+      "endMs": 124582
+    },
+    {
+      "startMs": 124870,
+      "endMs": 128134
+    },
+    {
+      "startMs": 128614,
+      "endMs": 134182
+    },
+    {
+      "startMs": 135078,
+      "endMs": 137094
+    },
+    {
+      "startMs": 137478,
+      "endMs": 140294
+    },
+    {
+      "startMs": 140966,
+      "endMs": 144742
+    },
+    {
+      "startMs": 145158,
+      "endMs": 146758
+    },
+    {
+      "startMs": 148102,
+      "endMs": 149830
+    },
+    {
+      "startMs": 150118,
+      "endMs": 152294
+    },
+    {
+      "startMs": 153414,
+      "endMs": 158438
+    },
+    {
+      "startMs": 159174,
+      "endMs": 159718
+    },
+    {
+      "startMs": 160486,
+      "endMs": 162822
+    },
+    {
+      "startMs": 163462,
+      "endMs": 164806
+    },
+    {
+      "startMs": 165062,
+      "endMs": 166342
+    },
+    {
+      "startMs": 166598,
+      "endMs": 168038
+    },
+    {
+      "startMs": 168294,
+      "endMs": 169830
+    },
+    {
+      "startMs": 170630,
+      "endMs": 171494
+    },
+    {
+      "startMs": 172902,
+      "endMs": 176038
+    },
+    {
+      "startMs": 177414,
+      "endMs": 179334
+    },
+    {
+      "startMs": 179654,
+      "endMs": 181958
+    },
+    {
+      "startMs": 183206,
+      "endMs": 189126
+    },
+    {
+      "startMs": 190662,
+      "endMs": 193350
+    },
+    {
+      "startMs": 193830,
+      "endMs": 198150
+    },
+    {
+      "startMs": 199110,
+      "endMs": 199686
+    },
+    {
+      "startMs": 200102,
+      "endMs": 202790
+    },
+    {
+      "startMs": 203686,
+      "endMs": 208646
+    },
+    {
+      "startMs": 209190,
+      "endMs": 210310
+    },
+    {
+      "startMs": 210758,
+      "endMs": 213030
+    },
+    {
+      "startMs": 214118,
+      "endMs": 214630
+    },
+    {
+      "startMs": 215558,
+      "endMs": 216646
+    },
+    {
+      "startMs": 217254,
+      "endMs": 218150
+    },
+    {
+      "startMs": 219078,
+      "endMs": 219942
+    },
+    {
+      "startMs": 220678,
+      "endMs": 222214
+    },
+    {
+      "startMs": 222854,
+      "endMs": 227974
+    },
+    {
+      "startMs": 228390,
+      "endMs": 231078
+    },
+    {
+      "startMs": 231398,
+      "endMs": 235654
+    },
+    {
+      "startMs": 236614,
+      "endMs": 238566
+    },
+    {
+      "startMs": 238886,
+      "endMs": 239686
+    },
+    {
+      "startMs": 240390,
+      "endMs": 242278
+    },
+    {
+      "startMs": 242950,
+      "endMs": 243750
+    },
+    {
+      "startMs": 245030,
+      "endMs": 253318
+    },
+    {
+      "startMs": 254022,
+      "endMs": 255750
+    },
+    {
+      "startMs": 259238,
+      "endMs": 262054
+    },
+    {
+      "startMs": 263430,
+      "endMs": 265798
+    },
+    {
+      "startMs": 266118,
+      "endMs": 271846
+    },
+    {
+      "startMs": 272070,
+      "endMs": 273126
+    },
+    {
+      "startMs": 273734,
+      "endMs": 274726
+    },
+    {
+      "startMs": 275494,
+      "endMs": 276742
+    },
+    {
+      "startMs": 278822,
+      "endMs": 281254
+    },
+    {
+      "startMs": 281830,
+      "endMs": 285638
+    },
+    {
+      "startMs": 286150,
+      "endMs": 287622
+    },
+    {
+      "startMs": 288678,
+      "endMs": 290662
+    },
+    {
+      "startMs": 291558,
+      "endMs": 292422
+    },
+    {
+      "startMs": 293030,
+      "endMs": 295494
+    },
+    {
+      "startMs": 295750,
+      "endMs": 300070
+    },
+    {
+      "startMs": 300422,
+      "endMs": 303974
+    },
+    {
+      "startMs": 305542,
+      "endMs": 308006
+    },
+    {
+      "startMs": 308582,
+      "endMs": 315622
+    },
+    {
+      "startMs": 316422,
+      "endMs": 317094
+    },
+    {
+      "startMs": 317350,
+      "endMs": 317990
+    },
+    {
+      "startMs": 318342,
+      "endMs": 321382
+    },
+    {
+      "startMs": 322054,
+      "endMs": 322822
+    },
+    {
+      "startMs": 323750,
+      "endMs": 325126
+    },
+    {
+      "startMs": 325350,
+      "endMs": 326630
+    },
+    {
+      "startMs": 326886,
+      "endMs": 328326
+    },
+    {
+      "startMs": 328582,
+      "endMs": 330118
+    },
+    {
+      "startMs": 330918,
+      "endMs": 331782
+    },
+    {
+      "startMs": 332710,
+      "endMs": 335302
+    },
+    {
+      "startMs": 336262,
+      "endMs": 341222
+    },
+    {
+      "startMs": 341734,
+      "endMs": 342854
+    },
+    {
+      "startMs": 343334,
+      "endMs": 345542
+    },
+    {
+      "startMs": 347142,
+      "endMs": 350342
+    },
+    {
+      "startMs": 351558,
+      "endMs": 352262
+    },
+    {
+      "startMs": 352966,
+      "endMs": 354534
+    },
+    {
+      "startMs": 355174,
+      "endMs": 360262
+    },
+    {
+      "startMs": 361446,
+      "endMs": 362278
+    },
+    {
+      "startMs": 368646,
+      "endMs": 370342
+    },
+    {
+      "startMs": 374502,
+      "endMs": 376326
+    },
+    {
+      "startMs": 378278,
+      "endMs": 381606
+    },
+    {
+      "startMs": 382182,
+      "endMs": 383014
+    },
+    {
+      "startMs": 384230,
+      "endMs": 384742
+    },
+    {
+      "startMs": 385798,
+      "endMs": 388806
+    },
+    {
+      "startMs": 389670,
+      "endMs": 390534
+    },
+    {
+      "startMs": 392198,
+      "endMs": 397190
+    },
+    {
+      "startMs": 397606,
+      "endMs": 398278
+    },
+    {
+      "startMs": 408806,
+      "endMs": 410374
+    },
+    {
+      "startMs": 415558,
+      "endMs": 418918
+    },
+    {
+      "startMs": 419462,
+      "endMs": 426150
+    },
+    {
+      "startMs": 432358,
+      "endMs": 438918
+    },
+    {
+      "startMs": 439270,
+      "endMs": 446886
+    },
+    {
+      "startMs": 447558,
+      "endMs": 454566
+    },
+    {
+      "startMs": 455142,
+      "endMs": 458374
+    },
+    {
+      "startMs": 458790,
+      "endMs": 463782
+    },
+    {
+      "startMs": 464006,
+      "endMs": 466630
+    },
+    {
+      "startMs": 470822,
+      "endMs": 473350
+    },
+    {
+      "startMs": 474022,
+      "endMs": 476902
+    },
+    {
+      "startMs": 478150,
+      "endMs": 487078
+    },
+    {
+      "startMs": 487590,
+      "endMs": 490662
+    },
+    {
+      "startMs": 491270,
+      "endMs": 495494
+    },
+    {
+      "startMs": 496166,
+      "endMs": 498566
+    },
+    {
+      "startMs": 498886,
+      "endMs": 501926
+    },
+    {
+      "startMs": 503558,
+      "endMs": 506790
+    },
+    {
+      "startMs": 508230,
+      "endMs": 510054
+    },
+    {
+      "startMs": 510374,
+      "endMs": 512678
+    },
+    {
+      "startMs": 513510,
+      "endMs": 516774
+    },
+    {
+      "startMs": 517158,
+      "endMs": 525030
+    },
+    {
+      "startMs": 525414,
+      "endMs": 532006
+    },
+    {
+      "startMs": 532358,
+      "endMs": 535942
+    },
+    {
+      "startMs": 537222,
+      "endMs": 539686
+    },
+    {
+      "startMs": 600198,
+      "endMs": 603078
+    },
+    {
+      "startMs": 603398,
+      "endMs": 606598
+    },
+    {
+      "startMs": 606854,
+      "endMs": 607334
+    },
+    {
+      "startMs": 612934,
+      "endMs": 624006
+    },
+    {
+      "startMs": 625606,
+      "endMs": 636582
+    },
+    {
+      "startMs": 637094,
+      "endMs": 637958
+    },
+    {
+      "startMs": 638246,
+      "endMs": 639270
+    },
+    {
+      "startMs": 639622,
+      "endMs": 647654
+    },
+    {
+      "startMs": 647942,
+      "endMs": 649094
+    },
+    {
+      "startMs": 650502,
+      "endMs": 652038
+    },
+    {
+      "startMs": 653734,
+      "endMs": 655174
+    },
+    {
+      "startMs": 655430,
+      "endMs": 657926
+    },
+    {
+      "startMs": 660742,
+      "endMs": 673542
+    },
+    {
+      "startMs": 674150,
+      "endMs": 682150
+    },
+    {
+      "startMs": 682726,
+      "endMs": 685446
+    },
+    {
+      "startMs": 686086,
+      "endMs": 687110
+    },
+    {
+      "startMs": 687814,
+      "endMs": 693542
+    },
+    {
+      "startMs": 694598,
+      "endMs": 698534
+    },
+    {
+      "startMs": 699494,
+      "endMs": 701862
+    },
+    {
+      "startMs": 702182,
+      "endMs": 707846
+    },
+    {
+      "startMs": 708166,
+      "endMs": 709158
+    },
+    {
+      "startMs": 709798,
+      "endMs": 718086
+    },
+    {
+      "startMs": 718790,
+      "endMs": 720486
+    },
+    {
+      "startMs": 722118,
+      "endMs": 726470
+    },
+    {
+      "startMs": 727430,
+      "endMs": 732454
+    },
+    {
+      "startMs": 734758,
+      "endMs": 736710
+    },
+    {
+      "startMs": 737606,
+      "endMs": 738502
+    },
+    {
+      "startMs": 739046,
+      "endMs": 739814
+    },
+    {
+      "startMs": 740326,
+      "endMs": 748454
+    },
+    {
+      "startMs": 749638,
+      "endMs": 755622
+    },
+    {
+      "startMs": 756838,
+      "endMs": 758438
+    },
+    {
+      "startMs": 759334,
+      "endMs": 761926
+    },
+    {
+      "startMs": 762566,
+      "endMs": 763750
+    },
+    {
+      "startMs": 764678,
+      "endMs": 765286
+    },
+    {
+      "startMs": 773574,
+      "endMs": 775206
+    },
+    {
+      "startMs": 775462,
+      "endMs": 776038
+    },
+    {
+      "startMs": 776806,
+      "endMs": 779110
+    }
+  ],
+  "vadRescueAttempted": false,
+  "vadRescueApplied": false,
+  "vadDetectorGain": 1,
+  "vadRescueRms": null,
+  "vadRescueRmsSamples": 0,
+  "vadRescueSpanCount": 0,
+  "vadRescueReason": "primary_nonempty",
+  "vadRescueTargetRms": 0.02,
+  "vadRescueMaxGain": 20,
+  "vadRescuePeakHeadroom": 0.95,
+  "vadRescueMinGainRatio": 1.01,
+  "vadRescueScope": "detector-only empty-primary retry; ASR input, original PCM and diarization unchanged",
+  "rawDiarizationTurns": [],
+  "nativeDiarizationTurns": [
+    {
+      "startMs": 31,
+      "endMs": 4233,
+      "speakerId": 0
+    },
+    {
+      "startMs": 5549,
+      "endMs": 7321,
+      "speakerId": 1
+    },
+    {
+      "startMs": 8148,
+      "endMs": 10713,
+      "speakerId": 1
+    },
+    {
+      "startMs": 11422,
+      "endMs": 12586,
+      "speakerId": 1
+    },
+    {
+      "startMs": 13497,
+      "endMs": 14088,
+      "speakerId": 1
+    },
+    {
+      "startMs": 15235,
+      "endMs": 21445,
+      "speakerId": 0
+    },
+    {
+      "startMs": 22475,
+      "endMs": 26120,
+      "speakerId": 0
+    },
+    {
+      "startMs": 27520,
+      "endMs": 27750,
+      "speakerId": 0
+    },
+    {
+      "startMs": 27750,
+      "endMs": 28516,
+      "speakerId": 1
+    },
+    {
+      "startMs": 29174,
+      "endMs": 34996,
+      "speakerId": 1
+    },
+    {
+      "startMs": 36059,
+      "endMs": 39434,
+      "speakerId": 0
+    },
+    {
+      "startMs": 40565,
+      "endMs": 51432,
+      "speakerId": 1
+    },
+    {
+      "startMs": 52040,
+      "endMs": 55448,
+      "speakerId": 0
+    },
+    {
+      "startMs": 56647,
+      "endMs": 63481,
+      "speakerId": 0
+    },
+    {
+      "startMs": 119067,
+      "endMs": 124130,
+      "speakerId": 1
+    },
+    {
+      "startMs": 124838,
+      "endMs": 133833,
+      "speakerId": 0
+    },
+    {
+      "startMs": 135014,
+      "endMs": 139621,
+      "speakerId": 1
+    },
+    {
+      "startMs": 140971,
+      "endMs": 146793,
+      "speakerId": 0
+    },
+    {
+      "startMs": 148075,
+      "endMs": 158521,
+      "speakerId": 1
+    },
+    {
+      "startMs": 159128,
+      "endMs": 159787,
+      "speakerId": 0
+    },
+    {
+      "startMs": 160462,
+      "endMs": 162824,
+      "speakerId": 0
+    },
+    {
+      "startMs": 163482,
+      "endMs": 169827,
+      "speakerId": 1
+    },
+    {
+      "startMs": 170587,
+      "endMs": 171633,
+      "speakerId": 1
+    },
+    {
+      "startMs": 172814,
+      "endMs": 176020,
+      "speakerId": 0
+    },
+    {
+      "startMs": 177438,
+      "endMs": 181960,
+      "speakerId": 1
+    },
+    {
+      "startMs": 183175,
+      "endMs": 189115,
+      "speakerId": 0
+    },
+    {
+      "startMs": 190415,
+      "endMs": 197992,
+      "speakerId": 1
+    },
+    {
+      "startMs": 199072,
+      "endMs": 202632,
+      "speakerId": 0
+    },
+    {
+      "startMs": 203712,
+      "endMs": 212960,
+      "speakerId": 1
+    },
+    {
+      "startMs": 214107,
+      "endMs": 218107,
+      "speakerId": 0
+    },
+    {
+      "startMs": 219085,
+      "endMs": 219963,
+      "speakerId": 1
+    },
+    {
+      "startMs": 220587,
+      "endMs": 222292,
+      "speakerId": 1
+    },
+    {
+      "startMs": 222967,
+      "endMs": 227978,
+      "speakerId": 1
+    },
+    {
+      "startMs": 228350,
+      "endMs": 235500,
+      "speakerId": 0
+    },
+    {
+      "startMs": 235500,
+      "endMs": 235623,
+      "speakerId": 1
+    },
+    {
+      "startMs": 236568,
+      "endMs": 243689,
+      "speakerId": 1
+    },
+    {
+      "startMs": 245022,
+      "endMs": 255738,
+      "speakerId": 0
+    },
+    {
+      "startMs": 259197,
+      "endMs": 261830,
+      "speakerId": 0
+    },
+    {
+      "startMs": 262724,
+      "endMs": 273085,
+      "speakerId": 1
+    },
+    {
+      "startMs": 273710,
+      "endMs": 276730,
+      "speakerId": 0
+    },
+    {
+      "startMs": 278823,
+      "endMs": 287159,
+      "speakerId": 1
+    },
+    {
+      "startMs": 287851,
+      "endMs": 292390,
+      "speakerId": 0
+    },
+    {
+      "startMs": 293454,
+      "endMs": 303984,
+      "speakerId": 1
+    },
+    {
+      "startMs": 305418,
+      "endMs": 308050,
+      "speakerId": 0
+    },
+    {
+      "startMs": 308557,
+      "endMs": 315577,
+      "speakerId": 1
+    },
+    {
+      "startMs": 316420,
+      "endMs": 322951,
+      "speakerId": 0
+    },
+    {
+      "startMs": 323778,
+      "endMs": 330123,
+      "speakerId": 1
+    },
+    {
+      "startMs": 330967,
+      "endMs": 331912,
+      "speakerId": 1
+    },
+    {
+      "startMs": 332570,
+      "endMs": 335320,
+      "speakerId": 0
+    },
+    {
+      "startMs": 336265,
+      "endMs": 341210,
+      "speakerId": 1
+    },
+    {
+      "startMs": 341750,
+      "endMs": 345530,
+      "speakerId": 1
+    },
+    {
+      "startMs": 346897,
+      "endMs": 350356,
+      "speakerId": 0
+    },
+    {
+      "startMs": 351419,
+      "endMs": 352229,
+      "speakerId": 1
+    },
+    {
+      "startMs": 352938,
+      "endMs": 354558,
+      "speakerId": 1
+    },
+    {
+      "startMs": 355149,
+      "endMs": 360295,
+      "speakerId": 1
+    },
+    {
+      "startMs": 361156,
+      "endMs": 362253,
+      "speakerId": 0
+    },
+    {
+      "startMs": 365459,
+      "endMs": 372834,
+      "speakerId": 2
+    },
+    {
+      "startMs": 368817,
+      "endMs": 369965,
+      "speakerId": 0
+    },
+    {
+      "startMs": 372125,
+      "endMs": 377322,
+      "speakerId": 3
+    },
+    {
+      "startMs": 373610,
+      "endMs": 375972,
+      "speakerId": 2
+    },
+    {
+      "startMs": 377356,
+      "endMs": 380250,
+      "speakerId": 2
+    },
+    {
+      "startMs": 379972,
+      "endMs": 387717,
+      "speakerId": 3
+    },
+    {
+      "startMs": 386030,
+      "endMs": 388662,
+      "speakerId": 2
+    },
+    {
+      "startMs": 389240,
+      "endMs": 391079,
+      "speakerId": 3
+    },
+    {
+      "startMs": 391450,
+      "endMs": 395298,
+      "speakerId": 2
+    },
+    {
+      "startMs": 395045,
+      "endMs": 401575,
+      "speakerId": 3
+    },
+    {
+      "startMs": 403094,
+      "endMs": 404191,
+      "speakerId": 3
+    },
+    {
+      "startMs": 407954,
+      "endMs": 410131,
+      "speakerId": 3
+    },
+    {
+      "startMs": 413337,
+      "endMs": 425099,
+      "speakerId": 3
+    },
+    {
+      "startMs": 433199,
+      "endMs": 438312,
+      "speakerId": 1
+    },
+    {
+      "startMs": 439291,
+      "endMs": 446918,
+      "speakerId": 0
+    },
+    {
+      "startMs": 447526,
+      "endMs": 454563,
+      "speakerId": 1
+    },
+    {
+      "startMs": 455103,
+      "endMs": 466645,
+      "speakerId": 0
+    },
+    {
+      "startMs": 467911,
+      "endMs": 469328,
+      "speakerId": 1
+    },
+    {
+      "startMs": 470341,
+      "endMs": 472501,
+      "speakerId": 1
+    },
+    {
+      "startMs": 473952,
+      "endMs": 476551,
+      "speakerId": 0
+    },
+    {
+      "startMs": 478154,
+      "endMs": 486490,
+      "speakerId": 1
+    },
+    {
+      "startMs": 487570,
+      "endMs": 490051,
+      "speakerId": 0
+    },
+    {
+      "startMs": 491266,
+      "endMs": 502083,
+      "speakerId": 1
+    },
+    {
+      "startMs": 503332,
+      "endMs": 506808,
+      "speakerId": 0
+    },
+    {
+      "startMs": 508141,
+      "endMs": 512647,
+      "speakerId": 1
+    },
+    {
+      "startMs": 513457,
+      "endMs": 525033,
+      "speakerId": 0
+    },
+    {
+      "startMs": 525421,
+      "endMs": 535951,
+      "speakerId": 1
+    },
+    {
+      "startMs": 537082,
+      "endMs": 539697,
+      "speakerId": 0
+    },
+    {
+      "startMs": 567507,
+      "endMs": 568486,
+      "speakerId": 2
+    },
+    {
+      "startMs": 569887,
+      "endMs": 572755,
+      "speakerId": 2
+    },
+    {
+      "startMs": 584652,
+      "endMs": 584956,
+      "speakerId": 2
+    },
+    {
+      "startMs": 593292,
+      "endMs": 598237,
+      "speakerId": 2
+    },
+    {
+      "startMs": 596853,
+      "endMs": 597258,
+      "speakerId": 3
+    },
+    {
+      "startMs": 600143,
+      "endMs": 602776,
+      "speakerId": 3
+    },
+    {
+      "startMs": 601831,
+      "endMs": 605999,
+      "speakerId": 2
+    },
+    {
+      "startMs": 612901,
+      "endMs": 624125,
+      "speakerId": 2
+    },
+    {
+      "startMs": 624125,
+      "endMs": 638500,
+      "speakerId": 3
+    },
+    {
+      "startMs": 624359,
+      "endMs": 625118,
+      "speakerId": 2
+    },
+    {
+      "startMs": 633033,
+      "endMs": 636037,
+      "speakerId": 2
+    },
+    {
+      "startMs": 638838,
+      "endMs": 642618,
+      "speakerId": 2
+    },
+    {
+      "startMs": 642365,
+      "endMs": 649115,
+      "speakerId": 3
+    },
+    {
+      "startMs": 650482,
+      "endMs": 651579,
+      "speakerId": 3
+    },
+    {
+      "startMs": 655392,
+      "endMs": 655747,
+      "speakerId": 3
+    },
+    {
+      "startMs": 656185,
+      "endMs": 657468,
+      "speakerId": 3
+    },
+    {
+      "startMs": 657704,
+      "endMs": 657907,
+      "speakerId": 3
+    },
+    {
+      "startMs": 660809,
+      "endMs": 672503,
+      "speakerId": 3
+    },
+    {
+      "startMs": 674140,
+      "endMs": 681262,
+      "speakerId": 1
+    },
+    {
+      "startMs": 682578,
+      "endMs": 685143,
+      "speakerId": 0
+    },
+    {
+      "startMs": 686071,
+      "endMs": 693547,
+      "speakerId": 1
+    },
+    {
+      "startMs": 694576,
+      "endMs": 698525,
+      "speakerId": 0
+    },
+    {
+      "startMs": 698778,
+      "endMs": 709223,
+      "speakerId": 1
+    },
+    {
+      "startMs": 709797,
+      "endMs": 720479,
+      "speakerId": 0
+    },
+    {
+      "startMs": 722082,
+      "endMs": 732443,
+      "speakerId": 1
+    },
+    {
+      "startMs": 733912,
+      "endMs": 738434,
+      "speakerId": 0
+    },
+    {
+      "startMs": 740274,
+      "endMs": 747867,
+      "speakerId": 1
+    },
+    {
+      "startMs": 749673,
+      "endMs": 755630,
+      "speakerId": 0
+    },
+    {
+      "startMs": 756693,
+      "endMs": 758465,
+      "speakerId": 1
+    },
+    {
+      "startMs": 759292,
+      "endMs": 761874,
+      "speakerId": 1
+    },
+    {
+      "startMs": 762565,
+      "endMs": 763780,
+      "speakerId": 1
+    },
+    {
+      "startMs": 764641,
+      "endMs": 765282,
+      "speakerId": 1
+    },
+    {
+      "startMs": 773568,
+      "endMs": 774732,
+      "speakerId": 0
+    },
+    {
+      "startMs": 775508,
+      "endMs": 776015,
+      "speakerId": 0
+    },
+    {
+      "startMs": 776740,
+      "endMs": 779069,
+      "speakerId": 0
+    }
+  ],
+  "diarizationRefinementApplicable": true,
+  "diarizationRefinementAccepted": true,
+  "diarizationChunkedApplied": true,
+  "diarizationChunked": {
+    "algorithm": "chunked-window-overcluster-v1",
+    "config": {
+      "min_duration_ms": 720000,
+      "window_ms": 600000,
+      "overlap_ms": 30000,
+      "global_tau": 0.5,
+      "max_speakers": 8,
+      "stitch_search_ms": 10000
+    },
+    "windows": [
+      {
+        "startMs": 0,
+        "endMs": 405000,
+        "nativeClusters": 58,
+        "refinedClusters": 4,
+        "accepted": true,
+        "status": "PARTIAL_TEMPORAL",
+        "measuredWindows": 269,
+        "centroids": 4,
+        "sdMs": 189386,
+        "refinerMs": 38052.1692
+      },
+      {
+        "startMs": 375000,
+        "endMs": 779999,
+        "nativeClusters": 62,
+        "refinedClusters": 4,
+        "accepted": true,
+        "status": "PARTIAL_TEMPORAL",
+        "measuredWindows": 247,
+        "centroids": 4,
+        "sdMs": 252852,
+        "refinerMs": 34803.8537
+      }
+    ],
+    "cutsMs": [
+      389219
+    ],
+    "centroids": 8,
+    "globalSpeakers": 4,
+    "singleWindowPcmSamplesMax": 6480000
+  },
+  "diarizationEvidenceOmittedReason": "chunked_long_recording",
+  "asrChunks": [
+    {
+      "startMs": 0,
+      "endMs": 4230
+    },
+    {
+      "startMs": 4942,
+      "endMs": 7270
+    },
+    {
+      "startMs": 7566,
+      "endMs": 10790
+    },
+    {
+      "startMs": 10798,
+      "endMs": 12582
+    },
+    {
+      "startMs": 12910,
+      "endMs": 14118
+    },
+    {
+      "startMs": 15182,
+      "endMs": 21478
+    },
+    {
+      "startMs": 21870,
+      "endMs": 26374
+    },
+    {
+      "startMs": 26926,
+      "endMs": 28550
+    },
+    {
+      "startMs": 28654,
+      "endMs": 34950
+    },
+    {
+      "startMs": 35566,
+      "endMs": 39462
+    },
+    {
+      "startMs": 39982,
+      "endMs": 51238
+    },
+    {
+      "startMs": 51470,
+      "endMs": 55430
+    },
+    {
+      "startMs": 56046,
+      "endMs": 61318
+    },
+    {
+      "startMs": 61390,
+      "endMs": 63462
+    },
+    {
+      "startMs": 117614,
+      "endMs": 134182
+    },
+    {
+      "startMs": 134478,
+      "endMs": 140294
+    },
+    {
+      "startMs": 140366,
+      "endMs": 146758
+    },
+    {
+      "startMs": 147502,
+      "endMs": 152294
+    },
+    {
+      "startMs": 152814,
+      "endMs": 158438
+    },
+    {
+      "startMs": 158574,
+      "endMs": 159718
+    },
+    {
+      "startMs": 159886,
+      "endMs": 162822
+    },
+    {
+      "startMs": 162862,
+      "endMs": 169830
+    },
+    {
+      "startMs": 170030,
+      "endMs": 171494
+    },
+    {
+      "startMs": 172302,
+      "endMs": 176038
+    },
+    {
+      "startMs": 176814,
+      "endMs": 181958
+    },
+    {
+      "startMs": 182606,
+      "endMs": 189126
+    },
+    {
+      "startMs": 190062,
+      "endMs": 198150
+    },
+    {
+      "startMs": 198510,
+      "endMs": 202790
+    },
+    {
+      "startMs": 203086,
+      "endMs": 213030
+    },
+    {
+      "startMs": 213518,
+      "endMs": 214630
+    },
+    {
+      "startMs": 214958,
+      "endMs": 216646
+    },
+    {
+      "startMs": 216654,
+      "endMs": 218150
+    },
+    {
+      "startMs": 218478,
+      "endMs": 219942
+    },
+    {
+      "startMs": 220078,
+      "endMs": 222214
+    },
+    {
+      "startMs": 222254,
+      "endMs": 235654
+    },
+    {
+      "startMs": 236014,
+      "endMs": 239686
+    },
+    {
+      "startMs": 239790,
+      "endMs": 242278
+    },
+    {
+      "startMs": 242350,
+      "endMs": 243750
+    },
+    {
+      "startMs": 244430,
+      "endMs": 253318
+    },
+    {
+      "startMs": 253422,
+      "endMs": 255750
+    },
+    {
+      "startMs": 258638,
+      "endMs": 262054
+    },
+    {
+      "startMs": 262830,
+      "endMs": 273126
+    },
+    {
+      "startMs": 273134,
+      "endMs": 274726
+    },
+    {
+      "startMs": 274894,
+      "endMs": 276742
+    },
+    {
+      "startMs": 278222,
+      "endMs": 287622
+    },
+    {
+      "startMs": 288078,
+      "endMs": 290662
+    },
+    {
+      "startMs": 290958,
+      "endMs": 292422
+    },
+    {
+      "startMs": 292430,
+      "endMs": 303974
+    },
+    {
+      "startMs": 304942,
+      "endMs": 315622
+    },
+    {
+      "startMs": 315822,
+      "endMs": 321382
+    },
+    {
+      "startMs": 321454,
+      "endMs": 322822
+    },
+    {
+      "startMs": 323150,
+      "endMs": 330118
+    },
+    {
+      "startMs": 330318,
+      "endMs": 331782
+    },
+    {
+      "startMs": 332110,
+      "endMs": 335302
+    },
+    {
+      "startMs": 335662,
+      "endMs": 345542
+    },
+    {
+      "startMs": 346542,
+      "endMs": 350342
+    },
+    {
+      "startMs": 350958,
+      "endMs": 352262
+    },
+    {
+      "startMs": 352366,
+      "endMs": 354534
+    },
+    {
+      "startMs": 354574,
+      "endMs": 360262
+    },
+    {
+      "startMs": 360846,
+      "endMs": 362278
+    },
+    {
+      "startMs": 368046,
+      "endMs": 370342
+    },
+    {
+      "startMs": 373902,
+      "endMs": 376326
+    },
+    {
+      "startMs": 377678,
+      "endMs": 383014
+    },
+    {
+      "startMs": 383630,
+      "endMs": 384742
+    },
+    {
+      "startMs": 385198,
+      "endMs": 388806
+    },
+    {
+      "startMs": 389070,
+      "endMs": 390534
+    },
+    {
+      "startMs": 391598,
+      "endMs": 398278
+    },
+    {
+      "startMs": 408206,
+      "endMs": 410374
+    },
+    {
+      "startMs": 414958,
+      "endMs": 426150
+    },
+    {
+      "startMs": 431758,
+      "endMs": 446886
+    },
+    {
+      "startMs": 446958,
+      "endMs": 466630
+    },
+    {
+      "startMs": 470222,
+      "endMs": 473350
+    },
+    {
+      "startMs": 473422,
+      "endMs": 476902
+    },
+    {
+      "startMs": 477550,
+      "endMs": 490662
+    },
+    {
+      "startMs": 490670,
+      "endMs": 495494
+    },
+    {
+      "startMs": 495566,
+      "endMs": 501926
+    },
+    {
+      "startMs": 502958,
+      "endMs": 506790
+    },
+    {
+      "startMs": 507630,
+      "endMs": 512678
+    },
+    {
+      "startMs": 512910,
+      "endMs": 532330
+    },
+    {
+      "startMs": 532330,
+      "endMs": 535942
+    },
+    {
+      "startMs": 536622,
+      "endMs": 539686
+    },
+    {
+      "startMs": 599598,
+      "endMs": 607334
+    },
+    {
+      "startMs": 612334,
+      "endMs": 624006
+    },
+    {
+      "startMs": 625006,
+      "endMs": 644786
+    },
+    {
+      "startMs": 644786,
+      "endMs": 649094
+    },
+    {
+      "startMs": 649902,
+      "endMs": 652038
+    },
+    {
+      "startMs": 653134,
+      "endMs": 657926
+    },
+    {
+      "startMs": 660142,
+      "endMs": 673542
+    },
+    {
+      "startMs": 673550,
+      "endMs": 685446
+    },
+    {
+      "startMs": 685486,
+      "endMs": 687110
+    },
+    {
+      "startMs": 687214,
+      "endMs": 693542
+    },
+    {
+      "startMs": 693998,
+      "endMs": 698534
+    },
+    {
+      "startMs": 698894,
+      "endMs": 709158
+    },
+    {
+      "startMs": 709198,
+      "endMs": 718086
+    },
+    {
+      "startMs": 718190,
+      "endMs": 720486
+    },
+    {
+      "startMs": 721518,
+      "endMs": 726470
+    },
+    {
+      "startMs": 726830,
+      "endMs": 732454
+    },
+    {
+      "startMs": 734158,
+      "endMs": 736710
+    },
+    {
+      "startMs": 737006,
+      "endMs": 748454
+    },
+    {
+      "startMs": 749038,
+      "endMs": 755622
+    },
+    {
+      "startMs": 756238,
+      "endMs": 758438
+    },
+    {
+      "startMs": 758734,
+      "endMs": 761926
+    },
+    {
+      "startMs": 761966,
+      "endMs": 763750
+    },
+    {
+      "startMs": 764078,
+      "endMs": 765286
+    },
+    {
+      "startMs": 772974,
+      "endMs": 776038
+    },
+    {
+      "startMs": 776206,
+      "endMs": 779110
+    }
+  ],
+  "turnsUsedForAsrSlicing": false,
+  "wordAssignmentSupported": true,
+  "wordProcessedChunks": 106,
+  "fallbackChunks": 0,
+  "wordTimestampScope": "Token-emission proxies; pinned GigaAM v3 stride 40ms; not forced alignment or calibrated confidence",
+  "asrSlices": [
+    {
+      "startMs": 0,
+      "endMs": 4230,
+      "speakerId": -1,
+      "text": "Интересно, она так одевается, чтобы разнообразить наши скучные уроки математики?",
+      "blank": false,
+      "inferenceMs": 750,
+      "tokenCount": 35,
+      "timestampCount": 35,
+      "wordCount": 10,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 4942,
+      "endMs": 7270,
+      "speakerId": -1,
+      "text": "Это действительно печально, Маша.",
+      "blank": false,
+      "inferenceMs": 427,
+      "tokenCount": 10,
+      "timestampCount": 10,
+      "wordCount": 4,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 7566,
+      "endMs": 10790,
+      "speakerId": -1,
+      "text": "Такие места всегда хранят частичку души.",
+      "blank": false,
+      "inferenceMs": 613,
+      "tokenCount": 17,
+      "timestampCount": 17,
+      "wordCount": 6,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 10798,
+      "endMs": 12582,
+      "speakerId": -1,
+      "text": "И много воспоминаний.",
+      "blank": false,
+      "inferenceMs": 324,
+      "tokenCount": 9,
+      "timestampCount": 9,
+      "wordCount": 3,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 12910,
+      "endMs": 14118,
+      "speakerId": -1,
+      "text": "Мне жаль.",
+      "blank": false,
+      "inferenceMs": 426,
+      "tokenCount": 5,
+      "timestampCount": 5,
+      "wordCount": 2,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 15182,
+      "endMs": 21478,
+      "speakerId": -1,
+      "text": "Да, готовка — это отличный способ провести время с пользой и удовольствием. А у тебя есть любимое блюдо?",
+      "blank": false,
+      "inferenceMs": 1078,
+      "tokenCount": 42,
+      "timestampCount": 42,
+      "wordCount": 17,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 21870,
+      "endMs": 26374,
+      "speakerId": -1,
+      "text": "Да, я часто не успевала достигнуть их всех и расстраивалась.",
+      "blank": false,
+      "inferenceMs": 762,
+      "tokenCount": 26,
+      "timestampCount": 26,
+      "wordCount": 10,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 26926,
+      "endMs": 28550,
+      "speakerId": -1,
+      "text": "Да, конечно.",
+      "blank": false,
+      "inferenceMs": 331,
+      "tokenCount": 4,
+      "timestampCount": 4,
+      "wordCount": 2,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 28654,
+      "endMs": 34950,
+      "speakerId": -1,
+      "text": "Те музыкальные вечера были особенными для нас. Мы всегда обсуждали впечатления после концертов.",
+      "blank": false,
+      "inferenceMs": 1012,
+      "tokenCount": 41,
+      "timestampCount": 41,
+      "wordCount": 13,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 35566,
+      "endMs": 39462,
+      "speakerId": -1,
+      "text": "Да, недалеко от города парк с озером, там идеально для пикника.",
+      "blank": false,
+      "inferenceMs": 686,
+      "tokenCount": 27,
+      "timestampCount": 27,
+      "wordCount": 11,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 39982,
+      "endMs": 51238,
+      "speakerId": -1,
+      "text": "Алтай? Да, я слышал, что это просто волшебное место. Там такие живописные горы, реки, озёра. А какие именно туры ты бы хотела там попробовать?",
+      "blank": false,
+      "inferenceMs": 1792,
+      "tokenCount": 58,
+      "timestampCount": 58,
+      "wordCount": 24,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 51470,
+      "endMs": 55430,
+      "speakerId": -1,
+      "text": "Оба важны. Вкус создаёт впечатление, а подача атмосферу.",
+      "blank": false,
+      "inferenceMs": 682,
+      "tokenCount": 32,
+      "timestampCount": 32,
+      "wordCount": 8,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 56046,
+      "endMs": 61318,
+      "speakerId": -1,
+      "text": "Подарила маме билеты на концерт её любимой группы. А ты любишь дарить?",
+      "blank": false,
+      "inferenceMs": 867,
+      "tokenCount": 33,
+      "timestampCount": 33,
+      "wordCount": 12,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 61390,
+      "endMs": 63462,
+      "speakerId": -1,
+      "text": "Или получать подарки больше.",
+      "blank": false,
+      "inferenceMs": 486,
+      "tokenCount": 10,
+      "timestampCount": 10,
+      "wordCount": 4,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 117614,
+      "endMs": 134182,
+      "speakerId": -1,
+      "text": "Ха-ха! Точно! Ну что, может, как-нибудь устроим совместный кинопросмотр на английском? Понимаю. Это действительно тяжело. Может быть, ты хочешь встретиться и провести время вместе? Мы могли бы прогуляться в парке или сходить в кафе?",
+      "blank": false,
+      "inferenceMs": 3519,
+      "tokenCount": 90,
+      "timestampCount": 90,
+      "wordCount": 34,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 134478,
+      "endMs": 140294,
+      "speakerId": -1,
+      "text": "Что случилось, Маша? Ты можешь мне всё рассказать?",
+      "blank": false,
+      "inferenceMs": 1234,
+      "tokenCount": 17,
+      "timestampCount": 17,
+      "wordCount": 8,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 140366,
+      "endMs": 146758,
+      "speakerId": -1,
+      "text": "Я вот тоже думала начать бегать, но пока что не могу найти время. Ты давно начал заниматься бегом?",
+      "blank": false,
+      "inferenceMs": 1408,
+      "tokenCount": 38,
+      "timestampCount": 38,
+      "wordCount": 18,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 147502,
+      "endMs": 152294,
+      "speakerId": -1,
+      "text": "Письмо к Маму звучит интересно. Я слышал о нём, но ещё не смотрел.",
+      "blank": false,
+      "inferenceMs": 1163,
+      "tokenCount": 31,
+      "timestampCount": 31,
+      "wordCount": 13,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 152814,
+      "endMs": 158438,
+      "speakerId": -1,
+      "text": "А как ты относишься к более классическим романтическим фильмам? Например, «Дневник памяти»?",
+      "blank": false,
+      "inferenceMs": 1204,
+      "tokenCount": 39,
+      "timestampCount": 39,
+      "wordCount": 12,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 158574,
+      "endMs": 159718,
+      "speakerId": -1,
+      "text": "Ты знаешь?",
+      "blank": false,
+      "inferenceMs": 335,
+      "tokenCount": 3,
+      "timestampCount": 3,
+      "wordCount": 2,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 159886,
+      "endMs": 162822,
+      "speakerId": -1,
+      "text": "Я иногда чувствую презрение к некоторым людям.",
+      "blank": false,
+      "inferenceMs": 702,
+      "tokenCount": 26,
+      "timestampCount": 26,
+      "wordCount": 7,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 162862,
+      "endMs": 169830,
+      "speakerId": -1,
+      "text": "76, 77, 78, 79.",
+      "blank": false,
+      "inferenceMs": 1360,
+      "tokenCount": 16,
+      "timestampCount": 16,
+      "wordCount": 4,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 170030,
+      "endMs": 171494,
+      "speakerId": -1,
+      "text": "Восемьдесят.",
+      "blank": false,
+      "inferenceMs": 359,
+      "tokenCount": 6,
+      "timestampCount": 6,
+      "wordCount": 1,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 172302,
+      "endMs": 176038,
+      "speakerId": -1,
+      "text": "Света, у тебя всегда такие вкусные рецепты?",
+      "blank": false,
+      "inferenceMs": 901,
+      "tokenCount": 19,
+      "timestampCount": 19,
+      "wordCount": 7,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 176814,
+      "endMs": 181958,
+      "speakerId": -1,
+      "text": "Вау, звучит увлекательно! Расскажи, как ты туда добиралась?",
+      "blank": false,
+      "inferenceMs": 1088,
+      "tokenCount": 31,
+      "timestampCount": 31,
+      "wordCount": 8,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 182606,
+      "endMs": 189126,
+      "speakerId": -1,
+      "text": "Да, отличная идея. Я давно не читала хорошую книгу. Сейчас было бы идеальное время для этого.",
+      "blank": false,
+      "inferenceMs": 1330,
+      "tokenCount": 35,
+      "timestampCount": 35,
+      "wordCount": 16,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 190062,
+      "endMs": 198150,
+      "speakerId": -1,
+      "text": "Ты всегда всё знаешь лучше всех, Маша. Может, проблема в том, что ты не можешь никому доверять?",
+      "blank": false,
+      "inferenceMs": 1681,
+      "tokenCount": 32,
+      "timestampCount": 32,
+      "wordCount": 17,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 198510,
+      "endMs": 202790,
+      "speakerId": -1,
+      "text": "Клин. Улица Ленина, дом 14.",
+      "blank": false,
+      "inferenceMs": 904,
+      "tokenCount": 15,
+      "timestampCount": 15,
+      "wordCount": 5,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 203086,
+      "endMs": 213030,
+      "speakerId": -1,
+      "text": "Это очень тревожная ситуация. Надеюсь, что руководство скоро всё разъяснит и внесёт ясность. Нельзя же держать всех в таком напряжении.",
+      "blank": false,
+      "inferenceMs": 1999,
+      "tokenCount": 60,
+      "timestampCount": 60,
+      "wordCount": 20,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 213518,
+      "endMs": 214630,
+      "speakerId": -1,
+      "text": "Да.",
+      "blank": false,
+      "inferenceMs": 274,
+      "tokenCount": 2,
+      "timestampCount": 2,
+      "wordCount": 1,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 214958,
+      "endMs": 216646,
+      "speakerId": -1,
+      "text": "Мы были хорошими друзьями.",
+      "blank": false,
+      "inferenceMs": 410,
+      "tokenCount": 13,
+      "timestampCount": 13,
+      "wordCount": 4,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 216654,
+      "endMs": 218150,
+      "speakerId": -1,
+      "text": "Это большая потеря.",
+      "blank": false,
+      "inferenceMs": 354,
+      "tokenCount": 8,
+      "timestampCount": 8,
+      "wordCount": 3,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 218478,
+      "endMs": 219942,
+      "speakerId": -1,
+      "text": "Это детектив.",
+      "blank": false,
+      "inferenceMs": 316,
+      "tokenCount": 6,
+      "timestampCount": 6,
+      "wordCount": 2,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 220078,
+      "endMs": 222214,
+      "speakerId": -1,
+      "text": "С элементами триллера.",
+      "blank": false,
+      "inferenceMs": 474,
+      "tokenCount": 11,
+      "timestampCount": 11,
+      "wordCount": 3,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 222254,
+      "endMs": 235654,
+      "speakerId": -1,
+      "text": "История про частного детектива, который расследует старые нераскрытые дела. Спасибо, Дима. Это очень мило с твоей стороны. Давай, если что, переключимся на «ты» и начнём планировать тренировки вместе.",
+      "blank": false,
+      "inferenceMs": 2682,
+      "tokenCount": 79,
+      "timestampCount": 79,
+      "wordCount": 28,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 236014,
+      "endMs": 239686,
+      "speakerId": -1,
+      "text": "А я чувствую, что не справляюсь и подвожу тебя.",
+      "blank": false,
+      "inferenceMs": 756,
+      "tokenCount": 21,
+      "timestampCount": 21,
+      "wordCount": 9,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 239790,
+      "endMs": 242278,
+      "speakerId": -1,
+      "text": "Мне тяжело, когда я вижу.",
+      "blank": false,
+      "inferenceMs": 543,
+      "tokenCount": 12,
+      "timestampCount": 12,
+      "wordCount": 5,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 242350,
+      "endMs": 243750,
+      "speakerId": -1,
+      "text": "Как ты переживаешь?",
+      "blank": false,
+      "inferenceMs": 372,
+      "tokenCount": 7,
+      "timestampCount": 7,
+      "wordCount": 3,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 244430,
+      "endMs": 253318,
+      "speakerId": -1,
+      "text": "Да, я иногда захожу на сайты известных брендов, чтобы посмотреть, что представляют собой новые представители.",
+      "blank": false,
+      "inferenceMs": 2001,
+      "tokenCount": 47,
+      "timestampCount": 47,
+      "wordCount": 15,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 253422,
+      "endMs": 255750,
+      "speakerId": -1,
+      "text": "Ты тоже интересуешься?",
+      "blank": false,
+      "inferenceMs": 569,
+      "tokenCount": 7,
+      "timestampCount": 7,
+      "wordCount": 3,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 258638,
+      "endMs": 262054,
+      "speakerId": -1,
+      "text": "Согласна. А у тебя есть любимые рецепты?",
+      "blank": false,
+      "inferenceMs": 862,
+      "tokenCount": 19,
+      "timestampCount": 19,
+      "wordCount": 7,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 262830,
+      "endMs": 273126,
+      "speakerId": -1,
+      "text": "Да. Я обычно принимаю мультивитаминный комплекс, особенно зимой. Ещё я добавляю витамин D и Омега-3, чтобы поддерживать иммунитет и общее здоровье.",
+      "blank": false,
+      "inferenceMs": 2165,
+      "tokenCount": 71,
+      "timestampCount": 71,
+      "wordCount": 21,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 273134,
+      "endMs": 274726,
+      "speakerId": -1,
+      "text": "И ты меня прости.",
+      "blank": false,
+      "inferenceMs": 371,
+      "tokenCount": 6,
+      "timestampCount": 6,
+      "wordCount": 4,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 274894,
+      "endMs": 276742,
+      "speakerId": -1,
+      "text": "Давай начнём сначала.",
+      "blank": false,
+      "inferenceMs": 424,
+      "tokenCount": 10,
+      "timestampCount": 10,
+      "wordCount": 3,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 278222,
+      "endMs": 287622,
+      "speakerId": -1,
+      "text": "Мне уже становится легче от нашего разговора. Я попробую найти что-нибудь новое для себя и быть более открытым к новым знакомствам.",
+      "blank": false,
+      "inferenceMs": 1916,
+      "tokenCount": 50,
+      "timestampCount": 50,
+      "wordCount": 21,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 288078,
+      "endMs": 290662,
+      "speakerId": -1,
+      "text": "Дима, я очень сожалею.",
+      "blank": false,
+      "inferenceMs": 577,
+      "tokenCount": 11,
+      "timestampCount": 11,
+      "wordCount": 4,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 290958,
+      "endMs": 292422,
+      "speakerId": -1,
+      "text": "Что случилось?",
+      "blank": false,
+      "inferenceMs": 374,
+      "tokenCount": 6,
+      "timestampCount": 6,
+      "wordCount": 2,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 292430,
+      "endMs": 303974,
+      "speakerId": -1,
+      "text": "Вот поэтому я так люблю этот город. Питер — это не только история и архитектура, но и забота о своих жителях и гостях, создание комфортных условий для отдыха и наслаждения жизнью.",
+      "blank": false,
+      "inferenceMs": 2409,
+      "tokenCount": 74,
+      "timestampCount": 74,
+      "wordCount": 30,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 304942,
+      "endMs": 315622,
+      "speakerId": -1,
+      "text": "Так обидно, теперь надо что-то другое придумывать. Полностью согласен. Всегда интересно узнать, какие новинки ты собираешься добавить в свой гардероб в ближайшее время?",
+      "blank": false,
+      "inferenceMs": 2295,
+      "tokenCount": 61,
+      "timestampCount": 61,
+      "wordCount": 23,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 315822,
+      "endMs": 321382,
+      "speakerId": -1,
+      "text": "Согласна. Знаешь, я осознала, что мои слова могли ранить тебя.",
+      "blank": false,
+      "inferenceMs": 1296,
+      "tokenCount": 30,
+      "timestampCount": 30,
+      "wordCount": 10,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 321454,
+      "endMs": 322822,
+      "speakerId": -1,
+      "text": "Прости за это.",
+      "blank": false,
+      "inferenceMs": 389,
+      "tokenCount": 5,
+      "timestampCount": 5,
+      "wordCount": 3,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 323150,
+      "endMs": 330118,
+      "speakerId": -1,
+      "text": "76, 77, 78, 79.",
+      "blank": false,
+      "inferenceMs": 1684,
+      "tokenCount": 16,
+      "timestampCount": 16,
+      "wordCount": 4,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 330318,
+      "endMs": 331782,
+      "speakerId": -1,
+      "text": "Восемьдесят.",
+      "blank": false,
+      "inferenceMs": 464,
+      "tokenCount": 6,
+      "timestampCount": 6,
+      "wordCount": 1,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 332110,
+      "endMs": 335302,
+      "speakerId": -1,
+      "text": "Да, что-то с двигателем не понимаю ничего.",
+      "blank": false,
+      "inferenceMs": 895,
+      "tokenCount": 16,
+      "timestampCount": 16,
+      "wordCount": 7,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 335662,
+      "endMs": 345542,
+      "speakerId": -1,
+      "text": "Это очень тревожная ситуация. Надеюсь, что руководство скоро всё разъяснит и внесёт ясность. Нельзя же держать всех в таком напряжении.",
+      "blank": false,
+      "inferenceMs": 1585,
+      "tokenCount": 60,
+      "timestampCount": 60,
+      "wordCount": 20,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 346542,
+      "endMs": 350342,
+      "speakerId": -1,
+      "text": "Ну что ж, будем и дальше исследовать мир китайской кухни.",
+      "blank": false,
+      "inferenceMs": 715,
+      "tokenCount": 24,
+      "timestampCount": 24,
+      "wordCount": 10,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 350958,
+      "endMs": 352262,
+      "speakerId": -1,
+      "text": "Это детектив.",
+      "blank": false,
+      "inferenceMs": 297,
+      "tokenCount": 6,
+      "timestampCount": 6,
+      "wordCount": 2,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 352366,
+      "endMs": 354534,
+      "speakerId": -1,
+      "text": "С элементами триллера.",
+      "blank": false,
+      "inferenceMs": 409,
+      "tokenCount": 11,
+      "timestampCount": 11,
+      "wordCount": 3,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 354574,
+      "endMs": 360262,
+      "speakerId": -1,
+      "text": "История про частного детектива, который расследует старые нераскрытые дела.",
+      "blank": false,
+      "inferenceMs": 1000,
+      "tokenCount": 30,
+      "timestampCount": 30,
+      "wordCount": 9,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 360846,
+      "endMs": 362278,
+      "speakerId": -1,
+      "text": "Что ты имеешь в виду?",
+      "blank": false,
+      "inferenceMs": 290,
+      "tokenCount": 9,
+      "timestampCount": 9,
+      "wordCount": 5,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 368046,
+      "endMs": 370342,
+      "speakerId": -1,
+      "text": "Я не знаю.",
+      "blank": false,
+      "inferenceMs": 428,
+      "tokenCount": 4,
+      "timestampCount": 4,
+      "wordCount": 3,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 373902,
+      "endMs": 376326,
+      "speakerId": -1,
+      "text": "",
+      "blank": true,
+      "inferenceMs": 619,
+      "tokenCount": 0,
+      "timestampCount": 0,
+      "wordCount": 0,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "empty_result",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 377678,
+      "endMs": 383014,
+      "speakerId": -1,
+      "text": "",
+      "blank": true,
+      "inferenceMs": 1120,
+      "tokenCount": 0,
+      "timestampCount": 0,
+      "wordCount": 0,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "empty_result",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 383630,
+      "endMs": 384742,
+      "speakerId": -1,
+      "text": "",
+      "blank": true,
+      "inferenceMs": 321,
+      "tokenCount": 0,
+      "timestampCount": 0,
+      "wordCount": 0,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "empty_result",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 385198,
+      "endMs": 388806,
+      "speakerId": -1,
+      "text": "Ну ладно.",
+      "blank": false,
+      "inferenceMs": 840,
+      "tokenCount": 6,
+      "timestampCount": 6,
+      "wordCount": 2,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 389070,
+      "endMs": 390534,
+      "speakerId": -1,
+      "text": "",
+      "blank": true,
+      "inferenceMs": 406,
+      "tokenCount": 0,
+      "timestampCount": 0,
+      "wordCount": 0,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "empty_result",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 391598,
+      "endMs": 398278,
+      "speakerId": -1,
+      "text": "",
+      "blank": true,
+      "inferenceMs": 1344,
+      "tokenCount": 0,
+      "timestampCount": 0,
+      "wordCount": 0,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "empty_result",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 408206,
+      "endMs": 410374,
+      "speakerId": -1,
+      "text": "",
+      "blank": true,
+      "inferenceMs": 484,
+      "tokenCount": 0,
+      "timestampCount": 0,
+      "wordCount": 0,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "empty_result",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 414958,
+      "endMs": 426150,
+      "speakerId": -1,
+      "text": "Browser, coms ap authomaticly with the transcription box and the Topics",
+      "blank": false,
+      "inferenceMs": 2540,
+      "tokenCount": 64,
+      "timestampCount": 64,
+      "wordCount": 11,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 431758,
+      "endMs": 446886,
+      "speakerId": -1,
+      "text": "Ха-ха! Точно! Ну что, может, как-нибудь устроим совместный кинопросмотр на английском? Да, мне, да, мне тоже кажется, что это немного необычно. Вчера, например, она была в платье с цветочными узорами и с яркими серьгами.",
+      "blank": false,
+      "inferenceMs": 3222,
+      "tokenCount": 98,
+      "timestampCount": 98,
+      "wordCount": 34,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 446958,
+      "endMs": 466630,
+      "speakerId": -1,
+      "text": "Полностью согласен. Всегда интересно узнать, какие новинки ты собираешься добавить в свой гардероб в ближайшее время? Облигации — это долговые ценные бумаги. Инвестор как бы даёт в долг компании или государству, а те обязуются вернуть сумму с процентами. Бывают корпоративные и государственные облигации.",
+      "blank": false,
+      "inferenceMs": 4115,
+      "tokenCount": 124,
+      "timestampCount": 124,
+      "wordCount": 42,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 470222,
+      "endMs": 473350,
+      "speakerId": -1,
+      "text": "Ты можешь мне всё рассказать?",
+      "blank": false,
+      "inferenceMs": 651,
+      "tokenCount": 8,
+      "timestampCount": 8,
+      "wordCount": 5,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 473422,
+      "endMs": 476902,
+      "speakerId": -1,
+      "text": "Что ты считаешь самым важным для достижения мечты?",
+      "blank": false,
+      "inferenceMs": 730,
+      "tokenCount": 21,
+      "timestampCount": 21,
+      "wordCount": 8,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 477550,
+      "endMs": 490662,
+      "speakerId": -1,
+      "text": "Мне уже становится легче от нашего разговора. Я попробую найти что-нибудь новое для себя и быть более открытым к новым знакомствам. Конечно, Света, баланс — это ключевое.",
+      "blank": false,
+      "inferenceMs": 2542,
+      "tokenCount": 67,
+      "timestampCount": 67,
+      "wordCount": 26,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 490670,
+      "endMs": 495494,
+      "speakerId": -1,
+      "text": "Алтай? Да, я слышал, что это просто волшебное место.",
+      "blank": false,
+      "inferenceMs": 998,
+      "tokenCount": 22,
+      "timestampCount": 22,
+      "wordCount": 9,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 495566,
+      "endMs": 501926,
+      "speakerId": -1,
+      "text": "Там такие живописные горы, реки, озёра. А какие именно туры ты бы хотела там попробовать?",
+      "blank": false,
+      "inferenceMs": 1216,
+      "tokenCount": 36,
+      "timestampCount": 36,
+      "wordCount": 15,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 502958,
+      "endMs": 506790,
+      "speakerId": -1,
+      "text": "Ну что ж, будем и дальше исследовать мир китайской кухни.",
+      "blank": false,
+      "inferenceMs": 763,
+      "tokenCount": 24,
+      "timestampCount": 24,
+      "wordCount": 10,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 507630,
+      "endMs": 512678,
+      "speakerId": -1,
+      "text": "Вау, звучит увлекательно. Расскажи, как ты туда добиралась?",
+      "blank": false,
+      "inferenceMs": 1028,
+      "tokenCount": 31,
+      "timestampCount": 31,
+      "wordCount": 8,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 512910,
+      "endMs": 532330,
+      "speakerId": -1,
+      "text": "Облигации — это долговые ценные бумаги. Инвестор как бы даёт в долг компании или государству, а те обязуются вернуть сумму с процентами. Бывают корпоративные и государственные облигации. Вот поэтому я так люблю этот город. Питер — это не только история и архитектура, но и забота о своих жителях и гостях.",
+      "blank": false,
+      "inferenceMs": 3838,
+      "tokenCount": 128,
+      "timestampCount": 128,
+      "wordCount": 48,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 532330,
+      "endMs": 535942,
+      "speakerId": -1,
+      "text": "Создание комфортных условий для отдыха и наслаждения жизнью.",
+      "blank": false,
+      "inferenceMs": 764,
+      "tokenCount": 27,
+      "timestampCount": 27,
+      "wordCount": 8,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 536622,
+      "endMs": 539686,
+      "speakerId": -1,
+      "text": "Что ты считаешь самым важным для достижения мечты?",
+      "blank": false,
+      "inferenceMs": 650,
+      "tokenCount": 21,
+      "timestampCount": 21,
+      "wordCount": 8,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 599598,
+      "endMs": 607334,
+      "speakerId": -1,
+      "text": "",
+      "blank": true,
+      "inferenceMs": 1568,
+      "tokenCount": 0,
+      "timestampCount": 0,
+      "wordCount": 0,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "empty_result",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 612334,
+      "endMs": 624006,
+      "speakerId": -1,
+      "text": "",
+      "blank": true,
+      "inferenceMs": 1726,
+      "tokenCount": 0,
+      "timestampCount": 0,
+      "wordCount": 0,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "empty_result",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 625006,
+      "endMs": 644786,
+      "speakerId": -1,
+      "text": "",
+      "blank": true,
+      "inferenceMs": 3913,
+      "tokenCount": 0,
+      "timestampCount": 0,
+      "wordCount": 0,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "empty_result",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 644786,
+      "endMs": 649094,
+      "speakerId": -1,
+      "text": "Raygo.",
+      "blank": false,
+      "inferenceMs": 815,
+      "tokenCount": 7,
+      "timestampCount": 7,
+      "wordCount": 1,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 649902,
+      "endMs": 652038,
+      "speakerId": -1,
+      "text": "",
+      "blank": true,
+      "inferenceMs": 471,
+      "tokenCount": 0,
+      "timestampCount": 0,
+      "wordCount": 0,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "empty_result",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 653134,
+      "endMs": 657926,
+      "speakerId": -1,
+      "text": "",
+      "blank": true,
+      "inferenceMs": 1129,
+      "tokenCount": 0,
+      "timestampCount": 0,
+      "wordCount": 0,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "empty_result",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 660142,
+      "endMs": 673542,
+      "speakerId": -1,
+      "text": "Okay, okay. Sorry. Brother with with coms up autematicly with the Transcription box and the topics anwan",
+      "blank": false,
+      "inferenceMs": 2959,
+      "tokenCount": 93,
+      "timestampCount": 93,
+      "wordCount": 17,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 673550,
+      "endMs": 685446,
+      "speakerId": -1,
+      "text": "А я чувствую, что не справляюсь и подвожу тебя. Мне тяжело, когда я вижу, как ты переживаешь. Так обидно, теперь надо что-то другое придумывать.",
+      "blank": false,
+      "inferenceMs": 2530,
+      "tokenCount": 58,
+      "timestampCount": 58,
+      "wordCount": 24,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 685486,
+      "endMs": 687110,
+      "speakerId": -1,
+      "text": "Да, конечно.",
+      "blank": false,
+      "inferenceMs": 390,
+      "tokenCount": 4,
+      "timestampCount": 4,
+      "wordCount": 2,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 687214,
+      "endMs": 693542,
+      "speakerId": -1,
+      "text": "Те музыкальные вечера были особенными для нас. Мы всегда обсуждали впечатления после концертов.",
+      "blank": false,
+      "inferenceMs": 1429,
+      "tokenCount": 41,
+      "timestampCount": 41,
+      "wordCount": 13,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 693998,
+      "endMs": 698534,
+      "speakerId": -1,
+      "text": "Интересно, она так одевается, чтобы разнообразить наши скучные уроки математики?",
+      "blank": false,
+      "inferenceMs": 1208,
+      "tokenCount": 35,
+      "timestampCount": 35,
+      "wordCount": 10,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 698894,
+      "endMs": 709158,
+      "speakerId": -1,
+      "text": "Да. Я обычно принимаю мультивитаминный комплекс, особенно зимой. Ещё я добавляю витамин D и Омега-3, чтобы поддерживать иммунитет и общее здоровье.",
+      "blank": false,
+      "inferenceMs": 2377,
+      "tokenCount": 71,
+      "timestampCount": 71,
+      "wordCount": 21,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 709198,
+      "endMs": 718086,
+      "speakerId": -1,
+      "text": "Да, я иногда захожу на сайты известных брендов, чтобы посмотреть, что представляют собой новые представители.",
+      "blank": false,
+      "inferenceMs": 1865,
+      "tokenCount": 47,
+      "timestampCount": 47,
+      "wordCount": 15,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 718190,
+      "endMs": 720486,
+      "speakerId": -1,
+      "text": "Ты тоже интересуешься?",
+      "blank": false,
+      "inferenceMs": 547,
+      "tokenCount": 7,
+      "timestampCount": 7,
+      "wordCount": 3,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 721518,
+      "endMs": 726470,
+      "speakerId": -1,
+      "text": "Письмо к Маму звучит интересно. Я слышал о нём, но ещё не смотрел.",
+      "blank": false,
+      "inferenceMs": 1112,
+      "tokenCount": 31,
+      "timestampCount": 31,
+      "wordCount": 13,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 726830,
+      "endMs": 732454,
+      "speakerId": -1,
+      "text": "А как ты относишься к более классическим романтическим фильмам? Например, «Дневник памяти»?",
+      "blank": false,
+      "inferenceMs": 1281,
+      "tokenCount": 39,
+      "timestampCount": 39,
+      "wordCount": 12,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 734158,
+      "endMs": 736710,
+      "speakerId": -1,
+      "text": "Вадима, я очень сожалею.",
+      "blank": false,
+      "inferenceMs": 629,
+      "tokenCount": 12,
+      "timestampCount": 12,
+      "wordCount": 4,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 737006,
+      "endMs": 748454,
+      "speakerId": -1,
+      "text": "Что случилось? Ты всегда всё знаешь лучше всех, Маша. Может, проблема в том, что ты не можешь никому доверять?",
+      "blank": false,
+      "inferenceMs": 2332,
+      "tokenCount": 38,
+      "timestampCount": 38,
+      "wordCount": 19,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 749038,
+      "endMs": 755622,
+      "speakerId": -1,
+      "text": "Да, отличная идея. Я давно не читала хорошую книгу. Сейчас было бы идеальное время для этого.",
+      "blank": false,
+      "inferenceMs": 1451,
+      "tokenCount": 35,
+      "timestampCount": 35,
+      "wordCount": 16,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 756238,
+      "endMs": 758438,
+      "speakerId": -1,
+      "text": "Это действительно печально, Маша.",
+      "blank": false,
+      "inferenceMs": 565,
+      "tokenCount": 10,
+      "timestampCount": 10,
+      "wordCount": 4,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 758734,
+      "endMs": 761926,
+      "speakerId": -1,
+      "text": "Такие места всегда хранят частичку души.",
+      "blank": false,
+      "inferenceMs": 720,
+      "tokenCount": 17,
+      "timestampCount": 17,
+      "wordCount": 6,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 761966,
+      "endMs": 763750,
+      "speakerId": -1,
+      "text": "И много воспоминаний.",
+      "blank": false,
+      "inferenceMs": 410,
+      "tokenCount": 9,
+      "timestampCount": 9,
+      "wordCount": 3,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 764078,
+      "endMs": 765286,
+      "speakerId": -1,
+      "text": "Мне жаль.",
+      "blank": false,
+      "inferenceMs": 354,
+      "tokenCount": 5,
+      "timestampCount": 5,
+      "wordCount": 2,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 772974,
+      "endMs": 776038,
+      "speakerId": -1,
+      "text": "А меня пугает. Ты знаешь?",
+      "blank": false,
+      "inferenceMs": 797,
+      "tokenCount": 9,
+      "timestampCount": 9,
+      "wordCount": 5,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 776206,
+      "endMs": 779110,
+      "speakerId": -1,
+      "text": "Я иногда чувствую презрение к некоторым людям.",
+      "blank": false,
+      "inferenceMs": 655,
+      "tokenCount": 26,
+      "timestampCount": 26,
+      "wordCount": 7,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    }
+  ],
+  "energyWindowMs": 40,
+  "energySearchMs": 4000,
+  "energyMetric": "sequential Double mean-square of original decoded Float32 PCM",
+  "fallbackPolicy": "Full actual ASR chunk with unknown speaker and warning; no fabricated word times or second ASR pass",
+  "wordEvidenceBudgetScope": "Conservative additional pretty-JSON UTF-8 payload bytes, including nesting allowance; summaries excluded",
+  "language": {
+    "mode": "auto",
+    "perSegment": false,
+    "fileLanguage": "ru",
+    "summary": "ru",
+    "reason": "whisper_vote",
+    "probeLabels": [
+      "ru",
+      "ru",
+      "ru"
+    ],
+    "chunkLanguages": [
+      "ru",
+      "ru",
+      "ru",
+      "ru",
+      "ru",
+      "ru",
+      "ru",
+      "ru",
+      "ru",
+      "ru",
+      "ru",
+      "ru",
+      "ru",
+      "ru",
+      "ru",
+      "ru",
+      "ru",
+      "ru",
+      "ru",
+      "ru",
+      "ru",
+      "ru",
+      "ru",
+      "ru",
+      "ru",
+      "ru",
+      "ru",
+      "ru",
+      "ru",
+      "ru",
+      "ru",
+      "ru",
+      "ru",
+      "ru",
+      "ru",
+      "ru",
+      "ru",
+      "ru",
+      "ru",
+      "ru",
+      "ru",
+      "ru",
+      "ru",
+      "ru",
+      "ru",
+      "ru",
+      "ru",
+      "ru",
+      "ru",
+      "ru",
+      "ru",
+      "ru",
+      "ru",
+      "ru",
+      "ru",
+      "ru",
+      "ru",
+      "ru",
+      "ru",
+      "ru",
+      "ru",
+      "ru",
+      "ru",
+      "ru",
+      "ru",
+      "ru",
+      "ru",
+      "ru",
+      "ru",
+      "ru",
+      "ru",
+      "ru",
+      "ru",
+      "ru",
+      "ru",
+      "ru",
+      "ru",
+      "ru",
+      "ru",
+      "ru",
+      "ru",
+      "ru",
+      "ru",
+      "ru",
+      "ru",
+      "ru",
+      "ru",
+      "ru",
+      "ru",
+      "ru",
+      "ru",
+      "ru",
+      "ru",
+      "ru",
+      "ru",
+      "ru",
+      "ru",
+      "ru",
+      "ru",
+      "ru",
+      "ru",
+      "ru",
+      "ru",
+      "ru",
+      "ru",
+      "ru"
+    ],
+    "policy": "first 30 s of VAD speech, up to 3 probes x 10 s, strict 'en' majority else ru; chunks < 1.5 s inherit the file decision"
+  },
+  "asrLanguage": "ru",
+  "finalPssKb": 199155,
+  "peakMemory": "N\/A; stage boundary snapshots only",
+  "device": "unknown Android SDK built for x86_64",
+  "android": 35,
+  "runtime": "sherpa-onnx 2.0.1",
+  "backend": "GigaAM v3 E2E RNNT INT8 \/ sherpa-onnx 2.0.1",
+  "threads": 2,
+  "vadThreads": 1,
+  "sampleRate": 16000,
+  "originalPcmPeak": 0.9130117,
+  "recognitionInputGain": 1,
+  "quietGainTriggerPeak": 0.01,
+  "quietGainMax": 20,
+  "quietGainScope": "temporary VAD and ASR arrays only; original PCM\/playback\/diarization preserved",
+  "expectedSpeakers": -1,
+  "clusterThreshold": 0.30000001192092896,
+  "vadThreshold": 0.5,
+  "maxAsrSegmentMs": 20000,
+  "audioMs": 779999,
+  "totalMs": 657481,
+  "pipelineRtf": 0.8429254396479996,
+  "pipelineTimingScope": "validation through ASR release; persistenceMs and telemetry.elapsedMs reported separately",
+  "asrStageRtf": 0.16286431136450175,
+  "asrInferenceRtf": 0.15081044975698688,
+  "runCondition": "uncontrolled device caches\/temperature; sequential ML stages; CPU provider",
+  "diarizationTurns": [
+    {
+      "startMs": 31,
+      "endMs": 4233,
+      "speakerId": 0
+    },
+    {
+      "startMs": 5549,
+      "endMs": 7321,
+      "speakerId": 1
+    },
+    {
+      "startMs": 8148,
+      "endMs": 10713,
+      "speakerId": 1
+    },
+    {
+      "startMs": 11422,
+      "endMs": 12586,
+      "speakerId": 1
+    },
+    {
+      "startMs": 13497,
+      "endMs": 14088,
+      "speakerId": 1
+    },
+    {
+      "startMs": 15235,
+      "endMs": 21445,
+      "speakerId": 0
+    },
+    {
+      "startMs": 22475,
+      "endMs": 26120,
+      "speakerId": 0
+    },
+    {
+      "startMs": 27520,
+      "endMs": 27750,
+      "speakerId": 0
+    },
+    {
+      "startMs": 27750,
+      "endMs": 28516,
+      "speakerId": 1
+    },
+    {
+      "startMs": 29174,
+      "endMs": 34996,
+      "speakerId": 1
+    },
+    {
+      "startMs": 36059,
+      "endMs": 39434,
+      "speakerId": 0
+    },
+    {
+      "startMs": 40565,
+      "endMs": 51432,
+      "speakerId": 1
+    },
+    {
+      "startMs": 52040,
+      "endMs": 55448,
+      "speakerId": 0
+    },
+    {
+      "startMs": 56647,
+      "endMs": 63481,
+      "speakerId": 0
+    },
+    {
+      "startMs": 119067,
+      "endMs": 124130,
+      "speakerId": 1
+    },
+    {
+      "startMs": 124838,
+      "endMs": 133833,
+      "speakerId": 0
+    },
+    {
+      "startMs": 135014,
+      "endMs": 139621,
+      "speakerId": 1
+    },
+    {
+      "startMs": 140971,
+      "endMs": 146793,
+      "speakerId": 0
+    },
+    {
+      "startMs": 148075,
+      "endMs": 158521,
+      "speakerId": 1
+    },
+    {
+      "startMs": 159128,
+      "endMs": 159787,
+      "speakerId": 0
+    },
+    {
+      "startMs": 160462,
+      "endMs": 162824,
+      "speakerId": 0
+    },
+    {
+      "startMs": 163482,
+      "endMs": 169827,
+      "speakerId": 1
+    },
+    {
+      "startMs": 170587,
+      "endMs": 171633,
+      "speakerId": 1
+    },
+    {
+      "startMs": 172814,
+      "endMs": 176020,
+      "speakerId": 0
+    },
+    {
+      "startMs": 177438,
+      "endMs": 181960,
+      "speakerId": 1
+    },
+    {
+      "startMs": 183175,
+      "endMs": 189115,
+      "speakerId": 0
+    },
+    {
+      "startMs": 190415,
+      "endMs": 197992,
+      "speakerId": 1
+    },
+    {
+      "startMs": 199072,
+      "endMs": 202632,
+      "speakerId": 0
+    },
+    {
+      "startMs": 203712,
+      "endMs": 212960,
+      "speakerId": 1
+    },
+    {
+      "startMs": 214107,
+      "endMs": 218107,
+      "speakerId": 0
+    },
+    {
+      "startMs": 219085,
+      "endMs": 219963,
+      "speakerId": 1
+    },
+    {
+      "startMs": 220587,
+      "endMs": 222292,
+      "speakerId": 1
+    },
+    {
+      "startMs": 222967,
+      "endMs": 227978,
+      "speakerId": 1
+    },
+    {
+      "startMs": 228350,
+      "endMs": 235500,
+      "speakerId": 0
+    },
+    {
+      "startMs": 235500,
+      "endMs": 235623,
+      "speakerId": 1
+    },
+    {
+      "startMs": 236568,
+      "endMs": 243689,
+      "speakerId": 1
+    },
+    {
+      "startMs": 245022,
+      "endMs": 255738,
+      "speakerId": 0
+    },
+    {
+      "startMs": 259197,
+      "endMs": 261830,
+      "speakerId": 0
+    },
+    {
+      "startMs": 262724,
+      "endMs": 273085,
+      "speakerId": 1
+    },
+    {
+      "startMs": 273710,
+      "endMs": 276730,
+      "speakerId": 0
+    },
+    {
+      "startMs": 278823,
+      "endMs": 287159,
+      "speakerId": 1
+    },
+    {
+      "startMs": 287851,
+      "endMs": 292390,
+      "speakerId": 0
+    },
+    {
+      "startMs": 293454,
+      "endMs": 303984,
+      "speakerId": 1
+    },
+    {
+      "startMs": 305418,
+      "endMs": 308050,
+      "speakerId": 0
+    },
+    {
+      "startMs": 308557,
+      "endMs": 315577,
+      "speakerId": 1
+    },
+    {
+      "startMs": 316420,
+      "endMs": 322951,
+      "speakerId": 0
+    },
+    {
+      "startMs": 323778,
+      "endMs": 330123,
+      "speakerId": 1
+    },
+    {
+      "startMs": 330967,
+      "endMs": 331912,
+      "speakerId": 1
+    },
+    {
+      "startMs": 332570,
+      "endMs": 335320,
+      "speakerId": 0
+    },
+    {
+      "startMs": 336265,
+      "endMs": 341210,
+      "speakerId": 1
+    },
+    {
+      "startMs": 341750,
+      "endMs": 345530,
+      "speakerId": 1
+    },
+    {
+      "startMs": 346897,
+      "endMs": 350356,
+      "speakerId": 0
+    },
+    {
+      "startMs": 351419,
+      "endMs": 352229,
+      "speakerId": 1
+    },
+    {
+      "startMs": 352938,
+      "endMs": 354558,
+      "speakerId": 1
+    },
+    {
+      "startMs": 355149,
+      "endMs": 360295,
+      "speakerId": 1
+    },
+    {
+      "startMs": 361156,
+      "endMs": 362253,
+      "speakerId": 0
+    },
+    {
+      "startMs": 365459,
+      "endMs": 372834,
+      "speakerId": 2
+    },
+    {
+      "startMs": 368817,
+      "endMs": 369965,
+      "speakerId": 0
+    },
+    {
+      "startMs": 372125,
+      "endMs": 377322,
+      "speakerId": 3
+    },
+    {
+      "startMs": 373610,
+      "endMs": 375972,
+      "speakerId": 2
+    },
+    {
+      "startMs": 377356,
+      "endMs": 380250,
+      "speakerId": 2
+    },
+    {
+      "startMs": 379972,
+      "endMs": 387717,
+      "speakerId": 3
+    },
+    {
+      "startMs": 386030,
+      "endMs": 388662,
+      "speakerId": 2
+    },
+    {
+      "startMs": 389240,
+      "endMs": 391079,
+      "speakerId": 3
+    },
+    {
+      "startMs": 391450,
+      "endMs": 395298,
+      "speakerId": 2
+    },
+    {
+      "startMs": 395045,
+      "endMs": 401575,
+      "speakerId": 3
+    },
+    {
+      "startMs": 403094,
+      "endMs": 404191,
+      "speakerId": 3
+    },
+    {
+      "startMs": 407954,
+      "endMs": 410131,
+      "speakerId": 3
+    },
+    {
+      "startMs": 413337,
+      "endMs": 425099,
+      "speakerId": 3
+    },
+    {
+      "startMs": 433199,
+      "endMs": 438312,
+      "speakerId": 1
+    },
+    {
+      "startMs": 439291,
+      "endMs": 446918,
+      "speakerId": 0
+    },
+    {
+      "startMs": 447526,
+      "endMs": 454563,
+      "speakerId": 1
+    },
+    {
+      "startMs": 455103,
+      "endMs": 466645,
+      "speakerId": 0
+    },
+    {
+      "startMs": 467911,
+      "endMs": 469328,
+      "speakerId": 1
+    },
+    {
+      "startMs": 470341,
+      "endMs": 472501,
+      "speakerId": 1
+    },
+    {
+      "startMs": 473952,
+      "endMs": 476551,
+      "speakerId": 0
+    },
+    {
+      "startMs": 478154,
+      "endMs": 486490,
+      "speakerId": 1
+    },
+    {
+      "startMs": 487570,
+      "endMs": 490051,
+      "speakerId": 0
+    },
+    {
+      "startMs": 491266,
+      "endMs": 502083,
+      "speakerId": 1
+    },
+    {
+      "startMs": 503332,
+      "endMs": 506808,
+      "speakerId": 0
+    },
+    {
+      "startMs": 508141,
+      "endMs": 512647,
+      "speakerId": 1
+    },
+    {
+      "startMs": 513457,
+      "endMs": 525033,
+      "speakerId": 0
+    },
+    {
+      "startMs": 525421,
+      "endMs": 535951,
+      "speakerId": 1
+    },
+    {
+      "startMs": 537082,
+      "endMs": 539697,
+      "speakerId": 0
+    },
+    {
+      "startMs": 567507,
+      "endMs": 568486,
+      "speakerId": 2
+    },
+    {
+      "startMs": 569887,
+      "endMs": 572755,
+      "speakerId": 2
+    },
+    {
+      "startMs": 584652,
+      "endMs": 584956,
+      "speakerId": 2
+    },
+    {
+      "startMs": 593292,
+      "endMs": 598237,
+      "speakerId": 2
+    },
+    {
+      "startMs": 596853,
+      "endMs": 597258,
+      "speakerId": 3
+    },
+    {
+      "startMs": 600143,
+      "endMs": 602776,
+      "speakerId": 3
+    },
+    {
+      "startMs": 601831,
+      "endMs": 605999,
+      "speakerId": 2
+    },
+    {
+      "startMs": 612901,
+      "endMs": 624125,
+      "speakerId": 2
+    },
+    {
+      "startMs": 624125,
+      "endMs": 638500,
+      "speakerId": 3
+    },
+    {
+      "startMs": 624359,
+      "endMs": 625118,
+      "speakerId": 2
+    },
+    {
+      "startMs": 633033,
+      "endMs": 636037,
+      "speakerId": 2
+    },
+    {
+      "startMs": 638838,
+      "endMs": 642618,
+      "speakerId": 2
+    },
+    {
+      "startMs": 642365,
+      "endMs": 649115,
+      "speakerId": 3
+    },
+    {
+      "startMs": 650482,
+      "endMs": 651579,
+      "speakerId": 3
+    },
+    {
+      "startMs": 655392,
+      "endMs": 655747,
+      "speakerId": 3
+    },
+    {
+      "startMs": 656185,
+      "endMs": 657468,
+      "speakerId": 3
+    },
+    {
+      "startMs": 657704,
+      "endMs": 657907,
+      "speakerId": 3
+    },
+    {
+      "startMs": 660809,
+      "endMs": 672503,
+      "speakerId": 3
+    },
+    {
+      "startMs": 674140,
+      "endMs": 681262,
+      "speakerId": 1
+    },
+    {
+      "startMs": 682578,
+      "endMs": 685143,
+      "speakerId": 0
+    },
+    {
+      "startMs": 686071,
+      "endMs": 693547,
+      "speakerId": 1
+    },
+    {
+      "startMs": 694576,
+      "endMs": 698525,
+      "speakerId": 0
+    },
+    {
+      "startMs": 698778,
+      "endMs": 709223,
+      "speakerId": 1
+    },
+    {
+      "startMs": 709797,
+      "endMs": 720479,
+      "speakerId": 0
+    },
+    {
+      "startMs": 722082,
+      "endMs": 732443,
+      "speakerId": 1
+    },
+    {
+      "startMs": 733912,
+      "endMs": 738434,
+      "speakerId": 0
+    },
+    {
+      "startMs": 740274,
+      "endMs": 747867,
+      "speakerId": 1
+    },
+    {
+      "startMs": 749673,
+      "endMs": 755630,
+      "speakerId": 0
+    },
+    {
+      "startMs": 756693,
+      "endMs": 758465,
+      "speakerId": 1
+    },
+    {
+      "startMs": 759292,
+      "endMs": 761874,
+      "speakerId": 1
+    },
+    {
+      "startMs": 762565,
+      "endMs": 763780,
+      "speakerId": 1
+    },
+    {
+      "startMs": 764641,
+      "endMs": 765282,
+      "speakerId": 1
+    },
+    {
+      "startMs": 773568,
+      "endMs": 774732,
+      "speakerId": 0
+    },
+    {
+      "startMs": 775508,
+      "endMs": 776015,
+      "speakerId": 0
+    },
+    {
+      "startMs": 776740,
+      "endMs": 779069,
+      "speakerId": 0
+    }
+  ],
+  "clusteringMode": "automatic",
+  "clusterThresholdApplied": true,
+  "automaticValidation": "not accepted on independent long Russian dialogue",
+  "segmentationWindowShiftRatio": 0.10000000149011612,
+  "diarMinDurationOnSec": 0.20000000298023224,
+  "diarMinDurationOffSec": 0.5,
+  "vadMinSpeechSec": 0.25,
+  "vadMinSilenceSec": 0.25,
+  "vadWindowSamples": 512,
+  "vadMaxSpeechSec": 20,
+  "preRollMs": 600,
+  "postRollMs": 0,
+  "vadSpans": [
+    {
+      "startMs": 294,
+      "endMs": 4230
+    },
+    {
+      "startMs": 5542,
+      "endMs": 7270
+    },
+    {
+      "startMs": 8166,
+      "endMs": 10790
+    },
+    {
+      "startMs": 11398,
+      "endMs": 12582
+    },
+    {
+      "startMs": 13510,
+      "endMs": 14118
+    },
+    {
+      "startMs": 15782,
+      "endMs": 19558
+    },
+    {
+      "startMs": 19878,
+      "endMs": 21478
+    },
+    {
+      "startMs": 22470,
+      "endMs": 26374
+    },
+    {
+      "startMs": 27526,
+      "endMs": 28550
+    },
+    {
+      "startMs": 29254,
+      "endMs": 31846
+    },
+    {
+      "startMs": 32326,
+      "endMs": 34950
+    },
+    {
+      "startMs": 36166,
+      "endMs": 39462
+    },
+    {
+      "startMs": 40582,
+      "endMs": 41190
+    },
+    {
+      "startMs": 41574,
+      "endMs": 44774
+    },
+    {
+      "startMs": 44998,
+      "endMs": 47942
+    },
+    {
+      "startMs": 48166,
+      "endMs": 51238
+    },
+    {
+      "startMs": 52070,
+      "endMs": 52774
+    },
+    {
+      "startMs": 53094,
+      "endMs": 55430
+    },
+    {
+      "startMs": 56646,
+      "endMs": 59334
+    },
+    {
+      "startMs": 59814,
+      "endMs": 61318
+    },
+    {
+      "startMs": 61990,
+      "endMs": 63462
+    },
+    {
+      "startMs": 118214,
+      "endMs": 119622
+    },
+    {
+      "startMs": 119974,
+      "endMs": 124582
+    },
+    {
+      "startMs": 124870,
+      "endMs": 128134
+    },
+    {
+      "startMs": 128614,
+      "endMs": 134182
+    },
+    {
+      "startMs": 135078,
+      "endMs": 137094
+    },
+    {
+      "startMs": 137478,
+      "endMs": 140294
+    },
+    {
+      "startMs": 140966,
+      "endMs": 144742
+    },
+    {
+      "startMs": 145158,
+      "endMs": 146758
+    },
+    {
+      "startMs": 148102,
+      "endMs": 149830
+    },
+    {
+      "startMs": 150118,
+      "endMs": 152294
+    },
+    {
+      "startMs": 153414,
+      "endMs": 158438
+    },
+    {
+      "startMs": 159174,
+      "endMs": 159718
+    },
+    {
+      "startMs": 160486,
+      "endMs": 162822
+    },
+    {
+      "startMs": 163462,
+      "endMs": 164806
+    },
+    {
+      "startMs": 165062,
+      "endMs": 166342
+    },
+    {
+      "startMs": 166598,
+      "endMs": 168038
+    },
+    {
+      "startMs": 168294,
+      "endMs": 169830
+    },
+    {
+      "startMs": 170630,
+      "endMs": 171494
+    },
+    {
+      "startMs": 172902,
+      "endMs": 176038
+    },
+    {
+      "startMs": 177414,
+      "endMs": 179334
+    },
+    {
+      "startMs": 179654,
+      "endMs": 181958
+    },
+    {
+      "startMs": 183206,
+      "endMs": 189126
+    },
+    {
+      "startMs": 190662,
+      "endMs": 193350
+    },
+    {
+      "startMs": 193830,
+      "endMs": 198150
+    },
+    {
+      "startMs": 199110,
+      "endMs": 199686
+    },
+    {
+      "startMs": 200102,
+      "endMs": 202790
+    },
+    {
+      "startMs": 203686,
+      "endMs": 208646
+    },
+    {
+      "startMs": 209190,
+      "endMs": 210310
+    },
+    {
+      "startMs": 210758,
+      "endMs": 213030
+    },
+    {
+      "startMs": 214118,
+      "endMs": 214630
+    },
+    {
+      "startMs": 215558,
+      "endMs": 216646
+    },
+    {
+      "startMs": 217254,
+      "endMs": 218150
+    },
+    {
+      "startMs": 219078,
+      "endMs": 219942
+    },
+    {
+      "startMs": 220678,
+      "endMs": 222214
+    },
+    {
+      "startMs": 222854,
+      "endMs": 227974
+    },
+    {
+      "startMs": 228390,
+      "endMs": 231078
+    },
+    {
+      "startMs": 231398,
+      "endMs": 235654
+    },
+    {
+      "startMs": 236614,
+      "endMs": 238566
+    },
+    {
+      "startMs": 238886,
+      "endMs": 239686
+    },
+    {
+      "startMs": 240390,
+      "endMs": 242278
+    },
+    {
+      "startMs": 242950,
+      "endMs": 243750
+    },
+    {
+      "startMs": 245030,
+      "endMs": 253318
+    },
+    {
+      "startMs": 254022,
+      "endMs": 255750
+    },
+    {
+      "startMs": 259238,
+      "endMs": 262054
+    },
+    {
+      "startMs": 263430,
+      "endMs": 265798
+    },
+    {
+      "startMs": 266118,
+      "endMs": 271846
+    },
+    {
+      "startMs": 272070,
+      "endMs": 273126
+    },
+    {
+      "startMs": 273734,
+      "endMs": 274726
+    },
+    {
+      "startMs": 275494,
+      "endMs": 276742
+    },
+    {
+      "startMs": 278822,
+      "endMs": 281254
+    },
+    {
+      "startMs": 281830,
+      "endMs": 285638
+    },
+    {
+      "startMs": 286150,
+      "endMs": 287622
+    },
+    {
+      "startMs": 288678,
+      "endMs": 290662
+    },
+    {
+      "startMs": 291558,
+      "endMs": 292422
+    },
+    {
+      "startMs": 293030,
+      "endMs": 295494
+    },
+    {
+      "startMs": 295750,
+      "endMs": 300070
+    },
+    {
+      "startMs": 300422,
+      "endMs": 303974
+    },
+    {
+      "startMs": 305542,
+      "endMs": 308006
+    },
+    {
+      "startMs": 308582,
+      "endMs": 315622
+    },
+    {
+      "startMs": 316422,
+      "endMs": 317094
+    },
+    {
+      "startMs": 317350,
+      "endMs": 317990
+    },
+    {
+      "startMs": 318342,
+      "endMs": 321382
+    },
+    {
+      "startMs": 322054,
+      "endMs": 322822
+    },
+    {
+      "startMs": 323750,
+      "endMs": 325126
+    },
+    {
+      "startMs": 325350,
+      "endMs": 326630
+    },
+    {
+      "startMs": 326886,
+      "endMs": 328326
+    },
+    {
+      "startMs": 328582,
+      "endMs": 330118
+    },
+    {
+      "startMs": 330918,
+      "endMs": 331782
+    },
+    {
+      "startMs": 332710,
+      "endMs": 335302
+    },
+    {
+      "startMs": 336262,
+      "endMs": 341222
+    },
+    {
+      "startMs": 341734,
+      "endMs": 342854
+    },
+    {
+      "startMs": 343334,
+      "endMs": 345542
+    },
+    {
+      "startMs": 347142,
+      "endMs": 350342
+    },
+    {
+      "startMs": 351558,
+      "endMs": 352262
+    },
+    {
+      "startMs": 352966,
+      "endMs": 354534
+    },
+    {
+      "startMs": 355174,
+      "endMs": 360262
+    },
+    {
+      "startMs": 361446,
+      "endMs": 362278
+    },
+    {
+      "startMs": 368646,
+      "endMs": 370342
+    },
+    {
+      "startMs": 374502,
+      "endMs": 376326
+    },
+    {
+      "startMs": 378278,
+      "endMs": 381606
+    },
+    {
+      "startMs": 382182,
+      "endMs": 383014
+    },
+    {
+      "startMs": 384230,
+      "endMs": 384742
+    },
+    {
+      "startMs": 385798,
+      "endMs": 388806
+    },
+    {
+      "startMs": 389670,
+      "endMs": 390534
+    },
+    {
+      "startMs": 392198,
+      "endMs": 397190
+    },
+    {
+      "startMs": 397606,
+      "endMs": 398278
+    },
+    {
+      "startMs": 408806,
+      "endMs": 410374
+    },
+    {
+      "startMs": 415558,
+      "endMs": 418918
+    },
+    {
+      "startMs": 419462,
+      "endMs": 426150
+    },
+    {
+      "startMs": 432358,
+      "endMs": 438918
+    },
+    {
+      "startMs": 439270,
+      "endMs": 446886
+    },
+    {
+      "startMs": 447558,
+      "endMs": 454566
+    },
+    {
+      "startMs": 455142,
+      "endMs": 458374
+    },
+    {
+      "startMs": 458790,
+      "endMs": 463782
+    },
+    {
+      "startMs": 464006,
+      "endMs": 466630
+    },
+    {
+      "startMs": 470822,
+      "endMs": 473350
+    },
+    {
+      "startMs": 474022,
+      "endMs": 476902
+    },
+    {
+      "startMs": 478150,
+      "endMs": 487078
+    },
+    {
+      "startMs": 487590,
+      "endMs": 490662
+    },
+    {
+      "startMs": 491270,
+      "endMs": 495494
+    },
+    {
+      "startMs": 496166,
+      "endMs": 498566
+    },
+    {
+      "startMs": 498886,
+      "endMs": 501926
+    },
+    {
+      "startMs": 503558,
+      "endMs": 506790
+    },
+    {
+      "startMs": 508230,
+      "endMs": 510054
+    },
+    {
+      "startMs": 510374,
+      "endMs": 512678
+    },
+    {
+      "startMs": 513510,
+      "endMs": 516774
+    },
+    {
+      "startMs": 517158,
+      "endMs": 525030
+    },
+    {
+      "startMs": 525414,
+      "endMs": 532006
+    },
+    {
+      "startMs": 532358,
+      "endMs": 535942
+    },
+    {
+      "startMs": 537222,
+      "endMs": 539686
+    },
+    {
+      "startMs": 600198,
+      "endMs": 603078
+    },
+    {
+      "startMs": 603398,
+      "endMs": 606598
+    },
+    {
+      "startMs": 606854,
+      "endMs": 607334
+    },
+    {
+      "startMs": 612934,
+      "endMs": 624006
+    },
+    {
+      "startMs": 625606,
+      "endMs": 636582
+    },
+    {
+      "startMs": 637094,
+      "endMs": 637958
+    },
+    {
+      "startMs": 638246,
+      "endMs": 639270
+    },
+    {
+      "startMs": 639622,
+      "endMs": 647654
+    },
+    {
+      "startMs": 647942,
+      "endMs": 649094
+    },
+    {
+      "startMs": 650502,
+      "endMs": 652038
+    },
+    {
+      "startMs": 653734,
+      "endMs": 655174
+    },
+    {
+      "startMs": 655430,
+      "endMs": 657926
+    },
+    {
+      "startMs": 660742,
+      "endMs": 673542
+    },
+    {
+      "startMs": 674150,
+      "endMs": 682150
+    },
+    {
+      "startMs": 682726,
+      "endMs": 685446
+    },
+    {
+      "startMs": 686086,
+      "endMs": 687110
+    },
+    {
+      "startMs": 687814,
+      "endMs": 693542
+    },
+    {
+      "startMs": 694598,
+      "endMs": 698534
+    },
+    {
+      "startMs": 699494,
+      "endMs": 701862
+    },
+    {
+      "startMs": 702182,
+      "endMs": 707846
+    },
+    {
+      "startMs": 708166,
+      "endMs": 709158
+    },
+    {
+      "startMs": 709798,
+      "endMs": 718086
+    },
+    {
+      "startMs": 718790,
+      "endMs": 720486
+    },
+    {
+      "startMs": 722118,
+      "endMs": 726470
+    },
+    {
+      "startMs": 727430,
+      "endMs": 732454
+    },
+    {
+      "startMs": 734758,
+      "endMs": 736710
+    },
+    {
+      "startMs": 737606,
+      "endMs": 738502
+    },
+    {
+      "startMs": 739046,
+      "endMs": 739814
+    },
+    {
+      "startMs": 740326,
+      "endMs": 748454
+    },
+    {
+      "startMs": 749638,
+      "endMs": 755622
+    },
+    {
+      "startMs": 756838,
+      "endMs": 758438
+    },
+    {
+      "startMs": 759334,
+      "endMs": 761926
+    },
+    {
+      "startMs": 762566,
+      "endMs": 763750
+    },
+    {
+      "startMs": 764678,
+      "endMs": 765286
+    },
+    {
+      "startMs": 773574,
+      "endMs": 775206
+    },
+    {
+      "startMs": 775462,
+      "endMs": 776038
+    },
+    {
+      "startMs": 776806,
+      "endMs": 779110
+    }
+  ],
+  "asrSpeechSpans": [
+    {
+      "startMs": 0,
+      "endMs": 4230
+    },
+    {
+      "startMs": 4942,
+      "endMs": 7270
+    },
+    {
+      "startMs": 7566,
+      "endMs": 10790
+    },
+    {
+      "startMs": 10798,
+      "endMs": 12582
+    },
+    {
+      "startMs": 12910,
+      "endMs": 14118
+    },
+    {
+      "startMs": 15182,
+      "endMs": 21478
+    },
+    {
+      "startMs": 21870,
+      "endMs": 26374
+    },
+    {
+      "startMs": 26926,
+      "endMs": 28550
+    },
+    {
+      "startMs": 28654,
+      "endMs": 34950
+    },
+    {
+      "startMs": 35566,
+      "endMs": 39462
+    },
+    {
+      "startMs": 39982,
+      "endMs": 51238
+    },
+    {
+      "startMs": 51470,
+      "endMs": 55430
+    },
+    {
+      "startMs": 56046,
+      "endMs": 61318
+    },
+    {
+      "startMs": 61390,
+      "endMs": 63462
+    },
+    {
+      "startMs": 117614,
+      "endMs": 134182
+    },
+    {
+      "startMs": 134478,
+      "endMs": 140294
+    },
+    {
+      "startMs": 140366,
+      "endMs": 146758
+    },
+    {
+      "startMs": 147502,
+      "endMs": 152294
+    },
+    {
+      "startMs": 152814,
+      "endMs": 158438
+    },
+    {
+      "startMs": 158574,
+      "endMs": 159718
+    },
+    {
+      "startMs": 159886,
+      "endMs": 162822
+    },
+    {
+      "startMs": 162862,
+      "endMs": 169830
+    },
+    {
+      "startMs": 170030,
+      "endMs": 171494
+    },
+    {
+      "startMs": 172302,
+      "endMs": 176038
+    },
+    {
+      "startMs": 176814,
+      "endMs": 181958
+    },
+    {
+      "startMs": 182606,
+      "endMs": 189126
+    },
+    {
+      "startMs": 190062,
+      "endMs": 198150
+    },
+    {
+      "startMs": 198510,
+      "endMs": 202790
+    },
+    {
+      "startMs": 203086,
+      "endMs": 213030
+    },
+    {
+      "startMs": 213518,
+      "endMs": 214630
+    },
+    {
+      "startMs": 214958,
+      "endMs": 216646
+    },
+    {
+      "startMs": 216654,
+      "endMs": 218150
+    },
+    {
+      "startMs": 218478,
+      "endMs": 219942
+    },
+    {
+      "startMs": 220078,
+      "endMs": 222214
+    },
+    {
+      "startMs": 222254,
+      "endMs": 235654
+    },
+    {
+      "startMs": 236014,
+      "endMs": 239686
+    },
+    {
+      "startMs": 239790,
+      "endMs": 242278
+    },
+    {
+      "startMs": 242350,
+      "endMs": 243750
+    },
+    {
+      "startMs": 244430,
+      "endMs": 253318
+    },
+    {
+      "startMs": 253422,
+      "endMs": 255750
+    },
+    {
+      "startMs": 258638,
+      "endMs": 262054
+    },
+    {
+      "startMs": 262830,
+      "endMs": 273126
+    },
+    {
+      "startMs": 273134,
+      "endMs": 274726
+    },
+    {
+      "startMs": 274894,
+      "endMs": 276742
+    },
+    {
+      "startMs": 278222,
+      "endMs": 287622
+    },
+    {
+      "startMs": 288078,
+      "endMs": 290662
+    },
+    {
+      "startMs": 290958,
+      "endMs": 292422
+    },
+    {
+      "startMs": 292430,
+      "endMs": 303974
+    },
+    {
+      "startMs": 304942,
+      "endMs": 315622
+    },
+    {
+      "startMs": 315822,
+      "endMs": 321382
+    },
+    {
+      "startMs": 321454,
+      "endMs": 322822
+    },
+    {
+      "startMs": 323150,
+      "endMs": 330118
+    },
+    {
+      "startMs": 330318,
+      "endMs": 331782
+    },
+    {
+      "startMs": 332110,
+      "endMs": 335302
+    },
+    {
+      "startMs": 335662,
+      "endMs": 345542
+    },
+    {
+      "startMs": 346542,
+      "endMs": 350342
+    },
+    {
+      "startMs": 350958,
+      "endMs": 352262
+    },
+    {
+      "startMs": 352366,
+      "endMs": 354534
+    },
+    {
+      "startMs": 354574,
+      "endMs": 360262
+    },
+    {
+      "startMs": 360846,
+      "endMs": 362278
+    },
+    {
+      "startMs": 368046,
+      "endMs": 370342
+    },
+    {
+      "startMs": 373902,
+      "endMs": 376326
+    },
+    {
+      "startMs": 377678,
+      "endMs": 383014
+    },
+    {
+      "startMs": 383630,
+      "endMs": 384742
+    },
+    {
+      "startMs": 385198,
+      "endMs": 388806
+    },
+    {
+      "startMs": 389070,
+      "endMs": 390534
+    },
+    {
+      "startMs": 391598,
+      "endMs": 398278
+    },
+    {
+      "startMs": 408206,
+      "endMs": 410374
+    },
+    {
+      "startMs": 414958,
+      "endMs": 426150
+    },
+    {
+      "startMs": 431758,
+      "endMs": 446886
+    },
+    {
+      "startMs": 446958,
+      "endMs": 466630
+    },
+    {
+      "startMs": 470222,
+      "endMs": 473350
+    },
+    {
+      "startMs": 473422,
+      "endMs": 476902
+    },
+    {
+      "startMs": 477550,
+      "endMs": 490662
+    },
+    {
+      "startMs": 490670,
+      "endMs": 495494
+    },
+    {
+      "startMs": 495566,
+      "endMs": 501926
+    },
+    {
+      "startMs": 502958,
+      "endMs": 506790
+    },
+    {
+      "startMs": 507630,
+      "endMs": 512678
+    },
+    {
+      "startMs": 512910,
+      "endMs": 535942
+    },
+    {
+      "startMs": 536622,
+      "endMs": 539686
+    },
+    {
+      "startMs": 599598,
+      "endMs": 607334
+    },
+    {
+      "startMs": 612334,
+      "endMs": 624006
+    },
+    {
+      "startMs": 625006,
+      "endMs": 649094
+    },
+    {
+      "startMs": 649902,
+      "endMs": 652038
+    },
+    {
+      "startMs": 653134,
+      "endMs": 657926
+    },
+    {
+      "startMs": 660142,
+      "endMs": 673542
+    },
+    {
+      "startMs": 673550,
+      "endMs": 685446
+    },
+    {
+      "startMs": 685486,
+      "endMs": 687110
+    },
+    {
+      "startMs": 687214,
+      "endMs": 693542
+    },
+    {
+      "startMs": 693998,
+      "endMs": 698534
+    },
+    {
+      "startMs": 698894,
+      "endMs": 709158
+    },
+    {
+      "startMs": 709198,
+      "endMs": 718086
+    },
+    {
+      "startMs": 718190,
+      "endMs": 720486
+    },
+    {
+      "startMs": 721518,
+      "endMs": 726470
+    },
+    {
+      "startMs": 726830,
+      "endMs": 732454
+    },
+    {
+      "startMs": 734158,
+      "endMs": 736710
+    },
+    {
+      "startMs": 737006,
+      "endMs": 748454
+    },
+    {
+      "startMs": 749038,
+      "endMs": 755622
+    },
+    {
+      "startMs": 756238,
+      "endMs": 758438
+    },
+    {
+      "startMs": 758734,
+      "endMs": 761926
+    },
+    {
+      "startMs": 761966,
+      "endMs": 763750
+    },
+    {
+      "startMs": 764078,
+      "endMs": 765286
+    },
+    {
+      "startMs": 772974,
+      "endMs": 776038
+    },
+    {
+      "startMs": 776206,
+      "endMs": 779110
+    }
+  ],
+  "modelBytes": 1043026159,
+  "stagesMs": {
+    "thermalWaitMs": 0,
+    "provisioningWaitMs": 0,
+    "nativeGateWaitMs": 0,
+    "validationMs": 435,
+    "decodeMs": 4024,
+    "metadataPersistenceMs": 3,
+    "vadLoadMs": 11,
+    "vadMs": 6865,
+    "diarizationMs": 515217,
+    "alignmentMs": 44,
+    "languageIdMs": 2463,
+    "asrLoad_ruMs": 1128,
+    "asrLoadMs": 1128,
+    "asrReadMs": 778,
+    "asrInferenceMs": 117632,
+    "wordAssignmentMs": 135,
+    "asrMs": 127034,
+    "persistenceMs": 46
+  },
+  "telemetry": {
+    "run": "7335cf61-1288-4442-a1dc-176ca743000b",
+    "elapsedMs": 657704,
+    "stagesMs": {
+      "thermalWaitMs": 0,
+      "provisioningWaitMs": 0,
+      "nativeGateWaitMs": 0,
+      "validationMs": 435,
+      "decodeMs": 4024,
+      "metadataPersistenceMs": 3,
+      "vadLoadMs": 11,
+      "vadMs": 6865,
+      "diarizationMs": 515217,
+      "alignmentMs": 44,
+      "languageIdMs": 2463,
+      "asrLoad_ruMs": 1128,
+      "asrLoadMs": 1128,
+      "asrReadMs": 778,
+      "asrInferenceMs": 117632,
+      "wordAssignmentMs": 135,
+      "asrMs": 127034,
+      "persistenceMs": 46
+    },
+    "observedMaxPssKb": 471935,
+    "memoryScope": "stage boundary PSS snapshots; not continuous peak memory",
+    "thermalStatus": 0,
+    "thermalEvents": [
+      {
+        "elapsedMs": 46,
+        "status": 0
+      }
+    ],
+    "thermalApiSupported": true,
+    "thermalPowerServiceAvailable": true,
+    "thermalStatusAvailable": true,
+    "thermalListenerRegistered": true,
+    "thermalListenerRegistrationFailed": false,
+    "thermalListenerFailureReason": null,
+    "thermalUnavailableReason": null
+  }
+}
