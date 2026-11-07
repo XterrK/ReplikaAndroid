@@ -1,169 +1,144 @@
-@file:OptIn(androidx.compose.material3.ExperimentalMaterial3Api::class)
 package ru.replika.ui
 
-import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.*
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import kotlinx.coroutines.delay
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.compose.LocalLifecycleOwner
-import androidx.lifecycle.repeatOnLifecycle
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.distinctUntilChanged
-import ru.replika.data.Recording
-import kotlin.math.*
+import kotlinx.coroutines.flow.map
 
-@Composable fun RecordingScreen(vm: AppViewModel,onBack: ()->Unit,onStart: ()->Unit=vm::startRecording,onSettings: ()->Unit={},onImport: ()->Unit={},onExport: ()->Unit={},importing: String?=null) {
+/**
+ * Home and live recording. The bubble, timer and status share one centre; particles are an overlay
+ * that never takes layout space. Live controls: ✕ delete · ⏸/▶ pause/resume · ✓ save.
+ */
+@Composable fun RecordingScreen(vm: AppViewModel,onBack: ()->Unit,onStart: ()->Unit=vm::startRecording,onSettings: ()->Unit={},onImport: ()->Unit={},importing: String?=null,onDelete: ()->Unit=onBack,onSave: ()->Unit={vm.stopRecording(true)}) {
  val phase by vm.recordingPhase.collectAsStateWithLifecycle()
  val live=phase in setOf(RecordingPhase.STARTING,RecordingPhase.RECORDING,RecordingPhase.PAUSED,RecordingPhase.STOPPING)
  val seconds=remember(vm) { vm.elapsed.map { it/1000*1000 }.distinctUntilChanged() }
  val elapsed by seconds.collectAsStateWithLifecycle(0L)
+ val orb=rememberOrbState()
  val status=when(phase) {
-  RecordingPhase.IDLE->"Готово к записи"
-  RecordingPhase.PERMISSION_REQUIRED->"Нужен доступ к микрофону"
+  RecordingPhase.IDLE,RecordingPhase.SAVED->"Коснитесь пузыря, чтобы начать запись"
+  RecordingPhase.PERMISSION_REQUIRED->"Разрешите микрофон, чтобы начать запись"
   RecordingPhase.STARTING->"Включаем микрофон…"
   RecordingPhase.RECORDING->"Идёт запись"
   RecordingPhase.PAUSED->"На паузе"
-  RecordingPhase.STOPPING->"Завершаем…"
-  RecordingPhase.SAVED->"Готово к записи"
-  RecordingPhase.ERROR->"Не удалось записать"
+  RecordingPhase.STOPPING->"Сохраняем запись…"
+  RecordingPhase.ERROR->"Не удалось записать. Коснитесь, чтобы повторить"
  }
  Box(Modifier.fillMaxSize().testTag("recording-home")) {
-  LiveMicrophoneMeter(vm.voiceLevel,phase,Modifier.align(Alignment.CenterEnd).width(64.dp).fillMaxHeight(.88f))
+  VoiceParticleField(orb,vm.voiceLevel,phase,Modifier.matchParentSize())
   Column(Modifier.fillMaxSize()) {
-  Row(Modifier.fillMaxWidth().padding(start=20.dp,end=8.dp).heightIn(min=56.dp),verticalAlignment=Alignment.CenterVertically) {
-   if(live) IconButton(onClick=onBack,enabled=phase!=RecordingPhase.STOPPING,modifier=Modifier.testTag("recording-exit")) { Icon(Icons.Outlined.ArrowBack,"Выйти из записи") }
-   Text(if(live) "Запись" else "REPLIKA",style=if(live) MaterialTheme.typography.titleMedium else MaterialTheme.typography.headlineMedium,modifier=Modifier.weight(1f))
-   if(!live) IconButton(onClick=onSettings,modifier=Modifier.testTag("appearance-settings")) { Icon(Icons.Outlined.Tune,"Настройки") }
-  }
-  BoxWithConstraints(Modifier.weight(1f).fillMaxWidth().padding(horizontal=16.dp)) {
-   val textBudget=(if(live) 132.dp else 92.dp)*LocalDensity.current.fontScale.coerceAtLeast(1f)
-   val orbSize=minOf(maxWidth,maxHeight-textBudget).coerceIn(80.dp,360.dp)
-   Column(Modifier.fillMaxSize(),horizontalAlignment=Alignment.CenterHorizontally,verticalArrangement=Arrangement.Center) {
-    Text(status,style=MaterialTheme.typography.titleMedium,color=when(phase) { RecordingPhase.ERROR->MaterialTheme.colorScheme.error;RecordingPhase.RECORDING->Mint;else->Blue },modifier=Modifier.testTag("recording-status"))
-    Box(Modifier.fillMaxWidth().height(orbSize),contentAlignment=Alignment.Center) {
-     LiquidVoiceOrb(phase,vm.voiceLevel,onStart,Modifier.size(orbSize))
-    }
-    if(live) Text(clock(elapsed),style=MaterialTheme.typography.bodyLarge.copy(fontSize=44.sp,lineHeight=54.sp,fontWeight=FontWeight.Light,fontFeatureSettings="tnum"),color=Blue,modifier=Modifier.testTag("recording-timer"))
-    Text(when(phase) { RecordingPhase.RECORDING->"Говорите, мы слушаем";RecordingPhase.PAUSED->"Продолжите, когда будете готовы";RecordingPhase.PERMISSION_REQUIRED->"Разрешите микрофон, чтобы начать";else->"Нажмите на шар для записи" },style=MaterialTheme.typography.bodySmall,color=Muted,modifier=Modifier.padding(top=6.dp))
+   Row(Modifier.fillMaxWidth().padding(start=if(live) 8.dp else 20.dp,end=8.dp).heightIn(min=56.dp),verticalAlignment=Alignment.CenterVertically) {
+    if(live) IconButton(onClick=onBack,enabled=phase!=RecordingPhase.STOPPING,modifier=Modifier.testTag("recording-exit")) { Icon(Icons.Outlined.ArrowBack,"Выйти из записи") }
+    else Wordmark()
+    Spacer(Modifier.weight(1f))
+    if(!live) IconButton(onClick=onSettings,modifier=Modifier.testTag("appearance-settings")) { Icon(Icons.Outlined.Settings,"Настройки оформления",tint=Muted) }
    }
-  }
-  Column(Modifier.fillMaxWidth().padding(horizontal=20.dp,vertical=12.dp),verticalArrangement=Arrangement.spacedBy(8.dp)) {
-   when(phase) {
-    RecordingPhase.RECORDING,RecordingPhase.PAUSED -> RecordingControls(phase==RecordingPhase.PAUSED,vm::pauseRecording,onBack)
-    RecordingPhase.STARTING,RecordingPhase.STOPPING -> LinearProgressIndicator(Modifier.fillMaxWidth().padding(vertical=24.dp))
-    else -> Row(horizontalArrangement=Arrangement.spacedBy(12.dp)) {
-     FilledTonalButton(shape=ProductShape.control,onClick=onImport,enabled=importing==null,modifier=Modifier.weight(1f).heightIn(min=52.dp).testTag("home-import")) { Icon(Icons.Outlined.Add,null,Modifier.size(20.dp));Spacer(Modifier.width(8.dp));Text("Импорт") }
-     OutlinedButton(shape=ProductShape.control,onClick=onExport,modifier=Modifier.weight(1f).heightIn(min=52.dp).testTag("home-export")) { Icon(Icons.Outlined.IosShare,null,Modifier.size(20.dp));Spacer(Modifier.width(8.dp));Text("Экспорт") }
+   BoxWithConstraints(Modifier.weight(1f).fillMaxWidth().padding(horizontal=16.dp)) {
+    val fontScale=LocalDensity.current.fontScale.coerceAtLeast(1f)
+    val textBudget=(if(live) 128.dp else 64.dp)*fontScale
+    val orbSize=minOf(maxWidth,maxHeight-textBudget).coerceIn(80.dp,380.dp)
+    Column(Modifier.fillMaxSize(),horizontalAlignment=Alignment.CenterHorizontally,verticalArrangement=Arrangement.Center) {
+     Box(Modifier.fillMaxWidth().height(orbSize),contentAlignment=Alignment.Center) {
+      LiquidVoiceOrb(phase,vm.voiceLevel,onStart,Modifier.size(orbSize),state=orb)
+     }
+     if(live) Text(clock(elapsed),style=MaterialTheme.typography.displaySmall.copy(fontSize=48.sp,lineHeight=64.sp,fontWeight=FontWeight.SemiBold,fontFeatureSettings="tnum",brush=Brush.horizontalGradient(if(LocalReplikaDark.current) Brand.colors else Brand.strong)),
+      modifier=Modifier.padding(top=8.dp).testTag("recording-timer"))
+     Text(status,style=MaterialTheme.typography.bodyLarge,textAlign=TextAlign.Center,
+      color=when(phase) { RecordingPhase.ERROR->MaterialTheme.colorScheme.error;RecordingPhase.RECORDING->Pink;else->Muted },
+      modifier=Modifier.padding(top=if(live) 4.dp else 12.dp,start=16.dp,end=16.dp).testTag("recording-status"))
     }
    }
-   if(!live) Text("Аудио и видео · всё на устройстве",style=MaterialTheme.typography.bodySmall,color=Muted,modifier=Modifier.align(Alignment.CenterHorizontally))
+   Column(Modifier.fillMaxWidth().padding(horizontal=20.dp).padding(top=8.dp,bottom=16.dp),verticalArrangement=Arrangement.spacedBy(12.dp)) {
+    when(phase) {
+     RecordingPhase.RECORDING,RecordingPhase.PAUSED -> RecordingControls(phase==RecordingPhase.PAUSED,onDelete=onDelete,onPause=vm::pauseRecording,onSave=onSave)
+     RecordingPhase.STARTING,RecordingPhase.STOPPING -> Box(Modifier.fillMaxWidth().height(104.dp),contentAlignment=Alignment.Center) { LinearProgressIndicator(Modifier.fillMaxWidth()) }
+     else -> {
+      GradientButton("Импорт аудио или видео",Icons.Outlined.Add,onImport,enabled=importing==null,modifier=Modifier.fillMaxWidth().testTag("home-import"))
+      Row(Modifier.align(Alignment.CenterHorizontally),verticalAlignment=Alignment.Top,horizontalArrangement=Arrangement.spacedBy(6.dp)) {
+       Icon(Icons.Outlined.Lock,null,Modifier.padding(top=2.dp).size(14.dp),tint=Muted)
+       Text("Обработка на устройстве, без интернета",style=MaterialTheme.typography.bodySmall,color=Muted)
+      }
+     }
+    }
+   }
   }
- }
  }
 }
 
-/** Keep the full action names at the user's font size; icons yield space before text does. */
-@Composable private fun RecordingControls(paused: Boolean,onPause: ()->Unit,onStop: ()->Unit) {
+/** The product name in Onest Bold with the brand ramp; the only logo treatment in the app. */
+@Composable fun Wordmark(modifier: Modifier=Modifier) {
+ Text("REPLIKA",modifier=modifier.semantics { heading() },style=MaterialTheme.typography.titleLarge.copy(fontWeight=FontWeight.Bold,letterSpacing=2.sp,
+  brush=Brush.horizontalGradient(if(LocalReplikaDark.current) Brand.colors else Brand.strong)))
+}
+
+/**
+ * ✕ · ⏸/▶ · ✓ in one row, labels under each button. Labels cap their scale so the row never breaks.
+ * The merged slot speaks its content description (it takes precedence over the visible label).
+ */
+@Composable private fun RecordingControls(paused: Boolean,onDelete: ()->Unit,onPause: ()->Unit,onSave: ()->Unit) {
  val fontScale=LocalDensity.current.fontScale
- BoxWithConstraints(Modifier.fillMaxWidth()) {
-  val stacked=fontScale>1.5f || maxWidth<300.dp
-  val showIcons=stacked || fontScale<=1.15f
-  val pauseLabel=if(paused) "Продолжить" else "Пауза"
-  val pauseIcon=if(paused) Icons.Outlined.PlayArrow else Icons.Outlined.Pause
-  if(stacked) Column(verticalArrangement=Arrangement.spacedBy(8.dp)) {
-   RecordingControl(pauseLabel,if(showIcons) pauseIcon else null,false,onPause,Modifier.fillMaxWidth())
-   RecordingControl("Завершить",if(showIcons) Icons.Outlined.Stop else null,true,onStop,Modifier.fillMaxWidth().testTag("recording-stop"))
-  } else Row(horizontalArrangement=Arrangement.spacedBy(12.dp)) {
-   RecordingControl(pauseLabel,if(showIcons) pauseIcon else null,false,onPause,Modifier.weight(1f))
-   RecordingControl("Завершить",if(showIcons) Icons.Outlined.Stop else null,true,onStop,Modifier.weight(1f).testTag("recording-stop"))
+ val labelSize=13.sp*(minOf(fontScale,1.5f)/fontScale.coerceAtLeast(.5f))
+ Row(Modifier.fillMaxWidth(),horizontalArrangement=Arrangement.SpaceEvenly,verticalAlignment=Alignment.Top) {
+  ControlSlot("Удалить","Удалить запись",labelSize,onDelete,Modifier.weight(1f).testTag("recording-delete")) {
+   Box(Modifier.size(56.dp).clip(CircleShape).background(SurfaceRaised),contentAlignment=Alignment.Center) {
+    Icon(Icons.Outlined.Close,null,Modifier.size(26.dp),tint=MaterialTheme.colorScheme.onSurface)
+   }
   }
- }
-}
-
-@Composable private fun RecordingControl(label: String,icon: ImageVector?,primary: Boolean,onClick: ()->Unit,modifier: Modifier) {
- val content: @Composable RowScope.()->Unit = {
-  if(icon!=null) { Icon(icon,null,Modifier.size(20.dp));Spacer(Modifier.width(6.dp)) }
-  Text(label,maxLines=1,softWrap=false)
- }
- val padding=PaddingValues(horizontal=16.dp,vertical=12.dp)
- if(primary) Button(onClick,modifier.heightIn(min=56.dp),shape=ProductShape.control,contentPadding=padding,content=content)
- else FilledTonalButton(onClick,modifier.heightIn(min=56.dp),shape=ProductShape.control,contentPadding=padding,content=content)
-}
-
-/** Edge-rooted amplitude field. Full-height overlay, never a layout gutter or a fake FFT. */
-@Composable fun LiveMicrophoneMeter(level: StateFlow<Float>,phase: RecordingPhase,modifier: Modifier=Modifier) {
- val amplitude by level.collectAsStateWithLifecycle()
- val active=phase==RecordingPhase.RECORDING
- val value=if(active) amplitude.coerceIn(0f,1f) else 0f
- val blue=Blue;val violet=Violet
- // A small history gives speech a travelling silhouette. Silence has no fabricated activity.
- val history=remember { FloatArray(48) }
- val tick=remember { mutableIntStateOf(0) }
- val lifecycle=LocalLifecycleOwner.current.lifecycle
- LaunchedEffect(active,lifecycle) {
-  history.fill(0f);tick.intValue++
-  if(active) lifecycle.repeatOnLifecycle(Lifecycle.State.RESUMED) {
-   while(true) {
-    for(i in history.lastIndex downTo 1) history[i]=history[i-1]
-    history[0]=level.value.coerceIn(0f,1f)
-    tick.intValue++
-    delay(50)
+  ControlSlot(if(paused) "Продолжить" else "Пауза",if(paused) "Продолжить запись" else "Поставить запись на паузу",labelSize,onPause,Modifier.weight(1f).testTag("recording-pause")) {
+   Box(Modifier.size(72.dp).clip(CircleShape).background(Brush.linearGradient(Brand.strong)),contentAlignment=Alignment.Center) {
+    Icon(if(paused) Icons.Outlined.PlayArrow else Icons.Outlined.Pause,null,Modifier.size(36.dp),tint=Color.White)
+   }
+  }
+  ControlSlot("Сохранить","Сохранить запись",labelSize,onSave,Modifier.weight(1f).testTag("recording-stop")) {
+   Box(Modifier.size(56.dp).clip(CircleShape).border(2.dp,Brush.linearGradient(Brand.colors),CircleShape).background(SurfaceBase),contentAlignment=Alignment.Center) {
+    Icon(Icons.Outlined.Check,null,Modifier.size(28.dp),tint=Blue)
    }
   }
  }
- Canvas(modifier.testTag("microphone-vu").semantics {
-  contentDescription="Уровень микрофона"
-  stateDescription=if(!active) "Микрофон не записывает" else if(value<.025f) "Тишина" else "Звуковой сигнал"
-  progressBarRangeInfo=ProgressBarRangeInfo(value,0f..1f)
- }) {
-  tick.intValue
-  if(!active) return@Canvas
-  val count=(size.height/5.dp.toPx()).toInt().coerceIn(24,180)
-  val step=size.height/count
-  val signal=value.pow(.68f)
-  for(i in 0 until count) {
-   val t=(i+.5f)/count
-   val taper=sin(PI.toFloat()*t).pow(.55f)
-   val old=history[(t*history.lastIndex).toInt()]
-   val detail=.28f+.72f*abs(sin(i*1.71f+old*4f)*cos(i*.23f+value*2f))
-   val length=1.dp.toPx()+size.width*taper*(signal*.65f+old.pow(.68f)*.35f)*detail
-   val y=(i+.5f)*step
-   drawLine(Brush.horizontalGradient(listOf(violet.copy(alpha=.14f+signal*.3f),blue.copy(alpha=.35f+signal*.4f)),size.width-length,size.width),Offset(size.width-length,y),Offset(size.width+1f,y),strokeWidth=1.2.dp.toPx(),cap=StrokeCap.Round)
-  }
+}
+
+@Composable private fun ControlSlot(label: String,description: String,labelSize: androidx.compose.ui.unit.TextUnit,onClick: ()->Unit,modifier: Modifier,button: @Composable ()->Unit) {
+ Column(modifier.clip(MaterialTheme.shapes.medium).clickable(role=Role.Button,onClickLabel=description,onClick=onClick)
+  .semantics(mergeDescendants=true) { contentDescription=description }.padding(vertical=6.dp),
+  horizontalAlignment=Alignment.CenterHorizontally,verticalArrangement=Arrangement.spacedBy(8.dp)) {
+  Box(Modifier.height(72.dp),contentAlignment=Alignment.Center) { button() }
+  Text(label,style=MaterialTheme.typography.labelMedium.copy(fontSize=labelSize,lineHeight=labelSize*1.4f),color=Muted,maxLines=1,softWrap=false,overflow=TextOverflow.Visible,
+   modifier=Modifier.testTag("control-label"))
  }
 }
 
-@Composable fun HomeExportPicker(records: List<Recording>,onChoose: (Recording)->Unit,onDismiss: ()->Unit) {
- ModalBottomSheet(onDismissRequest=onDismiss,containerColor=SurfaceBase,sheetState=rememberModalBottomSheetState(skipPartiallyExpanded=true),modifier=Modifier.testTag("home-export-picker")) {
-  DarkSheetSystemBars()
-  Text("Экспорт стенограммы",style=MaterialTheme.typography.headlineMedium,modifier=Modifier.padding(horizontal=20.dp,vertical=12.dp))
-  if(records.isEmpty()) ProductEmptyState("Пока нет готовых стенограмм","Запишите голос или импортируйте аудио и видео, затем создайте стенограмму.")
-  else LazyColumn(Modifier.fillMaxWidth().heightIn(max=460.dp).navigationBarsPadding(),contentPadding=PaddingValues(horizontal=20.dp,vertical=8.dp)) {
-   items(records,key={it.id}) { rec ->
-    ListItem(headlineContent={Text(rec.title,maxLines=2)},supportingContent={Text(audioClock(rec.durationMs))},trailingContent={Icon(Icons.Outlined.ChevronRight,null)},colors=ListItemDefaults.colors(containerColor=SurfaceBase),modifier=Modifier.clickable { onChoose(rec) }.heightIn(min=64.dp).testTag("home-export-"+rec.id))
-    HorizontalDivider(color=SurfaceLine)
-   }
+/** Primary call to action: brand gradient, white text (≥ 4.5:1 on every stop), 56 dp target. */
+@Composable fun GradientButton(text: String,icon: ImageVector?,onClick: ()->Unit,modifier: Modifier=Modifier,enabled: Boolean=true,height: Dp=56.dp) {
+ Box(modifier.heightIn(min=height).clip(ProductShape.control)
+  .background(if(enabled) Brush.horizontalGradient(Brand.strong) else Brush.horizontalGradient(listOf(SurfaceRaised,SurfaceRaised)))
+  .clickable(enabled=enabled,role=Role.Button,onClick=onClick).padding(horizontal=20.dp,vertical=14.dp),contentAlignment=Alignment.Center) {
+  Row(verticalAlignment=Alignment.CenterVertically,horizontalArrangement=Arrangement.spacedBy(10.dp)) {
+   val content=if(enabled) Color.White else Muted
+   if(icon!=null) Icon(icon,null,Modifier.size(22.dp),tint=content)
+   Text(text,style=MaterialTheme.typography.titleMedium,color=content,textAlign=TextAlign.Center)
   }
  }
 }

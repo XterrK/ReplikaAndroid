@@ -33,7 +33,7 @@ import kotlin.math.*
   if(minimal) {
    Box(Modifier.fillMaxWidth().height(56.dp),contentAlignment=Alignment.Center) {
     Text(audioClock(position,duration),style=MaterialTheme.typography.labelSmall,color=Muted,modifier=Modifier.align(Alignment.CenterStart).testTag("playback-clock"))
-    FilledIconButton(onClick=onToggle,modifier=Modifier.size(48.dp),shape=CircleShape) { Icon(if(playing) Icons.Outlined.Pause else Icons.Outlined.PlayArrow,if(playing) "Пауза" else "Воспроизвести") }
+    FilledIconButton(onClick=onToggle,modifier=Modifier.size(48.dp).background(Brush.linearGradient(Brand.strong),CircleShape),shape=CircleShape,colors=IconButtonDefaults.filledIconButtonColors(containerColor=Color.Transparent,contentColor=Color.White)) { Icon(if(playing) Icons.Outlined.Pause else Icons.Outlined.PlayArrow,if(playing) "Пауза" else "Воспроизвести") }
     TextButton(onClick=onSpeed,modifier=Modifier.align(Alignment.CenterEnd).size(48.dp).testTag("playback-speed"),contentPadding=PaddingValues(0.dp)) { Text(speed.toString()+"×") }
    }
   } else {
@@ -61,7 +61,7 @@ import kotlin.math.*
    Box(Modifier.fillMaxWidth().height(if(compact) 72.dp else 76.dp),contentAlignment=Alignment.Center) {
     Row(horizontalArrangement=Arrangement.spacedBy(if(compact) 12.dp else 18.dp),verticalAlignment=Alignment.CenterVertically) {
      FilledTonalIconButton(onClick=onBack,modifier=Modifier.size(48.dp),shape=CircleShape) { Icon(Icons.Outlined.Replay10,"Назад 10 секунд",Modifier.size(26.dp)) }
-     FilledIconButton(onClick=onToggle,modifier=Modifier.size(64.dp).testTag("player-main-play"),shape=CircleShape) { Icon(if(playing) Icons.Outlined.Pause else Icons.Outlined.PlayArrow,if(playing) "Пауза" else "Воспроизвести",Modifier.size(34.dp)) }
+     FilledIconButton(onClick=onToggle,modifier=Modifier.size(64.dp).background(Brush.linearGradient(Brand.strong),CircleShape).testTag("player-main-play"),shape=CircleShape,colors=IconButtonDefaults.filledIconButtonColors(containerColor=Color.Transparent,contentColor=Color.White)) { Icon(if(playing) Icons.Outlined.Pause else Icons.Outlined.PlayArrow,if(playing) "Пауза" else "Воспроизвести",Modifier.size(34.dp)) }
      FilledTonalIconButton(onClick=onForward,modifier=Modifier.size(48.dp),shape=CircleShape) { Icon(Icons.Outlined.Forward10,"Вперёд 10 секунд",Modifier.size(26.dp)) }
     }
     if(compact) TextButton(onClick=onSpeed,modifier=Modifier.align(Alignment.CenterEnd).size(48.dp).testTag("playback-speed"),contentPadding=PaddingValues(0.dp)) { Text(speed.toString()+"×",style=MaterialTheme.typography.labelSmall,maxLines=1,softWrap=false) }
@@ -76,8 +76,8 @@ import kotlin.math.*
 
 @Composable private fun PlayerWaveform(peaks: List<Float>,rows: List<SegmentRow>,duration: Long,position: Long,singleSpeaker: Boolean,modifier: Modifier) {
  val dark=LocalReplikaDark.current
- val cyan=if(dark) Color(0xFF93D6FF) else Color(0xFF6699D7)
- val pink=if(dark) Color(0xFFF0A9D9) else Color(0xFFC677AF)
+ val cyan=if(dark) Brand.blue else Brand.strong[0]
+ val pink=if(dark) Brand.pink else Brand.strong[2]
  val muted=Muted;val foreground=MaterialTheme.colorScheme.onSurface
  val speakerColors=rows.map { speakerColor(it.speakerId) }
  var width by remember { mutableIntStateOf(1) }
@@ -91,7 +91,7 @@ import kotlin.math.*
  val colors=remember(samples.size,rows,speakerColors,duration,muted) { List(samples.size) { i -> val ms=(i.toDouble()/samples.size.coerceAtLeast(1)*duration).toLong();val index=rows.indexOfFirst { ms>=it.startMs && ms<it.endMs };speakerColors.getOrElse(index) { muted } } }
  Canvas(modifier.onSizeChanged { width=it.width }) {
   val step=size.width/samples.size.coerceAtLeast(1);val progress=(position.toFloat()/duration.coerceAtLeast(1)).coerceIn(0f,1f)
-  val gradient=Brush.horizontalGradient(listOf(cyan,pink))
+  val gradient=Brush.horizontalGradient(listOf(cyan,if(dark) Brand.violet else Brand.strong[1],pink))
   samples.forEachIndexed { i,amplitude ->
    val h=(amplitude*(size.height-8.dp.toPx())).coerceAtLeast(3.dp.toPx());val x=(i+.5f)*step
    val alpha=if(i.toFloat()/samples.size<=progress) 1f else .5f

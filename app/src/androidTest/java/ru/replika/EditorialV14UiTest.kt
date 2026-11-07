@@ -79,24 +79,25 @@ class EditorialV14UiTest {
   assertTrue("Action must fit at the user's font size: $label; $detail",fits)
  }
  private fun contentAboveRecordingActions(paused: Boolean) {
-  val firstAction=minOf(compose.onNodeWithText(if(paused) "Продолжить" else "Пауза",substring=false).getUnclippedBoundsInRoot().top,compose.onNodeWithTag("recording-stop").getUnclippedBoundsInRoot().top)
-  assertTrue("Timer must stay above both recording actions",compose.onNodeWithTag("recording-timer").getUnclippedBoundsInRoot().bottom<=firstAction)
-  val hint=if(paused) "Продолжите, когда будете готовы" else "Говорите, мы слушаем"
-  assertTrue("Recording hint must stay above both actions",compose.onNodeWithText(hint,substring=false).getUnclippedBoundsInRoot().bottom<=firstAction)
+  val firstAction=listOf("recording-delete","recording-pause","recording-stop").minOf { compose.onNodeWithTag(it).getUnclippedBoundsInRoot().top }
+  assertTrue("Timer must stay above all three recording actions",compose.onNodeWithTag("recording-timer").getUnclippedBoundsInRoot().bottom<=firstAction)
+  // V1.7 keeps one status line ("Идёт запись" / "На паузе") instead of a status plus a hint.
+  compose.onNodeWithTag("recording-status").assertTextEquals(if(paused) "На паузе" else "Идёт запись")
+  assertTrue("Recording status must stay above all actions",compose.onNodeWithTag("recording-status").getUnclippedBoundsInRoot().bottom<=firstAction)
  }
  @Test fun bothThemesEightScreensAndKeyboard() {
   for(theme in listOf(ThemeMode.LIGHT,ThemeMode.DARK)) {
    compose.activityRule.scenario.onActivity { vm.selected.value=null;vm.selectTheme(theme) }
    compose.waitUntil(5000) { runBlocking { AppearancePreferences(app).mode.first()==theme } }
-   compose.onNodeWithText("Записи",substring=false).performClick()
+   compose.onNodeWithTag("tab-library").performClick()
    capture("${theme.name}-library")
    compose.onNodeWithTag("appearance-settings").performClick()
    compose.onNodeWithTag("theme-"+theme.name).assertIsSelected();capture("${theme.name}-settings")
    compose.onNodeWithContentDescription("Назад").performClick()
-   compose.onNodeWithText("Запись",substring=false).performClick()
+   compose.onNodeWithTag("tab-home").performClick()
    compose.onNodeWithTag("liquid-voice-orb").assertExists();capture("${theme.name}-recording-idle")
-   compose.onNodeWithText("Модели",substring=false).performClick();capture("${theme.name}-models")
-   compose.onNodeWithText("Записи",substring=false).performClick()
+   compose.onNodeWithTag("tab-models").performClick();capture("${theme.name}-models")
+   compose.onNodeWithTag("tab-library").performClick()
    open();capture("${theme.name}-dialogue")
    compose.onNodeWithTag("mode-reading").performClick();capture("${theme.name}-reading")
    compose.onNodeWithTag("mode-dialogue").performClick()
@@ -155,17 +156,17 @@ class EditorialV14UiTest {
   compose.waitUntil(10000) { vm.recordingPhase.value==RecordingPhase.RECORDING }
   compose.waitUntil(10000) { vm.elapsed.value>=1800 }
   assertTrue(vm.voiceLevel.value.isFinite())
-  singleLineAction("Пауза");singleLineAction("Завершить")
+  singleLineAction("Удалить");singleLineAction("Пауза");singleLineAction("Сохранить")
   assertTrue("Recording status must stay below the header at the user's font size",compose.onNodeWithTag("recording-status").getUnclippedBoundsInRoot().top>=compose.onNodeWithTag("recording-exit").getUnclippedBoundsInRoot().bottom)
   contentAboveRecordingActions(false)
   capture("virtual-mic-recording")
-  compose.onNodeWithText("Пауза",substring=false).performClick();singleLineAction("Продолжить");singleLineAction("Завершить");contentAboveRecordingActions(true);capture("virtual-mic-paused")
-  compose.onNodeWithText("Продолжить",substring=false).performClick()
+  compose.onNodeWithTag("recording-pause").performClick();singleLineAction("Продолжить");singleLineAction("Сохранить");contentAboveRecordingActions(true);capture("virtual-mic-paused")
+  compose.onNodeWithTag("recording-pause").performClick()
   InstrumentationRegistry.getInstrumentation().uiAutomation.performGlobalAction(android.accessibilityservice.AccessibilityService.GLOBAL_ACTION_BACK)
   InstrumentationRegistry.getInstrumentation().uiAutomation.performGlobalAction(android.accessibilityservice.AccessibilityService.GLOBAL_ACTION_BACK)
   compose.waitUntil(10000) { vm.recordingPhase.value==RecordingPhase.RECORDING }
-  compose.onNodeWithTag("recording-stop").performClick()
-  compose.onNodeWithTag("recording-save").performClick()
+  compose.onNodeWithTag("recording-stop").performClick() // ✓ saves at once in V1.7.
+  compose.onNodeWithTag("recording-decision").assertDoesNotExist()
   compose.waitUntil(12000) { vm.recordingPhase.value==RecordingPhase.SAVED }
   val rec=runBlocking { app.db.dao().recordingList().single { it.id !in before } }
   assertTrue(File(rec.audioPath).length()>0)

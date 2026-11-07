@@ -15,6 +15,10 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontFamily
@@ -59,8 +63,20 @@ import java.io.File
    }
   }
   item { Column(verticalArrangement=Arrangement.spacedBy(8.dp)) {
-   Text("Движок распознавания",style=MaterialTheme.typography.titleMedium)
-   ListItem(headlineContent={Text(backendName(backend),style=MaterialTheme.typography.titleMedium)},supportingContent={Text("Русская речь · на устройстве")},leadingContent={Icon(Icons.Outlined.OfflineBolt,null,tint=Mint)},trailingContent={Text("Активна",color=Mint,style=MaterialTheme.typography.labelMedium)},colors=ListItemDefaults.colors(containerColor=SurfaceRaised),modifier=Modifier.testTag("asr-current"))
+   Text("Распознавание речи",style=MaterialTheme.typography.titleMedium)
+   Surface(color=SurfaceRaised,shape=MaterialTheme.shapes.medium,modifier=Modifier.fillMaxWidth().testTag("asr-current")) {
+    Column(Modifier.padding(16.dp),verticalArrangement=Arrangement.spacedBy(12.dp)) {
+     Row(horizontalArrangement=Arrangement.spacedBy(12.dp),verticalAlignment=Alignment.Top) {
+      Box(Modifier.size(36.dp).clip(CircleShape).background(Brush.linearGradient(Brand.strong)),contentAlignment=Alignment.Center) { Icon(Icons.Outlined.Translate,null,Modifier.size(20.dp),tint=Color.White) }
+      Column(Modifier.weight(1f),verticalArrangement=Arrangement.spacedBy(4.dp)) {
+       Text("Язык: автоматически",style=MaterialTheme.typography.titleMedium,modifier=Modifier.testTag("asr-auto-language"))
+       Text("Система сама определяет язык записи и выбирает модель.",style=MaterialTheme.typography.bodyMedium,color=Muted)
+      }
+     }
+     AsrModelLine("RU","GigaAM v3","Русская речь")
+     AsrModelLine("EN","Parakeet TDT v2","Английская речь")
+    }
+   }
   } }
   if(BuildConfig.BUNDLED_MODELS) item {
    TextButton(onClick={advancedModels=!advancedModels},modifier=Modifier.fillMaxWidth().heightIn(min=48.dp).testTag("models-advanced-toggle")) {
@@ -120,6 +136,17 @@ import java.io.File
   LazyColumn(Modifier.fillMaxWidth().heightIn(max=440.dp),contentPadding=PaddingValues(bottom=24.dp)) { items(candidates,key={it.id}) { r -> ListItem(headlineContent={Text(r.title)},supportingContent={Text(backendName(r.backend))},trailingContent={if(rec?.id==r.id) Icon(Icons.Outlined.Check,null,tint=Mint)},colors=ListItemDefaults.colors(containerColor=SurfaceRaised),modifier=Modifier.clickable { diagnosticId=r.id;pickDiagnostic=false }) } }
  }
  if(details) TechnicalDetails(vm,rec,technicalError) { details=false }
+}
+@Composable private fun AsrModelLine(code: String,model: String,description: String) {
+ Row(Modifier.fillMaxWidth().heightIn(min=40.dp),horizontalArrangement=Arrangement.spacedBy(12.dp),verticalAlignment=Alignment.CenterVertically) {
+  Box(Modifier.widthIn(min=36.dp).clip(ProductShape.control).background(SurfaceBase).padding(horizontal=8.dp,vertical=4.dp),contentAlignment=Alignment.Center) {
+   Text(code,style=MaterialTheme.typography.labelLarge,fontWeight=FontWeight.SemiBold,color=Blue)
+  }
+  Column(Modifier.weight(1f)) {
+   Text(model,style=MaterialTheme.typography.bodyLarge)
+   Text("$description · на устройстве",style=MaterialTheme.typography.bodySmall,color=Muted)
+  }
+ }
 }
 @Composable private fun MetricCell(label: String,value: String,modifier: Modifier) { Column(modifier) { Text(label,color=Muted,style=MaterialTheme.typography.labelMedium);Spacer(Modifier.height(4.dp));Text(value,style=MaterialTheme.typography.titleLarge,fontWeight=FontWeight.Medium) } }
 @Composable private fun TechnicalDetails(vm: AppViewModel,rec: Recording?,technicalError: String?,onDismiss: ()->Unit) {

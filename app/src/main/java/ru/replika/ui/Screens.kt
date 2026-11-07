@@ -11,6 +11,11 @@ import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.selection.selectable
+import androidx.compose.foundation.selection.selectableGroup
+import androidx.compose.ui.semantics.heading
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.*
@@ -42,12 +47,12 @@ fun clock(ms: Long)="%02d:%02d".format(Locale.ROOT,ms.coerceAtLeast(0)/60000,ms.
  val phase by vm.recordingPhase.collectAsStateWithLifecycle()
  val importing by vm.importProgress.collectAsStateWithLifecycle()
  val sessionLive=phase in setOf(RecordingPhase.STARTING,RecordingPhase.RECORDING,RecordingPhase.PAUSED,RecordingPhase.STOPPING)
- var exportPicker by remember { mutableStateOf(false) };var exportRecord by remember { mutableStateOf<Recording?>(null) }
  val selected by vm.selected.collectAsStateWithLifecycle();val error by vm.error.collectAsStateWithLifecycle();val notice by vm.notice.collectAsStateWithLifecycle()
  var screen by rememberSaveable { mutableStateOf("home") };var settingsOrigin by rememberSaveable { mutableStateOf("home") };val context=LocalContext.current;val snackbar=remember { SnackbarHostState() }
  val import=rememberLauncherForActivityResult(ActivityResultContracts.OpenDocument()) { it?.let(vm::importAudio) }
  val permission=rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { if(it) vm.startRecording() else { vm.requireMicrophonePermission();vm.error.value="Для записи разрешите доступ к микрофону в настройках приложения. Аудиофайл можно импортировать без этого разрешения." } }
  var exitRecording by rememberSaveable { mutableStateOf(false) }
+ var deleteRecording by rememberSaveable { mutableStateOf(false) }
  var resumeAfterDecision by rememberSaveable { mutableStateOf(false) }
  fun leaveRecording() {
   if(vm.recordingPhase.value==RecordingPhase.STOPPING) return
@@ -59,10 +64,17 @@ fun clock(ms: Long)="%02d:%02d".format(Locale.ROOT,ms.coerceAtLeast(0)/60000,ms.
    }
   } else screen="home"
  }
+ /** ✕ asks before deleting; the recorder pauses while the question is open, like Back does. */
+ fun askDeleteRecording() {
+  if(vm.recordingPhase.value==RecordingPhase.STOPPING || deleteRecording || exitRecording) return
+  resumeAfterDecision=vm.recordingPhase.value in setOf(RecordingPhase.RECORDING,RecordingPhase.STARTING)
+  if(vm.recordingPhase.value==RecordingPhase.RECORDING) vm.pauseRecording()
+  deleteRecording=true
+ }
  // The recorder can finish starting after Back was pressed. Pause it before asking the decision.
- LaunchedEffect(exitRecording,phase) { if(exitRecording && phase==RecordingPhase.RECORDING) vm.pauseRecording() }
+ LaunchedEffect(exitRecording,deleteRecording,phase) { if((exitRecording || deleteRecording) && phase==RecordingPhase.RECORDING) vm.pauseRecording() }
  fun dismissRecordingDecision() {
-  exitRecording=false
+  exitRecording=false;deleteRecording=false
   if(resumeAfterDecision && vm.recordingPhase.value==RecordingPhase.PAUSED) vm.pauseRecording()
   resumeAfterDecision=false
  }
@@ -84,10 +96,8 @@ fun clock(ms: Long)="%02d:%02d".format(Locale.ROOT,ms.coerceAtLeast(0)/60000,ms.
  BackHandler(enabled=selected!=null || screen!="home" || sessionLive) {
   if(selected!=null) { vm.selected.value=null;screen="library" } else if(screen=="home" && sessionLive) leaveRecording() else if(screen=="settings") screen=settingsOrigin else screen="home"
  }
- Scaffold(containerColor=Ink,snackbarHost={SnackbarHost(snackbar,Modifier.testTag("app-notice"))},bottomBar={ if(selected==null && !sessionLive) NavigationBar(containerColor=Ink,tonalElevation=0.dp) {
-  NavigationBarItem(selected=screen=="home",onClick={screen="home"},icon={Icon(Icons.Outlined.MicNone,null)},label={Text("Запись")})
-  NavigationBarItem(selected=screen=="library",onClick={screen="library"},icon={Icon(Icons.Outlined.GraphicEq,null)},label={Text("Записи")})
-  NavigationBarItem(selected=screen=="models",onClick={screen="models";vm.refreshModels()},icon={Icon(Icons.Outlined.Memory,null)},label={Text("Модели")})
+ Scaffold(containerColor=Ink,snackbarHost={SnackbarHost(snackbar,Modifier.testTag("app-notice"))},bottomBar={ if(selected==null && !sessionLive) ReplikaTabBar(screen) { tab ->
+  screen=tab;if(tab=="models") vm.refreshModels()
  } }) { padding ->
   Box(Modifier.fillMaxSize().padding(padding)) {
    val rec=recordings.firstOrNull { it.id==selected }
@@ -98,20 +108,24 @@ fun clock(ms: Long)="%02d:%02d".format(Locale.ROOT,ms.coerceAtLeast(0)/60000,ms.
     screen=="settings" -> AppearanceSettings(vm) { screen=settingsOrigin }
     screen=="models" -> ModelsScreen(vm,recordings)
     screen=="library" -> Library(vm,recordings,loaded=loaded,onSettings={settingsOrigin="library";screen="settings"},onImport={if(importing==null) import.launch(arrayOf("audio/*","video/*","application/octet-stream"))},onRecord={ screen="home";startRecording() })
-    else -> RecordingScreen(vm,onBack={leaveRecording()},onStart={startRecording()},onSettings={settingsOrigin="home";screen="settings"},onImport={if(importing==null) import.launch(arrayOf("audio/*","video/*","application/octet-stream"))},onExport={exportPicker=true},importing=importing)
+    else -> RecordingScreen(vm,onBack={leaveRecording()},onStart={startRecording()},onSettings={settingsOrigin="home";screen="settings"},onImport={if(importing==null) import.launch(arrayOf("audio/*","video/*","application/octet-stream"))},importing=importing,
+     onDelete={askDeleteRecording()},onSave={if(vm.recordingPhase.value==RecordingPhase.RECORDING || vm.recordingPhase.value==RecordingPhase.PAUSED) vm.stopRecording(true)})
 
    }
   }
  }
  if(importing!=null) AlertDialog(onDismissRequest={},title={Text("Подготовка файла")},text={Column(verticalArrangement=Arrangement.spacedBy(12.dp)) { LinearProgressIndicator(Modifier.fillMaxWidth());Text(importing!!) }},confirmButton={TextButton(onClick=vm::cancelImport) { Text("Отменить") }})
- if(exportPicker) HomeExportPicker(recordings.filter { it.status=="READY" },onChoose={exportPicker=false;exportRecord=it},onDismiss={exportPicker=false})
- exportRecord?.let { record -> TranscriptExport(vm,record) { exportRecord=null } }
  if(exitRecording) RecordingDecisionSheet(
   ready=phase==RecordingPhase.PAUSED,
   onDismiss=::dismissRecordingDecision,
   onSave={exitRecording=false;resumeAfterDecision=false;vm.stopRecording(true)},
   onDiscard={exitRecording=false;resumeAfterDecision=false;vm.stopRecording(false);screen="home"}
  )
+ if(deleteRecording) AlertDialog(onDismissRequest=::dismissRecordingDecision,containerColor=SurfaceBase,modifier=Modifier.testTag("recording-delete-dialog"),
+  icon={Icon(Icons.Outlined.DeleteOutline,null,tint=MaterialTheme.colorScheme.error)},
+  title={Text("Удалить запись?")},text={Text("Записанное аудио будет удалено. Это нельзя отменить.",style=MaterialTheme.typography.bodyMedium)},
+  confirmButton={TextButton(enabled=phase==RecordingPhase.PAUSED,onClick={deleteRecording=false;resumeAfterDecision=false;vm.stopRecording(false);screen="home"},modifier=Modifier.heightIn(min=48.dp).testTag("recording-delete-confirm")) { Text("Удалить",color=MaterialTheme.colorScheme.error) }},
+  dismissButton={TextButton(onClick=::dismissRecordingDecision,modifier=Modifier.heightIn(min=48.dp).testTag("recording-delete-cancel")) { Text("Отмена") }})
  if(error!=null) AlertDialog(onDismissRequest={vm.error.value=null},title={Text("Не удалось завершить действие")},text={Text(error!!)},confirmButton={TextButton(onClick={vm.error.value=null}) { Text("Понятно") }})
 }
 /** Two explicit outcomes. Dismissing the sheet returns to the previous recording state. */
@@ -122,13 +136,42 @@ fun clock(ms: Long)="%02d:%02d".format(Locale.ROOT,ms.coerceAtLeast(0)/60000,ms.
   Column(Modifier.fillMaxWidth().verticalScroll(rememberScrollState()).padding(horizontal=24.dp).padding(bottom=24.dp).navigationBarsPadding(),verticalArrangement=Arrangement.spacedBy(12.dp)) {
    Text("Сохранить запись?",style=MaterialTheme.typography.headlineMedium)
    Text(if(ready) "Запись на паузе. Выберите, что с ней сделать." else "Включаем микрофон…",style=MaterialTheme.typography.bodyMedium,color=Muted,modifier=Modifier.padding(bottom=8.dp))
-   Button(onClick=onSave,enabled=ready,shape=ProductShape.control,modifier=Modifier.fillMaxWidth().heightIn(min=56.dp).testTag("recording-save")) { Text("Сохранить запись") }
+   GradientButton("Сохранить запись",null,onSave,enabled=ready,modifier=Modifier.fillMaxWidth().testTag("recording-save"))
    FilledTonalButton(onClick=onDiscard,shape=ProductShape.control,colors=ButtonDefaults.filledTonalButtonColors(containerColor=MaterialTheme.colorScheme.errorContainer,contentColor=MaterialTheme.colorScheme.onErrorContainer),modifier=Modifier.fillMaxWidth().heightIn(min=56.dp).testTag("recording-discard")) { Text("Удалить запись") }
   }
  }
 }
 @Composable fun LoadingContent(label: String) { Column(Modifier.fillMaxSize().padding(24.dp).testTag("loading-content"),verticalArrangement=Arrangement.Center,horizontalAlignment=Alignment.CenterHorizontally) { CircularProgressIndicator(Modifier.size(28.dp),strokeWidth=2.dp);Spacer(Modifier.height(16.dp));Text(label,color=Muted) } }
 @Composable fun Eyebrow(text: String) { Text(text,style=MaterialTheme.typography.labelMedium,color=Mint,letterSpacing=1.sp) }
+/** Three tabs. The active tab carries the brand gradient behind its icon and a bold label. */
+@Composable fun ReplikaTabBar(screen: String,onSelect: (String)->Unit) {
+ // Tab labels grow with the user's font up to 1.3×, so «Библиотека» never truncates; the tab still
+ // announces its full name and the icon carries the meaning at any size.
+ val fontScale=LocalDensity.current.fontScale
+ val labelSize=13.sp*(minOf(fontScale,1.3f)/fontScale.coerceAtLeast(.5f))
+ val tabs=listOf(Triple("home","Запись",Icons.Outlined.MicNone),Triple("library","Библиотека",Icons.Outlined.LibraryMusic),Triple("models","Модели",Icons.Outlined.Memory))
+ Surface(color=Ink,modifier=Modifier.fillMaxWidth()) {
+  Column {
+   HorizontalDivider(color=SurfaceLine.copy(alpha=.6f))
+   Row(Modifier.fillMaxWidth().navigationBarsPadding().selectableGroup().padding(horizontal=8.dp,vertical=6.dp),horizontalArrangement=Arrangement.SpaceEvenly) {
+    tabs.forEach { (id,label,icon) ->
+     val active=screen==id || id=="home" && screen !in setOf("library","models")
+     Column(Modifier.weight(1f).clip(ProductShape.control).selectable(selected=active,role=androidx.compose.ui.semantics.Role.Tab,onClick={onSelect(id)}).heightIn(min=56.dp).padding(vertical=4.dp).testTag("tab-$id"),
+      horizontalAlignment=Alignment.CenterHorizontally,verticalArrangement=Arrangement.spacedBy(4.dp)) {
+      Box(Modifier.size(width=56.dp,height=30.dp).clip(RoundedCornerShape(15.dp)).background(if(active) Brush.horizontalGradient(Brand.strong) else Brush.horizontalGradient(listOf(Color.Transparent,Color.Transparent))),contentAlignment=Alignment.Center) {
+       Icon(icon,null,Modifier.size(20.dp),tint=if(active) Color.White else Muted)
+      }
+      Text(label,style=MaterialTheme.typography.labelMedium.copy(fontSize=labelSize,lineHeight=labelSize*1.4f),fontWeight=if(active) FontWeight.SemiBold else FontWeight.Medium,color=if(active) MaterialTheme.colorScheme.onSurface else Muted,maxLines=1,overflow=TextOverflow.Ellipsis)
+     }
+    }
+   }
+  }
+ }
+}
+
+private fun speakersLabel(n: Int)=when { n%100 in 11..14->"$n говорящих";n%10==1->"$n говорящий";else->"$n говорящих" }
+fun languageShort(summary: String?)=when(summary) { "en"->"EN";"mixed"->"RU + EN";else->"RU" }
+
 @Composable fun Library(vm: AppViewModel,records: List<Recording>,loaded: Boolean,onImport: ()->Unit,onRecord: ()->Unit,onSettings: ()->Unit={}) {
  var query by rememberSaveable { mutableStateOf("") };var matching by remember { mutableStateOf(emptyList<String>()) };var matchingQuery by remember { mutableStateOf<String?>(null) }
  var menu by remember { mutableStateOf<String?>(null) };var deleting by remember { mutableStateOf<Recording?>(null) };var renaming by remember { mutableStateOf<Recording?>(null) };var deletingBusy by remember { mutableStateOf(false) }
@@ -139,37 +182,60 @@ fun clock(ms: Long)="%02d:%02d".format(Locale.ROOT,ms.coerceAtLeast(0)/60000,ms.
  }
  val searchPending=query.isNotBlank() && matchingQuery!=query
  val shown=records.filter { query.isBlank() || it.title.contains(query,true) || (matchingQuery==query && it.id in matching) }
- LazyColumn(Modifier.fillMaxSize().testTag("library-list"),contentPadding=PaddingValues(start=20.dp,end=20.dp,top=20.dp,bottom=24.dp),verticalArrangement=Arrangement.spacedBy(12.dp)) {
-  item { Row(Modifier.fillMaxWidth(),horizontalArrangement=Arrangement.SpaceBetween,verticalAlignment=Alignment.CenterVertically) {
-   Column { Text("REPLIKA",style=MaterialTheme.typography.labelMedium,color=Muted,letterSpacing=2.sp);Spacer(Modifier.height(4.dp));Text("Библиотека",style=MaterialTheme.typography.headlineLarge) }
-   IconButton(onClick=onSettings,modifier=Modifier.testTag("appearance-settings")) { Icon(Icons.Outlined.Tune,"Настройки",tint=Muted) }
+ LazyColumn(Modifier.fillMaxSize().testTag("library-list"),contentPadding=PaddingValues(start=20.dp,end=20.dp,top=12.dp,bottom=24.dp),verticalArrangement=Arrangement.spacedBy(12.dp)) {
+  item { Row(Modifier.fillMaxWidth(),verticalAlignment=Alignment.CenterVertically) {
+   Text("Библиотека",style=MaterialTheme.typography.headlineLarge,modifier=Modifier.weight(1f).semantics { heading() })
+   IconButton(onClick=onImport,modifier=Modifier.testTag("library-import")) { Icon(Icons.Outlined.Add,"Импорт аудио или видео",tint=Blue) }
+   IconButton(onClick=onSettings,modifier=Modifier.testTag("appearance-settings")) { Icon(Icons.Outlined.Settings,"Настройки оформления",tint=Muted) }
   } }
-  item { Row(Modifier.fillMaxWidth(),horizontalArrangement=Arrangement.spacedBy(10.dp)) {
-   Button(shape=ProductShape.control,onClick=onRecord,modifier=Modifier.weight(1f).heightIn(min=50.dp)) { Icon(Icons.Outlined.Mic,null,Modifier.size(20.dp));Spacer(Modifier.width(6.dp));Text("Записать") }
-   FilledTonalButton(shape=ProductShape.control,onClick=onImport,modifier=Modifier.weight(1f).heightIn(min=50.dp)) { Icon(Icons.Outlined.Add,null,Modifier.size(20.dp));Spacer(Modifier.width(6.dp));Text("Импорт") }
-  } }
-  item { OutlinedTextField(query,{query=it},Modifier.fillMaxWidth().testTag("library-search"),placeholder={Text("Найти запись")},leadingIcon={Icon(Icons.Outlined.Search,null)},trailingIcon={if(query.isNotEmpty()) IconButton(onClick={query=""}) { Icon(Icons.Outlined.Close,"Очистить поиск") }},singleLine=true,shape=RoundedCornerShape(12.dp)) }
+  item { OutlinedTextField(query,{query=it},Modifier.fillMaxWidth().testTag("library-search"),placeholder={Text("Найти запись или слово")},leadingIcon={Icon(Icons.Outlined.Search,null)},trailingIcon={if(query.isNotEmpty()) IconButton(onClick={query=""}) { Icon(Icons.Outlined.Close,"Очистить поиск") }},singleLine=true,shape=ProductShape.control) }
   item { Text(if(searchPending) "Поиск по стенограммам…" else if(loaded) "${shown.size} ${when { shown.size%100 in 11..14->"записей";shown.size%10==1->"запись";shown.size%10 in 2..4->"записи";else->"записей" }}" else "Загружаем библиотеку…",style=MaterialTheme.typography.labelLarge,color=Muted) }
-  if(loaded && shown.isEmpty() && !searchPending) item { Column(Modifier.padding(vertical=36.dp)) { Icon(Icons.Outlined.AudioFile,null,tint=Muted);Spacer(Modifier.height(12.dp));Text(if(query.isBlank()) "Пока нет записей" else "Ничего не найдено",style=MaterialTheme.typography.titleLarge);Spacer(Modifier.height(8.dp));Text(if(query.isBlank()) "Запишите голос или добавьте аудио и видео. Всё останется на устройстве." else "Попробуйте другое слово или очистите поиск.",color=Muted) } }
+  if(loaded && shown.isEmpty() && !searchPending) item { Column(Modifier.padding(vertical=36.dp),verticalArrangement=Arrangement.spacedBy(10.dp)) {
+   Icon(Icons.Outlined.AudioFile,null,tint=Muted)
+   Text(if(query.isBlank()) "Пока нет записей" else "Ничего не найдено",style=MaterialTheme.typography.titleLarge)
+   Text(if(query.isBlank()) "Запишите голос на вкладке «Запись» или добавьте аудио и видео. Всё останется на устройстве." else "Попробуйте другое слово или очистите поиск.",style=MaterialTheme.typography.bodyMedium,color=Muted)
+   if(query.isBlank()) GradientButton("Импорт аудио или видео",Icons.Outlined.Add,onImport,modifier=Modifier.padding(top=8.dp).fillMaxWidth())
+  } }
   items(shown,key={it.id}) { r ->
-   Row(Modifier.fillMaxWidth().testTag("recording-${r.id}").clickable { vm.selected.value=r.id }.padding(vertical=4.dp),verticalAlignment=Alignment.Top,horizontalArrangement=Arrangement.spacedBy(12.dp)) {
-    Box(Modifier.padding(top=3.dp).size(40.dp).clip(RoundedCornerShape(12.dp)).background(SurfaceBase),contentAlignment=Alignment.Center) { Icon(if(r.status=="READY") Icons.Outlined.GraphicEq else if(r.status=="ERROR") Icons.Outlined.ErrorOutline else Icons.Outlined.AudioFile,null,tint=if(r.status=="ERROR") MaterialTheme.colorScheme.error else Blue,modifier=Modifier.size(22.dp)) }
-    Column(Modifier.weight(1f).padding(vertical=2.dp)) {
-     Text(r.title,style=MaterialTheme.typography.titleMedium,maxLines=1,overflow=TextOverflow.Ellipsis)
-     Spacer(Modifier.height(5.dp));Text("${if(r.durationMs>0) audioClock(r.durationMs)+" · " else ""}${SimpleDateFormat("dd MMM · HH:mm",Locale("ru")).format(Date(r.createdAt))}",color=Muted,style=MaterialTheme.typography.bodySmall)
-     Spacer(Modifier.height(5.dp));Text(if(r.status=="READY") "Готово · ${backendName(r.backend)}" else r.phase,color=if(r.status=="READY") Mint else if(r.status=="ERROR") MaterialTheme.colorScheme.error else Muted,style=MaterialTheme.typography.labelMedium,maxLines=2)
-    }
-    Box { IconButton(onClick={menu=r.id},modifier=Modifier.size(48.dp).testTag("recording-menu-${r.id}")) { Icon(Icons.Outlined.MoreVert,"Действия с записью ${r.title}",tint=Muted) }
-     DropdownMenu(expanded=menu==r.id,onDismissRequest={menu=null}) {
-      DropdownMenuItem(text={Text("Переименовать")},onClick={menu=null;renaming=r})
-      DropdownMenuItem(text={Text(if(r.status in setOf("PROCESSING","QUEUED","CANCELLING")) "Сначала отмените обработку" else "Удалить запись")},enabled=r.status !in setOf("PROCESSING","QUEUED","CANCELLING"),onClick={menu=null;deleting=r})
-     }
-    }
-   };HorizontalDivider(Modifier.padding(top=12.dp),color=SurfaceLine)
+   LibraryCard(vm,r,menuOpen=menu==r.id,onOpen={vm.selected.value=r.id},onMenu={menu=r.id},onDismissMenu={menu=null},onRename={menu=null;renaming=r},onDelete={menu=null;deleting=r})
   }
  }
  if(deleting!=null) AlertDialog(onDismissRequest={if(!deletingBusy) deleting=null},title={Text("Удалить запись?")},text={Text("«${deleting!!.title}»\n\nУдалятся стенограмма и принадлежащая записи локальная копия аудио. Исходник импорта и модели сохранятся.")},confirmButton={TextButton(enabled=!deletingBusy,onClick={deletingBusy=true;vm.deleteRecording(deleting!!.id) { ok -> deletingBusy=false;if(ok) deleting=null }},modifier=Modifier.testTag("confirm-delete-recording")) { Text(if(deletingBusy) "Удаляем…" else "Удалить",color=MaterialTheme.colorScheme.error) }},dismissButton={TextButton(enabled=!deletingBusy,onClick={deleting=null}) { Text("Отмена") }})
  if(renaming!=null) { var value by remember(renaming!!.id) { mutableStateOf(renaming!!.title) };AlertDialog(onDismissRequest={renaming=null},title={Text("Название записи")},text={OutlinedTextField(value,{value=it},label={Text("Название")},modifier=Modifier.testTag("recording-title-editor"))},confirmButton={TextButton(onClick={vm.title(renaming!!.id,value);renaming=null}) { Text("Сохранить") }},dismissButton={TextButton(onClick={renaming=null}) { Text("Отмена") }}) }
+}
+
+/** Title; "02:48 · 2 говорящих · RU"; the first line of text. Status appears only when not ready. */
+@Composable private fun LibraryCard(vm: AppViewModel,r: Recording,menuOpen: Boolean,onOpen: ()->Unit,onMenu: ()->Unit,onDismissMenu: ()->Unit,onRename: ()->Unit,onDelete: ()->Unit) {
+ val ready=r.status=="READY"
+ val segments by remember(r.id,ready) { if(ready) vm.dao.segments(r.id) else kotlinx.coroutines.flow.flowOf(emptyList()) }.collectAsStateWithLifecycle(emptyList())
+ val speakers=remember(segments) { segments.map { it.speakerId }.filter { it>=0 }.distinct().size }
+ val firstLine=remember(segments) { segments.firstOrNull { it.text.isNotBlank() }?.text?.trim() }
+ val language=remember(r.diagnostics) { languageShort(ru.replika.domain.TranscriptLanguage.fromDiagnostics(r.diagnostics)) }
+ val meta=buildList {
+  if(r.durationMs>0) add(audioClock(r.durationMs))
+  if(ready && speakers>0) add(speakersLabel(speakers))
+  if(ready) add(language) else add(SimpleDateFormat("d MMM, HH:mm",Locale("ru")).format(Date(r.createdAt)))
+ }.joinToString(" · ")
+ val error=r.status=="ERROR"
+ Surface(color=SurfaceBase,shape=ProductShape.panel,modifier=Modifier.fillMaxWidth().testTag("recording-${r.id}").clip(ProductShape.panel).clickable(onClick=onOpen)) {
+  Row(Modifier.padding(start=16.dp,top=14.dp,bottom=14.dp,end=4.dp),verticalAlignment=Alignment.Top,horizontalArrangement=Arrangement.spacedBy(14.dp)) {
+   Box(Modifier.padding(top=2.dp).size(40.dp).clip(CircleShape).background(if(error) SolidColor(MaterialTheme.colorScheme.errorContainer) else Brush.linearGradient(Brand.strong)),contentAlignment=Alignment.Center) {
+    Icon(if(ready) Icons.Outlined.GraphicEq else if(error) Icons.Outlined.ErrorOutline else Icons.Outlined.AudioFile,null,tint=if(error) MaterialTheme.colorScheme.error else Color.White,modifier=Modifier.size(20.dp))
+   }
+   Column(Modifier.weight(1f),verticalArrangement=Arrangement.spacedBy(4.dp)) {
+    Text(r.title,style=MaterialTheme.typography.titleMedium,maxLines=2,overflow=TextOverflow.Ellipsis)
+    Text(meta,color=Muted,style=MaterialTheme.typography.bodySmall,modifier=Modifier.testTag("recording-meta-${r.id}"))
+    if(ready && firstLine!=null) Text(firstLine,color=Muted,style=MaterialTheme.typography.bodyMedium,maxLines=2,overflow=TextOverflow.Ellipsis,modifier=Modifier.testTag("recording-preview-${r.id}"))
+    if(!ready) Text(r.phase,color=if(error) MaterialTheme.colorScheme.error else Blue,style=MaterialTheme.typography.labelMedium,maxLines=2)
+   }
+   Box { IconButton(onClick=onMenu,modifier=Modifier.size(48.dp).testTag("recording-menu-${r.id}")) { Icon(Icons.Outlined.MoreVert,"Действия с записью ${r.title}",tint=Muted) }
+    DropdownMenu(expanded=menuOpen,onDismissRequest=onDismissMenu) {
+     DropdownMenuItem(text={Text("Переименовать")},onClick=onRename)
+     DropdownMenuItem(text={Text(if(r.status in setOf("PROCESSING","QUEUED","CANCELLING")) "Сначала отмените обработку" else "Удалить запись")},enabled=r.status !in setOf("PROCESSING","QUEUED","CANCELLING"),onClick=onDelete)
+    }
+   }
+  }
+ }
 }
 @Composable fun Waveform(peaks: List<Float>,position: Float,modifier: Modifier,color: Color=Blue,onSeek: (Float)->Unit) {
  val muted=Muted

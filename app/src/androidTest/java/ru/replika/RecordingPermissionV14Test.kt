@@ -23,9 +23,9 @@ class RecordingPermissionV14Test {
   assertEquals(RecordingPhase.PERMISSION_REQUIRED,vm.recordingPhase.value)
   assertEquals(0f,vm.voiceLevel.value,0f);assertFalse(vm.isRecording.value);assertTrue(vm.levels.value.isEmpty())
   compose.activityRule.scenario.onActivity { vm.requireMicrophonePermission() }
-  compose.onNodeWithText("Нужен доступ к микрофону").assertIsDisplayed()
-  compose.onNodeWithText("Разрешите микрофон, чтобы начать").assertIsDisplayed()
+  // V1.7: one status line under the bubble instead of a status plus a duplicate hint.
+  compose.onNodeWithTag("recording-status").assertIsDisplayed().assertTextEquals("Разрешите микрофон, чтобы начать запись")
   compose.onNodeWithTag("liquid-voice-orb").assertHasClickAction()
-  compose.onNodeWithTag("microphone-vu").assertExists()
+  compose.onNodeWithTag("voice-particles").assertExists()
  }
 }

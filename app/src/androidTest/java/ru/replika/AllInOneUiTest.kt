@@ -46,9 +46,9 @@ class AllInOneUiTest {
 
     @Test
     fun installedBundleHasSingleGigaBackendAndOptionalAdvancedImport() {
-        compose.onNodeWithText("Записи",substring=false).performClick()
+        compose.onNodeWithTag("tab-library").performClick()
         compose.onNodeWithTag("library-search").assertIsDisplayed()
-        compose.onNodeWithText("Модели").performClick()
+        compose.onNodeWithTag("tab-models").performClick()
         compose.waitUntil(120_000) {
             compose.onAllNodesWithText("Модели проверены.", substring = true)
                 .fetchSemanticsNodes().isNotEmpty()
@@ -81,7 +81,7 @@ class AllInOneUiTest {
                 .put("advancedInitiallyCollapsed", true).put("singleGigaBackend", actualBackend)
                 .put("optionalImportAndRestoreAccessible", true).put("importOrRestoreInvoked", false)
                 .put("newInferencePerformed", false).toString(2))
-        compose.onNodeWithText("Записи").performClick()
+        compose.onNodeWithTag("tab-library").performClick()
         compose.onNodeWithTag("library-search").assertIsDisplayed()
     }
 

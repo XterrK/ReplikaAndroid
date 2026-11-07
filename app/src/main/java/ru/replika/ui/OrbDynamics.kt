@@ -59,11 +59,38 @@ class OrbDynamics {
  private var contactSpeed=0f
  var isTouching=false;private set
  private var lastLevel=0f
- val hasInteractionMotion get()=isTouching || abs(stretch)>.003f || abs(stretchSpeed)>.015f || abs(centerX)+abs(centerY)>.004f || abs(centerSpeedX)+abs(centerSpeedY)>.02f || abs(contactSpeed)>.02f
+ /** Jelly membrane: radial displacement of [RING] mass points joined by springs to rest and to neighbours. */
+ val ring=FloatArray(RING)
+ private val ringSpeed=FloatArray(RING)
+ private val ringForce=FloatArray(RING)
+ /** Count of particle/tap impacts since creation; display-only telemetry for tests. */
+ var impacts=0;private set
+ val ringMotion: Boolean get() { for(i in 0 until RING) if(abs(ring[i])>.002f || abs(ringSpeed[i])>.02f) return true;return false }
+ val hasInteractionMotion get()=isTouching || abs(stretch)>.003f || abs(stretchSpeed)>.015f || abs(centerX)+abs(centerY)>.004f || abs(centerSpeedX)+abs(centerSpeedY)>.02f || abs(contactSpeed)>.02f || ringMotion
+
+ /**
+  * A blow on the film at [angle]: an inward velocity impulse with a Gaussian footprint. Area
+  * normalization in [OrbContourGeometry] turns the dent into a sideways bulge, then the
+  * neighbour springs carry it around the contour as a damped wave.
+  */
+ fun impact(angle: Float,strength: Float) {
+  if(!angle.isFinite() || !strength.isFinite()) return
+  val s=strength.coerceIn(0f,1.6f)
+  impacts++
+  for(i in 0 until RING) {
+   val node=i*(2f*PI.toFloat()/RING)
+   val d=atan2(sin(node-angle),cos(node-angle))
+   val w=exp(-(d*d)/(2f*.30f*.30f))
+   ringSpeed[i]=(ringSpeed[i]-s*1.15f*w).coerceIn(-4f,4f)
+  }
+ }
 
  fun press(x: Float=0f,y: Float=0f) {
   isTouching=true
   moveTouch(x,y)
+  val distance=sqrt(touchX*touchX+touchY*touchY)
+  // A finger near the film dents it locally; a central tap squashes the whole bubble from above.
+  if(distance>.12f) impact(atan2(touchY,touchX),.55f+distance*.35f) else { impact(-PI.toFloat()/2,.6f);impact(PI.toFloat()/2,.35f) }
   // An impulse makes even a short tap elastic; holding then dragging continuously stretches it.
   stretchSpeed=(stretchSpeed+1.9f).coerceAtMost(3.5f)
   contactSpeed=(contactSpeed+3.2f).coerceAtMost(5f)
@@ -88,6 +115,7 @@ class OrbDynamics {
   if(reduced) {
    expansion=target;velocity=0f;modes.fill(0f);speeds.fill(0f)
    stretch=0f;stretchSpeed=0f;centerX=0f;centerY=0f;centerSpeedX=0f;centerSpeedY=0f;contactEnergy=0f;contactSpeed=0f
+   ring.fill(0f);ringSpeed.fill(0f)
    lastLevel=amplitude;return
   }
   val onset=(amplitude-lastLevel).coerceAtLeast(0f)
@@ -100,7 +128,7 @@ class OrbDynamics {
    velocity+=(88f*(target-expansion)-11.8f*velocity)*h
    expansion=(expansion+velocity*h).coerceIn(-.025f,.235f)
    for(j in modes.indices) {
-    val goal=(.0015f+amplitude*.010f)/sqrt((j+1).toFloat())*sin(time*(1.65f+j*.43f)+j*1.3f)
+    val goal=(.0015f+amplitude*.016f)/sqrt((j+1).toFloat())*sin(time*(1.65f+j*.43f)+j*1.3f)
     speeds[j]+=((36+j*10)*(goal-modes[j])-5.7f*speeds[j])*h
     modes[j]=(modes[j]+speeds[j]*h).coerceIn(-.026f,.026f)
    }
@@ -117,6 +145,15 @@ class OrbDynamics {
    centerY=(centerY+centerSpeedY*h).coerceIn(-.19f,.19f)
    contactSpeed+=(-55f*contactEnergy-8.5f*contactSpeed)*h
    contactEnergy=(contactEnergy+contactSpeed*h).coerceIn(-.18f,.55f)
+   // Semi-implicit Euler on the membrane; omega*h < 0.4 at 120 Hz keeps every mode stable.
+   for(i in 0 until RING) {
+    val laplacian=ring[(i+RING-1)%RING]+ring[(i+1)%RING]-2f*ring[i]
+    ringForce[i]=RING_STIFFNESS*-ring[i]+RING_TENSION*laplacian-RING_DAMPING*ringSpeed[i]
+   }
+   for(i in 0 until RING) {
+    ringSpeed[i]=(ringSpeed[i]+ringForce[i]*h).coerceIn(-4f,4f)
+    ring[i]=(ring[i]+ringSpeed[i]*h).coerceIn(-RING_LIMIT,RING_LIMIT)
+   }
   }
  }
 
@@ -130,7 +167,24 @@ class OrbDynamics {
   var wave=0f
   for(j in modes.indices) wave+=modes[j]*sin(angle*(j+2)+time*.24f+j*1.7f)
   val ripple=contactEnergy*.085f*cos(relative*3f-time*1.1f)
-  return ellipse*(1f+(wave*1.4f+ripple).coerceIn(-.20f,.20f)+.003f*sin(angle*3f+time*.48f))
+  return ellipse*(1f+((wave*1.4f+ripple).coerceIn(-.20f,.20f)+ringAt(angle)).coerceIn(-.30f,.34f)+.003f*sin(angle*3f+time*.48f))
+ }
+
+ /** Catmull-Rom interpolation keeps a smooth film between the [RING] mass points. */
+ fun ringAt(angle: Float): Float {
+  val turn=2f*PI.toFloat()
+  val u=((angle%turn+turn)%turn)/turn*RING
+  val i=floor(u).toInt();val t=u-i
+  val p0=ring[(i+RING-1)%RING];val p1=ring[i%RING];val p2=ring[(i+1)%RING];val p3=ring[(i+2)%RING]
+  return .5f*(2f*p1+(-p0+p2)*t+(2f*p0-5f*p1+4f*p2-p3)*t*t+(-p0+3f*p1-3f*p2+p3)*t*t*t)
+ }
+
+ companion object {
+  const val RING=32
+  const val RING_STIFFNESS=58f
+  const val RING_TENSION=820f
+  const val RING_DAMPING=3.4f
+  const val RING_LIMIT=.26f
  }
 }
 
@@ -139,6 +193,10 @@ class OrbContourGeometry(val count: Int=96) {
  init { require(count>=24) }
  val x=FloatArray(count)
  val y=FloatArray(count)
+ /** r0, then cos/sin pairs for harmonics 1..8 of the normalized contour; the AGSL film reads these. */
+ val harmonics=FloatArray(1+2*HARMONICS)
+ private val cosTable=FloatArray(count*HARMONICS) { val k=it%HARMONICS+1;val i=it/HARMONICS;cos(k*i*2*PI/count).toFloat() }
+ private val sinTable=FloatArray(count*HARMONICS) { val k=it%HARMONICS+1;val i=it/HARMONICS;sin(k*i*2*PI/count).toFloat() }
  var areaScale=1f;private set
  var maximumRadius=1f;private set
  fun update(dynamics: OrbDynamics) {
@@ -149,9 +207,23 @@ class OrbContourGeometry(val count: Int=96) {
   }
   areaScale=1f/sqrt((squares/count).coerceAtLeast(.1f))
   maximumRadius=0f
+  harmonics.fill(0f)
   for(i in 0 until count) {
    x[i]*=areaScale;y[i]*=areaScale
-   maximumRadius=max(maximumRadius,sqrt(x[i]*x[i]+y[i]*y[i]))
+   val r=sqrt(x[i]*x[i]+y[i]*y[i])
+   maximumRadius=max(maximumRadius,r)
+   harmonics[0]+=r/count
+   for(k in 0 until HARMONICS) {
+    harmonics[1+2*k]+=2f*r*cosTable[i*HARMONICS+k]/count
+    harmonics[2+2*k]+=2f*r*sinTable[i*HARMONICS+k]/count
+   }
   }
  }
+ /** Fourier reconstruction used to verify the shader boundary on the JVM. */
+ fun harmonicRadius(angle: Float): Float {
+  var r=harmonics[0]
+  for(k in 0 until HARMONICS) r+=harmonics[1+2*k]*cos((k+1)*angle)+harmonics[2+2*k]*sin((k+1)*angle)
+  return r
+ }
+ companion object { const val HARMONICS=8 }
 }

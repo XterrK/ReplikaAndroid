@@ -24,9 +24,11 @@ import androidx.compose.ui.unit.dp
  }
 }
 
+/** A coloured dot in a soft halo: the speaker's colour without repeating the number next to the name. */
 @Composable fun SpeakerAvatar(id: Int,modifier: Modifier=Modifier) {
- Box(modifier.size(26.dp).clip(CircleShape).background(speakerColor(id).copy(alpha=.14f)),contentAlignment=Alignment.Center) {
-  Text(if(id<0) "?" else (id+1).toString(),color=speakerColor(id),style=MaterialTheme.typography.labelSmall,fontWeight=FontWeight.SemiBold)
+ Box(modifier.size(26.dp).clip(CircleShape).background(speakerColor(id).copy(alpha=.16f)),contentAlignment=Alignment.Center) {
+  if(id<0) Text("?",color=speakerColor(id),style=MaterialTheme.typography.labelSmall,fontWeight=FontWeight.SemiBold)
+  else Box(Modifier.size(10.dp).clip(CircleShape).background(speakerColor(id)))
  }
 }
 
