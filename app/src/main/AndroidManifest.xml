@@ -6,6 +6,8 @@
  <!-- Android 15+: recognition runs as mediaProcessing (own 6 h/24 h budget); older versions keep dataSync. -->
  <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PROCESSING"/>
  <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+ <!-- Android 11+ package visibility: lets the export sheet detect that no app can receive a shared file and fall back to "save to file". -->
+ <queries><intent><action android:name="android.intent.action.SEND"/><data android:mimeType="*/*"/></intent></queries>
  <application android:name=".ReplikaApp" android:largeHeap="true" android:theme="@style/AppTheme" android:label="REPLIKA" android:allowBackup="false" android:supportsRtl="true" android:usesCleartextTraffic="false" android:icon="@mipmap/ic_launcher" android:roundIcon="@mipmap/ic_launcher_round">
   <activity android:name=".MainActivity" android:exported="true" android:windowSoftInputMode="adjustResize"><intent-filter><action android:name="android.intent.action.MAIN"/><category android:name="android.intent.category.LAUNCHER"/></intent-filter></activity>
   <provider android:name="androidx.core.content.FileProvider" android:authorities="${applicationId}.files" android:exported="false" android:grantUriPermissions="true"><meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/paths"/></provider>

@@ -50,7 +50,7 @@ android {
  ndkVersion = "27.2.12479018"
  defaultConfig {
   applicationId = "ru.replika.offline"; minSdk = 26; targetSdk = 35
-  versionCode = 8; versionName = "1.6"
+  versionCode = 9; versionName = "1.7"
   buildConfigField("boolean", "BUNDLED_MODELS", "false")
   buildConfigField("String", "DEFAULT_ASR_PLAN", "\"$defaultAsrPlan\"")
   buildConfigField("String", "DEFAULT_DIAR_PLAN", "\"$defaultDiarPlan\"")

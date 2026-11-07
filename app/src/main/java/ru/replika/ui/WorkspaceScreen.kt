@@ -3,6 +3,8 @@ package ru.replika.ui
 
 import android.content.Intent
 import android.net.Uri
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.*
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
@@ -384,16 +386,73 @@ private fun AppViewModel.processWith(id: String,options: ProcessingOptions) {
   onConfirm={ options=it;editing=false;vm.processWith(rec.id,it) },onDismiss={editing=false})
 }
 
+/** File name for "save to file": the recording title without its extension, safe for any provider. */
+internal fun exportFileName(title: String,extension: String): String {
+ val base=title.substringBeforeLast('.',title).replace(Regex("[^\\p{L}\\p{N}._ -]+"),"_").trim(' ','.','_').take(80)
+ return (base.ifBlank { "replika" })+"."+extension
+}
+
 @Composable fun TranscriptExport(vm: AppViewModel,rec: Recording,onDismiss: ()->Unit) {
  val context=LocalContext.current
  val app=context.applicationContext as ReplikaApp
  val scope=rememberCoroutineScope()
  var saving by remember(rec.id) { mutableStateOf(false) }
+ var pending by remember(rec.id) { mutableStateOf<String?>(null) } // content waiting for the save-file picker
+
+ suspend fun build(format: String): String {
+  val snapshot=withContext(Dispatchers.IO) {
+   app.db.withTransaction {
+    val saved=vm.dao.recording(rec.id)?:error("Запись недоступна")
+    Triple(saved,vm.dao.segmentList(rec.id).map { it.domain() },vm.dao.speakers(rec.id).first())
+   }
+  }
+  val saved=snapshot.first;val segments=snapshot.second;val names=snapshot.third
+  fun label(id: Int)=names.firstOrNull { it.speakerId==id }?.name?:if(id<0) "Неизвестный" else "Участник "+(id+1)
+  return withContext(Dispatchers.Default) { when(format) {
+   "txt" -> Exporter.txt(saved.title,segments,::label)
+   "srt" -> Exporter.srt(segments,::label)
+   "json" -> ru.replika.domain.JuryJson.encode(segments)
+   else -> org.json.JSONObject(Exporter.json(saved.title,segments,::label)).put("recordingId",saved.id).put("diagnostics",if(saved.diagnostics.isNotBlank()) org.json.JSONObject(saved.diagnostics) else org.json.JSONObject()).toString(2)
+  } }
+ }
+ // Storage Access Framework "save as": works on every Android, including a bare emulator image where
+ // no installed app accepts ACTION_SEND for JSON ("No apps can perform this action").
+ fun writeTo(uri: Uri?) {
+  val content=pending;pending=null
+  if(uri==null || content==null) { saving=false;return }
+  scope.launch {
+   try {
+    withContext(Dispatchers.IO) { context.contentResolver.openOutputStream(uri,"wt")!!.use { it.write(content.toByteArray(Charsets.UTF_8)) } }
+    android.widget.Toast.makeText(context,"Файл сохранён",android.widget.Toast.LENGTH_SHORT).show()
+    onDismiss()
+   } catch(e: CancellationException) { throw e }
+   catch(e: Exception) { vm.reportError("Экспорт",e) }
+   finally { saving=false }
+  }
+ }
+ val saveJson=rememberLauncherForActivityResult(ActivityResultContracts.CreateDocument("application/json")) { writeTo(it) }
+ val saveText=rememberLauncherForActivityResult(ActivityResultContracts.CreateDocument("text/plain")) { writeTo(it) }
+ fun extensionOf(format: String)=if(format=="diagnostic-json") "diagnostic.json" else format
+ fun saveToFile(format: String) {
+  saving=true
+  scope.launch {
+   try {
+    pending=build(format)
+    val name=exportFileName(rec.title,extensionOf(format))
+    if(format.endsWith("json")) saveJson.launch(name) else saveText.launch(name)
+   } catch(e: CancellationException) { throw e }
+   catch(e: Exception) { saving=false;vm.reportError("Экспорт",e) }
+  }
+ }
+
  ModalBottomSheet(onDismissRequest=onDismiss,containerColor=SurfaceBase,sheetState=rememberModalBottomSheetState(skipPartiallyExpanded=true),modifier=Modifier.testTag("transcript-export")) {
   DarkSheetSystemBars()
   Column(Modifier.fillMaxWidth().navigationBarsPadding().verticalScroll(rememberScrollState()).padding(20.dp),verticalArrangement=Arrangement.spacedBy(12.dp)) {
    Text("Экспорт стенограммы",style=MaterialTheme.typography.titleLarge)
    Text("С сохранёнными исправлениями и метками времени. JSON использует номера участников.",style=MaterialTheme.typography.bodyMedium,color=Muted)
+   GradientButton("Сохранить JSON для жюри в файл",Icons.Outlined.ArrowOutward,onClick={ saveToFile("json") },enabled=!saving,
+    modifier=Modifier.fillMaxWidth().testTag("export-save-json"))
+   Text("Поделиться",style=MaterialTheme.typography.titleMedium)
    listOf("txt" to "Текст для чтения","srt" to "Субтитры с временными метками","json" to "Стенограмма в формате жюри","diagnostic-json" to "Имена, исправления и подробности обработки").forEach { (format,description) ->
     TextButton(
      enabled=!saving,modifier=Modifier.fillMaxWidth().heightIn(min=56.dp).testTag("export-"+format),
@@ -401,28 +460,22 @@ private fun AppViewModel.processWith(id: String,options: ProcessingOptions) {
       saving=true
       scope.launch {
        try {
-        val snapshot=withContext(Dispatchers.IO) {
-         app.db.withTransaction {
-          val saved=vm.dao.recording(rec.id)?:error("Запись недоступна")
-          Triple(saved,vm.dao.segmentList(rec.id).map { it.domain() },vm.dao.speakers(rec.id).first())
-         }
-        }
-        val saved=snapshot.first;val segments=snapshot.second;val names=snapshot.third
-        fun label(id: Int)=names.firstOrNull { it.speakerId==id }?.name?:if(id<0) "Неизвестный" else "Участник "+(id+1)
-        val content=withContext(Dispatchers.Default) { when(format) {
-         "txt" -> Exporter.txt(saved.title,segments,::label)
-         "srt" -> Exporter.srt(segments,::label)
-         "json" -> ru.replika.domain.JuryJson.encode(segments)
-         else -> org.json.JSONObject(Exporter.json(saved.title,segments,::label)).put("recordingId",saved.id).put("diagnostics",if(saved.diagnostics.isNotBlank()) org.json.JSONObject(saved.diagnostics) else org.json.JSONObject()).toString(2)
-        } }
-        val extension=if(format=="diagnostic-json") "diagnostic.json" else format
+        val content=build(format)
+        val extension=extensionOf(format)
         val file=withContext(Dispatchers.IO) { File(context.cacheDir,"exports").apply { mkdirs() }.let { File(it,"replika-"+rec.id+"."+extension).apply { writeText(content,Charsets.UTF_8) } } }
         val uri=FileProvider.getUriForFile(context,context.packageName+".files",file)
-        context.startActivity(Intent.createChooser(Intent(Intent.ACTION_SEND).setType(if(extension.endsWith("json")) "application/json" else "text/plain").putExtra(Intent.EXTRA_STREAM,uri).addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION),"Передать стенограмму"))
-        onDismiss()
+        val send=Intent(Intent.ACTION_SEND).setType(if(extension.endsWith("json")) "application/json" else "text/plain").putExtra(Intent.EXTRA_STREAM,uri).addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+        if(context.packageManager.queryIntentActivities(send,0).isEmpty()) {
+         // Nothing can receive the file: fall back to saving it, never a dead-end chooser.
+         pending=content
+         if(extension.endsWith("json")) saveJson.launch(exportFileName(rec.title,extension)) else saveText.launch(exportFileName(rec.title,extension))
+        } else {
+         context.startActivity(Intent.createChooser(send,"Передать стенограмму"))
+         saving=false
+         onDismiss()
+        }
        } catch(e: CancellationException) { throw e }
-       catch(e: Exception) { vm.reportError("Экспорт",e) }
-       finally { saving=false }
+       catch(e: Exception) { saving=false;vm.reportError("Экспорт",e) }
       }
      }
     ) {
