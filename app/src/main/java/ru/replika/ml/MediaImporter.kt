@@ -17,6 +17,7 @@ import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.withContext
 import ru.replika.data.ProductOperationException
+import ru.replika.domain.StorageBudget
 import java.io.File
 import java.io.FileNotFoundException
 import java.io.RandomAccessFile
@@ -28,17 +29,27 @@ import kotlin.math.roundToLong
 /** Imports local audio, or extracts only audio packets/PCM from a video. Never decodes video frames.
  * Source documents are read-only. The original video is never copied or modified.
  * Multiple tracks: select the first default-marked audio track, otherwise the first audio track.
+ * Before writing anything the importer checks that the copy and the later 16 kHz Float32 PCM of
+ * processing fit on the device ([StorageBudget]). A large plain audio file is not copied at all
+ * when Android grants durable read access: the recording then references the original URI.
  */
-class MediaImporter(private val context: Context,private val availableSpace: (File)->Long = { it.usableSpace }) {
- enum class Mode { AUDIO_COPY, AAC_REMUX, PCM_AUDIO_DECODE }
- data class Result(val file: File,val title: String,val durationMs: Long,val fromVideo: Boolean,
-                   val audioTrackCount: Int,val selectedTrack: Int,val mode: Mode)
+class MediaImporter(private val context: Context,private val availableSpace: (File)->Long = { it.usableSpace },
+                    private val grants: SourceGrants = SourceGrants(context)) {
+ enum class Mode { AUDIO_COPY, AAC_REMUX, PCM_AUDIO_DECODE, SOURCE_REFERENCE }
+ /** [audioPath] is stored in Room: an app-owned file path, or the original content URI for SOURCE_REFERENCE. */
+ data class Result(val audioPath: String,val title: String,val durationMs: Long,val fromVideo: Boolean,
+                   val audioTrackCount: Int,val selectedTrack: Int,val mode: Mode,
+                   val sourceBytes: Long=-1,val newGrant: Boolean=false) {
+  /** The app-owned output file. Not available for SOURCE_REFERENCE, which owns no file. */
+  val file: File get() { check(mode!=Mode.SOURCE_REFERENCE) { "Referenced source has no app-owned file" };return File(audioPath) }
+ }
  private data class Track(val index: Int,val format: MediaFormat)
  private data class Inspection(val audio: List<Track>,val chosen: Track,val video: Boolean)
  private val reserveBytes=8L*1024*1024
 
  suspend fun importMedia(uri: Uri,directory: File,id: String,progress: (String)->Unit): Result {
   val owned=mutableListOf<File>()
+  var takenGrant: Uri?=null
   try {
    return withContext(Dispatchers.IO) {
     require(id.matches(Regex("[A-Za-z0-9-]+"))) { "Unsafe import ID" }
@@ -57,20 +68,38 @@ class MediaImporter(private val context: Context,private val availableSpace: (Fi
      val inspection=extractor(uri).useExtractor { inspect(it) }
      val chosen=inspection.chosen
      val duration=if(chosen.format.containsKey(MediaFormat.KEY_DURATION)) chosen.format.getLong(MediaFormat.KEY_DURATION)/1000 else 0L
+     val sourceBytes=metadata?.second?:-1L
      val result=if(!inspection.video && inspection.audio.size==1) {
-      val file=output("audio")
-      ensureSpace(directory,(metadata?.second?:0L).coerceAtLeast(0))
-      progress("Копирование аудио…")
-      context.contentResolver.openInputStream(uri)?.use { source -> file.outputStream().buffered().use { target ->
-       val buffer=ByteArray(128*1024);var sinceCheck=0L
-       while(true) {
-        currentCoroutineContext().ensureActive();val n=source.read(buffer);if(n<0) break
-        target.write(buffer,0,n);sinceCheck+=n
-        if(sinceCheck>=1024*1024) { ensureSpace(directory);sinceCheck=0 }
-       }
-      } }?:throw ProductOperationException("Не удалось прочитать файл. Выберите его заново.","Source document could not be opened")
-      if(file.length()==0L) throw ProductOperationException("Выбранный файл пуст.","Empty source audio")
-      Result(file,title,duration,false,1,chosen.index,Mode.AUDIO_COPY)
+      var decision=StorageBudget.choose(sourceBytes,duration,availableSpace(directory),uri.scheme=="content")
+      if(decision.strategy==StorageBudget.Strategy.REFERENCE && decision.fits) {
+       val alreadyHeld=grants.held(uri)
+       if(alreadyHeld || grants.hold(uri)) { if(!alreadyHeld) takenGrant=uri }
+       else decision=StorageBudget.choose(sourceBytes,duration,availableSpace(directory),false)
+      }
+      requireBudget(decision.verdict)
+      if(decision.strategy==StorageBudget.Strategy.REFERENCE) {
+       progress("Большой файл · обработка без копии")
+       currentCoroutineContext().ensureActive()
+       Result(uri.toString(),title,duration,false,1,chosen.index,Mode.SOURCE_REFERENCE,sourceBytes,takenGrant!=null)
+      } else {
+       val file=output("audio")
+       ensureSpace(directory,sourceBytes.coerceAtLeast(0))
+       progress("Копирование аудио…")
+       context.contentResolver.openInputStream(uri)?.use { source -> file.outputStream().buffered().use { target ->
+        val buffer=ByteArray(128*1024);var sinceCheck=0L;var copied=0L;var nextProgress=0L
+        while(true) {
+         currentCoroutineContext().ensureActive();val n=source.read(buffer);if(n<0) break
+         target.write(buffer,0,n);sinceCheck+=n;copied+=n
+         if(sinceCheck>=1024*1024) { ensureSpace(directory);sinceCheck=0 }
+         if(copied>=nextProgress) {
+          progress(if(sourceBytes>0) "Копирование аудио · ${copied/1_000_000} из ${sourceBytes/1_000_000} МБ" else "Копирование аудио · ${copied/1_000_000} МБ")
+          nextProgress=copied+16L*1024*1024
+         }
+        }
+       } }?:throw ProductOperationException("Не удалось прочитать файл. Выберите его заново.","Source document could not be opened")
+       if(file.length()==0L) throw ProductOperationException("Выбранный файл пуст.","Empty source audio")
+       Result(file.path,title,duration,false,1,chosen.index,Mode.AUDIO_COPY,sourceBytes)
+      }
      } else {
       val firstSampleTime=extractor(uri).useExtractor {
        it.selectTrack(chosen.index);it.sampleTime
@@ -81,6 +110,13 @@ class MediaImporter(private val context: Context,private val availableSpace: (Fi
       // MPEG-4 muxers can rebase delayed tracks. PCM explicitly retains leading silence.
       val canRemux=chosen.format.getString(MediaFormat.KEY_MIME)=="audio/mp4a-latm" &&
        firstSampleTime==0L && timing.leadingEmptyUs==0L
+      // Remux keeps compressed packets (about bitrate x duration); PCM fallback is mono 16-bit at
+      // the source rate. Either way processing later adds its own 16 kHz Float32 PCM.
+      val rate=if(chosen.format.containsKey(MediaFormat.KEY_SAMPLE_RATE)) chosen.format.getInteger(MediaFormat.KEY_SAMPLE_RATE).toLong() else 48000L
+      val bitrate=if(chosen.format.containsKey(MediaFormat.KEY_BIT_RATE)) chosen.format.getInteger(MediaFormat.KEY_BIT_RATE).toLong() else 320_000L
+      val remuxEstimate=if(duration>0) bitrate/8*duration/1000 else 0L
+      val pcmEstimate=if(duration>0) rate*2*duration/1000 else 0L
+      requireBudget(StorageBudget.check(if(canRemux) remuxEstimate else pcmEstimate,duration,availableSpace(directory)))
       var remuxed: File?=null
       if(canRemux) {
        val file=output("m4a")
@@ -89,19 +125,21 @@ class MediaImporter(private val context: Context,private val availableSpace: (Fi
        catch(e: ProductOperationException) { throw e }
        catch(_: Exception) { file.delete() /* Device/container muxer mismatch: use system audio decoder. */ }
       }
-      if(remuxed!=null) Result(remuxed,title,duration,inspection.video,inspection.audio.size,chosen.index,Mode.AAC_REMUX)
+      if(remuxed!=null) Result(remuxed.path,title,duration,inspection.video,inspection.audio.size,chosen.index,Mode.AAC_REMUX,sourceBytes)
       else {
+       if(canRemux) requireBudget(StorageBudget.check(pcmEstimate,duration,availableSpace(directory)))
        val file=output("wav")
        progress("Подготовка звуковой дорожки…")
        currentCoroutineContext().ensureActive()
        val decodedDuration=decodeAudio(uri,chosen,file,progress,timing.additionalOffsetUs)
-       Result(file,title,decodedDuration,inspection.video,inspection.audio.size,chosen.index,Mode.PCM_AUDIO_DECODE)
+       Result(file.path,title,decodedDuration,inspection.video,inspection.audio.size,chosen.index,Mode.PCM_AUDIO_DECODE,sourceBytes)
       }
      }
      currentCoroutineContext().ensureActive()
      result
     } catch(e: Throwable) {
      owned.forEach { it.delete() }
+     takenGrant?.let(grants::release);takenGrant=null
      when(e) {
       is CancellationException -> throw e
       is ProductOperationException -> throw e
@@ -114,7 +152,7 @@ class MediaImporter(private val context: Context,private val availableSpace: (Fi
   } catch(error: Throwable) {
    // withContext may deliver cancellation after its IO block completed but before its result
    // reaches the caller. Retain ownership until that delivery succeeds, and clean this race too.
-   withContext(NonCancellable+Dispatchers.IO) { owned.forEach { it.delete() } }
+   withContext(NonCancellable+Dispatchers.IO) { owned.forEach { it.delete() };takenGrant?.let(grants::release) }
    throw error
   }
  }
@@ -168,6 +206,10 @@ class MediaImporter(private val context: Context,private val availableSpace: (Fi
   if(extractor.sampleTrackIndex<0) throw ProductOperationException("Звуковая дорожка пуста. Выберите файл со звуком.","Selected audio track has no packets")
   if(extractor.sampleFlags and MediaExtractor.SAMPLE_FLAG_ENCRYPTED!=0) throw ProductOperationException("Защищённую звуковую дорожку нельзя импортировать. Выберите незашифрованный файл.","Encrypted audio track")
   return Inspection(audio,chosen,tracks.any { it.format.getString(MediaFormat.KEY_MIME)?.startsWith("video/")==true })
+ }
+ private fun requireBudget(verdict: StorageBudget.Verdict) {
+  if(!verdict.fits) throw ProductOperationException(StorageBudget.importShortage(verdict),
+   "Insufficient storage for import: need ${verdict.estimate.totalBytes} B, free ${verdict.freeBytes} B")
  }
  private fun ensureSpace(directory: File,additional: Long=0) {
   val free=availableSpace(directory)

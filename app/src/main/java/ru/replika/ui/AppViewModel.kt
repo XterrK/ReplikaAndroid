@@ -129,17 +129,30 @@ class AppViewModel(application: Application): AndroidViewModel(application) {
   importProgress.value="Открытие файла…"
   importJob=viewModelScope.launch {
    val id=UUID.randomUUID().toString();val folder=File(app.filesDir,"audio")
+   var referenced: MediaImporter.Result?=null
    try {
     val imported=app.importJournal.runImport(id,dao::audioPathsReferenced) {
      val result=MediaImporter(app).importMedia(uri,folder,id) { importProgress.value=it }
+     if(result.newGrant) referenced=result
      ensureActive()
-     dao.insert(Recording(id,result.title,result.file.path,durationMs=result.durationMs,backend=backend.value))
+     dao.insert(Recording(id,result.title,result.audioPath,durationMs=result.durationMs,backend=backend.value))
      result
     }
+    referenced=null
     selected.value=id
-    if(imported.audioTrackCount>1) notice.value="В файле ${imported.audioTrackCount} звуковые дорожки. Импортирована основная дорожка; если основная не указана — первая."
+    if(imported.mode==MediaImporter.Mode.SOURCE_REFERENCE) {
+     val size=ru.replika.domain.StorageBudget.formatBytes(imported.sourceBytes)
+     val reason=if(imported.sourceBytes>ru.replika.domain.StorageBudget.COPY_LIMIT_BYTES) "Файл большой ($size), поэтому REPLIKA не копирует его"
+      else "Для копии файла ($size) не хватает места, поэтому REPLIKA не копирует его"
+     notice.value="$reason, а читает из исходного места. Не удаляйте и не перемещайте оригинал, пока работаете с этой записью."
+    }
+    else if(imported.audioTrackCount>1) notice.value="В файле ${imported.audioTrackCount} звуковые дорожки. Импортирована основная дорожка; если основная не указана — первая."
     else if(imported.fromVideo) notice.value="Звук из видео готов к расшифровке. Исходное видео сохранено."
    } catch(e: Throwable) {
+    // A durable grant taken for a reference import that never reached Room is returned to Android.
+    referenced?.let { result -> withContext(NonCancellable+Dispatchers.IO) {
+     if(runCatching { !dao.audioPathsReferenced(listOf(result.audioPath)) }.getOrDefault(false)) SourceGrants(app).release(Uri.parse(result.audioPath))
+    } }
     if(e is CancellationException) { notice.value="Импорт отменён";throw e }
     if(e is Exception) reportError("Импорт аудио и видео",e) else throw e
    } finally { importProgress.value=null }
@@ -164,6 +177,11 @@ class AppViewModel(application: Application): AndroidViewModel(application) {
    finally { processingRequests.remove(id) }
   }
  }
+ /** Stage, processed share and remaining time published by the running ProcessingWorker. */
+ fun processingProgress(id: String): Flow<ru.replika.domain.ProcessingSnapshot?> =
+  WorkManager.getInstance(app).getWorkInfosForUniqueWorkFlow("replika-$id").map { infos ->
+   infos.firstOrNull { it.state==androidx.work.WorkInfo.State.RUNNING }?.progress?.let { ru.replika.domain.ProcessingSnapshot.fromValues(it.keyValueMap) }
+  }.catch { emit(null) }
  fun cancel(id: String) {
   if(!cancellingRequests.add(id)) return
   viewModelScope.launch {
@@ -236,7 +254,10 @@ class AppViewModel(application: Application): AndroidViewModel(application) {
     val result=app.models.gate.withLock {
      val work=withContext(Dispatchers.IO) { WorkManager.getInstance(app).getWorkInfosForUniqueWork("replika-$id").get(10,TimeUnit.SECONDS) }
      if(work.any { !it.state.isFinished }) throw ProductOperationException("Фоновая обработка ещё не завершена. Отмените её или повторите удаление позже.","Delete with active WorkRequest for $id")
-     storage.deleteRecording(id)
+     storage.deleteRecording(id).also {
+      // Large originals are referenced, never owned: keep the file, drop the read grant if unused.
+      if(AudioDecoder.isContentUri(rec.audioPath) && !dao.audioPathsReferenced(listOf(rec.audioPath))) SourceGrants(app).release(Uri.parse(rec.audioPath))
+     }
     }
     clearUndo();if(selected.value==id) selected.value=null
     notice.value=when {

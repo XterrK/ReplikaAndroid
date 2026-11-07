@@ -23,18 +23,20 @@ class ProcessingWorker(context: Context,params: WorkerParameters): CoroutineWork
  private val app=context.applicationContext as ReplikaApp
  private val dao=app.db.dao()
  private val recordingId=inputData.getString("recordingId")!!
+ private val progress=ProcessingProgressReporter(this)
  override suspend fun getForegroundInfo(): ForegroundInfo {
   val nm=applicationContext.getSystemService(NotificationManager::class.java)
   nm.createNotificationChannel(NotificationChannel("processing","Обработка аудио",NotificationManager.IMPORTANCE_LOW))
   val open=PendingIntent.getActivity(applicationContext,recordingId.hashCode(),android.content.Intent(applicationContext,MainActivity::class.java).putExtra("recordingId",recordingId).addFlags(android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP or android.content.Intent.FLAG_ACTIVITY_SINGLE_TOP),PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
   val notification=NotificationCompat.Builder(applicationContext,"processing").setSmallIcon(ru.replika.R.drawable.ic_replika).setContentIntent(open).setContentTitle("REPLIKA · локальная обработка").setContentText("Аудио остаётся на устройстве").setOngoing(true).build()
-  return if(Build.VERSION.SDK_INT>=29) ForegroundInfo(recordingId.hashCode() and 0x7fffffff,notification,ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC) else ForegroundInfo(recordingId.hashCode() and 0x7fffffff,notification)
+  return if(Build.VERSION.SDK_INT>=29) ForegroundInfo(recordingId.hashCode() and 0x7fffffff,notification,ProcessingStopPolicy.foregroundServiceType(Build.VERSION.SDK_INT)) else ForegroundInfo(recordingId.hashCode() and 0x7fffffff,notification)
  }
  override suspend fun doWork(): Result = withContext(Dispatchers.Default) {
   val pcm=File(applicationContext.cacheDir,"$recordingId-$id.pcm")
   val trace=PipelineTelemetry(applicationContext)
   val workerContext=currentCoroutineContext()
   var diagnostic=JSONObject()
+  progress.start(this)
   suspend fun guard(label: String) {
    trace.cool { phase("Android сообщил о сильном нагреве · ожидание охлаждения") }
    phase(label)
@@ -72,7 +74,8 @@ class ProcessingWorker(context: Context,params: WorkerParameters): CoroutineWork
      val start=SystemClock.elapsedRealtime()
      trace.measure("validationMs") { withContext(Dispatchers.IO) { app.models.requireReady(backend,mode!="single") } }
      guard("Подготовка · декодирование PCM 16 kHz")
-     val decoded=trace.measure("decodeMs") { withContext(Dispatchers.IO) { AudioDecoder.decode(rec.audioPath,pcm) } }
+     progress.stage(ProcessingStage.DECODING,rec.durationMs,speakers=mode!="single")
+     val decoded=trace.measure("decodeMs") { withContext(Dispatchers.IO) { AudioDecoder.decode(rec.audioPath,pcm,applicationContext,{ pts,total -> progress.processed(pts/1000,total/1000) }) } }
      // Only extremely low-level input is boosted. Stored PCM and diarization stay original.
      val inputPeak=decoded.peaks.maxOrNull()?:0f
      val recognitionGain=QuietAudioGain.forPeak(inputPeak)
@@ -84,6 +87,7 @@ class ProcessingWorker(context: Context,params: WorkerParameters): CoroutineWork
      } }
      guard("Поиск речи · Silero VAD")
      suspend fun detectSpeech(detectorGain: Float,label: String): List<Span> {
+      progress.stage(ProcessingStage.SPEECH,decoded.durationMs)
       val vad=trace.measure("vadLoadMs") { Vad(config=VadModelConfig(sileroVadModelConfig=SileroVadModelConfig(
        model=app.models.file("vad/silero_vad.onnx").path,threshold=asrPlan.vadThreshold,minSilenceDuration=asrPlan.vadMinSilenceSec,minSpeechDuration=asrPlan.vadMinSpeechSec,maxSpeechDuration=20f),numThreads=1)) }
       val found=mutableListOf<Span>()
@@ -100,6 +104,7 @@ class ProcessingWorker(context: Context,params: WorkerParameters): CoroutineWork
           }
           val n=min(512,decoded.samples-read);val block=FloatArray(512)
           repeat(n) { block[it]=input.readFloat() };QuietAudioGain.apply(block,detectorGain);vad.acceptWaveform(block);read+=n;drain()
+          progress.processed(read/16L)
          }
         };vad.flush();drain()
        } finally { vad.release() }
@@ -161,11 +166,12 @@ class ProcessingWorker(context: Context,params: WorkerParameters): CoroutineWork
       val required=decoded.samples.toLong()*4
       val available=Runtime.getRuntime().maxMemory()-(Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory())
       require(required<available/2) { "Недостаточно памяти для диаризации этой записи. Выберите одного говорящего для монолога или разделите аудио." }
+      progress.stage(ProcessingStage.SPEAKERS,decoded.durationMs)
       val sd=trace.measure("diarizationLoadMs") { OfflineSpeakerDiarization(config=diarizationConfig(app.models,rec.expectedSpeakers,cpu.diarizationThreads,diarPlan)) }
       try {
        val samples=trace.measure("diarizationReadMs") { AudioDecoder.read(pcm,0,decoded.samples) }
        guard("Диаризация · Pyannote + 3D-Speaker")
-       val result=trace.measure("diarizationInferenceMs") { sd.process(samples) }
+       val result=trace.measure("diarizationInferenceMs") { sd.processWithCallback(samples,{ done,total,_ -> progress.units(done,total);0 }) }
        ensureActive()
        rawDiarizationTurns=result.map { Turn((it.start*1000).roundToLong().coerceIn(0,decoded.durationMs),(it.end*1000).roundToLong().coerceIn(0,decoded.durationMs),it.speaker) }.filter { it.endMs>it.startMs }
        Alignment.stable(rawDiarizationTurns)
@@ -178,6 +184,7 @@ class ProcessingWorker(context: Context,params: WorkerParameters): CoroutineWork
      val turns=if(!diarPlan.refined) nativeTurns else {
       // The original SD session above is released before the additional extractor opens.
       guard("Уточнение говорящих")
+      progress.indeterminate()
       val refined=trace.measure("diarizationRefinementMs") { DiarizationRefiner.refineOriginalPcm(
        turns=nativeTurns,durationMs=decoded.durationMs,modelPath=app.models.file(diarPlan.embeddingPath).path,
        threads=checkNotNull(cpu.refinementThreads),config=diarPlan.windowConfig!!,collectEvidence=collectWordEvidence,cpuPlan=cpuPlan,
@@ -271,10 +278,12 @@ class ProcessingWorker(context: Context,params: WorkerParameters): CoroutineWork
       trace.measure("asrLoadMs") { GigaAmEngine(app.models,threads) }
      }
      val source=engine?.source?:GigaAmEngine.sourceForModel(backend)
+     progress.stage(ProcessingStage.RECOGNITION,decoded.durationMs)
      trace.measure("asrMs") { engine?.use { activeEngine ->
       if(!asrPlan.wordTimestamps) {
       for((i,s) in slices.withIndex()) {
        ensureActive();guard("Распознавание · ${source.substringBefore(" /")} · ${i+1}/${slices.size}")
+       progress.processed(s.startMs)
        val a=(s.startMs*16).toInt();val b=min((s.endMs*16).toInt(),decoded.samples)
        val samples=trace.measure("asrReadMs") { AudioDecoder.read(pcm,a,(b-a).coerceAtLeast(0)) }
        QuietAudioGain.apply(samples,recognitionGain)
@@ -289,6 +298,7 @@ class ProcessingWorker(context: Context,params: WorkerParameters): CoroutineWork
       } else {
        for((i,s) in slices.withIndex()) {
         ensureActive();guard("Распознавание · ${source.substringBefore(" /")} · ${i+1}/${slices.size}")
+        progress.processed(s.startMs)
         val first=s.startMs*16L;val last=minOf(s.endMs*16L,decoded.samples.toLong())
         require(first>=0 && last>=first && last<=Int.MAX_VALUE.toLong())
         val samples=trace.measure("asrReadMs") { AudioDecoder.read(pcm,first.toInt(),(last-first).toInt()) }
@@ -373,7 +383,7 @@ class ProcessingWorker(context: Context,params: WorkerParameters): CoroutineWork
      // Only diagnostics are updated after commit; never replace a concurrently edited recording/segment.
 
     } catch(e: CancellationException) {
-     withContext(NonCancellable) { dao.status(recordingId,"CANCELLED","Обработка отменена") }
+     withContext(NonCancellable) { settleStop() }
      throw e
     } finally {
      withContext(NonCancellable) {
@@ -384,10 +394,29 @@ class ProcessingWorker(context: Context,params: WorkerParameters): CoroutineWork
    Result.success()
   } catch(e: CancellationException) { throw e }
    catch(e: OutOfMemoryError) { dao.status(recordingId,"ERROR","Не хватает памяти","Разделите аудио на части и повторите обработку");Result.failure() }
-   catch(e: Throwable) { dao.status(recordingId,"ERROR","Обработка прервана",e.message?:e.javaClass.simpleName);Result.failure() }
-   finally {
-    trace.close();pcm.delete()
+   catch(e: Throwable) {
+    // A stopped Worker can fail with a non-cancellation error (e.g. setForeground interrupted).
+    if(isStopped) withContext(NonCancellable) { settleStop() }
+    else if(dao.recording(recordingId).let { !ProcessingStopPolicy.keepsTimeoutError(it?.status,it?.phase,false) })
+     dao.status(recordingId,"ERROR","Обработка прервана",ProcessingStopPolicy.failureMessage(e))
+    Result.failure()
    }
+   finally {
+    progress.close();trace.close();pcm.delete()
+   }
+ }
+ /** User cancel -> CANCELLED; Android 15 FGS time limit -> ERROR with advice (no silent retry); other system stops -> QUEUED while WorkManager reschedules. */
+ private suspend fun settleStop() {
+  val current=dao.recording(recordingId);val userRequested=current?.status=="CANCELLING"
+  if(ProcessingStopPolicy.keepsTimeoutError(current?.status,current?.phase,userRequested)) return
+  when(ProcessingStopPolicy.classify(userRequested,isStopped,stopReason)) {
+   ProcessingStopPolicy.Outcome.CANCELLED -> dao.status(recordingId,"CANCELLED","Обработка отменена")
+   ProcessingStopPolicy.Outcome.FOREGROUND_TIMEOUT -> {
+    dao.status(recordingId,"ERROR",ProcessingStopPolicy.TIMEOUT_PHASE,ProcessingStopPolicy.TIMEOUT_MESSAGE)
+    runCatching { WorkManager.getInstance(applicationContext).cancelUniqueWork("replika-$recordingId") }
+   }
+   ProcessingStopPolicy.Outcome.SYSTEM_RETRY -> dao.status(recordingId,"QUEUED",ProcessingStopPolicy.RETRY_PHASE)
+  }
  }
  private suspend fun phase(text: String) {
   currentCoroutineContext().ensureActive()
