@@ -43,6 +43,7 @@ class ProcessingWorker(context: Context,params: WorkerParameters): CoroutineWork
    // Persisted requests without this key are always V1.6, even after a new APK changes defaults.
    val asrPlan=AsrPlan.fromPersistedId(inputData.getString(ASR_PLAN_KEY))
    val requestedDiarPlan=DiarizationPlan.fromPersistedId(inputData.getString(DIAR_PLAN_KEY))
+   val cpuPlan=CpuPlan.fromPersistedId(inputData.getString(CPU_PLAN_KEY))
    val collectWordEvidence=inputData.getBoolean(COLLECT_WORD_EVIDENCE_KEY,false)
    diagnostic.put("asrPlan",asrPlan.wireId).put("asrPolicy",asrPolicyJson(asrPlan))
     .put("diarizationPlanRequested",requestedDiarPlan.wireId)
@@ -64,7 +65,9 @@ class ProcessingWorker(context: Context,params: WorkerParameters): CoroutineWork
       .put("diarizationPolicy",DiarizationEvidence.jsonObject(diarizationPolicy(diarPlan)))
      // Historical rows keep their original source; reprocessing uses the packaged GigaAM.
      val backend=app.models.resolveBackend(rec.backend)
-     val threads=MlPolicy.threads(inputData.getInt("mlThreads",2))
+     val cpu=cpuPlan.resolve(inputData.getInt("mlThreads",2),Runtime.getRuntime().availableProcessors(),diarPlan.refined)
+     val threads=cpu.asrThreads
+     diagnostic.put("cpuPolicy",DiarizationEvidence.jsonObject(cpu.asMap()))
      guard("Проверка моделей")
      val start=SystemClock.elapsedRealtime()
      trace.measure("validationMs") { withContext(Dispatchers.IO) { app.models.requireReady(backend,mode!="single") } }
@@ -73,7 +76,7 @@ class ProcessingWorker(context: Context,params: WorkerParameters): CoroutineWork
      // Only extremely low-level input is boosted. Stored PCM and diarization stay original.
      val inputPeak=decoded.peaks.maxOrNull()?:0f
      val recognitionGain=QuietAudioGain.forPeak(inputPeak)
-     trace.config(backend,threads,decoded.durationMs,mode)
+     trace.config(backend,threads,decoded.durationMs,mode,cpuResolution=cpu)
      trace.measure("metadataPersistenceMs") { app.db.withTransaction {
       ensureActive();val current=dao.recording(recordingId)?:rec
       if(current.status=="CANCELLING") throw CancellationException("User requested cancellation")
@@ -158,7 +161,7 @@ class ProcessingWorker(context: Context,params: WorkerParameters): CoroutineWork
       val required=decoded.samples.toLong()*4
       val available=Runtime.getRuntime().maxMemory()-(Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory())
       require(required<available/2) { "Недостаточно памяти для диаризации этой записи. Выберите одного говорящего для монолога или разделите аудио." }
-      val sd=trace.measure("diarizationLoadMs") { OfflineSpeakerDiarization(config=diarizationConfig(app.models,rec.expectedSpeakers,threads,diarPlan)) }
+      val sd=trace.measure("diarizationLoadMs") { OfflineSpeakerDiarization(config=diarizationConfig(app.models,rec.expectedSpeakers,cpu.diarizationThreads,diarPlan)) }
       try {
        val samples=trace.measure("diarizationReadMs") { AudioDecoder.read(pcm,0,decoded.samples) }
        guard("Диаризация · Pyannote + 3D-Speaker")
@@ -177,7 +180,7 @@ class ProcessingWorker(context: Context,params: WorkerParameters): CoroutineWork
       guard("Уточнение говорящих")
       val refined=trace.measure("diarizationRefinementMs") { DiarizationRefiner.refineOriginalPcm(
        turns=nativeTurns,durationMs=decoded.durationMs,modelPath=app.models.file(diarPlan.embeddingPath).path,
-       threads=threads,config=diarPlan.windowConfig!!,collectEvidence=collectWordEvidence,
+       threads=checkNotNull(cpu.refinementThreads),config=diarPlan.windowConfig!!,collectEvidence=collectWordEvidence,cpuPlan=cpuPlan,
        isStopped={ this@ProcessingWorker.isStopped },
        readOriginalWindow={startMs,endMs -> withContext(Dispatchers.IO) {
         workerContext.ensureActive()
@@ -204,6 +207,7 @@ class ProcessingWorker(context: Context,params: WorkerParameters): CoroutineWork
           check(isDirectory || mkdirs()) { "Не удалось создать каталог QA" }
          },workId=id.toString(),recordingId=recordingId,
          metadata=linkedMapOf("audioMs" to decoded.durationMs,"sampleRate" to 16000,
+          "cpuPolicy" to cpu.asMap(),
           "inputAudioSha256" to fileSha256(File(rec.audioPath)),"diarizationPlan" to diarPlan.wireId,
           "diarizationPolicy" to diarizationPolicy(diarPlan),"runtime" to "sherpa-onnx 2.0.1",
           "embeddingSha256" to app.models.specifications().first { it.path==diarPlan.embeddingPath }.sha256,
@@ -430,6 +434,7 @@ class ProcessingWorker(context: Context,params: WorkerParameters): CoroutineWork
  companion object {
   const val ASR_PLAN_KEY="asrPlan"
   const val DIAR_PLAN_KEY="diarizationPlan"
+  const val CPU_PLAN_KEY="cpuPlan"
   const val COLLECT_WORD_EVIDENCE_KEY="collectWordEvidence"
   const val WORD_EVIDENCE_LIMIT_BYTES=256*1024
   const val WORD_FALLBACK_WARNING="Время слов недоступно: проверьте говорящего и границы"
@@ -452,11 +457,15 @@ class ProcessingWorker(context: Context,params: WorkerParameters): CoroutineWork
    .put("punctuation_mode",plan.punctuationMode).put("energy_split",plan.wordTimestamps)
    .put("vad_threshold",plan.vadThreshold.toDouble()).put("vad_min_speech_sec",plan.vadMinSpeechSec.toDouble())
    .put("vad_min_silence_sec",plan.vadMinSilenceSec.toDouble()).put("pre_roll_ms",plan.preRollMs)
-  fun enqueue(context: Context,id: String,threads: Int=2,
+  fun enqueue(context: Context,id: String,threads: Int?=null,
    asrPlan: AsrPlan=AsrPlan.fromPersistedId(BuildConfig.DEFAULT_ASR_PLAN),collectWordEvidence: Boolean=false,
-   diarizationPlan: DiarizationPlan=DiarizationPlan.fromPersistedId(BuildConfig.DEFAULT_DIAR_PLAN)) {
+   diarizationPlan: DiarizationPlan=DiarizationPlan.fromPersistedId(BuildConfig.DEFAULT_DIAR_PLAN),
+   cpuPlan: CpuPlan=CpuPlan.fromPersistedId(BuildConfig.DEFAULT_CPU_PLAN)) {
+   val requestedThreads=threads?:if(cpuPlan==CpuPlan.AUTO_V1) 0 else 2
+   // Validate before scheduling; resolve again from the actual available cores when Worker starts.
+   cpuPlan.resolve(requestedThreads,Runtime.getRuntime().availableProcessors(),refined=false)
    val request=OneTimeWorkRequestBuilder<ProcessingWorker>().setInputData(workDataOf("recordingId" to id,
-    "mlThreads" to MlPolicy.threads(threads),ASR_PLAN_KEY to asrPlan.wireId,
+    "mlThreads" to requestedThreads,CPU_PLAN_KEY to cpuPlan.wireId,ASR_PLAN_KEY to asrPlan.wireId,
     COLLECT_WORD_EVIDENCE_KEY to collectWordEvidence,DIAR_PLAN_KEY to diarizationPlan.wireId)).addTag(id).build()
    WorkManager.getInstance(context).enqueueUniqueWork("replika-$id",ExistingWorkPolicy.KEEP,request)
   }

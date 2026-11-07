@@ -40,16 +40,17 @@ WINDOW_OPTION_FIELDS = ("model_id", "window_shift", "native_threshold", "window_
 
 
 def inference_options(config):
+    cpu = {"cpu_plan": config["cpu_plan"]} if "cpu_plan" in config else {}
     if config["pipeline"] == "window_words_v1":
-        return {"strategy": "window_v1", **{key: copy.deepcopy(config[key]) for key in WINDOW_OPTION_FIELDS}}
-    return {key: config[key] for key in OPTION_FIELDS}
+        return {"strategy": "window_v1", **{key: copy.deepcopy(config[key]) for key in WINDOW_OPTION_FIELDS}, **cpu}
+    return {**{key: config[key] for key in OPTION_FIELDS}, **cpu}
 
 
 def validate_configuration(config):
     if not isinstance(config, dict) or config.get("pipeline") not in ("refined_words_v1", "window_words_v1"):
         raise ValueError("Invalid C configuration schema/pipeline/ID")
     required = set(WINDOW_CONFIG if config["pipeline"] == "window_words_v1" else DEFAULT_CONFIG)
-    allowed = required | {"notes", "candidate_freeze_sha256"}
+    allowed = required | {"notes", "candidate_freeze_sha256", "cpu_plan"}
     if not required <= set(config) or set(config) - allowed:
         raise ValueError("Incomplete/unsupported full C configuration")
     if (type(config["schema_version"]) is not int or config["schema_version"] != 1
@@ -122,7 +123,8 @@ def run(args):
         "audio": {case["id"]: case["audio_sha256"] for case in cases}}
     output.mkdir(parents=True)
     meta = {"schema_version": 1, "status": "RUNNING", "started_at": datetime.now(timezone.utc).isoformat(),
-        "fingerprint": fingerprint, "config": config, "paired_asr_policy": dict(pipeline.PAIRED_ASR_POLICY),
+        "fingerprint": fingerprint, "config": config,
+        "paired_asr_policy": pipeline.paired_asr_policy(config["threads"], config.get("cpu_plan", "v16")),
         "platform": platform.platform(), "scope": "Actual full host candidate inference. No ASR replay, no reference text or K enters process. Not Android/ARM/phone acceptance.",
         "inference_requested": False, "new_model_inference": False}
     write_json(output / "run.json", meta)
@@ -168,6 +170,17 @@ def run(args):
                 write_json(folder / "diagnostics.json", actual["diagnostics"])
                 unchanged_code_and_policy()
                 diagnostic = actual["diagnostics"]
+                if config.get("cpu_plan") == "auto_v1":
+                    expected_asr = pipeline.paired_asr_policy(config["threads"], "auto_v1")
+                    cpu = diagnostic.get("cpuExecutionPolicy", {})
+                    fields = ("asrThreads", "diarizationThreads", "refinementThreads")
+                    if (cpu.get("plan") != "auto_v1" or cpu.get("vadThreads") != 1
+                            or any(type(cpu.get(key)) is not int or cpu[key] != config["threads"] for key in fields)
+                            or diagnostic.get("pairedAsrPolicy") != expected_asr
+                            or diagnostic.get("config", {}).get("asr") != expected_asr
+                            or type(diagnostic.get("config", {}).get("threads")) is not int
+                            or diagnostic["config"]["threads"] != config["threads"]):
+                        raise ValueError("Actual native CPU execution policy differs from the explicit host experiment")
                 if (diagnostic.get("asrReplay") is not False or diagnostic.get("newDiarizationInference") is not True
                         or diagnostic.get("pipelineVariant") != config["pipeline"]
                         or diagnostic.get("externalEmbedding", {}).get("sha256") != entry["sha256"]

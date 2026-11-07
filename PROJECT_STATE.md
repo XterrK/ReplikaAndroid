@@ -1,8 +1,28 @@
 # Цикл PLAN_19H · 06–07.11.2026
 
-Текущий ход работ: [STATUS.md](STATUS.md), [UPDATES.md](UPDATES.md), [DECISIONS.md](DECISIONS.md). Снимок V1.6 `3aba648` опубликован в приватном [XterrK/ReplikaAndroid](https://github.com/XterrK/ReplikaAndroid), fallback APK — в prerelease. Пункт 0 завершён, 80 JVM и All-in-One на новой машине PASS. Пункт 1 (Jury JSON и default automatic) принят: 89 JVM, All-in-One/static и 2 native UI PASS; ML-модели и параметры не менялись. Пункт2 принят: независимые author refs и immutablebaseline13host/5Androidoffline,65Python checks; corpusportgap0.226п.п.,per-fileвариант сохранён. [Результаты](docs/TEST_RESULTS.md). История ниже сохраняет состояние до этого цикла.
+**Пауза по запросу пользователя после проверенной реализации пункта 5.** Контрольный
+срез CPU, термоконтроля и импорта передаётся через
+[HANDOFF_NEXT_AGENT.md](HANDOFF_NEXT_AGENT.md). Ветка `hack/task-05-runtime-import`
+основана на `87f669a`; итоговая фиксация определяется историей `hack/final` и тегом
+`hack-step05-20261107`. Фактические runtime-проверки и ограничения: [STATUS.md](STATUS.md),
+[отчёт пункта 5](docs/STEP_05_RUNTIME_IMPORT.md). Общий контекст —
+[PROJECT_OVERVIEW.md](PROJECT_OVERVIEW.md), история — [UPDATES.md](UPDATES.md)
+и [DECISIONS.md](DECISIONS.md). Пункт 6 не начат; продолжение — только по команде пользователя.
 
-Пункт 3 (D) — текущая работа. Context600 прошёл отдельные host-гейты на прежнем holdout и disjoint reserve; первый неудачный профиль сохранён как FAIL. 125 Python / 111 JVM / All-in-One/debug/test APK и static APK checks PASS. Native fixed-five выполняется offline на x86_64-прокси; обычный build-default остаётся V1.6, новый профиль включается явным флагом. [Подробности и ограничения](docs/STEP_03_VAD_WORD_ASR.md). WER/DER означают ошибки (меньше лучше); доля верного числа спикеров — успех (больше лучше).
+Пункт C опубликован коммитом `b619519` через
+[PR #4](https://github.com/XterrK/ReplikaAndroid/pull/4), объединённый как `87f669a`;
+[выпуск C2](https://github.com/XterrK/ReplikaAndroid/releases/tag/hack-step04-20261107)
+и [отчёт](docs/STEP_04_DIARIZATION.md) сохраняют область экспериментальной приёмки.
+Прежний checkpoint пункта D уже завершён и опубликован; его проверки и ограничения —
+исторические результаты в [отчёте D](docs/STEP_03_VAD_WORD_ASR.md), а не текущая работа.
+
+Стабильный V1.6 `3aba648` и fallback APK сохранены в приватном
+[XterrK/ReplikaAndroid](https://github.com/XterrK/ReplikaAndroid).
+Обычные ML-defaults остаются `v16`; context600, C2 и CPU-политика `auto_v1`
+включаются явно. Старые задания сохраняют legacy-путь, семь моделей и pack V1.5
+не менялись. Действует приоритет [PLAN_19H.md](PLAN_19H.md)
+§0.4 > §0.3 > §0.2 > §0.1: GigaAM v3 E2E и raw WER с пунктуацией и регистром.
+История версий ниже не заменяет свежие проверки или общую приёмку проекта.
 
 ---
 

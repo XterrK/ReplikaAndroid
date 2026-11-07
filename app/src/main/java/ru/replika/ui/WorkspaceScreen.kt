@@ -266,7 +266,8 @@ private val EditorRowSaver=listSaver<SegmentRow?,Any>(
 
 @Composable private fun ProcessingPane(vm: AppViewModel,rec: Recording,modifier: Modifier=Modifier) {
  var speakerMode by rememberSaveable(rec.id) { mutableStateOf(if(rec.expectedSpeakers==1) "single" else if(rec.expectedSpeakers>1) "fixed" else "automatic") }
- var threads by rememberSaveable(rec.id) { mutableIntStateOf(2) }
+ val ordinaryThreads=if(ru.replika.BuildConfig.DEFAULT_CPU_PLAN=="auto_v1") 0 else 2
+ var threads by rememberSaveable(rec.id) { mutableIntStateOf(ordinaryThreads) }
  var count by rememberSaveable(rec.id) { mutableStateOf(if(rec.expectedSpeakers>0) rec.expectedSpeakers.toString() else "2") }
  var details by remember(rec.id) { mutableStateOf(false) }
  val busy=rec.status in setOf("QUEUED","PROCESSING","CANCELLING")
@@ -300,10 +301,10 @@ private val EditorRowSaver=listSaver<SegmentRow?,Any>(
      Text("Нагрузка на процессор",style=MaterialTheme.typography.labelLarge)
      Row(horizontalArrangement=Arrangement.spacedBy(8.dp)) {
       FilterChip(selected=threads==1,onClick={threads=1},label={Text("Умеренная")})
-      FilterChip(selected=threads==2,onClick={threads=2},label={Text("Обычная")})
+      FilterChip(selected=threads!=1,onClick={threads=ordinaryThreads},label={Text("Обычная")})
      }
     }
-    Button(shape=ProductShape.control,onClick={vm.process(rec.id,when(speakerMode) { "single"->1;"fixed"->count.toInt();else->-1 },threads)},enabled=speakerMode!="fixed" || count.toIntOrNull()?.let { it in 2..20 }==true,modifier=Modifier.fillMaxWidth().heightIn(min=52.dp)) { Text(if(rec.status=="IMPORTED") "Создать стенограмму" else "Повторить обработку") }
+    Button(shape=ProductShape.control,onClick={vm.process(rec.id,when(speakerMode) { "single"->1;"fixed"->count.toInt();else->-1 },if(threads==1) 1 else ordinaryThreads)},enabled=speakerMode!="fixed" || count.toIntOrNull()?.let { it in 2..20 }==true,modifier=Modifier.fillMaxWidth().heightIn(min=52.dp)) { Text(if(rec.status=="IMPORTED") "Создать стенограмму" else "Повторить обработку") }
     Text("Нужны выбранная модель распознавания и VAD; для нескольких участников — модели говорящих. Управление установкой — в разделе «Модели».",style=MaterialTheme.typography.bodySmall,color=Muted)
    }
   }

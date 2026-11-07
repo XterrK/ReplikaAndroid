@@ -1,0 +1,119 @@
+{
+  "schema_version": 1,
+  "status": "COMPLETE",
+  "created_utc": "2026-11-07T04:11:25.478279+00:00",
+  "new_model_inference": false,
+  "scope": "Related controlled repeats of a previously evaluated acted dev montage; not independent recordings, natural dialogue, blind quality validation or word-time gold. Author text/actor IDs are retained; intervals remain whole author-clip timing proxies. No recognizer output, VAD or forced alignment enters corpus construction.",
+  "source": {
+    "source_id": "dev-01-two-clean",
+    "source_audio": "dev/dev-01-two-clean.wav",
+    "source_audio_sha256": "80bdb11e4d9e313d2440c01b80babc0dbe319c9dbea371988ef62716ffb9d77b",
+    "source_metadata_sha256": {
+      "manifest.json": "47109cb1987624daaf8f4dc28e8eca3198b0c2bbcf01cd334b9611664eb38066",
+      "references/dev-01-two-clean.json": "523b1097852d70d1f6d2cf2f3c632ee5c5ac3bedf8e64487ecbdada21c25d127",
+      "provenance.json": "2cc46d1f10f35383b3f047e789536aed7c70c994397675a0314b3a63503a0ce3",
+      "sources/LICENSE.md": "e136a6af001dd43a9002f20f39dd56d200afa9a6d408e28a625d90c9a0c22143"
+    },
+    "source_revision": "a74ff44d8d27ca3d21098ea3ed4d31a32923fbdd",
+    "source_repo": "langswap/dialogs-ru-emotional-conversations",
+    "source_license": "OpenRAIL; see sources/LICENSE.md",
+    "source_frames": 1112898,
+    "kept_utterance_indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "kept_utterances": 6,
+    "last_gold_end_ms": 52658,
+    "exact_prefix_frames": 842543,
+    "exact_prefix_ms": 52658.9375,
+    "submillisecond_author_clip_tail_retained_samples": 15,
+    "silence_padding_frames": 117457,
+    "block_frames": 960000,
+    "block_ms": 60000,
+    "block_pcm16_sha256": "d1fa48dc8941e42429d2f5c817ee19f70346bcd825f0c432037f147ea7188f70",
+    "prefix_pcm16_sha256": "0d7dffdf538424c060fb033064dc4dc06b03a324a407e14685b8dabebf57988a",
+    "boundary_policy": "last complete author utterance with end_ms<=60000; exact end frame from frozen provenance; no word truncation/VAD trimming",
+    "speaker_policy": "Same author actor ID across every repetition; no new speaker per block"
+  },
+  "generator_sha256": "2d75037026e33c9df01f5cbe4fbfc597ec3b5d06013b323da6c12cb62f23b03a",
+  "original_source_unchanged": true,
+  "total_audio_ms": 840000,
+  "files": [
+    {
+      "id": "perf-01m",
+      "split": "performance_proxy",
+      "language": "ru",
+      "audio": "audio/perf-01m.wav",
+      "reference": "references/perf-01m.json",
+      "duration_ms": 60000,
+      "frames": 960000,
+      "audio_sha256": "07fcdf4133767dd70170eaa25224b328b03ab411483f6e5957483121fa988bc3",
+      "audio_bytes": 1920044,
+      "reference_sha256": "724b228acf68702f01c4fb1eae6ff08869d0d37caf65f1d42aa28e1a4a04d3a9",
+      "expected_speakers": 2,
+      "reference_utterances": 6,
+      "reference_whitespace_words": 108,
+      "kind": "related_controlled_repeat",
+      "repeat_blocks": 1,
+      "source": {
+        "id": "dev-01-two-clean",
+        "audio_sha256": "80bdb11e4d9e313d2440c01b80babc0dbe319c9dbea371988ef62716ffb9d77b",
+        "block_pcm16_sha256": "d1fa48dc8941e42429d2f5c817ee19f70346bcd825f0c432037f147ea7188f70"
+      },
+      "timing_scope": "Repeated author utterance-clip intervals, not word-time or speech-activity gold",
+      "der_scope": "Related montage utterance-interval proxy; not natural-dialogue DER"
+    },
+    {
+      "id": "perf-03m",
+      "split": "performance_proxy",
+      "language": "ru",
+      "audio": "audio/perf-03m.wav",
+      "reference": "references/perf-03m.json",
+      "duration_ms": 180000,
+      "frames": 2880000,
+      "audio_sha256": "b8787d41b83e2f3cb3b58655d06e574186e20b19e0e06158a122f2a76d6a6824",
+      "audio_bytes": 5760044,
+      "reference_sha256": "3b62d2e2f8dd61e5f5eb700e65c73c0bdb4fe7b70ceba668e3555d18d8cc7d02",
+      "expected_speakers": 2,
+      "reference_utterances": 18,
+      "reference_whitespace_words": 324,
+      "kind": "related_controlled_repeat",
+      "repeat_blocks": 3,
+      "source": {
+        "id": "dev-01-two-clean",
+        "audio_sha256": "80bdb11e4d9e313d2440c01b80babc0dbe319c9dbea371988ef62716ffb9d77b",
+        "block_pcm16_sha256": "d1fa48dc8941e42429d2f5c817ee19f70346bcd825f0c432037f147ea7188f70"
+      },
+      "timing_scope": "Repeated author utterance-clip intervals, not word-time or speech-activity gold",
+      "der_scope": "Related montage utterance-interval proxy; not natural-dialogue DER"
+    },
+    {
+      "id": "perf-10m",
+      "split": "performance_proxy",
+      "language": "ru",
+      "audio": "audio/perf-10m.wav",
+      "reference": "references/perf-10m.json",
+      "duration_ms": 600000,
+      "frames": 9600000,
+      "audio_sha256": "d923885db4b7fe9964c0f36c911e9419123ef80e8e33bf55b94d40d577db4f60",
+      "audio_bytes": 19200044,
+      "reference_sha256": "2039e64b458c2f1197eac062da941eade47dd143310fb1e0d4d393ba46436ea0",
+      "expected_speakers": 2,
+      "reference_utterances": 60,
+      "reference_whitespace_words": 1080,
+      "kind": "related_controlled_repeat",
+      "repeat_blocks": 10,
+      "source": {
+        "id": "dev-01-two-clean",
+        "audio_sha256": "80bdb11e4d9e313d2440c01b80babc0dbe319c9dbea371988ef62716ffb9d77b",
+        "block_pcm16_sha256": "d1fa48dc8941e42429d2f5c817ee19f70346bcd825f0c432037f147ea7188f70"
+      },
+      "timing_scope": "Repeated author utterance-clip intervals, not word-time or speech-activity gold",
+      "der_scope": "Related montage utterance-interval proxy; not natural-dialogue DER"
+    }
+  ]
+}

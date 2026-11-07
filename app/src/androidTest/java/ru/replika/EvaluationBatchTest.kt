@@ -1,5 +1,7 @@
 package ru.replika
 
+import ru.replika.domain.CpuPlan
+
 import android.content.Intent
 import android.os.Build
 import android.os.SystemClock
@@ -8,6 +10,7 @@ import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry
 import androidx.test.runner.lifecycle.Stage
 import androidx.work.WorkManager
+import androidx.work.WorkInfo
 import kotlinx.coroutines.*
 import kotlinx.coroutines.sync.withLock
 import org.json.JSONArray
@@ -90,6 +93,12 @@ class EvaluationBatchTest {
   val instrumentation=InstrumentationRegistry.getInstrumentation()
   val app=instrumentation.targetContext.applicationContext as ReplikaApp
   val arguments=InstrumentationRegistry.getArguments()
+  val collectEvidence=when(arguments.getString("evalCollectEvidence")?:"true") {
+   "true" -> true
+   "false" -> false
+   else -> error("evalCollectEvidence must be exactly true or false")
+  }
+  val processId=android.os.Process.myPid()
   val runName=arguments.getString("evalRun")?:"not-staged"
   require(Regex("[A-Za-z0-9_-]+").matches(runName))
   val root=File(app.filesDir,"evaluation/$runName")
@@ -103,14 +112,17 @@ class EvaluationBatchTest {
   require(identifiers.isNotEmpty() && identifiers.distinct().size==identifiers.size) { "Empty or duplicate case IDs" }
   val output=File(root,"output")
   check(!output.exists() && output.mkdir()) { "Choose a fresh evalRun; previous evidence must remain intact" }
-  val threads=MlPolicy.threads(arguments.getString("evalThreads")?.toInt()?:2)
+  val requestedThreads=arguments.getString("evalThreads")?.toInt()?:2
   val asrPlan=AsrPlan.fromPersistedId(arguments.getString("evalAsrPlan"))
   // Explicit QA selection is independent of the installed APK's defaults.
   val requestedDiarPlan=DiarizationPlan.fromPersistedId(arguments.getString("evalDiarPlan"))
+  val cpuPlan=CpuPlan.fromPersistedId(arguments.getString("evalCpuPlan"))
   val speakers=arguments.getString("evalExpectedSpeakers")?.toInt()?:-1
   MlPolicy.mode(speakers)
   val diarPlan=requestedDiarPlan.forExpectedSpeakers(speakers)
   diarPlan.requirePairedAsr(asrPlan)
+  val cpu=cpuPlan.resolve(requestedThreads,Runtime.getRuntime().availableProcessors(),diarPlan.refined)
+  val threads=cpu.asrThreads
   withTimeout(10*60*1000L) { app.bundledModels.awaitReady() }
   app.models.requireReady(app.models.asrId,speakers!=1)
   assertEquals("giga-v3",app.models.asrId)
@@ -118,7 +130,9 @@ class EvaluationBatchTest {
   val report=JSONObject().put("status","RUNNING").put("run",runName).put("cases",cases)
    .put("scope","Actual Android production Worker; independent reference text/counts are not staged or passed to recognition")
    .put("api",Build.VERSION.SDK_INT).put("supportedAbis",JSONArray(Build.SUPPORTED_ABIS.toList()))
-   .put("threads",threads).put("expectedSpeakers",speakers).put("newModelInference",true)
+   .put("collectEvidence",collectEvidence).put("processId",processId)
+   .put("threads",threads).put("requestedThreads",requestedThreads).put("cpuPlan",cpuPlan.wireId)
+   .put("cpuPolicy",DiarizationEvidence.jsonObject(cpu.asMap())).put("expectedSpeakers",speakers).put("newModelInference",true)
    .put("asrPlan",asrPlan.wireId).put("asrPolicy",ProcessingWorker.asrPolicyJson(asrPlan))
    .put("diarizationPlanRequested",requestedDiarPlan.wireId).put("diarizationPlan",diarPlan.wireId)
    .put("diarizationPolicy",DiarizationEvidence.jsonObject(ProcessingWorker.diarizationPolicy(diarPlan)))
@@ -152,7 +166,7 @@ class EvaluationBatchTest {
       }
      }
      val wallStart=SystemClock.elapsedRealtime()
-     ProcessingWorker.enqueue(app,recordId,threads,asrPlan,collectWordEvidence=true,diarizationPlan=requestedDiarPlan)
+     ProcessingWorker.enqueue(app,recordId,requestedThreads.takeUnless { it==0 },asrPlan,collectWordEvidence=collectEvidence,diarizationPlan=requestedDiarPlan,cpuPlan=cpuPlan)
      withTimeout(20*60*1000L) {
       while(true) {
        val current=app.db.dao().recording(recordId)?:error("Evaluation record disappeared")
@@ -162,11 +176,33 @@ class EvaluationBatchTest {
       }
      }
      app.models.gate.withLock { }
+     val perfWorkInfo: WorkInfo?=if(collectEvidence) null else withTimeout(30000L) {
+      var succeeded: WorkInfo?=null
+      while(succeeded==null) {
+       val infos=withContext(Dispatchers.IO) { WorkManager.getInstance(app).getWorkInfosByTag(recordId).get() }
+       check(infos.size==1) { "Expected exactly one WorkInfo for this QA recording" }
+       val info=infos.single()
+       check(recordId in info.tags) { "WorkInfo tag does not match this QA recording" }
+       check(info.state !in setOf(WorkInfo.State.FAILED,WorkInfo.State.CANCELLED)) { "Worker ended as ${info.state}" }
+       if(info.state==WorkInfo.State.SUCCEEDED) succeeded=info else delay(50)
+      }
+      checkNotNull(succeeded)
+     }
      val current=app.db.dao().recording(recordId)!!
      val diagnostic=JSONObject(current.diagnostics)
      assertEquals(asrPlan.wireId,diagnostic.getString("asrPlan"))
      assertEquals(requestedDiarPlan.wireId,diagnostic.getString("diarizationPlanRequested"))
      assertEquals(diarPlan.wireId,diagnostic.getString("diarizationPlan"))
+     val actualCpu=diagnostic.getJSONObject("cpuPolicy")
+     val expectedCpu=cpuPlan.resolve(requestedThreads,actualCpu.getInt("availableCores"),diarPlan.refined)
+     val expectedCpuJson=DiarizationEvidence.jsonObject(expectedCpu.asMap())
+     assertEquals(expectedCpuJson.keys().asSequence().toSet(),actualCpu.keys().asSequence().toSet())
+     for(key in expectedCpuJson.keys()) assertEquals("CPU policy $key",expectedCpuJson.get(key),actualCpu.get(key))
+     assertEquals(expectedCpu.asrThreads,diagnostic.getInt("threads"))
+     assertEquals(collectEvidence,diagnostic.get("wordEvidenceRequested"))
+     if(!collectEvidence && diagnostic.has("diarizationEvidenceRequested")) {
+      assertEquals(false,diagnostic.get("diarizationEvidenceRequested"))
+     }
      val segments=app.db.dao().segmentList(recordId).map { it.domain() }
      assertTrue(segments.none { it.edited })
      File(output,"$caseId.hypothesis.json").writeText(JuryJson.encode(segments),Charsets.UTF_8)
@@ -176,7 +212,11 @@ class EvaluationBatchTest {
       .put("duration_ms",current.durationMs).put("processing_ms",diagnostic.getLong("totalMs"))
       .put("worker_wall_ms",SystemClock.elapsedRealtime()-wallStart).put("segments",segments.size)
       .put("newModelInference",true).put("recordingId",recordId)
-     if(diarPlan.refined) {
+      .put("collectEvidence",collectEvidence).put("processId",processId)
+     if(perfWorkInfo!=null) {
+      result.put("workId",perfWorkInfo.id.toString()).put("workManagerState",perfWorkInfo.state.name)
+     }
+     if(diarPlan.refined && collectEvidence) {
       assertTrue(diagnostic.getBoolean("diarizationRefinementAccepted"))
       assertTrue(diagnostic.getJSONObject("diarizationRefinement").getBoolean("nativeResourcesReleasedBeforeRefiner"))
       val counts=diagnostic.getJSONObject("diarizationEmbeddingCounts")

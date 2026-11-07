@@ -1,0 +1,748 @@
+{
+  "schema_version": 1,
+  "protocol": {
+    "primary_metric": "wer_raw",
+    "rate_units": "fraction; null for an undefined denominator",
+    "raw_wer": "whitespace tokens; exact case, attached punctuation, ё and numeric spelling; rows ordered by start_ms/end_ms",
+    "edit_ties": "diagonal (match/substitution), then deletion, then insertion",
+    "normalized": "NFC lowercase, ё→е, non-letter/non-number characters become spaces; CER removes spaces",
+    "punctuation": "micro F1 for . , ? ! — : anchored to preceding equal lexical token after normalized alignment; BEGIN anchor before first token; substitutions/insertions do not match anchors",
+    "initial_case": "first cased letter of each reference segment, aligned by normalized lexical word; unmatched initials count incorrect; conditional_accuracy excludes unmatched",
+    "der": "full recording [0,duration_ms], overlap included, optimal global speaker permutation reoptimized after collar exclusion; collar total width ±half around each reference boundary",
+    "cpwer": "minimum sum of Levenshtein costs over speaker-concatenated streams, padded empty streams for unequal counts; raw and normalized",
+    "timing": "global one-to-one maximum-total temporal IoU matching of positive-duration segments; only positive-IoU pairs; text/speaker independent; granularity-dependent"
+  },
+  "inputs": {
+    "reference_segments": 60,
+    "hypothesis_segments": 81,
+    "duration_ms": 599999,
+    "processing_ms": 443545,
+    "reference_blank_text_segments": 0,
+    "hypothesis_blank_text_segments": 0,
+    "reference_zero_duration_segments": 0,
+    "hypothesis_zero_duration_segments": 0
+  },
+  "wer_raw": {
+    "rate": 0.08148148148148149,
+    "errors": 88,
+    "substitutions": 78,
+    "deletions": 10,
+    "insertions": 0,
+    "correct": 992,
+    "reference_tokens": 1080,
+    "hypothesis_tokens": 1070,
+    "status": "ok"
+  },
+  "wer_punctuation_tokens": {
+    "rate": 0.06717557251908397,
+    "errors": 88,
+    "substitutions": 88,
+    "deletions": 0,
+    "insertions": 0,
+    "correct": 1222,
+    "reference_tokens": 1310,
+    "hypothesis_tokens": 1310,
+    "status": "ok"
+  },
+  "wer_normalized": {
+    "rate": 0.018867924528301886,
+    "errors": 20,
+    "substitutions": 20,
+    "deletions": 0,
+    "insertions": 0,
+    "correct": 1040,
+    "reference_tokens": 1060,
+    "hypothesis_tokens": 1060,
+    "status": "ok"
+  },
+  "cer_normalized": {
+    "rate": 0.0035149384885764497,
+    "errors": 20,
+    "substitutions": 10,
+    "deletions": 10,
+    "insertions": 0,
+    "correct": 5670,
+    "reference_tokens": 5690,
+    "hypothesis_tokens": 5680,
+    "status": "ok"
+  },
+  "wer_number_normalized": {
+    "rate": 0.018867924528301886,
+    "errors": 20,
+    "substitutions": 20,
+    "deletions": 0,
+    "insertions": 0,
+    "correct": 1040,
+    "reference_tokens": 1060,
+    "hypothesis_tokens": 1060,
+    "status": "ok",
+    "available": true,
+    "language": "ru",
+    "reference_integer_tokens_converted": 0,
+    "hypothesis_integer_tokens_converted": 0,
+    "scope": "cardinal integers after lexical normalization; dates/times/percent/ordinals are not semantically interpreted"
+  },
+  "punctuation": {
+    "true_positive": 186,
+    "false_positive": 64,
+    "false_negative": 44,
+    "reference_marks": 230,
+    "hypothesis_marks": 250,
+    "precision": 0.744,
+    "recall": 0.808695652173913,
+    "f1": 0.775,
+    "marks": [
+      ".",
+      ",",
+      "?",
+      "!",
+      "—",
+      ":"
+    ],
+    "by_mark": {
+      ".": {
+        "true_positive": 67,
+        "false_positive": 31,
+        "false_negative": 33,
+        "reference_marks": 100,
+        "hypothesis_marks": 98,
+        "precision": 0.6836734693877551,
+        "recall": 0.67,
+        "f1": 0.6767676767676768
+      },
+      ",": {
+        "true_positive": 99,
+        "false_positive": 3,
+        "false_negative": 1,
+        "reference_marks": 100,
+        "hypothesis_marks": 102,
+        "precision": 0.9705882352941176,
+        "recall": 0.99,
+        "f1": 0.9801980198019802
+      },
+      "?": {
+        "true_positive": 10,
+        "false_positive": 0,
+        "false_negative": 0,
+        "reference_marks": 10,
+        "hypothesis_marks": 10,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "!": {
+        "true_positive": 10,
+        "false_positive": 20,
+        "false_negative": 10,
+        "reference_marks": 20,
+        "hypothesis_marks": 30,
+        "precision": 0.3333333333333333,
+        "recall": 0.5,
+        "f1": 0.4
+      },
+      "—": {
+        "true_positive": 0,
+        "false_positive": 10,
+        "false_negative": 0,
+        "reference_marks": 0,
+        "hypothesis_marks": 10,
+        "precision": 0.0,
+        "recall": null,
+        "f1": 0.0
+      },
+      ":": {
+        "true_positive": 0,
+        "false_positive": 0,
+        "false_negative": 0,
+        "reference_marks": 0,
+        "hypothesis_marks": 0,
+        "precision": null,
+        "recall": null,
+        "f1": null
+      }
+    },
+    "aligned_lexical_words": 1040,
+    "reference_lexical_words": 1060,
+    "hypothesis_lexical_words": 1060
+  },
+  "initial_case": {
+    "accuracy": 1.0,
+    "conditional_accuracy": 1.0,
+    "correct": 60,
+    "reference_initials": 60,
+    "aligned_reference_initials": 60,
+    "unmatched_reference_initials": 0
+  },
+  "der_collar_0ms": {
+    "rate": 0.12080590148330293,
+    "miss_ms": 60920.0,
+    "false_alarm_ms": 0.0,
+    "confusion_ms": 0.0,
+    "error_speaker_ms": 60920.0,
+    "reference_speaker_ms": 504280.0,
+    "evaluated_duration_ms": 599999.0,
+    "excluded_duration_ms": 0.0,
+    "reference_overlap_ms": 0.0,
+    "collar_ms": 0,
+    "collar_half_width_ms": 0.0,
+    "mapping_hypothesis_to_reference": {
+      "speaker_1": "speaker_1",
+      "speaker_2": "speaker_2"
+    },
+    "status": "ok"
+  },
+  "der_collar_250ms": {
+    "rate": 0.09501716808371484,
+    "miss_ms": 46490.0,
+    "false_alarm_ms": 0.0,
+    "confusion_ms": 0.0,
+    "error_speaker_ms": 46490.0,
+    "reference_speaker_ms": 489280.0,
+    "evaluated_duration_ms": 570699.0,
+    "excluded_duration_ms": 29300.0,
+    "reference_overlap_ms": 0.0,
+    "collar_ms": 250,
+    "collar_half_width_ms": 125.0,
+    "mapping_hypothesis_to_reference": {
+      "speaker_1": "speaker_1",
+      "speaker_2": "speaker_2"
+    },
+    "status": "ok"
+  },
+  "speakers": {
+    "reference": 2,
+    "hypothesis": 2,
+    "signed_error": 0,
+    "absolute_error": 0
+  },
+  "cpwer_raw": {
+    "errors": 88,
+    "substitutions": 78,
+    "deletions": 10,
+    "insertions": 0,
+    "correct": 992,
+    "reference_tokens": 1080,
+    "hypothesis_tokens": 1070,
+    "rate": 0.08148148148148149,
+    "status": "ok",
+    "speaker_pairs": [
+      {
+        "reference_speaker": "speaker_1",
+        "hypothesis_speaker": "speaker_1",
+        "errors": 46,
+        "reference_tokens": 530,
+        "hypothesis_tokens": 530
+      },
+      {
+        "reference_speaker": "speaker_2",
+        "hypothesis_speaker": "speaker_2",
+        "errors": 42,
+        "reference_tokens": 550,
+        "hypothesis_tokens": 540
+      }
+    ]
+  },
+  "cpwer_normalized": {
+    "errors": 20,
+    "substitutions": 20,
+    "deletions": 0,
+    "insertions": 0,
+    "correct": 1040,
+    "reference_tokens": 1060,
+    "hypothesis_tokens": 1060,
+    "rate": 0.018867924528301886,
+    "status": "ok",
+    "speaker_pairs": [
+      {
+        "reference_speaker": "speaker_1",
+        "hypothesis_speaker": "speaker_1",
+        "errors": 10,
+        "reference_tokens": 520,
+        "hypothesis_tokens": 520
+      },
+      {
+        "reference_speaker": "speaker_2",
+        "hypothesis_speaker": "speaker_2",
+        "errors": 10,
+        "reference_tokens": 540,
+        "hypothesis_tokens": 540
+      }
+    ]
+  },
+  "timing": {
+    "matched_pairs": 60,
+    "reference_intervals": 60,
+    "hypothesis_intervals": 81,
+    "reference_coverage": 1.0,
+    "hypothesis_coverage": 0.7407407407407407,
+    "unmatched_reference": 0,
+    "unmatched_hypothesis": 21,
+    "mean_start_abs_error_ms": 1225.2666666666667,
+    "mean_end_abs_error_ms": 511.4,
+    "median_start_abs_error_ms": 359.5,
+    "median_end_abs_error_ms": 412.0,
+    "pairs_over_250ms": 60,
+    "fraction_over_250ms": 1.0,
+    "reference_fraction_over_250ms_or_unmatched": 1.0,
+    "pairs": [
+      {
+        "reference_index": 0,
+        "hypothesis_index": 1,
+        "iou": 0.7580174927113703,
+        "start_abs_error_ms": 750,
+        "end_abs_error_ms": 246
+      },
+      {
+        "reference_index": 1,
+        "hypothesis_index": 2,
+        "iou": 0.5434410320812878,
+        "start_abs_error_ms": 298,
+        "end_abs_error_ms": 3701
+      },
+      {
+        "reference_index": 2,
+        "hypothesis_index": 4,
+        "iou": 0.8917969223312735,
+        "start_abs_error_ms": 461,
+        "end_abs_error_ms": 432
+      },
+      {
+        "reference_index": 3,
+        "hypothesis_index": 5,
+        "iou": 0.9487750556792873,
+        "start_abs_error_ms": 68,
+        "end_abs_error_ms": 392
+      },
+      {
+        "reference_index": 4,
+        "hypothesis_index": 6,
+        "iou": 0.9403415391439344,
+        "start_abs_error_ms": 250,
+        "end_abs_error_ms": 288
+      },
+      {
+        "reference_index": 5,
+        "hypothesis_index": 8,
+        "iou": 0.44593877189877895,
+        "start_abs_error_ms": 5498,
+        "end_abs_error_ms": 764
+      },
+      {
+        "reference_index": 6,
+        "hypothesis_index": 10,
+        "iou": 0.7482993197278912,
+        "start_abs_error_ms": 756,
+        "end_abs_error_ms": 280
+      },
+      {
+        "reference_index": 7,
+        "hypothesis_index": 11,
+        "iou": 0.8905126155953876,
+        "start_abs_error_ms": 298,
+        "end_abs_error_ms": 661
+      },
+      {
+        "reference_index": 8,
+        "hypothesis_index": 12,
+        "iou": 0.8917969223312735,
+        "start_abs_error_ms": 461,
+        "end_abs_error_ms": 432
+      },
+      {
+        "reference_index": 9,
+        "hypothesis_index": 13,
+        "iou": 0.9576837416481069,
+        "start_abs_error_ms": 68,
+        "end_abs_error_ms": 312
+      },
+      {
+        "reference_index": 10,
+        "hypothesis_index": 14,
+        "iou": 0.9359059658460857,
+        "start_abs_error_ms": 278,
+        "end_abs_error_ms": 300
+      },
+      {
+        "reference_index": 11,
+        "hypothesis_index": 16,
+        "iou": 0.44593877189877895,
+        "start_abs_error_ms": 5498,
+        "end_abs_error_ms": 764
+      },
+      {
+        "reference_index": 12,
+        "hypothesis_index": 18,
+        "iou": 0.7482993197278912,
+        "start_abs_error_ms": 756,
+        "end_abs_error_ms": 280
+      },
+      {
+        "reference_index": 13,
+        "hypothesis_index": 19,
+        "iou": 0.8905126155953876,
+        "start_abs_error_ms": 298,
+        "end_abs_error_ms": 661
+      },
+      {
+        "reference_index": 14,
+        "hypothesis_index": 20,
+        "iou": 0.8917969223312735,
+        "start_abs_error_ms": 461,
+        "end_abs_error_ms": 432
+      },
+      {
+        "reference_index": 15,
+        "hypothesis_index": 21,
+        "iou": 0.9576837416481069,
+        "start_abs_error_ms": 68,
+        "end_abs_error_ms": 312
+      },
+      {
+        "reference_index": 16,
+        "hypothesis_index": 22,
+        "iou": 0.9359059658460857,
+        "start_abs_error_ms": 278,
+        "end_abs_error_ms": 300
+      },
+      {
+        "reference_index": 17,
+        "hypothesis_index": 24,
+        "iou": 0.44593877189877895,
+        "start_abs_error_ms": 5498,
+        "end_abs_error_ms": 764
+      },
+      {
+        "reference_index": 18,
+        "hypothesis_index": 26,
+        "iou": 0.7482993197278912,
+        "start_abs_error_ms": 756,
+        "end_abs_error_ms": 280
+      },
+      {
+        "reference_index": 19,
+        "hypothesis_index": 27,
+        "iou": 0.8905126155953876,
+        "start_abs_error_ms": 298,
+        "end_abs_error_ms": 661
+      },
+      {
+        "reference_index": 20,
+        "hypothesis_index": 28,
+        "iou": 0.8869501999272992,
+        "start_abs_error_ms": 461,
+        "end_abs_error_ms": 472
+      },
+      {
+        "reference_index": 21,
+        "hypothesis_index": 29,
+        "iou": 0.9576837416481069,
+        "start_abs_error_ms": 68,
+        "end_abs_error_ms": 312
+      },
+      {
+        "reference_index": 22,
+        "hypothesis_index": 30,
+        "iou": 0.9359059658460857,
+        "start_abs_error_ms": 278,
+        "end_abs_error_ms": 300
+      },
+      {
+        "reference_index": 23,
+        "hypothesis_index": 32,
+        "iou": 0.44593877189877895,
+        "start_abs_error_ms": 5498,
+        "end_abs_error_ms": 764
+      },
+      {
+        "reference_index": 24,
+        "hypothesis_index": 34,
+        "iou": 0.7482993197278912,
+        "start_abs_error_ms": 756,
+        "end_abs_error_ms": 280
+      },
+      {
+        "reference_index": 25,
+        "hypothesis_index": 35,
+        "iou": 0.8905126155953876,
+        "start_abs_error_ms": 298,
+        "end_abs_error_ms": 661
+      },
+      {
+        "reference_index": 26,
+        "hypothesis_index": 36,
+        "iou": 0.8966436447352478,
+        "start_abs_error_ms": 421,
+        "end_abs_error_ms": 432
+      },
+      {
+        "reference_index": 27,
+        "hypothesis_index": 37,
+        "iou": 0.9576837416481069,
+        "start_abs_error_ms": 68,
+        "end_abs_error_ms": 312
+      },
+      {
+        "reference_index": 28,
+        "hypothesis_index": 38,
+        "iou": 0.9359059658460857,
+        "start_abs_error_ms": 278,
+        "end_abs_error_ms": 300
+      },
+      {
+        "reference_index": 29,
+        "hypothesis_index": 40,
+        "iou": 0.44593877189877895,
+        "start_abs_error_ms": 5498,
+        "end_abs_error_ms": 764
+      },
+      {
+        "reference_index": 30,
+        "hypothesis_index": 42,
+        "iou": 0.7482993197278912,
+        "start_abs_error_ms": 756,
+        "end_abs_error_ms": 280
+      },
+      {
+        "reference_index": 31,
+        "hypothesis_index": 43,
+        "iou": 0.8905126155953876,
+        "start_abs_error_ms": 298,
+        "end_abs_error_ms": 661
+      },
+      {
+        "reference_index": 32,
+        "hypothesis_index": 44,
+        "iou": 0.8917969223312735,
+        "start_abs_error_ms": 461,
+        "end_abs_error_ms": 432
+      },
+      {
+        "reference_index": 33,
+        "hypothesis_index": 45,
+        "iou": 0.9576837416481069,
+        "start_abs_error_ms": 68,
+        "end_abs_error_ms": 312
+      },
+      {
+        "reference_index": 34,
+        "hypothesis_index": 46,
+        "iou": 0.9359059658460857,
+        "start_abs_error_ms": 278,
+        "end_abs_error_ms": 300
+      },
+      {
+        "reference_index": 35,
+        "hypothesis_index": 48,
+        "iou": 0.44593877189877895,
+        "start_abs_error_ms": 5498,
+        "end_abs_error_ms": 764
+      },
+      {
+        "reference_index": 36,
+        "hypothesis_index": 50,
+        "iou": 0.7482993197278912,
+        "start_abs_error_ms": 756,
+        "end_abs_error_ms": 280
+      },
+      {
+        "reference_index": 37,
+        "hypothesis_index": 51,
+        "iou": 0.8905126155953876,
+        "start_abs_error_ms": 298,
+        "end_abs_error_ms": 661
+      },
+      {
+        "reference_index": 38,
+        "hypothesis_index": 52,
+        "iou": 0.8917969223312735,
+        "start_abs_error_ms": 461,
+        "end_abs_error_ms": 432
+      },
+      {
+        "reference_index": 39,
+        "hypothesis_index": 53,
+        "iou": 0.9576837416481069,
+        "start_abs_error_ms": 68,
+        "end_abs_error_ms": 312
+      },
+      {
+        "reference_index": 40,
+        "hypothesis_index": 54,
+        "iou": 0.9359059658460857,
+        "start_abs_error_ms": 278,
+        "end_abs_error_ms": 300
+      },
+      {
+        "reference_index": 41,
+        "hypothesis_index": 56,
+        "iou": 0.44593877189877895,
+        "start_abs_error_ms": 5498,
+        "end_abs_error_ms": 764
+      },
+      {
+        "reference_index": 42,
+        "hypothesis_index": 58,
+        "iou": 0.7482993197278912,
+        "start_abs_error_ms": 756,
+        "end_abs_error_ms": 280
+      },
+      {
+        "reference_index": 43,
+        "hypothesis_index": 59,
+        "iou": 0.8905126155953876,
+        "start_abs_error_ms": 298,
+        "end_abs_error_ms": 661
+      },
+      {
+        "reference_index": 44,
+        "hypothesis_index": 60,
+        "iou": 0.8917969223312735,
+        "start_abs_error_ms": 461,
+        "end_abs_error_ms": 432
+      },
+      {
+        "reference_index": 45,
+        "hypothesis_index": 61,
+        "iou": 0.9576837416481069,
+        "start_abs_error_ms": 68,
+        "end_abs_error_ms": 312
+      },
+      {
+        "reference_index": 46,
+        "hypothesis_index": 62,
+        "iou": 0.9359059658460857,
+        "start_abs_error_ms": 278,
+        "end_abs_error_ms": 300
+      },
+      {
+        "reference_index": 47,
+        "hypothesis_index": 64,
+        "iou": 0.44593877189877895,
+        "start_abs_error_ms": 5498,
+        "end_abs_error_ms": 764
+      },
+      {
+        "reference_index": 48,
+        "hypothesis_index": 66,
+        "iou": 0.7482993197278912,
+        "start_abs_error_ms": 756,
+        "end_abs_error_ms": 280
+      },
+      {
+        "reference_index": 49,
+        "hypothesis_index": 67,
+        "iou": 0.8905126155953876,
+        "start_abs_error_ms": 298,
+        "end_abs_error_ms": 661
+      },
+      {
+        "reference_index": 50,
+        "hypothesis_index": 68,
+        "iou": 0.8869501999272992,
+        "start_abs_error_ms": 461,
+        "end_abs_error_ms": 472
+      },
+      {
+        "reference_index": 51,
+        "hypothesis_index": 69,
+        "iou": 0.9576837416481069,
+        "start_abs_error_ms": 68,
+        "end_abs_error_ms": 312
+      },
+      {
+        "reference_index": 52,
+        "hypothesis_index": 70,
+        "iou": 0.9359059658460857,
+        "start_abs_error_ms": 278,
+        "end_abs_error_ms": 300
+      },
+      {
+        "reference_index": 53,
+        "hypothesis_index": 72,
+        "iou": 0.44593877189877895,
+        "start_abs_error_ms": 5498,
+        "end_abs_error_ms": 764
+      },
+      {
+        "reference_index": 54,
+        "hypothesis_index": 74,
+        "iou": 0.7482993197278912,
+        "start_abs_error_ms": 756,
+        "end_abs_error_ms": 280
+      },
+      {
+        "reference_index": 55,
+        "hypothesis_index": 75,
+        "iou": 0.8905126155953876,
+        "start_abs_error_ms": 298,
+        "end_abs_error_ms": 661
+      },
+      {
+        "reference_index": 56,
+        "hypothesis_index": 76,
+        "iou": 0.8869501999272992,
+        "start_abs_error_ms": 461,
+        "end_abs_error_ms": 472
+      },
+      {
+        "reference_index": 57,
+        "hypothesis_index": 77,
+        "iou": 0.9576837416481069,
+        "start_abs_error_ms": 68,
+        "end_abs_error_ms": 312
+      },
+      {
+        "reference_index": 58,
+        "hypothesis_index": 78,
+        "iou": 0.9359059658460857,
+        "start_abs_error_ms": 278,
+        "end_abs_error_ms": 300
+      },
+      {
+        "reference_index": 59,
+        "hypothesis_index": 80,
+        "iou": 0.44593877189877895,
+        "start_abs_error_ms": 5498,
+        "end_abs_error_ms": 764
+      }
+    ]
+  },
+  "rtf": 0.7392428987381645,
+  "native_der_collar_0ms": {
+    "rate": 0.0912290790830491,
+    "miss_ms": 46005.0,
+    "false_alarm_ms": 0.0,
+    "confusion_ms": 0.0,
+    "error_speaker_ms": 46005.0,
+    "reference_speaker_ms": 504280.0,
+    "evaluated_duration_ms": 599999.0,
+    "excluded_duration_ms": 0.0,
+    "reference_overlap_ms": 0.0,
+    "collar_ms": 0,
+    "collar_half_width_ms": 0.0,
+    "mapping_hypothesis_to_reference": {
+      "0": "speaker_1",
+      "1": "speaker_2"
+    },
+    "status": "ok"
+  },
+  "native_der_collar_250ms": {
+    "rate": 0.06757684761281883,
+    "miss_ms": 33064.0,
+    "false_alarm_ms": 0.0,
+    "confusion_ms": 0.0,
+    "error_speaker_ms": 33064.0,
+    "reference_speaker_ms": 489280.0,
+    "evaluated_duration_ms": 570699.0,
+    "excluded_duration_ms": 29300.0,
+    "reference_overlap_ms": 0.0,
+    "collar_ms": 250,
+    "collar_half_width_ms": 125.0,
+    "mapping_hypothesis_to_reference": {
+      "0": "speaker_1",
+      "1": "speaker_2"
+    },
+    "status": "ok"
+  },
+  "native_speaker_count": 2
+}

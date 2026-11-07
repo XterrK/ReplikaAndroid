@@ -1,0 +1,1503 @@
+{
+  "asrPlan": "vad_words_context600",
+  "asrPolicy": {
+    "pipeline": "vad_words_v1",
+    "punctuation_mode": "none",
+    "energy_split": true,
+    "vad_threshold": 0.5,
+    "vad_min_speech_sec": 0.25,
+    "vad_min_silence_sec": 0.25,
+    "pre_roll_ms": 600
+  },
+  "diarizationPlanRequested": "eres2net_window_v1",
+  "wordEvidenceRequested": true,
+  "wordEvidenceApplicable": true,
+  "wordEvidenceLimitBytes": 262144,
+  "wordEvidenceBytes": 26362,
+  "wordEvidenceTruncated": false,
+  "diarizationPlan": "eres2net_window_v1",
+  "diarizationPolicy": {
+    "plan": "eres2net_window_v1",
+    "algorithm": "window-overcluster-v1",
+    "embedding_path": "diar\/embedding.onnx",
+    "native_threshold": 0.30000001192092896,
+    "window_shift": 0.10000000149011612,
+    "min_duration_on": 0.20000000298023224,
+    "min_duration_off": 0.5,
+    "window_config": {
+      "tau": 0.36,
+      "method": "average",
+      "grid_ms": 125,
+      "max_speakers": 8,
+      "reassign_small": true,
+      "min_cluster_ms": 2000,
+      "min_cluster_fraction": 0.03,
+      "minimum_reassignment_similarity": null,
+      "smooth": true,
+      "smooth_ms": 500
+    }
+  },
+  "cpuPolicy": {
+    "plan": "auto_v1",
+    "requestedThreads": 0,
+    "availableCores": 2,
+    "asrThreads": 1,
+    "diarizationThreads": 1,
+    "refinementThreads": 1,
+    "diarizationPinned": false,
+    "refinementPinned": false
+  },
+  "vadPrimarySpanCount": 9,
+  "vadPrimarySpans": [
+    {
+      "startMs": 294,
+      "endMs": 1478
+    },
+    {
+      "startMs": 1702,
+      "endMs": 4838
+    },
+    {
+      "startMs": 5254,
+      "endMs": 12230
+    },
+    {
+      "startMs": 12614,
+      "endMs": 17894
+    },
+    {
+      "startMs": 19014,
+      "endMs": 19686
+    },
+    {
+      "startMs": 20006,
+      "endMs": 24102
+    },
+    {
+      "startMs": 24486,
+      "endMs": 28774
+    },
+    {
+      "startMs": 29510,
+      "endMs": 32902
+    },
+    {
+      "startMs": 33126,
+      "endMs": 35494
+    }
+  ],
+  "vadRescueAttempted": false,
+  "vadRescueApplied": false,
+  "vadDetectorGain": 1,
+  "vadRescueRms": null,
+  "vadRescueRmsSamples": 0,
+  "vadRescueSpanCount": 0,
+  "vadRescueReason": "primary_nonempty",
+  "vadRescueTargetRms": 0.02,
+  "vadRescueMaxGain": 20,
+  "vadRescuePeakHeadroom": 0.95,
+  "vadRescueMinGainRatio": 1.01,
+  "vadRescueScope": "detector-only empty-primary retry; ASR input, original PCM and diarization unchanged",
+  "rawDiarizationTurns": [
+    {
+      "startMs": 31,
+      "endMs": 13160,
+      "speakerId": 0
+    },
+    {
+      "startMs": 12822,
+      "endMs": 17885,
+      "speakerId": 2
+    },
+    {
+      "startMs": 18847,
+      "endMs": 24989,
+      "speakerId": 4
+    },
+    {
+      "startMs": 24770,
+      "endMs": 28837,
+      "speakerId": 7
+    },
+    {
+      "startMs": 29495,
+      "endMs": 35502,
+      "speakerId": 9
+    }
+  ],
+  "nativeDiarizationTurns": [
+    {
+      "startMs": 31,
+      "endMs": 13160,
+      "speakerId": 0
+    },
+    {
+      "startMs": 12822,
+      "endMs": 17885,
+      "speakerId": 1
+    },
+    {
+      "startMs": 18847,
+      "endMs": 24989,
+      "speakerId": 2
+    },
+    {
+      "startMs": 24770,
+      "endMs": 28837,
+      "speakerId": 3
+    },
+    {
+      "startMs": 29495,
+      "endMs": 35502,
+      "speakerId": 4
+    }
+  ],
+  "diarizationRefinementApplicable": true,
+  "diarizationRefinementAccepted": true,
+  "diarizationRefinement": {
+    "algorithm": "window-overcluster-v1",
+    "config": {
+      "tau": 0.36,
+      "method": "average",
+      "grid_ms": 125,
+      "max_speakers": 8,
+      "reassign_small": true,
+      "min_cluster_ms": 2000,
+      "min_cluster_fraction": 0.03,
+      "minimum_reassignment_similarity": null,
+      "smooth": true,
+      "smooth_ms": 500
+    },
+    "cpuPlan": "auto_v1",
+    "embeddingThreads": 1,
+    "status": "PARTIAL_TEMPORAL",
+    "computationalSupport": true,
+    "qualityAcceptance": "not evaluated by this adapter",
+    "originalPcm": true,
+    "sampleRate": 16000,
+    "cleanWindowMs": 1500,
+    "cleanWindowStepMs": 750,
+    "cleanMinimumIslandMs": 1000,
+    "embeddingInferenceCompleted": true,
+    "embeddingScope": "Original decoded PCM; no gain, resampling, padding or normalization",
+    "nativeResourcesReleasedBeforeRefiner": true,
+    "retainedNativeModelCache": false,
+    "refiner": {
+      "algorithm": "window-overcluster-v1",
+      "config": {
+        "tau": 0.36,
+        "method": "average",
+        "grid_ms": 125,
+        "max_speakers": 8,
+        "reassign_small": true,
+        "min_cluster_ms": 2000,
+        "min_cluster_fraction": 0.03,
+        "minimum_reassignment_similarity": null,
+        "smooth": true,
+        "smooth_ms": 500
+      },
+      "duration_ms": 36060,
+      "new_neural_inference": false,
+      "eigengap_applied": false,
+      "boundary_timing_scope": "Saved-window votes on an activity-confined grid; no forced alignment or true change-point accuracy claim",
+      "native_input_clusters": 5,
+      "scipy_version": "1.18.1",
+      "hierarchy_backend": "pure Kotlin; scipy_version denotes source algorithm contract, not runtime",
+      "cut_distance": 0.64,
+      "cut_inclusive": true,
+      "linkage_method": "average",
+      "canonical_window_order": "start_ms, end_ms, original speaker",
+      "window_clusters_at_cut": 2,
+      "window_clusters_after_cap": 2,
+      "fully_acoustic_supported": false,
+      "every_native_label_has_measured_windows": true,
+      "clusters_after_voting": 2,
+      "small_cluster_cutoff_ms": 2000,
+      "clusters_after_small": 2,
+      "status": "PARTIAL_TEMPORAL",
+      "measured_unique_windows": 38,
+      "embedding_dimension": 512,
+      "output_clusters": 2,
+      "original_activity_union_ms": 33851,
+      "output_activity_union_ms": 33851,
+      "activity_union_preserved": true,
+      "original_speaker_time_ms": 34408,
+      "output_speaker_time_ms": 34189,
+      "speaker_time_collapsed_ms": 219,
+      "grid_boundary_resolution_ms": 125,
+      "max_assignment_atom_ms": 125
+    }
+  },
+  "diarizationRefinementTimingsMs": {
+    "embeddingLoadMs": 661.85157,
+    "embeddingReadMs": 73.85665600000002,
+    "embeddingComputeMs": 5179.8540570000005,
+    "embeddingStageMs": 6180.219505,
+    "refinerMs": 539.632291,
+    "totalMs": 6720.187027
+  },
+  "diarizationEmbeddingCounts": {
+    "plannedWindows": 38,
+    "extractorLoads": 1,
+    "readWindows": 38,
+    "createdStreams": 38,
+    "releasedStreams": 38,
+    "computeAttempts": 38,
+    "embeddingForwardCalls": 38,
+    "measuredWindows": 38,
+    "embeddingDimension": 512
+  },
+  "diarizationEvidenceRequested": true,
+  "diarizationEvidenceLimitBytes": 8388608,
+  "diarizationEvidenceTruncated": false,
+  "diarizationEvidenceBytes": 487921,
+  "diarizationEvidenceOmittedReason": null,
+  "diarizationEvidenceFile": "diarization-qa\/diarization-28ebb021-b674-4a0d-9cc2-1b066a02ca7b.json",
+  "diarizationEvidenceSha256": "21267a4786a9114223d43428d23c1a06a75efab9ff0541628abbea8e7ab7dbd9",
+  "asrChunks": [
+    {
+      "startMs": 0,
+      "endMs": 17894
+    },
+    {
+      "startMs": 18414,
+      "endMs": 28774
+    },
+    {
+      "startMs": 28910,
+      "endMs": 35494
+    }
+  ],
+  "turnsUsedForAsrSlicing": false,
+  "wordAssignmentSupported": true,
+  "wordProcessedChunks": 3,
+  "fallbackChunks": 0,
+  "wordTimestampScope": "Token-emission proxies; pinned GigaAM v3 stride 40ms; not forced alignment or calibrated confidence",
+  "asrSlices": [
+    {
+      "startMs": 0,
+      "endMs": 17894,
+      "speakerId": -1,
+      "text": "Полностью согласна. Считаю, что нужно находить время и для работы, и для отдыха. Для меня это Холокост. Невозможно представить масштабы трагедий и страданий, которые пережили миллионы людей. А для тебя... Ещё бы! Все рассмеялись, а преподаватель стал объяснять разницу между этими словами.",
+      "blank": false,
+      "inferenceMs": 6180,
+      "tokenCount": 115,
+      "timestampCount": 115,
+      "wordCount": 42,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": true,
+      "tokens": [
+        " По",
+        "л",
+        "ность",
+        "ю",
+        " соглас",
+        "на",
+        ".",
+        " С",
+        "чита",
+        "ю",
+        ",",
+        " что",
+        " нужно",
+        " на",
+        "ход",
+        "ить",
+        " время",
+        " и",
+        " для",
+        " работы",
+        ",",
+        " и",
+        " для",
+        " от",
+        "ды",
+        "ха",
+        ".",
+        " Д",
+        "ля",
+        " меня",
+        " это",
+        " Хо",
+        "ло",
+        "ко",
+        "ст",
+        ".",
+        " Не",
+        "во",
+        "з",
+        "мо",
+        "ж",
+        "но",
+        " пред",
+        "ставить",
+        " ",
+        "ма",
+        "с",
+        "ш",
+        "та",
+        "бы",
+        " ",
+        "тра",
+        "г",
+        "е",
+        "ди",
+        "й",
+        " и",
+        " ",
+        "стра",
+        "да",
+        "ний",
+        ",",
+        " которые",
+        " пере",
+        "жи",
+        "ли",
+        " ",
+        "ми",
+        "л",
+        "ли",
+        "о",
+        "ны",
+        " людей",
+        ".",
+        " А",
+        " для",
+        " тебя",
+        ".",
+        ".",
+        ".",
+        " Е",
+        "щ",
+        "ё",
+        " бы",
+        "!",
+        " Все",
+        " расс",
+        "ме",
+        "я",
+        "ли",
+        "сь",
+        ",",
+        " а",
+        " пре",
+        "по",
+        "да",
+        "в",
+        "атель",
+        " стал",
+        " об",
+        "ъ",
+        "я",
+        "с",
+        "нять",
+        " раз",
+        "ни",
+        "ц",
+        "у",
+        " между",
+        " эти",
+        "ми",
+        " с",
+        "лов",
+        "ами",
+        "."
+      ],
+      "timestamps": [
+        0.23999999463558197,
+        0.3999999761581421,
+        0.47999998927116394,
+        0.6399999856948853,
+        0.7999999523162842,
+        1.159999966621399,
+        1.3600000143051147,
+        1.6399999856948853,
+        1.7599999904632568,
+        1.9199999570846558,
+        2.0399999618530273,
+        2.119999885559082,
+        2.240000009536743,
+        2.4800000190734863,
+        2.6399998664855957,
+        2.759999990463257,
+        2.879999876022339,
+        3.1599998474121094,
+        3.319999933242798,
+        3.5199999809265137,
+        3.879999876022339,
+        4.039999961853027,
+        4.199999809265137,
+        4.360000133514404,
+        4.519999980926514,
+        4.639999866485596,
+        4.839999675750732,
+        5.199999809265137,
+        5.279999732971191,
+        5.440000057220459,
+        5.679999828338623,
+        5.960000038146973,
+        6.119999885559082,
+        6.279999732971191,
+        6.480000019073486,
+        6.679999828338623,
+        6.87999963760376,
+        7.039999961853027,
+        7.119999885559082,
+        7.199999809265137,
+        7.279999732971191,
+        7.359999656677246,
+        7.480000019073486,
+        7.679999828338623,
+        8,
+        8.039999961853027,
+        8.119999885559082,
+        8.199999809265137,
+        8.319999694824219,
+        8.399999618530273,
+        8.59999942779541,
+        8.639999389648438,
+        8.760000228881836,
+        8.84000015258789,
+        8.920000076293945,
+        9.039999961853027,
+        9.15999984741211,
+        9.359999656677246,
+        9.399999618530273,
+        9.59999942779541,
+        9.800000190734863,
+        10.039999961853027,
+        10.239999771118164,
+        10.639999389648438,
+        10.880000114440918,
+        11,
+        11.15999984741211,
+        11.199999809265137,
+        11.319999694824219,
+        11.359999656677246,
+        11.479999542236328,
+        11.559999465942383,
+        11.75999927520752,
+        12.119999885559082,
+        12.4399995803833,
+        12.59999942779541,
+        12.75999927520752,
+        12.960000038146973,
+        12.960000038146973,
+        12.960000038146973,
+        13.119999885559082,
+        13.239999771118164,
+        13.319999694824219,
+        13.4399995803833,
+        13.59999942779541,
+        13.880000114440918,
+        14.079999923706055,
+        14.319999694824219,
+        14.479999542236328,
+        14.59999942779541,
+        14.679999351501465,
+        14.799999237060547,
+        14.920000076293945,
+        15.079999923706055,
+        15.199999809265137,
+        15.319999694824219,
+        15.399999618530273,
+        15.519999504089355,
+        15.719999313354492,
+        15.960000038146973,
+        16.079999923706055,
+        16.079999923706055,
+        16.15999984741211,
+        16.239999771118164,
+        16.440000534057617,
+        16.600000381469727,
+        16.68000030517578,
+        16.760000228881836,
+        16.84000015258789,
+        17.119998931884766,
+        17.279998779296875,
+        17.399999618530273,
+        17.520000457763672,
+        17.639999389648438,
+        17.799999237060547
+      ],
+      "words": [
+        {
+          "startMs": 240,
+          "endMs": 680,
+          "text": "Полностью",
+          "speakerId": 0,
+          "warnings": []
+        },
+        {
+          "startMs": 800,
+          "endMs": 1200,
+          "text": "согласна.",
+          "speakerId": 0,
+          "warnings": []
+        },
+        {
+          "startMs": 1640,
+          "endMs": 1960,
+          "text": "Считаю,",
+          "speakerId": 0,
+          "warnings": []
+        },
+        {
+          "startMs": 2120,
+          "endMs": 2160,
+          "text": "что",
+          "speakerId": 0,
+          "warnings": []
+        },
+        {
+          "startMs": 2240,
+          "endMs": 2280,
+          "text": "нужно",
+          "speakerId": 0,
+          "warnings": []
+        },
+        {
+          "startMs": 2480,
+          "endMs": 2800,
+          "text": "находить",
+          "speakerId": 0,
+          "warnings": []
+        },
+        {
+          "startMs": 2880,
+          "endMs": 2920,
+          "text": "время",
+          "speakerId": 0,
+          "warnings": []
+        },
+        {
+          "startMs": 3160,
+          "endMs": 3200,
+          "text": "и",
+          "speakerId": 0,
+          "warnings": []
+        },
+        {
+          "startMs": 3320,
+          "endMs": 3360,
+          "text": "для",
+          "speakerId": 0,
+          "warnings": []
+        },
+        {
+          "startMs": 3520,
+          "endMs": 3560,
+          "text": "работы,",
+          "speakerId": 0,
+          "warnings": []
+        },
+        {
+          "startMs": 4040,
+          "endMs": 4080,
+          "text": "и",
+          "speakerId": 0,
+          "warnings": []
+        },
+        {
+          "startMs": 4200,
+          "endMs": 4240,
+          "text": "для",
+          "speakerId": 0,
+          "warnings": []
+        },
+        {
+          "startMs": 4360,
+          "endMs": 4680,
+          "text": "отдыха.",
+          "speakerId": 0,
+          "warnings": []
+        },
+        {
+          "startMs": 5200,
+          "endMs": 5320,
+          "text": "Для",
+          "speakerId": 0,
+          "warnings": []
+        },
+        {
+          "startMs": 5440,
+          "endMs": 5480,
+          "text": "меня",
+          "speakerId": 0,
+          "warnings": []
+        },
+        {
+          "startMs": 5680,
+          "endMs": 5720,
+          "text": "это",
+          "speakerId": 0,
+          "warnings": []
+        },
+        {
+          "startMs": 5960,
+          "endMs": 6520,
+          "text": "Холокост.",
+          "speakerId": 0,
+          "warnings": []
+        },
+        {
+          "startMs": 6880,
+          "endMs": 7400,
+          "text": "Невозможно",
+          "speakerId": 0,
+          "warnings": []
+        },
+        {
+          "startMs": 7480,
+          "endMs": 7720,
+          "text": "представить",
+          "speakerId": 0,
+          "warnings": []
+        },
+        {
+          "startMs": 8040,
+          "endMs": 8440,
+          "text": "масштабы",
+          "speakerId": 0,
+          "warnings": []
+        },
+        {
+          "startMs": 8640,
+          "endMs": 9080,
+          "text": "трагедий",
+          "speakerId": 0,
+          "warnings": []
+        },
+        {
+          "startMs": 9160,
+          "endMs": 9200,
+          "text": "и",
+          "speakerId": 0,
+          "warnings": []
+        },
+        {
+          "startMs": 9400,
+          "endMs": 9840,
+          "text": "страданий,",
+          "speakerId": 0,
+          "warnings": []
+        },
+        {
+          "startMs": 10240,
+          "endMs": 10280,
+          "text": "которые",
+          "speakerId": 0,
+          "warnings": []
+        },
+        {
+          "startMs": 10640,
+          "endMs": 11040,
+          "text": "пережили",
+          "speakerId": 0,
+          "warnings": []
+        },
+        {
+          "startMs": 11200,
+          "endMs": 11600,
+          "text": "миллионы",
+          "speakerId": 0,
+          "warnings": []
+        },
+        {
+          "startMs": 11760,
+          "endMs": 11800,
+          "text": "людей.",
+          "speakerId": 0,
+          "warnings": []
+        },
+        {
+          "startMs": 12440,
+          "endMs": 12480,
+          "text": "А",
+          "speakerId": 0,
+          "warnings": []
+        },
+        {
+          "startMs": 12600,
+          "endMs": 12640,
+          "text": "для",
+          "speakerId": 0,
+          "warnings": []
+        },
+        {
+          "startMs": 12760,
+          "endMs": 12800,
+          "text": "тебя...",
+          "speakerId": 0,
+          "warnings": []
+        },
+        {
+          "startMs": 13120,
+          "endMs": 13360,
+          "text": "Ещё",
+          "speakerId": 1,
+          "warnings": [
+            "Пересечение голосов в слове"
+          ]
+        },
+        {
+          "startMs": 13440,
+          "endMs": 13480,
+          "text": "бы!",
+          "speakerId": 1,
+          "warnings": []
+        },
+        {
+          "startMs": 13880,
+          "endMs": 13920,
+          "text": "Все",
+          "speakerId": 1,
+          "warnings": []
+        },
+        {
+          "startMs": 14080,
+          "endMs": 14720,
+          "text": "рассмеялись,",
+          "speakerId": 1,
+          "warnings": []
+        },
+        {
+          "startMs": 14920,
+          "endMs": 14960,
+          "text": "а",
+          "speakerId": 1,
+          "warnings": []
+        },
+        {
+          "startMs": 15080,
+          "endMs": 15560,
+          "text": "преподаватель",
+          "speakerId": 1,
+          "warnings": []
+        },
+        {
+          "startMs": 15720,
+          "endMs": 15760,
+          "text": "стал",
+          "speakerId": 1,
+          "warnings": []
+        },
+        {
+          "startMs": 15960,
+          "endMs": 16280,
+          "text": "объяснять",
+          "speakerId": 1,
+          "warnings": []
+        },
+        {
+          "startMs": 16440,
+          "endMs": 16800,
+          "text": "разницу",
+          "speakerId": 1,
+          "warnings": []
+        },
+        {
+          "startMs": 16840,
+          "endMs": 16880,
+          "text": "между",
+          "speakerId": 1,
+          "warnings": []
+        },
+        {
+          "startMs": 17120,
+          "endMs": 17320,
+          "text": "этими",
+          "speakerId": 1,
+          "warnings": []
+        },
+        {
+          "startMs": 17400,
+          "endMs": 17680,
+          "text": "словами.",
+          "speakerId": 1,
+          "warnings": []
+        }
+      ]
+    },
+    {
+      "startMs": 18414,
+      "endMs": 28774,
+      "speakerId": -1,
+      "text": "Что лучше? Мы уже всё пересмотрели: походный набор, инструменты, набор для пикника. Что ещё? Согласна? Но, наверное, стоит инвестировать в хорошую технику.",
+      "blank": false,
+      "inferenceMs": 3694,
+      "tokenCount": 61,
+      "timestampCount": 61,
+      "wordCount": 22,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": true,
+      "tokens": [
+        " Что",
+        " лучше",
+        "?",
+        " Мы",
+        " уже",
+        " всё",
+        " пере",
+        "смотр",
+        "е",
+        "ли",
+        ":",
+        " по",
+        "ход",
+        "ный",
+        " на",
+        "бо",
+        "р",
+        ",",
+        " и",
+        "н",
+        "ст",
+        "ру",
+        "мен",
+        "ты",
+        ",",
+        " на",
+        "бо",
+        "р",
+        " для",
+        " пи",
+        "к",
+        "ни",
+        "ка",
+        ".",
+        " Что",
+        " ещё",
+        "?",
+        " Со",
+        "г",
+        "ла",
+        "с",
+        "на",
+        "?",
+        " Но",
+        ",",
+        " наверное",
+        ",",
+        " стоит",
+        " и",
+        "н",
+        "ве",
+        "ст",
+        "ировать",
+        " в",
+        " хорош",
+        "ую",
+        " те",
+        "х",
+        "ни",
+        "ку",
+        "."
+      ],
+      "timestamps": [
+        0.5199999809265137,
+        0.7999999523162842,
+        1.1999999284744263,
+        1.559999942779541,
+        1.71999990940094,
+        1.9199999570846558,
+        2.1599998474121094,
+        2.359999895095825,
+        2.559999942779541,
+        2.6399998664855957,
+        2.759999990463257,
+        2.919999837875366,
+        3.0399999618530273,
+        3.240000009536743,
+        3.43999981880188,
+        3.559999942779541,
+        3.679999828338623,
+        3.799999952316284,
+        3.879999876022339,
+        4,
+        4.079999923706055,
+        4.159999847412109,
+        4.279999732971191,
+        4.440000057220459,
+        4.599999904632568,
+        4.71999979019165,
+        4.839999675750732,
+        4.920000076293945,
+        5.039999961853027,
+        5.199999809265137,
+        5.319999694824219,
+        5.440000057220459,
+        5.559999942779541,
+        5.759999752044678,
+        5.920000076293945,
+        6.119999885559082,
+        6.319999694824219,
+        6.519999980926514,
+        6.639999866485596,
+        6.679999828338623,
+        6.759999752044678,
+        6.87999963760376,
+        7.119999885559082,
+        7.319999694824219,
+        7.519999980926514,
+        7.639999866485596,
+        7.960000038146973,
+        8.239999771118164,
+        8.639999389648438,
+        8.720000267028809,
+        8.800000190734863,
+        8.920000076293945,
+        9.039999961853027,
+        9.319999694824219,
+        9.399999618530273,
+        9.719999313354492,
+        9.84000015258789,
+        9.960000038146973,
+        10.039999961853027,
+        10.15999984741211,
+        10.239999771118164
+      ],
+      "words": [
+        {
+          "startMs": 18934,
+          "endMs": 18974,
+          "text": "Что",
+          "speakerId": 0,
+          "warnings": []
+        },
+        {
+          "startMs": 19214,
+          "endMs": 19254,
+          "text": "лучше?",
+          "speakerId": 0,
+          "warnings": []
+        },
+        {
+          "startMs": 19974,
+          "endMs": 20014,
+          "text": "Мы",
+          "speakerId": 0,
+          "warnings": []
+        },
+        {
+          "startMs": 20134,
+          "endMs": 20174,
+          "text": "уже",
+          "speakerId": 0,
+          "warnings": []
+        },
+        {
+          "startMs": 20334,
+          "endMs": 20374,
+          "text": "всё",
+          "speakerId": 0,
+          "warnings": []
+        },
+        {
+          "startMs": 20574,
+          "endMs": 21094,
+          "text": "пересмотрели:",
+          "speakerId": 0,
+          "warnings": []
+        },
+        {
+          "startMs": 21334,
+          "endMs": 21694,
+          "text": "походный",
+          "speakerId": 0,
+          "warnings": []
+        },
+        {
+          "startMs": 21854,
+          "endMs": 22134,
+          "text": "набор,",
+          "speakerId": 0,
+          "warnings": []
+        },
+        {
+          "startMs": 22294,
+          "endMs": 22894,
+          "text": "инструменты,",
+          "speakerId": 0,
+          "warnings": []
+        },
+        {
+          "startMs": 23134,
+          "endMs": 23374,
+          "text": "набор",
+          "speakerId": 0,
+          "warnings": []
+        },
+        {
+          "startMs": 23454,
+          "endMs": 23494,
+          "text": "для",
+          "speakerId": 0,
+          "warnings": []
+        },
+        {
+          "startMs": 23614,
+          "endMs": 24014,
+          "text": "пикника.",
+          "speakerId": 0,
+          "warnings": []
+        },
+        {
+          "startMs": 24334,
+          "endMs": 24374,
+          "text": "Что",
+          "speakerId": 0,
+          "warnings": []
+        },
+        {
+          "startMs": 24534,
+          "endMs": 24574,
+          "text": "ещё?",
+          "speakerId": 0,
+          "warnings": []
+        },
+        {
+          "startMs": 24934,
+          "endMs": 25334,
+          "text": "Согласна?",
+          "speakerId": 0,
+          "warnings": []
+        },
+        {
+          "startMs": 25734,
+          "endMs": 25774,
+          "text": "Но,",
+          "speakerId": 0,
+          "warnings": []
+        },
+        {
+          "startMs": 26054,
+          "endMs": 26094,
+          "text": "наверное,",
+          "speakerId": 0,
+          "warnings": []
+        },
+        {
+          "startMs": 26654,
+          "endMs": 26694,
+          "text": "стоит",
+          "speakerId": 0,
+          "warnings": []
+        },
+        {
+          "startMs": 27054,
+          "endMs": 27494,
+          "text": "инвестировать",
+          "speakerId": 0,
+          "warnings": []
+        },
+        {
+          "startMs": 27734,
+          "endMs": 27774,
+          "text": "в",
+          "speakerId": 0,
+          "warnings": []
+        },
+        {
+          "startMs": 27814,
+          "endMs": 28174,
+          "text": "хорошую",
+          "speakerId": 0,
+          "warnings": []
+        },
+        {
+          "startMs": 28254,
+          "endMs": 28614,
+          "text": "технику.",
+          "speakerId": 0,
+          "warnings": []
+        }
+      ]
+    },
+    {
+      "startMs": 28910,
+      "endMs": 35494,
+      "speakerId": -1,
+      "text": "Привет, Маша! Нет, не рассказывала. Интересно послушать, почему он выбрал именно Audi Q5?",
+      "blank": false,
+      "inferenceMs": 2199,
+      "tokenCount": 41,
+      "timestampCount": 41,
+      "wordCount": 13,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": true,
+      "tokens": [
+        " При",
+        "вет",
+        ",",
+        " Ма",
+        "ша",
+        "!",
+        " Нет",
+        ",",
+        " не",
+        " расс",
+        "ка",
+        "зы",
+        "ва",
+        "ла",
+        ".",
+        " И",
+        "н",
+        "тер",
+        "е",
+        "с",
+        "но",
+        " по",
+        "с",
+        "луша",
+        "ть",
+        ",",
+        " почему",
+        " он",
+        " вы",
+        "б",
+        "ра",
+        "л",
+        " именно",
+        " A",
+        "u",
+        "d",
+        "i",
+        " ",
+        "Q",
+        "5",
+        "?"
+      ],
+      "timestamps": [
+        0.47999998927116394,
+        0.6800000071525574,
+        0.8399999737739563,
+        0.9599999785423279,
+        1.1200000047683716,
+        1.3199999332427979,
+        1.5999999046325684,
+        1.7999999523162842,
+        1.959999918937683,
+        2.0799999237060547,
+        2.2799999713897705,
+        2.359999895095825,
+        2.4800000190734863,
+        2.559999942779541,
+        2.7200000286102295,
+        3,
+        3.0799999237060547,
+        3.119999885559082,
+        3.1999998092651367,
+        3.2799999713897705,
+        3.359999895095825,
+        3.4800000190734863,
+        3.5999999046325684,
+        3.679999828338623,
+        3.8399999141693115,
+        4,
+        4.279999732971191,
+        4.639999866485596,
+        4.759999752044678,
+        4.920000076293945,
+        5,
+        5.079999923706055,
+        5.199999809265137,
+        5.519999980926514,
+        5.679999828338623,
+        5.799999713897705,
+        5.839999675750732,
+        5.960000038146973,
+        6.039999961853027,
+        6.359999656677246,
+        6.519999980926514
+      ],
+      "words": [
+        {
+          "startMs": 29390,
+          "endMs": 29630,
+          "text": "Привет,",
+          "speakerId": 1,
+          "warnings": []
+        },
+        {
+          "startMs": 29870,
+          "endMs": 30070,
+          "text": "Маша!",
+          "speakerId": 1,
+          "warnings": []
+        },
+        {
+          "startMs": 30510,
+          "endMs": 30550,
+          "text": "Нет,",
+          "speakerId": 1,
+          "warnings": []
+        },
+        {
+          "startMs": 30870,
+          "endMs": 30910,
+          "text": "не",
+          "speakerId": 1,
+          "warnings": []
+        },
+        {
+          "startMs": 30990,
+          "endMs": 31510,
+          "text": "рассказывала.",
+          "speakerId": 1,
+          "warnings": []
+        },
+        {
+          "startMs": 31910,
+          "endMs": 32310,
+          "text": "Интересно",
+          "speakerId": 1,
+          "warnings": []
+        },
+        {
+          "startMs": 32390,
+          "endMs": 32790,
+          "text": "послушать,",
+          "speakerId": 1,
+          "warnings": []
+        },
+        {
+          "startMs": 33190,
+          "endMs": 33230,
+          "text": "почему",
+          "speakerId": 1,
+          "warnings": []
+        },
+        {
+          "startMs": 33550,
+          "endMs": 33590,
+          "text": "он",
+          "speakerId": 1,
+          "warnings": []
+        },
+        {
+          "startMs": 33670,
+          "endMs": 34030,
+          "text": "выбрал",
+          "speakerId": 1,
+          "warnings": []
+        },
+        {
+          "startMs": 34110,
+          "endMs": 34150,
+          "text": "именно",
+          "speakerId": 1,
+          "warnings": []
+        },
+        {
+          "startMs": 34430,
+          "endMs": 34790,
+          "text": "Audi",
+          "speakerId": 1,
+          "warnings": []
+        },
+        {
+          "startMs": 34950,
+          "endMs": 35310,
+          "text": "Q5?",
+          "speakerId": 1,
+          "warnings": []
+        }
+      ]
+    }
+  ],
+  "energyWindowMs": 40,
+  "energySearchMs": 4000,
+  "energyMetric": "sequential Double mean-square of original decoded Float32 PCM",
+  "fallbackPolicy": "Full actual ASR chunk with unknown speaker and warning; no fabricated word times or second ASR pass",
+  "wordEvidenceBudgetScope": "Conservative additional pretty-JSON UTF-8 payload bytes, including nesting allowance; summaries excluded",
+  "finalPssKb": 199208,
+  "peakMemory": "N\/A; stage boundary snapshots only",
+  "device": "unknown Android SDK built for x86_64",
+  "android": 35,
+  "runtime": "sherpa-onnx 2.0.1",
+  "backend": "GigaAM v3 E2E RNNT INT8 \/ sherpa-onnx 2.0.1",
+  "threads": 1,
+  "vadThreads": 1,
+  "sampleRate": 16000,
+  "originalPcmPeak": 0.66278076,
+  "recognitionInputGain": 1,
+  "quietGainTriggerPeak": 0.01,
+  "quietGainMax": 20,
+  "quietGainScope": "temporary VAD and ASR arrays only; original PCM\/playback\/diarization preserved",
+  "expectedSpeakers": -1,
+  "clusterThreshold": 0.30000001192092896,
+  "vadThreshold": 0.5,
+  "maxAsrSegmentMs": 20000,
+  "audioMs": 36060,
+  "totalMs": 50073,
+  "pipelineRtf": 1.388602329450915,
+  "pipelineTimingScope": "validation through ASR release; persistenceMs and telemetry.elapsedMs reported separately",
+  "asrStageRtf": 0.3448973932334997,
+  "asrInferenceRtf": 0.331669439822518,
+  "runCondition": "uncontrolled device caches\/temperature; sequential ML stages; CPU provider",
+  "diarizationTurns": [
+    {
+      "startMs": 31,
+      "endMs": 13160,
+      "speakerId": 0
+    },
+    {
+      "startMs": 12822,
+      "endMs": 17885,
+      "speakerId": 1
+    },
+    {
+      "startMs": 18847,
+      "endMs": 28837,
+      "speakerId": 0
+    },
+    {
+      "startMs": 29495,
+      "endMs": 35502,
+      "speakerId": 1
+    }
+  ],
+  "clusteringMode": "automatic",
+  "clusterThresholdApplied": true,
+  "automaticValidation": "not accepted on independent long Russian dialogue",
+  "segmentationWindowShiftRatio": 0.10000000149011612,
+  "diarMinDurationOnSec": 0.20000000298023224,
+  "diarMinDurationOffSec": 0.5,
+  "vadMinSpeechSec": 0.25,
+  "vadMinSilenceSec": 0.25,
+  "vadWindowSamples": 512,
+  "vadMaxSpeechSec": 20,
+  "preRollMs": 600,
+  "postRollMs": 0,
+  "vadSpans": [
+    {
+      "startMs": 294,
+      "endMs": 1478
+    },
+    {
+      "startMs": 1702,
+      "endMs": 4838
+    },
+    {
+      "startMs": 5254,
+      "endMs": 12230
+    },
+    {
+      "startMs": 12614,
+      "endMs": 17894
+    },
+    {
+      "startMs": 19014,
+      "endMs": 19686
+    },
+    {
+      "startMs": 20006,
+      "endMs": 24102
+    },
+    {
+      "startMs": 24486,
+      "endMs": 28774
+    },
+    {
+      "startMs": 29510,
+      "endMs": 32902
+    },
+    {
+      "startMs": 33126,
+      "endMs": 35494
+    }
+  ],
+  "asrSpeechSpans": [
+    {
+      "startMs": 0,
+      "endMs": 17894
+    },
+    {
+      "startMs": 18414,
+      "endMs": 28774
+    },
+    {
+      "startMs": 28910,
+      "endMs": 35494
+    }
+  ],
+  "modelBytes": 278127730,
+  "stagesMs": {
+    "thermalWaitMs": 0,
+    "provisioningWaitMs": 1,
+    "nativeGateWaitMs": 0,
+    "validationMs": 1736,
+    "decodeMs": 365,
+    "metadataPersistenceMs": 8,
+    "vadLoadMs": 36,
+    "vadMs": 492,
+    "diarizationLoadMs": 592,
+    "diarizationReadMs": 8,
+    "diarizationInferenceMs": 25159,
+    "diarizationMs": 25926,
+    "diarizationRefinementMs": 6721,
+    "alignmentMs": 0,
+    "asrLoadMs": 1648,
+    "asrReadMs": 22,
+    "asrInferenceMs": 11960,
+    "wordAssignmentMs": 10,
+    "asrMs": 12437,
+    "persistenceMs": 15
+  },
+  "telemetry": {
+    "run": "4646e147-cc5a-4445-8c79-a753f0fec1ea",
+    "elapsedMs": 50411,
+    "stagesMs": {
+      "thermalWaitMs": 0,
+      "provisioningWaitMs": 1,
+      "nativeGateWaitMs": 0,
+      "validationMs": 1736,
+      "decodeMs": 365,
+      "metadataPersistenceMs": 8,
+      "vadLoadMs": 36,
+      "vadMs": 492,
+      "diarizationLoadMs": 592,
+      "diarizationReadMs": 8,
+      "diarizationInferenceMs": 25159,
+      "diarizationMs": 25926,
+      "diarizationRefinementMs": 6721,
+      "alignmentMs": 0,
+      "asrLoadMs": 1648,
+      "asrReadMs": 22,
+      "asrInferenceMs": 11960,
+      "wordAssignmentMs": 10,
+      "asrMs": 12437,
+      "persistenceMs": 15
+    },
+    "observedMaxPssKb": 450352,
+    "memoryScope": "stage boundary PSS snapshots; not continuous peak memory",
+    "thermalStatus": 0,
+    "thermalEvents": [
+      {
+        "elapsedMs": 59,
+        "status": 0
+      }
+    ],
+    "thermalApiSupported": true,
+    "thermalPowerServiceAvailable": true,
+    "thermalStatusAvailable": true,
+    "thermalListenerRegistered": true,
+    "thermalListenerRegistrationFailed": false,
+    "thermalListenerFailureReason": null,
+    "thermalUnavailableReason": null
+  }
+}

@@ -1,0 +1,108 @@
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.13/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+Warning: SDK processing. This version only understands SDK XML versions up to 3 but an SDK XML file of version 4 was encountered. This can happen if you use versions of Android Studio and the command-line tools that were released at different times.
+> Task :app:preBuild UP-TO-DATE
+> Task :app:preAllInOneQaBuild UP-TO-DATE
+> Task :app:mergeAllInOneQaNativeDebugMetadata NO-SOURCE
+> Task :app:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :app:generateAllInOneQaBuildConfig
+> Task :app:checkAllInOneQaAarMetadata
+> Task :app:generateAllInOneQaResValues
+> Task :app:mapAllInOneQaSourceSetPaths
+> Task :app:generateAllInOneQaResources
+> Task :app:packageAllInOneQaResources
+> Task :app:createAllInOneQaCompatibleScreenManifests
+> Task :app:extractDeepLinksAllInOneQa
+> Task :app:parseAllInOneQaLocalResources
+> Task :app:processAllInOneQaMainManifest
+> Task :app:processAllInOneQaManifest
+> Task :app:javaPreCompileAllInOneQa
+> Task :app:mergeAllInOneQaShaders
+> Task :app:compileAllInOneQaShaders NO-SOURCE
+> Task :app:generateAllInOneQaAssets UP-TO-DATE
+> Task :app:mergeAllInOneQaResources
+> Task :app:processAllInOneQaManifestForPackage
+
+> Task :app:prepareEmbeddedModelPack
+{"output": "/mnt/d/ReplikaAndroid/ReplikaAndroid/app/build/generated/embedded-models/assets/offline/replika-models.zip", "metadata": "/mnt/d/ReplikaAndroid/ReplikaAndroid/app/build/generated/embedded-models/pack-verification.json", "bytes": 208854459, "sha256": "2c12dfd8a000b2432cae606d6b849dd9b39ce205d50cc49c70a4f9a3253003d0", "modelBytes": 278127730, "models": 7}
+
+> Task :app:mergeAllInOneQaAssets
+> Task :app:desugarAllInOneQaFileDependencies
+> Task :app:checkAllInOneQaDuplicateClasses
+> Task :app:mergeAllInOneQaJniLibFolders
+> Task :app:compressAllInOneQaAssets
+> Task :app:mergeLibDexAllInOneQa
+> Task :app:validateSigningAllInOneQa
+> Task :app:writeAllInOneQaAppMetadata
+> Task :app:writeAllInOneQaSigningConfigVersions
+> Task :app:preAllInOneQaAndroidTestBuild SKIPPED
+> Task :app:processAllInOneQaAndroidTestManifest
+> Task :app:generateAllInOneQaAndroidTestBuildConfig
+> Task :app:checkAllInOneQaAndroidTestAarMetadata
+> Task :app:generateAllInOneQaAndroidTestResValues
+> Task :app:mapAllInOneQaAndroidTestSourceSetPaths
+> Task :app:generateAllInOneQaAndroidTestResources
+> Task :app:processAllInOneQaResources
+> Task :app:mergeAllInOneQaNativeLibs
+> Task :app:mergeAllInOneQaAndroidTestResources
+> Task :app:mergeExtDexAllInOneQa
+> Task :app:javaPreCompileAllInOneQaAndroidTest
+> Task :app:mergeAllInOneQaAndroidTestShaders
+> Task :app:compileAllInOneQaAndroidTestShaders NO-SOURCE
+> Task :app:generateAllInOneQaAndroidTestAssets UP-TO-DATE
+> Task :app:mergeAllInOneQaAndroidTestAssets
+> Task :app:desugarAllInOneQaAndroidTestFileDependencies
+> Task :app:checkAllInOneQaAndroidTestDuplicateClasses
+> Task :app:mergeAllInOneQaAndroidTestJniLibFolders
+> Task :app:compressAllInOneQaAndroidTestAssets
+> Task :app:mergeAllInOneQaAndroidTestNativeLibs NO-SOURCE
+> Task :app:stripAllInOneQaAndroidTestDebugSymbols NO-SOURCE
+> Task :app:validateSigningAllInOneQaAndroidTest
+> Task :app:processAllInOneQaAndroidTestResources
+> Task :app:writeAllInOneQaAndroidTestSigningConfigVersions
+> Task :app:mergeLibDexAllInOneQaAndroidTest
+> Task :app:mergeExtDexAllInOneQaAndroidTest
+> Task :app:stripAllInOneQaDebugSymbols
+> Task :app:kspAllInOneQaKotlin
+> Task :app:compileAllInOneQaKotlin
+w: file:///mnt/d/ReplikaAndroid/ReplikaAndroid/app/src/main/java/ru/replika/ml/DiarizationRefiner.kt:180:25 Condition is always 'false'.
+w: file:///mnt/d/ReplikaAndroid/ReplikaAndroid/app/src/main/java/ru/replika/ui/AppViewModel.kt:346:9 Condition is always 'true'.
+w: file:///mnt/d/ReplikaAndroid/ReplikaAndroid/app/src/main/java/ru/replika/ui/AppearanceSettings.kt:21:53 'val Icons.Outlined.ArrowBack: ImageVector' is deprecated. Use the AutoMirrored version at Icons.AutoMirrored.Outlined.ArrowBack.
+w: file:///mnt/d/ReplikaAndroid/ReplikaAndroid/app/src/main/java/ru/replika/ui/RecordingHome.kt:55:145 'val Icons.Outlined.ArrowBack: ImageVector' is deprecated. Use the AutoMirrored version at Icons.AutoMirrored.Outlined.ArrowBack.
+w: file:///mnt/d/ReplikaAndroid/ReplikaAndroid/app/src/main/java/ru/replika/ui/SmartReview.kt:84:75 'val Icons.Outlined.FactCheck: ImageVector' is deprecated. Use the AutoMirrored version at Icons.AutoMirrored.Outlined.FactCheck.
+w: file:///mnt/d/ReplikaAndroid/ReplikaAndroid/app/src/main/java/ru/replika/ui/WorkspaceScreen.kt:94:16 'val LocalClipboardManager: ProvidableCompositionLocal<ClipboardManager>' is deprecated. Use LocalClipboard instead which supports suspend functions.
+w: file:///mnt/d/ReplikaAndroid/ReplikaAndroid/app/src/main/java/ru/replika/ui/WorkspaceScreen.kt:134:54 'val Icons.Outlined.ArrowBack: ImageVector' is deprecated. Use the AutoMirrored version at Icons.AutoMirrored.Outlined.ArrowBack.
+w: file:///mnt/d/ReplikaAndroid/ReplikaAndroid/app/src/main/java/ru/replika/ui/WorkspaceScreen.kt:166:27 'val Icons.Outlined.FactCheck: ImageVector' is deprecated. Use the AutoMirrored version at Icons.AutoMirrored.Outlined.FactCheck.
+
+> Task :app:compileAllInOneQaJavaWithJavac
+> Task :app:dexBuilderAllInOneQa
+> Task :app:mergeAllInOneQaGlobalSynthetics
+> Task :app:processAllInOneQaJavaRes
+> Task :app:mergeProjectDexAllInOneQa
+> Task :app:mergeAllInOneQaJavaResource
+> Task :app:bundleAllInOneQaClassesToCompileJar
+> Task :app:packageAllInOneQa
+> Task :app:createAllInOneQaApkListingFileRedirect
+> Task :app:assembleAllInOneQa
+> Task :app:kspAllInOneQaAndroidTestKotlin
+> Task :app:compileAllInOneQaAndroidTestKotlin
+> Task :app:compileAllInOneQaAndroidTestJavaWithJavac
+> Task :app:dexBuilderAllInOneQaAndroidTest
+> Task :app:mergeAllInOneQaAndroidTestGlobalSynthetics
+> Task :app:processAllInOneQaAndroidTestJavaRes
+> Task :app:mergeAllInOneQaAndroidTestJavaResource
+> Task :app:mergeProjectDexAllInOneQaAndroidTest
+> Task :app:packageAllInOneQaAndroidTest
+> Task :app:createAllInOneQaAndroidTestApkListingFileRedirect
+> Task :app:assembleAllInOneQaAndroidTest
+
+[Incubating] Problems report is available at: file:///mnt/d/ReplikaAndroid/ReplikaAndroid/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.13/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 5m 2s
+69 actionable tasks: 69 executed

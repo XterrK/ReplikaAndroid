@@ -7,6 +7,7 @@ import kotlinx.coroutines.runBlocking
 import org.junit.Assert.*
 import org.junit.Test
 import ru.replika.domain.SpeakerRefiner
+import ru.replika.domain.CpuPlan
 import ru.replika.domain.Turn
 
 /** All native entry points are replaced; these tests never initialize sherpa JNI. */
@@ -18,6 +19,7 @@ class DiarizationRefinerTest {
         val events = mutableListOf<String>()
         val inputs = mutableListOf<FloatArray>()
         var dimension = 2
+        var expectedThreads = 2
         var ready = true
         var opened = 0
         var streams = 0
@@ -32,7 +34,7 @@ class DiarizationRefinerTest {
 
         override fun open(modelPath: String, threads: Int): DiarizationRefiner.EmbeddingSession {
             assertEquals("controlled-model.onnx", modelPath)
-            assertEquals(2, threads)
+            assertEquals(expectedThreads, threads)
             events += "open"
             if (failOpen) throw IllegalStateException("controlled open failure")
             opened++
@@ -232,5 +234,44 @@ class DiarizationRefinerTest {
                 ::pcm, config = DiarizationRefiner.SELECTED_CONFIG.copy(tau = .35), embeddingFactory = factory) }
         }
         assertEquals(0, factory.opened)
+    }
+
+    @Test fun adaptiveCountsRequireExplicitCpuPlanAndKeepActualResourceLifecycle() = runBlocking {
+        var original: List<Turn>? = null
+        for (threads in listOf(1, 2, 4)) {
+            val factory = FakeFactory().also { it.expectedThreads = threads }
+            val result = DiarizationRefiner.refineOriginalPcm(turns, 6000, "controlled-model.onnx", threads,
+                ::pcm, collectEvidence = true, embeddingFactory = factory, cpuPlan = CpuPlan.AUTO_V1)
+            assertTrue(result.accepted)
+            assertEquals("auto_v1", result.diagnostics["cpuPlan"])
+            assertEquals(threads, result.diagnostics["embeddingThreads"])
+            if (original == null) original = result.turns else assertEquals(original, result.turns)
+            assertEquals(1, factory.sessionCloses)
+            assertEquals(factory.streams, factory.streamCloses)
+            assertEquals(planned.size, result.counts.embeddingForwardCalls)
+        }
+    }
+
+    @Test fun adaptiveInvalidCountAndLegacyFourFailBeforeModelAccess() = runBlocking {
+        val factory = FakeFactory()
+        for ((threads, plan) in listOf(0 to CpuPlan.AUTO_V1, 3 to CpuPlan.AUTO_V1, 4 to CpuPlan.LEGACY)) {
+            try {
+                DiarizationRefiner.refineOriginalPcm(turns, 6000, "controlled-model.onnx", threads,
+                    ::pcm, embeddingFactory = factory, cpuPlan = plan)
+                fail("Invalid count/plan must reject before factory access")
+            } catch (_: IllegalArgumentException) { }
+        }
+        assertEquals(0, factory.opened)
+    }
+
+    @Test fun adaptiveComputeFailureStillClosesActualCreatedStreamAndSession() = runBlocking {
+        val factory = FakeFactory().also { it.expectedThreads = 1; it.failCompute = true }
+        val result = DiarizationRefiner.refineOriginalPcm(turns, 6000, "controlled-model.onnx", 1,
+            ::pcm, embeddingFactory = factory, cpuPlan = CpuPlan.AUTO_V1)
+        assertFalse(result.accepted)
+        assertEquals(1, factory.streamCloses)
+        assertEquals(1, factory.sessionCloses)
+        assertEquals("embedding_stage_failure", result.diagnostics["reason"])
+        assertEquals(true, result.diagnostics["nativeResourcesReleasedBeforeRefiner"])
     }
 }

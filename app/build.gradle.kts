@@ -18,6 +18,9 @@ require(defaultDiarPlan in setOf("v16", "eres2net_window_v1")) { "Unsupported re
 require(defaultDiarPlan == "v16" || defaultAsrPlan == "vad_words_context600") {
  "eres2net_window_v1 requires -PreplikaAsrPlan=vad_words_context600"
 }
+// CPU policy is versioned independently; historical WorkData without a key remains v16.
+val defaultCpuPlan = providers.gradleProperty("replikaCpuPlan").orElse("v16").get()
+require(defaultCpuPlan in setOf("v16", "auto_v1")) { "Unsupported replikaCpuPlan" }
 val prepareEmbeddedModelPack by tasks.registering(Exec::class) {
  group = "replika"
  description = "Verify and package the existing local offline models without downloading weights"
@@ -47,6 +50,7 @@ android {
   buildConfigField("boolean", "BUNDLED_MODELS", "false")
   buildConfigField("String", "DEFAULT_ASR_PLAN", "\"$defaultAsrPlan\"")
   buildConfigField("String", "DEFAULT_DIAR_PLAN", "\"$defaultDiarPlan\"")
+  buildConfigField("String", "DEFAULT_CPU_PLAN", "\"$defaultCpuPlan\"")
   buildConfigField("String", "EMBEDDED_MODEL_ASSET", "\"offline/replika-models.zip\"")
   // Model SHA-256 values come from models-lock.json; the generated ZIP fingerprint is build evidence.
   buildConfigField("String", "EMBEDDED_MODEL_PACK_SHA256", "\"\"")

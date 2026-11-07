@@ -1,0 +1,78 @@
+[
+  {
+    "args": [
+      "shell",
+      "input",
+      "keyevent",
+      "KEYCODE_WAKEUP"
+    ],
+    "returncode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "shell",
+      "wm",
+      "dismiss-keyguard"
+    ],
+    "returncode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "shell",
+      "settings",
+      "put",
+      "global",
+      "stay_on_while_plugged_in",
+      "7"
+    ],
+    "returncode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "shell",
+      "setprop",
+      "bionic.linker.16kb.app_compat.enabled",
+      "false"
+    ],
+    "returncode": 1,
+    "stdout": "",
+    "stderr": "Failed to set property 'bionic.linker.16kb.app_compat.enabled' to 'false'.\nSee dmesg for error reason.\n"
+  },
+  {
+    "args": [
+      "shell",
+      "setprop",
+      "pm.16kb.app_compat.disabled",
+      "true"
+    ],
+    "returncode": 1,
+    "stdout": "",
+    "stderr": "Failed to set property 'pm.16kb.app_compat.disabled' to 'true'.\nSee dmesg for error reason.\n"
+  },
+  {
+    "args": [
+      "shell",
+      "getprop",
+      "bionic.linker.16kb.app_compat.enabled"
+    ],
+    "returncode": 0,
+    "stdout": "\n",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "shell",
+      "getprop",
+      "pm.16kb.app_compat.disabled"
+    ],
+    "returncode": 0,
+    "stdout": "\n",
+    "stderr": ""
+  }
+]

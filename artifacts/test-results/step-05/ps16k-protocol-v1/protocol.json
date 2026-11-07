@@ -1,0 +1,262 @@
+{
+  "schema_version": 1,
+  "id": "ps16k-protocol-v1",
+  "status": "PREPARED_NOT_EXECUTED",
+  "frozen_utc": "2026-11-07T08:35:55.252903+00:00",
+  "scope": "Fresh isolated API35 x86_64 16KB emulator cold offline All-in-One provisioning plus exactly one short real production Worker with full QA. Runtime/JNI/automatic-CPU/evidence compatibility smoke only; not ARM/phone, performance, full corpus quality acceptance or a rerun of the twelve-Worker performance protocol.",
+  "execution_owner": "root only; this preparation invokes no ADB/SDK/Gradle/NN/Git",
+  "device": {
+    "serial": "emulator-5558",
+    "fresh_avd": true,
+    "api": 35,
+    "abi": "x86_64",
+    "page_size_bytes": 16384,
+    "available_cores": 2,
+    "image_package": "system-images;android-35;google_apis_ps16k;x86_64",
+    "image_revision": 5,
+    "image_url": "https://dl.google.com/android/repository/sys-img/google_apis/x86_64-ps16k-35_r05.zip",
+    "image_archive_bytes": 1696342085,
+    "published_archive_sha1": "d709cf26b375abecfbbf5803afd20749ddfa2865",
+    "license_id": "android-sdk-license",
+    "existing_avd_data_wipe": false
+  },
+  "build": {
+    "tasks": [
+      ":app:assembleAllInOneQa",
+      ":app:assembleAllInOneQaAndroidTest"
+    ],
+    "gradle_properties": {
+      "replikaTestBuildType": "allInOneQa",
+      "replikaAsrPlan": "vad_words_context600",
+      "replikaDiarPlan": "eres2net_window_v1",
+      "replikaCpuPlan": "auto_v1"
+    },
+    "replikaAioQaSameId": "absent or false",
+    "expected_application_id": "ru.replika.offline.aioqa",
+    "expected_test_application_id": "ru.replika.offline.aioqa.test",
+    "expected_instrumentation_runner": "androidx.test.runner.AndroidJUnitRunner",
+    "expected_bundled_models": true,
+    "expected_abi_filters": [
+      "x86_64"
+    ],
+    "apk_hashes": "Capture actual new local APK SHA256/size/signer and match installed packages BEFORE first app run/NN; APKs do not exist yet at protocol freeze. Preserve failed missing-testBuildType build receipt separately.",
+    "build_config_and_manifest_targets_must_be_verified": true
+  },
+  "order": [
+    "device_build_installed_preflight",
+    "screen_wake_and_backcompat_observation",
+    "existing_cold_provision_harness_clean_repeat_interrupt_resume_nonNN",
+    "prepared_bundle_hash_instrumentation_nonNN",
+    "one_fresh_batch_fullQA_real_Worker",
+    "host_only_full_replay_scoring",
+    "restore_original_settings_finally"
+  ],
+  "cold_provision": {
+    "tool": "tools/test_bundled_first_launch.py",
+    "environment": {
+      "ANDROID_SERIAL": "emulator-5558"
+    },
+    "package": "ru.replika.offline.aioqa",
+    "fresh_output": "artifacts/test-results/step-05/ps16k-cold-provision-v1",
+    "staged_models_or_pack": false,
+    "new_neural_inference": false,
+    "expected_models": 7,
+    "required_results": {
+      "cleanOfflinePreparation": "PASS",
+      "coldRestartNoExtraction": "PASS",
+      "forcedInterruptionAndResume": "PASS"
+    },
+    "side_effects": "Existing harness force-stops/clears ONLY isolated .aioqa during clean/interrupted provisioning; no .offline data or existing AVD wipe. Preserve failure if interruption race is not actually observed.",
+    "network_settings": "Harness saves airplane/wifi/mobile-data state and restores observed enabled settings in finally; outer receipt verifies actual restoration."
+  },
+  "prepared_hash_check": {
+    "target_package": "ru.replika.offline.aioqa.test",
+    "target_method": "ru.replika.AllInOneAcceptanceTest#preparedBundleHashesAndNoExtractionOnRepeatedLaunch",
+    "remote_file": "files/all-in-one-prepared-models.json",
+    "require_actual_new_proof_file": true,
+    "skip_or_assumption_is_not_pass": true,
+    "new_neural_inference": false,
+    "excluded_method": "ru.replika.AllInOneAcceptanceTest#currentGigaWorkerUsesAutomaticallyPreparedBundle",
+    "excluded_reason": "Calls legacy PipelineTest and asserts preRollMs100; selected context600 requires600. Do not weaken assertion or call this method."
+  },
+  "worker": {
+    "target_method": "ru.replika.EvaluationBatchTest#stagedCanonicalInputsThroughProductionWorker",
+    "target_test_component": "ru.replika.offline.aioqa.test/androidx.test.runner.AndroidJUnitRunner",
+    "exact_case_id": "dev-mono-s",
+    "source_manifest": "benchmark/eval/manifest.json",
+    "host_audio_relative": "dev/dev-mono-s.wav",
+    "audio_sha256": "97943f4d90c2b56166031263a6820c41e0f80b94643a9d3737327debdc8fbe53",
+    "duration_ms": 6333,
+    "independent_reference_host_only": "benchmark/eval/references/dev-mono-s.json",
+    "reference_sha256": "9259341e0d2aa8bc8bf6bdc9f616ea30e5025aa4e1adca14dc09f2089dcb15e1",
+    "paired_full_host_run": "artifacts/test-results/step-05/cpu-host-threads1",
+    "instrumentation_arguments": {
+      "evalRun": "ps16k_one_<fresh_safe_UUID_or_timestamp>",
+      "evalThreads": "0",
+      "evalExpectedSpeakers": "-1",
+      "evalCpuPlan": "auto_v1",
+      "evalAsrPlan": "vad_words_context600",
+      "evalDiarPlan": "eres2net_window_v1",
+      "evalCollectEvidence": "true"
+    },
+    "required_actual_cpu_policy": {
+      "plan": "auto_v1",
+      "requestedThreads": 0,
+      "availableCores": 2,
+      "asrThreads": 1,
+      "diarizationThreads": 1,
+      "refinementThreads": 1,
+      "diarizationPinned": false,
+      "refinementPinned": false
+    },
+    "remote_root": "files/evaluation/<evalRun>",
+    "batch_shape": {
+      "schema_version": 1,
+      "run": "<evalRun>",
+      "cases": [
+        {
+          "id": "dev-mono-s",
+          "audio": "audio/dev-mono-s.wav",
+          "sha256": "97943f4d90c2b56166031263a6820c41e0f80b94643a9d3737327debdc8fbe53"
+        }
+      ]
+    },
+    "staged_allowlist": [
+      "batch.json",
+      "audio/dev-mono-s.wav"
+    ],
+    "reference_text_or_true_speaker_count_staged": false,
+    "remote_output_files": [
+      "report.json",
+      "dev-mono-s.case.json",
+      "dev-mono-s.hypothesis.json",
+      "dev-mono-s.diagnostics.json",
+      "dev-mono-s.diarization-evidence.json"
+    ],
+    "collect_partial_outputs_on_failure": true,
+    "full_sidecar_required": true,
+    "native_word_payload_required": true,
+    "expected_frame_stride_ms": 40,
+    "new_neural_inference": true,
+    "instrumentation_internal_case_timeout_ms": 1200000,
+    "do_not_confuse_timeouts_with_terminal_JNI": true,
+    "work_state_scope": "FullQA case records actual READY/recordingID/workID from sidecar and waits models gate; this path does not emit compact-mode workManagerState=SUCCEEDED. Do not invent it."
+  },
+  "models": [
+    {
+      "group": "giga-v3",
+      "path": "giga-v3/encoder.int8.onnx",
+      "url": "https://huggingface.co/csukuangfj/sherpa-onnx-nemo-transducer-punct-giga-am-v3-russian-2025-12-16/resolve/a6039be7cee829a9044a69ac0ebaf1c191217c97/encoder.int8.onnx",
+      "archiveMember": null,
+      "size": 224570820,
+      "sha256": "369f35a71bf288d3b8e0391fabd8dba5f2314088d440bca474056b7b4b6e66bf"
+    },
+    {
+      "group": "giga-v3",
+      "path": "giga-v3/decoder.onnx",
+      "url": "https://huggingface.co/csukuangfj/sherpa-onnx-nemo-transducer-punct-giga-am-v3-russian-2025-12-16/resolve/a6039be7cee829a9044a69ac0ebaf1c191217c97/decoder.onnx",
+      "archiveMember": null,
+      "size": 4600132,
+      "sha256": "38fc7475443ea2a26f63211ca350f73ac50fff824ab7a3876ee2bd610c53bbc4"
+    },
+    {
+      "group": "giga-v3",
+      "path": "giga-v3/joiner.onnx",
+      "url": "https://huggingface.co/csukuangfj/sherpa-onnx-nemo-transducer-punct-giga-am-v3-russian-2025-12-16/resolve/a6039be7cee829a9044a69ac0ebaf1c191217c97/joiner.onnx",
+      "archiveMember": null,
+      "size": 2712896,
+      "sha256": "602ff7017a93311aad34df1437c8d7f49911353c13d6eae7a6ee7b041339465c"
+    },
+    {
+      "group": "giga-v3",
+      "path": "giga-v3/tokens.txt",
+      "url": "https://huggingface.co/csukuangfj/sherpa-onnx-nemo-transducer-punct-giga-am-v3-russian-2025-12-16/resolve/a6039be7cee829a9044a69ac0ebaf1c191217c97/tokens.txt",
+      "archiveMember": null,
+      "size": 13354,
+      "sha256": "39abae20e692998290c574e606f11a9edef2902a1995463fcff63d1490cf22b7"
+    },
+    {
+      "group": "diar",
+      "path": "diar/segmentation.onnx",
+      "url": "https://github.com/k2-fsa/sherpa-onnx/releases/download/speaker-segmentation-models/sherpa-onnx-pyannote-segmentation-3-0.tar.bz2",
+      "archiveMember": "model.onnx",
+      "size": 5992913,
+      "sha256": "220ad67ca923bef2fa91f2390c786097bf305bceb5e261d4af67b38e938e1079"
+    },
+    {
+      "group": "diar",
+      "path": "diar/embedding.onnx",
+      "url": "https://github.com/k2-fsa/sherpa-onnx/releases/download/speaker-recongition-models/3dspeaker_speech_eres2net_base_sv_zh-cn_3dspeaker_16k.onnx",
+      "archiveMember": null,
+      "size": 39593761,
+      "sha256": "1a331345f04805badbb495c775a6ddffcdd1a732567d5ec8b3d5749e3c7a5e4b"
+    },
+    {
+      "group": "vad",
+      "path": "vad/silero_vad.onnx",
+      "url": "https://github.com/k2-fsa/sherpa-onnx/releases/download/asr-models/silero_vad.onnx",
+      "archiveMember": null,
+      "size": 643854,
+      "sha256": "9e2449e1087496d8d4caba907f23e0bd3f78d91fa552479bb9c23ac09cbb1fd6"
+    }
+  ],
+  "model_lock_sha256": "bd18076e29b225ae51a9c43dd347bf0fd7ed8f2e9c5ed10bba56a0899df1dcb9",
+  "host_validation": {
+    "preflight_host_policy": "validate_host_policy(host.config,host.paired_asr_policy,cpu_plan=auto_v1,threads=1)",
+    "global_and_case_diagnostic_policy": "validate_native_diar_policy(host.config,report_or_diag,host.paired_asr_policy,cpu_plan=auto_v1,threads=1,requested_threads=0)",
+    "native_sidecar": "validate_diarization_evidence(diag,case,sidecarBytes,case_id=dev-mono-s,audio_sha256=<pin>,duration_ms=6333,cpu_plan=auto_v1,threads=1,requested_threads=0)",
+    "words": "native_policy.validate_word_evidence(diag)",
+    "projection": "native_diar_policy.reconstruct_jury(diag,6333) must exactly equal actual hypothesis",
+    "case_report_copy": "Exact complete object equality; positive equal PID and actual fresh canonical recording/work UUID",
+    "independent_scoring": "pull_refined_android.score_case(hostOnlyAuthorReference,hypothesis,diag,6333,actualProcessingMs)",
+    "inference_truth": "Full actual NN only after root starts Worker; preparation/provision/hash-check are nonNN. No generic frozen full10 collector CLI for this one-case subset."
+  },
+  "backcompat": {
+    "primary_source": "https://developer.android.com/guide/practices/page-sizes#16-kb-backcompat-mode",
+    "observe_before_and_after": [
+      "bionic.linker.16kb.app_compat.enabled",
+      "pm.16kb.app_compat.disabled"
+    ],
+    "official_disable_values": {
+      "bionic.linker.16kb.app_compat.enabled": "false",
+      "pm.16kb.app_compat.disabled": "true"
+    },
+    "scope": "Dedicated fresh5558 only, if property writes supported; preserve/read back originals and restore finally. No adb-root or Manifest/source changes. Record unsupported writes instead of claiming disabled mode.",
+    "require_zipalign_P16_and_ELF_LOAD_at_least_2pow14": true
+  },
+  "screen": {
+    "before": "Save original stay_on_while_plugged_in/power; KEYCODE_WAKEUP, wm dismiss-keyguard, svc power stayon true; explicit Activity ru.replika.offline.aioqa/ru.replika.MainActivity",
+    "during": "Assert Awake and own Activity RESUMED before cold UI polling and Worker",
+    "finally": "Restore exact original stay-on/network/backcompat settings and capture readbacks; restoration failure prevents clean PASS"
+  },
+  "forbidden": [
+    "download_or_inference_by_this_preparation",
+    "gold_text_or_true_K_on_device",
+    "staging_external_models_or_model_zip",
+    "wipe_existing_AVD",
+    "touch_normal_app_data",
+    "extra_cases_or_new_test_classes",
+    "claim_ARM_or_phone_performance",
+    "claim_full_C_or_CPU_quality_acceptance_from_one_case"
+  ],
+  "source_sha256": {
+    "tools/test_bundled_first_launch.py": "bc6e61c46b5226a4af5721d2ee3ccc51b25a6142bfc1448d52e48eab77aba139",
+    "app/src/androidTest/java/ru/replika/AllInOneAcceptanceTest.kt": "adcae9c28fb91600e7188eaadf814bd2b738954f056a2f6a684d5b96cad11f89",
+    "app/src/androidTest/java/ru/replika/EvaluationBatchTest.kt": "f4be2737a354fd408a5148de2d069fa1b86821acdfc0b23851d75a0de619a820",
+    "app/build.gradle.kts": "5653e4499b00bd06f4f1ab5791011bce5ed4a43fab5c78f1b96701e732ba8548",
+    "tools/eval/native_diar_policy.py": "3cbd379c545b3d6206a5afc52817c34ae601836fae38cc808c6972e651c407df",
+    "tools/eval/native_policy.py": "b6d7fd2de6a7ca7f1776de9fa3924c623918709e0358977bae059569ef4da36b",
+    "tools/eval/pull_refined_android.py": "a1f0524e5c0a814514143ff3db93c393bd9161dff9a6a2ac0c3a7e9ccee8ec5a",
+    "tools/eval/port_comparison.py": "8705abd0f4696520047032020f19069308b343008af3d7ed976b895c62e398c4",
+    "app/src/main/assets/models-lock.json": "bd18076e29b225ae51a9c43dd347bf0fd7ed8f2e9c5ed10bba56a0899df1dcb9",
+    "benchmark/eval/manifest.json": "47109cb1987624daaf8f4dc28e8eca3198b0c2bbcf01cd334b9611664eb38066",
+    "benchmark/eval/references/dev-mono-s.json": "9259341e0d2aa8bc8bf6bdc9f616ea30e5025aa4e1adca14dc09f2089dcb15e1",
+    "artifacts/test-results/step-05/cpu-host-threads1/run.json": "ab82b7bb74f06751f673885ce96c506092894cf84604333549b5d3ce969140e8",
+    "artifacts/test-results/step-05/cpu-host-threads1/config.json": "574d977292d2ae7e42dac49226a44a0964683a8b7d3d8c4bceb575c557178b1d",
+    "artifacts/test-results/step-05/cpu-host-threads1/dev-mono-s/case.json": "77bf96678c21abd8344aa3daac42e4128d08ae50f2009abe6cbb8500317c0f1d",
+    "artifacts/test-results/step-05/cpu-host-threads1/dev-mono-s/reference.json": "9259341e0d2aa8bc8bf6bdc9f616ea30e5025aa4e1adca14dc09f2089dcb15e1",
+    "artifacts/test-results/step-05/cpu-host-threads1/dev-mono-s/diagnostics.json": "15ccc02941d7df4fb954cecee0aa1dd15d26c2c6b5a6a1fc6f554be976446edf",
+    "artifacts/test-results/step-05/cpu-host-threads1/dev-mono-s/hypothesis.json": "fe812b0473e14dd09ab1a20bdcfd141aba957479c24a57177a78417c4462c013",
+    "artifacts/test-results/step-05/cpu-host-threads1/dev-mono-s/metrics.json": "2c30db94ba1def152683d0e235376aaa20f700b9357fbaeb9b39990818c599d7"
+  }
+}

@@ -1,0 +1,97 @@
+{
+  "schema_version": 1,
+  "id": "vivo-perf-one-v1",
+  "frozen_utc": "2026-11-07T09:08:40.923824+00:00",
+  "status": "PREPARED_NO_ADB_OR_NN",
+  "scope": "ONE sequential physical ARM auto0 1/3/10-minute related-repeat group in one instrumentation PID. Not the prior2/4/4/2 experiment, causal CPU comparison, natural or independent-quality acceptance. Raw serial/dumpsys/output remains private; publish only reviewed sanitized tables.",
+  "case_order": [
+    "perf-01m",
+    "perf-03m",
+    "perf-10m"
+  ],
+  "audio_ms": [
+    60000,
+    180000,
+    600000
+  ],
+  "cpu_policy": {
+    "plan": "auto_v1",
+    "requestedThreads": 0,
+    "availableCores": 8,
+    "asrThreads": 4,
+    "diarizationThreads": 4,
+    "refinementThreads": 4,
+    "diarizationPinned": false,
+    "refinementPinned": false
+  },
+  "device": {
+    "physical": true,
+    "api": 37,
+    "abi": "arm64-v8a",
+    "page_size_bytes": 4096,
+    "identity": "Explicit serial supplied privately at execution; not stored here"
+  },
+  "collectEvidence": false,
+  "expected_speakers": -1,
+  "asr_plan": "vad_words_context600",
+  "diar_plan": "eres2net_window_v1",
+  "workers": 3,
+  "user_notification": "Root has user authorization; notify before actual start and after completion. User may use phone until root starts this run. Instrumentation foreground app UI interrupts normal use; no device settings changed.",
+  "phone_settings_changed": false,
+  "install_or_model_staging": false,
+  "screen_start": "Phone must already be Awake and Replika RESUMED; fail instead of waking/changing settings. Root owns status check.",
+  "sampling_seconds": 10,
+  "memory_scope": "StagePSS logcat plus10s own-process RSS/PSS/thermal snapshots; not continuous peak. Instrumentation/sampling/cache/charging/temperature uncontrolled.",
+  "timeouts": {
+    "unchanged_instrumentation_per_case_ms": 1200000,
+    "host_group_seconds": 7200,
+    "partial_and_failed_raw_preserved": true,
+    "cancellation_request_is_not_terminal_JNI": true
+  },
+  "source_input_protocol": "benchmark/eval-perf/protocol.json",
+  "source_input_protocol_usage": "Existing runner.preflight validates only immutable original controlled audio/reference/model/APK/source pins. Its run/order execution is never called; only this single physical group executes.",
+  "reference_text_or_true_speaker_count_staged": false,
+  "remote_staged_allowlist": [
+    "batch.json",
+    "audio/perf-01m.wav",
+    "audio/perf-03m.wav",
+    "audio/perf-10m.wav"
+  ],
+  "required_proof": [
+    "Before/after actual2APK+7modelSHA",
+    "Complete ordered3report/case exactcopies",
+    "One equal positiveinstrumentationPID andfresh3work/recordUUIDs",
+    "RealWorkManagerSUCCEEDED",
+    "Strictactualauto0CPU8cores->4/no metadata substitution",
+    "Actualcompactwordcounts/noQAarrays/resource-lifecyclebalanced",
+    "Host-onlyindependentrefs/rescoredmetrics+CSV",
+    "Failure/timeoutpartialpreserved+uncertainNNtruth"
+  ],
+  "forbidden": [
+    "existingprod/evalsourceedits",
+    "phoneSystemSettingsChanges",
+    "install",
+    "force-stop",
+    "modelcopy",
+    "wipe",
+    "offline-toggle",
+    "causalCPUcomparison",
+    "poolwithindependentcorpora",
+    "publishrawserialordumpsys"
+  ],
+  "source_sha256": {
+    "tools/run_plan19_perf.py": "a910dd990505175d031312e1dc0ed8848cb5caabcc64434dde19d367c2a4747c",
+    "benchmark/eval-perf/protocol.json": "aef12832afdd97eef5e301e1515402535e01fbbbe7ce0414bdefda0b3419196a",
+    "benchmark/eval-perf/manifest.json": "c940604203b55fc090af4f28f152fed654cb819bb06cfa6f69bce555204f21b0",
+    "benchmark/eval-perf/provenance.json": "f378120dadb6896a23a91bb122bc72251fba0dc08b25e127fe07bc4fdc5572be",
+    "app/src/main/assets/models-lock.json": "bd18076e29b225ae51a9c43dd347bf0fd7ed8f2e9c5ed10bba56a0899df1dcb9",
+    "app/src/androidTest/java/ru/replika/EvaluationBatchTest.kt": "f4be2737a354fd408a5148de2d069fa1b86821acdfc0b23851d75a0de619a820",
+    "tools/eval/native_diar_policy.py": "3cbd379c545b3d6206a5afc52817c34ae601836fae38cc808c6972e651c407df",
+    "tools/eval/native_policy.py": "b6d7fd2de6a7ca7f1776de9fa3924c623918709e0358977bae059569ef4da36b",
+    "tools/eval/score.py": "d9415f7fcac76261fc2c0749d0a640a0a03fa8c6e32f8e5856c4bc0e30ccd85f"
+  },
+  "apk_sha256": {
+    "app": "ca18309f626d431d0bd7bb4c649a2a3ae77f3ef3b75f7f1bcb47c83bf449e15e",
+    "test": "ce4851c681962e8489bd9d8bc0edc0a229d245307b88fdfa9c19d0ef1f1df051"
+  }
+}

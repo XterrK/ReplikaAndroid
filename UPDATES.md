@@ -195,3 +195,383 @@ FinalPython337testsPASS12,011s, codehashesduringtestsunchanged; JVM173/staticARM
 Дополнительныйdev-onlyпротокол43a817… доNN закрылminDurationOffиselectedC2shift.32actualSD/902cleanembeddingcalls,ASRявныйcachedD71/533. Все4вариантаполные,ноFAILquality:off0,25 K6/8 DER21,6134%;off1,0 K4/8 DER19,7999%;shift0,25 K5/8 DER18,9807%;shift0,5 K4/8 DER24,2211%. ОстаётсяC2shift0,1/off0,5/K7/8/DER18,2985%. Независимыйаудит3648checksPASSданных/replay/метрик. Ни новаяAndroidмодель,нипересборка,ниповторныйAndroidдляотвергнутыхвариантовненужны. ФинальныйPython345/0fail иcodehashstable, JVM173/UI2/build/staticостаютсяPASS.
 
 C1реализуетназванныевпланецентроиды/eigengap/малые/сглаживание,ported274parity; C2честноназванизмереннойwindowHCальтернативой,неNME-SC.32probe-followupзакрываетrecommendationcoverage,неослабляячисловыеgates. acceptance.json=PASS_FOR_EXPERIMENTAL_C2_PROFILE; full_project_accepted=false. Native10independentaudit564PASS,hostfull23audit3164PASS,natural9audit6288PASSцелостностиприK0/3. ПоследниеотчётыготовятсякодномуCcommit/PR/Release; GitHubstateпубликациибудетзафиксированотдельно,нетложногозаявленияофинальнойсдаче.
+
+
+## 2026-11-07T06:50:13+03:00 — C опубликован, начат пункт 5
+
+Публикация C подтверждена `artifacts/test-results/step-04/github-publication.json`:
+feature `b619519`, PR #4 MERGED, merge `87f669a`, prerelease `hack-step04-20261107`.
+Серверный digest C2 v2 совпадает с локальным SHA `a83bfe95…`; V1.6 `dec7523d…` и
+D `048c42fd…` также проверены и сохранены. Пункт C завершён по экспериментальным
+монтажным и native-гейтам: 10/10, dev K7/8 / DER18,2985%, fixed5 raw43/442,
+независимый аудит564, JVM173/Python345/UI2 PASS. Общая приёмка проекта, естественного
+диалога, времени слов, ARM и скорости остаётся открытой. Исторические FAIL сохранены.
+
+Новая ветка `hack/task-05-runtime-import` от `87f669a` ограничена пунктом 5.
+Готовится `auto_v1` за явным флагом: floor по {1,2,4} от clamp(cores−1,1,4).
+Отсутствующий ключ задания сохраняет legacy; прежний C2 SD/refiner остаётся на2 потоках.
+Адаптивное поведение не наследует C-приёмку: до продвижения в Android нужна свежая
+host-проверка качества. Другой агент готовит13 кодековых примеров и проверку
+URI→импорт→decode/системного выбора. На момент этой записи проверки пункта5 ещё
+не выполнялись; в `docs/STEP_05_RUNTIME_IMPORT.md` сохранены план и PENDING.
+Обновлены только документы; production-код, стенд, модели, NN/ADB/Gradle и Git
+этой документальной работой не затронуты.
+
+
+## 2026-11-07T07:02:51+03:00 — host CPU 2/1/4: 39/39, независимый аудит PASS
+
+Три последовательных полных варианта по протоколу `cpu-auto-v1-protocol.json`
+завершены: каждый выполнил 13 новых SD-прогонов, 428 чистых эмбеддингов и 69 новых
+ASR-чанков без replay или известного K. Все файлы точно совпали с опубликованным
+C2 по Jury JSON, raw/stable/refined turns, реальным векторам, диагностике refiner,
+токенам/времени/словам и основным метрикам. Время исключено из равенства.
+
+Внешний независимый аудитор заново проверил source/config/model/runtime/audio/ref
+SHA, SDK num_threads, чистые окна, C2 из actual vectors, слова из actual tokens,
+Jury JSON и WER/cpWER/DER0/250/K. Control2 — 1919, вариант1 — 1906, вариант4 —
+1906 проверок PASS; суммарно 5731. Оба зафиксированных cohort gates пройдены отдельно:
+dev raw71/533, normalized16/532, cpWER146/533, K7/8, native DER18,2984805764%;
+holdout49/444,13/442,95/444,K4/5,DER13,8895661248%. Это уже просмотренные
+регрессионные группы, не слепая проверка. Reserve заново не запускался.
+
+Доказательства: `artifacts/test-results/step-05/independent-cpu-threads{2,1,4}-v1.json`
+и `.md`; внешний скрипт и immutable snapshot SHA `11fc1e516a2a0663ce950e755833b1cb9c9fd86b9c07ffba45a795239772b929`.
+Guard self-test10 и отказ перезаписи существующего отчёта сохранены отдельно.
+Аудитор не запускал модели и не менял исходные результаты. Скорость, формула выбора
+потоков на Android, thermal, импорт и полная приёмка новой runtime-политики пока
+не подтверждены; пункт 5 остаётся IN PROGRESS.
+
+
+## 2026-11-07T07:10:11.545962+03:00 — пункт5: hostCPU39 PASS; первая Android-сборка остановилась на QA-import
+
+Все39 actualhostcase(13×threads1/2/4) COMPLETE; независимые5731checksPASS, тексты/векторы/интервалы/метрики EXACT C2. Python370PASS19,125s. Gradleattempt1 остановился на compileDebugAndroidTestKotlin: root пропустил import CpuPlan в EvaluationBatchTest. Main APK не устанавливался и не объявляется принятым; лог сохранён build-auto-v1-failed. Импорт исправлен после terminalexit1; готовится повтор с optionalperfQAfalse, defaultполногоQAtrue сохраняется. V1.6/D/C2 release APK неизменны.
+
+
+## 2026-11-07T07:17:14+03:00 — сборка auto v2 и настоящий импорт; thermal не выполнялся
+
+Сборка auto v2 завершилась за 1 мин 31 с: 192 JVM без ошибок/пропусков, полный
+Python-набор 370 PASS. All-in-One/debug/test APK, семь весов, ARM64 static alignment
+и прежний signer f4039935… проверены. APK сохранён как
+`release/REPLIKA-Hack-Step05-AutoCPU-AllInOne-arm64.apk`, 306315573 байта,
+SHA256 `ca18309f626d431d0bd7bb4c649a2a3ae77f3ef3b75f7f1bcb47c83bf449e15e`.
+Debug/test установлены -r без wipe. Доказательства: step-05/build-auto-v2 и
+python-cpu-collector/summary.json. Это сборка/статические проверки, не ARM runtime.
+
+Android-import-thermal-v1: все 6 методов Plan19ImportFormatsTest PASS. Все 13
+исходных CC0-сигналов прошли реальный Content URI→MediaImporter→системный decoder→PCM;
+прошли повторный URI, пустой/повреждённый/отсутствующий источник, обрезанный WAV,
+отмена после фактических байтов копирования и кадров декодирования. Источники и
+чужие файлы сохраняются, собственные частичные файлы убираются. Системный DocumentsUI
+этим не проверялся; synthetic tone не является качеством микрофона или ASR.
+
+Общий запуск: 7 тестов, 1 FAIL. CpuThermalPlan19Test получил initializationError:
+метод actualPowerManagerNoneSevereResumeCancellationAndReset should be void.
+Термоконтроль не запускался и не отмечается PASS. Raw instrumentation.log сохранён;
+root добавил явный : Unit у двух тестовых методов, пересобирается только test APK.
+Main APK неизменен. CPU-native10, thermal-повтор, picker, скорость, ARM и общая
+приёмка остаются PENDING.
+
+До нового NN зафиксирован cpu-native-before-nn-protocol-v1.json SHA129f4fb4…:
+новый dev nonregression относительно фактического C2 native70/16/145/K7/DER.1829848
+проверяется отдельно от исторического collector gate и fixed-five port≤0.5п.п.
+Исходная база независимо пересчитана; baseline run SHA488f4f19… . Ни моделей,
+ни source, ни NN/ADB/Gradle/Git эта документальная запись не меняла.
+
+
+## 2026-11-07T07:22:35+03:00 — thermal и DocumentsUI PASS; CPU-native control2 выполняется
+
+Test-only v3 собран за 1 мин 11 с, SHA `ce4851c681962e8489bd9d8bc0edc0a229d245307b88fdfa9c19d0ef1f1df051`.
+Main All-in-One ca18309f… и debug0a03b2f1… побайтно прежние. Первый thermal
+initializationError сохранён как историческая неудача тестового запуска.
+
+Actual API35/x86_64 thermal v2: 1/1 PASS за 3,175 с. NONE wait 0, блокировка SEVERE и
+продолжение MODERATE, CRITICAL-cancel, reset до0 подтверждены через настоящий
+PowerManager с управляемым override. Runtime cores 2 / auto0→1 подтверждён; NN=0.
+Доказательства step-05/android-thermal-v2/{summary,actual-power-manager,instrumentation}.
+Это поведение API эмулятора, не измерение физического нагрева/батареи телефона.
+
+Actual DocumentsUI picker: 1/1 PASS за 17,674 с. Back не создал запись; из Download
+последовательно выбраны WAV 8 кГц mono, OGG/Opus 48 кГц stereo, FLAC 44,1 кГц mono. Все импортированы
+и декодированы, priorRowsAndAudioPreserved=true, ownedImportedRowsCleaned=3.
+Сохранены report.json и PNG под android-picker-v1/device/picker-p19picker20261107T072016;
+исходный stay-on 1 восстановлен. Старые данные не очищались, модели не запускались.
+
+Root запустил настоящий full10 CPU explicit2-контроль: cpu-android-control2-v1
+RUNNING. До NN сохранены receipt-v1/preflight-v3 с protocolSHA129f4f… и точными APK/
+source/host pins. Итог всех 10 ещё не получен; CPU nonregression не объявляется.
+Automatic-контроль, historical moderate1 smoke, скорость 1/3/10 мин и ARM остаются
+отдельными проверками. Документы обновлены без source/NN/ADB/Gradle/Git действий.
+
+
+## 2026-11-07T07:34:56+03:00 — native control2 принят; automatic0 выполняется
+
+Настоящий control2 завершил 10/10, collector exit0/COMPLETE. Независимый сохранённый
+аудит — 917 PASS: protocol129f4f…, отдельные эталоны, реальная C2-native база,
+APK/source/model/CPU/receipt pins, actual vectors→C2 и tokens→words→Jury replay,
+полный WER/cpWER/DER0/250/K пересчёт. Дополнительный новый CPU-гейт прошёл все
+11 условий: raw70/533, normalized16/532, cpWER145/533, K7/8, DER0=0.18298480576441103.
+Fixed5 отдельно43/442 vs host44/442, Δ−0,226244 п.п., port PASS; dev01−0,714286 п.п.
+сохранён. 344 реальных512-векторов, 56 ASR-чанков, 2169 токенов, 767 слов; ресурсы
+и экран восстановлены. Выход: cpu-android-control2-v1/independent-cpu-audit-v1.json,
+SHA `4877922df64e098b95aef4ec9cb0a122b96963761d6229f1ed18847af1f91dd9`.
+
+Независимый non-NN аудит codec/thermal/picker — 311/311 PASS. Он связывает source/
+APK/fixtures/device receipts и assertions; не пересоздаёт удалённый PCM и не делает
+новую ADB-проверку. First thermal-init FAIL сохранён, абсолютное качество речи,
+телефонный нагрев, ARM и скорость этим не подтверждены.
+
+После control2 и отдельного before-NN receipt root запустил automatic request0,
+paired host1, out cpu-android-auto1-v1: RUNNING. Новый receipt имеет точный статус
+READY_BEFORE_FIRST_NATIVE_AUTOMATIC_CPU_NN, timestamp до запуска и hash control2.
+Внешний auditor v2 принимает этот известный status только для request0/effective1/
+host1; старый9dc7 и его control2-proof сохранены. Полный automatic audit до
+подтверждённого terminal10 не выполняется. Итог всей CPU-политики и пункта5 открыт.
+
+
+## 2026-11-07T07:43:13+03:00 — automatic CPU1: full10 и строгий независимый аудит PASS
+
+Auto request0 завершил 10/10, session13304 закрыт exit0. V2-аудитор independently
+проверил точный automatic receipt до NN, preflight/host1, связь с принятым control2,
+APK/source/runtime/model/audio/ref pins, реальные sidecar vectors и токены, метрики
+и исходную C2-native базу. 921 PASS; protocol129f4f…/все11 nonregression условий PASS:
+raw70/533, norm16/532, cpWER145/533, K7/8, native DER0=0.18298480576441103.
+Fixed5 отдельно: native43/442 vs host44/442, Δ−0,226244 п.п., port PASS; каждый
+пофайловый выброс сохранён. Все10 CPU maps: cores2/request0/ASR1/SD1/refiner1.
+344 реальных512-векторов, 56 чанков, 2169 токенов, 767 слов, release/replay/Jury PASS;
+состояние экрана восстановлено. Аудитор не запускал NN/ADB/Gradle/Git.
+
+Выход: step-05/cpu-android-auto1-v1/independent-cpu-audit-v2.json и .md, SHA
+`d03d61f41855422b46d5421f73ef9567073d9162a8176ccf0cda3197221a3ce4`.
+Вместе с control2 — 1838 проверок на двух прогонах тех же10 файлов. Это проверка
+качества CPU1/2 на API35/x86_64, не 20 независимых записей и не доказательство скорости.
+Root далее проверяет legacy27/UI2 и compact QA; результаты пока не объявляются.
+Скорость1/3/10мин, три длинных распознавания и ARM остаются открытыми.
+
+Root также сохранил неатомарный WIP-снимок Linux
+`/home/egor/replika-safety/20261107T073911+0300-step05-wip`: 678 файлов, 12496779 байт,
+SHA `23c3034cf7f8059813ce27f1db92dd6d5273382240dc0c69f9a7f56b1b6c4e8b`;
+пофайловые tar-хеши проверены. Это промежуточная страховочная копия, не коммит
+или финальная приёмка пункта5.
+
+
+## 2026-11-07T07:52:28+03:00 — regression27 и compact2 PASS; performance12 выполняется
+
+Actual Android-регрессия27/27 PASS за12,598с: 15 MediaImport,8 ImportJournal,
+2 безопасных storage/decode,2 Home UI Jury/default/manual. NN не выбирался, stay-on1
+восстановлен; summary/instrumentation сохранены в android-regression-v1.
+
+Два настоящих compact smoke COMPLETE: compact-smoke-v1 и compact-legacy-moderate-one-v1.
+В каждом один Worker на повторе dev-mono-s, collectEvidence=false, WorkInfoSUCCEEDED;
+full token/timestamp/word/vector arrays отсутствуют, counters/text сохранены, ресурсы
+сбалансированы. Legacy v16/request1 фактически сохранил ASR1/SD2/refiner2 и pin=true.
+Сохранены reference/hypothesis/diagnostics/case/scoring, точные source/APK и все7model
+SHA до/после. Procedure SHA442367b8… . Это narrow compact/legacy контракт, не новый
+quality-корпус и не ослабление strict full-C native gate; полного replay скрытых
+массивов здесь нет. Исходные качественные native20-прогоны остаются отдельно.
+
+Root запустил performance perf-2-4-4-2-v1 --execute: RUNNING. До NN зафиксированы
+protocolSHAaef12832… и perf-execution-receipt-v1.json; driver SHAa910dd99…/11 tests PASS.
+Порядок explicit threads2/4/4/2, в каждом пакете1/3/10min: 12 Worker,56min audio total,
+compact QAfalse, source frozen. Входы — связанные контролируемые повторы, не новая
+независимая группа. До полного результата не называются RTF, выигрыш скорости,
+устойчивость длинных запусков или ARM PASS. Stage/PSS и периодические RSS/thermal
+— снимки с overhead; физический телефон/непрерывный пик памяти не измерены.
+Документы обновлены без source/ADB/NN/Gradle/Git действий.
+
+
+## 2026-11-07T10:49:49+03:00 — подготовлен perf-аудитор; сохранён clock-step
+
+Внешний saved-only perf-аудитор подготовлен, полный12 run ещё не проверялся как
+завершённый. V1 SHA1f07e501… сохранён; V2 SHA2a707b31… добавляет только явный
+UTC/monotonic anomaly report. AST parse,14 synthetic guards и запрет перезаписи
+готового отчёта проверены; source snapshot/preparation-v2 сохранены. Проверяются
+порядок2/4/4/2, все12 Worker/PID/UUID, source/APK/model/input/reference SHA, compact
+контракт, независимые метрики/RTF/парные descriptive ratios и raw RSS/PSS snapshots.
+QAfalse не позволяет full token/vector replay; такого заявления не будет.
+
+Read-only sampler observation: строки20→21 дают wallΔ9958,936162с, monotonicΔ10,478699с,
+расхождение9948,457463с. Точные строки и их SHA сохранены в perf-wall-clock-observation-v1.json.
+Причина скачка UTC неизвестна; по нему нельзя объявлять NN зависшим или считать
+ISO-разницу временем обработки. Пакет продолжает оставлять ресурсные снимки,
+счётчик verified обновляется после проверки целой тройки. Worker/SystemClock и
+host monotonic остаются отдельными источниками времени. Итог RTF/скорости/ARM
+по выполняющемуся прогону не заявлен; ADB/NN/Gradle/source/Git агент не трогал.
+
+
+## 2026-11-07T11:32:06+03:00 — performance FAILED: 3 driver-verified и 2 дополнительных native COMPLETE
+
+Драйвер завершился exit1 в08:28:55.191944Z. Точная причина в batch2/threads4/perf-10m:
+TimeoutCancellationException «Timed out waiting for1200000ms» из20-минутного
+withTimeout в EvaluationBatchTest.kt:170. Это instrumentation guard ожидания
+третьего Worker, не host subprocess5400s timeout; OOM данными не установлен.
+Последний stage неоконченного Worker — diarizationReadMs, завершения SD/ASR нет.
+Причина длительного JNI/SD самим этим логом не доказана.
+
+Batch1/threads2 COMPLETE,3 driver-scored/verified, одинPID8526: Worker67890/223039/
+854460мс для audio60000/179999/599999мс. Batch2/threads4 Androidreport содержит ещё
+2 COMPLETE/SUCCEEDED:130422/577404мс для1/3мин, одинPID10346. Драйвер не дошёл до
+их независимого скоринга; они не добавляются к verified3. Третьего валидного
+case/diagnostics/hypothesis нет: .json-файлы содержат raw cat No-such-file errors.
+Batch3/4 не запускались. Итого5 завершённых native-отчётов,3 driver-verified,
+не12/12 и не законченный двунаправленный benchmark. Raw run/логи/частичные ошибки
+сохранены, полный12-аудитор не запускался как успешный.
+
+Root отдельно подтвердил терминальность: app PID10346 отсутствует, pidof app exit1,
+остался только test PID6434; WM-Processor reschedule=false.
+perf-process-terminal-observation-v1.json SHA164600d9c600ca01042753909d3d10fe8d57e54ad9132d6defbfe5f19b999484.
+JNI исчезнувшего процесса больше не выполняется; это не отчёт об успешном окончании
+10мин Worker или его штатном release. Stay-on1 восстановлен. Другой агент root
+проверяет5 сохранённых завершённых результатов отдельно без нового NN.
+
+Скорость/полный performance12/ARM не приняты. Пользователь имеет ARM-телефон,
+но сейчас подключить его не может; Mac нет. Это не пауза всей работы: доступные
+x86-проверки продолжаются без повторного запроса подключения. ps16k x86 SDK-образ
+есть в официальном каталоге, но не установлен; фактический16KiB runtime PENDING.
+Во время performance основной SDK не менялся. Агент выполнял только saved-file
+анализ и правки owned-документов: без ADB/NN/Gradle/Git/production изменений.
+
+
+## 2026-11-07T11:40:06+03:00 — partial2489 PASS; подготовлены ps16k и отдельный Windows ADB
+
+Partial-аудит всех5 сохранённых native COMPLETE дал2489 PASS без нового NN:
+perf-2-4-4-2-v1/independent-partial-audit.json,
+SHA `ee8af7f27a866f53b31fab7a0eed3157e7c8b5ae1238beae7187967a27794926`.
+Исходный driver verified-counter остаётся3, experiment FAILED, полного12/12/
+speed/ARM acceptance нет. Missing10min не оценивается нулём и не заменяется
+поддельной гипотезой; non-JSON pull-errors сохранены.
+
+После терминальности failedJNI root установил официальный SDK ps16k x86_64
+API35/ext13/revision5 и создал отдельный AVD, старый сохранён. Pre-boot receipt
+ps16k-environment-v1/pre-boot.json фиксирует подготовку; boot/page-size/NN runtime
+ещё не приняты. QA-buildv2 выполняется, успешная сборка пока не заявлена.
+
+Пользователь подключил vivo X300 (Dimensity9500) USB: Windows PnP StatusOK,
+ADB pending/devices пуст. Root запустил WindowsADB37.0.1 loopback5038 с
+childenv max-emulator-port0/mDNS-autoconnect0. Попытка -H127.0.0.1 start-server
+отклонена cannot-start-on-remote-host; успешна -P5038 start-server без-H.
+Wrapper-H127/P5038 работает с уже живым сервером, его автостарт safe-fail.
+Linux5037 и Windows5037 wslrelay PID22324 не тронуты. Телефонный NN/RTF не выполнялся.
+Агент только прочитал primary AOSP flags и бинарные строки подготовленного
+Google-signed37.0.1, не запускал ADB/server/USBIP/driver и не менял source/SDK.
+
+## 2026-11-07T11:54:44+03:00 — ps16k загружен; cold3 PASS, первый hash-test прерван системой
+
+Отдельный AVD revision5 фактически загрузился с PAGE_SIZE16384/API35/x86_64.
+QA build SUCCESS за 5 мин 2 с, static/install hashes PASS; привязки сохранены в
+`ps16k-environment-v1/installed-build-bindings.json`. Три cold-provision проверки
+PASS: clean offline, повтор без извлечения и interruption/resume.
+
+Первый отдельный prepared-model hash-test завершился `Process crashed`.
+Сохранённый crash buffer показывает SIGSEGV system_server PID571 в
+CachedAppOptimizer и более ранние Google crashes; REPLIKA crash не установлен.
+Android перезапустил system_server. NN ещё не запускался: этот сбой не считается
+ни product failure, ни доказательством совместимости JNI. Обе backcompat-записи
+получили permission denied, отключение режима не заявляется. Повтор hash-test,
+один настоящий короткий Worker и независимый аудит пока PENDING. Скрипт аудита
+готовится отдельно, без ADB/NN/Gradle/Git и без изменения полного10-case гейта.
+
+## 2026-11-07T12:01:14+03:00 — первый физический ARM Worker, независимый аудит79 PASS
+
+ADB телефона vivo X300 подтверждён; root завершил один production Worker на
+авторском dev-mono-s: API37/arm64-v8a/PAGE_SIZE4096, cores8/request0→4 во всех
+трёх стадиях, PID12952. Протокол и preflight двух APK/семи моделей сохранены до NN.
+Saved-only аудит79 PASS: 4×512 вектора/C2 replay/resources closed, 42 токена и
+14 слов/Jury exact; Jury и семь основных метрик равны host4. Raw1/15, norm0/14,
+cp1/15, native DER0 89/6333, K1. Worker3185мс на6333мс аудио — только короткий
+описательный RTF0,502921. Полный ARM-корпус/скорость не приняты.
+
+Санитизированные файлы: `vivo-arm-one-audited-v1/independent-audit.json`,
+SHA `872ee23d85132eea3a5bbe55e2b152b957b6713e1c340c000525289f7ef361d6`;
+аудитор `ebf99f345c05ddc00ffa0288a9112ecddbce009d14d092541369baf23c5f6e3b`.
+Серийный номер/commands/dumpsys/DB не экспортировались. Аудитор не запускал
+ADB/NN/Gradle/Git. PS16k остаётся на подготовке: NN там ещё не было.
+
+## 2026-11-07T12:13:14+03:00 — ARM10/10 и ps16k NN проверены независимо
+
+Физический vivo X300/API37/ARM/4KiB: полный collector COMPLETE10/10 в одном
+PID15843, automatic0/cores8→4. Независимый saved-only аудит **942 PASS**, все
+зафиксированные ARM-условия выполнены. Dev raw71/533, norm16/532, cp146/533,
+K7/8, DER0 18,2984805764%; fixed5 44/442=host4, gap0. Проверены344×512 реальных
+вектора,56 чанков,2171 токен/время и767 слов; ресурсы/C2/Jury replay PASS.
+Raw/stable/refined turns и token strings совпали с host4; Jury8/10 exact, в двух
+других изменились только timestamps. Численные различия векторов сохранены.
+Root отдельным private count/row-SHA сравнением подтвердил сохранность5 прежних
+Room-таблиц; личные DB/serial/dumpsys/команды не экспортированы.
+
+Public `vivo-arm-full10-audited-v2/independent-audit.json`,
+SHA `64d6d82d427991906e6af2cc3d1907dd879be44b4fbc8831183d097d1c5a2867`;
+аудитор `e8e89fed0f3bf211b7f7b5a67997938edf2682a6a34e7065c71eedda9ff046b1`.
+V1 не перезаписан: исправлена только запаздывавшая на1 метка счётчика, затем fresh
+v2 повторил весь saved-only аудит. Это не новая NN-попытка и не изменение данных.
+
+Ps16k API35/primary x86_64/страница16384: после system_server restart свежий
+prepared-hash retry OK1, затем один настоящий6333мс Worker COMPLETE/OK1.
+Независимый аудит **120 PASS**: CPU0→1,4×512/resources/C2,42tokens/14words/Jury
+exact, Jury=host1. Worker13980мс — описание короткого compatibility smoke.
+Настройки airplane0/wifi1/data1/stay1 RESTORED_EXACTLY по readback.
+`ps16k-android-one-v1/independent-compatibility-audit-v2.json`,
+SHA `7db6ad7ed8eba52c7184d477f2880b1212a3d954aa5a33c8c5eb963ed7db54d3`;
+аудитор `ae893867a3fe8d0f464e31cf3d8c20e0988b0c43bcbb4bd48896d8d525441b48`.
+Первый Google/system_server crash сохранён; backcompat-off не доказан (write denied).
+ARM performance1/3/10мин root запустил отдельно, сейчас RUNNING; скорости/нагрева/
+батареи/натуральной диаризации/word-gold/общей приёмки ещё нет. Аудиторы выполняли
+только чтение и пересчёт сохранённых данных: без ADB/NN/Gradle/Git/source изменений.
+
+## 2026-11-07T12:29:58+03:00 — пункт5 READY_TO_COMMIT, три длинных ARM-файла завершены
+
+ARM1/3/10мин **3/3 COMPLETE/SUCCEEDED**, один PID24551, CPUautomatic0→4.
+Worker/RTF:21429мс/0,357150;72287мс/0,401597;443545мс/0,739243.
+В10мин включены135127мс настоящего ожидания охлаждения: thermal2→3→4→3→2,
+далее колебания2/3. Счётчики621 окон/87 ASR-чанков сбалансированы; QAfalse,
+полного token/vector replay этих длинных файлов нет. Аудит **1004 PASS**:
+`vivo-perf-one-audited-v2/independent-audit.json`,
+SHA `f1a53d67c48a99353674d7dc61928c2045103ca92cd65b26af93688b9530ffa3`.
+
+46 sampler records:45 собственных PID samples и1 ранняя JSON-ошибка.
+RSS1034876KiB, periodic PSS830950KiB, stage PSS876591KiB — разные снимки,
+не непрерывные пики. Stage-log пуст, причина неизвестна. SD/refiner/ASR timings
+берутся из actual diagnostics; вложенные таймеры не суммируются повторно.
+Это один профиль и связанные повторные реплики, без причинного2/4-сравнения.
+Цель RTF≤0,3 на флагмане не достигнута; старый FAILED x86perf12 сохранён.
+
+Root после группы проверил оба APK и все5 прежних Room-таблиц: EXACT,
+`vivo-prior-data-preservation-after-long3-v1.json`. Личные данные не опубликованы;
+телефон освобождён, пользователь уведомлён. Исходники/семь моделей/кандидат
+`ca18309f…` и testAPK `ce4851c…` не изменились;192 JVM/370 Python остаются
+проверками текущей сборки. Подпись прежняя, стабильный fallback V1.6 `dec7523d…`
+сохранён. Совокупность CPUhost39/x86native20/ARM10/long3/ps16k/import13/thermal/
+picker/UI/legacy/compact позволяет готовить отдельный commit/PR пункта5.
+**READY_TO_COMMIT**, Git/PR ещё PENDING; это не полная приёмка проекта, естественной
+диаризации, word-gold, ARM16KiB/M1, батареи или целевой скорости.
+Следующий пункт6 — английский/LID и стереозвонки, NOT STARTED. §0.4 сохраняет
+приоритет; LLM/Lite/лендинг не добавляются до проверок конвейера.
+
+## 2026-11-07T12:37:46+03:00 — пользовательская пауза после контрольного среза пункта5
+
+Пользователь явно попросил закончить checkpoint, сохранить всё в Git/GitHub и
+передать работу другому ИИ. Текущий статус — **PAUSED_BY_USER_AFTER_STEP05**.
+Реализация и текущие проверки пункта5 подтверждены; исходники/APK/модели после
+проверок не менялись, повторные тесты не запускались. Завершение сохранения и
+публикации входит в запрошенный checkpoint, новых задач после него не выполняем.
+
+Финальная commit/tag-привязка — история веток `hack/task-05-runtime-import` /
+`hack/final`, [выпуск/tag `hack-step05-20261107`](https://github.com/XterrK/ReplikaAndroid/releases/tag/hack-step05-20261107).
+Хеш текущего коммита и номер PR заранее не придумываются. Передача следующему
+агенту: [HANDOFF_NEXT_AGENT.md](HANDOFF_NEXT_AGENT.md).
+
+Пункт6 EN/LID+стереозвонки **NOT STARTED**, продолжать только по новой команде
+пользователя. Телефон освобождён, кандидат `ca18309f…` и прежние5 Room-таблиц
+сохранены; стабильный fallback V1.6 `dec7523d…` остаётся. Старые FAILED-прогоны,
+цель RTF≤0,3 (не достигнута), natural C/word-gold D и ARM16KiB/M1 ограничения
+не отменяются паузой или checkpoint. Общая приёмка проекта не объявляется.
+
+## 2026-11-07T12:39:28+03:00 — тестовые сервисы остановлены и проверены
+
+После терминальности всех NN root завершил собственный эмулятор5558 и Windows
+ADB5038: обе команды exit0. Финальная read-only проверка показала live QEMU[],
+Windows5038 listeners отсутствуют, `no_live_owned_test_services=true`.
+[Команды](artifacts/test-results/step-05/user-pause-test-service-stop-v1.json),
+[финальный receipt](artifacts/test-results/step-05/user-pause-test-services-final-v1.json).
+Linux5037 не завершался; данные AVD, приложения телефона и прежние пользовательские
+записи сохранены. Фоновых тестов нет. Остаётся только запрошенное сохранение
+checkpoint/передача; пункт6 не начат и на пользовательской паузе не запускается.

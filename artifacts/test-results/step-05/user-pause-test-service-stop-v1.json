@@ -1,0 +1,33 @@
+{
+  "created_utc": "2026-11-07T09:37:30.592095+00:00",
+  "status": "OWN_TEST_SERVICES_STOP_REQUESTED_AFTER_ALL_NN_TERMINAL",
+  "user_requested_pause": true,
+  "phone_test_app_left_installed": true,
+  "phone_settings_not_changed": true,
+  "old_user_data_preserved": true,
+  "default_adb_5037_not_killed": true,
+  "old_avd_5556_data_preserved": true,
+  "commands": [
+    {
+      "command": [
+        "/home/egor/replika-toolchain/android-sdk/platform-tools/adb",
+        "-s",
+        "emulator-5558",
+        "emu",
+        "kill"
+      ],
+      "returncode": 0,
+      "stdout": "OK: killing emulator, bye bye\nOK\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/home/egor/replika-toolchain/windows-adb/adb-phone",
+        "kill-server"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ]
+}

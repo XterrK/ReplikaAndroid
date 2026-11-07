@@ -1,0 +1,119 @@
+{
+  "schema_version": 1,
+  "created_utc": "2026-11-07T09:40:07.541822+00:00",
+  "checkpoint": "USER_REQUESTED_PAUSE_AFTER_STEP_05_IMPLEMENTATION_AND_VERIFICATION",
+  "full_project_accepted": false,
+  "next_numbered_point": 6,
+  "next_work": "English ASR and language identification; stereo calls; then point7 submission/presentation/video",
+  "do_not_resume_without_user_request": true,
+  "repository": "https://github.com/XterrK/ReplikaAndroid",
+  "integration_branch": "hack/final",
+  "feature_branch": "hack/task-05-runtime-import",
+  "base_commit": "87f669a61a4c3fa3d0e8a319a147f947a57e1844",
+  "final_commit_locator": "git rev-parse origin/hack/final; git show hack-step05-20261107 --no-patch",
+  "release_tag": "hack-step05-20261107",
+  "feature_profile": {
+    "asr": "vad_words_context600",
+    "diarization": "eres2net_window_v1",
+    "cpu": "auto_v1"
+  },
+  "tests": {
+    "jvm": 192,
+    "python": 370,
+    "host_cpu_fresh_cases": 39,
+    "host_cpu_audit_checks": 5731,
+    "x86_cpu_fresh_cases": 20,
+    "x86_cpu_audit_checks": 1838
+  },
+  "arm_dev": {
+    "raw_wer_errors": 71,
+    "raw_wer_reference_words": 533,
+    "normalized_errors": 16,
+    "normalized_reference_words": 532,
+    "speaker_count_exact_cases": 7,
+    "cases": 8,
+    "native_der0": 0.18298480576441103
+  },
+  "arm_fixed5": {
+    "native_errors": 44,
+    "host_errors": 44,
+    "reference_words": 442,
+    "delta_percentage_points": 0,
+    "allowed_delta_percentage_points": 0.5
+  },
+  "arm_long_cases": [
+    {
+      "audio_ms": 60000,
+      "processing_ms": 21429
+    },
+    {
+      "audio_ms": 179999,
+      "processing_ms": 72287
+    },
+    {
+      "audio_ms": 599999,
+      "processing_ms": 443545,
+      "cooling_wait_ms": 135127
+    }
+  ],
+  "memory": {
+    "max_observed_rss_kib": 1034876,
+    "max_periodic_pss_kib": 830950,
+    "max_stage_pss_kib": 876591,
+    "scope": "Snapshots; no continuous global peak or causal speed comparison"
+  },
+  "apk": {
+    "candidate": "release/REPLIKA-Hack-Step05-AutoCPU-AllInOne-arm64.apk",
+    "candidate_sha256": "ca18309f626d431d0bd7bb4c649a2a3ae77f3ef3b75f7f1bcb47c83bf449e15e",
+    "candidate_bytes": 306315573,
+    "fallback": "release/fallback/REPLIKA-V1.6-AllInOne-arm64.apk",
+    "fallback_sha256": "dec7523de9403248358a5b590f12069be47e821460cb6095af4c1424edb7febd",
+    "current_json_remains_v16": true
+  },
+  "open_limits": [
+    "Target RTF<=0.3 not achieved;10min includes real thermal wait",
+    "C2 natural AMI exact speaker count0/3; montage results are proxies",
+    "No independent word timing gold or sub200ms acceptance",
+    "No M1/baselineARMv8.2 or physicalARM16KB validation",
+    "Point6 English/LID/stereo and point7 submission/presentation/video are not implemented",
+    "Optional LLM/Lite/landing have not started"
+  ],
+  "privacy": "Phone serial, raw dumpsys/commands, personal database snapshots remain private outside Git; exported metrics use only fixed public author audio",
+  "evidence": {
+    "arm_short79": {
+      "path": "artifacts/test-results/step-05/vivo-arm-one-audited-v1/independent-audit.json",
+      "sha256": "872ee23d85132eea3a5bbe55e2b152b957b6713e1c340c000525289f7ef361d6",
+      "reported_status": "PASS_ONE_PHYSICAL_ARM_COMPATIBILITY_SMOKE"
+    },
+    "arm_full10_942": {
+      "path": "artifacts/test-results/step-05/vivo-arm-full10-audited-v2/independent-audit.json",
+      "sha256": "64d6d82d427991906e6af2cc3d1907dd879be44b4fbc8831183d097d1c5a2867",
+      "reported_status": "PASS"
+    },
+    "arm_long3_1004": {
+      "path": "artifacts/test-results/step-05/vivo-perf-one-audited-v2/independent-audit.json",
+      "sha256": "f1a53d67c48a99353674d7dc61928c2045103ca92cd65b26af93688b9530ffa3",
+      "reported_status": "PASS_SAVED_COMPLETE_THREE"
+    },
+    "page16k120": {
+      "path": "artifacts/test-results/step-05/ps16k-android-one-v1/independent-compatibility-audit-v2.json",
+      "sha256": "7db6ad7ed8eba52c7184d477f2880b1212a3d954aa5a33c8c5eb963ed7db54d3",
+      "reported_status": "PASS_ONE_SHORT_COMPATIBILITY_SMOKE"
+    },
+    "prior_data_preservation": {
+      "path": "artifacts/test-results/step-05/vivo-prior-data-preservation-after-long3-v1.json",
+      "sha256": "ee90522955c5d64af5e86861afa4938423036ba84b6478cdde1be137dba9bc42",
+      "reported_status": "PRIOR_DATABASE_TABLES_EXACTLY_PRESERVED_AFTER_LONG3"
+    },
+    "no_owned_test_services": {
+      "path": "artifacts/test-results/step-05/user-pause-test-services-final-v1.json",
+      "sha256": "248d73e2e9da7420bc1ca9713b73bf32de8e708e3fedcd958f4f0c107c2c769d",
+      "reported_status": "NO_LIVE_OWNED_TEST_SERVICES"
+    },
+    "legacy_failed_x86_partial2489": {
+      "path": "artifacts/test-results/step-05/perf-2-4-4-2-v1/independent-partial-audit.json",
+      "sha256": "ee8af7f27a866f53b31fab7a0eed3157e7c8b5ae1238beae7187967a27794926",
+      "reported_status": "PASS_PARTIAL_EVIDENCE"
+    }
+  }
+}

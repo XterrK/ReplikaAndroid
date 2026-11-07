@@ -11,6 +11,7 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.sync.withLock
 import ru.replika.ReplikaApp
+import ru.replika.BuildConfig
 import ru.replika.data.*
 import ru.replika.ml.*
 import ru.replika.domain.ProductErrors
@@ -145,11 +146,12 @@ class AppViewModel(application: Application): AndroidViewModel(application) {
   }
  }
 
- fun process(id: String,count: Int,threads: Int=2) {
+ fun process(id: String,count: Int,threads: Int=if(BuildConfig.DEFAULT_CPU_PLAN=="auto_v1") 0 else 2) {
   if(id in deleting.value || !processingRequests.add(id)) return
   viewModelScope.launch {
    try {
-    ru.replika.domain.MlPolicy.threads(threads)
+    if(threads==0) require(ru.replika.domain.CpuPlan.fromPersistedId(BuildConfig.DEFAULT_CPU_PLAN)==ru.replika.domain.CpuPlan.AUTO_V1)
+    else ru.replika.domain.MlPolicy.threads(threads)
     if(count!=-1 && count !in 1..20) throw ProductOperationException("Укажите от 1 до 20 говорящих.","Invalid speaker count $count")
     val queued=app.db.withTransaction {
      val rec=dao.recording(id)?:return@withTransaction false
@@ -157,7 +159,7 @@ class AppViewModel(application: Application): AndroidViewModel(application) {
      dao.insert(rec.copy(expectedSpeakers=count,backend=backend.value,status="QUEUED",phase="Ожидание обработки",error=null))
      true
     }
-    if(queued) { clearUndo();ProcessingWorker.enqueue(app,id,threads) }
+    if(queued) { clearUndo();ProcessingWorker.enqueue(app,id,threads.takeUnless { it==0 }) }
    } catch(e: CancellationException) { throw e } catch(e: Exception) { reportError("Запуск обработки",e) }
    finally { processingRequests.remove(id) }
   }

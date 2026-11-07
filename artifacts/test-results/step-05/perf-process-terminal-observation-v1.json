@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "created_utc": "2026-11-07T08:31:03.443775+00:00",
+  "status": "FAILED_PERFORMANCE_PROCESS_TERMINAL_OBSERVED",
+  "perf_run_status": "FAILED",
+  "driver_exit_code": 1,
+  "cause": "Batch2/threads4/perf-10m exceeded EvaluationBatchTest per-case 1200000ms guard; no OOM conclusion",
+  "completed_native_reports": 5,
+  "driver_verified_workers": 3,
+  "planned_workers": 12,
+  "serial": "emulator-5556",
+  "failed_native_process_id": 10346,
+  "failed_app_process_absent": true,
+  "scope": "Observation after instrumentation exit. No new inference, force-stop, restart, uninstall, code or APK mutation. App process10346 no longer exists, so its JNI calls cannot remain executing. Test-package process may remain. No assertion that the interrupted10min completed or its resources emitted a success report.",
+  "commands": [
+    {
+      "args": [
+        "shell",
+        "pidof",
+        "ru.replika.offline"
+      ],
+      "returncode": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "shell",
+        "ps",
+        "-A",
+        "-o",
+        "PID,PPID,NAME,CPU"
+      ],
+      "returncode": 0,
+      "stdout": "  PID  PPID NAME                        CPU\n 6434   348 ru.replika.offline.test       0",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "shell",
+        "dumpsys",
+        "activity",
+        "activities"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "logcat",
+        "-d",
+        "-v",
+        "epoch",
+        "-t",
+        "220"
+      ],
+      "returncode": 0,
+      "stdout": "         1794040134.295 10346 10346 I WM-SystemFgDispatcher: Stopping foreground service\n         1794040134.300 10346 10346 D WM-SystemFgService: Shutting down.\n         1794040134.340 10346 10363 D WM-GreedyScheduler: Cancelling work ID b7f04484-044b-4518-8e38-aa19dcaa6747\n         1794040134.552 10346 10346 D WM-SystemJobService: onStopJob for WorkGenerationalId(workSpecId=b7f04484-044b-4518-8e38-aa19dcaa6747, generation=0)\n         1794040134.554 10346 10363 D WM-StopWorkRunnable: StopWorkRunnable for b7f04484-044b-4518-8e38-aa19dcaa6747; Processor.stopWork = false\n         1794040134.555 10346 10363 I WM-WorkerWrapper: Work [ id=b7f04484-044b-4518-8e38-aa19dcaa6747, tags={ ru.replika.ml.ProcessingWorker,qa-evaluation-1412b8d2-5be3-4e30-87ec-c578e3760cd5 } ] was cancelled\n         1794040134.555 10346 10363 I WM-WorkerWrapper: androidx.work.impl.WorkerStoppedException\n         1794040134.555 10346 10363 I WM-WorkerWrapper: \tat androidx.work.impl.WorkerWrapper.interrupt(WorkerWrapper.kt:348)\n         1794040134.555 10346 10363 I WM-WorkerWrapper: \tat androidx.work.impl.Processor.interrupt(Processor.java:439)\n         1794040134.555 10346 10363 I WM-WorkerWrapper: \tat androidx.work.impl.Processor.stopAndCancelWork(Processor.java:280)\n         1794040134.555 10346 10363 I WM-WorkerWrapper: \tat androidx.work.impl.utils.CancelWorkRunnable.cancel(CancelWorkRunnable.kt:33)\n         1794040134.555 10346 10363 I WM-WorkerWrapper: \tat androidx.work.impl.utils.CancelWorkRunnable.forNameInline$lambda$0(CancelWorkRunnable.kt:127)\n         1794040134.555 10346 10363 I WM-WorkerWrapper: \tat androidx.work.impl.utils.CancelWorkRunnable.$r8$lambda$gmz-7SyxTGDd6CwHjvOsJ11-hcc(Unknown Source:0)\n         1794040134.555 10346 10363 I WM-WorkerWrapper: \tat androidx.work.impl.utils.CancelWorkRunnable$$ExternalSyntheticLambda0.run(D8$$SyntheticClass:0)\n         1794040134.555 10346 10363 I WM-WorkerWrapper: \tat androidx.room.RoomDatabase.runInTransaction$lambda$10(RoomDatabase.android.kt:733)\n         1794040134.555 10346 10363 I WM-WorkerWrapper: \tat androidx.room.RoomDatabase.$r8$lambda$bNnW08bMruDX4DuvntvGeRm0ICM(Unknown Source:0)\n         1794040134.555 10346 10363 I WM-WorkerWrapper: \tat androidx.room.RoomDatabase$$ExternalSyntheticLambda0.invoke(D8$$SyntheticClass:0)\n         1794040134.555 10346 10363 I WM-WorkerWrapper: \tat androidx.room.RoomDatabase.runInTransaction(RoomDatabase.android.kt:758)\n         1794040134.555 10346 10363 I WM-WorkerWrapper: \tat androidx.room.RoomDatabase.runInTransaction(RoomDatabase.android.kt:733)\n         1794040134.555 10346 10363 I WM-WorkerWrapper: \tat androidx.work.impl.utils.CancelWorkRunnable.forNameInline(CancelWorkRunnable.kt:123)\n         1794040134.555 10346 10363 I WM-WorkerWrapper: \tat androidx.work.impl.utils.CancelWorkRunnable$forName$1.invoke(CancelWorkRunnable.kt:117)\n         1794040134.555 10346 10363 I WM-WorkerWrapper: \tat androidx.work.impl.utils.CancelWorkRunnable$forName$1.invoke(CancelWorkRunnable.kt:112)\n         1794040134.555 10346 10363 I WM-WorkerWrapper: \tat androidx.work.OperationKt.launchOperation$lambda$2$lambda$1(Operation.kt:50)\n         1794040134.555 10346 10363 I WM-WorkerWrapper: \tat androidx.work.OperationKt.$r8$lambda$XKAkIiEN7OgIvwuLUZRQpJhjmyE(Unknown Source:0)\n         1794040134.555 10346 10363 I WM-WorkerWrapper: \tat androidx.work.OperationKt$$ExternalSyntheticLambda1.run(D8$$SyntheticClass:0)\n         1794040134.555 10346 10363 I WM-WorkerWrapper: \tat androidx.work.impl.utils.SerialExecutorImpl$Task.run(SerialExecutorImpl.java:96)\n         1794040134.555 10346 10363 I WM-WorkerWrapper: \tat java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)\n         1794040134.555 10346 10363 I WM-WorkerWrapper: \tat java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:644)\n         1794040134.555 10346 10363 I WM-WorkerWrapper: \tat java.lang.Thread.run(Thread.java:1012)\n         1794040134.591 10346 10363 D WM-WorkerWrapper: Status for b7f04484-044b-4518-8e38-aa19dcaa6747 is CANCELLED ; not doing any work\n         1794040134.611 10346 10363 D WM-StopWorkRunnable: StopWorkRunnable for b7f04484-044b-4518-8e38-aa19dcaa6747; Processor.stopWork = false\n         1794040134.668 10346 10346 D WM-Processor: Processor b7f04484-044b-4518-8e38-aa19dcaa6747 executed; reschedule = false\n         1794040134.705 10346 10363 D WM-PackageManagerHelper: androidx.work.impl.background.systemalarm.RescheduleReceiver disabled\n         1794040134.726 10346 10360 D WM-GreedyScheduler: Cancelling work ID b7f04484-044b-4518-8e38-aa19dcaa6747\n         1794040134.837 10335 10335 I AndroidRuntime: VM exiting with result code 0.",
+      "stderr": ""
+    }
+  ]
+}

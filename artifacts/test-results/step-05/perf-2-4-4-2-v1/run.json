@@ -1,0 +1,2115 @@
+{
+  "schema_version": 1,
+  "status": "FAILED",
+  "created_utc": "2026-11-07T04:51:23.421990+00:00",
+  "scope": "Related controlled 1/3/10-minute repeats; actual production Worker, CPU auto_v1 with explicit 2/4 threads. References remain host-only. Full tokens/vectors are not collected or replayed in this performance run. Stage PSS and periodic RSS/PSS/thermal samples are snapshots, not continuous peaks. Device caches/temperature, instrumentation and sampling overhead are uncontrolled; no causal speed, ARM, natural-dialogue or independent-quality acceptance is established.",
+  "fingerprint": {
+    "code": {
+      "app/build.gradle.kts": "5653e4499b00bd06f4f1ab5791011bce5ed4a43fab5c78f1b96701e732ba8548",
+      "app/src/androidTest/java/ru/replika/EvaluationBatchTest.kt": "f4be2737a354fd408a5148de2d069fa1b86821acdfc0b23851d75a0de619a820",
+      "app/src/main/assets/models-lock.json": "bd18076e29b225ae51a9c43dd347bf0fd7ed8f2e9c5ed10bba56a0899df1dcb9",
+      "app/src/main/java/com/k2fsa/sherpa/onnx/AudioTagging.kt": "ca873e716e7ccb3e86443e38f7b5f840bb4ccd067532b6c26454fab3956d3f88",
+      "app/src/main/java/com/k2fsa/sherpa/onnx/DenoisedAudio.kt": "0a426f3f12edb5c2dff486ddc7accb6675a666bf6c852f48d28ce37f49afc69f",
+      "app/src/main/java/com/k2fsa/sherpa/onnx/FeatureConfig.kt": "829c7adc4db1324f21b9a9cbf5bf10eacf759714fe50956f48317c1ffef044f6",
+      "app/src/main/java/com/k2fsa/sherpa/onnx/HomophoneReplacerConfig.kt": "fe926b6413f4d87e67c41feb21b8363923a67cbd3a5eb687b76390a5f1f7db60",
+      "app/src/main/java/com/k2fsa/sherpa/onnx/KeywordSpotter.kt": "6d8387534b942a979424a1d6721fd285f85df8bfca0ea392860f11fe06f31d06",
+      "app/src/main/java/com/k2fsa/sherpa/onnx/OfflineDiacritization.kt": "66bcfcdfde28278aee00e39d74deccba1044cd07b149186a8cd63e54cfce7c25",
+      "app/src/main/java/com/k2fsa/sherpa/onnx/OfflinePunctuation.kt": "b7e52364dfd00d6057e355e03ba965826491bd78b3df2a1cf6c77e1ee2e55b4e",
+      "app/src/main/java/com/k2fsa/sherpa/onnx/OfflineRecognizer.kt": "8103b67ec65910a71e6b8d4bca7934f77c1af47b68a5c18cdca0ce3f956247a7",
+      "app/src/main/java/com/k2fsa/sherpa/onnx/OfflineSpeakerDiarization.kt": "4017f3b1359f6c3f35a0c46ed4e939d2578fe7773c8686c786bd6a591e4b8921",
+      "app/src/main/java/com/k2fsa/sherpa/onnx/OfflineSpeechDenoiser.kt": "02cc81b23f7a09741e9eb32405d4cbc350779fa591c0fc2634488c0386e2fa36",
+      "app/src/main/java/com/k2fsa/sherpa/onnx/OfflineStream.kt": "5c90b7c060cdd0a2222cc935b54f69465a4a7544de29240bafe4d3a8d86dbb6e",
+      "app/src/main/java/com/k2fsa/sherpa/onnx/OnlinePunctuation.kt": "5622b11cdf848470e4733247bb73a2ac5cedb6b9d1f79dc922df416ed9cb21f7",
+      "app/src/main/java/com/k2fsa/sherpa/onnx/OnlineRecognizer.kt": "3204ff816361d99d94dda1e8c26681f6d4a5ad749a68d8fee93b4e8bb2b21d17",
+      "app/src/main/java/com/k2fsa/sherpa/onnx/OnlineSpeechDenoiser.kt": "c270d1b192cd9c380f0cd14befd4b9f13ef6abd90fe009ec428f2c303ad0ab5e",
+      "app/src/main/java/com/k2fsa/sherpa/onnx/OnlineStream.kt": "6b9f8de317e6a0bb51f0f29d940617b781cb31b190e1c725dd438231836c06ab",
+      "app/src/main/java/com/k2fsa/sherpa/onnx/QnnConfig.kt": "86c963f27677f690eb0d6639735052eba5e60d9f81ccd4c1df0aa831fd680d6f",
+      "app/src/main/java/com/k2fsa/sherpa/onnx/Speaker.kt": "4dcc84f4cf0682e0e4da837ba00130d66ad7aec4f803af4c021de3434246e871",
+      "app/src/main/java/com/k2fsa/sherpa/onnx/SpeakerEmbeddingExtractorConfig.kt": "d90c0ce88dce309813e720ff46abba737401e7e562f9635ee13fd5b32ce106c6",
+      "app/src/main/java/com/k2fsa/sherpa/onnx/SpokenLanguageIdentification.kt": "a4633a327730508ae03b767c5931be006e2c2123f7687faa32bf992aee5de6cc",
+      "app/src/main/java/com/k2fsa/sherpa/onnx/Tts.kt": "291d30c045ae1cb88a87cce8d6794189e5e63f6ecefd012259694932a5594f38",
+      "app/src/main/java/com/k2fsa/sherpa/onnx/Vad.kt": "eaae2b8748b3ed1f44d7da83179a815494edced7dc3ce38376d573c4a1c50d9b",
+      "app/src/main/java/com/k2fsa/sherpa/onnx/VersionInfo.kt": "8a9ada883d8cb802b4e70cc6770af20f4b7d85935a16b0b71974d22d55d0c90a",
+      "app/src/main/java/com/k2fsa/sherpa/onnx/WaveReader.kt": "1b4abcf6c7afdb6e8cc4cd4a71098eec4b45c473b470c71671fd20b641aee8e7",
+      "app/src/main/java/ru/replika/MainActivity.kt": "d5fb2d21e03f3fed7be238aa223afff9fefcaf17128bac7210b4fb94b5f65688",
+      "app/src/main/java/ru/replika/ReplikaApp.kt": "ce3b1c0c2c2eb8ae3159743d7dddada3a868a2616dcc6669b89cf87ba2121d82",
+      "app/src/main/java/ru/replika/data/AppearancePreferences.kt": "47adcc99747677bed752ff284e488ce566cf9d75f9ebf5206cb7c4dc4be84a3c",
+      "app/src/main/java/ru/replika/data/Database.kt": "3ddae2051d834daf8a31463b9122018251f39b32a5d3e4c6ae476a06db21b196",
+      "app/src/main/java/ru/replika/data/ImportJournal.kt": "8ce158cd5f1200f2fb1c1e1f6371dd1b06a24abfb99d2ec6cd9e264cc709230b",
+      "app/src/main/java/ru/replika/data/ProductStorage.kt": "2bb4ce8797157079dc61cf8b08fc124b122f15ce3178afe822b3add41c9cd31f",
+      "app/src/main/java/ru/replika/domain/AsrPlan.kt": "ee17f7540655007b7de57894672c8da560e32d40c76ac46b275a06ac3c7b7d5a",
+      "app/src/main/java/ru/replika/domain/Benchmark.kt": "3b174baa8eeddcf50f1c87b0c4fe052ff8fad327dde191deeb70f0ef95e1b83d",
+      "app/src/main/java/ru/replika/domain/CpuPlan.kt": "711ebbbd1f1d30dc72fb09faf1faf86bb1f670ecca30a0b0ef89f5292477b895",
+      "app/src/main/java/ru/replika/domain/DiarizationPlan.kt": "209efb1121b40a091d99d629fd3f1e67515fde4ab7b99af96eaf634de6195432",
+      "app/src/main/java/ru/replika/domain/JuryJson.kt": "f048a7f670cacb28f0e2a047fa603b73d1358621b9f7907fa718a5ee28305b6f",
+      "app/src/main/java/ru/replika/domain/PcmLowPass.kt": "e0c409c771ddf6f9eb9849e0f23b3a0028895c6db4a33616378c767f88adc05a",
+      "app/src/main/java/ru/replika/domain/ProductErrors.kt": "7ba4f60c91f064f53efa1531919375b21b92e569b1c5931080b6dd3979ce0f64",
+      "app/src/main/java/ru/replika/domain/QuietAudioGain.kt": "f89037844f79685a7e79bfe1e282af3687202de06325826ac2fc320379225b40",
+      "app/src/main/java/ru/replika/domain/SpeakerRefiner.kt": "d0701bb38241c9631daf7445ce00d19c04d5b7b5de1473ea7d4d523ff500885d",
+      "app/src/main/java/ru/replika/domain/Transcript.kt": "6abf363d1c630476f05dc91c26d4d47d352b4e79b637b87e23c63976a6e4383a",
+      "app/src/main/java/ru/replika/domain/TranscriptPresentation.kt": "9c738a90adb14d0153592c1ed7e527255cf6fc27e0512f80d420a407fb0fb4aa",
+      "app/src/main/java/ru/replika/domain/VadWordPlanner.kt": "2705be4a4226641065a914d5adfcec0b6c11da963fa6933494e47b58deb26138",
+      "app/src/main/java/ru/replika/domain/WindowSpeakerRefiner.kt": "69498c73d0489a8381ef2a00dd53afde6c3c4fb02e54a348d63beae89c3e4d67",
+      "app/src/main/java/ru/replika/domain/ZeroSpanVadRescue.kt": "ffdeb91451b495e686a52fb6029663387bc53991318f572d992d39fd4b5883b8",
+      "app/src/main/java/ru/replika/ml/AsrEngine.kt": "8be6a422b26de01d3aa3a237c7921e1906bdc03a90fbad016d4cc0763aba09c2",
+      "app/src/main/java/ru/replika/ml/AudioDecoder.kt": "53cb484da019c62cca72f74c1930b50dabd934018aef47528eafbaf690b34b06",
+      "app/src/main/java/ru/replika/ml/BundledModelCoordinator.kt": "258a3439036b29dd2319a07fcaa6408aa8ce2fd0d31a018531e29d7cceaa0d0c",
+      "app/src/main/java/ru/replika/ml/BundledModelInstaller.kt": "cc9e63d309d701293389791fd2d5241562b82c39efee107edd5b6c1354c7343b",
+      "app/src/main/java/ru/replika/ml/DiarizationEvidence.kt": "9a66afaedc296e369e26fdb903917e3cf54cb6da170ba5ea3f31cef16e67160c",
+      "app/src/main/java/ru/replika/ml/DiarizationRefiner.kt": "155bcb2ed0a62d9aaa41595d76174b5e219d2a0a6b19ae111f7eee16ecd049a9",
+      "app/src/main/java/ru/replika/ml/IsoBmffAudioTimeline.kt": "631ddcdee2c9547ed1b38ef16f64ae683caedcb9bfe9155341d0dfc60eda2abe",
+      "app/src/main/java/ru/replika/ml/MediaImporter.kt": "2cf2d1347b20f877973781157cd714a78b08ee54d5751e35e3a8bf28eab1c257",
+      "app/src/main/java/ru/replika/ml/ModelManager.kt": "85a7f3a64ec40df135b369675d747ef077bde8f76170de03f629cb2c983ab1ba",
+      "app/src/main/java/ru/replika/ml/PipelineTelemetry.kt": "23e20f7fc10f567c41ac8e700d3ed87c8c1b119e5428e0d5c652f759170c56f8",
+      "app/src/main/java/ru/replika/ml/ProcessingWorker.kt": "0ee3b18ad616dd7bc32dbbd940f4077374ec48dd9142ace1e969025195506c8d",
+      "app/src/main/java/ru/replika/ui/AppViewModel.kt": "bc58c951add266c6c398c5ca502459d4ccb0e87ebbc28eaf1a83eb5c61c68552",
+      "app/src/main/java/ru/replika/ui/AppearanceSettings.kt": "149784d3d76fb2b88d3242216519cf6726acd5bcd5638f0771852622f3b8a7cc",
+      "app/src/main/java/ru/replika/ui/AudioDock.kt": "cf3c3a840ac901cdc1a81eaba3c7a202c58b8bebfd1d14ce80c0ba1d41d34d1c",
+      "app/src/main/java/ru/replika/ui/BenchmarkPanel.kt": "ff5a720ff84a96d01f3d4a5eee7647553b7af275356b38948013b6b45dd7b1ee",
+      "app/src/main/java/ru/replika/ui/DisplayFormats.kt": "4fe182f4a1b8e94cd133e2e01e63e8f8f5e1c7940607f91d1f0ab53e42c3e480",
+      "app/src/main/java/ru/replika/ui/LiquidVoiceOrb.kt": "871c750450be8d12a2e08cc58d5e20b19192d529312e36d72eac845afca6437d",
+      "app/src/main/java/ru/replika/ui/ModelPreparationScreen.kt": "533dd9ea044c262d8ea74b7a20e8cf2c9e6e0264c8173fe265172e42afdfb1dc",
+      "app/src/main/java/ru/replika/ui/ModelsScreen.kt": "7d7c73934fce282e01deeb8d1691aaec459b332c3c2d074c386eb4b5ec6db7fb",
+      "app/src/main/java/ru/replika/ui/OrbDynamics.kt": "916b229d6a59a73bd735baa3aae95bc5502794a4461f8a99566275a0385c7fe1",
+      "app/src/main/java/ru/replika/ui/OrbFrameCadence.kt": "b3a000a2b7d518641dcbed39295a5452d4229483f52e6817fa832b667afcdee7",
+      "app/src/main/java/ru/replika/ui/ProductComponents.kt": "d2f39bb61aa75dfb928d729ca3baabedf4759ce885bea7aeb2055db167f24e62",
+      "app/src/main/java/ru/replika/ui/RecordingHome.kt": "376ba7edf9963887cdd4bd0330b5f0fd138ff3a3b1856c53a4afbda7436463f7",
+      "app/src/main/java/ru/replika/ui/Screens.kt": "ff750090c2e626c20e1b17ae08ec6c5b6a75098048e7d42481021c9500fa492d",
+      "app/src/main/java/ru/replika/ui/SmartReview.kt": "da884d8076aefc5a700825d4478c6ec7917fb227843cb52c9aebfdde8dacf079",
+      "app/src/main/java/ru/replika/ui/Theme.kt": "46bbcb661f428b93c70072116f988c2540eeea222e956e8095a0bac20139a82d",
+      "app/src/main/java/ru/replika/ui/TranscriptEditor.kt": "1a9f36666f2df3bc0ef29378ee3d314aa6cb5215cd41281729dbb6ecd59623e9",
+      "app/src/main/java/ru/replika/ui/WorkspaceScreen.kt": "e7845640dddcad0a65a6d2866ad32f315151f5be9dc5294cedae0aa22c02e7f4",
+      "configs/eval/c2-window-selected-full.json": "6e3a0f10a291e9121bae8df01dca0db3a67c4ac5c828f3fca38ace26b21ef189",
+      "tools/create_plan19_perf_corpus.py": "2d75037026e33c9df01f5cbe4fbfc597ec3b5d06013b323da6c12cb62f23b03a",
+      "tools/eval/native_diar_policy.py": "3cbd379c545b3d6206a5afc52817c34ae601836fae38cc808c6972e651c407df",
+      "tools/eval/native_policy.py": "b6d7fd2de6a7ca7f1776de9fa3924c623918709e0358977bae059569ef4da36b",
+      "tools/eval/pipeline.py": "fcdea5e2028e2c46226ab24ff0ac4fe33743fb15bfe853789e156f50203b137a",
+      "tools/eval/score.py": "d9415f7fcac76261fc2c0749d0a640a0a03fa8c6e32f8e5856c4bc0e30ccd85f",
+      "tools/eval/speaker_refiner.py": "4f52854185c9ad4b2e54b9679a9670b5415d5a9fcc1c16d0c5f392eb6aa69eb1",
+      "tools/eval/vad_words.py": "1310361aecdab50e6c977032b73f01352d870af7416904b6dca22b682f3c76a7",
+      "tools/eval/window_overcluster.py": "23cffbba55b75e69695a2b508093505dcad74c804cb7913fd77356b67196acd4",
+      "tools/run_plan19_perf.py": "a910dd990505175d031312e1dc0ed8848cb5caabcc64434dde19d367c2a4747c"
+    },
+    "local_files": {
+      "/mnt/d/ReplikaAndroid/ReplikaAndroid/benchmark/eval-perf/manifest.json": "c940604203b55fc090af4f28f152fed654cb819bb06cfa6f69bce555204f21b0",
+      "/mnt/d/ReplikaAndroid/ReplikaAndroid/benchmark/eval-perf/provenance.json": "f378120dadb6896a23a91bb122bc72251fba0dc08b25e127fe07bc4fdc5572be",
+      "/mnt/d/ReplikaAndroid/ReplikaAndroid/benchmark/eval-perf/protocol.json": "aef12832afdd97eef5e301e1515402535e01fbbbe7ce0414bdefda0b3419196a",
+      "/mnt/d/ReplikaAndroid/ReplikaAndroid/benchmark/eval-perf/sources/source-manifest.json": "47109cb1987624daaf8f4dc28e8eca3198b0c2bbcf01cd334b9611664eb38066",
+      "/mnt/d/ReplikaAndroid/ReplikaAndroid/benchmark/eval-perf/sources/source-reference.json": "523b1097852d70d1f6d2cf2f3c632ee5c5ac3bedf8e64487ecbdada21c25d127",
+      "/mnt/d/ReplikaAndroid/ReplikaAndroid/benchmark/eval-perf/sources/source-provenance.json": "2cc46d1f10f35383b3f047e789536aed7c70c994397675a0314b3a63503a0ce3",
+      "/mnt/d/ReplikaAndroid/ReplikaAndroid/benchmark/eval-perf/sources/LICENSE.md": "e136a6af001dd43a9002f20f39dd56d200afa9a6d408e28a625d90c9a0c22143",
+      "/home/egor/replika-toolchain/plan19-perf/audio/perf-01m.wav": "07fcdf4133767dd70170eaa25224b328b03ab411483f6e5957483121fa988bc3",
+      "/mnt/d/ReplikaAndroid/ReplikaAndroid/benchmark/eval-perf/references/perf-01m.json": "724b228acf68702f01c4fb1eae6ff08869d0d37caf65f1d42aa28e1a4a04d3a9",
+      "/home/egor/replika-toolchain/plan19-perf/audio/perf-03m.wav": "b8787d41b83e2f3cb3b58655d06e574186e20b19e0e06158a122f2a76d6a6824",
+      "/mnt/d/ReplikaAndroid/ReplikaAndroid/benchmark/eval-perf/references/perf-03m.json": "3b62d2e2f8dd61e5f5eb700e65c73c0bdb4fe7b70ceba668e3555d18d8cc7d02",
+      "/home/egor/replika-toolchain/plan19-perf/audio/perf-10m.wav": "d923885db4b7fe9964c0f36c911e9419123ef80e8e33bf55b94d40d577db4f60",
+      "/mnt/d/ReplikaAndroid/ReplikaAndroid/benchmark/eval-perf/references/perf-10m.json": "2039e64b458c2f1197eac062da941eade47dd143310fb1e0d4d393ba46436ea0",
+      "/mnt/d/ReplikaAndroid/ReplikaAndroid/model-pack/giga-v3/encoder.int8.onnx": "369f35a71bf288d3b8e0391fabd8dba5f2314088d440bca474056b7b4b6e66bf",
+      "/mnt/d/ReplikaAndroid/ReplikaAndroid/model-pack/giga-v3/decoder.onnx": "38fc7475443ea2a26f63211ca350f73ac50fff824ab7a3876ee2bd610c53bbc4",
+      "/mnt/d/ReplikaAndroid/ReplikaAndroid/model-pack/giga-v3/joiner.onnx": "602ff7017a93311aad34df1437c8d7f49911353c13d6eae7a6ee7b041339465c",
+      "/mnt/d/ReplikaAndroid/ReplikaAndroid/model-pack/giga-v3/tokens.txt": "39abae20e692998290c574e606f11a9edef2902a1995463fcff63d1490cf22b7",
+      "/mnt/d/ReplikaAndroid/ReplikaAndroid/model-pack/diar/segmentation.onnx": "220ad67ca923bef2fa91f2390c786097bf305bceb5e261d4af67b38e938e1079",
+      "/mnt/d/ReplikaAndroid/ReplikaAndroid/model-pack/diar/embedding.onnx": "1a331345f04805badbb495c775a6ddffcdd1a732567d5ec8b3d5749e3c7a5e4b",
+      "/mnt/d/ReplikaAndroid/ReplikaAndroid/model-pack/vad/silero_vad.onnx": "9e2449e1087496d8d4caba907f23e0bd3f78d91fa552479bb9c23ac09cbb1fd6",
+      "/mnt/d/ReplikaAndroid/ReplikaAndroid/app/build/outputs/apk/debug/app-debug.apk": "0a03b2f1d0d30dad8e8de6339860187e725affd851002485b7fa248b05b948ca",
+      "/mnt/d/ReplikaAndroid/ReplikaAndroid/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk": "ce4851c681962e8489bd9d8bc0edc0a229d245307b88fdfa9c19d0ef1f1df051"
+    },
+    "apk": {
+      "app": {
+        "sha256": "0a03b2f1d0d30dad8e8de6339860187e725affd851002485b7fa248b05b948ca",
+        "bytes": 127316097
+      },
+      "test": {
+        "sha256": "ce4851c681962e8489bd9d8bc0edc0a229d245307b88fdfa9c19d0ef1f1df051",
+        "bytes": 5941782
+      }
+    }
+  },
+  "protocol": {
+    "schema_version": 1,
+    "frozen_utc": "2026-11-07T04:18:13.150129+00:00",
+    "selection_scope": "Performance protocol fixed before these derived inputs receive any new inference; not quality tuning or new independent acceptance.",
+    "threads_order": [
+      2,
+      4,
+      4,
+      2
+    ],
+    "case_order": [
+      "perf-01m",
+      "perf-03m",
+      "perf-10m"
+    ],
+    "cpu_plan": "auto_v1",
+    "threads_request": "explicit 2/4; no core-count auto request; oversubscription on a 2-core emulator is possible",
+    "asr_plan": "vad_words_context600",
+    "diar_plan": "eres2net_window_v1",
+    "expected_speakers": -1,
+    "collectEvidence": false,
+    "full_qa_replay": false,
+    "workers": 12,
+    "audio_ms": 3360000,
+    "restarts": "No intentional app restart within each three-case instrumentation batch; separate instrumentation invocations between batches.",
+    "sampling": "Stage boundary PSS plus periodic RSS/PSS/thermal snapshots; not continuous peak memory. Sampler/instrumentation overhead and device conditions uncontrolled.",
+    "pairs": [
+      {
+        "threads2_batch": 1,
+        "threads4_batch": 2,
+        "order": "2 then 4"
+      },
+      {
+        "threads2_batch": 4,
+        "threads4_batch": 3,
+        "order": "4 then 2"
+      }
+    ],
+    "quality": "Raw/normalized/cpWER and utterance-proxy DER reported separately for related repeats. No new gate, no pooling with dev/holdout/reserve, no natural-dialogue/ARM/speed causal claim."
+  },
+  "reference_text_or_counts_staged": false,
+  "collectEvidence": false,
+  "inference_requested": true,
+  "batches": [
+    {
+      "batch": 1,
+      "threads": 2,
+      "run": "p19perf20261107T045130178000Z_1",
+      "status": "COMPLETE",
+      "cases": [
+        {
+          "id": "perf-01m",
+          "duration_ms": 60000,
+          "processing_ms": 67890,
+          "metrics": {
+            "schema_version": 1,
+            "protocol": {
+              "primary_metric": "wer_raw",
+              "rate_units": "fraction; null for an undefined denominator",
+              "raw_wer": "whitespace tokens; exact case, attached punctuation, ё and numeric spelling; rows ordered by start_ms/end_ms",
+              "edit_ties": "diagonal (match/substitution), then deletion, then insertion",
+              "normalized": "NFC lowercase, ё→е, non-letter/non-number characters become spaces; CER removes spaces",
+              "punctuation": "micro F1 for . , ? ! — : anchored to preceding equal lexical token after normalized alignment; BEGIN anchor before first token; substitutions/insertions do not match anchors",
+              "initial_case": "first cased letter of each reference segment, aligned by normalized lexical word; unmatched initials count incorrect; conditional_accuracy excludes unmatched",
+              "der": "full recording [0,duration_ms], overlap included, optimal global speaker permutation reoptimized after collar exclusion; collar total width ±half around each reference boundary",
+              "cpwer": "minimum sum of Levenshtein costs over speaker-concatenated streams, padded empty streams for unequal counts; raw and normalized",
+              "timing": "global one-to-one maximum-total temporal IoU matching of positive-duration segments; only positive-IoU pairs; text/speaker independent; granularity-dependent"
+            },
+            "inputs": {
+              "reference_segments": 6,
+              "hypothesis_segments": 9,
+              "duration_ms": 60000,
+              "processing_ms": 67890,
+              "reference_blank_text_segments": 0,
+              "hypothesis_blank_text_segments": 0,
+              "reference_zero_duration_segments": 0,
+              "hypothesis_zero_duration_segments": 0
+            },
+            "wer_raw": {
+              "rate": 0.08333333333333333,
+              "errors": 9,
+              "substitutions": 8,
+              "deletions": 1,
+              "insertions": 0,
+              "correct": 99,
+              "reference_tokens": 108,
+              "hypothesis_tokens": 107,
+              "status": "ok"
+            },
+            "wer_punctuation_tokens": {
+              "rate": 0.06870229007633588,
+              "errors": 9,
+              "substitutions": 9,
+              "deletions": 0,
+              "insertions": 0,
+              "correct": 122,
+              "reference_tokens": 131,
+              "hypothesis_tokens": 131,
+              "status": "ok"
+            },
+            "wer_normalized": {
+              "rate": 0.018867924528301886,
+              "errors": 2,
+              "substitutions": 2,
+              "deletions": 0,
+              "insertions": 0,
+              "correct": 104,
+              "reference_tokens": 106,
+              "hypothesis_tokens": 106,
+              "status": "ok"
+            },
+            "cer_normalized": {
+              "rate": 0.0035149384885764497,
+              "errors": 2,
+              "substitutions": 1,
+              "deletions": 1,
+              "insertions": 0,
+              "correct": 567,
+              "reference_tokens": 569,
+              "hypothesis_tokens": 568,
+              "status": "ok"
+            },
+            "wer_number_normalized": {
+              "rate": 0.018867924528301886,
+              "errors": 2,
+              "substitutions": 2,
+              "deletions": 0,
+              "insertions": 0,
+              "correct": 104,
+              "reference_tokens": 106,
+              "hypothesis_tokens": 106,
+              "status": "ok",
+              "available": true,
+              "language": "ru",
+              "reference_integer_tokens_converted": 0,
+              "hypothesis_integer_tokens_converted": 0,
+              "scope": "cardinal integers after lexical normalization; dates/times/percent/ordinals are not semantically interpreted"
+            },
+            "punctuation": {
+              "true_positive": 19,
+              "false_positive": 6,
+              "false_negative": 4,
+              "reference_marks": 23,
+              "hypothesis_marks": 25,
+              "precision": 0.76,
+              "recall": 0.8260869565217391,
+              "f1": 0.7916666666666666,
+              "marks": [
+                ".",
+                ",",
+                "?",
+                "!",
+                "—",
+                ":"
+              ],
+              "by_mark": {
+                ".": {
+                  "true_positive": 8,
+                  "false_positive": 4,
+                  "false_negative": 2,
+                  "reference_marks": 10,
+                  "hypothesis_marks": 12,
+                  "precision": 0.6666666666666666,
+                  "recall": 0.8,
+                  "f1": 0.7272727272727273
+                },
+                ",": {
+                  "true_positive": 9,
+                  "false_positive": 0,
+                  "false_negative": 1,
+                  "reference_marks": 10,
+                  "hypothesis_marks": 9,
+                  "precision": 1.0,
+                  "recall": 0.9,
+                  "f1": 0.9473684210526315
+                },
+                "?": {
+                  "true_positive": 1,
+                  "false_positive": 0,
+                  "false_negative": 0,
+                  "reference_marks": 1,
+                  "hypothesis_marks": 1,
+                  "precision": 1.0,
+                  "recall": 1.0,
+                  "f1": 1.0
+                },
+                "!": {
+                  "true_positive": 1,
+                  "false_positive": 1,
+                  "false_negative": 1,
+                  "reference_marks": 2,
+                  "hypothesis_marks": 2,
+                  "precision": 0.5,
+                  "recall": 0.5,
+                  "f1": 0.5
+                },
+                "—": {
+                  "true_positive": 0,
+                  "false_positive": 1,
+                  "false_negative": 0,
+                  "reference_marks": 0,
+                  "hypothesis_marks": 1,
+                  "precision": 0.0,
+                  "recall": null,
+                  "f1": 0.0
+                },
+                ":": {
+                  "true_positive": 0,
+                  "false_positive": 0,
+                  "false_negative": 0,
+                  "reference_marks": 0,
+                  "hypothesis_marks": 0,
+                  "precision": null,
+                  "recall": null,
+                  "f1": null
+                }
+              },
+              "aligned_lexical_words": 104,
+              "reference_lexical_words": 106,
+              "hypothesis_lexical_words": 106
+            },
+            "initial_case": {
+              "accuracy": 1.0,
+              "conditional_accuracy": 1.0,
+              "correct": 6,
+              "reference_initials": 6,
+              "aligned_reference_initials": 6,
+              "unmatched_reference_initials": 0
+            },
+            "der_collar_0ms": {
+              "rate": 0.13064170698818117,
+              "miss_ms": 6588.0,
+              "false_alarm_ms": 0.0,
+              "confusion_ms": 0.0,
+              "error_speaker_ms": 6588.0,
+              "reference_speaker_ms": 50428.0,
+              "evaluated_duration_ms": 60000.0,
+              "excluded_duration_ms": 0.0,
+              "reference_overlap_ms": 0.0,
+              "collar_ms": 0,
+              "collar_half_width_ms": 0.0,
+              "mapping_hypothesis_to_reference": {
+                "speaker_1": "speaker_1",
+                "speaker_2": "speaker_2"
+              },
+              "status": "ok"
+            },
+            "der_collar_250ms": {
+              "rate": 0.10515451275343361,
+              "miss_ms": 5145.0,
+              "false_alarm_ms": 0.0,
+              "confusion_ms": 0.0,
+              "error_speaker_ms": 5145.0,
+              "reference_speaker_ms": 48928.0,
+              "evaluated_duration_ms": 57070.0,
+              "excluded_duration_ms": 2930.0,
+              "reference_overlap_ms": 0.0,
+              "collar_ms": 250,
+              "collar_half_width_ms": 125.0,
+              "mapping_hypothesis_to_reference": {
+                "speaker_1": "speaker_1",
+                "speaker_2": "speaker_2"
+              },
+              "status": "ok"
+            },
+            "speakers": {
+              "reference": 2,
+              "hypothesis": 2,
+              "signed_error": 0,
+              "absolute_error": 0
+            },
+            "cpwer_raw": {
+              "errors": 9,
+              "substitutions": 8,
+              "deletions": 1,
+              "insertions": 0,
+              "correct": 99,
+              "reference_tokens": 108,
+              "hypothesis_tokens": 107,
+              "rate": 0.08333333333333333,
+              "status": "ok",
+              "speaker_pairs": [
+                {
+                  "reference_speaker": "speaker_1",
+                  "hypothesis_speaker": "speaker_1",
+                  "errors": 4,
+                  "reference_tokens": 53,
+                  "hypothesis_tokens": 53
+                },
+                {
+                  "reference_speaker": "speaker_2",
+                  "hypothesis_speaker": "speaker_2",
+                  "errors": 5,
+                  "reference_tokens": 55,
+                  "hypothesis_tokens": 54
+                }
+              ]
+            },
+            "cpwer_normalized": {
+              "errors": 2,
+              "substitutions": 2,
+              "deletions": 0,
+              "insertions": 0,
+              "correct": 104,
+              "reference_tokens": 106,
+              "hypothesis_tokens": 106,
+              "rate": 0.018867924528301886,
+              "status": "ok",
+              "speaker_pairs": [
+                {
+                  "reference_speaker": "speaker_1",
+                  "hypothesis_speaker": "speaker_1",
+                  "errors": 1,
+                  "reference_tokens": 52,
+                  "hypothesis_tokens": 52
+                },
+                {
+                  "reference_speaker": "speaker_2",
+                  "hypothesis_speaker": "speaker_2",
+                  "errors": 1,
+                  "reference_tokens": 54,
+                  "hypothesis_tokens": 54
+                }
+              ]
+            },
+            "timing": {
+              "matched_pairs": 6,
+              "reference_intervals": 6,
+              "hypothesis_intervals": 9,
+              "reference_coverage": 1.0,
+              "hypothesis_coverage": 0.6666666666666666,
+              "unmatched_reference": 0,
+              "unmatched_hypothesis": 3,
+              "mean_start_abs_error_ms": 1220.8333333333333,
+              "mean_end_abs_error_ms": 970.5,
+              "median_start_abs_error_ms": 379.5,
+              "median_end_abs_error_ms": 412.0,
+              "pairs_over_250ms": 6,
+              "fraction_over_250ms": 1.0,
+              "reference_fraction_over_250ms_or_unmatched": 1.0,
+              "pairs": [
+                {
+                  "reference_index": 0,
+                  "hypothesis_index": 1,
+                  "iou": 0.7580174927113703,
+                  "start_abs_error_ms": 750,
+                  "end_abs_error_ms": 246
+                },
+                {
+                  "reference_index": 1,
+                  "hypothesis_index": 2,
+                  "iou": 0.5434410320812878,
+                  "start_abs_error_ms": 298,
+                  "end_abs_error_ms": 3701
+                },
+                {
+                  "reference_index": 2,
+                  "hypothesis_index": 4,
+                  "iou": 0.8917969223312735,
+                  "start_abs_error_ms": 461,
+                  "end_abs_error_ms": 432
+                },
+                {
+                  "reference_index": 3,
+                  "hypothesis_index": 5,
+                  "iou": 0.9487750556792873,
+                  "start_abs_error_ms": 68,
+                  "end_abs_error_ms": 392
+                },
+                {
+                  "reference_index": 4,
+                  "hypothesis_index": 6,
+                  "iou": 0.9403415391439344,
+                  "start_abs_error_ms": 250,
+                  "end_abs_error_ms": 288
+                },
+                {
+                  "reference_index": 5,
+                  "hypothesis_index": 8,
+                  "iou": 0.44593877189877895,
+                  "start_abs_error_ms": 5498,
+                  "end_abs_error_ms": 764
+                }
+              ]
+            },
+            "rtf": 1.1315,
+            "native_der_collar_0ms": {
+              "rate": 0.09278575394622035,
+              "miss_ms": 4679.0,
+              "false_alarm_ms": 0.0,
+              "confusion_ms": 0.0,
+              "error_speaker_ms": 4679.0,
+              "reference_speaker_ms": 50428.0,
+              "evaluated_duration_ms": 60000.0,
+              "excluded_duration_ms": 0.0,
+              "reference_overlap_ms": 0.0,
+              "collar_ms": 0,
+              "collar_half_width_ms": 0.0,
+              "mapping_hypothesis_to_reference": {
+                "0": "speaker_1",
+                "1": "speaker_2"
+              },
+              "status": "ok"
+            },
+            "native_der_collar_250ms": {
+              "rate": 0.06897890778286461,
+              "miss_ms": 3375.0,
+              "false_alarm_ms": 0.0,
+              "confusion_ms": 0.0,
+              "error_speaker_ms": 3375.0,
+              "reference_speaker_ms": 48928.0,
+              "evaluated_duration_ms": 57070.0,
+              "excluded_duration_ms": 2930.0,
+              "reference_overlap_ms": 0.0,
+              "collar_ms": 250,
+              "collar_half_width_ms": 125.0,
+              "mapping_hypothesis_to_reference": {
+                "0": "speaker_1",
+                "1": "speaker_2"
+              },
+              "status": "ok"
+            },
+            "native_speaker_count": 2
+          },
+          "compact_evidence": {
+            "asr_chunks": 7,
+            "reported_tokens": 287,
+            "reported_words": 106,
+            "measured_embedding_windows": 47,
+            "resources_balanced": true,
+            "compact_asr_text_preserved": true,
+            "full_token_vector_replay_performed": false
+          },
+          "stages_ms": {
+            "thermalWaitMs": 0,
+            "provisioningWaitMs": 1,
+            "nativeGateWaitMs": 0,
+            "validationMs": 1396,
+            "decodeMs": 692,
+            "metadataPersistenceMs": 5,
+            "vadLoadMs": 114,
+            "vadMs": 666,
+            "diarizationLoadMs": 536,
+            "diarizationReadMs": 18,
+            "diarizationInferenceMs": 38286,
+            "diarizationMs": 38993,
+            "diarizationRefinementMs": 7722,
+            "alignmentMs": 6,
+            "asrLoadMs": 1298,
+            "asrReadMs": 51,
+            "asrInferenceMs": 15384,
+            "wordAssignmentMs": 48,
+            "asrMs": 16570,
+            "persistenceMs": 19
+          },
+          "work_id": "57720e7a-db3d-4885-a6d1-32c82435cc0a",
+          "recording_id": "qa-evaluation-2e8e7bac-b708-4d01-9eef-f06fdd685dc0",
+          "process_id": 8526,
+          "telemetry": {
+            "run": "51d38aa0-afff-476b-894e-85911400aab5",
+            "elapsedMs": 68119,
+            "stagesMs": {
+              "thermalWaitMs": 0,
+              "provisioningWaitMs": 1,
+              "nativeGateWaitMs": 0,
+              "validationMs": 1396,
+              "decodeMs": 692,
+              "metadataPersistenceMs": 5,
+              "vadLoadMs": 114,
+              "vadMs": 666,
+              "diarizationLoadMs": 536,
+              "diarizationReadMs": 18,
+              "diarizationInferenceMs": 38286,
+              "diarizationMs": 38993,
+              "diarizationRefinementMs": 7722,
+              "alignmentMs": 6,
+              "asrLoadMs": 1298,
+              "asrReadMs": 51,
+              "asrInferenceMs": 15384,
+              "wordAssignmentMs": 48,
+              "asrMs": 16570,
+              "persistenceMs": 19
+            },
+            "observedMaxPssKb": 425301,
+            "memoryScope": "stage boundary PSS snapshots; not continuous peak memory",
+            "thermalStatus": 0,
+            "thermalEvents": [
+              {
+                "elapsedMs": 3,
+                "status": 0
+              }
+            ],
+            "thermalApiSupported": true,
+            "thermalPowerServiceAvailable": true,
+            "thermalStatusAvailable": true,
+            "thermalListenerRegistered": true,
+            "thermalListenerRegistrationFailed": false,
+            "thermalListenerFailureReason": null,
+            "thermalUnavailableReason": null
+          },
+          "new_model_inference": true,
+          "evidence_sha256": {
+            "reference": "724b228acf68702f01c4fb1eae6ff08869d0d37caf65f1d42aa28e1a4a04d3a9",
+            "hypothesis": "3192a9f162b13bb3e5227701d1323911b01ddafbd27f8dc9bb6c1ea4817c9b96",
+            "diagnostics": "2123db34cd39ec0cb547e1696d2926621d0f3a838623ed553c19ec662ecf7e6b",
+            "case": "699a1de51819328e5706e7cf4db38a2e5e7e37d4ec4872bc2ac46ebb61e65e63",
+            "metrics": "80181fd5f19015c970f91ae6346d68d00f6713c0ef6c9a85b914881741aa13d6"
+          }
+        },
+        {
+          "id": "perf-03m",
+          "duration_ms": 179999,
+          "processing_ms": 223039,
+          "metrics": {
+            "schema_version": 1,
+            "protocol": {
+              "primary_metric": "wer_raw",
+              "rate_units": "fraction; null for an undefined denominator",
+              "raw_wer": "whitespace tokens; exact case, attached punctuation, ё and numeric spelling; rows ordered by start_ms/end_ms",
+              "edit_ties": "diagonal (match/substitution), then deletion, then insertion",
+              "normalized": "NFC lowercase, ё→е, non-letter/non-number characters become spaces; CER removes spaces",
+              "punctuation": "micro F1 for . , ? ! — : anchored to preceding equal lexical token after normalized alignment; BEGIN anchor before first token; substitutions/insertions do not match anchors",
+              "initial_case": "first cased letter of each reference segment, aligned by normalized lexical word; unmatched initials count incorrect; conditional_accuracy excludes unmatched",
+              "der": "full recording [0,duration_ms], overlap included, optimal global speaker permutation reoptimized after collar exclusion; collar total width ±half around each reference boundary",
+              "cpwer": "minimum sum of Levenshtein costs over speaker-concatenated streams, padded empty streams for unequal counts; raw and normalized",
+              "timing": "global one-to-one maximum-total temporal IoU matching of positive-duration segments; only positive-IoU pairs; text/speaker independent; granularity-dependent"
+            },
+            "inputs": {
+              "reference_segments": 18,
+              "hypothesis_segments": 25,
+              "duration_ms": 179999,
+              "processing_ms": 223039,
+              "reference_blank_text_segments": 0,
+              "hypothesis_blank_text_segments": 0,
+              "reference_zero_duration_segments": 0,
+              "hypothesis_zero_duration_segments": 0
+            },
+            "wer_raw": {
+              "rate": 0.07716049382716049,
+              "errors": 25,
+              "substitutions": 22,
+              "deletions": 3,
+              "insertions": 0,
+              "correct": 299,
+              "reference_tokens": 324,
+              "hypothesis_tokens": 321,
+              "status": "ok"
+            },
+            "wer_punctuation_tokens": {
+              "rate": 0.06361323155216285,
+              "errors": 25,
+              "substitutions": 25,
+              "deletions": 0,
+              "insertions": 0,
+              "correct": 368,
+              "reference_tokens": 393,
+              "hypothesis_tokens": 393,
+              "status": "ok"
+            },
+            "wer_normalized": {
+              "rate": 0.018867924528301886,
+              "errors": 6,
+              "substitutions": 6,
+              "deletions": 0,
+              "insertions": 0,
+              "correct": 312,
+              "reference_tokens": 318,
+              "hypothesis_tokens": 318,
+              "status": "ok"
+            },
+            "cer_normalized": {
+              "rate": 0.0035149384885764497,
+              "errors": 6,
+              "substitutions": 3,
+              "deletions": 3,
+              "insertions": 0,
+              "correct": 1701,
+              "reference_tokens": 1707,
+              "hypothesis_tokens": 1704,
+              "status": "ok"
+            },
+            "wer_number_normalized": {
+              "rate": 0.018867924528301886,
+              "errors": 6,
+              "substitutions": 6,
+              "deletions": 0,
+              "insertions": 0,
+              "correct": 312,
+              "reference_tokens": 318,
+              "hypothesis_tokens": 318,
+              "status": "ok",
+              "available": true,
+              "language": "ru",
+              "reference_integer_tokens_converted": 0,
+              "hypothesis_integer_tokens_converted": 0,
+              "scope": "cardinal integers after lexical normalization; dates/times/percent/ordinals are not semantically interpreted"
+            },
+            "punctuation": {
+              "true_positive": 57,
+              "false_positive": 18,
+              "false_negative": 12,
+              "reference_marks": 69,
+              "hypothesis_marks": 75,
+              "precision": 0.76,
+              "recall": 0.8260869565217391,
+              "f1": 0.7916666666666666,
+              "marks": [
+                ".",
+                ",",
+                "?",
+                "!",
+                "—",
+                ":"
+              ],
+              "by_mark": {
+                ".": {
+                  "true_positive": 22,
+                  "false_positive": 10,
+                  "false_negative": 8,
+                  "reference_marks": 30,
+                  "hypothesis_marks": 32,
+                  "precision": 0.6875,
+                  "recall": 0.7333333333333333,
+                  "f1": 0.7096774193548387
+                },
+                ",": {
+                  "true_positive": 29,
+                  "false_positive": 0,
+                  "false_negative": 1,
+                  "reference_marks": 30,
+                  "hypothesis_marks": 29,
+                  "precision": 1.0,
+                  "recall": 0.9666666666666667,
+                  "f1": 0.9830508474576272
+                },
+                "?": {
+                  "true_positive": 3,
+                  "false_positive": 0,
+                  "false_negative": 0,
+                  "reference_marks": 3,
+                  "hypothesis_marks": 3,
+                  "precision": 1.0,
+                  "recall": 1.0,
+                  "f1": 1.0
+                },
+                "!": {
+                  "true_positive": 3,
+                  "false_positive": 5,
+                  "false_negative": 3,
+                  "reference_marks": 6,
+                  "hypothesis_marks": 8,
+                  "precision": 0.375,
+                  "recall": 0.5,
+                  "f1": 0.42857142857142855
+                },
+                "—": {
+                  "true_positive": 0,
+                  "false_positive": 3,
+                  "false_negative": 0,
+                  "reference_marks": 0,
+                  "hypothesis_marks": 3,
+                  "precision": 0.0,
+                  "recall": null,
+                  "f1": 0.0
+                },
+                ":": {
+                  "true_positive": 0,
+                  "false_positive": 0,
+                  "false_negative": 0,
+                  "reference_marks": 0,
+                  "hypothesis_marks": 0,
+                  "precision": null,
+                  "recall": null,
+                  "f1": null
+                }
+              },
+              "aligned_lexical_words": 312,
+              "reference_lexical_words": 318,
+              "hypothesis_lexical_words": 318
+            },
+            "initial_case": {
+              "accuracy": 1.0,
+              "conditional_accuracy": 1.0,
+              "correct": 18,
+              "reference_initials": 18,
+              "aligned_reference_initials": 18,
+              "unmatched_reference_initials": 0
+            },
+            "der_collar_0ms": {
+              "rate": 0.12323841252214378,
+              "miss_ms": 18644.0,
+              "false_alarm_ms": 0.0,
+              "confusion_ms": 0.0,
+              "error_speaker_ms": 18644.0,
+              "reference_speaker_ms": 151284.0,
+              "evaluated_duration_ms": 179999.0,
+              "excluded_duration_ms": 0.0,
+              "reference_overlap_ms": 0.0,
+              "collar_ms": 0,
+              "collar_half_width_ms": 0.0,
+              "mapping_hypothesis_to_reference": {
+                "speaker_1": "speaker_1",
+                "speaker_2": "speaker_2"
+              },
+              "status": "ok"
+            },
+            "der_collar_250ms": {
+              "rate": 0.09752425332461304,
+              "miss_ms": 14315.0,
+              "false_alarm_ms": 0.0,
+              "confusion_ms": 0.0,
+              "error_speaker_ms": 14315.0,
+              "reference_speaker_ms": 146784.0,
+              "evaluated_duration_ms": 171209.0,
+              "excluded_duration_ms": 8790.0,
+              "reference_overlap_ms": 0.0,
+              "collar_ms": 250,
+              "collar_half_width_ms": 125.0,
+              "mapping_hypothesis_to_reference": {
+                "speaker_1": "speaker_1",
+                "speaker_2": "speaker_2"
+              },
+              "status": "ok"
+            },
+            "speakers": {
+              "reference": 2,
+              "hypothesis": 2,
+              "signed_error": 0,
+              "absolute_error": 0
+            },
+            "cpwer_raw": {
+              "errors": 25,
+              "substitutions": 22,
+              "deletions": 3,
+              "insertions": 0,
+              "correct": 299,
+              "reference_tokens": 324,
+              "hypothesis_tokens": 321,
+              "rate": 0.07716049382716049,
+              "status": "ok",
+              "speaker_pairs": [
+                {
+                  "reference_speaker": "speaker_1",
+                  "hypothesis_speaker": "speaker_1",
+                  "errors": 12,
+                  "reference_tokens": 159,
+                  "hypothesis_tokens": 159
+                },
+                {
+                  "reference_speaker": "speaker_2",
+                  "hypothesis_speaker": "speaker_2",
+                  "errors": 13,
+                  "reference_tokens": 165,
+                  "hypothesis_tokens": 162
+                }
+              ]
+            },
+            "cpwer_normalized": {
+              "errors": 6,
+              "substitutions": 6,
+              "deletions": 0,
+              "insertions": 0,
+              "correct": 312,
+              "reference_tokens": 318,
+              "hypothesis_tokens": 318,
+              "rate": 0.018867924528301886,
+              "status": "ok",
+              "speaker_pairs": [
+                {
+                  "reference_speaker": "speaker_1",
+                  "hypothesis_speaker": "speaker_1",
+                  "errors": 3,
+                  "reference_tokens": 156,
+                  "hypothesis_tokens": 156
+                },
+                {
+                  "reference_speaker": "speaker_2",
+                  "hypothesis_speaker": "speaker_2",
+                  "errors": 3,
+                  "reference_tokens": 162,
+                  "hypothesis_tokens": 162
+                }
+              ]
+            },
+            "timing": {
+              "matched_pairs": 18,
+              "reference_intervals": 18,
+              "hypothesis_intervals": 25,
+              "reference_coverage": 1.0,
+              "hypothesis_coverage": 0.72,
+              "unmatched_reference": 0,
+              "unmatched_hypothesis": 7,
+              "mean_start_abs_error_ms": 1224.611111111111,
+              "mean_end_abs_error_ms": 628.9444444444445,
+              "median_start_abs_error_ms": 379.5,
+              "median_end_abs_error_ms": 412.0,
+              "pairs_over_250ms": 18,
+              "fraction_over_250ms": 1.0,
+              "reference_fraction_over_250ms_or_unmatched": 1.0,
+              "pairs": [
+                {
+                  "reference_index": 0,
+                  "hypothesis_index": 1,
+                  "iou": 0.7580174927113703,
+                  "start_abs_error_ms": 750,
+                  "end_abs_error_ms": 246
+                },
+                {
+                  "reference_index": 1,
+                  "hypothesis_index": 2,
+                  "iou": 0.5434410320812878,
+                  "start_abs_error_ms": 298,
+                  "end_abs_error_ms": 3701
+                },
+                {
+                  "reference_index": 2,
+                  "hypothesis_index": 4,
+                  "iou": 0.8917969223312735,
+                  "start_abs_error_ms": 461,
+                  "end_abs_error_ms": 432
+                },
+                {
+                  "reference_index": 3,
+                  "hypothesis_index": 5,
+                  "iou": 0.9487750556792873,
+                  "start_abs_error_ms": 68,
+                  "end_abs_error_ms": 392
+                },
+                {
+                  "reference_index": 4,
+                  "hypothesis_index": 6,
+                  "iou": 0.9403415391439344,
+                  "start_abs_error_ms": 250,
+                  "end_abs_error_ms": 288
+                },
+                {
+                  "reference_index": 5,
+                  "hypothesis_index": 8,
+                  "iou": 0.44593877189877895,
+                  "start_abs_error_ms": 5498,
+                  "end_abs_error_ms": 764
+                },
+                {
+                  "reference_index": 6,
+                  "hypothesis_index": 10,
+                  "iou": 0.7482993197278912,
+                  "start_abs_error_ms": 756,
+                  "end_abs_error_ms": 280
+                },
+                {
+                  "reference_index": 7,
+                  "hypothesis_index": 11,
+                  "iou": 0.8905126155953876,
+                  "start_abs_error_ms": 298,
+                  "end_abs_error_ms": 661
+                },
+                {
+                  "reference_index": 8,
+                  "hypothesis_index": 12,
+                  "iou": 0.8917969223312735,
+                  "start_abs_error_ms": 461,
+                  "end_abs_error_ms": 432
+                },
+                {
+                  "reference_index": 9,
+                  "hypothesis_index": 13,
+                  "iou": 0.9576837416481069,
+                  "start_abs_error_ms": 68,
+                  "end_abs_error_ms": 312
+                },
+                {
+                  "reference_index": 10,
+                  "hypothesis_index": 14,
+                  "iou": 0.9359059658460857,
+                  "start_abs_error_ms": 278,
+                  "end_abs_error_ms": 300
+                },
+                {
+                  "reference_index": 11,
+                  "hypothesis_index": 16,
+                  "iou": 0.44593877189877895,
+                  "start_abs_error_ms": 5498,
+                  "end_abs_error_ms": 764
+                },
+                {
+                  "reference_index": 12,
+                  "hypothesis_index": 18,
+                  "iou": 0.7482993197278912,
+                  "start_abs_error_ms": 756,
+                  "end_abs_error_ms": 280
+                },
+                {
+                  "reference_index": 13,
+                  "hypothesis_index": 19,
+                  "iou": 0.8905126155953876,
+                  "start_abs_error_ms": 298,
+                  "end_abs_error_ms": 661
+                },
+                {
+                  "reference_index": 14,
+                  "hypothesis_index": 20,
+                  "iou": 0.8917969223312735,
+                  "start_abs_error_ms": 461,
+                  "end_abs_error_ms": 432
+                },
+                {
+                  "reference_index": 15,
+                  "hypothesis_index": 21,
+                  "iou": 0.9576837416481069,
+                  "start_abs_error_ms": 68,
+                  "end_abs_error_ms": 312
+                },
+                {
+                  "reference_index": 16,
+                  "hypothesis_index": 22,
+                  "iou": 0.9359059658460857,
+                  "start_abs_error_ms": 278,
+                  "end_abs_error_ms": 300
+                },
+                {
+                  "reference_index": 17,
+                  "hypothesis_index": 24,
+                  "iou": 0.44593877189877895,
+                  "start_abs_error_ms": 5498,
+                  "end_abs_error_ms": 764
+                }
+              ]
+            },
+            "rtf": 1.2391124395135529,
+            "native_der_collar_0ms": {
+              "rate": 0.09134475555908093,
+              "miss_ms": 13819.0,
+              "false_alarm_ms": 0.0,
+              "confusion_ms": 0.0,
+              "error_speaker_ms": 13819.0,
+              "reference_speaker_ms": 151284.0,
+              "evaluated_duration_ms": 179999.0,
+              "excluded_duration_ms": 0.0,
+              "reference_overlap_ms": 0.0,
+              "collar_ms": 0,
+              "collar_half_width_ms": 0.0,
+              "mapping_hypothesis_to_reference": {
+                "0": "speaker_1",
+                "1": "speaker_2"
+              },
+              "status": "ok"
+            },
+            "native_der_collar_250ms": {
+              "rate": 0.06764361238282102,
+              "miss_ms": 9929.0,
+              "false_alarm_ms": 0.0,
+              "confusion_ms": 0.0,
+              "error_speaker_ms": 9929.0,
+              "reference_speaker_ms": 146784.0,
+              "evaluated_duration_ms": 171209.0,
+              "excluded_duration_ms": 8790.0,
+              "reference_overlap_ms": 0.0,
+              "collar_ms": 250,
+              "collar_half_width_ms": 125.0,
+              "mapping_hypothesis_to_reference": {
+                "0": "speaker_1",
+                "1": "speaker_2"
+              },
+              "status": "ok"
+            },
+            "native_speaker_count": 2
+          },
+          "compact_evidence": {
+            "asr_chunks": 19,
+            "reported_tokens": 859,
+            "reported_words": 318,
+            "measured_embedding_windows": 133,
+            "resources_balanced": true,
+            "compact_asr_text_preserved": true,
+            "full_token_vector_replay_performed": false
+          },
+          "stages_ms": {
+            "thermalWaitMs": 0,
+            "provisioningWaitMs": 1,
+            "nativeGateWaitMs": 1,
+            "validationMs": 1731,
+            "decodeMs": 1050,
+            "metadataPersistenceMs": 7,
+            "vadLoadMs": 21,
+            "vadMs": 1992,
+            "diarizationLoadMs": 470,
+            "diarizationReadMs": 80,
+            "diarizationInferenceMs": 124554,
+            "diarizationMs": 125251,
+            "diarizationRefinementMs": 35989,
+            "alignmentMs": 83,
+            "asrLoadMs": 2085,
+            "asrReadMs": 81,
+            "asrInferenceMs": 51611,
+            "wordAssignmentMs": 82,
+            "asrMs": 54409,
+            "persistenceMs": 39
+          },
+          "work_id": "987985be-a6b6-4e8a-9c26-485045f83e6f",
+          "recording_id": "qa-evaluation-bd061fec-cb8e-4f23-823b-1b1a2ba3be23",
+          "process_id": 8526,
+          "telemetry": {
+            "run": "ff6bcc2b-886c-41f6-bb08-d692b536f578",
+            "elapsedMs": 223508,
+            "stagesMs": {
+              "thermalWaitMs": 0,
+              "provisioningWaitMs": 1,
+              "nativeGateWaitMs": 1,
+              "validationMs": 1731,
+              "decodeMs": 1050,
+              "metadataPersistenceMs": 7,
+              "vadLoadMs": 21,
+              "vadMs": 1992,
+              "diarizationLoadMs": 470,
+              "diarizationReadMs": 80,
+              "diarizationInferenceMs": 124554,
+              "diarizationMs": 125251,
+              "diarizationRefinementMs": 35989,
+              "alignmentMs": 83,
+              "asrLoadMs": 2085,
+              "asrReadMs": 81,
+              "asrInferenceMs": 51611,
+              "wordAssignmentMs": 82,
+              "asrMs": 54409,
+              "persistenceMs": 39
+            },
+            "observedMaxPssKb": 469658,
+            "memoryScope": "stage boundary PSS snapshots; not continuous peak memory",
+            "thermalStatus": 0,
+            "thermalEvents": [
+              {
+                "elapsedMs": 137,
+                "status": 0
+              }
+            ],
+            "thermalApiSupported": true,
+            "thermalPowerServiceAvailable": true,
+            "thermalStatusAvailable": true,
+            "thermalListenerRegistered": true,
+            "thermalListenerRegistrationFailed": false,
+            "thermalListenerFailureReason": null,
+            "thermalUnavailableReason": null
+          },
+          "new_model_inference": true,
+          "evidence_sha256": {
+            "reference": "3b62d2e2f8dd61e5f5eb700e65c73c0bdb4fe7b70ceba668e3555d18d8cc7d02",
+            "hypothesis": "12b66eb3da7ccb8c8d86f6bf7cd294ddddfdaae248ab24648797b61d7c650f06",
+            "diagnostics": "6e4ae2ce8aafe0f81356f5b9ebe605879cc64a2f2ea9439025d621d379465714",
+            "case": "4e80aa8cc045c35e7bd6bb82496ce4eab266333b26e0df9c683c5babeaebb518",
+            "metrics": "60f9f896661beeb933dc4706712e75e7b9cf1fb95bb31c0d4c54803b114ebadd"
+          }
+        },
+        {
+          "id": "perf-10m",
+          "duration_ms": 599999,
+          "processing_ms": 854460,
+          "metrics": {
+            "schema_version": 1,
+            "protocol": {
+              "primary_metric": "wer_raw",
+              "rate_units": "fraction; null for an undefined denominator",
+              "raw_wer": "whitespace tokens; exact case, attached punctuation, ё and numeric spelling; rows ordered by start_ms/end_ms",
+              "edit_ties": "diagonal (match/substitution), then deletion, then insertion",
+              "normalized": "NFC lowercase, ё→е, non-letter/non-number characters become spaces; CER removes spaces",
+              "punctuation": "micro F1 for . , ? ! — : anchored to preceding equal lexical token after normalized alignment; BEGIN anchor before first token; substitutions/insertions do not match anchors",
+              "initial_case": "first cased letter of each reference segment, aligned by normalized lexical word; unmatched initials count incorrect; conditional_accuracy excludes unmatched",
+              "der": "full recording [0,duration_ms], overlap included, optimal global speaker permutation reoptimized after collar exclusion; collar total width ±half around each reference boundary",
+              "cpwer": "minimum sum of Levenshtein costs over speaker-concatenated streams, padded empty streams for unequal counts; raw and normalized",
+              "timing": "global one-to-one maximum-total temporal IoU matching of positive-duration segments; only positive-IoU pairs; text/speaker independent; granularity-dependent"
+            },
+            "inputs": {
+              "reference_segments": 60,
+              "hypothesis_segments": 81,
+              "duration_ms": 599999,
+              "processing_ms": 854460,
+              "reference_blank_text_segments": 0,
+              "hypothesis_blank_text_segments": 0,
+              "reference_zero_duration_segments": 0,
+              "hypothesis_zero_duration_segments": 0
+            },
+            "wer_raw": {
+              "rate": 0.075,
+              "errors": 81,
+              "substitutions": 71,
+              "deletions": 10,
+              "insertions": 0,
+              "correct": 999,
+              "reference_tokens": 1080,
+              "hypothesis_tokens": 1070,
+              "status": "ok"
+            },
+            "wer_punctuation_tokens": {
+              "rate": 0.06183206106870229,
+              "errors": 81,
+              "substitutions": 81,
+              "deletions": 0,
+              "insertions": 0,
+              "correct": 1229,
+              "reference_tokens": 1310,
+              "hypothesis_tokens": 1310,
+              "status": "ok"
+            },
+            "wer_normalized": {
+              "rate": 0.018867924528301886,
+              "errors": 20,
+              "substitutions": 20,
+              "deletions": 0,
+              "insertions": 0,
+              "correct": 1040,
+              "reference_tokens": 1060,
+              "hypothesis_tokens": 1060,
+              "status": "ok"
+            },
+            "cer_normalized": {
+              "rate": 0.0035149384885764497,
+              "errors": 20,
+              "substitutions": 10,
+              "deletions": 10,
+              "insertions": 0,
+              "correct": 5670,
+              "reference_tokens": 5690,
+              "hypothesis_tokens": 5680,
+              "status": "ok"
+            },
+            "wer_number_normalized": {
+              "rate": 0.018867924528301886,
+              "errors": 20,
+              "substitutions": 20,
+              "deletions": 0,
+              "insertions": 0,
+              "correct": 1040,
+              "reference_tokens": 1060,
+              "hypothesis_tokens": 1060,
+              "status": "ok",
+              "available": true,
+              "language": "ru",
+              "reference_integer_tokens_converted": 0,
+              "hypothesis_integer_tokens_converted": 0,
+              "scope": "cardinal integers after lexical normalization; dates/times/percent/ordinals are not semantically interpreted"
+            },
+            "punctuation": {
+              "true_positive": 190,
+              "false_positive": 60,
+              "false_negative": 40,
+              "reference_marks": 230,
+              "hypothesis_marks": 250,
+              "precision": 0.76,
+              "recall": 0.8260869565217391,
+              "f1": 0.7916666666666666,
+              "marks": [
+                ".",
+                ",",
+                "?",
+                "!",
+                "—",
+                ":"
+              ],
+              "by_mark": {
+                ".": {
+                  "true_positive": 71,
+                  "false_positive": 31,
+                  "false_negative": 29,
+                  "reference_marks": 100,
+                  "hypothesis_marks": 102,
+                  "precision": 0.696078431372549,
+                  "recall": 0.71,
+                  "f1": 0.7029702970297029
+                },
+                ",": {
+                  "true_positive": 99,
+                  "false_positive": 0,
+                  "false_negative": 1,
+                  "reference_marks": 100,
+                  "hypothesis_marks": 99,
+                  "precision": 1.0,
+                  "recall": 0.99,
+                  "f1": 0.9949748743718593
+                },
+                "?": {
+                  "true_positive": 10,
+                  "false_positive": 0,
+                  "false_negative": 0,
+                  "reference_marks": 10,
+                  "hypothesis_marks": 10,
+                  "precision": 1.0,
+                  "recall": 1.0,
+                  "f1": 1.0
+                },
+                "!": {
+                  "true_positive": 10,
+                  "false_positive": 19,
+                  "false_negative": 10,
+                  "reference_marks": 20,
+                  "hypothesis_marks": 29,
+                  "precision": 0.3448275862068966,
+                  "recall": 0.5,
+                  "f1": 0.40816326530612246
+                },
+                "—": {
+                  "true_positive": 0,
+                  "false_positive": 10,
+                  "false_negative": 0,
+                  "reference_marks": 0,
+                  "hypothesis_marks": 10,
+                  "precision": 0.0,
+                  "recall": null,
+                  "f1": 0.0
+                },
+                ":": {
+                  "true_positive": 0,
+                  "false_positive": 0,
+                  "false_negative": 0,
+                  "reference_marks": 0,
+                  "hypothesis_marks": 0,
+                  "precision": null,
+                  "recall": null,
+                  "f1": null
+                }
+              },
+              "aligned_lexical_words": 1040,
+              "reference_lexical_words": 1060,
+              "hypothesis_lexical_words": 1060
+            },
+            "initial_case": {
+              "accuracy": 1.0,
+              "conditional_accuracy": 1.0,
+              "correct": 60,
+              "reference_initials": 60,
+              "aligned_reference_initials": 60,
+              "unmatched_reference_initials": 0
+            },
+            "der_collar_0ms": {
+              "rate": 0.1206472594590307,
+              "miss_ms": 60840.0,
+              "false_alarm_ms": 0.0,
+              "confusion_ms": 0.0,
+              "error_speaker_ms": 60840.0,
+              "reference_speaker_ms": 504280.0,
+              "evaluated_duration_ms": 599999.0,
+              "excluded_duration_ms": 0.0,
+              "reference_overlap_ms": 0.0,
+              "collar_ms": 0,
+              "collar_half_width_ms": 0.0,
+              "mapping_hypothesis_to_reference": {
+                "speaker_1": "speaker_1",
+                "speaker_2": "speaker_2"
+              },
+              "status": "ok"
+            },
+            "der_collar_250ms": {
+              "rate": 0.09485366252452583,
+              "miss_ms": 46410.0,
+              "false_alarm_ms": 0.0,
+              "confusion_ms": 0.0,
+              "error_speaker_ms": 46410.0,
+              "reference_speaker_ms": 489280.0,
+              "evaluated_duration_ms": 570699.0,
+              "excluded_duration_ms": 29300.0,
+              "reference_overlap_ms": 0.0,
+              "collar_ms": 250,
+              "collar_half_width_ms": 125.0,
+              "mapping_hypothesis_to_reference": {
+                "speaker_1": "speaker_1",
+                "speaker_2": "speaker_2"
+              },
+              "status": "ok"
+            },
+            "speakers": {
+              "reference": 2,
+              "hypothesis": 2,
+              "signed_error": 0,
+              "absolute_error": 0
+            },
+            "cpwer_raw": {
+              "errors": 81,
+              "substitutions": 71,
+              "deletions": 10,
+              "insertions": 0,
+              "correct": 999,
+              "reference_tokens": 1080,
+              "hypothesis_tokens": 1070,
+              "rate": 0.075,
+              "status": "ok",
+              "speaker_pairs": [
+                {
+                  "reference_speaker": "speaker_1",
+                  "hypothesis_speaker": "speaker_1",
+                  "errors": 40,
+                  "reference_tokens": 530,
+                  "hypothesis_tokens": 530
+                },
+                {
+                  "reference_speaker": "speaker_2",
+                  "hypothesis_speaker": "speaker_2",
+                  "errors": 41,
+                  "reference_tokens": 550,
+                  "hypothesis_tokens": 540
+                }
+              ]
+            },
+            "cpwer_normalized": {
+              "errors": 20,
+              "substitutions": 20,
+              "deletions": 0,
+              "insertions": 0,
+              "correct": 1040,
+              "reference_tokens": 1060,
+              "hypothesis_tokens": 1060,
+              "rate": 0.018867924528301886,
+              "status": "ok",
+              "speaker_pairs": [
+                {
+                  "reference_speaker": "speaker_1",
+                  "hypothesis_speaker": "speaker_1",
+                  "errors": 10,
+                  "reference_tokens": 520,
+                  "hypothesis_tokens": 520
+                },
+                {
+                  "reference_speaker": "speaker_2",
+                  "hypothesis_speaker": "speaker_2",
+                  "errors": 10,
+                  "reference_tokens": 540,
+                  "hypothesis_tokens": 540
+                }
+              ]
+            },
+            "timing": {
+              "matched_pairs": 60,
+              "reference_intervals": 60,
+              "hypothesis_intervals": 81,
+              "reference_coverage": 1.0,
+              "hypothesis_coverage": 0.7407407407407407,
+              "unmatched_reference": 0,
+              "unmatched_hypothesis": 21,
+              "mean_start_abs_error_ms": 1225.2666666666667,
+              "mean_end_abs_error_ms": 510.06666666666666,
+              "median_start_abs_error_ms": 359.5,
+              "median_end_abs_error_ms": 412.0,
+              "pairs_over_250ms": 60,
+              "fraction_over_250ms": 1.0,
+              "reference_fraction_over_250ms_or_unmatched": 1.0,
+              "pairs": [
+                {
+                  "reference_index": 0,
+                  "hypothesis_index": 1,
+                  "iou": 0.7580174927113703,
+                  "start_abs_error_ms": 750,
+                  "end_abs_error_ms": 246
+                },
+                {
+                  "reference_index": 1,
+                  "hypothesis_index": 2,
+                  "iou": 0.5434410320812878,
+                  "start_abs_error_ms": 298,
+                  "end_abs_error_ms": 3701
+                },
+                {
+                  "reference_index": 2,
+                  "hypothesis_index": 4,
+                  "iou": 0.8917969223312735,
+                  "start_abs_error_ms": 461,
+                  "end_abs_error_ms": 432
+                },
+                {
+                  "reference_index": 3,
+                  "hypothesis_index": 5,
+                  "iou": 0.9487750556792873,
+                  "start_abs_error_ms": 68,
+                  "end_abs_error_ms": 392
+                },
+                {
+                  "reference_index": 4,
+                  "hypothesis_index": 6,
+                  "iou": 0.9403415391439344,
+                  "start_abs_error_ms": 250,
+                  "end_abs_error_ms": 288
+                },
+                {
+                  "reference_index": 5,
+                  "hypothesis_index": 8,
+                  "iou": 0.44593877189877895,
+                  "start_abs_error_ms": 5498,
+                  "end_abs_error_ms": 764
+                },
+                {
+                  "reference_index": 6,
+                  "hypothesis_index": 10,
+                  "iou": 0.7482993197278912,
+                  "start_abs_error_ms": 756,
+                  "end_abs_error_ms": 280
+                },
+                {
+                  "reference_index": 7,
+                  "hypothesis_index": 11,
+                  "iou": 0.8905126155953876,
+                  "start_abs_error_ms": 298,
+                  "end_abs_error_ms": 661
+                },
+                {
+                  "reference_index": 8,
+                  "hypothesis_index": 12,
+                  "iou": 0.8917969223312735,
+                  "start_abs_error_ms": 461,
+                  "end_abs_error_ms": 432
+                },
+                {
+                  "reference_index": 9,
+                  "hypothesis_index": 13,
+                  "iou": 0.9576837416481069,
+                  "start_abs_error_ms": 68,
+                  "end_abs_error_ms": 312
+                },
+                {
+                  "reference_index": 10,
+                  "hypothesis_index": 14,
+                  "iou": 0.9359059658460857,
+                  "start_abs_error_ms": 278,
+                  "end_abs_error_ms": 300
+                },
+                {
+                  "reference_index": 11,
+                  "hypothesis_index": 16,
+                  "iou": 0.44593877189877895,
+                  "start_abs_error_ms": 5498,
+                  "end_abs_error_ms": 764
+                },
+                {
+                  "reference_index": 12,
+                  "hypothesis_index": 18,
+                  "iou": 0.7482993197278912,
+                  "start_abs_error_ms": 756,
+                  "end_abs_error_ms": 280
+                },
+                {
+                  "reference_index": 13,
+                  "hypothesis_index": 19,
+                  "iou": 0.8905126155953876,
+                  "start_abs_error_ms": 298,
+                  "end_abs_error_ms": 661
+                },
+                {
+                  "reference_index": 14,
+                  "hypothesis_index": 20,
+                  "iou": 0.8917969223312735,
+                  "start_abs_error_ms": 461,
+                  "end_abs_error_ms": 432
+                },
+                {
+                  "reference_index": 15,
+                  "hypothesis_index": 21,
+                  "iou": 0.9576837416481069,
+                  "start_abs_error_ms": 68,
+                  "end_abs_error_ms": 312
+                },
+                {
+                  "reference_index": 16,
+                  "hypothesis_index": 22,
+                  "iou": 0.9359059658460857,
+                  "start_abs_error_ms": 278,
+                  "end_abs_error_ms": 300
+                },
+                {
+                  "reference_index": 17,
+                  "hypothesis_index": 24,
+                  "iou": 0.44593877189877895,
+                  "start_abs_error_ms": 5498,
+                  "end_abs_error_ms": 764
+                },
+                {
+                  "reference_index": 18,
+                  "hypothesis_index": 26,
+                  "iou": 0.7482993197278912,
+                  "start_abs_error_ms": 756,
+                  "end_abs_error_ms": 280
+                },
+                {
+                  "reference_index": 19,
+                  "hypothesis_index": 27,
+                  "iou": 0.8905126155953876,
+                  "start_abs_error_ms": 298,
+                  "end_abs_error_ms": 661
+                },
+                {
+                  "reference_index": 20,
+                  "hypothesis_index": 28,
+                  "iou": 0.8917969223312735,
+                  "start_abs_error_ms": 461,
+                  "end_abs_error_ms": 432
+                },
+                {
+                  "reference_index": 21,
+                  "hypothesis_index": 29,
+                  "iou": 0.9576837416481069,
+                  "start_abs_error_ms": 68,
+                  "end_abs_error_ms": 312
+                },
+                {
+                  "reference_index": 22,
+                  "hypothesis_index": 30,
+                  "iou": 0.9359059658460857,
+                  "start_abs_error_ms": 278,
+                  "end_abs_error_ms": 300
+                },
+                {
+                  "reference_index": 23,
+                  "hypothesis_index": 32,
+                  "iou": 0.44593877189877895,
+                  "start_abs_error_ms": 5498,
+                  "end_abs_error_ms": 764
+                },
+                {
+                  "reference_index": 24,
+                  "hypothesis_index": 34,
+                  "iou": 0.7482993197278912,
+                  "start_abs_error_ms": 756,
+                  "end_abs_error_ms": 280
+                },
+                {
+                  "reference_index": 25,
+                  "hypothesis_index": 35,
+                  "iou": 0.8905126155953876,
+                  "start_abs_error_ms": 298,
+                  "end_abs_error_ms": 661
+                },
+                {
+                  "reference_index": 26,
+                  "hypothesis_index": 36,
+                  "iou": 0.8917969223312735,
+                  "start_abs_error_ms": 461,
+                  "end_abs_error_ms": 432
+                },
+                {
+                  "reference_index": 27,
+                  "hypothesis_index": 37,
+                  "iou": 0.9576837416481069,
+                  "start_abs_error_ms": 68,
+                  "end_abs_error_ms": 312
+                },
+                {
+                  "reference_index": 28,
+                  "hypothesis_index": 38,
+                  "iou": 0.9359059658460857,
+                  "start_abs_error_ms": 278,
+                  "end_abs_error_ms": 300
+                },
+                {
+                  "reference_index": 29,
+                  "hypothesis_index": 40,
+                  "iou": 0.44593877189877895,
+                  "start_abs_error_ms": 5498,
+                  "end_abs_error_ms": 764
+                },
+                {
+                  "reference_index": 30,
+                  "hypothesis_index": 42,
+                  "iou": 0.7482993197278912,
+                  "start_abs_error_ms": 756,
+                  "end_abs_error_ms": 280
+                },
+                {
+                  "reference_index": 31,
+                  "hypothesis_index": 43,
+                  "iou": 0.8905126155953876,
+                  "start_abs_error_ms": 298,
+                  "end_abs_error_ms": 661
+                },
+                {
+                  "reference_index": 32,
+                  "hypothesis_index": 44,
+                  "iou": 0.8917969223312735,
+                  "start_abs_error_ms": 461,
+                  "end_abs_error_ms": 432
+                },
+                {
+                  "reference_index": 33,
+                  "hypothesis_index": 45,
+                  "iou": 0.9576837416481069,
+                  "start_abs_error_ms": 68,
+                  "end_abs_error_ms": 312
+                },
+                {
+                  "reference_index": 34,
+                  "hypothesis_index": 46,
+                  "iou": 0.9359059658460857,
+                  "start_abs_error_ms": 278,
+                  "end_abs_error_ms": 300
+                },
+                {
+                  "reference_index": 35,
+                  "hypothesis_index": 48,
+                  "iou": 0.44593877189877895,
+                  "start_abs_error_ms": 5498,
+                  "end_abs_error_ms": 764
+                },
+                {
+                  "reference_index": 36,
+                  "hypothesis_index": 50,
+                  "iou": 0.7482993197278912,
+                  "start_abs_error_ms": 756,
+                  "end_abs_error_ms": 280
+                },
+                {
+                  "reference_index": 37,
+                  "hypothesis_index": 51,
+                  "iou": 0.8905126155953876,
+                  "start_abs_error_ms": 298,
+                  "end_abs_error_ms": 661
+                },
+                {
+                  "reference_index": 38,
+                  "hypothesis_index": 52,
+                  "iou": 0.8869501999272992,
+                  "start_abs_error_ms": 461,
+                  "end_abs_error_ms": 472
+                },
+                {
+                  "reference_index": 39,
+                  "hypothesis_index": 53,
+                  "iou": 0.9576837416481069,
+                  "start_abs_error_ms": 68,
+                  "end_abs_error_ms": 312
+                },
+                {
+                  "reference_index": 40,
+                  "hypothesis_index": 54,
+                  "iou": 0.9359059658460857,
+                  "start_abs_error_ms": 278,
+                  "end_abs_error_ms": 300
+                },
+                {
+                  "reference_index": 41,
+                  "hypothesis_index": 56,
+                  "iou": 0.44593877189877895,
+                  "start_abs_error_ms": 5498,
+                  "end_abs_error_ms": 764
+                },
+                {
+                  "reference_index": 42,
+                  "hypothesis_index": 58,
+                  "iou": 0.7482993197278912,
+                  "start_abs_error_ms": 756,
+                  "end_abs_error_ms": 280
+                },
+                {
+                  "reference_index": 43,
+                  "hypothesis_index": 59,
+                  "iou": 0.8905126155953876,
+                  "start_abs_error_ms": 298,
+                  "end_abs_error_ms": 661
+                },
+                {
+                  "reference_index": 44,
+                  "hypothesis_index": 60,
+                  "iou": 0.8917969223312735,
+                  "start_abs_error_ms": 461,
+                  "end_abs_error_ms": 432
+                },
+                {
+                  "reference_index": 45,
+                  "hypothesis_index": 61,
+                  "iou": 0.9576837416481069,
+                  "start_abs_error_ms": 68,
+                  "end_abs_error_ms": 312
+                },
+                {
+                  "reference_index": 46,
+                  "hypothesis_index": 62,
+                  "iou": 0.9359059658460857,
+                  "start_abs_error_ms": 278,
+                  "end_abs_error_ms": 300
+                },
+                {
+                  "reference_index": 47,
+                  "hypothesis_index": 64,
+                  "iou": 0.44593877189877895,
+                  "start_abs_error_ms": 5498,
+                  "end_abs_error_ms": 764
+                },
+                {
+                  "reference_index": 48,
+                  "hypothesis_index": 66,
+                  "iou": 0.7482993197278912,
+                  "start_abs_error_ms": 756,
+                  "end_abs_error_ms": 280
+                },
+                {
+                  "reference_index": 49,
+                  "hypothesis_index": 67,
+                  "iou": 0.8905126155953876,
+                  "start_abs_error_ms": 298,
+                  "end_abs_error_ms": 661
+                },
+                {
+                  "reference_index": 50,
+                  "hypothesis_index": 68,
+                  "iou": 0.8917969223312735,
+                  "start_abs_error_ms": 461,
+                  "end_abs_error_ms": 432
+                },
+                {
+                  "reference_index": 51,
+                  "hypothesis_index": 69,
+                  "iou": 0.9576837416481069,
+                  "start_abs_error_ms": 68,
+                  "end_abs_error_ms": 312
+                },
+                {
+                  "reference_index": 52,
+                  "hypothesis_index": 70,
+                  "iou": 0.9359059658460857,
+                  "start_abs_error_ms": 278,
+                  "end_abs_error_ms": 300
+                },
+                {
+                  "reference_index": 53,
+                  "hypothesis_index": 72,
+                  "iou": 0.44593877189877895,
+                  "start_abs_error_ms": 5498,
+                  "end_abs_error_ms": 764
+                },
+                {
+                  "reference_index": 54,
+                  "hypothesis_index": 74,
+                  "iou": 0.7482993197278912,
+                  "start_abs_error_ms": 756,
+                  "end_abs_error_ms": 280
+                },
+                {
+                  "reference_index": 55,
+                  "hypothesis_index": 75,
+                  "iou": 0.8905126155953876,
+                  "start_abs_error_ms": 298,
+                  "end_abs_error_ms": 661
+                },
+                {
+                  "reference_index": 56,
+                  "hypothesis_index": 76,
+                  "iou": 0.8966436447352478,
+                  "start_abs_error_ms": 421,
+                  "end_abs_error_ms": 432
+                },
+                {
+                  "reference_index": 57,
+                  "hypothesis_index": 77,
+                  "iou": 0.9576837416481069,
+                  "start_abs_error_ms": 68,
+                  "end_abs_error_ms": 312
+                },
+                {
+                  "reference_index": 58,
+                  "hypothesis_index": 78,
+                  "iou": 0.9359059658460857,
+                  "start_abs_error_ms": 278,
+                  "end_abs_error_ms": 300
+                },
+                {
+                  "reference_index": 59,
+                  "hypothesis_index": 80,
+                  "iou": 0.44593877189877895,
+                  "start_abs_error_ms": 5498,
+                  "end_abs_error_ms": 764
+                }
+              ]
+            },
+            "rtf": 1.4241023735039557,
+            "native_der_collar_0ms": {
+              "rate": 0.0912290790830491,
+              "miss_ms": 46005.0,
+              "false_alarm_ms": 0.0,
+              "confusion_ms": 0.0,
+              "error_speaker_ms": 46005.0,
+              "reference_speaker_ms": 504280.0,
+              "evaluated_duration_ms": 599999.0,
+              "excluded_duration_ms": 0.0,
+              "reference_overlap_ms": 0.0,
+              "collar_ms": 0,
+              "collar_half_width_ms": 0.0,
+              "mapping_hypothesis_to_reference": {
+                "0": "speaker_1",
+                "1": "speaker_2"
+              },
+              "status": "ok"
+            },
+            "native_der_collar_250ms": {
+              "rate": 0.06757480379332897,
+              "miss_ms": 33063.0,
+              "false_alarm_ms": 0.0,
+              "confusion_ms": 0.0,
+              "error_speaker_ms": 33063.0,
+              "reference_speaker_ms": 489280.0,
+              "evaluated_duration_ms": 570699.0,
+              "excluded_duration_ms": 29300.0,
+              "reference_overlap_ms": 0.0,
+              "collar_ms": 250,
+              "collar_half_width_ms": 125.0,
+              "mapping_hypothesis_to_reference": {
+                "0": "speaker_1",
+                "1": "speaker_2"
+              },
+              "status": "ok"
+            },
+            "native_speaker_count": 2
+          },
+          "compact_evidence": {
+            "asr_chunks": 61,
+            "reported_tokens": 2861,
+            "reported_words": 1060,
+            "measured_embedding_windows": 441,
+            "resources_balanced": true,
+            "compact_asr_text_preserved": true,
+            "full_token_vector_replay_performed": false
+          },
+          "stages_ms": {
+            "thermalWaitMs": 0,
+            "provisioningWaitMs": 0,
+            "nativeGateWaitMs": 0,
+            "validationMs": 1601,
+            "decodeMs": 3503,
+            "metadataPersistenceMs": 12,
+            "vadLoadMs": 26,
+            "vadMs": 7914,
+            "diarizationLoadMs": 564,
+            "diarizationReadMs": 401,
+            "diarizationInferenceMs": 511746,
+            "diarizationMs": 512869,
+            "diarizationRefinementMs": 138558,
+            "alignmentMs": 253,
+            "asrLoadMs": 2015,
+            "asrReadMs": 363,
+            "asrInferenceMs": 177825,
+            "wordAssignmentMs": 271,
+            "asrMs": 187297,
+            "persistenceMs": 33
+          },
+          "work_id": "41e0465b-6b17-4b86-bd0d-c98e5a3d8d0b",
+          "recording_id": "qa-evaluation-608e283f-9396-4cfb-a83c-92bdad6b005e",
+          "process_id": 8526,
+          "telemetry": {
+            "run": "19207ef0-a789-4cf2-9050-b1242c8b0d7e",
+            "elapsedMs": 854930,
+            "stagesMs": {
+              "thermalWaitMs": 0,
+              "provisioningWaitMs": 0,
+              "nativeGateWaitMs": 0,
+              "validationMs": 1601,
+              "decodeMs": 3503,
+              "metadataPersistenceMs": 12,
+              "vadLoadMs": 26,
+              "vadMs": 7914,
+              "diarizationLoadMs": 564,
+              "diarizationReadMs": 401,
+              "diarizationInferenceMs": 511746,
+              "diarizationMs": 512869,
+              "diarizationRefinementMs": 138558,
+              "alignmentMs": 253,
+              "asrLoadMs": 2015,
+              "asrReadMs": 363,
+              "asrInferenceMs": 177825,
+              "wordAssignmentMs": 271,
+              "asrMs": 187297,
+              "persistenceMs": 33
+            },
+            "observedMaxPssKb": 492032,
+            "memoryScope": "stage boundary PSS snapshots; not continuous peak memory",
+            "thermalStatus": 0,
+            "thermalEvents": [
+              {
+                "elapsedMs": 153,
+                "status": 0
+              }
+            ],
+            "thermalApiSupported": true,
+            "thermalPowerServiceAvailable": true,
+            "thermalStatusAvailable": true,
+            "thermalListenerRegistered": true,
+            "thermalListenerRegistrationFailed": false,
+            "thermalListenerFailureReason": null,
+            "thermalUnavailableReason": null
+          },
+          "new_model_inference": true,
+          "evidence_sha256": {
+            "reference": "2039e64b458c2f1197eac062da941eade47dd143310fb1e0d4d393ba46436ea0",
+            "hypothesis": "7f83471976e7fa8e9bc37dbc96353b64421a6e2cbd6196c7fe2708264ee87a4d",
+            "diagnostics": "f966e9a2f33ce0bed6025fdfab0eae733f2e09a9667839a93e40676bb12ef3cc",
+            "case": "dd3d3640e593fee56a49e20832368b7f0eef100460c474de0435242a66d30139",
+            "metrics": "e3b14516659a6630766e4aef1a61f29297e8d5680c44f465d06e48782095d170"
+          }
+        }
+      ],
+      "instrumentation_exit_code": 0,
+      "single_instrumented_process_id": 8526,
+      "summary": {
+        "cases": 3,
+        "audio_ms": 839998,
+        "processing_ms": 1145389,
+        "rtf": 1.3635615799085237,
+        "wer_raw": {
+          "errors": 115,
+          "reference_tokens": 1512,
+          "rate": 0.07605820105820106
+        },
+        "wer_normalized": {
+          "errors": 28,
+          "reference_tokens": 1484,
+          "rate": 0.018867924528301886
+        },
+        "cpwer_raw": {
+          "errors": 115,
+          "reference_tokens": 1512,
+          "rate": 0.07605820105820106
+        }
+      },
+      "sampled_resources": {
+        "scope": "Observed periodic batch snapshots only, not continuous peak; startup samples excluded until instrumentation report exists",
+        "samples": 108,
+        "errors": 0,
+        "observed_pids": [
+          "8526"
+        ],
+        "maximum_observed_rss_kb": 707084,
+        "maximum_observed_pss_kb": 500019
+      }
+    },
+    {
+      "batch": 2,
+      "threads": 4,
+      "run": "p19perf20261107T045130178000Z_2",
+      "status": "RUNNING",
+      "cases": [],
+      "instrumentation_exit_code": 0
+    }
+  ],
+  "order": [
+    2,
+    4,
+    4,
+    2
+  ],
+  "new_model_inference": true,
+  "inference_completion_verified": false,
+  "verified_workers": 3,
+  "completed_workers": 3,
+  "planned_workers": 12,
+  "planned_audio_ms": 3360000,
+  "serial": "emulator-5556",
+  "snapshot_interval_seconds": 10.0,
+  "instrument_timeout_seconds": 5400,
+  "scoring_python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+  "device": {
+    "fingerprint": "Android/sdk_phone64_x86_64/emu64x:15/AE3A.240806.019/12368160:userdebug/test-keys",
+    "abi": "x86_64",
+    "sdk": "35"
+  },
+  "network_settings_observed": {
+    "airplane_mode_on": "1",
+    "wifi_on": "0"
+  },
+  "installed_apks": {
+    "app": {
+      "package": "ru.replika.offline",
+      "path": "/data/app/~~Wm7CwspcL03m2JiUac7wyw==/ru.replika.offline-YazBhlVB_-mz_QbYlMrPIA==/base.apk",
+      "sha256": "0a03b2f1d0d30dad8e8de6339860187e725affd851002485b7fa248b05b948ca"
+    },
+    "test": {
+      "package": "ru.replika.offline.test",
+      "path": "/data/app/~~L01FPnMBtUnpQrLmU8xeMg==/ru.replika.offline.test-LeTbcXaO07Mdf8_KyaMk2g==/base.apk",
+      "sha256": "ce4851c681962e8489bd9d8bc0edc0a229d245307b88fdfa9c19d0ef1f1df051"
+    }
+  },
+  "native_model_sha256_before": {
+    "giga-v3/encoder.int8.onnx": "369f35a71bf288d3b8e0391fabd8dba5f2314088d440bca474056b7b4b6e66bf",
+    "giga-v3/decoder.onnx": "38fc7475443ea2a26f63211ca350f73ac50fff824ab7a3876ee2bd610c53bbc4",
+    "giga-v3/joiner.onnx": "602ff7017a93311aad34df1437c8d7f49911353c13d6eae7a6ee7b041339465c",
+    "giga-v3/tokens.txt": "39abae20e692998290c574e606f11a9edef2902a1995463fcff63d1490cf22b7",
+    "diar/segmentation.onnx": "220ad67ca923bef2fa91f2390c786097bf305bceb5e261d4af67b38e938e1079",
+    "diar/embedding.onnx": "1a331345f04805badbb495c775a6ddffcdd1a732567d5ec8b3d5749e3c7a5e4b",
+    "vad/silero_vad.onnx": "9e2449e1087496d8d4caba907f23e0bd3f78d91fa552479bb9c23ac09cbb1fd6"
+  },
+  "error": "ValueError('Instrumentation failed; raw/partial outputs preserved')",
+  "failed_utc": "2026-11-07T08:28:55.191944+00:00",
+  "inference_may_still_be_running": true,
+  "screen_power": {
+    "original": "1",
+    "restored": "1",
+    "restored_exactly": true
+  }
+}

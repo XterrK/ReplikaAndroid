@@ -106,18 +106,54 @@ def validate_model_lock(lock):
     return {path: sha for path, _, sha in MODEL_PINS}
 
 
-def _asr_host():
-    return {**policy_for_plan(ASR_PLAN), "threads": 2, "expected_speakers": -1}
+def _execution(cpu_plan, threads):
+    if type(cpu_plan) is not str or cpu_plan not in ("v16", "auto_v1"):
+        _fail("Unknown CPU plan")
+    if type(threads) is not int or threads not in (1, 2, 4):
+        _fail("Explicit CPU threads must be one, two or four")
+    if cpu_plan == "v16" and threads != 2:
+        _fail("Frozen C2 requires threads2; other counts require explicit auto_v1")
 
 
-def validate_host_policy(config, paired_asr):
+def validate_cpu_resolution(value, *, cpu_plan, threads, requested_threads=None):
+    """Exact replay of the versioned Android core mapping and per-stage pins."""
+    _execution(cpu_plan, threads)
+    requested = threads if requested_threads is None else requested_threads
+    if type(requested) is not int or requested not in (0, 1, 2, 4):
+        _fail("Invalid requested CPU threads")
+    if requested == 0 and cpu_plan != "auto_v1":
+        _fail("Automatic CPU request requires auto_v1")
+    if (not isinstance(value, dict) or type(value.get("availableCores")) is not int
+            or not 1 <= value["availableCores"] <= 2**31 - 1):
+        _fail("CPU available core count must be a positive integer")
+    cores = value["availableCores"]
+    ceiling = max(1, min(4, cores - 1))
+    chosen = max(x for x in (1, 2, 4) if x <= ceiling) if requested == 0 else requested
+    if chosen != threads:
+        _fail("Actual CPU core mapping differs from paired host threads")
+    pin = cpu_plan == "v16"
+    expected = {"plan": cpu_plan, "requestedThreads": requested, "availableCores": cores,
+        "asrThreads": chosen, "diarizationThreads": 2 if pin else chosen,
+        "refinementThreads": 2 if pin else chosen, "diarizationPinned": pin, "refinementPinned": pin}
+    equal(value, expected, "cpuPolicy")
+    return expected
+
+
+def _asr_host(threads=2):
+    return {**policy_for_plan(ASR_PLAN), "threads": threads, "expected_speakers": -1}
+
+
+def validate_host_policy(config, paired_asr, *, cpu_plan="v16", threads=2):
+    _execution(cpu_plan, threads)
     required = {"schema_version", "id", "pipeline", "expected_speakers", "threads", "model_id",
                 "window_shift", "native_threshold", "window_config"}
     if (not isinstance(config, dict) or not required <= set(config)
-            or set(config) - required - {"notes", "candidate_freeze_sha256"}):
+            or set(config) - required - {"notes", "candidate_freeze_sha256", "cpu_plan"}):
         _fail("Incomplete/unknown C2 host configuration")
+    if config.get("cpu_plan", "v16") != cpu_plan:
+        _fail("Host CPU plan differs from explicit collector policy")
     for key, value in {"schema_version": 1, "pipeline": "window_words_v1", "expected_speakers": -1,
-                       "threads": 2, "model_id": "eres2net_zh"}.items():
+                       "threads": threads, "model_id": "eres2net_zh"}.items():
         equal(config[key], value, "host." + key)
     if not isinstance(config["id"], str) or not re.fullmatch(r"[A-Za-z0-9_.-]+", config["id"]):
         _fail("Unsafe host configuration ID")
@@ -128,7 +164,7 @@ def validate_host_policy(config, paired_asr):
     equal(config["window_config"], WINDOW_CONFIG, "host.window_config")
     expected = {"plan": ASR_PLAN, "vad_threshold": .5, "vad_min_speech_sec": .25,
         "vad_min_silence_sec": .25, "pre_roll_ms": 600, "punctuation_mode": "none",
-        "energy_split": True, "threads": 2, "provider": "cpu", "sample_rate": 16000,
+        "energy_split": True, "threads": threads, "provider": "cpu", "sample_rate": 16000,
         "feature_dim": 80, "dither": 0.0, "model_type": "nemo_transducer",
         "decoding_method": "greedy_search", "max_active_paths": 4, "modeling_unit": "",
         "hotwords_file": "", "blank_penalty": 0.0, "vad_window_samples": 512, "max_asr_ms": 20000}
@@ -136,9 +172,15 @@ def validate_host_policy(config, paired_asr):
     return policy_for_diar_plan()
 
 
-def validate_native_diar_policy(config, report, paired_asr):
-    expected = validate_host_policy(config, paired_asr)
-    validate_native_policy(_asr_host(), report)
+def validate_native_diar_policy(config, report, paired_asr, *, cpu_plan="v16", threads=2, requested_threads=None):
+    expected = validate_host_policy(config, paired_asr, cpu_plan=cpu_plan, threads=threads)
+    validate_native_policy(_asr_host(threads), report)
+    if cpu_plan != "v16" or "cpuPolicy" in report:
+        validate_cpu_resolution(report.get("cpuPolicy"), cpu_plan=cpu_plan, threads=threads, requested_threads=requested_threads)
+    if "cpuPlan" in report:
+        equal(report["cpuPlan"], cpu_plan, "report.cpuPlan")
+    if "requestedThreads" in report:
+        equal(report["requestedThreads"], threads if requested_threads is None else requested_threads, "report.requestedThreads")
     for key in ("diarizationPlanRequested", "diarizationPlan"):
         equal(report.get(key), PLAN, key)
     actual = report.get("diarizationPolicy")
@@ -238,7 +280,8 @@ def _compare_room_adapter(room, full_adapter):
     equal(room, compact, "Room compact adapter")
 
 
-def validate_diarization_evidence(diagnostics, native_case, sidecar_bytes, *, case_id, audio_sha256, duration_ms):
+def validate_diarization_evidence(diagnostics, native_case, sidecar_bytes, *, case_id, audio_sha256, duration_ms,
+        cpu_plan="v16", threads=2, requested_threads=None):
     """Verify identities, actual measurement lifecycle, and exact pure C2 replay.
 
     No transcript, reference text/count, expected K or case identity crosses
@@ -246,6 +289,11 @@ def validate_diarization_evidence(diagnostics, native_case, sidecar_bytes, *, ca
     """
     if type(duration_ms) is not int or duration_ms <= 0:
         _fail("Positive canonical duration required")
+    _execution(cpu_plan, threads)
+    cpu = None
+    if cpu_plan != "v16" or "cpuPolicy" in diagnostics:
+        cpu = validate_cpu_resolution(diagnostics.get("cpuPolicy"), cpu_plan=cpu_plan, threads=threads,
+            requested_threads=requested_threads)
     for key, value in {"id": case_id, "status": "COMPLETE", "audio_sha256": audio_sha256,
                        "duration_ms": duration_ms, "newModelInference": True}.items():
         equal(native_case.get(key), value, "native_case." + key)
@@ -267,7 +315,7 @@ def validate_diarization_evidence(diagnostics, native_case, sidecar_bytes, *, ca
     for key, value in {"diarizationEvidenceSha256": sha, "diarizationEvidenceBytes": len(sidecar_bytes),
                        "diarizationEvidenceFile": case_id + ".diarization-evidence.json"}.items():
         equal(native_case.get(key), value, "native_case." + key)
-    for key, value in {"audioMs": duration_ms, "sampleRate": 16000, "threads": 2, "vadThreads": 1,
+    for key, value in {"audioMs": duration_ms, "sampleRate": 16000, "threads": threads, "vadThreads": 1,
         "expectedSpeakers": -1, "clusteringMode": "automatic", "clusterThresholdApplied": True,
         "runtime": "sherpa-onnx 2.0.1", "diarizationRefinementApplicable": True,
         "diarizationRefinementAccepted": True, "diarizationEvidenceRequested": True,
@@ -295,6 +343,8 @@ def validate_diarization_evidence(diagnostics, native_case, sidecar_bytes, *, ca
         "rawDiarizationTurns": diagnostics.get("rawDiarizationTurns"),
         "nativeDiarizationTurns": diagnostics.get("nativeDiarizationTurns"),
         "refinedDiarizationTurns": diagnostics.get("diarizationTurns"), "accepted": True}
+    if cpu is not None:
+        expected_metadata["cpuPolicy"] = cpu
     equal(metadata, expected_metadata, "sidecar.metadata")
     raw = turns_from_json(metadata["rawDiarizationTurns"], duration_ms)
     native = turns_from_json(metadata["nativeDiarizationTurns"], duration_ms)
@@ -302,6 +352,11 @@ def validate_diarization_evidence(diagnostics, native_case, sidecar_bytes, *, ca
     if base.stable_turns(raw) != native:
         _fail("Raw-to-stable native speaker remap differs")
     adapter = wrapper["diagnostics"]
+    if cpu is None and any(key in adapter for key in ("cpuPlan", "embeddingThreads")):
+        _fail("Adapter CPU fields require coherent native CPU metadata")
+    if cpu is not None:
+        equal(adapter.get("cpuPlan"), cpu_plan, "adapter.cpuPlan")
+        equal(adapter.get("embeddingThreads"), cpu["refinementThreads"], "adapter.embeddingThreads")
     _compare_room_adapter(diagnostics.get("diarizationRefinement"), adapter)
     for key, value in {"algorithm": "window-overcluster-v1", "config": WINDOW_CONFIG,
         "computationalSupport": True, "originalPcm": True, "sampleRate": 16000,

@@ -90,14 +90,22 @@ def _host_case(host_run, case, reference, fingerprint):
     hypothesis = read_json(folder / "hypothesis.json")
     if metric != record.get("metrics"):
         raise ValueError("Host metrics copies differ")
-    policy.equal(diagnostic.get("config"), {"provider": "cpu", "threads": 2, "vadThreads": 1,
+    threads = fingerprint["config"]["threads"]
+    cpu_plan = fingerprint["config"].get("cpu_plan", "v16")
+    policy.equal(diagnostic.get("config"), {"provider": "cpu", "threads": threads, "vadThreads": 1,
         "nativeNumClusters": -1, "nativeThreshold": .3, "segmentationWindowShiftRatio": .1,
         "diarMinDurationOnSec": .2, "diarMinDurationOffSec": .5, "cleanWindowMs": 1500,
         "cleanWindowStepMs": 750, "cleanMinimumIslandMs": 1000,
         "refiner": policy.WINDOW_CONFIG, "asr": fingerprint["paired_asr_policy"]}, "host.diag.config")
     policy.equal(diagnostic.get("windowConfig"), policy.WINDOW_CONFIG, "host.windowConfig")
     policy.equal(diagnostic.get("selectedNativePolicy"), {"model_id": "eres2net_zh", "threshold": .3,
-        "window_shift": .1, "threads": 2, "num_clusters": -1}, "host.selectedNativePolicy")
+        "window_shift": .1, "threads": threads, "num_clusters": -1}, "host.selectedNativePolicy")
+    if cpu_plan == "auto_v1":
+        actual_cpu = diagnostic.get("cpuExecutionPolicy", {})
+        if (actual_cpu.get("plan") != cpu_plan or type(actual_cpu.get("vadThreads")) is not int or actual_cpu["vadThreads"] != 1
+                or any(type(actual_cpu.get(key)) is not int or actual_cpu[key] != threads
+                       for key in ("asrThreads", "diarizationThreads", "refinementThreads"))):
+            raise ValueError("Host actual CPU stage policy differs")
     policy.equal(diagnostic.get("pairedAsrPolicy"), fingerprint["paired_asr_policy"], "host.diag.asr")
     if (diagnostic.get("audioSha256") != case["audio_sha256"] or diagnostic.get("audioMs") != case["duration_ms"]
             or diagnostic.get("sampleRate") != 16000 or diagnostic.get("pipelineVariant") != "window_words_v1"
@@ -139,8 +147,12 @@ def preflight(args):
         raise ValueError("Choose a fresh output path; evidence is never overwritten")
     if not re.fullmatch(r"[A-Za-z][A-Za-z0-9_.]+", args.package):
         raise ValueError("Unsafe package name")
-    if args.threads != 2 or type(args.threads) is not int or args.expected_speakers != -1 or type(args.expected_speakers) is not int:
-        raise ValueError("Frozen C2 requires threads2 and automatic -1")
+    cpu_plan = getattr(args, "cpu_plan", "v16")
+    request_auto = getattr(args, "request_auto", False)
+    policy._execution(cpu_plan, args.threads)
+    if (type(request_auto) is not bool or request_auto and cpu_plan != "auto_v1"
+            or args.expected_speakers != -1 or type(args.expected_speakers) is not int):
+        raise ValueError("Frozen C2 requires automatic speakers -1; automatic CPU requires explicit auto_v1")
     if args.asr_plan != policy.ASR_PLAN or args.diar_plan != policy.PLAN:
         raise ValueError("Frozen C2 requires paired vad_words_context600 / eres2net_window_v1")
     manifest = read_json(args.manifest)
@@ -173,7 +185,7 @@ def preflight(args):
     if (host.get("status") != "COMPLETE" or host.get("new_model_inference") is not True
             or host.get("inference_requested") is not True):
         raise ValueError("Completed fresh full host C2 inference required")
-    policy.validate_host_policy(host["config"], host["paired_asr_policy"])
+    policy.validate_host_policy(host["config"], host["paired_asr_policy"], cpu_plan=cpu_plan, threads=args.threads)
     fp = host["fingerprint"]
     policy.equal(read_json(args.host_run / "config.json"), host["config"], "saved host config")
     if fp.get("config_sha256") != digest(args.host_run / "config.json") or fp.get("manifest_sha256") != digest(args.manifest):
@@ -338,6 +350,9 @@ def screen_restore(adb, output, state):
 
 def run(args):
     checked = preflight(args)  # Must precede output mkdir and any ADB/subprocess.
+    cpu_plan = getattr(args, "cpu_plan", "v16")
+    requested_threads = 0 if getattr(args, "request_auto", False) else args.threads
+    cpu_kwargs = {"cpu_plan": cpu_plan, "threads": args.threads, "requested_threads": requested_threads}
     verify_collector_code(checked["fingerprint"]["collector_code"])
     if args.check:
         print(json.dumps({"status": "PREFLIGHT_PASS", "cases": [c["id"] for c in checked["cases"]],
@@ -350,7 +365,8 @@ def run(args):
         "cases": [], "scope": SCOPE, "reference_text_or_counts_staged": False,
         "new_model_inference": False, "inference_requested": False, "fingerprint": checked["fingerprint"],
         "requested_asr_plan": policy.ASR_PLAN, "requested_diar_plan": policy.PLAN,
-        "requested_diar_policy": policy.policy_for_diar_plan(), "dev_ids": checked["dev_ids"],
+        "requested_diar_policy": policy.policy_for_diar_plan(), "requested_cpu_plan": cpu_plan,
+        "requested_threads": requested_threads, "expected_effective_threads": args.threads, "dev_ids": checked["dev_ids"],
         "fixed_five_ids": checked["fixed_five_ids"], "word_evidence_cases": [], "diarization_evidence_cases": []}
     write_json(args.output / "run.json", report)
     log_path = args.output / "commands.jsonl"
@@ -438,12 +454,13 @@ def run(args):
         verify_collector_code(checked["fingerprint"]["collector_code"])
         screen_prepare(adb, args.package, args.output, screen, emulator=emulator)
         report["screen_power"] = screen
-        report.update(status="RUNNING", emulator=emulator, expected_speakers=-1, threads=2,
+        report.update(status="RUNNING", emulator=emulator, expected_speakers=-1, threads=args.threads,
                       inference_requested=True, new_model_inference=None)
         write_json(args.output / "run.json", report)
         result = adb("shell", "am", "instrument", "-w", "-r", "-e", "evalRun", run_id,
-            "-e", "evalThreads", 2, "-e", "evalExpectedSpeakers", -1,
+            "-e", "evalThreads", requested_threads, "-e", "evalExpectedSpeakers", -1,
             "-e", "evalAsrPlan", policy.ASR_PLAN, "-e", "evalDiarPlan", policy.PLAN,
+            "-e", "evalCpuPlan", cpu_plan,
             "-e", "class", "ru.replika.EvaluationBatchTest#stagedCanonicalInputsThroughProductionWorker",
             args.package + ".test/androidx.test.runner.AndroidJUnitRunner", check=False)
         log = result.stdout.decode("utf-8", "replace") + result.stderr.decode("utf-8", "replace")
@@ -472,7 +489,7 @@ def run(args):
                 or completed.get("run") != run_id or completed.get("newModelInference") is not True):
             raise ValueError("Incomplete/duplicate native report coverage")
         completed_cases = {r["id"]: r for r in completed["cases"]}
-        policy.validate_native_diar_policy(checked["host"]["config"], completed, checked["host"]["paired_asr_policy"])
+        policy.validate_native_diar_policy(checked["host"]["config"], completed, checked["host"]["paired_asr_policy"], **cpu_kwargs)
         report["new_model_inference"] = True
         for case in checked["cases"]:
             identifier, duration = case["id"], case["duration_ms"]
@@ -484,9 +501,9 @@ def run(args):
                 hypothesis = read_json(folder / "hypothesis.json")
                 if native.get("segments") != len(hypothesis.get("transcript", [])):
                     raise ValueError("Native segment count differs from actual JuryJSON")
-                policy.validate_native_diar_policy(checked["host"]["config"], diagnostic, checked["host"]["paired_asr_policy"])
+                policy.validate_native_diar_policy(checked["host"]["config"], diagnostic, checked["host"]["paired_asr_policy"], **cpu_kwargs)
                 diar = policy.validate_diarization_evidence(diagnostic, native, (folder / "diarization-evidence.json").read_bytes(),
-                    case_id=identifier, audio_sha256=case["audio_sha256"], duration_ms=duration)
+                    case_id=identifier, audio_sha256=case["audio_sha256"], duration_ms=duration, **cpu_kwargs)
                 if native["workId"] in seen_work_ids or native["recordingId"] in seen_recordings:
                     raise ValueError("Native work/record identity reused across cases")
                 seen_work_ids.add(native["workId"])
@@ -565,6 +582,8 @@ def parser():
     p.add_argument("--cases", nargs="+")
     p.add_argument("--output", type=Path, required=True)
     p.add_argument("--threads", type=int, default=2)
+    p.add_argument("--cpu-plan", choices=("v16", "auto_v1"), default="v16")
+    p.add_argument("--request-auto", action="store_true", help="Request Android core mapping; --threads is the paired host effective count")
     p.add_argument("--expected-speakers", type=int, default=-1)
     p.add_argument("--asr-plan", default=policy.ASR_PLAN)
     p.add_argument("--diar-plan", default=policy.PLAN)

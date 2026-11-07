@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "frozen_utc": "2026-11-07T04:18:13.150129+00:00",
+  "selection_scope": "Performance protocol fixed before these derived inputs receive any new inference; not quality tuning or new independent acceptance.",
+  "threads_order": [
+    2,
+    4,
+    4,
+    2
+  ],
+  "case_order": [
+    "perf-01m",
+    "perf-03m",
+    "perf-10m"
+  ],
+  "cpu_plan": "auto_v1",
+  "threads_request": "explicit 2/4; no core-count auto request; oversubscription on a 2-core emulator is possible",
+  "asr_plan": "vad_words_context600",
+  "diar_plan": "eres2net_window_v1",
+  "expected_speakers": -1,
+  "collectEvidence": false,
+  "full_qa_replay": false,
+  "workers": 12,
+  "audio_ms": 3360000,
+  "restarts": "No intentional app restart within each three-case instrumentation batch; separate instrumentation invocations between batches.",
+  "sampling": "Stage boundary PSS plus periodic RSS/PSS/thermal snapshots; not continuous peak memory. Sampler/instrumentation overhead and device conditions uncontrolled.",
+  "pairs": [
+    {
+      "threads2_batch": 1,
+      "threads4_batch": 2,
+      "order": "2 then 4"
+    },
+    {
+      "threads2_batch": 4,
+      "threads4_batch": 3,
+      "order": "4 then 2"
+    }
+  ],
+  "quality": "Raw/normalized/cpWER and utterance-proxy DER reported separately for related repeats. No new gate, no pooling with dev/holdout/reserve, no natural-dialogue/ARM/speed causal claim."
+}

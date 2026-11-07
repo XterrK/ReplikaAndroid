@@ -1,0 +1,78 @@
+{
+  "status": "COMPLETE",
+  "run": "arm_one_c58314f0f7534a218ef75e62e6946955",
+  "cases": [
+    {
+      "id": "dev-mono-s",
+      "status": "COMPLETE",
+      "audio_sha256": "97943f4d90c2b56166031263a6820c41e0f80b94643a9d3737327debdc8fbe53",
+      "duration_ms": 6333,
+      "processing_ms": 3185,
+      "worker_wall_ms": 3646,
+      "segments": 1,
+      "newModelInference": true,
+      "recordingId": "qa-evaluation-ca6ec495-bcb9-4c98-be9b-5e4f792ee5d1",
+      "collectEvidence": true,
+      "processId": 12952,
+      "workId": "77517666-ed1c-4cd3-898b-125826b08e34",
+      "diarizationEvidenceSha256": "b4ad7c39a8cf2c19a9bdb5c70659a62298c6eb96c8764f055f00b5c7d22f2ecb",
+      "diarizationEvidenceBytes": 70430,
+      "diarizationEvidenceFile": "dev-mono-s.diarization-evidence.json"
+    }
+  ],
+  "scope": "Actual Android production Worker; independent reference text\/counts are not staged or passed to recognition",
+  "api": 37,
+  "supportedAbis": [
+    "arm64-v8a"
+  ],
+  "collectEvidence": true,
+  "processId": 12952,
+  "threads": 4,
+  "requestedThreads": 0,
+  "cpuPlan": "auto_v1",
+  "cpuPolicy": {
+    "plan": "auto_v1",
+    "requestedThreads": 0,
+    "availableCores": 8,
+    "asrThreads": 4,
+    "diarizationThreads": 4,
+    "refinementThreads": 4,
+    "diarizationPinned": false,
+    "refinementPinned": false
+  },
+  "expectedSpeakers": -1,
+  "newModelInference": true,
+  "asrPlan": "vad_words_context600",
+  "asrPolicy": {
+    "pipeline": "vad_words_v1",
+    "punctuation_mode": "none",
+    "energy_split": true,
+    "vad_threshold": 0.5,
+    "vad_min_speech_sec": 0.25,
+    "vad_min_silence_sec": 0.25,
+    "pre_roll_ms": 600
+  },
+  "diarizationPlanRequested": "eres2net_window_v1",
+  "diarizationPlan": "eres2net_window_v1",
+  "diarizationPolicy": {
+    "plan": "eres2net_window_v1",
+    "algorithm": "window-overcluster-v1",
+    "embedding_path": "diar\/embedding.onnx",
+    "native_threshold": 0.30000001192092896,
+    "window_shift": 0.10000000149011612,
+    "min_duration_on": 0.20000000298023224,
+    "min_duration_off": 0.5,
+    "window_config": {
+      "tau": 0.36,
+      "method": "average",
+      "grid_ms": 125,
+      "max_speakers": 8,
+      "reassign_small": true,
+      "min_cluster_ms": 2000,
+      "min_cluster_fraction": 0.03,
+      "minimum_reassignment_similarity": null,
+      "smooth": true,
+      "smooth_ms": 500
+    }
+  }
+}

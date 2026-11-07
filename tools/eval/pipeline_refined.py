@@ -43,14 +43,28 @@ C2_EMBEDDING_PIN = {"id": "eres2net_zh", "sha256": "1a331345f04805badbb495c775a6
     "path": "model-pack/diar/embedding.onnx", "baseline": True}
 
 
+def validate_execution_threads(threads, cpu_plan="v16"):
+    """Historical C remains two-thread; CPU experiments require a named opt-in."""
+    if type(cpu_plan) is not str or cpu_plan not in ("v16", "auto_v1"):
+        raise ValueError("Unknown CPU execution policy")
+    if type(threads) is not int or threads not in (1, 2, 4):
+        raise ValueError("CPU experiments require explicit one, two or four threads")
+    if cpu_plan == "v16" and threads != 2:
+        raise ValueError("The paired D/C policy requires exactly two ASR/SD threads")
+
+
+def paired_asr_policy(threads=2, cpu_plan="v16"):
+    validate_execution_threads(threads, cpu_plan)
+    return {**PAIRED_ASR_POLICY, "threads": threads}
+
+
 def validate_options(expected_speakers=-1, threads=2, *, model_id="wespeaker_resnet34_lm",
         window_shift=.1, native_threshold=.5, refiner_tau=_UNSET,
         minimum_reassignment_similarity=_UNSET, missing_centroid_policy=_UNSET,
-        strategy="centroid_v1", window_config=None):
+        strategy="centroid_v1", window_config=None, cpu_plan="v16"):
     if type(expected_speakers) is not int or expected_speakers != -1:
         raise ValueError("The C candidate is automatic only; known/oracle K is forbidden")
-    if type(threads) is not int or threads != 2:
-        raise ValueError("The paired D/C policy requires exactly two ASR/SD threads")
+    validate_execution_threads(threads, cpu_plan)
     if not isinstance(model_id, str) or not re.fullmatch(r"[A-Za-z0-9_.-]+", model_id):
         raise ValueError("Invalid catalog model ID")
     if type(window_shift) not in (int, float) or window_shift not in (.1, .25, .5):
@@ -117,11 +131,13 @@ def process(audio_path, model_root, expected_speakers=-1, threads=2, *,
         catalog_path=base.PROJECT_ROOT / "configs/eval/diar-models.json", embedding_root=None,
         model_id="wespeaker_resnet34_lm", window_shift=.1, native_threshold=.5,
         refiner_tau=_UNSET, minimum_reassignment_similarity=_UNSET, missing_centroid_policy=_UNSET,
-        strategy="centroid_v1", window_config=None):
+        strategy="centroid_v1", window_config=None, cpu_plan="v16"):
     refiner_config = validate_options(expected_speakers, threads, model_id=model_id,
         window_shift=window_shift, native_threshold=native_threshold, refiner_tau=refiner_tau,
         minimum_reassignment_similarity=minimum_reassignment_similarity,
-        missing_centroid_policy=missing_centroid_policy, strategy=strategy, window_config=window_config)
+        missing_centroid_policy=missing_centroid_policy, strategy=strategy, window_config=window_config,
+        cpu_plan=cpu_plan)
+    actual_asr_policy = paired_asr_policy(threads, cpu_plan)
     started = time.perf_counter_ns()
     import numpy as np
     import sherpa_onnx as sherpa
@@ -291,12 +307,12 @@ def process(audio_path, model_root, expected_speakers=-1, threads=2, *,
         "tokenTimestampPolicy": stride,
         "tokenTimestampError": stride_error, "wordAssignmentSupported": stride["verified"] and fallback_chunks == 0,
         "fallbackChunks": fallback_chunks, "fallbackPolicy": words.FALLBACK_WARNING,
-        "pairedAsrPolicy": dict(PAIRED_ASR_POLICY), "config": {
+        "pairedAsrPolicy": dict(actual_asr_policy), "config": {
             "provider": "cpu", "threads": threads, "vadThreads": 1, "nativeNumClusters": -1,
             "nativeThreshold": native_threshold, "segmentationWindowShiftRatio": window_shift,
             "diarMinDurationOnSec": .2, "diarMinDurationOffSec": .5,
             "cleanWindowMs": 1500, "cleanWindowStepMs": 750, "cleanMinimumIslandMs": 1000,
-            "refiner": asdict(refiner_config), "asr": dict(PAIRED_ASR_POLICY)},
+            "refiner": asdict(refiner_config), "asr": dict(actual_asr_policy)},
         "newDiarizationInference": True, "newEmbeddingInference": bool(observations),
         "newAsrInference": bool(chunks), "asrForwardCalls": len(chunks), "embeddingForwardCalls": len(observations),
         "asrReplay": False, "nativeModelCacheRetained": False,
@@ -311,4 +327,8 @@ def process(audio_path, model_root, expected_speakers=-1, threads=2, *,
         diagnostics["selectedNativePolicy"] = {"model_id": model_id, "threshold": native_threshold,
             "window_shift": window_shift, "threads": threads, "num_clusters": -1}
         diagnostics["validationScope"] = "All seven legacy model files validated every invocation; active ERes2Net is also rehashed against its frozen catalog entry. No added model weights."
+    if cpu_plan != "v16":
+        diagnostics["cpuExecutionPolicy"] = {"plan": cpu_plan, "asrThreads": threads,
+            "diarizationThreads": threads, "refinementThreads": threads, "vadThreads": 1,
+            "selection": "Explicit global host experiment; Android core-count mapping is evaluated separately"}
     return {"transcript": transcript, "diagnostics": diagnostics, "duration_ms": duration_ms, "processing_ms": processing_ms}
