@@ -1,0 +1,93 @@
+{
+  "status": "BASELINE_RETAINED",
+  "at": "2026-11-07T03:08:19.473735+00:00",
+  "protocol": "configs/eval/c2-final-native-parameters-v1.json",
+  "new_neural_inference_by_selector": false,
+  "new_sd_process_calls_in_sources": 32,
+  "source_asr": "Actual preserved D context600 token/time outputs; explicitly replay, not new ASR",
+  "decision": "All four alternatives fail count>=7 and DER no-regrowth on complete dev8. Keep measured C2 shift0.1/minOff0.5. No new holdout/reserve/AMI/Android tuning or inference for rejected variants.",
+  "rows": [
+    {
+      "profile": "off-0p25",
+      "source": "artifacts/test-results/step-04/final-native-off-0p25",
+      "run_sha256": "e3fe99cd395b37c15c87b047a144b5987c91a98c6a5f5ad284e142cc09b73411",
+      "summary_sha256": "fb6dc7cb332424131fe05ca0cde856a4a2fbb01c285555efb7ba54899f43a21e",
+      "gate_pass": false,
+      "strictly_better_der": false,
+      "cases": 8,
+      "native_count_exact": 6,
+      "native_der0": 0.2161340852130326,
+      "raw": {
+        "errors": 71,
+        "reference_tokens": 533,
+        "rate": 0.13320825515947468
+      },
+      "new_asr_inference": false
+    },
+    {
+      "profile": "off-1p0",
+      "source": "artifacts/test-results/step-04/final-native-off-1p0",
+      "run_sha256": "79b698d91787d1452d3eec3343fa492f3c152ec96e329e034c57e5662b3af1cf",
+      "summary_sha256": "c2fc5cbf3b16a6f619f9c6eb9f610a043295f9c4ba1f3e69510a1325a1b203ce",
+      "gate_pass": false,
+      "strictly_better_der": false,
+      "cases": 8,
+      "native_count_exact": 4,
+      "native_der0": 0.19799890350877192,
+      "raw": {
+        "errors": 71,
+        "reference_tokens": 533,
+        "rate": 0.13320825515947468
+      },
+      "new_asr_inference": false
+    },
+    {
+      "profile": "shift-0p25",
+      "source": "artifacts/test-results/step-04/final-native-shift-0p25",
+      "run_sha256": "fe813c31c7f1796a379ddcd2c03cc0d516c8dd782c1a400222c8e933f9621f31",
+      "summary_sha256": "b8cb7b5050a1e8d07ce2a51337f631a8efde8c3703676bc7934e8aa252bb1942",
+      "gate_pass": false,
+      "strictly_better_der": false,
+      "cases": 8,
+      "native_count_exact": 5,
+      "native_der0": 0.1898065476190476,
+      "raw": {
+        "errors": 71,
+        "reference_tokens": 533,
+        "rate": 0.13320825515947468
+      },
+      "new_asr_inference": false
+    },
+    {
+      "profile": "shift-0p5",
+      "source": "artifacts/test-results/step-04/final-native-shift-0p5",
+      "run_sha256": "e68084ddebb20eb2debacab4fe74428439fc097f064ecdd782115a22641616fe",
+      "summary_sha256": "1a08dcc65af08b9b0ed674eb8c23c50275fe22a4157de537ba1225be50d98d85",
+      "gate_pass": false,
+      "strictly_better_der": false,
+      "cases": 8,
+      "native_count_exact": 4,
+      "native_der0": 0.2422109962406015,
+      "raw": {
+        "errors": 71,
+        "reference_tokens": 533,
+        "rate": 0.13320825515947468
+      },
+      "new_asr_inference": false
+    }
+  ],
+  "retained": {
+    "candidate": "C2-eres2net-sd030-average-small-tau036",
+    "window_shift": 0.1,
+    "min_duration_off": 0.5,
+    "dev_native_count_exact": 7,
+    "dev_cases": 8,
+    "dev_native_der0": 0.18298480576441103
+  },
+  "independent_audit": {
+    "path": "final-native-parameter-audit.json",
+    "status": "PASS",
+    "checks": 3648,
+    "sha256": "f6fc054fe0cb725bf5f116bc51511618e71244892abeb2ff57ebde44d2f057c1"
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "profile": "auto-0p50",
+  "thresholds": [
+    0.3,
+    0.35,
+    0.4,
+    0.45,
+    0.5,
+    0.55,
+    0.6,
+    0.65,
+    0.7,
+    0.75,
+    0.8,
+    0.85,
+    0.9,
+    0.95
+  ],
+  "split": "dev",
+  "stages": [
+    "baseline",
+    "refined"
+  ],
+  "refiner_config": {
+    "merge_threshold": 0.85,
+    "max_speakers": 8,
+    "min_cluster_ms": 2000,
+    "min_cluster_fraction": 0.03,
+    "smooth_ms": 500,
+    "merge_similar": true,
+    "use_eigengap": true,
+    "reassign_small": true,
+    "smooth": true,
+    "complete_link_guard": false,
+    "minimum_reassignment_similarity": 0.7,
+    "small_missing_centroid_policy": "temporal"
+  },
+  "cases": null
+}

@@ -105,3 +105,93 @@ Context600 прошёл primary quality gates: original dev71/533 raw и16/532 n
 ## 2026-11-07T02:21:22+03:00 — пункт 3: проверки завершены, готовится Git
 
 ASR opt-in delivery: host-quality и native quality/port PASS,125Python/111JVM, All-in-One/debug/test APK/static PASS, UI2/2 за18,633s после test-only ожидания появления второго chooser перед Back. Attempt1 (1/2) сохранён, mainAPK побайтово прежний353147c… . UI-export обеих JSON-схем, automatic/manual и фактический nativeJury5 contractPASS. Legacy текущегоAPK наdev01RTF4,739 vsword4,605, обеSD~219/217с vsисторические50,7с; причина не установлена, ускорение не заявляется. acceptance.json допускает opt-in ASR, но full_pipeline_accepted=false; defaultv16, targets diar/time/speed открыты. НовыйAPK305347754B SHA048c42fd1ad6f48db10c90583baae3a94ad389ef4e6a9dbb50535879b442ae9d, прежниеAPK и signer сохранены. Веса/скорер/decoder/baseline helper не изменились. Новая исходная поставка содержит все dev-trials, отдельный reserve, refs/hypotheses/metrics/CSV; secrets/weights/native/APK внеGit. C не начинался.
+
+## 2026-11-07T02:36:02+03:00 — пункт3 опубликован, начат пунктC
+
+D commit60b6743, PR3 merged6e6a35a; prerelease hack-step03-20261107 иGitHubdigest APK048c42fd… проверены. Обычныйsource-defaultv16, full_pipeline_accepted=false. Теперь веткаC: officialembeddingcatalog/weights внеGit, fixed-K исследование затемauto иrefiner. КодAndroid пока прежний. Baseline/scorer/decoder/ASRwordpolicy frozen; реальныеrefs/hypotheses сохраняются.
+
+
+## 2026-11-07T02:49:18+03:00 — C: шесть моделей доступны, fixed-K идёт
+
+Все6точных ONNX проверены SHA/размером и загрузкой в sherpa2.0.1;227082991B новых весов внеGit. CAM++LM имеет явный нерешённый конфликт лицензий источников. Новый refiner:30тестов+360случайных инвариантных проверок PASS, без model inference. Проекция13сохранённых token outputs воспроизводит JuryJSON иrawWERпобайтово/по метрикам. Первые2preflight failures (нет reference_sha256 в исходном manifest) сохранены доNN; runner использует независимый ref hash из зафиксированногоASRrun. Fixeddev8 ERes: nativeDER0proxy27,469%, exactcount4/8;ResNet34:30,210%,5/8. Это oracle-исследование, не автоматическая приёмка. Следующие4эмбеддера выполняются максимум2процессами; всеactual turns/refs/hyps/metrics/CSV сохраняются.
+
+
+## 2026-11-07T03:00:33+03:00 — C: fixed6/dev8 завершён, auto/refinement идут
+
+48 actual fixedSD cases сохранены. DER0proxy: ERes27,469%, ResNet34 30,210%, CAMPPlus46,860%, CAM++LM50,206%, TitaSmall29,845%, TitaLarge40,269%. Derived fixedV1.6 comparison с настоящим mono bypass26,885% (не новый inference); devgate максимум28,885% и>=7/8 точных counts. 187 Python contracts/scorer/refiner tests PASS, summary/log в step-04/python-checks. Auto-grid двух первых моделей реально выполняется; остальные4следом, полныйgrid672case-profile pairs. Дополнительно краткий1thread embedding-only collector извлёк232реальных clean-window vectors из сохранённых Dturns: SD/ASRне повторялись, nullRTF и originalsource-metrics сохранены. Его временный третийпроцесс при2SDworkers использовал измеренный RAM reserve~2,5GB; скорость алгоритма по этим concurrenttimes не сравнивается. Full dev14tau×2missingpolicies baseline-refiner выполняется; первый singlecase smoke явнонеgate. APK/sourceAndroid/скорер/ASR/decoder прежние; никаких LLM/Lite/landing. Рабочая веткаC пока без новогоcommit, HEAD6e6a35a.
+
+
+## 2026-11-07T03:01:52+03:00 — C: первая полная refiner-проверка dev8 не принята
+
+Из232реальных clean-window embeddings базовых Dturns проверены14tau×2missing-policy, каждый вариант на всех8dev. Все224refined case projections сохранилиrawWER71/533; failures0, NN SD/ASRне повторялся. Лучший DER0retain27,689% (tau0,35, exactK2/8), temporal27,213% (tau0,35, exactK3/8); baseline43,157%. Максимум exactcount по всемуgrid4/8retain,5/8temporal, меньшеобязательных7/8. GateFAIL, Androidнепереносится. Исходные turns/refined turns/refs/hypotheses/diagnostics/CSV и метаданные source→D связей сохранены в refine-baseline-retain/temporal. Настоящие SDautomaticgrids продолжаются, в том числе низкийdistance threshold для overclustering; промежуточный singlecase успех не выдаётся заобщуюприёмку.
+
+
+## 2026-11-07T03:30:01+03:00 — C: первый devgatePASS, независимые validations идут
+
+ResNet34LM SDthreshold0,50/shift0,1 +centroidrefinerτ0,70/minsmallcos0,70/temporalpolicy прошёл independent dev8 audit:7/8count(87,5%), nativeDER026,550360% vsfixedV1.6 26,885182%, cpWER227/533=42,5891%, rawWER71/533безизменений. Аудит `acceptance-resnet34-050-temporal-guard0p7/tau-0p7.json`, sourceintegrityerrors0. Provisionalcandidate зафиксирован ДО новойконтрольнойпроверки в candidate-c1-validation-freeze.json; это не Android/finalpipeline acceptance. ActualnewSD+embeddingwindowinference наoriginalholdout5завершилась: nativeDER020,299685%, count3/5, raw49/444 (ASRсохранённыйD). Reserve10ещёидёт; policyнеподбираетсяпоholdout.
+
+ВсеC1CAMP/CAM.30/.50 refinements(896cases) FAIL: пример count-onlyложноговывода CAMP7/8приDER49,38% не проходит28,89%. WindowC2 matrices(включая1232ownedcaseoutputs+baseline448+ResNet030112) тожеjointgateFAIL: лучшийnearERes030average-smallτ0,35 —6/8,DER23,72%,cpWER38,65%; используетсякакresearch, неAndroid. ERes/ResNetnativeautomaticgridsCOMPLETE112каждый; CAMP/CAM/TitaSmallтожеCOMPLETE, TitaLargeещёсчитает. ВсеNNиsavedпроекции, refs/hyps/metrics/CSV сохранены. Готовится отдельный fullactualhostpipelineC, базовыеpipeline.py/pipeline_words.py/скорер/decoderиAndroidпока неизменны.
+
+
+## 2026-11-07T03:39:40+03:00 — C: nativegrid6×14 завершён, validations numericPASS
+
+Все672actualSDcase-profile pairs (6моделей×14порогов×8dev) COMPLETE. Independentnativeaudit84profiles: integrity/full8/raw71/533PASSвезде; ни одинplainnativeprofile не проходитсовместныеCcriteria. C1refinerResNetguard0,7 остаётсяпервымdevPASS7/8/DER26,55%. Actualoldholdout5 иreserve10 SD+cleanvectors COMPLETE; послеfrozenrefiner nativeDER20,299685%/29,235934%, exact3/5и3/10 противV1.6 2/5и1/10; nativebaselineDER51,545723%/47,659076%. Raw49/444и83/743сохранённыеD, противbaseline73/444и135/743. Формальныйsource/replay/cohortaudit ещёготовится, fullactualASRpipelineC ещёнепрогонялся.
+
+ShiftA/Bactual16cases завершён:0,25 tinyDERregress+0,067747п.п.,0,5count6/8; обанеpromoted. Кандидатshift0,1 неизменён. ВсеNNсейчасзавершены; идутpure Tita refinements, новыеhostpipeline/tests иexternalKotlindraft. MainAndroidкод/lock/пакеты/рабочийAPK не менялись, веткаCнезакоммичена до полногоэтапа.
+
+
+## 2026-11-07T04:41:43+03:00 — C2 выбран и проверен на host, Android-сборка идёт
+
+Fine dev protocol21tau0,25..0,45 был заморожен до результатов. C2 EResSD0,30/shift0,1 +windowHC averageτ0,36/reassign-small прошёлdev7/8, nativeDER018,298481%, cpWER146/533; выбран один глобальный профиль без per-file параметров. Формальные separate holdout/reserve gates PASS: K4/5 и5/10, nativeDER013,889566% и22,439619%, raw49/444 и83/743. candidate-c2-validation-freeze.json и configs/eval/c2-window-selected-* фиксируют выбор; прежние C1/неудачные C2 trials сохранены.
+
+Новый полный actual VAD/SD/clean-embedding/HC/GigaAM C2 прогон COMPLETE13+10: original raw120/977, reserve83/743; dev71/533 иnormalized16/532. CachedASR не подставлялся в full run. Независимый full23 equivalence audit дополняется. C1 full23 иего3321checksPASS тоже сохранены как исследование/fallback, ноResNetвеса вAndroid не добавляются: C2 использует прежний семифайловый pack1.5.
+
+PureKotlinC2:157differential(включая23actualcases), exactturn/IDs/accepted безрасхождений; C1helper274parity, adapter10, QAencoder14 изолированных JVMtestsPASS. SciPyBSDlicense включена для faithful NN-chain tie handling. Исправлен найденный до APK интеграционный дефект BigInteger JSON с тестом реального refinerdiagnostic. WorkerпередASR проверяет release native resources; оригинальный PCM безgain/padding; полныеvectors толькоboundedQA-sidecar внеRoom. C2/context600 opt-in Gradle JVM/All-in-One/debug/test сборка выполняется, instrumentation дополнен явным evalDiarPlan/sidecar SHA+size+identity/count checks. Android inference/приёмка ещё не выполнены; обычныеdefaults/историческиеmanualзадания и сохранённыеV1.6/DAPK сохранены. НизкийWER~3% означает ошибки, неуспех; резервныйcount5/10 остаётся реальным ограничением.
+
+
+## 2026-11-07T04:49:21+03:00 — C2 APK собран, 170 JVM + UI2 PASS
+
+Gradle завершён за5m14s:170JVM/0fail/0skip, All-in-One/debug/androidTest собраны. StaticARM64 pack/7models/ELF/ZIP alignmentPASS, signer прежнийf4039935… . Новыйcandidate APK305476189B, SHA6a73427638ccd3e1e04e725d1080d604c5941d571e796544c1fa2733f4f965fd сохранён отдельно вrelease/REPLIKA-Hack-Step04-C2-AllInOne-arm64.apk, пока runtimeAccepted=false. V1.6fallback иD APK зановоSHAпроверены. Сборки/JVMXML/logs/SHA/sourcefingerprint: step-04/build-c2-v1; Gradledaemonостановлен передAndroid.
+
+Наexplicit emulator-5556 установленC2debug/test поверхпрежнего безwipe. UIattempt1:2FAIL«NoCompose»; dumpsys подтвердилmWakefulness=Asleep/isSleeping=true. Послеwake+temporary-stayon безизмененияAPK повтор2/2PASS10,327s: JuryJSONиdiagnosticJSON черезUI, automaticdefault/manualchoices; исходнаяdisplaysettingвосстановлена. Обаattemptсохранены(ui-v1/ui-v2). Это controlledUIfixture безNN, некачествоC2.
+
+НезависимыйfullC2audit3164checks/23casesPASS: exactJuryJSON/ASRtokens+timestamps/turns/749actualvectors/refinerdiag/coremetrics;23SD,130ASRforwards,4681tokens,1685wordproxies,749embeddingforwards. Векторные иwordsidecars дляactualAndroid10caseunion(DEV8+fixed5, пересечение3) сейчас готовятся строгимcollector. Ошибку первоначального подсчёта11 исправилидо запуска; фиксированнаяпятёркаиgateнеизменны. C2actualAndroidNN ещёне запускался.
+
+
+## 2026-11-07T05:12:55+03:00 — actualAndroid C2 smoke: NN/ASR READY, QA publication FAIL
+
+Однокейсовый explicit dev-mono-s smoke запущендляпроверкиSDK/QAпередfull10. Globalautomatic−1/context600/C2, noGTondevice. Workerполучил READY за10259ms,4actual512dimembeddings, streams4created/4released, extractor1, ресурсыдоrefiner/ASRосвобождены; C2получил1speaker. Однако Files.createLink QApublication упал AccessDeniedException; logcatподтвердил SELinuxEnforcing avcdenied{link}app_data_file. Инструментацияправильноотклонила truncated/missingQA настроке190. Стенограммаполезна/сохранена, quality/portgate этимsmokeнепройден. Полныеlogs/diag/hyp/failure вnative-c2-smoke-v1; отсутствующиеcase/sidecar pullerrors сохраненыraw, невалидируютсякакJSON.
+
+Меняем QAhelper наprivatecooperatingwritersmutex +persistentFileChannellock +targetNOFOLLOWrecheck +same-directoryATOMIC_MOVE, сохраняяfd.sync/budget/null/BigInt/nooverwrite; дополнительныйJNI не нужен. MLweights/thresholds/ASR/Workerне меняются. НовыйAPK/re-smoke/full10послеhelpertests.
+
+Collectorv1/v2mocks былиPASS, ноindependentreviewпоймал fullQA↔compactRoom иKotlinDouble2000.0↔JSONObjectinteger2000. Collectorv3исправляеттолькограницудиагностики: одинточныйnumericallowlistpathsmall_cluster_cutoff_ms, всеpolicy/clocks/countersстрогие. Добавлены4semanticcodeSHA иrawpull приnonzeroinstrumentexit. v3:36tests/read-onlyactualpreflight/reviewPASS, NNэтимcollectorещёнезапускался. IntegratedPythonv2:332PASS, artifactsretained; finalv3suitepending.
+
+NaturalAMI v2выполнил9actualSDcalls(3frozenprofiles×3relatedcrops) безASR/VAD/LID. BaselineDER67,6455/60,6465/57,9461%,counts10/13/6; C1DER43,6296/66,6114/54,8480%,K5/1/3; C2DER42,9352/49,8849/60,2255%,K6/8/5 противgold4/4/3. Это реальныеплохиеабсолютныерезультаты/третийC2regress+2,2794п.п.; онинеусредняютсясRUgate, невыдаютсязабольшуюточность, параметрыпоAMIнетюним. Pairedmic/общиеparticipants/trainingoverlapunknown сохранены. Полныйrun/refs/hyps/vectors/NNcounts/source/runtimes/CSV:natural-ami-diar-only-v2. ПервоначальныйSciPyprivateimportfail доNN0неудалён.
+
+
+## 2026-11-07T05:26:32+03:00 — APKv2 и настоящий C2 smoke PASS; full10 launcher исправляется
+
+Повторнаясборказа4m4s:173JVM/0fail/0skip,335Python, staticARM64pack/signaturePASS. Единственныйruntime-source deltaкAPKv1 — DiarizationEvidence.kt, то естьQApublication, ML/7weights/configunchanged. APK305478017B SHAa83bfe95cf7db72ddb65177a33586fdc52074a92759aa721212cc335f6b2a496 сохранён вrelease/REPLIKA-Hack-Step04-C2-v2-AllInOne-arm64.apk. Debug eec64359… установленповерхбезwipe, testAPK270692… прежний; Gradledaemonостановлен. UI2/2PASS10,812s наэтомAPK.
+
+Actualnativeonefilesmokev2PASS:6333msaudio,8331msWorker,4real512vectors, counts/releasescomplete, sidecar70224B SHAa4b4171d0350b1b347a7a1fdf6378ff7852703b70fe24ae7b08ad2985cb3750e; atomicrename+fcntl разрешеныAndroidSELinux. Независимыйfrozenv3validator воспроизвёлturn[31,6275,0]и42tokens/42timestamps→14words→literalJuryJSON exact, actualDouble2000.0/Room2000boundaryPASS. Полныйproof native-c2-smoke-v2/pure-validation.json; этоfunctional, неcorpus/quality/speed/ARMacceptance.
+
+ПервыйFULL10collector стартовалвcontext600-c2-android-v1, ноошибочнообратилсякru.replika.offline.MainActivity вместоactualru.replika.MainActivity. ОтказдоNN(inference_requested=false),installedAPKshaверифицированы,screenrestoreуспешен. ЭтоошибкаlauncherвCLI, APKне меняется; ownerправитпакетноограниченныйLAUNCHERintent. Старыйrun/log/semanticversionсохранены, повтортольковfreshv2. НеотмечаемСпринятым/Gitcommitдоactualfullgate.
+
+
+## 2026-11-07T05:33:51+03:00 — полный Android C2 действительно выполняется
+
+ПоследвухCLIlauncherfailдоNNзапускпровереннепосредственночерезexplicit ru.replika.offline/ru.replika.MainActivity(Statusok). CLIv5SHA7cc15015…/policy82af9dd… прошёл38focusedtests/read-onlyactualpreflight. Fresh Androidrun context600-c2-android-v3/session13311 RUNNING, instrumentationreportRUNNING, completed2/10. Первыйdev01получилCOMPLETE/полныйsidecar за101306мс; данныхвсегокорпусаещёнет, gatedoneнеобъявлен. APKv2/ML/refs/codefrozen, никакогоhostNN/Gradleпараллельно. SourceWIPbackup70files355098Bготов /home/egor/replika-safety/20261107T053157+0300-source; предыдущийfullWIP44306files250703620Bтакжеготов. Этоbackup,неGitcommit/acceptance. СледующаяфиксацияCтолькопослепроверкиполныхрезультатов.
+
+
+## 2026-11-07T05:45:46+03:00 — полный native10 PASS, готовится фиксация C
+
+context600-c2-android-v3 завершёнexit0/COMPLETE. ОбаgatePASS: weightedfixed5raw43/442vs44/442, Δ−0,226244п.п.≤0,5; devnativeK7/8 иDER0=0,18298480576441103 точноhost,нижеfixedV1.6+0,02. NativeDevraw70/533(однимсловомлучшеhost71), normalized16/532; perfiledev01−0,714286п.п. сохранён. Все10sidecars/wordpayloadполные,344real512vectors/56ASRchunks/2169tokens/767words,Pythonpure/word/JuryreplayPASS, allresourcesreleased/powerrestore1, inferenceoffline. Total10Worker527281ms, dev356169ms/270480audio=RTF1,3168; uncontrolledx86scope, causalускорение/ARM/phoneнеобъявляем.
+
+FinalPython337testsPASS12,011s, codehashesduringtestsunchanged; JVM173/staticARM64/signature/UI2остаютсяPASS. Nativeindependentaudit ещёпересчитывается,requirementsauditготовится. Natural9independentaudit6288checksPASS подтвердилвключаяплохиеK0/3/thirdDERregress, неqualityPASS. Gitstaging45000+source/artifactpathsидёт, бинарныевеса/APK/.so/keyвuntracked/modifiedспискенеобнаружены. Ccommit/PR/releaseтолькопослепроверкиаудитов; HEADпока6e6a35a.
+
+
+## 2026-11-07T06:14:46+03:00 — C завершил измерения и финальные проверки
+
+Дополнительныйdev-onlyпротокол43a817… доNN закрылminDurationOffиselectedC2shift.32actualSD/902cleanembeddingcalls,ASRявныйcachedD71/533. Все4вариантаполные,ноFAILquality:off0,25 K6/8 DER21,6134%;off1,0 K4/8 DER19,7999%;shift0,25 K5/8 DER18,9807%;shift0,5 K4/8 DER24,2211%. ОстаётсяC2shift0,1/off0,5/K7/8/DER18,2985%. Независимыйаудит3648checksPASSданных/replay/метрик. Ни новаяAndroidмодель,нипересборка,ниповторныйAndroidдляотвергнутыхвариантовненужны. ФинальныйPython345/0fail иcodehashstable, JVM173/UI2/build/staticостаютсяPASS.
+
+C1реализуетназванныевпланецентроиды/eigengap/малые/сглаживание,ported274parity; C2честноназванизмереннойwindowHCальтернативой,неNME-SC.32probe-followupзакрываетrecommendationcoverage,неослабляячисловыеgates. acceptance.json=PASS_FOR_EXPERIMENTAL_C2_PROFILE; full_project_accepted=false. Native10independentaudit564PASS,hostfull23audit3164PASS,natural9audit6288PASSцелостностиприK0/3. ПоследниеотчётыготовятсякодномуCcommit/PR/Release; GitHubstateпубликациибудетзафиксированотдельно,нетложногозаявленияофинальнойсдаче.

@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "id": "window-c2-selected-validation",
+  "decided_at": "2026-11-07T00:46:09.058368+00:00",
+  "scope": "Chosen frozen C2 only; explicit originalholdout/reserve regression validations, no tuning",
+  "hypothesis": "Native labels can contain heterogeneous real clean-window vectors; a merge-only centroid refiner cannot split a mixed label. Cluster measured windows first, then project labels strictly within original predicted speech activity.",
+  "source": {
+    "diar_run": "artifacts/test-results/step-04/auto-eres2net-zh",
+    "profile": "auto-0p30",
+    "asr_run": "artifacts/test-results/step-03/context600-selected-host",
+    "manifest": "benchmark/eval/manifest.json"
+  },
+  "new_neural_inference": false,
+  "gold_inputs_to_algorithm": [],
+  "initial_global_grid": {
+    "cosine_thresholds": [
+      0.36
+    ],
+    "linkage": [
+      "average"
+    ],
+    "small_cluster_reassignment": [
+      true
+    ],
+    "max_speakers": 8,
+    "assignment_grid_ms": 125,
+    "window_ms": 1500,
+    "window_step_ms": 750,
+    "min_clean_ms": 1000
+  },
+  "eigengap": "Existing measured-centroid estimate diagnostic; applying reduction is separately explicit, not claimed to implement published NME-SC",
+  "invariants": [
+    "No generated or padded embedding vectors",
+    "Native speech activity union preserved; overlap collapse reported",
+    "Actual saved ASR tokens/text order/raw WER unchanged",
+    "All8devcases mandatory; no per-file policy or expected K",
+    "Full original holdout and reserve separate regression checks before Android"
+  ],
+  "dev_gates_unchanged": {
+    "native_count_exact_minimum": 7,
+    "cases": 8,
+    "native_der_0ms_maximum": 0.2888518170426065,
+    "raw_wer": "exact saved D words; primary raw still includes punctuation/case"
+  },
+  "references": [
+    "https://docs.scipy.org/doc/scipy/reference/generated/scipy.cluster.hierarchy.linkage.html",
+    "https://docs.scipy.org/doc/scipy/reference/generated/scipy.cluster.hierarchy.fcluster.html",
+    "https://github.com/k2-fsa/sherpa-onnx/blob/af2d8d81dbfa61c4cea4c568da78f3982edca005/sherpa-onnx/csrc/offline-speaker-diarization-pyannote-impl.h"
+  ],
+  "frozen_before_outputs_at": "2026-11-07T00:46:09.058368+00:00",
+  "derived_from": {
+    "path": "configs/eval/diar-protocol-window-v1.json",
+    "sha256": "81d4d2b2a36db02b2ce982dad9721de7366daf8dac45b52c966c77b80b27f784"
+  },
+  "decision": "One prespecified global refinement of the coarse ERes030 average+small result around tau0.35. All21uniform values are run on all8dev; no per-case settings and no expansion after this bounded experiment.",
+  "coarse_observation": {
+    "tau": 0.35,
+    "exact_cases": 6,
+    "cases": 8,
+    "native_der0": 0.23723370927318296,
+    "cpwer_raw": 0.38649155722326456
+  },
+  "stopping_rule": "Run this finite21-value dev-only matrix once. Report the unchanged numeric joint gate and minimum DER. If none passes, stop; do not expand further or open holdout.",
+  "selection_before_any_holdout": [
+    "Only complete8/8, all helper supported and literal/raw ASR invariance",
+    "Require native exact count>=7/8 and nativeDER0<=the unchanged fixed-V1.6+2pp bound",
+    "Among passing global profiles choose lower nativeDER0, then lower cpWERraw, then simpler/lower tau when tied"
+  ],
+  "candidate_freeze_sha256": "2e81175388b45d204554d0c95eca27ba3a2a09b2c9d62dbfdd9a0bc60f360409"
+}

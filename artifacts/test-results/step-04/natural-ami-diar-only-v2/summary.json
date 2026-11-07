@@ -1,0 +1,83 @@
+{
+  "profiles": {
+    "legacy-v16": {
+      "cases": 3,
+      "speaker_count_exact_cases": 0,
+      "refiner_applicable_cases": 0,
+      "refiner_supported_cases": 0,
+      "unsupported_case_ids": [],
+      "audio_ms": 180000,
+      "processing_ms": 23058.725735,
+      "der_collar_0ms": {
+        "miss_ms": 37931.0,
+        "false_alarm_ms": 14139.0,
+        "confusion_ms": 53417.0,
+        "reference_speaker_ms": 166420.0,
+        "rate": 0.6338601129671915
+      },
+      "der_collar_250ms": {
+        "miss_ms": 28818.0,
+        "false_alarm_ms": 9964.0,
+        "confusion_ms": 40102.0,
+        "reference_speaker_ms": 133480.0,
+        "rate": 0.5909799220857057
+      },
+      "host_rtf": 0.1281040318611111
+    },
+    "c1-centroid": {
+      "cases": 3,
+      "speaker_count_exact_cases": 1,
+      "refiner_applicable_cases": 3,
+      "refiner_supported_cases": 3,
+      "unsupported_case_ids": [],
+      "audio_ms": 180000,
+      "processing_ms": 22146.277627,
+      "der_collar_0ms": {
+        "miss_ms": 45743.0,
+        "false_alarm_ms": 9614.0,
+        "confusion_ms": 36319.0,
+        "reference_speaker_ms": 166420.0,
+        "rate": 0.5508712895084725
+      },
+      "der_collar_250ms": {
+        "miss_ms": 34910.0,
+        "false_alarm_ms": 6482.0,
+        "confusion_ms": 27516.0,
+        "reference_speaker_ms": 133480.0,
+        "rate": 0.5162421336529818
+      },
+      "host_rtf": 0.12303487570555555
+    },
+    "c2-window": {
+      "cases": 3,
+      "speaker_count_exact_cases": 0,
+      "refiner_applicable_cases": 3,
+      "refiner_supported_cases": 3,
+      "unsupported_case_ids": [],
+      "audio_ms": 180000,
+      "processing_ms": 27857.289194,
+      "der_collar_0ms": {
+        "miss_ms": 42383.0,
+        "false_alarm_ms": 11091.0,
+        "confusion_ms": 26580.0,
+        "reference_speaker_ms": 166420.0,
+        "rate": 0.48103593318110804
+      },
+      "der_collar_250ms": {
+        "miss_ms": 31942.0,
+        "false_alarm_ms": 7450.0,
+        "confusion_ms": 19060.0,
+        "reference_speaker_ms": 133480.0,
+        "rate": 0.43790830086904403
+      },
+      "host_rtf": 0.15476271774444444
+    }
+  },
+  "scope": "Separate natural-meeting diarization diagnostic: EN2002a headset/array share a reference; EN2002a/c share participants; training overlap unknown. Not independent splits, English ASR task E, Android/phone timing, a new dev gate or corpus-general acceptance.",
+  "acceptance_gate": null,
+  "candidate_selection": null,
+  "related_sample_warning": "Weighted channel-time descriptions only; EN2002a is counted twice by microphone, not as two independent conversations",
+  "status": "COMPLETE",
+  "profile_cases": 9,
+  "new_asr_inference": false
+}

@@ -53,3 +53,44 @@ Host canonicaldecoder исправлен под productionAudioDecoder без и
 ## 2026-11-07T02:21:22+03:00 — пункт 3: граница приёмки и стабильный default
 
 Context600 допускается как явный экспериментальный ASR-профиль после отдельного old-holdout/reserve и actual native5 gates. Обычная сборка по-прежнемуv16; кандидат APK — opt-in prerelease. Полная приёмка word timing/automatic diarization/speed не достигнута и не подменяется низким WER. Current-APK legacy контроль воспроизводит медленную обработку; причина отличия от исторического замера не установлена, поэтому ускорение/телефонные показатели не заявляются. UI timeout исправлен только событийным ожиданием второго системного chooser; mainAPK неизменён, первыйFAIL сохранён. Следующая очередь — C, без перехода к LLM/Lite/лендингу до core acceptance.
+
+
+## 2026-11-07T02:49:18+03:00 — пункт C: протокол до automatic sweep
+
+Критерии и порядок выбора фиксируются в `configs/eval/diar-protocol.json` до открытия auto-grid. Fixed-K — только oracle-исследование, по фактическим actor labels; auto/refiner не получают gold K/текст. Для сравнения с fixed-режимом V1.6 отдельно учитывается его настоящий single-speaker bypass; исследовательский fixed-run вызывает SD даже при K=1. Реальные ASR tokens/times пункта D повторно проецируются на новые turns; это сохранённый ASR, а не новый проход GigaAM. Полное совпадение raw WER обязательно. Для порогов SD нет публичного neural-cache: каждый process — новый neural pass. Частичная нехватка clean-window embeddings явно диагностируется; temporal fallback мелких кластеров — отдельный глобальный профиль, без выдуманного акустического сходства. Прежний holdout и reserve проверяются независимо и называются regression validations. Android до прохождения gates прежний.
+
+
+## 2026-11-07T03:09:31+03:00 — C2: окна как исходные кластеры, без переноса в Android
+
+C1dev8не достигает7/8counts при любом из28профилей. Дополнительно различаем две причины: агрессивное объединение и исходный mixednativecluster. Напримерdev03имеет большойlabel0с15реальными окнами иочень неоднородной геометрией; averagingодногоцентроида теряет этиразличия. Никакой merge-only алгоритм не разделит ужеобъединённые голоса. В рамках overcluster-then-merge проверяем вариант «одно измеренное окно = исходный кластер», затем глобальная cosineHC и голосование внутри исходнойпредсказанной speech activity. Gridиограничения до новых результатов фиксируются в `configs/eval/diar-protocol-window-v1.json`. Это проверяемая гипотеза, не доказательство голосовыхидентичностей изгеометрии. СтарыеC1FAIL сохраняются; primaryWER,7/8counts иDERgate неослабляются, holdoutещёнеоткрывался дляC. Новые границы — proxyизокон, неforcedalignment.
+
+
+## 2026-11-07T03:19:28+03:00 — C: защитное переназначение мелких кластеров на новой модели
+
+Уже заданные C2 min-sim guards0,3/0,5/0,7 проверялись наEResbaseline. ResNet34LM наactualSDthreshold0,50 иtau0,70 даёт6/8counts при26,724%nativeDER0: накороткомdev реальный measuredмалыйкластер переноситсяприcos0,57993 из-заправила2сек. Проверяем теже глобальныеguards наResNet34LM, без новых per-file порогов и без открытияholdout. Это dev-only перенос заранееописанного семейства междуэмбеддерами, старыеFAIL сохраняются. Все14tau исохранённыеASRwords оцениваютсянаполнойвосьмёрке; gate7/8+DERнеослаблен.
+
+
+## 2026-11-07T03:39:40+03:00 — C: shift A/B не принят, исходный0,1 остаётся
+
+Actualdev8ResNetC1 SDshift0,25 даёт7/8counts иDER026,618108% противselected0,1=26,550360% (+0,067747п.п.); shift0,5 даёт6/8 и26,272321%. Всеwordoutputs raw71/533неизменны. По условию плана «DERнерастёт»0,25 не принимается, допускзаднимчисломне добавляем;0,5 не проходитcount7/8. Это не новыйподборпоholdout. SelectedC1дляполногоhost/Android остаётсяshift0,1. Скоростьпараллельныхпрогонов невыдаётсязаwholepipelineускорение.
+
+
+## 2026-11-07T04:41:43+03:00 — C2 preferred, C1 retained, границы Android-переноса
+
+Выбран C2window-overcluster-v1 на исходном ERes2Net вместо добавленияResNet34вAPK: его зафиксированный dev-профиль улучшаетDER и отдельные previously-seen regression cohorts без измененияASRwords; веса/7-filemanifest/pack1.5 прежние. C1не удаляется. Точныеτ0,36/average/smalltrue параметры одни на всеinputs; manualK/mono иWorkDataбезновогоключа остаютсяlegacy. ОбычныеGradledefaults v16; C2требуетexplicitbuild/workrequest иASRcontext600.
+
+Качествоhost иpureKotlinparity не заменяютactualAndroidML. Следующийgate использует productionWorker, реальные512dimembeddings вprivateboundedQAfile, SHA/record/work/input/model/policy checks иPythonreplay; refs/K не передаютсяAndroid. WERportgate0,5п.п. считается только по пользовательской fixedfive, dev8count/DER отдельно. Nativefloatpolicy сравниваетсяFloat32bits, windowHCτ — точныйDouble, чтобыне вводитьширокийepsilon. Сначала coreAndroidacceptance; LLM/Lite/landing отложены. Статус Cбезcommit до завершенияпроверок; полныеwordtiming/speed/ARMtargets остаютсяоткрытыми.
+
+
+## 2026-11-07T05:13:32+03:00 — QA-публикация на Android и независимая natural-диагностика
+
+ActualAndroid доказал, что наличие Files.createLink вAPI26 не гарантирует разрешениеSELinux: untrusted_app получилavcdenied{link}вownapp_data_file. МеняемтолькоQAпубликацию наmutex+персистентныйFileChannel lock+NOFOLLOWrecheck+same-diratomicrename; tempfd.sync иотказприexistingtarget/unsupportedatomicmoveсохраняются. Это гарантиядляcooperatingprivatewriters helper, неложноеутверждениеозащитеотroot/несотрудничающегокода. Нельзяunlinklockfileпослезакрытия: другойпроцессмогбыдержатьoldinode. ОсновнойML/модели/флаги прежние; новыйAPKнужнопроверитьнаactualAndroid.
+
+NaturalAMIthree-cropdiagnostic неиспользуетсядлятюнинга/выборановогопорога. ВыявленныеC2wrongKво3случаях иDERregressвтретьемсохраняютсяявно. Это ограничиваетобобщениеRUmontagegates иоставляетC2экспериментальным; нельзяобъявить87,5%качествоместественногодиалога. Основнойcoreacceptance/timing/speed/ARMпо-прежнемуоткрыт; LLМ/Lite/landingнепереходятвкритическийпуть.
+
+
+## 2026-11-07T06:14:46+03:00 — окончательный выбор C2 и границы приёмки C
+
+ВыборконтрольногоC2сохранёнпосле4дополнительныхполныхdevпрофилей: отдельноеизменениеminOffилиshiftухудшаетиK,иDER, при неизменённыхASRwords. Сохраняемshift0,1/minOff0,5,неподбираемпараметрыпоholdout/AMI. ПодтверждённыегейтыC:8dev>=7точныхK/DER<=fixedV1.6+2п.п.,separatehostvalidations,nativefixed5WER<=0,5п.п.,realnativevector/wordreplay. Общиеword-time/скорость/ARM/E/F/сдача этимнезакрываются.
+
+Планпрямотребуетреализациюeigengap; C1Python/Kotlinиабляцияэтоисполнили. C2выбранкакизмереннаяальтернативасaverage-windowHC,аегоeigengapтолькодиагностический. НельзяназыватьC2NME-SCиливыдаватьK7/8намаломмонтажномнаборезакачествонатуральныхвстреч:AMI0/3/thirdDERregressостаютсявотчёте. Обычнаясборка/history/manuallegacyсохранены, кандидатAPKявнозафлагом.

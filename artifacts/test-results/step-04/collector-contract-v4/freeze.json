@@ -1,0 +1,39 @@
+{
+  "frozen_at": "2026-11-07T02:26:41.822859+00:00",
+  "version": 4,
+  "supersedes": {
+    "source_snapshot": "/home/egor/replika-toolchain/logs/c2-collector-v3",
+    "reason": "Package applicationId ru.replika.offline differs from Activity namespace ru.replika. Use package-scoped MAIN/LAUNCHER intent, no inferred component class. Failed original Android10 batch retained separately, inference_requested=false."
+  },
+  "tests": 37,
+  "tests_pass": true,
+  "preflight": "PASS exact10 originalhost13/old7weights",
+  "negative_preflight_returncode": 1,
+  "output_created": false,
+  "no_adb_no_nn_no_gradle": true,
+  "ml_policy_changed": false,
+  "launcher_argv": [
+    "shell",
+    "am",
+    "start",
+    "-W",
+    "-a",
+    "android.intent.action.MAIN",
+    "-c",
+    "android.intent.category.LAUNCHER",
+    "-p",
+    "ru.replika.offline"
+  ],
+  "collector_semantic_sources": {
+    "tools/eval/pull_refined_android.py": "4c51707ee6972a1d469e64711b2f106e2f00348c6de3157db7f344a85176fc7c",
+    "tools/eval/native_diar_policy.py": "82af9dd27356ac4b84f3793404b55d4515fbdd0ebcd19ab17758199273034609",
+    "tools/eval/native_policy.py": "b6d7fd2de6a7ca7f1776de9fa3924c623918709e0358977bae059569ef4da36b",
+    "tools/eval/port_comparison.py": "8705abd0f4696520047032020f19069308b343008af3d7ed976b895c62e398c4"
+  },
+  "files": {
+    "tools/eval/native_diar_policy.py": "82af9dd27356ac4b84f3793404b55d4515fbdd0ebcd19ab17758199273034609",
+    "tools/eval/pull_refined_android.py": "4c51707ee6972a1d469e64711b2f106e2f00348c6de3157db7f344a85176fc7c",
+    "tools/eval/tests/test_native_diar_policy.py": "37147d9f9f0612606be70cbc5b63296900f81317f750bc16138494d19e4ae639",
+    "tools/eval/tests/test_pull_refined_android.py": "9a0612cfdc8b6b19157dda740464b02538b1de78fc0672c9e6946313f4feb78e"
+  }
+}

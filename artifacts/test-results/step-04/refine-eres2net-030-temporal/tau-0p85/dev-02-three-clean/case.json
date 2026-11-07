@@ -1,0 +1,525 @@
+{
+  "id": "dev-02-three-clean",
+  "split": "dev",
+  "profile": "tau-0p85",
+  "source_profile": "auto-0p30",
+  "stage": "refined",
+  "threshold": 0.85,
+  "audio_sha256": "54dd41aa60e05602adcebc10d38a3a4f1cb2cf3ebdcc014d46a1387fbcc8a040",
+  "reference_sha256": "0900022595d73de02b3c7459f85a37b39e37ac5cb455e7ee8827399097e01256",
+  "duration_ms": 59280,
+  "diarization_inference_ms": 0.0,
+  "refiner_only_ms": 104.35777000020607,
+  "refiner_accepted": true,
+  "native_speaker_count": 8,
+  "reference_speaker_count": 3,
+  "native_speaker_count_error": 5,
+  "metrics": {
+    "schema_version": 1,
+    "protocol": {
+      "primary_metric": "wer_raw",
+      "rate_units": "fraction; null for an undefined denominator",
+      "raw_wer": "whitespace tokens; exact case, attached punctuation, ё and numeric spelling; rows ordered by start_ms/end_ms",
+      "edit_ties": "diagonal (match/substitution), then deletion, then insertion",
+      "normalized": "NFC lowercase, ё→е, non-letter/non-number characters become spaces; CER removes spaces",
+      "punctuation": "micro F1 for . , ? ! — : anchored to preceding equal lexical token after normalized alignment; BEGIN anchor before first token; substitutions/insertions do not match anchors",
+      "initial_case": "first cased letter of each reference segment, aligned by normalized lexical word; unmatched initials count incorrect; conditional_accuracy excludes unmatched",
+      "der": "full recording [0,duration_ms], overlap included, optimal global speaker permutation reoptimized after collar exclusion; collar total width ±half around each reference boundary",
+      "cpwer": "minimum sum of Levenshtein costs over speaker-concatenated streams, padded empty streams for unequal counts; raw and normalized",
+      "timing": "global one-to-one maximum-total temporal IoU matching of positive-duration segments; only positive-IoU pairs; text/speaker independent; granularity-dependent"
+    },
+    "inputs": {
+      "reference_segments": 9,
+      "hypothesis_segments": 10,
+      "duration_ms": 59280,
+      "processing_ms": null,
+      "reference_blank_text_segments": 0,
+      "hypothesis_blank_text_segments": 0,
+      "reference_zero_duration_segments": 0,
+      "hypothesis_zero_duration_segments": 0
+    },
+    "wer_raw": {
+      "rate": 0.11864406779661017,
+      "errors": 14,
+      "substitutions": 13,
+      "deletions": 1,
+      "insertions": 0,
+      "correct": 104,
+      "reference_tokens": 118,
+      "hypothesis_tokens": 117,
+      "status": "ok"
+    },
+    "wer_punctuation_tokens": {
+      "rate": 0.09554140127388536,
+      "errors": 15,
+      "substitutions": 10,
+      "deletions": 3,
+      "insertions": 2,
+      "correct": 144,
+      "reference_tokens": 157,
+      "hypothesis_tokens": 156,
+      "status": "ok"
+    },
+    "wer_normalized": {
+      "rate": 0.01680672268907563,
+      "errors": 2,
+      "substitutions": 1,
+      "deletions": 1,
+      "insertions": 0,
+      "correct": 117,
+      "reference_tokens": 119,
+      "hypothesis_tokens": 118,
+      "status": "ok"
+    },
+    "cer_normalized": {
+      "rate": 0.0032679738562091504,
+      "errors": 2,
+      "substitutions": 0,
+      "deletions": 2,
+      "insertions": 0,
+      "correct": 610,
+      "reference_tokens": 612,
+      "hypothesis_tokens": 610,
+      "status": "ok"
+    },
+    "wer_number_normalized": {
+      "rate": 0.01680672268907563,
+      "errors": 2,
+      "substitutions": 1,
+      "deletions": 1,
+      "insertions": 0,
+      "correct": 117,
+      "reference_tokens": 119,
+      "hypothesis_tokens": 118,
+      "status": "ok",
+      "available": true,
+      "language": "ru",
+      "reference_integer_tokens_converted": 0,
+      "hypothesis_integer_tokens_converted": 0,
+      "scope": "cardinal integers after lexical normalization; dates/times/percent/ordinals are not semantically interpreted"
+    },
+    "punctuation": {
+      "true_positive": 26,
+      "false_positive": 9,
+      "false_negative": 7,
+      "reference_marks": 33,
+      "hypothesis_marks": 35,
+      "precision": 0.7428571428571429,
+      "recall": 0.7878787878787878,
+      "f1": 0.7647058823529411,
+      "marks": [
+        ".",
+        ",",
+        "?",
+        "!",
+        "—",
+        ":"
+      ],
+      "by_mark": {
+        ".": {
+          "true_positive": 10,
+          "false_positive": 4,
+          "false_negative": 4,
+          "reference_marks": 14,
+          "hypothesis_marks": 14,
+          "precision": 0.7142857142857143,
+          "recall": 0.7142857142857143,
+          "f1": 0.7142857142857143
+        },
+        ",": {
+          "true_positive": 15,
+          "false_positive": 2,
+          "false_negative": 1,
+          "reference_marks": 16,
+          "hypothesis_marks": 17,
+          "precision": 0.8823529411764706,
+          "recall": 0.9375,
+          "f1": 0.9090909090909091
+        },
+        "?": {
+          "true_positive": 1,
+          "false_positive": 0,
+          "false_negative": 0,
+          "reference_marks": 1,
+          "hypothesis_marks": 1,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "!": {
+          "true_positive": 0,
+          "false_positive": 1,
+          "false_negative": 2,
+          "reference_marks": 2,
+          "hypothesis_marks": 1,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "—": {
+          "true_positive": 0,
+          "false_positive": 2,
+          "false_negative": 0,
+          "reference_marks": 0,
+          "hypothesis_marks": 2,
+          "precision": 0.0,
+          "recall": null,
+          "f1": 0.0
+        },
+        ":": {
+          "true_positive": 0,
+          "false_positive": 0,
+          "false_negative": 0,
+          "reference_marks": 0,
+          "hypothesis_marks": 0,
+          "precision": null,
+          "recall": null,
+          "f1": null
+        }
+      },
+      "aligned_lexical_words": 117,
+      "reference_lexical_words": 119,
+      "hypothesis_lexical_words": 118
+    },
+    "initial_case": {
+      "accuracy": 1.0,
+      "conditional_accuracy": 1.0,
+      "correct": 9,
+      "reference_initials": 9,
+      "aligned_reference_initials": 9,
+      "unmatched_reference_initials": 0
+    },
+    "der_collar_0ms": {
+      "rate": 0.50224335965542,
+      "miss_ms": 7270.0,
+      "false_alarm_ms": 350.0,
+      "confusion_ms": 20365.0,
+      "error_speaker_ms": 27985.0,
+      "reference_speaker_ms": 55720.0,
+      "evaluated_duration_ms": 59280.0,
+      "excluded_duration_ms": 0.0,
+      "reference_overlap_ms": 0.0,
+      "collar_ms": 0,
+      "collar_half_width_ms": 0.0,
+      "mapping_hypothesis_to_reference": {
+        "speaker_4": "speaker_1",
+        "speaker_5": "speaker_2",
+        "speaker_6": "speaker_3"
+      },
+      "status": "ok"
+    },
+    "der_collar_250ms": {
+      "rate": 0.4794277164765289,
+      "miss_ms": 5372.0,
+      "false_alarm_ms": 100.0,
+      "confusion_ms": 20163.0,
+      "error_speaker_ms": 25635.0,
+      "reference_speaker_ms": 53470.0,
+      "evaluated_duration_ms": 54920.0,
+      "excluded_duration_ms": 4360.0,
+      "reference_overlap_ms": 0.0,
+      "collar_ms": 250,
+      "collar_half_width_ms": 125.0,
+      "mapping_hypothesis_to_reference": {
+        "speaker_4": "speaker_1",
+        "speaker_5": "speaker_2",
+        "speaker_6": "speaker_3"
+      },
+      "status": "ok"
+    },
+    "speakers": {
+      "reference": 3,
+      "hypothesis": 8,
+      "signed_error": 5,
+      "absolute_error": 5
+    },
+    "cpwer_raw": {
+      "errors": 111,
+      "substitutions": 10,
+      "deletions": 51,
+      "insertions": 50,
+      "correct": 57,
+      "reference_tokens": 118,
+      "hypothesis_tokens": 117,
+      "rate": 0.940677966101695,
+      "status": "ok",
+      "speaker_pairs": [
+        {
+          "reference_speaker": "speaker_1",
+          "hypothesis_speaker": "speaker_4",
+          "errors": 22,
+          "reference_tokens": 43,
+          "hypothesis_tokens": 23
+        },
+        {
+          "reference_speaker": "speaker_2",
+          "hypothesis_speaker": "speaker_2",
+          "errors": 23,
+          "reference_tokens": 35,
+          "hypothesis_tokens": 13
+        },
+        {
+          "reference_speaker": "speaker_3",
+          "hypothesis_speaker": "speaker_6",
+          "errors": 16,
+          "reference_tokens": 40,
+          "hypothesis_tokens": 31
+        },
+        {
+          "reference_speaker": null,
+          "hypothesis_speaker": "speaker_8",
+          "errors": 6,
+          "reference_tokens": 0,
+          "hypothesis_tokens": 6
+        },
+        {
+          "reference_speaker": null,
+          "hypothesis_speaker": "speaker_3",
+          "errors": 9,
+          "reference_tokens": 0,
+          "hypothesis_tokens": 9
+        },
+        {
+          "reference_speaker": null,
+          "hypothesis_speaker": "speaker_7",
+          "errors": 9,
+          "reference_tokens": 0,
+          "hypothesis_tokens": 9
+        },
+        {
+          "reference_speaker": null,
+          "hypothesis_speaker": "speaker_1",
+          "errors": 13,
+          "reference_tokens": 0,
+          "hypothesis_tokens": 13
+        },
+        {
+          "reference_speaker": null,
+          "hypothesis_speaker": "speaker_5",
+          "errors": 13,
+          "reference_tokens": 0,
+          "hypothesis_tokens": 13
+        }
+      ]
+    },
+    "cpwer_normalized": {
+      "errors": 100,
+      "substitutions": 3,
+      "deletions": 49,
+      "insertions": 48,
+      "correct": 67,
+      "reference_tokens": 119,
+      "hypothesis_tokens": 118,
+      "rate": 0.8403361344537815,
+      "status": "ok",
+      "speaker_pairs": [
+        {
+          "reference_speaker": "speaker_1",
+          "hypothesis_speaker": "speaker_4",
+          "errors": 22,
+          "reference_tokens": 45,
+          "hypothesis_tokens": 25
+        },
+        {
+          "reference_speaker": "speaker_2",
+          "hypothesis_speaker": "speaker_5",
+          "errors": 21,
+          "reference_tokens": 35,
+          "hypothesis_tokens": 14
+        },
+        {
+          "reference_speaker": "speaker_3",
+          "hypothesis_speaker": "speaker_6",
+          "errors": 9,
+          "reference_tokens": 39,
+          "hypothesis_tokens": 31
+        },
+        {
+          "reference_speaker": null,
+          "hypothesis_speaker": "speaker_8",
+          "errors": 6,
+          "reference_tokens": 0,
+          "hypothesis_tokens": 6
+        },
+        {
+          "reference_speaker": null,
+          "hypothesis_speaker": "speaker_3",
+          "errors": 8,
+          "reference_tokens": 0,
+          "hypothesis_tokens": 8
+        },
+        {
+          "reference_speaker": null,
+          "hypothesis_speaker": "speaker_7",
+          "errors": 9,
+          "reference_tokens": 0,
+          "hypothesis_tokens": 9
+        },
+        {
+          "reference_speaker": null,
+          "hypothesis_speaker": "speaker_2",
+          "errors": 12,
+          "reference_tokens": 0,
+          "hypothesis_tokens": 12
+        },
+        {
+          "reference_speaker": null,
+          "hypothesis_speaker": "speaker_1",
+          "errors": 13,
+          "reference_tokens": 0,
+          "hypothesis_tokens": 13
+        }
+      ]
+    },
+    "timing": {
+      "matched_pairs": 9,
+      "reference_intervals": 9,
+      "hypothesis_intervals": 10,
+      "reference_coverage": 1.0,
+      "hypothesis_coverage": 0.9,
+      "unmatched_reference": 0,
+      "unmatched_hypothesis": 1,
+      "mean_start_abs_error_ms": 483.22222222222223,
+      "mean_end_abs_error_ms": 546.7777777777778,
+      "median_start_abs_error_ms": 264,
+      "median_end_abs_error_ms": 390,
+      "pairs_over_250ms": 7,
+      "fraction_over_250ms": 0.7777777777777778,
+      "reference_fraction_over_250ms_or_unmatched": 0.7777777777777778,
+      "pairs": [
+        {
+          "reference_index": 0,
+          "hypothesis_index": 0,
+          "iou": 0.9377344336084021,
+          "start_abs_error_ms": 70,
+          "end_abs_error_ms": 262
+        },
+        {
+          "reference_index": 1,
+          "hypothesis_index": 1,
+          "iou": 0.9503051438535309,
+          "start_abs_error_ms": 108,
+          "end_abs_error_ms": 120
+        },
+        {
+          "reference_index": 2,
+          "hypothesis_index": 2,
+          "iou": 0.7024519549370444,
+          "start_abs_error_ms": 624,
+          "end_abs_error_ms": 1172
+        },
+        {
+          "reference_index": 3,
+          "hypothesis_index": 3,
+          "iou": 0.8748938879456706,
+          "start_abs_error_ms": 264,
+          "end_abs_error_ms": 915
+        },
+        {
+          "reference_index": 4,
+          "hypothesis_index": 4,
+          "iou": 0.8565176617693029,
+          "start_abs_error_ms": 765,
+          "end_abs_error_ms": 153
+        },
+        {
+          "reference_index": 5,
+          "hypothesis_index": 6,
+          "iou": 0.5496518871381458,
+          "start_abs_error_ms": 1769,
+          "end_abs_error_ms": 689
+        },
+        {
+          "reference_index": 6,
+          "hypothesis_index": 7,
+          "iou": 0.695998011434253,
+          "start_abs_error_ms": 235,
+          "end_abs_error_ms": 988
+        },
+        {
+          "reference_index": 7,
+          "hypothesis_index": 8,
+          "iou": 0.8087535680304472,
+          "start_abs_error_ms": 414,
+          "end_abs_error_ms": 390
+        },
+        {
+          "reference_index": 8,
+          "hypothesis_index": 9,
+          "iou": 0.9702828499820981,
+          "start_abs_error_ms": 100,
+          "end_abs_error_ms": 232
+        }
+      ]
+    },
+    "rtf": null,
+    "native_der_collar_0ms": {
+      "rate": 0.47701005025125626,
+      "miss_ms": 3913.0,
+      "false_alarm_ms": 404.0,
+      "confusion_ms": 22262.0,
+      "error_speaker_ms": 26579.0,
+      "reference_speaker_ms": 55720.0,
+      "evaluated_duration_ms": 59280.0,
+      "excluded_duration_ms": 0.0,
+      "reference_overlap_ms": 0.0,
+      "collar_ms": 0,
+      "collar_half_width_ms": 0.0,
+      "mapping_hypothesis_to_reference": {
+        "native_3": "speaker_1",
+        "native_4": "speaker_2",
+        "native_5": "speaker_3"
+      },
+      "status": "ok"
+    },
+    "native_der_collar_250ms": {
+      "rate": 0.4549841032354591,
+      "miss_ms": 2638.0,
+      "false_alarm_ms": 100.0,
+      "confusion_ms": 21590.0,
+      "error_speaker_ms": 24328.0,
+      "reference_speaker_ms": 53470.0,
+      "evaluated_duration_ms": 54920.0,
+      "excluded_duration_ms": 4360.0,
+      "reference_overlap_ms": 0.0,
+      "collar_ms": 250,
+      "collar_half_width_ms": 125.0,
+      "mapping_hypothesis_to_reference": {
+        "native_3": "speaker_1",
+        "native_4": "speaker_2",
+        "native_5": "speaker_3"
+      },
+      "status": "ok"
+    },
+    "native_speaker_count": 8
+  },
+  "new_diarization_inference": false,
+  "new_asr_inference": false,
+  "raw_wer_invariant": true,
+  "source_evidence_sha256": {
+    "diar": {
+      "case.json": "1d2704c897289bebc3fce92db41914e0f6eff07040ac5b368fdec733d0ef649d",
+      "reference.json": "0900022595d73de02b3c7459f85a37b39e37ac5cb455e7ee8827399097e01256",
+      "hypothesis.json": "99b7cb4b0d49953b9d02c71d23f65b74ea9adf5a34ec7a8366d2ddac73980914",
+      "diagnostics.json": "3083c077df2f9e1ee2efc199dc415d8c1b22b27233bb76d553bb9bd1637852e7",
+      "metrics.json": "02dd2c72e32d01f51a4a4ae39064f76603128f25e085b4e91b62f2f0f7fb4c64"
+    },
+    "asr": {
+      "case.json": "891889b222c67f1b1c09f3158133cb8895d409bd7a665ea2b34b2f6b3ae2e766",
+      "reference.json": "0900022595d73de02b3c7459f85a37b39e37ac5cb455e7ee8827399097e01256",
+      "hypothesis.json": "84d050fb0c9e6b2a44cf18bb17bc88a66bb751c14d761ec4bd4956ef9781acde",
+      "diagnostics.json": "6c957e87a1f494a515c581f5a5534727e8d62b4386b3e7de6b6b980f8c557220",
+      "metrics.json": "2101d43b3abc67d31d48fd480ebfcaccb1eb2ead536e01f21229456e88579f4e"
+    },
+    "reference": "0900022595d73de02b3c7459f85a37b39e37ac5cb455e7ee8827399097e01256",
+    "original_audio": "54dd41aa60e05602adcebc10d38a3a4f1cb2cf3ebdcc014d46a1387fbcc8a040"
+  },
+  "completed_at": "2026-11-07T00:11:55.356884+00:00",
+  "evidence_sha256": {
+    "reference.json": "0900022595d73de02b3c7459f85a37b39e37ac5cb455e7ee8827399097e01256",
+    "hypothesis.json": "5475d9c9e62ce00bf57f6f16239cb3382d2914ba803e05d05a4e4a56ae81e2b4",
+    "diagnostics.json": "32594b5c62b9238c6bf99ac1825471029337b91e9325d60d63190bced78d2bbd",
+    "metrics.json": "7e39b46c26e3368c0eafba7fa0d23f2fb0a0be9a667395fc72da25c96e9e4445"
+  },
+  "turns_sha256": "3d97df35c3ab4eabb38c5aed3a1c0e1dd9c0f9f34eb1a309a0ebf982e315d234"
+}

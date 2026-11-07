@@ -1,0 +1,62 @@
+{
+  "status": "FROZEN_FOR_VALIDATION",
+  "at": "2026-11-07T00:55:28.007443+00:00",
+  "candidate": "C2-eres2net-sd030-average-small-tau036",
+  "algorithm": "window-overcluster-v1",
+  "scope": "Global dev-passing C2 selected before new C2 validation; C1 fallback retained. No full/Android/natural-dialogue acceptance.",
+  "dev_audit_sha256": "3c9539b7d02e8748ad24486cabcfae9740ec6f21e0811bb92ef076aae192f099",
+  "model": {
+    "id": "eres2net_zh",
+    "name": "3D-Speaker ERes2Net base",
+    "path": "model-pack/diar/embedding.onnx",
+    "repoRelative": true,
+    "baseline": true,
+    "size": 39593761,
+    "sha256": "1a331345f04805badbb495c775a6ddffcdd1a732567d5ec8b3d5749e3c7a5e4b",
+    "url": "https://github.com/k2-fsa/sherpa-onnx/releases/download/speaker-recongition-models/3dspeaker_speech_eres2net_base_sv_zh-cn_3dspeaker_16k.onnx",
+    "embedding_dimension": 512,
+    "training_language": "zh",
+    "source": {
+      "repository": "k2-fsa/sherpa-onnx",
+      "release_id": 133152315,
+      "release_tag": "speaker-recongition-models",
+      "asset_id": 198893098,
+      "asset_name": "3dspeaker_speech_eres2net_base_sv_zh-cn_3dspeaker_16k.onnx",
+      "asset_created_at": "2024-10-14T03:41:16Z",
+      "asset_updated_at": "2024-10-14T03:41:16Z",
+      "asset_api_url": "https://api.github.com/repos/k2-fsa/sherpa-onnx/releases/assets/198893098",
+      "publisher_digest": null,
+      "sha256_origin": "independently measured downloaded bytes; GitHub publisher digest absent",
+      "source_checkpoint_byte_equivalence_verified": false,
+      "upstream_supported_checkpoint_revision": "v1.0.1"
+    },
+    "license": {
+      "spdx": "Apache-2.0",
+      "status": "author_model_card_and_weight_scope_clarification",
+      "sources": [
+        "https://modelscope.cn/api/v1/models/iic/speech_eres2net_base_sv_zh-cn_3dspeaker_16k",
+        "https://github.com/modelscope/3D-Speaker/issues/268"
+      ],
+      "note": "ModelScope exact model metadata states Apache License 2.0; maintainer issue268 separately clarifies pretrained checkpoint scope. Existing application baseline, unchanged."
+    }
+  },
+  "policy": {
+    "native_threshold": 0.3,
+    "window_shift": 0.1,
+    "threads": 2,
+    "paired_asr_plan": "vad_words_context600"
+  },
+  "window_config": {
+    "tau": 0.36,
+    "method": "average",
+    "grid_ms": 125,
+    "max_speakers": 8,
+    "reassign_small": true,
+    "min_cluster_ms": 2000,
+    "min_cluster_fraction": 0.03,
+    "minimum_reassignment_similarity": null,
+    "smooth": true,
+    "smooth_ms": 500
+  },
+  "validation": "Original holdout and reserve independently; previously seen D/C1 regression validations, not blind; no per-file parameter changes."
+}

@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "C1-resnet34-sd050-tau070-smallguard070-temporal",
+  "pipeline": "refined_words_v1",
+  "expected_speakers": -1,
+  "threads": 2,
+  "model_id": "wespeaker_resnet34_lm",
+  "window_shift": 0.1,
+  "native_threshold": 0.5,
+  "refiner_tau": 0.7,
+  "minimum_reassignment_similarity": 0.7,
+  "missing_centroid_policy": "temporal",
+  "candidate_freeze_sha256": "b436d4baa21e9ade7abc1bb07aaa01abafc93d0966b5c8372bc15b8439924b61",
+  "notes": "Full actual VAD/SD/clean-window/refiner/GigaAM run of the dev-passing C1 global profile; paired D context600 unchanged. Old holdout and reserve are separate regression validations; no reference values enter inference. Shift .25/.50 not promoted after actual dev checks."
+}

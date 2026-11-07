@@ -42,8 +42,10 @@ class ProcessingWorker(context: Context,params: WorkerParameters): CoroutineWork
   try {
    // Persisted requests without this key are always V1.6, even after a new APK changes defaults.
    val asrPlan=AsrPlan.fromPersistedId(inputData.getString(ASR_PLAN_KEY))
+   val requestedDiarPlan=DiarizationPlan.fromPersistedId(inputData.getString(DIAR_PLAN_KEY))
    val collectWordEvidence=inputData.getBoolean(COLLECT_WORD_EVIDENCE_KEY,false)
    diagnostic.put("asrPlan",asrPlan.wireId).put("asrPolicy",asrPolicyJson(asrPlan))
+    .put("diarizationPlanRequested",requestedDiarPlan.wireId)
     .put("wordEvidenceRequested",collectWordEvidence).put("wordEvidenceApplicable",asrPlan.wordTimestamps)
     .put("wordEvidenceLimitBytes",WORD_EVIDENCE_LIMIT_BYTES).put("wordEvidenceBytes",0L)
     .put("wordEvidenceTruncated",false)
@@ -55,6 +57,11 @@ class ProcessingWorker(context: Context,params: WorkerParameters): CoroutineWork
     try {
      val rec=dao.recording(recordingId)?:return@withLock
      val mode=MlPolicy.mode(rec.expectedSpeakers)
+     // Missing historical WorkData remains legacy. Manual K never enters the automatic refiner.
+     val diarPlan=if(requestedDiarPlan.refined && mode=="automatic") requestedDiarPlan.forExpectedSpeakers(-1) else DiarizationPlan.LEGACY
+     diarPlan.requirePairedAsr(asrPlan)
+     diagnostic.put("diarizationPlan",diarPlan.wireId)
+      .put("diarizationPolicy",DiarizationEvidence.jsonObject(diarizationPolicy(diarPlan)))
      // Historical rows keep their original source; reprocessing uses the packaged GigaAM.
      val backend=app.models.resolveBackend(rec.backend)
      val threads=MlPolicy.threads(inputData.getInt("mlThreads",2))
@@ -142,7 +149,8 @@ class ProcessingWorker(context: Context,params: WorkerParameters): CoroutineWork
       .put("vadRescuePeakHeadroom",ZeroSpanVadRescue.PEAK_HEADROOM).put("vadRescueMinGainRatio",ZeroSpanVadRescue.MIN_GAIN_RATIO)
       .put("vadRescueScope","detector-only empty-primary retry; ASR input, original PCM and diarization unchanged")
      // Mode A never loads segmentation/embedding, nor allocates a full-recording float array.
-     val turns=if(mode=="single") {
+     var rawDiarizationTurns=emptyList<Turn>()
+     val nativeTurns=if(mode=="single") {
       trace.times["diarizationMs"]=0;trace.times["diarizationLoadMs"]=0;trace.times["diarizationInferenceMs"]=0
       listOf(Turn(0,decoded.durationMs,0))
      } else trace.measure("diarizationMs") {
@@ -150,14 +158,70 @@ class ProcessingWorker(context: Context,params: WorkerParameters): CoroutineWork
       val required=decoded.samples.toLong()*4
       val available=Runtime.getRuntime().maxMemory()-(Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory())
       require(required<available/2) { "Недостаточно памяти для диаризации этой записи. Выберите одного говорящего для монолога или разделите аудио." }
-      val sd=trace.measure("diarizationLoadMs") { OfflineSpeakerDiarization(config=diarizationConfig(app.models,rec.expectedSpeakers,threads)) }
+      val sd=trace.measure("diarizationLoadMs") { OfflineSpeakerDiarization(config=diarizationConfig(app.models,rec.expectedSpeakers,threads,diarPlan)) }
       try {
        val samples=trace.measure("diarizationReadMs") { AudioDecoder.read(pcm,0,decoded.samples) }
        guard("Диаризация · Pyannote + 3D-Speaker")
        val result=trace.measure("diarizationInferenceMs") { sd.process(samples) }
        ensureActive()
-       Alignment.stable(result.map { Turn((it.start*1000).roundToLong().coerceIn(0,decoded.durationMs),(it.end*1000).roundToLong().coerceIn(0,decoded.durationMs),it.speaker) }.filter { it.endMs>it.startMs })
+       rawDiarizationTurns=result.map { Turn((it.start*1000).roundToLong().coerceIn(0,decoded.durationMs),(it.end*1000).roundToLong().coerceIn(0,decoded.durationMs),it.speaker) }.filter { it.endMs>it.startMs }
+       Alignment.stable(rawDiarizationTurns)
       } finally { sd.release() }
+     }
+     diagnostic.put("rawDiarizationTurns",turnJson(rawDiarizationTurns))
+      .put("nativeDiarizationTurns",turnJson(nativeTurns))
+      .put("diarizationRefinementApplicable",diarPlan.refined)
+      .put("diarizationRefinementAccepted",false)
+     val turns=if(!diarPlan.refined) nativeTurns else {
+      // The original SD session above is released before the additional extractor opens.
+      guard("Уточнение говорящих")
+      val refined=trace.measure("diarizationRefinementMs") { DiarizationRefiner.refineOriginalPcm(
+       turns=nativeTurns,durationMs=decoded.durationMs,modelPath=app.models.file(diarPlan.embeddingPath).path,
+       threads=threads,config=diarPlan.windowConfig!!,collectEvidence=collectWordEvidence,
+       isStopped={ this@ProcessingWorker.isStopped },
+       readOriginalWindow={startMs,endMs -> withContext(Dispatchers.IO) {
+        workerContext.ensureActive()
+        val first=startMs*16L;val last=endMs*16L
+        require(first>=0 && last>first && last<=decoded.samples.toLong() && last<=Int.MAX_VALUE.toLong())
+        // Diarization always sees original PCM, never the temporary ASR/VAD gain.
+        AudioDecoder.read(pcm,first.toInt(),(last-first).toInt()).also { workerContext.ensureActive() }
+       } }) }
+      check(refined.diagnostics["nativeResourcesReleasedBeforeRefiner"]==true) { "Не удалось освободить модель говорящих" }
+      diagnostic.put("diarizationRefinementAccepted",refined.accepted)
+       .put("diarizationRefinement",DiarizationEvidence.jsonObject(compactRefinerDiagnostic(refined.diagnostics)))
+       .put("diarizationRefinementTimingsMs",DiarizationEvidence.jsonObject(refined.timingsMs))
+       .put("diarizationEmbeddingCounts",JSONObject().put("plannedWindows",refined.counts.plannedWindows)
+        .put("extractorLoads",refined.counts.extractorLoads).put("readWindows",refined.counts.readWindows)
+        .put("createdStreams",refined.counts.createdStreams).put("releasedStreams",refined.counts.releasedStreams)
+        .put("computeAttempts",refined.counts.computeAttempts).put("embeddingForwardCalls",refined.counts.embeddingForwardCalls)
+        .put("measuredWindows",refined.counts.measuredWindows).put("embeddingDimension",refined.counts.embeddingDimension?:JSONObject.NULL))
+      // Full vectors/tree are QA-only, bounded, and stored outside Room diagnostics.
+      if(collectWordEvidence) {
+       diagnostic.put("diarizationEvidenceRequested",true).put("diarizationEvidenceLimitBytes",8*1024*1024)
+       try {
+        val info=withContext(Dispatchers.IO) { DiarizationEvidence.write(
+         directory=File(applicationContext.filesDir,"diarization-qa").apply {
+          check(isDirectory || mkdirs()) { "Не удалось создать каталог QA" }
+         },workId=id.toString(),recordingId=recordingId,
+         metadata=linkedMapOf("audioMs" to decoded.durationMs,"sampleRate" to 16000,
+          "inputAudioSha256" to fileSha256(File(rec.audioPath)),"diarizationPlan" to diarPlan.wireId,
+          "diarizationPolicy" to diarizationPolicy(diarPlan),"runtime" to "sherpa-onnx 2.0.1",
+          "embeddingSha256" to app.models.specifications().first { it.path==diarPlan.embeddingPath }.sha256,
+          "rawDiarizationTurns" to turnMaps(rawDiarizationTurns),"nativeDiarizationTurns" to turnMaps(nativeTurns),
+          "refinedDiarizationTurns" to turnMaps(refined.turns),"accepted" to refined.accepted),
+         windows=refined.measuredWindowsQA.orEmpty(),diagnostics=refined.diagnostics) }
+        diagnostic.put("diarizationEvidenceTruncated",info.truncated).put("diarizationEvidenceBytes",info.bytes)
+         .put("diarizationEvidenceOmittedReason",info.reason?:JSONObject.NULL)
+         .put("diarizationEvidenceFile",info.relativeFileName?.let { "diarization-qa/$it" }?:JSONObject.NULL)
+         .put("diarizationEvidenceSha256",info.sha256?:JSONObject.NULL)
+       } catch(cancelled: CancellationException) { throw cancelled }
+        catch(failed: Exception) {
+         // QA storage failure must not turn a useful production transcript into a failed job.
+         diagnostic.put("diarizationEvidenceTruncated",true).put("diarizationEvidenceFile",JSONObject.NULL)
+          .put("diarizationEvidenceOmittedReason",failed.javaClass.simpleName)
+        }
+      }
+      refined.turns
      }
      if(asrPlan.wordTimestamps) guard("Планирование участков речи") else phase("Сопоставление временных интервалов")
      val preRollMs=if(asrPlan.wordTimestamps) asrPlan.preRollMs else PRE_ROLL_MS
@@ -283,7 +347,7 @@ class ProcessingWorker(context: Context,params: WorkerParameters): CoroutineWork
       .put("originalPcmPeak",inputPeak).put("recognitionInputGain",recognitionGain)
       .put("quietGainTriggerPeak",QuietAudioGain.TRIGGER_PEAK).put("quietGainMax",QuietAudioGain.MAX_GAIN)
       .put("quietGainScope","temporary VAD and ASR arrays only; original PCM/playback/diarization preserved")
-      .put("expectedSpeakers",rec.expectedSpeakers).put("clusterThreshold",AUTO_CLUSTER_THRESHOLD).put("vadThreshold",asrPlan.vadThreshold.toDouble())
+      .put("expectedSpeakers",rec.expectedSpeakers).put("clusterThreshold",diarPlan.clusterThreshold.toDouble()).put("vadThreshold",asrPlan.vadThreshold.toDouble())
       .put("maxAsrSegmentMs",20000).put("audioMs",decoded.durationMs).put("totalMs",total).put("pipelineRtf",total.toDouble()/decoded.durationMs.coerceAtLeast(1))
       .put("pipelineTimingScope","validation through ASR release; persistenceMs and telemetry.elapsedMs reported separately")
       .put("asrStageRtf",(trace.times["asrMs"]?:0).toDouble()/decoded.durationMs.coerceAtLeast(1))
@@ -291,7 +355,8 @@ class ProcessingWorker(context: Context,params: WorkerParameters): CoroutineWork
       .put("runCondition","uncontrolled device caches/temperature; sequential ML stages; CPU provider")
       .put("diarizationTurns",JSONArray().also { a -> turns.forEach { t -> a.put(JSONObject().put("startMs",t.startMs).put("endMs",t.endMs).put("speakerId",t.speaker)) } })
       .put("clusteringMode",mode).put("clusterThresholdApplied",mode=="automatic").put("automaticValidation","not accepted on independent long Russian dialogue")
-      .put("segmentationWindowShiftRatio",.1).put("diarMinDurationOnSec",.2).put("diarMinDurationOffSec",.5)
+      .put("segmentationWindowShiftRatio",diarPlan.segmentationWindowShiftRatio.toDouble())
+      .put("diarMinDurationOnSec",diarPlan.diarMinDurationOnSec.toDouble()).put("diarMinDurationOffSec",diarPlan.diarMinDurationOffSec.toDouble())
       .put("vadMinSpeechSec",asrPlan.vadMinSpeechSec.toDouble()).put("vadMinSilenceSec",asrPlan.vadMinSilenceSec.toDouble()).put("vadWindowSamples",512).put("vadMaxSpeechSec",20)
       .put("preRollMs",preRollMs).put("postRollMs",POST_ROLL_MS).put("vadSpans",spanJson(spans))
       .put("asrSpeechSpans",spanJson(boundedSpans)).put("asrSlices",sliceResults)
@@ -328,6 +393,21 @@ class ProcessingWorker(context: Context,params: WorkerParameters): CoroutineWork
   }
  }
  private fun spanJson(spans: List<Span>)=JSONArray().also { a -> spans.forEach { a.put(JSONObject().put("startMs",it.startMs).put("endMs",it.endMs)) } }
+ private fun turnMaps(turns: List<Turn>)=turns.map { linkedMapOf<String,Any?>("startMs" to it.startMs,"endMs" to it.endMs,"speakerId" to it.speaker) }
+ private fun turnJson(turns: List<Turn>)=JSONArray().also { a -> turns.forEach { a.put(JSONObject().put("startMs",it.startMs).put("endMs",it.endMs).put("speakerId",it.speaker)) } }
+ private fun compactRefinerDiagnostic(values: Map<String,Any?>): Map<String,Any?> = values.mapNotNull { (key,value) ->
+  when {
+   key=="config" -> key to value
+   key=="refiner" && value is Map<*,*> -> key to compactRefinerDiagnostic(value.entries.associate { it.key.toString() to it.value })
+   value==null || value is String || value is Number || value is Boolean -> key to value
+   else -> null
+  }
+ }.toMap()
+ private fun fileSha256(file: File): String {
+  val hash=java.security.MessageDigest.getInstance("SHA-256")
+  file.inputStream().buffered().use { input -> val block=ByteArray(128*1024);while(true) { val read=input.read(block);if(read<0) break;hash.update(block,0,read) } }
+  return hash.digest().joinToString("") { "%02x".format(it) }
+ }
  private fun wordEvidenceJson(hypothesis: AsrHypothesis,words: List<VadWordPlanner.AssignedWord>): JSONObject {
   val timestamps=JSONArray()
   var nonfinite=false
@@ -349,28 +429,35 @@ class ProcessingWorker(context: Context,params: WorkerParameters): CoroutineWork
  }
  companion object {
   const val ASR_PLAN_KEY="asrPlan"
+  const val DIAR_PLAN_KEY="diarizationPlan"
   const val COLLECT_WORD_EVIDENCE_KEY="collectWordEvidence"
   const val WORD_EVIDENCE_LIMIT_BYTES=256*1024
   const val WORD_FALLBACK_WARNING="Время слов недоступно: проверьте говорящего и границы"
   const val PRE_ROLL_MS=100L
   const val POST_ROLL_MS=0L
   const val AUTO_CLUSTER_THRESHOLD=.5f
-  fun diarizationConfig(models: ModelManager,count: Int,threads: Int=2): OfflineSpeakerDiarizationConfig {
+  fun diarizationConfig(models: ModelManager,count: Int,threads: Int=2,plan: DiarizationPlan=DiarizationPlan.LEGACY): OfflineSpeakerDiarizationConfig {
    require(MlPolicy.mode(count)!="single") { "Single speaker must bypass diarization" }
    return OfflineSpeakerDiarizationConfig(
-    segmentation=OfflineSpeakerSegmentationModelConfig(pyannote=OfflineSpeakerSegmentationPyannoteModelConfig(models.file("diar/segmentation.onnx").path,windowShiftRatio=.1f),numThreads=MlPolicy.threads(threads)),
-    embedding=SpeakerEmbeddingExtractorConfig(model=models.file("diar/embedding.onnx").path,numThreads=threads),
-    clustering=FastClusteringConfig(numClusters=count,threshold=AUTO_CLUSTER_THRESHOLD),minDurationOn=.2f,minDurationOff=.5f)
+    segmentation=OfflineSpeakerSegmentationModelConfig(pyannote=OfflineSpeakerSegmentationPyannoteModelConfig(models.file(plan.segmentationPath).path,windowShiftRatio=plan.segmentationWindowShiftRatio),numThreads=MlPolicy.threads(threads)),
+    embedding=SpeakerEmbeddingExtractorConfig(model=models.file(plan.embeddingPath).path,numThreads=threads),
+    clustering=FastClusteringConfig(numClusters=count,threshold=plan.clusterThreshold),minDurationOn=plan.diarMinDurationOnSec,minDurationOff=plan.diarMinDurationOffSec)
   }
+  fun diarizationPolicy(plan: DiarizationPlan): Map<String,Any?> = linkedMapOf("plan" to plan.wireId,
+   "algorithm" to if(plan.refined) "window-overcluster-v1" else "legacy-v16",
+   "embedding_path" to plan.embeddingPath,"native_threshold" to plan.clusterThreshold.toDouble(),
+   "window_shift" to plan.segmentationWindowShiftRatio.toDouble(),"min_duration_on" to plan.diarMinDurationOnSec.toDouble(),
+   "min_duration_off" to plan.diarMinDurationOffSec.toDouble(),"window_config" to plan.windowConfig?.asMap())
   fun asrPolicyJson(plan: AsrPlan): JSONObject = JSONObject().put("pipeline",plan.pipeline)
    .put("punctuation_mode",plan.punctuationMode).put("energy_split",plan.wordTimestamps)
    .put("vad_threshold",plan.vadThreshold.toDouble()).put("vad_min_speech_sec",plan.vadMinSpeechSec.toDouble())
    .put("vad_min_silence_sec",plan.vadMinSilenceSec.toDouble()).put("pre_roll_ms",plan.preRollMs)
   fun enqueue(context: Context,id: String,threads: Int=2,
-   asrPlan: AsrPlan=AsrPlan.fromPersistedId(BuildConfig.DEFAULT_ASR_PLAN),collectWordEvidence: Boolean=false) {
+   asrPlan: AsrPlan=AsrPlan.fromPersistedId(BuildConfig.DEFAULT_ASR_PLAN),collectWordEvidence: Boolean=false,
+   diarizationPlan: DiarizationPlan=DiarizationPlan.fromPersistedId(BuildConfig.DEFAULT_DIAR_PLAN)) {
    val request=OneTimeWorkRequestBuilder<ProcessingWorker>().setInputData(workDataOf("recordingId" to id,
     "mlThreads" to MlPolicy.threads(threads),ASR_PLAN_KEY to asrPlan.wireId,
-    COLLECT_WORD_EVIDENCE_KEY to collectWordEvidence)).addTag(id).build()
+    COLLECT_WORD_EVIDENCE_KEY to collectWordEvidence,DIAR_PLAN_KEY to diarizationPlan.wireId)).addTag(id).build()
    WorkManager.getInstance(context).enqueueUniqueWork("replika-$id",ExistingWorkPolicy.KEEP,request)
   }
  }

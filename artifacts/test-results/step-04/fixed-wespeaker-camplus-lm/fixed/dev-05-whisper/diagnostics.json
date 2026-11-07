@@ -1,0 +1,198 @@
+{
+  "rawDiarizationTurns": [
+    {
+      "startMs": 689,
+      "endMs": 1972,
+      "speakerId": 0
+    },
+    {
+      "startMs": 3305,
+      "endMs": 3895,
+      "speakerId": 1
+    },
+    {
+      "startMs": 4503,
+      "endMs": 8468,
+      "speakerId": 1
+    },
+    {
+      "startMs": 9127,
+      "endMs": 12215,
+      "speakerId": 1
+    },
+    {
+      "startMs": 13649,
+      "endMs": 15910,
+      "speakerId": 1
+    },
+    {
+      "startMs": 15235,
+      "endMs": 15978,
+      "speakerId": 0
+    },
+    {
+      "startMs": 16619,
+      "endMs": 18070,
+      "speakerId": 1
+    },
+    {
+      "startMs": 19420,
+      "endMs": 20365,
+      "speakerId": 1
+    },
+    {
+      "startMs": 21513,
+      "endMs": 22913,
+      "speakerId": 1
+    },
+    {
+      "startMs": 23639,
+      "endMs": 25192,
+      "speakerId": 1
+    },
+    {
+      "startMs": 25867,
+      "endMs": 26643,
+      "speakerId": 1
+    },
+    {
+      "startMs": 27554,
+      "endMs": 28229,
+      "speakerId": 0
+    },
+    {
+      "startMs": 27689,
+      "endMs": 28448,
+      "speakerId": 1
+    },
+    {
+      "startMs": 29022,
+      "endMs": 29967,
+      "speakerId": 2
+    },
+    {
+      "startMs": 29967,
+      "endMs": 30760,
+      "speakerId": 0
+    },
+    {
+      "startMs": 30760,
+      "endMs": 32043,
+      "speakerId": 1
+    },
+    {
+      "startMs": 31739,
+      "endMs": 31958,
+      "speakerId": 0
+    }
+  ],
+  "diarizationTurns": [
+    {
+      "startMs": 689,
+      "endMs": 1972,
+      "speakerId": 0
+    },
+    {
+      "startMs": 3305,
+      "endMs": 3895,
+      "speakerId": 1
+    },
+    {
+      "startMs": 4503,
+      "endMs": 8468,
+      "speakerId": 1
+    },
+    {
+      "startMs": 9127,
+      "endMs": 12215,
+      "speakerId": 1
+    },
+    {
+      "startMs": 13649,
+      "endMs": 15910,
+      "speakerId": 1
+    },
+    {
+      "startMs": 15235,
+      "endMs": 15978,
+      "speakerId": 0
+    },
+    {
+      "startMs": 16619,
+      "endMs": 18070,
+      "speakerId": 1
+    },
+    {
+      "startMs": 19420,
+      "endMs": 20365,
+      "speakerId": 1
+    },
+    {
+      "startMs": 21513,
+      "endMs": 22913,
+      "speakerId": 1
+    },
+    {
+      "startMs": 23639,
+      "endMs": 25192,
+      "speakerId": 1
+    },
+    {
+      "startMs": 25867,
+      "endMs": 26643,
+      "speakerId": 1
+    },
+    {
+      "startMs": 27554,
+      "endMs": 28229,
+      "speakerId": 0
+    },
+    {
+      "startMs": 27689,
+      "endMs": 28448,
+      "speakerId": 1
+    },
+    {
+      "startMs": 29022,
+      "endMs": 29967,
+      "speakerId": 2
+    },
+    {
+      "startMs": 29967,
+      "endMs": 30760,
+      "speakerId": 0
+    },
+    {
+      "startMs": 30760,
+      "endMs": 32043,
+      "speakerId": 1
+    },
+    {
+      "startMs": 31739,
+      "endMs": 31958,
+      "speakerId": 0
+    }
+  ],
+  "mode": "fixed",
+  "numClustersPassed": 3,
+  "threshold": 0.5,
+  "thresholdApplied": false,
+  "windowShiftRatio": 0.1,
+  "threads": 2,
+  "modelId": "wespeaker_camplus_lm",
+  "modelSha256": "e197af7e9d473030cf486b3124149a19bf37014d0e4485e4c70c483b0ec10cb2",
+  "diarizationInferenceMs": 2051.077170002827,
+  "modelLoadMs": 0.0,
+  "sessionReuse": "Same model config; set_config changes clustering only. Every process recomputes neural outputs.",
+  "newAsrInference": false,
+  "asrEvidenceSha256": {
+    "reference.json": "d544e0695cf6307c2899f72cdff638c970e4915e9326003c393710545ca7a9f1",
+    "hypothesis.json": "fdf54b03ff22b3450ccc62c3b4b2c8c489c8caf02a1699f90316ff87c1085fb5",
+    "diagnostics.json": "99b494fbbd9f08e5e2d2cfc5e9120b17ad0a056828791551a79e24a70030811a",
+    "metrics.json": "64f6571d96dd464b388ec565792b82db483c202698a80cfd86627641ea5821d8"
+  },
+  "fixedCountSource": "manifest known-K research oracle, not deployment",
+  "singleBypass": false,
+  "fixedSinglePolicy": "Actual diarizer process even K=1; separate production V1.6 single bypass comparison required",
+  "shortChunkCaveat": "Sherpa single-segmentation-chunk special case may skip embedding/clustering; no claim every threshold exercises those on short files."
+}

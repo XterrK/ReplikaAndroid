@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "at": "2026-11-07T02:31:39.875487+00:00",
+  "status": "SCOPE_CLARIFICATION",
+  "review_sha256": "38e100aeeadb2e2be27d1f249f1e3c750f7ef0820b29373c9e40a7409531c8c3",
+  "clarification": "R1–R4 were fixed before launching the FULL10 collector neural evaluation. This never meant that no independent C2 smoke NN/ASR had occurred globally. The reviewer itself ran no NN, build or ADB.",
+  "independent_smokes": [
+    {
+      "version": "v1",
+      "status": "FAILED",
+      "started_at": "2026-11-07T02:07:39.297784+00:00",
+      "completed_at": null,
+      "report_status": "FAILED",
+      "worker_total_ms": 10259,
+      "refinement_accepted": true,
+      "real_embedding_counts": {
+        "plannedWindows": 4,
+        "extractorLoads": 1,
+        "readWindows": 4,
+        "createdStreams": 4,
+        "releasedStreams": 4,
+        "computeAttempts": 4,
+        "embeddingForwardCalls": 4,
+        "measuredWindows": 4,
+        "embeddingDimension": 512
+      },
+      "qa_truncated": true,
+      "qa_omitted_reason": "AccessDeniedException"
+    },
+    {
+      "version": "v2",
+      "status": "SMOKE_PASS",
+      "started_at": "2026-11-07T02:22:44.486967+00:00",
+      "completed_at": "2026-11-07T02:22:57.485117+00:00",
+      "report_status": "COMPLETE",
+      "worker_total_ms": 8331,
+      "refinement_accepted": true,
+      "real_embedding_counts": {
+        "plannedWindows": 4,
+        "extractorLoads": 1,
+        "readWindows": 4,
+        "createdStreams": 4,
+        "releasedStreams": 4,
+        "computeAttempts": 4,
+        "embeddingForwardCalls": 4,
+        "measuredWindows": 4,
+        "embeddingDimension": 512
+      },
+      "qa_truncated": false,
+      "qa_omitted_reason": null
+    }
+  ],
+  "terminal_collectors_observed": [
+    {
+      "version": "v1",
+      "status": "FAILED",
+      "inference_requested": false,
+      "new_model_inference": false,
+      "error": "ADB failed: Starting: Intent { cmp=ru.replika.offline/.MainActivity }\nError type 3\nError: Activity class {ru.replika.offline/ru.replika.offline.MainActivity} does not exist.\n"
+    },
+    {
+      "version": "v2",
+      "status": "FAILED",
+      "inference_requested": false,
+      "new_model_inference": false,
+      "error": "ADB failed: Starting: Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] pkg=ru.replika.offline }\nError: Activity not started, unable to resolve Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10000000 pkg=ru.replika.offline }\n"
+    }
+  ],
+  "scope": "Independent one-case functional smoke is separate from full fixed5/dev8 union10 collection and quality gates. V1 model/ASR completed but QA publication failed; FAILED evidence retained. V2 functional smoke passed. Neither constitutes corpus/core/Android-ARM/phone quality acceptance.",
+  "raw_evidence_unchanged": true,
+  "source_sha256": {
+    "artifacts/test-results/step-04/native-c2-collector-review.json": "38e100aeeadb2e2be27d1f249f1e3c750f7ef0820b29373c9e40a7409531c8c3",
+    "artifacts/test-results/step-04/native-c2-collector-review.md": "d0b71873203c88971fda35ea45abd67fcacbf3310ee41e9fa8cb7ffd5076fb96",
+    "artifacts/test-results/step-04/native-c2-smoke-v1/run.json": "fd6aee1bfffeaca52eab379044ed8b3665b46489bf021ac8ee590e3a5600f615",
+    "artifacts/test-results/step-04/native-c2-smoke-v1/dev-mono-s.diagnostics.json": "b363b6f13ad7e3a0804781ca165067ce629829ad919c8f287b71d1521f89236d",
+    "artifacts/test-results/step-04/native-c2-smoke-v1/report.json": "34ad9cf664b29af956e339f43a213d284777f1f2019f9134876512176a04fada",
+    "artifacts/test-results/step-04/native-c2-smoke-v2/run.json": "e3ef9aeffaea246a21c8c5484941ab77355c36a2058388dd8439a07ad94c0517",
+    "artifacts/test-results/step-04/native-c2-smoke-v2/dev-mono-s.diagnostics.json": "03410df3def8e6ec0355364b476af9738a4c489cac7d4b052af4e852eaf5fc41",
+    "artifacts/test-results/step-04/native-c2-smoke-v2/report.json": "3775c98719209da024e84d39192113daf6d08810946ff282d00adefaadef3e1a",
+    "artifacts/test-results/step-04/context600-c2-android-v1/run.json": "80a2adf6b2e4c024711419b9ce619cec001f91ac2c88e7b6415bbfda1016561e",
+    "artifacts/test-results/step-04/context600-c2-android-v2/run.json": "818dcb7c7a382c3c1ac6e51dd5d994897038ce67563060491227df6a2d27b6c6"
+  }
+}

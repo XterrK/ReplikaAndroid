@@ -1,0 +1,30 @@
+{
+  "frozen_at": "2026-11-07T02:08:27.558698+00:00",
+  "version": 3,
+  "supersedes": {
+    "source_snapshot": "/home/egor/replika-toolchain/logs/c2-collector-v2",
+    "reason": "Known KotlinDouble QA versus integral Room JSON representation at adapter.refiner.small_cluster_cutoff_ms"
+  },
+  "tests": 36,
+  "tests_pass": true,
+  "preflight": "PASS exact10 originalhost13/old7weights",
+  "negative_preflight_returncode": 1,
+  "output_created": false,
+  "no_adb_no_nn_no_gradle": true,
+  "numeric_allowlist": [
+    "adapter.refiner.small_cluster_cutoff_ms"
+  ],
+  "numeric_equivalence": "exact finite integral int/Double <=2^53, excludes bool; no cutoff tolerance; other policy/count/clock types strict",
+  "collector_semantic_sources": {
+    "tools/eval/pull_refined_android.py": "28f86e9d56eab705835310637b682d5de6dfb15fb353178d7cbd8e78bb38e159",
+    "tools/eval/native_diar_policy.py": "82af9dd27356ac4b84f3793404b55d4515fbdd0ebcd19ab17758199273034609",
+    "tools/eval/native_policy.py": "b6d7fd2de6a7ca7f1776de9fa3924c623918709e0358977bae059569ef4da36b",
+    "tools/eval/port_comparison.py": "8705abd0f4696520047032020f19069308b343008af3d7ed976b895c62e398c4"
+  },
+  "files": {
+    "tools/eval/native_diar_policy.py": "82af9dd27356ac4b84f3793404b55d4515fbdd0ebcd19ab17758199273034609",
+    "tools/eval/pull_refined_android.py": "28f86e9d56eab705835310637b682d5de6dfb15fb353178d7cbd8e78bb38e159",
+    "tools/eval/tests/test_native_diar_policy.py": "37147d9f9f0612606be70cbc5b63296900f81317f750bc16138494d19e4ae639",
+    "tools/eval/tests/test_pull_refined_android.py": "937982961ea25a0928f66284d38726f69de41d3d6a6d2f6a2f9f2764f1fa78f2"
+  }
+}

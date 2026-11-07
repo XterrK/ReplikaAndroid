@@ -1,0 +1,84 @@
+{
+  "schema_version": 1,
+  "id": "c2-final-native-parameters-v1",
+  "frozen_at_utc": "2026-11-07T02:55:13.979713+00:00",
+  "scope": "Final task C native minDurationOff and selected-C2 windowShift probes; dev only, not task5 CPU tuning. Existing C2 remains the APK until a measured complete non-regression decision.",
+  "model_id": "eres2net_zh",
+  "native_threshold": 0.3,
+  "threads": 2,
+  "expected_speakers": -1,
+  "min_duration_on": 0.2,
+  "window_config": {
+    "tau": 0.36,
+    "method": "average",
+    "grid_ms": 125,
+    "max_speakers": 8,
+    "reassign_small": true,
+    "min_cluster_ms": 2000,
+    "min_cluster_fraction": 0.03,
+    "minimum_reassignment_similarity": null,
+    "smooth": true,
+    "smooth_ms": 500
+  },
+  "profiles": [
+    {
+      "id": "baseline-existing",
+      "window_shift": 0.1,
+      "min_duration_off": 0.5,
+      "inference": false
+    },
+    {
+      "id": "off-0p25",
+      "window_shift": 0.1,
+      "min_duration_off": 0.25,
+      "inference": true
+    },
+    {
+      "id": "off-1p0",
+      "window_shift": 0.1,
+      "min_duration_off": 1.0,
+      "inference": true
+    },
+    {
+      "id": "shift-0p25",
+      "window_shift": 0.25,
+      "min_duration_off": 0.5,
+      "inference": true
+    },
+    {
+      "id": "shift-0p5",
+      "window_shift": 0.5,
+      "min_duration_off": 0.5,
+      "inference": true
+    }
+  ],
+  "baseline_run": "artifacts/test-results/step-04/candidate-c2-full-original",
+  "baseline_source_sha256": {
+    "run.json": "c2053545e8248ef66d759f0f3988af43eb14b0da0083ef3ec000956f9427bd45",
+    "summary.json": "2dd71f4a5e64cc5378914c8f4f9eb017f9533ff2ca21d798d30779067c157e54"
+  },
+  "manifest": "benchmark/eval/manifest.json",
+  "manifest_sha256": "47109cb1987624daaf8f4dc28e8eca3198b0c2bbcf01cd334b9611664eb38066",
+  "split": "dev",
+  "expected_cases": 8,
+  "asr_run": "artifacts/test-results/step-03/context600-selected-host",
+  "asr_run_sha256": "a388cc7e35ed099b3ab268bf908255e4fbefcdd69723f95b7b649565a99ba631",
+  "paired_asr_plan": "vad_words_context600",
+  "asr_replay": true,
+  "new_asr_inference": false,
+  "selection": {
+    "count_minimum": 7,
+    "cases": 8,
+    "maximum_native_der0": 0.18298480576441103,
+    "maximum_native_der0_source": "Current frozen C2 dev; no regression when evaluating native gaps/shift",
+    "raw_errors_must_equal": 71,
+    "raw_reference_tokens": 533,
+    "primary": "Minimum native DER0 among complete dev8 profiles with K>=7 and unchanged literal ASR; ties retain existing C2",
+    "holdout_reserve": "No new holdout/reserve inference or per-file inspection until an alternative is selected and frozen",
+    "natural_ami": "Never tune or select on AMI diagnostic",
+    "timing": "No performance acceptance from concurrent quality probes"
+  },
+  "models_lock_sha256": "bd18076e29b225ae51a9c43dd347bf0fd7ed8f2e9c5ed10bba56a0899df1dcb9",
+  "catalog_sha256": "743624f2f25be1635fe60b11c3e11324c6dd8480f793cdbe196542733d29f7a3",
+  "new_neural_inference_in_this_file": false
+}

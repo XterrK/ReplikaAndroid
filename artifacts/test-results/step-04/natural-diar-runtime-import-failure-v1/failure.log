@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "/mnt/d/ReplikaAndroid/ReplikaAndroid/tools/eval/run_natural_diar.py", line 608, in <module>
+    main()
+  File "/mnt/d/ReplikaAndroid/ReplikaAndroid/tools/eval/run_natural_diar.py", line 604, in main
+    run(args)
+  File "/mnt/d/ReplikaAndroid/ReplikaAndroid/tools/eval/run_natural_diar.py", line 493, in run
+    runtime = runtime_factory()  # imports/version metadata only; native constructors come later
+              ^^^^^^^^^^^^^^^^^
+  File "/mnt/d/ReplikaAndroid/ReplikaAndroid/tools/eval/run_natural_diar.py", line 278, in __init__
+    from scipy.cluster import hierarchy, _hierarchy
+ImportError: cannot import name '_hierarchy' from 'scipy.cluster' (/home/egor/replika-toolchain/host-venv/lib/python3.12/site-packages/scipy/cluster/__init__.py). Did you mean: 'hierarchy'?

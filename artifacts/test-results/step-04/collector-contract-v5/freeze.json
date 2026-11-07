@@ -1,0 +1,42 @@
+{
+  "frozen_at": "2026-11-07T02:29:57.254509+00:00",
+  "version": 5,
+  "supersedes": {
+    "source_snapshot": "/home/egor/replika-toolchain/logs/c2-collector-v4",
+    "reason": "Implicit package launcher could not resolve on actual API35. Use exact canonical component already proven by root actual ADB probe. Both failed batches retained, neither requested NN."
+  },
+  "tests": 38,
+  "tests_pass": true,
+  "preflight": "PASS exact10 originalhost13/old7weights",
+  "negative_preflight_returncode": 1,
+  "output_created": false,
+  "no_adb_no_nn_no_gradle_by_this_validation": true,
+  "ml_policy_changed": false,
+  "launcher_argv": [
+    "shell",
+    "am",
+    "start",
+    "-W",
+    "-n",
+    "ru.replika.offline/ru.replika.MainActivity"
+  ],
+  "actual_root_launcher_probe": {
+    "path": "artifacts/test-results/step-04/context600-c2-android-v2/explicit-launch-probe.log",
+    "sha256": "58b294ce6c7706620828d3a3a16945dd05a6753cfa9e61bf73b96f23b63e3058",
+    "status": "ok",
+    "activity": "ru.replika.offline/ru.replika.MainActivity",
+    "scope": "Root-owned real device command; this child only read its saved log"
+  },
+  "collector_semantic_sources": {
+    "tools/eval/pull_refined_android.py": "7cc15015f1fd328d61a5a4495700af907aba3104e03e8d6baa275efbe014737c",
+    "tools/eval/native_diar_policy.py": "82af9dd27356ac4b84f3793404b55d4515fbdd0ebcd19ab17758199273034609",
+    "tools/eval/native_policy.py": "b6d7fd2de6a7ca7f1776de9fa3924c623918709e0358977bae059569ef4da36b",
+    "tools/eval/port_comparison.py": "8705abd0f4696520047032020f19069308b343008af3d7ed976b895c62e398c4"
+  },
+  "files": {
+    "tools/eval/native_diar_policy.py": "82af9dd27356ac4b84f3793404b55d4515fbdd0ebcd19ab17758199273034609",
+    "tools/eval/pull_refined_android.py": "7cc15015f1fd328d61a5a4495700af907aba3104e03e8d6baa275efbe014737c",
+    "tools/eval/tests/test_native_diar_policy.py": "37147d9f9f0612606be70cbc5b63296900f81317f750bc16138494d19e4ae639",
+    "tools/eval/tests/test_pull_refined_android.py": "ba53ace9c766930516f0b56c33e13a3bd438c76b095f083fd3be49067439df9f"
+  }
+}

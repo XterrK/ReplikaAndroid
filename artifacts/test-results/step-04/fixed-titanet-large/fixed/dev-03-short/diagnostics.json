@@ -1,0 +1,78 @@
+{
+  "rawDiarizationTurns": [
+    {
+      "startMs": 352,
+      "endMs": 4925,
+      "speakerId": 0
+    },
+    {
+      "startMs": 5482,
+      "endMs": 11135,
+      "speakerId": 0
+    },
+    {
+      "startMs": 11692,
+      "endMs": 13582,
+      "speakerId": 1
+    },
+    {
+      "startMs": 14240,
+      "endMs": 17294,
+      "speakerId": 0
+    },
+    {
+      "startMs": 17834,
+      "endMs": 18965,
+      "speakerId": 0
+    }
+  ],
+  "diarizationTurns": [
+    {
+      "startMs": 352,
+      "endMs": 4925,
+      "speakerId": 0
+    },
+    {
+      "startMs": 5482,
+      "endMs": 11135,
+      "speakerId": 0
+    },
+    {
+      "startMs": 11692,
+      "endMs": 13582,
+      "speakerId": 1
+    },
+    {
+      "startMs": 14240,
+      "endMs": 17294,
+      "speakerId": 0
+    },
+    {
+      "startMs": 17834,
+      "endMs": 18965,
+      "speakerId": 0
+    }
+  ],
+  "mode": "fixed",
+  "numClustersPassed": 2,
+  "threshold": 0.5,
+  "thresholdApplied": false,
+  "windowShiftRatio": 0.1,
+  "threads": 2,
+  "modelId": "titanet_large",
+  "modelSha256": "d51abcf31717ef28162f26acb9d44dd4127c3d44c9b8624f699f3425daca8e77",
+  "diarizationInferenceMs": 2544.9391399997694,
+  "modelLoadMs": 0.0,
+  "sessionReuse": "Same model config; set_config changes clustering only. Every process recomputes neural outputs.",
+  "newAsrInference": false,
+  "asrEvidenceSha256": {
+    "reference.json": "dfaf5a84d3c2850a87ebe3b47369ffb87863c6c710abc6cc7f2faea5337be571",
+    "hypothesis.json": "1038723185e1191948e624d784ae5ada57fea8a061d6cdc5aa9fc1d707cbf5c3",
+    "diagnostics.json": "3139de2eedfea3b74ef88ed48cab39eec0ccf610503c8922c710bd39ed785807",
+    "metrics.json": "57be4b645472d75007ef7c281322b314ef7542ba60d7b5ea916a3c4c24f81c73"
+  },
+  "fixedCountSource": "manifest known-K research oracle, not deployment",
+  "singleBypass": false,
+  "fixedSinglePolicy": "Actual diarizer process even K=1; separate production V1.6 single bypass comparison required",
+  "shortChunkCaveat": "Sherpa single-segmentation-chunk special case may skip embedding/clustering; no claim every threshold exercises those on short files."
+}

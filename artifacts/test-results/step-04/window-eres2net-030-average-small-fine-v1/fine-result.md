@@ -1,0 +1,3 @@
+Bounded C2 window fine sweep: all8dev ×21 global thresholds complete. The unique unchanged joint-gate pass and minimum-DER profile is ERes030 average-linkage tau0.36, small reassignment enabled: exact7/8, nativeDER0 18.298481%, DER250 15.144996%, cpWER146/533, rawWER71/533 unchanged.
+
+Protocol frozen before outputs. All168 records, evidence/source/code hashes, literal ASR streams, both native DER scores and aggregate summaries checked; all standard metrics for selected8 cases rescored. No neural inference, holdout access or source edits. Separate original-holdout/reserve and native/full-pipeline acceptance remain pending for C2. No RTF/speed claim.

@@ -1,0 +1,99 @@
+{
+  "rawDiarizationTurns": [
+    {
+      "startMs": 318,
+      "endMs": 10510,
+      "speakerId": 0
+    },
+    {
+      "startMs": 11641,
+      "endMs": 16298,
+      "speakerId": 1
+    },
+    {
+      "startMs": 17480,
+      "endMs": 32482,
+      "speakerId": 0
+    },
+    {
+      "startMs": 33443,
+      "endMs": 38168,
+      "speakerId": 1
+    },
+    {
+      "startMs": 38928,
+      "endMs": 42134,
+      "speakerId": 0
+    },
+    {
+      "startMs": 43518,
+      "endMs": 47332,
+      "speakerId": 0
+    },
+    {
+      "startMs": 47922,
+      "endMs": 58975,
+      "speakerId": 1
+    }
+  ],
+  "diarizationTurns": [
+    {
+      "startMs": 318,
+      "endMs": 10510,
+      "speakerId": 0
+    },
+    {
+      "startMs": 11641,
+      "endMs": 16298,
+      "speakerId": 1
+    },
+    {
+      "startMs": 17480,
+      "endMs": 32482,
+      "speakerId": 0
+    },
+    {
+      "startMs": 33443,
+      "endMs": 38168,
+      "speakerId": 1
+    },
+    {
+      "startMs": 38928,
+      "endMs": 42134,
+      "speakerId": 0
+    },
+    {
+      "startMs": 43518,
+      "endMs": 47332,
+      "speakerId": 0
+    },
+    {
+      "startMs": 47922,
+      "endMs": 58975,
+      "speakerId": 1
+    }
+  ],
+  "mode": "auto",
+  "numClustersPassed": -1,
+  "threshold": 0.9,
+  "thresholdApplied": true,
+  "windowShiftRatio": 0.1,
+  "threads": 2,
+  "modelId": "eres2net_zh",
+  "modelSha256": "1a331345f04805badbb495c775a6ddffcdd1a732567d5ec8b3d5749e3c7a5e4b",
+  "diarizationInferenceMs": 13496.71471900001,
+  "modelLoadMs": 0.0,
+  "sessionReuse": "Same model config; set_config changes clustering only. Every process recomputes neural outputs.",
+  "newAsrInference": false,
+  "asrEvidenceSha256": {
+    "reference.json": "0900022595d73de02b3c7459f85a37b39e37ac5cb455e7ee8827399097e01256",
+    "hypothesis.json": "84d050fb0c9e6b2a44cf18bb17bc88a66bb751c14d761ec4bd4956ef9781acde",
+    "diagnostics.json": "6c957e87a1f494a515c581f5a5534727e8d62b4386b3e7de6b6b980f8c557220",
+    "metrics.json": "2101d43b3abc67d31d48fd480ebfcaccb1eb2ead536e01f21229456e88579f4e"
+  },
+  "fixedCountSource": "none",
+  "singleBypass": false,
+  "fixedSinglePolicy": "Actual diarizer process even K=1; separate production V1.6 single bypass comparison required",
+  "shortChunkCaveat": "Sherpa single-segmentation-chunk special case may skip embedding/clustering; no claim every threshold exercises those on short files.",
+  "newCleanWindowEmbeddingInference": false
+}

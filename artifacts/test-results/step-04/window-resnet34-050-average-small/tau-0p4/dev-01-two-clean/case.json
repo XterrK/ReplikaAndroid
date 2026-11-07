@@ -1,0 +1,429 @@
+{
+  "id": "dev-01-two-clean",
+  "split": "dev",
+  "profile": "tau-0p4",
+  "source_profile": "auto-0p50",
+  "stage": "refined",
+  "threshold": 0.4,
+  "audio_sha256": "80bdb11e4d9e313d2440c01b80babc0dbe319c9dbea371988ef62716ffb9d77b",
+  "reference_sha256": "523b1097852d70d1f6d2cf2f3c632ee5c5ac3bedf8e64487ecbdada21c25d127",
+  "duration_ms": 69556,
+  "native_speaker_count": 2,
+  "reference_speaker_count": 2,
+  "native_speaker_count_error": 0,
+  "metrics": {
+    "schema_version": 1,
+    "protocol": {
+      "primary_metric": "wer_raw",
+      "rate_units": "fraction; null for an undefined denominator",
+      "raw_wer": "whitespace tokens; exact case, attached punctuation, ё and numeric spelling; rows ordered by start_ms/end_ms",
+      "edit_ties": "diagonal (match/substitution), then deletion, then insertion",
+      "normalized": "NFC lowercase, ё→е, non-letter/non-number characters become spaces; CER removes spaces",
+      "punctuation": "micro F1 for . , ? ! — : anchored to preceding equal lexical token after normalized alignment; BEGIN anchor before first token; substitutions/insertions do not match anchors",
+      "initial_case": "first cased letter of each reference segment, aligned by normalized lexical word; unmatched initials count incorrect; conditional_accuracy excludes unmatched",
+      "der": "full recording [0,duration_ms], overlap included, optimal global speaker permutation reoptimized after collar exclusion; collar total width ±half around each reference boundary",
+      "cpwer": "minimum sum of Levenshtein costs over speaker-concatenated streams, padded empty streams for unequal counts; raw and normalized",
+      "timing": "global one-to-one maximum-total temporal IoU matching of positive-duration segments; only positive-IoU pairs; text/speaker independent; granularity-dependent"
+    },
+    "inputs": {
+      "reference_segments": 8,
+      "hypothesis_segments": 13,
+      "duration_ms": 69556,
+      "processing_ms": null,
+      "reference_blank_text_segments": 0,
+      "hypothesis_blank_text_segments": 0,
+      "reference_zero_duration_segments": 0,
+      "hypothesis_zero_duration_segments": 0
+    },
+    "wer_raw": {
+      "rate": 0.07857142857142857,
+      "errors": 11,
+      "substitutions": 10,
+      "deletions": 1,
+      "insertions": 0,
+      "correct": 129,
+      "reference_tokens": 140,
+      "hypothesis_tokens": 139,
+      "status": "ok"
+    },
+    "wer_punctuation_tokens": {
+      "rate": 0.0650887573964497,
+      "errors": 11,
+      "substitutions": 11,
+      "deletions": 0,
+      "insertions": 0,
+      "correct": 158,
+      "reference_tokens": 169,
+      "hypothesis_tokens": 169,
+      "status": "ok"
+    },
+    "wer_normalized": {
+      "rate": 0.014598540145985401,
+      "errors": 2,
+      "substitutions": 2,
+      "deletions": 0,
+      "insertions": 0,
+      "correct": 135,
+      "reference_tokens": 137,
+      "hypothesis_tokens": 137,
+      "status": "ok"
+    },
+    "cer_normalized": {
+      "rate": 0.0027816411682892906,
+      "errors": 2,
+      "substitutions": 1,
+      "deletions": 1,
+      "insertions": 0,
+      "correct": 717,
+      "reference_tokens": 719,
+      "hypothesis_tokens": 718,
+      "status": "ok"
+    },
+    "wer_number_normalized": {
+      "rate": 0.014598540145985401,
+      "errors": 2,
+      "substitutions": 2,
+      "deletions": 0,
+      "insertions": 0,
+      "correct": 135,
+      "reference_tokens": 137,
+      "hypothesis_tokens": 137,
+      "status": "ok",
+      "available": true,
+      "language": "ru",
+      "reference_integer_tokens_converted": 0,
+      "hypothesis_integer_tokens_converted": 0,
+      "scope": "cardinal integers after lexical normalization; dates/times/percent/ordinals are not semantically interpreted"
+    },
+    "punctuation": {
+      "true_positive": 24,
+      "false_positive": 8,
+      "false_negative": 5,
+      "reference_marks": 29,
+      "hypothesis_marks": 32,
+      "precision": 0.75,
+      "recall": 0.8275862068965517,
+      "f1": 0.7868852459016393,
+      "marks": [
+        ".",
+        ",",
+        "?",
+        "!",
+        "—",
+        ":"
+      ],
+      "by_mark": {
+        ".": {
+          "true_positive": 11,
+          "false_positive": 4,
+          "false_negative": 3,
+          "reference_marks": 14,
+          "hypothesis_marks": 15,
+          "precision": 0.7333333333333333,
+          "recall": 0.7857142857142857,
+          "f1": 0.7586206896551724
+        },
+        ",": {
+          "true_positive": 11,
+          "false_positive": 0,
+          "false_negative": 1,
+          "reference_marks": 12,
+          "hypothesis_marks": 11,
+          "precision": 1.0,
+          "recall": 0.9166666666666666,
+          "f1": 0.9565217391304348
+        },
+        "?": {
+          "true_positive": 1,
+          "false_positive": 0,
+          "false_negative": 0,
+          "reference_marks": 1,
+          "hypothesis_marks": 1,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "!": {
+          "true_positive": 1,
+          "false_positive": 2,
+          "false_negative": 1,
+          "reference_marks": 2,
+          "hypothesis_marks": 3,
+          "precision": 0.3333333333333333,
+          "recall": 0.5,
+          "f1": 0.4
+        },
+        "—": {
+          "true_positive": 0,
+          "false_positive": 2,
+          "false_negative": 0,
+          "reference_marks": 0,
+          "hypothesis_marks": 2,
+          "precision": 0.0,
+          "recall": null,
+          "f1": 0.0
+        },
+        ":": {
+          "true_positive": 0,
+          "false_positive": 0,
+          "false_negative": 0,
+          "reference_marks": 0,
+          "hypothesis_marks": 0,
+          "precision": null,
+          "recall": null,
+          "f1": null
+        }
+      },
+      "aligned_lexical_words": 135,
+      "reference_lexical_words": 137,
+      "hypothesis_lexical_words": 137
+    },
+    "initial_case": {
+      "accuracy": 1.0,
+      "conditional_accuracy": 1.0,
+      "correct": 8,
+      "reference_initials": 8,
+      "aligned_reference_initials": 8,
+      "unmatched_reference_initials": 0
+    },
+    "der_collar_0ms": {
+      "rate": 0.15366813933219126,
+      "miss_ms": 10226.0,
+      "false_alarm_ms": 0.0,
+      "confusion_ms": 0.0,
+      "error_speaker_ms": 10226.0,
+      "reference_speaker_ms": 66546.0,
+      "evaluated_duration_ms": 69556.0,
+      "excluded_duration_ms": 0.0,
+      "reference_overlap_ms": 0.0,
+      "collar_ms": 0,
+      "collar_half_width_ms": 0.0,
+      "mapping_hypothesis_to_reference": {
+        "speaker_1": "speaker_1",
+        "speaker_2": "speaker_2"
+      },
+      "status": "ok"
+    },
+    "der_collar_250ms": {
+      "rate": 0.1283270845598488,
+      "miss_ms": 8283.0,
+      "false_alarm_ms": 0.0,
+      "confusion_ms": 0.0,
+      "error_speaker_ms": 8283.0,
+      "reference_speaker_ms": 64546.0,
+      "evaluated_duration_ms": 65696.0,
+      "excluded_duration_ms": 3860.0,
+      "reference_overlap_ms": 0.0,
+      "collar_ms": 250,
+      "collar_half_width_ms": 125.0,
+      "mapping_hypothesis_to_reference": {
+        "speaker_1": "speaker_1",
+        "speaker_2": "speaker_2"
+      },
+      "status": "ok"
+    },
+    "speakers": {
+      "reference": 2,
+      "hypothesis": 2,
+      "signed_error": 0,
+      "absolute_error": 0
+    },
+    "cpwer_raw": {
+      "errors": 11,
+      "substitutions": 10,
+      "deletions": 1,
+      "insertions": 0,
+      "correct": 129,
+      "reference_tokens": 140,
+      "hypothesis_tokens": 139,
+      "rate": 0.07857142857142857,
+      "status": "ok",
+      "speaker_pairs": [
+        {
+          "reference_speaker": "speaker_1",
+          "hypothesis_speaker": "speaker_1",
+          "errors": 5,
+          "reference_tokens": 77,
+          "hypothesis_tokens": 77
+        },
+        {
+          "reference_speaker": "speaker_2",
+          "hypothesis_speaker": "speaker_2",
+          "errors": 6,
+          "reference_tokens": 63,
+          "hypothesis_tokens": 62
+        }
+      ]
+    },
+    "cpwer_normalized": {
+      "errors": 2,
+      "substitutions": 2,
+      "deletions": 0,
+      "insertions": 0,
+      "correct": 135,
+      "reference_tokens": 137,
+      "hypothesis_tokens": 137,
+      "rate": 0.014598540145985401,
+      "status": "ok",
+      "speaker_pairs": [
+        {
+          "reference_speaker": "speaker_1",
+          "hypothesis_speaker": "speaker_1",
+          "errors": 1,
+          "reference_tokens": 75,
+          "hypothesis_tokens": 75
+        },
+        {
+          "reference_speaker": "speaker_2",
+          "hypothesis_speaker": "speaker_2",
+          "errors": 1,
+          "reference_tokens": 62,
+          "hypothesis_tokens": 62
+        }
+      ]
+    },
+    "timing": {
+      "matched_pairs": 8,
+      "reference_intervals": 8,
+      "hypothesis_intervals": 13,
+      "reference_coverage": 1.0,
+      "hypothesis_coverage": 0.6153846153846154,
+      "unmatched_reference": 0,
+      "unmatched_hypothesis": 5,
+      "mean_start_abs_error_ms": 1472.5,
+      "mean_end_abs_error_ms": 885.75,
+      "median_start_abs_error_ms": 605.5,
+      "median_end_abs_error_ms": 418.0,
+      "pairs_over_250ms": 8,
+      "fraction_over_250ms": 1.0,
+      "reference_fraction_over_250ms_or_unmatched": 1.0,
+      "pairs": [
+        {
+          "reference_index": 0,
+          "hypothesis_index": 1,
+          "iou": 0.7580174927113703,
+          "start_abs_error_ms": 750,
+          "end_abs_error_ms": 246
+        },
+        {
+          "reference_index": 1,
+          "hypothesis_index": 2,
+          "iou": 0.5434410320812878,
+          "start_abs_error_ms": 298,
+          "end_abs_error_ms": 3701
+        },
+        {
+          "reference_index": 2,
+          "hypothesis_index": 4,
+          "iou": 0.8917969223312735,
+          "start_abs_error_ms": 461,
+          "end_abs_error_ms": 432
+        },
+        {
+          "reference_index": 3,
+          "hypothesis_index": 5,
+          "iou": 0.9487750556792873,
+          "start_abs_error_ms": 68,
+          "end_abs_error_ms": 392
+        },
+        {
+          "reference_index": 4,
+          "hypothesis_index": 6,
+          "iou": 0.9403415391439344,
+          "start_abs_error_ms": 250,
+          "end_abs_error_ms": 288
+        },
+        {
+          "reference_index": 5,
+          "hypothesis_index": 8,
+          "iou": 0.44593877189877895,
+          "start_abs_error_ms": 5498,
+          "end_abs_error_ms": 764
+        },
+        {
+          "reference_index": 6,
+          "hypothesis_index": 10,
+          "iou": 0.6953162723322066,
+          "start_abs_error_ms": 2296,
+          "end_abs_error_ms": 859
+        },
+        {
+          "reference_index": 7,
+          "hypothesis_index": 12,
+          "iou": 0.5552663543293423,
+          "start_abs_error_ms": 2159,
+          "end_abs_error_ms": 404
+        }
+      ]
+    },
+    "rtf": null,
+    "native_der_collar_0ms": {
+      "rate": 0.09823280137048057,
+      "miss_ms": 6537.0,
+      "false_alarm_ms": 0.0,
+      "confusion_ms": 0.0,
+      "error_speaker_ms": 6537.0,
+      "reference_speaker_ms": 66546.0,
+      "evaluated_duration_ms": 69556.0,
+      "excluded_duration_ms": 0.0,
+      "reference_overlap_ms": 0.0,
+      "collar_ms": 0,
+      "collar_half_width_ms": 0.0,
+      "mapping_hypothesis_to_reference": {
+        "native_0": "speaker_1",
+        "native_1": "speaker_2"
+      },
+      "status": "ok"
+    },
+    "native_der_collar_250ms": {
+      "rate": 0.07332754934465342,
+      "miss_ms": 4733.0,
+      "false_alarm_ms": 0.0,
+      "confusion_ms": 0.0,
+      "error_speaker_ms": 4733.0,
+      "reference_speaker_ms": 64546.0,
+      "evaluated_duration_ms": 65696.0,
+      "excluded_duration_ms": 3860.0,
+      "reference_overlap_ms": 0.0,
+      "collar_ms": 250,
+      "collar_half_width_ms": 125.0,
+      "mapping_hypothesis_to_reference": {
+        "native_0": "speaker_1",
+        "native_1": "speaker_2"
+      },
+      "status": "ok"
+    },
+    "native_speaker_count": 2
+  },
+  "refiner_accepted": true,
+  "refiner_only_ms": 12.749757999699796,
+  "diarization_inference_ms": 0,
+  "new_diarization_inference": false,
+  "new_asr_inference": false,
+  "raw_wer_invariant": true,
+  "source_evidence_sha256": {
+    "diar": {
+      "case.json": "adaed028d863af50c8b0bea13ad553f52e92e3c142b1651b2e74e0288a7fafa0",
+      "reference.json": "523b1097852d70d1f6d2cf2f3c632ee5c5ac3bedf8e64487ecbdada21c25d127",
+      "hypothesis.json": "0833bce9990bfb2a7731680443371375614a7184f45dadc0d9aba77a48c77805",
+      "diagnostics.json": "4fd5e6a46a388b01aabc3feb5817c5dabc744ce6d6973e171677d5a397a27b91",
+      "metrics.json": "5957a722c2c21e0ed49e75a6e092d30b9442098b8adcc8c9da7cde7e1f3fa322"
+    },
+    "asr": {
+      "case.json": "e11c94fc39dd4a834fdd796872cfaadc35e01326c635273baef6a4520828662f",
+      "reference.json": "523b1097852d70d1f6d2cf2f3c632ee5c5ac3bedf8e64487ecbdada21c25d127",
+      "hypothesis.json": "49aa3320547ddb09bb6798d0f877fa3c99e19891427ae04419eb2cead6ec2fe5",
+      "diagnostics.json": "f0c781a45c49466123858dd7253f039035060235d2db12713698d9a814680703",
+      "metrics.json": "e22fb9b16db7952bf691ec15f2de1b244d9e20d793ca06397c4b4e8b28059589"
+    },
+    "reference": "523b1097852d70d1f6d2cf2f3c632ee5c5ac3bedf8e64487ecbdada21c25d127",
+    "original_audio": "80bdb11e4d9e313d2440c01b80babc0dbe319c9dbea371988ef62716ffb9d77b"
+  },
+  "evidence_sha256": {
+    "reference.json": "523b1097852d70d1f6d2cf2f3c632ee5c5ac3bedf8e64487ecbdada21c25d127",
+    "hypothesis.json": "bf3144af2c69273ff16ee8fb3b081dbd17be2a9917b9681a5e2fe025f9efc870",
+    "diagnostics.json": "c8379cb533a988fa852647c07bca3a6e8d9830d2150c82726e292fe4cdce3f12",
+    "metrics.json": "23c5b39ca7f09aba894d71a2402e54335404b70639f400cc2f12b3cb89413a2f"
+  },
+  "completed_at": "2026-11-07T00:24:25.754801+00:00"
+}

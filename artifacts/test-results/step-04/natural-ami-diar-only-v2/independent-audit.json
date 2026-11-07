@@ -1,0 +1,1539 @@
+{
+  "schema_version": 1,
+  "status": "PASS",
+  "at": "2026-11-07T02:35:07.863734+00:00",
+  "scope": "Independent saved-evidence audit only; no NN/ASR/VAD/LID/build/ADB/Git/source edits. Integrity/recalculation PASS is not model-quality acceptance.",
+  "checks": 6288,
+  "profile_cases": 9,
+  "totals": {
+    "sd_calls": 9,
+    "embedding_calls": 161,
+    "measured_windows": 161
+  },
+  "failures": [],
+  "source_sha256": {
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/natural-ami-diar-only-v2/run.json": "d984afedf1147bd290a5d088daa540d3572ace0a7ef2abc9c9ddb6907411e984",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/natural-ami-diar-only-v2/summary.json": "c316c95ddac8f1035640824d55e59aefd7455cb98f75bb5460c0b0ab6285a2cf",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/benchmark/eval-natural-ami/manifest.json": "04577c6ebe2e06b8d2aec3717055562b927c73c1af916e42968cee44ab5c9073",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/benchmark/eval-natural-ami/provenance.json": "27e532b8142381d0d83edf8b14398234964d99492f8c58fe22ccd9404187cb74",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/natural-probe-freeze.json": "7a72eadf47de42be7df10a388330e24ec728cbf0ece1e2abf519fc81f48ac8da",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/candidate-c1-validation-freeze.json": "b436d4baa21e9ade7abc1bb07aaa01abafc93d0966b5c8372bc15b8439924b61",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/candidate-c2-validation-freeze.json": "2e81175388b45d204554d0c95eca27ba3a2a09b2c9d62dbfdd9a0bc60f360409",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/benchmark/eval-natural-ami/preparation-audit.json": "ef29f0f76ea98064a6ade007c87b68a3b149d3dc524b60dcb8c71656296db40b",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/benchmark/eval-natural-ami/selection-freeze.json": "7a72eadf47de42be7df10a388330e24ec728cbf0ece1e2abf519fc81f48ac8da",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/benchmark/eval-natural-ami/ATTRIBUTION.md": "d265055134834832ec139ab3e0fe45b2580a2b761c74795387816290a19f7c9a",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/benchmark/eval-natural-ami/sources/AMI-diarization-setup-LICENSE": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+    "/home/egor/replika-toolchain/eval-natural-ami-audio/diagnostic/ami-natural-en2002a-headset-first60.wav": "badbaf36333c8da7d4ea45cd81114e6422cc88593e7a355d39b8336b299a32c0",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/benchmark/eval-natural-ami/references/ami-natural-en2002a-headset-first60.json": "e0c061db34a905ef3ad9e00d198061d7e6f7d1e7d77e74617ddaf4159b3413e2",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/benchmark/eval-natural-ami/sources/EN2002a.rttm": "a93919ae5f18e476614b7e5a2713c4dc6bba23e95149fba18dbe68602b13ee40",
+    "/home/egor/replika-toolchain/eval-natural-ami-audio/diagnostic/ami-natural-en2002a-array-first60.wav": "b55b8add5091b82981f39ee79e14eb400ded3ae8a6deb5527cd0fbeb51add72e",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/benchmark/eval-natural-ami/references/ami-natural-en2002a-array-first60.json": "e0c061db34a905ef3ad9e00d198061d7e6f7d1e7d77e74617ddaf4159b3413e2",
+    "/home/egor/replika-toolchain/eval-natural-ami-audio/diagnostic/ami-natural-en2002c-headset-first60.wav": "844e1107cf7d79efba07f6ab326ce679d61beefb69299e1bd931c29bce4d42db",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/benchmark/eval-natural-ami/references/ami-natural-en2002c-headset-first60.json": "88d0ac9340dfa15a5a39851d2eb2a19e0c96715ecb36e05c674f8cf62e396d01",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/benchmark/eval-natural-ami/sources/EN2002c.rttm": "e595fa5953a923cbd62ffc881bd9725df98a6587bc14730dd279937773953bca",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/app/src/main/assets/models-lock.json": "bd18076e29b225ae51a9c43dd347bf0fd7ed8f2e9c5ed10bba56a0899df1dcb9",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/model-pack/giga-v3/encoder.int8.onnx": "369f35a71bf288d3b8e0391fabd8dba5f2314088d440bca474056b7b4b6e66bf",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/model-pack/giga-v3/decoder.onnx": "38fc7475443ea2a26f63211ca350f73ac50fff824ab7a3876ee2bd610c53bbc4",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/model-pack/giga-v3/joiner.onnx": "602ff7017a93311aad34df1437c8d7f49911353c13d6eae7a6ee7b041339465c",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/model-pack/giga-v3/tokens.txt": "39abae20e692998290c574e606f11a9edef2902a1995463fcff63d1490cf22b7",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/model-pack/diar/segmentation.onnx": "220ad67ca923bef2fa91f2390c786097bf305bceb5e261d4af67b38e938e1079",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/model-pack/diar/embedding.onnx": "1a331345f04805badbb495c775a6ddffcdd1a732567d5ec8b3d5749e3c7a5e4b",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/model-pack/vad/silero_vad.onnx": "9e2449e1087496d8d4caba907f23e0bd3f78d91fa552479bb9c23ac09cbb1fd6",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/configs/eval/diar-models.json": "743624f2f25be1635fe60b11c3e11324c6dd8480f793cdbe196542733d29f7a3",
+    "/home/egor/replika-toolchain/diar-models/wespeaker_en_voxceleb_resnet34_LM.onnx": "e9848563da86f263117134dfd7ad63c92355b37de492b55e325400c9d9c39012",
+    "/home/egor/replika-toolchain/diar-models/3dspeaker_speech_campplus_sv_en_voxceleb_16k.onnx": "357a834f702b80161e5b981182c038e18553c1f2ca752ed6cec2052365d4129b",
+    "/home/egor/replika-toolchain/diar-models/wespeaker_en_voxceleb_CAM++_LM.onnx": "e197af7e9d473030cf486b3124149a19bf37014d0e4485e4c70c483b0ec10cb2",
+    "/home/egor/replika-toolchain/diar-models/nemo_en_titanet_small.onnx": "ad4a1802485d8b34c722d2a9d04249662f2ece5d28a7a039063ca22f515a789e",
+    "/home/egor/replika-toolchain/diar-models/nemo_en_titanet_large.onnx": "d51abcf31717ef28162f26acb9d44dd4127c3d44c9b8624f699f3425daca8e77",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/configs/eval/c1-refined-selected.json": "4a3c8b697383d4ddada4f076eb0fe744db5531f4384700c991ce74fa96f72fb5",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/configs/eval/c2-window-selected-full.json": "6e3a0f10a291e9121bae8df01dca0db3a67c4ac5c828f3fca38ace26b21ef189",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/tools/eval/run_natural_diar.py": "e7527e84eb8502bed8b70d9eef1ddb9c6c2edab759808b720d88fd2a30ffcce1",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/tools/eval/pipeline.py": "fcdea5e2028e2c46226ab24ff0ac4fe33743fb15bfe853789e156f50203b137a",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/tools/eval/decoder_parity.py": "5b5258286138ae5b251de0324c592a968180ef2d90f3c6ee68aa33e82af67044",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/tools/eval/diar_sweep.py": "5e9314e239374c8abf5287465b9a3d4e659cb31abbed1d6150b77d4f7a0567d9",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/tools/eval/run.py": "74b4d5daaa8f7aeb959c0d6a88860bc865f48d049607280569c06d32ba2840c9",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/tools/eval/speaker_refiner.py": "4f52854185c9ad4b2e54b9679a9670b5415d5a9fcc1c16d0c5f392eb6aa69eb1",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/tools/eval/window_overcluster.py": "23cffbba55b75e69695a2b508093505dcad74c804cb7913fd77356b67196acd4",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/tools/eval/score.py": "d9415f7fcac76261fc2c0749d0a640a0a03fa8c6e32f8e5856c4bc0e30ccd85f",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/tools/eval/prepare_natural_ami.py": "35b4794680f94ea95745dff43518e9821cde0db6d48cc6c9a202149fc995f33c",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/tools/eval/prepare_diar_models.py": "0e4a1f2df01f1205b3f1b0ddfd2289e72e3877934f798f2d936c4e7aa54bef4c",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/tools/eval/vad_words.py": "1310361aecdab50e6c977032b73f01352d870af7416904b6dca22b682f3c76a7",
+    "/home/egor/replika-toolchain/host-venv/lib/python3.12/site-packages/sherpa_onnx/lib/_sherpa_onnx.cpython-312-x86_64-linux-gnu.so": "501b153b863912521f2ccf8e11c7e4566740d0543849a2096dbdea50a674f780",
+    "/home/egor/replika-toolchain/host-venv/lib/python3.12/site-packages/scipy/cluster/hierarchy/__init__.py": "3f496ef581f72c939716fa11a59597ba595bda6b2d4ee49402b0281171a0d0f4",
+    "/home/egor/replika-toolchain/host-venv/lib/python3.12/site-packages/scipy/cluster/hierarchy/_hierarchy.cpython-312-x86_64-linux-gnu.so": "a0cf8c91c53d84f4c4786866faaa5c9d672925620b1192b777904ed90c593d33",
+    "/home/egor/replika-toolchain/host-venv/lib/python3.12/site-packages/numpy/_core/_multiarray_umath.cpython-312-x86_64-linux-gnu.so": "b185dfe64b07180bedc7c15fb2735b0d0f4f4e09eb9c15bd8e67f74568aebcbf",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/natural-ami-diar-only-v2/input-manifest.json": "04577c6ebe2e06b8d2aec3717055562b927c73c1af916e42968cee44ab5c9073",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/natural-ami-diar-only-v2/model-catalog.json": "743624f2f25be1635fe60b11c3e11324c6dd8480f793cdbe196542733d29f7a3",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/natural-ami-diar-only-v2/model-lock.json": "bd18076e29b225ae51a9c43dd347bf0fd7ed8f2e9c5ed10bba56a0899df1dcb9",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/natural-ami-diar-only-v2/natural-preparation-provenance.json": "27e532b8142381d0d83edf8b14398234964d99492f8c58fe22ccd9404187cb74",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/natural-ami-diar-only-v2/selection-freeze.json": "7a72eadf47de42be7df10a388330e24ec728cbf0ece1e2abf519fc81f48ac8da",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/natural-ami-diar-only-v2/preparation-audit.json": "ef29f0f76ea98064a6ade007c87b68a3b149d3dc524b60dcb8c71656296db40b",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/natural-ami-diar-only-v2/legacy-v16/ami-natural-en2002a-headset-first60/case.json": "93307d215b9edd90a67f6ed14e13dbef355fa921703c64730b0bb64c964723f4",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/natural-ami-diar-only-v2/legacy-v16/ami-natural-en2002a-headset-first60/diagnostics.json": "0e4902fed4b1d38753a5ad19df6e666c862c5f1e7732e361fd43bac3c67bdc99",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/natural-ami-diar-only-v2/legacy-v16/ami-natural-en2002a-headset-first60/metrics.json": "ca6d4c67a93df6fa23f63086212a97bb9c613959866ceb66e886e8fb29504842",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/natural-ami-diar-only-v2/legacy-v16/ami-natural-en2002a-headset-first60/hypothesis.json": "517441e1a8f2f1aac74d0ed882da66f73a7ee624fe716b591b8c9a27061618bc",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/natural-ami-diar-only-v2/legacy-v16/ami-natural-en2002a-headset-first60/reference.json": "e0c061db34a905ef3ad9e00d198061d7e6f7d1e7d77e74617ddaf4159b3413e2",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/natural-ami-diar-only-v2/c1-centroid/ami-natural-en2002a-headset-first60/case.json": "924fe931003f4c901a5fad7647bed0849daff1972ce4d46d4d941a60f60ee59c",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/natural-ami-diar-only-v2/c1-centroid/ami-natural-en2002a-headset-first60/diagnostics.json": "b2795322382efefa8288274e0399f497cac9487a7dbae7cb07106161b443b20b",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/natural-ami-diar-only-v2/c1-centroid/ami-natural-en2002a-headset-first60/metrics.json": "a5edc252861674694b5eee679ac2c5551b9ced651e3b3f4d66dc85e444e688d0",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/natural-ami-diar-only-v2/c1-centroid/ami-natural-en2002a-headset-first60/hypothesis.json": "ba1990fb1d327a796aeff6fbdd9bd7ca96c4c8c0b09d0f03d1ddd397b2425291",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/natural-ami-diar-only-v2/c1-centroid/ami-natural-en2002a-headset-first60/reference.json": "e0c061db34a905ef3ad9e00d198061d7e6f7d1e7d77e74617ddaf4159b3413e2",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/natural-ami-diar-only-v2/c2-window/ami-natural-en2002a-headset-first60/case.json": "b39bfcb342a664210fee22f8d64215834e293e33808cb8ca524f471e859e8f5d",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/natural-ami-diar-only-v2/c2-window/ami-natural-en2002a-headset-first60/diagnostics.json": "b5a4eb231fd79abb8b2ea5bfad2d0032179012a7a757d215f6d16a9087292c11",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/natural-ami-diar-only-v2/c2-window/ami-natural-en2002a-headset-first60/metrics.json": "416555166cae705b6122d03a377b0495805458536f8c63a2b6ffb8b7dbdcec5a",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/natural-ami-diar-only-v2/c2-window/ami-natural-en2002a-headset-first60/hypothesis.json": "e5ae8e4140b377a964a202cfca083a4d7f02390fd26385921e650627bfe8b038",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/natural-ami-diar-only-v2/c2-window/ami-natural-en2002a-headset-first60/reference.json": "e0c061db34a905ef3ad9e00d198061d7e6f7d1e7d77e74617ddaf4159b3413e2",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/natural-ami-diar-only-v2/legacy-v16/ami-natural-en2002a-array-first60/case.json": "3697686a3cfc1753794d9945fadbe34dc061423fcb6c91bfd8230111d766ac60",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/natural-ami-diar-only-v2/legacy-v16/ami-natural-en2002a-array-first60/diagnostics.json": "b073eb2c3736490a7efa0171473d0e94090d184594c02527e7f3a2e8a434a09e",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/natural-ami-diar-only-v2/legacy-v16/ami-natural-en2002a-array-first60/metrics.json": "ee5fa9ffe3cfe0277c3be9e8cfd613a5042e0322ad1e44cfe64ac7176084faff",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/natural-ami-diar-only-v2/legacy-v16/ami-natural-en2002a-array-first60/hypothesis.json": "d5dc125d1c1737417c103f9886649b0a7649f244ce660496011e11be525bf499",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/natural-ami-diar-only-v2/legacy-v16/ami-natural-en2002a-array-first60/reference.json": "e0c061db34a905ef3ad9e00d198061d7e6f7d1e7d77e74617ddaf4159b3413e2",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/natural-ami-diar-only-v2/c1-centroid/ami-natural-en2002a-array-first60/case.json": "045548e6e5c59f76bd80df2c7108fbeece7d561eaf6dbbcf8bd064c5e4cd0278",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/natural-ami-diar-only-v2/c1-centroid/ami-natural-en2002a-array-first60/diagnostics.json": "ebdfb4a74c2ed1b67bad30b9212dea0c311106fef598997b4dbd368af5bb087a",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/natural-ami-diar-only-v2/c1-centroid/ami-natural-en2002a-array-first60/metrics.json": "b0bdf23688c8617bb64ce31d36acfeb2c4e6b9cc4965631a9900a29de34bcd0c",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/natural-ami-diar-only-v2/c1-centroid/ami-natural-en2002a-array-first60/hypothesis.json": "f1a96c12b30162095a4a3f3e009fead4d5152892f3722d4d673d7efda94f6756",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/natural-ami-diar-only-v2/c1-centroid/ami-natural-en2002a-array-first60/reference.json": "e0c061db34a905ef3ad9e00d198061d7e6f7d1e7d77e74617ddaf4159b3413e2",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/natural-ami-diar-only-v2/c2-window/ami-natural-en2002a-array-first60/case.json": "5e23fb0aa6cca8cc45c057917f5907f251134a06f5ab72505480dac2f7e4ad3e",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/natural-ami-diar-only-v2/c2-window/ami-natural-en2002a-array-first60/diagnostics.json": "4caa355738fc45978240a54c9a8e8f6d17bb9c239a28b46b2500d8df45fad0db",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/natural-ami-diar-only-v2/c2-window/ami-natural-en2002a-array-first60/metrics.json": "0de9b582e160c5589072732ca6833aebecce0d6b9e14e3061ca175b6e89fce52",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/natural-ami-diar-only-v2/c2-window/ami-natural-en2002a-array-first60/hypothesis.json": "b8b20d267d9b5d12f8b39250a4b373b0accab49657bd49312b35ca0926ab8acf",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/natural-ami-diar-only-v2/c2-window/ami-natural-en2002a-array-first60/reference.json": "e0c061db34a905ef3ad9e00d198061d7e6f7d1e7d77e74617ddaf4159b3413e2",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/natural-ami-diar-only-v2/legacy-v16/ami-natural-en2002c-headset-first60/case.json": "00eade1412b54fec84553706f7aaccf827a16670fad713ba4a2a1305dfe1b819",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/natural-ami-diar-only-v2/legacy-v16/ami-natural-en2002c-headset-first60/diagnostics.json": "f7b5c018ac47fd5046c4e2763f4c17a6f898d540129b12930da29def4b95cf11",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/natural-ami-diar-only-v2/legacy-v16/ami-natural-en2002c-headset-first60/metrics.json": "733d6c01bfc170ee0bc16f982105bfb69a4ba23dfb18ddf521a848f97c9da68d",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/natural-ami-diar-only-v2/legacy-v16/ami-natural-en2002c-headset-first60/hypothesis.json": "246d4e3052426569641459dc84d7310068d74526aa53e10c0efc71a0fd301186",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/natural-ami-diar-only-v2/legacy-v16/ami-natural-en2002c-headset-first60/reference.json": "88d0ac9340dfa15a5a39851d2eb2a19e0c96715ecb36e05c674f8cf62e396d01",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/natural-ami-diar-only-v2/c1-centroid/ami-natural-en2002c-headset-first60/case.json": "c19e888da692f1dabab5fbf5383de585e3cd4ac302d0954fefa2d192bf1d4598",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/natural-ami-diar-only-v2/c1-centroid/ami-natural-en2002c-headset-first60/diagnostics.json": "d622864e800f6b7dc427f209cd51a48e41b7e5149bf9a30e993c6c97b120d888",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/natural-ami-diar-only-v2/c1-centroid/ami-natural-en2002c-headset-first60/metrics.json": "d1e402883bf37ec0331be438bb06ae876e035fc4544e41a317f0ea4a763b977b",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/natural-ami-diar-only-v2/c1-centroid/ami-natural-en2002c-headset-first60/hypothesis.json": "861bc821953d56b391de11d27fe09a4f0d09ef45dc8303f99971c466d2dee314",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/natural-ami-diar-only-v2/c1-centroid/ami-natural-en2002c-headset-first60/reference.json": "88d0ac9340dfa15a5a39851d2eb2a19e0c96715ecb36e05c674f8cf62e396d01",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/natural-ami-diar-only-v2/c2-window/ami-natural-en2002c-headset-first60/case.json": "1f4ed14679ad1a962af2446b3e372a846d462374297ebfa4133fd4be63212d89",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/natural-ami-diar-only-v2/c2-window/ami-natural-en2002c-headset-first60/diagnostics.json": "2047c96d9b58a0bb4dcdc3cec9a8e11cbb2b0ac1e88656fdce3c18d857f2e5a5",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/natural-ami-diar-only-v2/c2-window/ami-natural-en2002c-headset-first60/metrics.json": "52e8ff38873e51a7e0ac4a5a8eb46b3fdf43fd6a773be06d922e12583788fd10",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/natural-ami-diar-only-v2/c2-window/ami-natural-en2002c-headset-first60/hypothesis.json": "f7d88d4f2acc4b51af650874264f1b3f53dbec556d3c3a091b0e755dbb681f62",
+    "/mnt/d/ReplikaAndroid/ReplikaAndroid/artifacts/test-results/step-04/natural-ami-diar-only-v2/c2-window/ami-natural-en2002c-headset-first60/reference.json": "88d0ac9340dfa15a5a39851d2eb2a19e0c96715ecb36e05c674f8cf62e396d01"
+  },
+  "source_version_resolutions": {},
+  "audit_script_sha256": "64835adecdca12df9a7e920cca7f8349785010ce86ac8ce5c1f65f850c527612",
+  "c2_exact_count": {
+    "successes": 0,
+    "cases": 3,
+    "predicted_k": [
+      6,
+      8,
+      5
+    ],
+    "reference_k": [
+      4,
+      4,
+      3
+    ]
+  },
+  "third_crop_regression": {
+    "id": "ami-natural-en2002c-headset-first60",
+    "legacy_der0": 0.5794607843137255,
+    "c2_der0": 0.6022549019607844,
+    "delta_percentage_points": 2.2794117647058854
+  },
+  "related_sample_scope": {
+    "same_conversation_and_gold": [
+      "ami-natural-en2002a-headset-first60",
+      "ami-natural-en2002a-array-first60"
+    ],
+    "shared_participants": "EN2002a/c, AMI-EN2002",
+    "channel_audio_ms": 180000,
+    "unique_meeting_crop_ms": 120000,
+    "independent_splits": false,
+    "training_overlap": "unknown"
+  },
+  "acceptance_gate": null,
+  "candidate_selection": null,
+  "pool_with_dev": false,
+  "tuning_performed": false,
+  "generalization_claim": false,
+  "performance_claim": false,
+  "records": [
+    {
+      "profile": "legacy-v16",
+      "id": "ami-natural-en2002a-headset-first60",
+      "reference_group": "ami-en2002a-first60",
+      "related_participants_group": "AMI-EN2002",
+      "reference_k": 4,
+      "raw_k": 10,
+      "final_k": 10,
+      "der0": 0.6764552800986167,
+      "der250": 0.6381466255566975,
+      "vectors": 0,
+      "evidence_sha256": {
+        "diagnostics.json": "0e4902fed4b1d38753a5ad19df6e666c862c5f1e7732e361fd43bac3c67bdc99",
+        "reference.json": "e0c061db34a905ef3ad9e00d198061d7e6f7d1e7d77e74617ddaf4159b3413e2",
+        "hypothesis.json": "517441e1a8f2f1aac74d0ed882da66f73a7ee624fe716b591b8c9a27061618bc",
+        "metrics.json": "ca6d4c67a93df6fa23f63086212a97bb9c613959866ceb66e886e8fb29504842"
+      },
+      "metrics": {
+        "reference_speakers": 4,
+        "scope": "Separate natural-meeting diarization diagnostic: EN2002a headset/array share a reference; EN2002a/c share participants; training overlap unknown. Not independent splits, English ASR task E, Android/phone timing, a new dev gate or corpus-general acceptance.",
+        "raw": {
+          "speakers": 10,
+          "speaker_count_error": 6,
+          "speaker_count_exact": false,
+          "der_collar_0ms": {
+            "rate": 0.6764552800986167,
+            "miss_ms": 16774.0,
+            "false_alarm_ms": 6354.0,
+            "confusion_ms": 26260.0,
+            "error_speaker_ms": 49388.0,
+            "reference_speaker_ms": 73010.0,
+            "evaluated_duration_ms": 60000.0,
+            "excluded_duration_ms": 0.0,
+            "reference_overlap_ms": 14450.0,
+            "collar_ms": 0,
+            "collar_half_width_ms": 0.0,
+            "mapping_hypothesis_to_reference": {
+              "native_0": "MEE071",
+              "native_12": "MEE073",
+              "native_14": "FEO072",
+              "native_7": "FEO070"
+            },
+            "status": "ok"
+          },
+          "der_collar_250ms": {
+            "rate": 0.6381466255566975,
+            "miss_ms": 12792.0,
+            "false_alarm_ms": 4422.0,
+            "confusion_ms": 20041.0,
+            "error_speaker_ms": 37255.0,
+            "reference_speaker_ms": 58380.0,
+            "evaluated_duration_ms": 49155.0,
+            "excluded_duration_ms": 10845.0,
+            "reference_overlap_ms": 9990.0,
+            "collar_ms": 250,
+            "collar_half_width_ms": 125.0,
+            "mapping_hypothesis_to_reference": {
+              "native_0": "MEE071",
+              "native_12": "MEE073",
+              "native_14": "FEO072",
+              "native_7": "FEO070"
+            },
+            "status": "ok"
+          }
+        },
+        "stable": {
+          "speakers": 10,
+          "speaker_count_error": 6,
+          "speaker_count_exact": false,
+          "der_collar_0ms": {
+            "rate": 0.6764552800986167,
+            "miss_ms": 16774.0,
+            "false_alarm_ms": 6354.0,
+            "confusion_ms": 26260.0,
+            "error_speaker_ms": 49388.0,
+            "reference_speaker_ms": 73010.0,
+            "evaluated_duration_ms": 60000.0,
+            "excluded_duration_ms": 0.0,
+            "reference_overlap_ms": 14450.0,
+            "collar_ms": 0,
+            "collar_half_width_ms": 0.0,
+            "mapping_hypothesis_to_reference": {
+              "native_1": "MEE071",
+              "native_5": "MEE073",
+              "native_6": "FEO072",
+              "native_3": "FEO070"
+            },
+            "status": "ok"
+          },
+          "der_collar_250ms": {
+            "rate": 0.6381466255566975,
+            "miss_ms": 12792.0,
+            "false_alarm_ms": 4422.0,
+            "confusion_ms": 20041.0,
+            "error_speaker_ms": 37255.0,
+            "reference_speaker_ms": 58380.0,
+            "evaluated_duration_ms": 49155.0,
+            "excluded_duration_ms": 10845.0,
+            "reference_overlap_ms": 9990.0,
+            "collar_ms": 250,
+            "collar_half_width_ms": 125.0,
+            "mapping_hypothesis_to_reference": {
+              "native_1": "MEE071",
+              "native_5": "MEE073",
+              "native_6": "FEO072",
+              "native_3": "FEO070"
+            },
+            "status": "ok"
+          }
+        },
+        "final": {
+          "speakers": 10,
+          "speaker_count_error": 6,
+          "speaker_count_exact": false,
+          "der_collar_0ms": {
+            "rate": 0.6764552800986167,
+            "miss_ms": 16774.0,
+            "false_alarm_ms": 6354.0,
+            "confusion_ms": 26260.0,
+            "error_speaker_ms": 49388.0,
+            "reference_speaker_ms": 73010.0,
+            "evaluated_duration_ms": 60000.0,
+            "excluded_duration_ms": 0.0,
+            "reference_overlap_ms": 14450.0,
+            "collar_ms": 0,
+            "collar_half_width_ms": 0.0,
+            "mapping_hypothesis_to_reference": {
+              "native_1": "MEE071",
+              "native_5": "MEE073",
+              "native_6": "FEO072",
+              "native_3": "FEO070"
+            },
+            "status": "ok"
+          },
+          "der_collar_250ms": {
+            "rate": 0.6381466255566975,
+            "miss_ms": 12792.0,
+            "false_alarm_ms": 4422.0,
+            "confusion_ms": 20041.0,
+            "error_speaker_ms": 37255.0,
+            "reference_speaker_ms": 58380.0,
+            "evaluated_duration_ms": 49155.0,
+            "excluded_duration_ms": 10845.0,
+            "reference_overlap_ms": 9990.0,
+            "collar_ms": 250,
+            "collar_half_width_ms": 125.0,
+            "mapping_hypothesis_to_reference": {
+              "native_1": "MEE071",
+              "native_5": "MEE073",
+              "native_6": "FEO072",
+              "native_3": "FEO070"
+            },
+            "status": "ok"
+          }
+        }
+      }
+    },
+    {
+      "profile": "c1-centroid",
+      "id": "ami-natural-en2002a-headset-first60",
+      "reference_group": "ami-en2002a-first60",
+      "related_participants_group": "AMI-EN2002",
+      "reference_k": 4,
+      "raw_k": 11,
+      "final_k": 5,
+      "der0": 0.43629639775373236,
+      "der250": 0.3917437478588558,
+      "vectors": 34,
+      "evidence_sha256": {
+        "diagnostics.json": "b2795322382efefa8288274e0399f497cac9487a7dbae7cb07106161b443b20b",
+        "reference.json": "e0c061db34a905ef3ad9e00d198061d7e6f7d1e7d77e74617ddaf4159b3413e2",
+        "hypothesis.json": "ba1990fb1d327a796aeff6fbdd9bd7ca96c4c8c0b09d0f03d1ddd397b2425291",
+        "metrics.json": "a5edc252861674694b5eee679ac2c5551b9ced651e3b3f4d66dc85e444e688d0"
+      },
+      "metrics": {
+        "reference_speakers": 4,
+        "scope": "Separate natural-meeting diarization diagnostic: EN2002a headset/array share a reference; EN2002a/c share participants; training overlap unknown. Not independent splits, English ASR task E, Android/phone timing, a new dev gate or corpus-general acceptance.",
+        "raw": {
+          "speakers": 11,
+          "speaker_count_error": 7,
+          "speaker_count_exact": false,
+          "der_collar_0ms": {
+            "rate": 0.7259827420901246,
+            "miss_ms": 16694.0,
+            "false_alarm_ms": 6306.0,
+            "confusion_ms": 30004.0,
+            "error_speaker_ms": 53004.0,
+            "reference_speaker_ms": 73010.0,
+            "evaluated_duration_ms": 60000.0,
+            "excluded_duration_ms": 0.0,
+            "reference_overlap_ms": 14450.0,
+            "collar_ms": 0,
+            "collar_half_width_ms": 0.0,
+            "mapping_hypothesis_to_reference": {
+              "native_0": "MEE071",
+              "native_9": "MEE073",
+              "native_11": "FEO072",
+              "native_4": "FEO070"
+            },
+            "status": "ok"
+          },
+          "der_collar_250ms": {
+            "rate": 0.6780404248030147,
+            "miss_ms": 12701.0,
+            "false_alarm_ms": 4061.0,
+            "confusion_ms": 22822.0,
+            "error_speaker_ms": 39584.0,
+            "reference_speaker_ms": 58380.0,
+            "evaluated_duration_ms": 49155.0,
+            "excluded_duration_ms": 10845.0,
+            "reference_overlap_ms": 9990.0,
+            "collar_ms": 250,
+            "collar_half_width_ms": 125.0,
+            "mapping_hypothesis_to_reference": {
+              "native_0": "MEE071",
+              "native_9": "MEE073",
+              "native_11": "FEO072",
+              "native_4": "FEO070"
+            },
+            "status": "ok"
+          }
+        },
+        "stable": {
+          "speakers": 11,
+          "speaker_count_error": 7,
+          "speaker_count_exact": false,
+          "der_collar_0ms": {
+            "rate": 0.7259827420901246,
+            "miss_ms": 16694.0,
+            "false_alarm_ms": 6306.0,
+            "confusion_ms": 30004.0,
+            "error_speaker_ms": 53004.0,
+            "reference_speaker_ms": 73010.0,
+            "evaluated_duration_ms": 60000.0,
+            "excluded_duration_ms": 0.0,
+            "reference_overlap_ms": 14450.0,
+            "collar_ms": 0,
+            "collar_half_width_ms": 0.0,
+            "mapping_hypothesis_to_reference": {
+              "native_1": "MEE071",
+              "native_4": "MEE073",
+              "native_10": "FEO072",
+              "native_7": "FEO070"
+            },
+            "status": "ok"
+          },
+          "der_collar_250ms": {
+            "rate": 0.6780404248030147,
+            "miss_ms": 12701.0,
+            "false_alarm_ms": 4061.0,
+            "confusion_ms": 22822.0,
+            "error_speaker_ms": 39584.0,
+            "reference_speaker_ms": 58380.0,
+            "evaluated_duration_ms": 49155.0,
+            "excluded_duration_ms": 10845.0,
+            "reference_overlap_ms": 9990.0,
+            "collar_ms": 250,
+            "collar_half_width_ms": 125.0,
+            "mapping_hypothesis_to_reference": {
+              "native_1": "MEE071",
+              "native_4": "MEE073",
+              "native_10": "FEO072",
+              "native_7": "FEO070"
+            },
+            "status": "ok"
+          }
+        },
+        "final": {
+          "speakers": 5,
+          "speaker_count_error": 1,
+          "speaker_count_exact": false,
+          "der_collar_0ms": {
+            "rate": 0.43629639775373236,
+            "miss_ms": 16699.0,
+            "false_alarm_ms": 5569.0,
+            "confusion_ms": 9586.0,
+            "error_speaker_ms": 31854.0,
+            "reference_speaker_ms": 73010.0,
+            "evaluated_duration_ms": 60000.0,
+            "excluded_duration_ms": 0.0,
+            "reference_overlap_ms": 14450.0,
+            "collar_ms": 0,
+            "collar_half_width_ms": 0.0,
+            "mapping_hypothesis_to_reference": {
+              "native_1": "MEE071",
+              "native_0": "MEE073",
+              "native_3": "FEO072",
+              "native_4": "FEO070"
+            },
+            "status": "ok"
+          },
+          "der_collar_250ms": {
+            "rate": 0.3917437478588558,
+            "miss_ms": 12701.0,
+            "false_alarm_ms": 3949.0,
+            "confusion_ms": 6220.0,
+            "error_speaker_ms": 22870.0,
+            "reference_speaker_ms": 58380.0,
+            "evaluated_duration_ms": 49155.0,
+            "excluded_duration_ms": 10845.0,
+            "reference_overlap_ms": 9990.0,
+            "collar_ms": 250,
+            "collar_half_width_ms": 125.0,
+            "mapping_hypothesis_to_reference": {
+              "native_1": "MEE071",
+              "native_0": "MEE073",
+              "native_3": "FEO072",
+              "native_4": "FEO070"
+            },
+            "status": "ok"
+          }
+        }
+      }
+    },
+    {
+      "profile": "c2-window",
+      "id": "ami-natural-en2002a-headset-first60",
+      "reference_group": "ami-en2002a-first60",
+      "related_participants_group": "AMI-EN2002",
+      "reference_k": 4,
+      "raw_k": 14,
+      "final_k": 6,
+      "der0": 0.42935214354198054,
+      "der250": 0.3777149708804385,
+      "vectors": 34,
+      "evidence_sha256": {
+        "diagnostics.json": "b5a4eb231fd79abb8b2ea5bfad2d0032179012a7a757d215f6d16a9087292c11",
+        "reference.json": "e0c061db34a905ef3ad9e00d198061d7e6f7d1e7d77e74617ddaf4159b3413e2",
+        "hypothesis.json": "e5ae8e4140b377a964a202cfca083a4d7f02390fd26385921e650627bfe8b038",
+        "metrics.json": "416555166cae705b6122d03a377b0495805458536f8c63a2b6ffb8b7dbdcec5a"
+      },
+      "metrics": {
+        "reference_speakers": 4,
+        "scope": "Separate natural-meeting diarization diagnostic: EN2002a headset/array share a reference; EN2002a/c share participants; training overlap unknown. Not independent splits, English ASR task E, Android/phone timing, a new dev gate or corpus-general acceptance.",
+        "raw": {
+          "speakers": 14,
+          "speaker_count_error": 10,
+          "speaker_count_exact": false,
+          "der_collar_0ms": {
+            "rate": 0.7360224626763457,
+            "miss_ms": 16768.0,
+            "false_alarm_ms": 6211.0,
+            "confusion_ms": 30758.0,
+            "error_speaker_ms": 53737.0,
+            "reference_speaker_ms": 73010.0,
+            "evaluated_duration_ms": 60000.0,
+            "excluded_duration_ms": 0.0,
+            "reference_overlap_ms": 14450.0,
+            "collar_ms": 0,
+            "collar_half_width_ms": 0.0,
+            "mapping_hypothesis_to_reference": {
+              "native_2": "MEE071",
+              "native_17": "MEE073",
+              "native_31": "FEO072",
+              "native_11": "FEO070"
+            },
+            "status": "ok"
+          },
+          "der_collar_250ms": {
+            "rate": 0.6902192531688934,
+            "miss_ms": 12811.0,
+            "false_alarm_ms": 4343.0,
+            "confusion_ms": 23141.0,
+            "error_speaker_ms": 40295.0,
+            "reference_speaker_ms": 58380.0,
+            "evaluated_duration_ms": 49155.0,
+            "excluded_duration_ms": 10845.0,
+            "reference_overlap_ms": 9990.0,
+            "collar_ms": 250,
+            "collar_half_width_ms": 125.0,
+            "mapping_hypothesis_to_reference": {
+              "native_2": "MEE071",
+              "native_17": "MEE073",
+              "native_31": "FEO072",
+              "native_11": "FEO070"
+            },
+            "status": "ok"
+          }
+        },
+        "stable": {
+          "speakers": 14,
+          "speaker_count_error": 10,
+          "speaker_count_exact": false,
+          "der_collar_0ms": {
+            "rate": 0.7360224626763457,
+            "miss_ms": 16768.0,
+            "false_alarm_ms": 6211.0,
+            "confusion_ms": 30758.0,
+            "error_speaker_ms": 53737.0,
+            "reference_speaker_ms": 73010.0,
+            "evaluated_duration_ms": 60000.0,
+            "excluded_duration_ms": 0.0,
+            "reference_overlap_ms": 14450.0,
+            "collar_ms": 0,
+            "collar_half_width_ms": 0.0,
+            "mapping_hypothesis_to_reference": {
+              "native_1": "MEE071",
+              "native_5": "MEE073",
+              "native_13": "FEO072",
+              "native_3": "FEO070"
+            },
+            "status": "ok"
+          },
+          "der_collar_250ms": {
+            "rate": 0.6902192531688934,
+            "miss_ms": 12811.0,
+            "false_alarm_ms": 4343.0,
+            "confusion_ms": 23141.0,
+            "error_speaker_ms": 40295.0,
+            "reference_speaker_ms": 58380.0,
+            "evaluated_duration_ms": 49155.0,
+            "excluded_duration_ms": 10845.0,
+            "reference_overlap_ms": 9990.0,
+            "collar_ms": 250,
+            "collar_half_width_ms": 125.0,
+            "mapping_hypothesis_to_reference": {
+              "native_1": "MEE071",
+              "native_5": "MEE073",
+              "native_13": "FEO072",
+              "native_3": "FEO070"
+            },
+            "status": "ok"
+          }
+        },
+        "final": {
+          "speakers": 6,
+          "speaker_count_error": 2,
+          "speaker_count_exact": false,
+          "der_collar_0ms": {
+            "rate": 0.42935214354198054,
+            "miss_ms": 19138.0,
+            "false_alarm_ms": 5018.0,
+            "confusion_ms": 7191.0,
+            "error_speaker_ms": 31347.0,
+            "reference_speaker_ms": 73010.0,
+            "evaluated_duration_ms": 60000.0,
+            "excluded_duration_ms": 0.0,
+            "reference_overlap_ms": 14450.0,
+            "collar_ms": 0,
+            "collar_half_width_ms": 0.0,
+            "mapping_hypothesis_to_reference": {
+              "native_1": "MEE071",
+              "native_0": "MEE073",
+              "native_3": "FEO072",
+              "native_2": "FEO070"
+            },
+            "status": "ok"
+          },
+          "der_collar_250ms": {
+            "rate": 0.3777149708804385,
+            "miss_ms": 14639.0,
+            "false_alarm_ms": 3209.0,
+            "confusion_ms": 4203.0,
+            "error_speaker_ms": 22051.0,
+            "reference_speaker_ms": 58380.0,
+            "evaluated_duration_ms": 49155.0,
+            "excluded_duration_ms": 10845.0,
+            "reference_overlap_ms": 9990.0,
+            "collar_ms": 250,
+            "collar_half_width_ms": 125.0,
+            "mapping_hypothesis_to_reference": {
+              "native_1": "MEE071",
+              "native_0": "MEE073",
+              "native_3": "FEO072",
+              "native_2": "FEO070"
+            },
+            "status": "ok"
+          }
+        }
+      }
+    },
+    {
+      "profile": "legacy-v16",
+      "id": "ami-natural-en2002a-array-first60",
+      "reference_group": "ami-en2002a-first60",
+      "related_participants_group": "AMI-EN2002",
+      "reference_k": 4,
+      "raw_k": 13,
+      "final_k": 13,
+      "der0": 0.6064648678263251,
+      "der250": 0.5519355943816375,
+      "vectors": 0,
+      "evidence_sha256": {
+        "diagnostics.json": "b073eb2c3736490a7efa0171473d0e94090d184594c02527e7f3a2e8a434a09e",
+        "reference.json": "e0c061db34a905ef3ad9e00d198061d7e6f7d1e7d77e74617ddaf4159b3413e2",
+        "hypothesis.json": "d5dc125d1c1737417c103f9886649b0a7649f244ce660496011e11be525bf499",
+        "metrics.json": "ee5fa9ffe3cfe0277c3be9e8cfd613a5042e0322ad1e44cfe64ac7176084faff"
+      },
+      "metrics": {
+        "reference_speakers": 4,
+        "scope": "Separate natural-meeting diarization diagnostic: EN2002a headset/array share a reference; EN2002a/c share participants; training overlap unknown. Not independent splits, English ASR task E, Android/phone timing, a new dev gate or corpus-general acceptance.",
+        "raw": {
+          "speakers": 13,
+          "speaker_count_error": 9,
+          "speaker_count_exact": false,
+          "der_collar_0ms": {
+            "rate": 0.6064648678263251,
+            "miss_ms": 16217.0,
+            "false_alarm_ms": 5527.0,
+            "confusion_ms": 22534.0,
+            "error_speaker_ms": 44278.0,
+            "reference_speaker_ms": 73010.0,
+            "evaluated_duration_ms": 60000.0,
+            "excluded_duration_ms": 0.0,
+            "reference_overlap_ms": 14450.0,
+            "collar_ms": 0,
+            "collar_half_width_ms": 0.0,
+            "mapping_hypothesis_to_reference": {
+              "native_0": "MEE071",
+              "native_11": "MEE073",
+              "native_5": "FEO072",
+              "native_17": "FEO070"
+            },
+            "status": "ok"
+          },
+          "der_collar_250ms": {
+            "rate": 0.5519355943816375,
+            "miss_ms": 12078.0,
+            "false_alarm_ms": 3856.0,
+            "confusion_ms": 16288.0,
+            "error_speaker_ms": 32222.0,
+            "reference_speaker_ms": 58380.0,
+            "evaluated_duration_ms": 49155.0,
+            "excluded_duration_ms": 10845.0,
+            "reference_overlap_ms": 9990.0,
+            "collar_ms": 250,
+            "collar_half_width_ms": 125.0,
+            "mapping_hypothesis_to_reference": {
+              "native_0": "MEE071",
+              "native_11": "MEE073",
+              "native_5": "FEO072",
+              "native_17": "FEO070"
+            },
+            "status": "ok"
+          }
+        },
+        "stable": {
+          "speakers": 13,
+          "speaker_count_error": 9,
+          "speaker_count_exact": false,
+          "der_collar_0ms": {
+            "rate": 0.6064648678263251,
+            "miss_ms": 16217.0,
+            "false_alarm_ms": 5527.0,
+            "confusion_ms": 22534.0,
+            "error_speaker_ms": 44278.0,
+            "reference_speaker_ms": 73010.0,
+            "evaluated_duration_ms": 60000.0,
+            "excluded_duration_ms": 0.0,
+            "reference_overlap_ms": 14450.0,
+            "collar_ms": 0,
+            "collar_half_width_ms": 0.0,
+            "mapping_hypothesis_to_reference": {
+              "native_1": "MEE071",
+              "native_8": "MEE073",
+              "native_5": "FEO072",
+              "native_10": "FEO070"
+            },
+            "status": "ok"
+          },
+          "der_collar_250ms": {
+            "rate": 0.5519355943816375,
+            "miss_ms": 12078.0,
+            "false_alarm_ms": 3856.0,
+            "confusion_ms": 16288.0,
+            "error_speaker_ms": 32222.0,
+            "reference_speaker_ms": 58380.0,
+            "evaluated_duration_ms": 49155.0,
+            "excluded_duration_ms": 10845.0,
+            "reference_overlap_ms": 9990.0,
+            "collar_ms": 250,
+            "collar_half_width_ms": 125.0,
+            "mapping_hypothesis_to_reference": {
+              "native_1": "MEE071",
+              "native_8": "MEE073",
+              "native_5": "FEO072",
+              "native_10": "FEO070"
+            },
+            "status": "ok"
+          }
+        },
+        "final": {
+          "speakers": 13,
+          "speaker_count_error": 9,
+          "speaker_count_exact": false,
+          "der_collar_0ms": {
+            "rate": 0.6064648678263251,
+            "miss_ms": 16217.0,
+            "false_alarm_ms": 5527.0,
+            "confusion_ms": 22534.0,
+            "error_speaker_ms": 44278.0,
+            "reference_speaker_ms": 73010.0,
+            "evaluated_duration_ms": 60000.0,
+            "excluded_duration_ms": 0.0,
+            "reference_overlap_ms": 14450.0,
+            "collar_ms": 0,
+            "collar_half_width_ms": 0.0,
+            "mapping_hypothesis_to_reference": {
+              "native_1": "MEE071",
+              "native_8": "MEE073",
+              "native_5": "FEO072",
+              "native_10": "FEO070"
+            },
+            "status": "ok"
+          },
+          "der_collar_250ms": {
+            "rate": 0.5519355943816375,
+            "miss_ms": 12078.0,
+            "false_alarm_ms": 3856.0,
+            "confusion_ms": 16288.0,
+            "error_speaker_ms": 32222.0,
+            "reference_speaker_ms": 58380.0,
+            "evaluated_duration_ms": 49155.0,
+            "excluded_duration_ms": 10845.0,
+            "reference_overlap_ms": 9990.0,
+            "collar_ms": 250,
+            "collar_half_width_ms": 125.0,
+            "mapping_hypothesis_to_reference": {
+              "native_1": "MEE071",
+              "native_8": "MEE073",
+              "native_5": "FEO072",
+              "native_10": "FEO070"
+            },
+            "status": "ok"
+          }
+        }
+      }
+    },
+    {
+      "profile": "c1-centroid",
+      "id": "ami-natural-en2002a-array-first60",
+      "reference_group": "ami-en2002a-first60",
+      "related_participants_group": "AMI-EN2002",
+      "reference_k": 4,
+      "raw_k": 2,
+      "final_k": 1,
+      "der0": 0.6661142309272703,
+      "der250": 0.6325453922576225,
+      "vectors": 38,
+      "evidence_sha256": {
+        "diagnostics.json": "ebdfb4a74c2ed1b67bad30b9212dea0c311106fef598997b4dbd368af5bb087a",
+        "reference.json": "e0c061db34a905ef3ad9e00d198061d7e6f7d1e7d77e74617ddaf4159b3413e2",
+        "hypothesis.json": "f1a96c12b30162095a4a3f3e009fead4d5152892f3722d4d673d7efda94f6756",
+        "metrics.json": "b0bdf23688c8617bb64ce31d36acfeb2c4e6b9cc4965631a9900a29de34bcd0c"
+      },
+      "metrics": {
+        "reference_speakers": 4,
+        "scope": "Separate natural-meeting diarization diagnostic: EN2002a headset/array share a reference; EN2002a/c share participants; training overlap unknown. Not independent splits, English ASR task E, Android/phone timing, a new dev gate or corpus-general acceptance.",
+        "raw": {
+          "speakers": 2,
+          "speaker_count_error": 2,
+          "speaker_count_exact": false,
+          "der_collar_0ms": {
+            "rate": 0.6267223667990687,
+            "miss_ms": 15905.0,
+            "false_alarm_ms": 5266.0,
+            "confusion_ms": 24586.0,
+            "error_speaker_ms": 45757.0,
+            "reference_speaker_ms": 73010.0,
+            "evaluated_duration_ms": 60000.0,
+            "excluded_duration_ms": 0.0,
+            "reference_overlap_ms": 14450.0,
+            "collar_ms": 0,
+            "collar_half_width_ms": 0.0,
+            "mapping_hypothesis_to_reference": {
+              "native_0": "MEE071",
+              "native_1": "FEO072"
+            },
+            "status": "ok"
+          },
+          "der_collar_250ms": {
+            "rate": 0.5890373415553272,
+            "miss_ms": 12060.0,
+            "false_alarm_ms": 3602.0,
+            "confusion_ms": 18726.0,
+            "error_speaker_ms": 34388.0,
+            "reference_speaker_ms": 58380.0,
+            "evaluated_duration_ms": 49155.0,
+            "excluded_duration_ms": 10845.0,
+            "reference_overlap_ms": 9990.0,
+            "collar_ms": 250,
+            "collar_half_width_ms": 125.0,
+            "mapping_hypothesis_to_reference": {
+              "native_0": "MEE071",
+              "native_1": "FEO072"
+            },
+            "status": "ok"
+          }
+        },
+        "stable": {
+          "speakers": 2,
+          "speaker_count_error": 2,
+          "speaker_count_exact": false,
+          "der_collar_0ms": {
+            "rate": 0.6267223667990687,
+            "miss_ms": 15905.0,
+            "false_alarm_ms": 5266.0,
+            "confusion_ms": 24586.0,
+            "error_speaker_ms": 45757.0,
+            "reference_speaker_ms": 73010.0,
+            "evaluated_duration_ms": 60000.0,
+            "excluded_duration_ms": 0.0,
+            "reference_overlap_ms": 14450.0,
+            "collar_ms": 0,
+            "collar_half_width_ms": 0.0,
+            "mapping_hypothesis_to_reference": {
+              "native_0": "MEE071",
+              "native_1": "FEO072"
+            },
+            "status": "ok"
+          },
+          "der_collar_250ms": {
+            "rate": 0.5890373415553272,
+            "miss_ms": 12060.0,
+            "false_alarm_ms": 3602.0,
+            "confusion_ms": 18726.0,
+            "error_speaker_ms": 34388.0,
+            "reference_speaker_ms": 58380.0,
+            "evaluated_duration_ms": 49155.0,
+            "excluded_duration_ms": 10845.0,
+            "reference_overlap_ms": 9990.0,
+            "collar_ms": 250,
+            "collar_half_width_ms": 125.0,
+            "mapping_hypothesis_to_reference": {
+              "native_0": "MEE071",
+              "native_1": "FEO072"
+            },
+            "status": "ok"
+          }
+        },
+        "final": {
+          "speakers": 1,
+          "speaker_count_error": 3,
+          "speaker_count_exact": false,
+          "der_collar_0ms": {
+            "rate": 0.6661142309272703,
+            "miss_ms": 24104.0,
+            "false_alarm_ms": 2209.0,
+            "confusion_ms": 22320.0,
+            "error_speaker_ms": 48633.0,
+            "reference_speaker_ms": 73010.0,
+            "evaluated_duration_ms": 60000.0,
+            "excluded_duration_ms": 0.0,
+            "reference_overlap_ms": 14450.0,
+            "collar_ms": 0,
+            "collar_half_width_ms": 0.0,
+            "mapping_hypothesis_to_reference": {
+              "native_0": "FEO072"
+            },
+            "status": "ok"
+          },
+          "der_collar_250ms": {
+            "rate": 0.6325453922576225,
+            "miss_ms": 18261.0,
+            "false_alarm_ms": 1144.0,
+            "confusion_ms": 17523.0,
+            "error_speaker_ms": 36928.0,
+            "reference_speaker_ms": 58380.0,
+            "evaluated_duration_ms": 49155.0,
+            "excluded_duration_ms": 10845.0,
+            "reference_overlap_ms": 9990.0,
+            "collar_ms": 250,
+            "collar_half_width_ms": 125.0,
+            "mapping_hypothesis_to_reference": {
+              "native_0": "FEO072"
+            },
+            "status": "ok"
+          }
+        }
+      }
+    },
+    {
+      "profile": "c2-window",
+      "id": "ami-natural-en2002a-array-first60",
+      "reference_group": "ami-en2002a-first60",
+      "related_participants_group": "AMI-EN2002",
+      "reference_k": 4,
+      "raw_k": 16,
+      "final_k": 8,
+      "der0": 0.49884947267497604,
+      "der250": 0.4565433367591641,
+      "vectors": 35,
+      "evidence_sha256": {
+        "diagnostics.json": "4caa355738fc45978240a54c9a8e8f6d17bb9c239a28b46b2500d8df45fad0db",
+        "reference.json": "e0c061db34a905ef3ad9e00d198061d7e6f7d1e7d77e74617ddaf4159b3413e2",
+        "hypothesis.json": "b8b20d267d9b5d12f8b39250a4b373b0accab49657bd49312b35ca0926ab8acf",
+        "metrics.json": "0de9b582e160c5589072732ca6833aebecce0d6b9e14e3061ca175b6e89fce52"
+      },
+      "metrics": {
+        "reference_speakers": 4,
+        "scope": "Separate natural-meeting diarization diagnostic: EN2002a headset/array share a reference; EN2002a/c share participants; training overlap unknown. Not independent splits, English ASR task E, Android/phone timing, a new dev gate or corpus-general acceptance.",
+        "raw": {
+          "speakers": 16,
+          "speaker_count_error": 12,
+          "speaker_count_exact": false,
+          "der_collar_0ms": {
+            "rate": 0.7437748253663882,
+            "miss_ms": 16369.0,
+            "false_alarm_ms": 5846.0,
+            "confusion_ms": 32088.0,
+            "error_speaker_ms": 54303.0,
+            "reference_speaker_ms": 73010.0,
+            "evaluated_duration_ms": 60000.0,
+            "excluded_duration_ms": 0.0,
+            "reference_overlap_ms": 14450.0,
+            "collar_ms": 0,
+            "collar_half_width_ms": 0.0,
+            "mapping_hypothesis_to_reference": {
+              "native_0": "MEE071",
+              "native_1": "MEE073",
+              "native_31": "FEO072",
+              "native_6": "FEO070"
+            },
+            "status": "ok"
+          },
+          "der_collar_250ms": {
+            "rate": 0.7017129153819801,
+            "miss_ms": 12284.0,
+            "false_alarm_ms": 4052.0,
+            "confusion_ms": 24630.0,
+            "error_speaker_ms": 40966.0,
+            "reference_speaker_ms": 58380.0,
+            "evaluated_duration_ms": 49155.0,
+            "excluded_duration_ms": 10845.0,
+            "reference_overlap_ms": 9990.0,
+            "collar_ms": 250,
+            "collar_half_width_ms": 125.0,
+            "mapping_hypothesis_to_reference": {
+              "native_0": "MEE071",
+              "native_1": "MEE073",
+              "native_31": "FEO072",
+              "native_25": "FEO070"
+            },
+            "status": "ok"
+          }
+        },
+        "stable": {
+          "speakers": 16,
+          "speaker_count_error": 12,
+          "speaker_count_exact": false,
+          "der_collar_0ms": {
+            "rate": 0.7437748253663882,
+            "miss_ms": 16369.0,
+            "false_alarm_ms": 5846.0,
+            "confusion_ms": 32088.0,
+            "error_speaker_ms": 54303.0,
+            "reference_speaker_ms": 73010.0,
+            "evaluated_duration_ms": 60000.0,
+            "excluded_duration_ms": 0.0,
+            "reference_overlap_ms": 14450.0,
+            "collar_ms": 0,
+            "collar_half_width_ms": 0.0,
+            "mapping_hypothesis_to_reference": {
+              "native_1": "MEE071",
+              "native_0": "MEE073",
+              "native_15": "FEO072",
+              "native_4": "FEO070"
+            },
+            "status": "ok"
+          },
+          "der_collar_250ms": {
+            "rate": 0.7017129153819801,
+            "miss_ms": 12284.0,
+            "false_alarm_ms": 4052.0,
+            "confusion_ms": 24630.0,
+            "error_speaker_ms": 40966.0,
+            "reference_speaker_ms": 58380.0,
+            "evaluated_duration_ms": 49155.0,
+            "excluded_duration_ms": 10845.0,
+            "reference_overlap_ms": 9990.0,
+            "collar_ms": 250,
+            "collar_half_width_ms": 125.0,
+            "mapping_hypothesis_to_reference": {
+              "native_1": "MEE071",
+              "native_0": "MEE073",
+              "native_15": "FEO072",
+              "native_12": "FEO070"
+            },
+            "status": "ok"
+          }
+        },
+        "final": {
+          "speakers": 8,
+          "speaker_count_error": 4,
+          "speaker_count_exact": false,
+          "der_collar_0ms": {
+            "rate": 0.49884947267497604,
+            "miss_ms": 18305.0,
+            "false_alarm_ms": 4220.0,
+            "confusion_ms": 13896.0,
+            "error_speaker_ms": 36421.0,
+            "reference_speaker_ms": 73010.0,
+            "evaluated_duration_ms": 60000.0,
+            "excluded_duration_ms": 0.0,
+            "reference_overlap_ms": 14450.0,
+            "collar_ms": 0,
+            "collar_half_width_ms": 0.0,
+            "mapping_hypothesis_to_reference": {
+              "native_1": "MEE071",
+              "native_0": "MEE073",
+              "native_4": "FEO072",
+              "native_3": "FEO070"
+            },
+            "status": "ok"
+          },
+          "der_collar_250ms": {
+            "rate": 0.4565433367591641,
+            "miss_ms": 13355.0,
+            "false_alarm_ms": 2852.0,
+            "confusion_ms": 10446.0,
+            "error_speaker_ms": 26653.0,
+            "reference_speaker_ms": 58380.0,
+            "evaluated_duration_ms": 49155.0,
+            "excluded_duration_ms": 10845.0,
+            "reference_overlap_ms": 9990.0,
+            "collar_ms": 250,
+            "collar_half_width_ms": 125.0,
+            "mapping_hypothesis_to_reference": {
+              "native_1": "MEE071",
+              "native_0": "MEE073",
+              "native_4": "FEO072",
+              "native_3": "FEO070"
+            },
+            "status": "ok"
+          }
+        }
+      }
+    },
+    {
+      "profile": "legacy-v16",
+      "id": "ami-natural-en2002c-headset-first60",
+      "reference_group": "ami-en2002c-first60",
+      "related_participants_group": "AMI-EN2002",
+      "reference_k": 3,
+      "raw_k": 6,
+      "final_k": 6,
+      "der0": 0.5794607843137255,
+      "der250": 0.5626196172248804,
+      "vectors": 0,
+      "evidence_sha256": {
+        "diagnostics.json": "f7b5c018ac47fd5046c4e2763f4c17a6f898d540129b12930da29def4b95cf11",
+        "reference.json": "88d0ac9340dfa15a5a39851d2eb2a19e0c96715ecb36e05c674f8cf62e396d01",
+        "hypothesis.json": "246d4e3052426569641459dc84d7310068d74526aa53e10c0efc71a0fd301186",
+        "metrics.json": "733d6c01bfc170ee0bc16f982105bfb69a4ba23dfb18ddf521a848f97c9da68d"
+      },
+      "metrics": {
+        "reference_speakers": 3,
+        "scope": "Separate natural-meeting diarization diagnostic: EN2002a headset/array share a reference; EN2002a/c share participants; training overlap unknown. Not independent splits, English ASR task E, Android/phone timing, a new dev gate or corpus-general acceptance.",
+        "raw": {
+          "speakers": 6,
+          "speaker_count_error": 3,
+          "speaker_count_exact": false,
+          "der_collar_0ms": {
+            "rate": 0.5794607843137255,
+            "miss_ms": 4940.0,
+            "false_alarm_ms": 2258.0,
+            "confusion_ms": 4623.0,
+            "error_speaker_ms": 11821.0,
+            "reference_speaker_ms": 20400.0,
+            "evaluated_duration_ms": 60000.0,
+            "excluded_duration_ms": 0.0,
+            "reference_overlap_ms": 1810.0,
+            "collar_ms": 0,
+            "collar_half_width_ms": 0.0,
+            "mapping_hypothesis_to_reference": {
+              "native_11": "MEE071",
+              "native_7": "MEE073",
+              "native_10": "FEO072"
+            },
+            "status": "ok"
+          },
+          "der_collar_250ms": {
+            "rate": 0.5626196172248804,
+            "miss_ms": 3948.0,
+            "false_alarm_ms": 1686.0,
+            "confusion_ms": 3773.0,
+            "error_speaker_ms": 9407.0,
+            "reference_speaker_ms": 16720.0,
+            "evaluated_duration_ms": 56120.0,
+            "excluded_duration_ms": 3880.0,
+            "reference_overlap_ms": 930.0,
+            "collar_ms": 250,
+            "collar_half_width_ms": 125.0,
+            "mapping_hypothesis_to_reference": {
+              "native_11": "MEE071",
+              "native_7": "MEE073",
+              "native_10": "FEO072"
+            },
+            "status": "ok"
+          }
+        },
+        "stable": {
+          "speakers": 6,
+          "speaker_count_error": 3,
+          "speaker_count_exact": false,
+          "der_collar_0ms": {
+            "rate": 0.5794607843137255,
+            "miss_ms": 4940.0,
+            "false_alarm_ms": 2258.0,
+            "confusion_ms": 4623.0,
+            "error_speaker_ms": 11821.0,
+            "reference_speaker_ms": 20400.0,
+            "evaluated_duration_ms": 60000.0,
+            "excluded_duration_ms": 0.0,
+            "reference_overlap_ms": 1810.0,
+            "collar_ms": 0,
+            "collar_half_width_ms": 0.0,
+            "mapping_hypothesis_to_reference": {
+              "native_5": "MEE071",
+              "native_3": "MEE073",
+              "native_4": "FEO072"
+            },
+            "status": "ok"
+          },
+          "der_collar_250ms": {
+            "rate": 0.5626196172248804,
+            "miss_ms": 3948.0,
+            "false_alarm_ms": 1686.0,
+            "confusion_ms": 3773.0,
+            "error_speaker_ms": 9407.0,
+            "reference_speaker_ms": 16720.0,
+            "evaluated_duration_ms": 56120.0,
+            "excluded_duration_ms": 3880.0,
+            "reference_overlap_ms": 930.0,
+            "collar_ms": 250,
+            "collar_half_width_ms": 125.0,
+            "mapping_hypothesis_to_reference": {
+              "native_5": "MEE071",
+              "native_3": "MEE073",
+              "native_4": "FEO072"
+            },
+            "status": "ok"
+          }
+        },
+        "final": {
+          "speakers": 6,
+          "speaker_count_error": 3,
+          "speaker_count_exact": false,
+          "der_collar_0ms": {
+            "rate": 0.5794607843137255,
+            "miss_ms": 4940.0,
+            "false_alarm_ms": 2258.0,
+            "confusion_ms": 4623.0,
+            "error_speaker_ms": 11821.0,
+            "reference_speaker_ms": 20400.0,
+            "evaluated_duration_ms": 60000.0,
+            "excluded_duration_ms": 0.0,
+            "reference_overlap_ms": 1810.0,
+            "collar_ms": 0,
+            "collar_half_width_ms": 0.0,
+            "mapping_hypothesis_to_reference": {
+              "native_5": "MEE071",
+              "native_3": "MEE073",
+              "native_4": "FEO072"
+            },
+            "status": "ok"
+          },
+          "der_collar_250ms": {
+            "rate": 0.5626196172248804,
+            "miss_ms": 3948.0,
+            "false_alarm_ms": 1686.0,
+            "confusion_ms": 3773.0,
+            "error_speaker_ms": 9407.0,
+            "reference_speaker_ms": 16720.0,
+            "evaluated_duration_ms": 56120.0,
+            "excluded_duration_ms": 3880.0,
+            "reference_overlap_ms": 930.0,
+            "collar_ms": 250,
+            "collar_half_width_ms": 125.0,
+            "mapping_hypothesis_to_reference": {
+              "native_5": "MEE071",
+              "native_3": "MEE073",
+              "native_4": "FEO072"
+            },
+            "status": "ok"
+          }
+        }
+      }
+    },
+    {
+      "profile": "c1-centroid",
+      "id": "ami-natural-en2002c-headset-first60",
+      "reference_group": "ami-en2002c-first60",
+      "related_participants_group": "AMI-EN2002",
+      "reference_k": 3,
+      "raw_k": 4,
+      "final_k": 3,
+      "der0": 0.5484803921568627,
+      "der250": 0.5448564593301436,
+      "vectors": 10,
+      "evidence_sha256": {
+        "diagnostics.json": "d622864e800f6b7dc427f209cd51a48e41b7e5149bf9a30e993c6c97b120d888",
+        "reference.json": "88d0ac9340dfa15a5a39851d2eb2a19e0c96715ecb36e05c674f8cf62e396d01",
+        "hypothesis.json": "861bc821953d56b391de11d27fe09a4f0d09ef45dc8303f99971c466d2dee314",
+        "metrics.json": "d1e402883bf37ec0331be438bb06ae876e035fc4544e41a317f0ea4a763b977b"
+      },
+      "metrics": {
+        "reference_speakers": 3,
+        "scope": "Separate natural-meeting diarization diagnostic: EN2002a headset/array share a reference; EN2002a/c share participants; training overlap unknown. Not independent splits, English ASR task E, Android/phone timing, a new dev gate or corpus-general acceptance.",
+        "raw": {
+          "speakers": 4,
+          "speaker_count_error": 1,
+          "speaker_count_exact": false,
+          "der_collar_0ms": {
+            "rate": 0.5587745098039215,
+            "miss_ms": 4940.0,
+            "false_alarm_ms": 1836.0,
+            "confusion_ms": 4623.0,
+            "error_speaker_ms": 11399.0,
+            "reference_speaker_ms": 20400.0,
+            "evaluated_duration_ms": 60000.0,
+            "excluded_duration_ms": 0.0,
+            "reference_overlap_ms": 1810.0,
+            "collar_ms": 0,
+            "collar_half_width_ms": 0.0,
+            "mapping_hypothesis_to_reference": {
+              "native_3": "MEE071",
+              "native_1": "MEE073",
+              "native_2": "FEO072"
+            },
+            "status": "ok"
+          },
+          "der_collar_250ms": {
+            "rate": 0.5285287081339712,
+            "miss_ms": 3948.0,
+            "false_alarm_ms": 1389.0,
+            "confusion_ms": 3500.0,
+            "error_speaker_ms": 8837.0,
+            "reference_speaker_ms": 16720.0,
+            "evaluated_duration_ms": 56120.0,
+            "excluded_duration_ms": 3880.0,
+            "reference_overlap_ms": 930.0,
+            "collar_ms": 250,
+            "collar_half_width_ms": 125.0,
+            "mapping_hypothesis_to_reference": {
+              "native_0": "MEE071",
+              "native_1": "MEE073",
+              "native_2": "FEO072"
+            },
+            "status": "ok"
+          }
+        },
+        "stable": {
+          "speakers": 4,
+          "speaker_count_error": 1,
+          "speaker_count_exact": false,
+          "der_collar_0ms": {
+            "rate": 0.5587745098039215,
+            "miss_ms": 4940.0,
+            "false_alarm_ms": 1836.0,
+            "confusion_ms": 4623.0,
+            "error_speaker_ms": 11399.0,
+            "reference_speaker_ms": 20400.0,
+            "evaluated_duration_ms": 60000.0,
+            "excluded_duration_ms": 0.0,
+            "reference_overlap_ms": 1810.0,
+            "collar_ms": 0,
+            "collar_half_width_ms": 0.0,
+            "mapping_hypothesis_to_reference": {
+              "native_3": "MEE071",
+              "native_1": "MEE073",
+              "native_2": "FEO072"
+            },
+            "status": "ok"
+          },
+          "der_collar_250ms": {
+            "rate": 0.5285287081339712,
+            "miss_ms": 3948.0,
+            "false_alarm_ms": 1389.0,
+            "confusion_ms": 3500.0,
+            "error_speaker_ms": 8837.0,
+            "reference_speaker_ms": 16720.0,
+            "evaluated_duration_ms": 56120.0,
+            "excluded_duration_ms": 3880.0,
+            "reference_overlap_ms": 930.0,
+            "collar_ms": 250,
+            "collar_half_width_ms": 125.0,
+            "mapping_hypothesis_to_reference": {
+              "native_0": "MEE071",
+              "native_1": "MEE073",
+              "native_2": "FEO072"
+            },
+            "status": "ok"
+          }
+        },
+        "final": {
+          "speakers": 3,
+          "speaker_count_error": 0,
+          "speaker_count_exact": true,
+          "der_collar_0ms": {
+            "rate": 0.5484803921568627,
+            "miss_ms": 4940.0,
+            "false_alarm_ms": 1836.0,
+            "confusion_ms": 4413.0,
+            "error_speaker_ms": 11189.0,
+            "reference_speaker_ms": 20400.0,
+            "evaluated_duration_ms": 60000.0,
+            "excluded_duration_ms": 0.0,
+            "reference_overlap_ms": 1810.0,
+            "collar_ms": 0,
+            "collar_half_width_ms": 0.0,
+            "mapping_hypothesis_to_reference": {
+              "native_2": "MEE071",
+              "native_0": "MEE073",
+              "native_1": "FEO072"
+            },
+            "status": "ok"
+          },
+          "der_collar_250ms": {
+            "rate": 0.5448564593301436,
+            "miss_ms": 3948.0,
+            "false_alarm_ms": 1389.0,
+            "confusion_ms": 3773.0,
+            "error_speaker_ms": 9110.0,
+            "reference_speaker_ms": 16720.0,
+            "evaluated_duration_ms": 56120.0,
+            "excluded_duration_ms": 3880.0,
+            "reference_overlap_ms": 930.0,
+            "collar_ms": 250,
+            "collar_half_width_ms": 125.0,
+            "mapping_hypothesis_to_reference": {
+              "native_2": "MEE071",
+              "native_0": "MEE073",
+              "native_1": "FEO072"
+            },
+            "status": "ok"
+          }
+        }
+      }
+    },
+    {
+      "profile": "c2-window",
+      "id": "ami-natural-en2002c-headset-first60",
+      "reference_group": "ami-en2002c-first60",
+      "related_participants_group": "AMI-EN2002",
+      "reference_k": 3,
+      "raw_k": 6,
+      "final_k": 5,
+      "der0": 0.6022549019607844,
+      "der250": 0.5830143540669857,
+      "vectors": 10,
+      "evidence_sha256": {
+        "diagnostics.json": "2047c96d9b58a0bb4dcdc3cec9a8e11cbb2b0ac1e88656fdce3c18d857f2e5a5",
+        "reference.json": "88d0ac9340dfa15a5a39851d2eb2a19e0c96715ecb36e05c674f8cf62e396d01",
+        "hypothesis.json": "f7d88d4f2acc4b51af650874264f1b3f53dbec556d3c3a091b0e755dbb681f62",
+        "metrics.json": "52e8ff38873e51a7e0ac4a5a8eb46b3fdf43fd6a773be06d922e12583788fd10"
+      },
+      "metrics": {
+        "reference_speakers": 3,
+        "scope": "Separate natural-meeting diarization diagnostic: EN2002a headset/array share a reference; EN2002a/c share participants; training overlap unknown. Not independent splits, English ASR task E, Android/phone timing, a new dev gate or corpus-general acceptance.",
+        "raw": {
+          "speakers": 6,
+          "speaker_count_error": 3,
+          "speaker_count_exact": false,
+          "der_collar_0ms": {
+            "rate": 0.5794607843137255,
+            "miss_ms": 4940.0,
+            "false_alarm_ms": 2258.0,
+            "confusion_ms": 4623.0,
+            "error_speaker_ms": 11821.0,
+            "reference_speaker_ms": 20400.0,
+            "evaluated_duration_ms": 60000.0,
+            "excluded_duration_ms": 0.0,
+            "reference_overlap_ms": 1810.0,
+            "collar_ms": 0,
+            "collar_half_width_ms": 0.0,
+            "mapping_hypothesis_to_reference": {
+              "native_13": "MEE071",
+              "native_9": "MEE073",
+              "native_12": "FEO072"
+            },
+            "status": "ok"
+          },
+          "der_collar_250ms": {
+            "rate": 0.5626196172248804,
+            "miss_ms": 3948.0,
+            "false_alarm_ms": 1686.0,
+            "confusion_ms": 3773.0,
+            "error_speaker_ms": 9407.0,
+            "reference_speaker_ms": 16720.0,
+            "evaluated_duration_ms": 56120.0,
+            "excluded_duration_ms": 3880.0,
+            "reference_overlap_ms": 930.0,
+            "collar_ms": 250,
+            "collar_half_width_ms": 125.0,
+            "mapping_hypothesis_to_reference": {
+              "native_13": "MEE071",
+              "native_9": "MEE073",
+              "native_12": "FEO072"
+            },
+            "status": "ok"
+          }
+        },
+        "stable": {
+          "speakers": 6,
+          "speaker_count_error": 3,
+          "speaker_count_exact": false,
+          "der_collar_0ms": {
+            "rate": 0.5794607843137255,
+            "miss_ms": 4940.0,
+            "false_alarm_ms": 2258.0,
+            "confusion_ms": 4623.0,
+            "error_speaker_ms": 11821.0,
+            "reference_speaker_ms": 20400.0,
+            "evaluated_duration_ms": 60000.0,
+            "excluded_duration_ms": 0.0,
+            "reference_overlap_ms": 1810.0,
+            "collar_ms": 0,
+            "collar_half_width_ms": 0.0,
+            "mapping_hypothesis_to_reference": {
+              "native_5": "MEE071",
+              "native_3": "MEE073",
+              "native_4": "FEO072"
+            },
+            "status": "ok"
+          },
+          "der_collar_250ms": {
+            "rate": 0.5626196172248804,
+            "miss_ms": 3948.0,
+            "false_alarm_ms": 1686.0,
+            "confusion_ms": 3773.0,
+            "error_speaker_ms": 9407.0,
+            "reference_speaker_ms": 16720.0,
+            "evaluated_duration_ms": 56120.0,
+            "excluded_duration_ms": 3880.0,
+            "reference_overlap_ms": 930.0,
+            "collar_ms": 250,
+            "collar_half_width_ms": 125.0,
+            "mapping_hypothesis_to_reference": {
+              "native_5": "MEE071",
+              "native_3": "MEE073",
+              "native_4": "FEO072"
+            },
+            "status": "ok"
+          }
+        },
+        "final": {
+          "speakers": 5,
+          "speaker_count_error": 2,
+          "speaker_count_exact": false,
+          "der_collar_0ms": {
+            "rate": 0.6022549019607844,
+            "miss_ms": 4940.0,
+            "false_alarm_ms": 1853.0,
+            "confusion_ms": 5493.0,
+            "error_speaker_ms": 12286.0,
+            "reference_speaker_ms": 20400.0,
+            "evaluated_duration_ms": 60000.0,
+            "excluded_duration_ms": 0.0,
+            "reference_overlap_ms": 1810.0,
+            "collar_ms": 0,
+            "collar_half_width_ms": 0.0,
+            "mapping_hypothesis_to_reference": {
+              "native_4": "MEE071",
+              "native_2": "MEE073",
+              "native_3": "FEO072"
+            },
+            "status": "ok"
+          },
+          "der_collar_250ms": {
+            "rate": 0.5830143540669857,
+            "miss_ms": 3948.0,
+            "false_alarm_ms": 1389.0,
+            "confusion_ms": 4411.0,
+            "error_speaker_ms": 9748.0,
+            "reference_speaker_ms": 16720.0,
+            "evaluated_duration_ms": 56120.0,
+            "excluded_duration_ms": 3880.0,
+            "reference_overlap_ms": 930.0,
+            "collar_ms": 250,
+            "collar_half_width_ms": 125.0,
+            "mapping_hypothesis_to_reference": {
+              "native_1": "MEE071",
+              "native_2": "MEE073",
+              "native_3": "FEO072"
+            },
+            "status": "ok"
+          }
+        }
+      }
+    }
+  ]
+}

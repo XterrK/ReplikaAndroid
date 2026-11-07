@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/mnt/d/ReplikaAndroid/ReplikaAndroid/tools/eval/pull_refined_android.py", line 582, in <module>
+    raise SystemExit(run(parser().parse_args()))
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/d/ReplikaAndroid/ReplikaAndroid/tools/eval/pull_refined_android.py", line 341, in run
+    checked = preflight(args)  # Must precede output mkdir and any ADB/subprocess.
+              ^^^^^^^^^^^^^^^
+  File "/mnt/d/ReplikaAndroid/ReplikaAndroid/tools/eval/pull_refined_android.py", line 145, in preflight
+    raise ValueError("Frozen C2 requires paired vad_words_context600 / eres2net_window_v1")
+ValueError: Frozen C2 requires paired vad_words_context600 / eres2net_window_v1

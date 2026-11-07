@@ -1,0 +1,220 @@
+{
+  "schema_version": 1,
+  "baseline_id": "eres2net_zh",
+  "required_runtime": "2.0.1",
+  "scope": "Step C host speaker-embedding research; all requested exact official ONNX assets available. No Android model/policy promotion or quality claim.",
+  "models": [
+    {
+      "id": "eres2net_zh",
+      "name": "3D-Speaker ERes2Net base",
+      "path": "model-pack/diar/embedding.onnx",
+      "repoRelative": true,
+      "baseline": true,
+      "size": 39593761,
+      "sha256": "1a331345f04805badbb495c775a6ddffcdd1a732567d5ec8b3d5749e3c7a5e4b",
+      "url": "https://github.com/k2-fsa/sherpa-onnx/releases/download/speaker-recongition-models/3dspeaker_speech_eres2net_base_sv_zh-cn_3dspeaker_16k.onnx",
+      "embedding_dimension": 512,
+      "training_language": "zh",
+      "source": {
+        "repository": "k2-fsa/sherpa-onnx",
+        "release_id": 133152315,
+        "release_tag": "speaker-recongition-models",
+        "asset_id": 198893098,
+        "asset_name": "3dspeaker_speech_eres2net_base_sv_zh-cn_3dspeaker_16k.onnx",
+        "asset_created_at": "2024-10-14T03:41:16Z",
+        "asset_updated_at": "2024-10-14T03:41:16Z",
+        "asset_api_url": "https://api.github.com/repos/k2-fsa/sherpa-onnx/releases/assets/198893098",
+        "publisher_digest": null,
+        "sha256_origin": "independently measured downloaded bytes; GitHub publisher digest absent",
+        "source_checkpoint_byte_equivalence_verified": false,
+        "upstream_supported_checkpoint_revision": "v1.0.1"
+      },
+      "license": {
+        "spdx": "Apache-2.0",
+        "status": "author_model_card_and_weight_scope_clarification",
+        "sources": [
+          "https://modelscope.cn/api/v1/models/iic/speech_eres2net_base_sv_zh-cn_3dspeaker_16k",
+          "https://github.com/modelscope/3D-Speaker/issues/268"
+        ],
+        "note": "ModelScope exact model metadata states Apache License 2.0; maintainer issue268 separately clarifies pretrained checkpoint scope. Existing application baseline, unchanged."
+      }
+    },
+    {
+      "id": "wespeaker_resnet34_lm",
+      "name": "WeSpeaker ResNet34 large-margin",
+      "path": "wespeaker_en_voxceleb_resnet34_LM.onnx",
+      "repoRelative": false,
+      "baseline": false,
+      "size": 26530550,
+      "sha256": "e9848563da86f263117134dfd7ad63c92355b37de492b55e325400c9d9c39012",
+      "url": "https://github.com/k2-fsa/sherpa-onnx/releases/download/speaker-recongition-models/wespeaker_en_voxceleb_resnet34_LM.onnx",
+      "embedding_dimension": 256,
+      "training_language": "en",
+      "source": {
+        "repository": "k2-fsa/sherpa-onnx",
+        "release_id": 133152315,
+        "release_tag": "speaker-recongition-models",
+        "asset_id": 198883653,
+        "asset_name": "wespeaker_en_voxceleb_resnet34_LM.onnx",
+        "asset_created_at": "2024-10-14T02:32:52Z",
+        "asset_updated_at": "2024-10-14T02:32:53Z",
+        "asset_api_url": "https://api.github.com/repos/k2-fsa/sherpa-onnx/releases/assets/198883653",
+        "publisher_digest": null,
+        "sha256_origin": "independently measured downloaded bytes; GitHub publisher digest absent",
+        "source_checkpoint_byte_equivalence_verified": false,
+        "author_card_revision": "f0c48c298fd835726c27956a5d617bad7115627e"
+      },
+      "license": {
+        "spdx": "CC-BY-4.0",
+        "status": "author_model_card",
+        "sources": [
+          "https://huggingface.co/Wespeaker/wespeaker-voxceleb-resnet34-LM/blob/f0c48c298fd835726c27956a5d617bad7115627e/README.md",
+          "https://github.com/wenet-e2e/wespeaker/blob/9fecd6cb4f47475d01761d87c826298dff4ef18c/docs/pretrained.md"
+        ],
+        "note": "Exact author model card and official VoxCeleb pretrained-model policy both state CC-BY-4.0; toolkit code license is separate."
+      }
+    },
+    {
+      "id": "campplus_en",
+      "name": "3D-Speaker CAMPPlus VoxCeleb",
+      "path": "3dspeaker_speech_campplus_sv_en_voxceleb_16k.onnx",
+      "repoRelative": false,
+      "baseline": false,
+      "size": 29596978,
+      "sha256": "357a834f702b80161e5b981182c038e18553c1f2ca752ed6cec2052365d4129b",
+      "url": "https://github.com/k2-fsa/sherpa-onnx/releases/download/speaker-recongition-models/3dspeaker_speech_campplus_sv_en_voxceleb_16k.onnx",
+      "embedding_dimension": 512,
+      "training_language": "en",
+      "source": {
+        "repository": "k2-fsa/sherpa-onnx",
+        "release_id": 133152315,
+        "release_tag": "speaker-recongition-models",
+        "asset_id": 198893105,
+        "asset_name": "3dspeaker_speech_campplus_sv_en_voxceleb_16k.onnx",
+        "asset_created_at": "2024-10-14T03:41:20Z",
+        "asset_updated_at": "2024-10-14T03:41:21Z",
+        "asset_api_url": "https://api.github.com/repos/k2-fsa/sherpa-onnx/releases/assets/198893105",
+        "publisher_digest": null,
+        "sha256_origin": "independently measured downloaded bytes; GitHub publisher digest absent",
+        "source_checkpoint_byte_equivalence_verified": false,
+        "upstream_supported_checkpoint_revision": "v1.0.2"
+      },
+      "license": {
+        "spdx": "Apache-2.0",
+        "status": "author_exact_model_metadata",
+        "sources": [
+          "https://modelscope.cn/api/v1/models/iic/speech_campplus_sv_en_voxceleb_16k",
+          "https://modelscope.cn/models/iic/speech_campplus_sv_en_voxceleb_16k"
+        ],
+        "note": "Exact English VoxCeleb author ModelScope model152709 metadata states Apache License 2.0; metadata capture SHA is retained in model-provenance-sources.json. Training-data terms remain separate."
+      }
+    },
+    {
+      "id": "wespeaker_camplus_lm",
+      "name": "WeSpeaker CAM++ large-margin",
+      "path": "wespeaker_en_voxceleb_CAM++_LM.onnx",
+      "repoRelative": false,
+      "baseline": false,
+      "size": 29292687,
+      "sha256": "e197af7e9d473030cf486b3124149a19bf37014d0e4485e4c70c483b0ec10cb2",
+      "url": "https://github.com/k2-fsa/sherpa-onnx/releases/download/speaker-recongition-models/wespeaker_en_voxceleb_CAM%2B%2B_LM.onnx",
+      "embedding_dimension": 512,
+      "training_language": "en",
+      "source": {
+        "repository": "k2-fsa/sherpa-onnx",
+        "release_id": 133152315,
+        "release_tag": "speaker-recongition-models",
+        "asset_id": 198883711,
+        "asset_name": "wespeaker_en_voxceleb_CAM++_LM.onnx",
+        "asset_created_at": "2024-10-14T02:33:06Z",
+        "asset_updated_at": "2024-10-14T02:33:08Z",
+        "asset_api_url": "https://api.github.com/repos/k2-fsa/sherpa-onnx/releases/assets/198883711",
+        "publisher_digest": null,
+        "sha256_origin": "independently measured downloaded bytes; GitHub publisher digest absent",
+        "source_checkpoint_byte_equivalence_verified": false,
+        "author_card_revision": "c5e01c6fcffcce160861e7e79782828320192b5c"
+      },
+      "license": {
+        "spdx": "Apache-2.0",
+        "status": "conflicting_author_sources",
+        "sources": [
+          "https://huggingface.co/Wespeaker/wespeaker-voxceleb-campplus-LM/blob/c5e01c6fcffcce160861e7e79782828320192b5c/README.md",
+          "https://github.com/wenet-e2e/wespeaker/blob/9fecd6cb4f47475d01761d87c826298dff4ef18c/docs/pretrained.md"
+        ],
+        "note": "Exact author HF card states Apache-2.0, while official WeSpeaker documentation states VoxCeleb pretrained models follow CC-BY-4.0. Both claims retained; conflict unresolved. Research-only external cache; no redistribution approval inferred."
+      }
+    },
+    {
+      "id": "titanet_small",
+      "name": "NVIDIA NeMo TitaNet small",
+      "path": "nemo_en_titanet_small.onnx",
+      "repoRelative": false,
+      "baseline": false,
+      "size": 40257283,
+      "sha256": "ad4a1802485d8b34c722d2a9d04249662f2ece5d28a7a039063ca22f515a789e",
+      "url": "https://github.com/k2-fsa/sherpa-onnx/releases/download/speaker-recongition-models/nemo_en_titanet_small.onnx",
+      "embedding_dimension": 192,
+      "training_language": "en",
+      "source": {
+        "repository": "k2-fsa/sherpa-onnx",
+        "release_id": 133152315,
+        "release_tag": "speaker-recongition-models",
+        "asset_id": 198917204,
+        "asset_name": "nemo_en_titanet_small.onnx",
+        "asset_created_at": "2024-10-14T07:03:02Z",
+        "asset_updated_at": "2024-10-14T07:03:03Z",
+        "asset_api_url": "https://api.github.com/repos/k2-fsa/sherpa-onnx/releases/assets/198917204",
+        "publisher_digest": null,
+        "sha256_origin": "independently measured downloaded bytes; GitHub publisher digest absent",
+        "source_checkpoint_byte_equivalence_verified": false,
+        "author_card_version": "1.19.0"
+      },
+      "license": {
+        "spdx": "Apache-2.0",
+        "status": "author_model_card_explicit_toolkit_license",
+        "sources": [
+          "https://api.ngc.nvidia.com/v2/models/nvidia/nemo/titanet_small/versions/1.19.0",
+          "https://catalog.ngc.nvidia.com/orgs/nvidia/teams/nemo/models/titanet_small",
+          "https://github.com/NVIDIA/NeMo/blob/v1.19.0/LICENSE"
+        ],
+        "note": "Exact NVIDIA NGC TitaNetSmall card1.19.0 explicitly applies the NeMo Toolkit license to this model. Referenced toolkit license is Apache-2.0. This is a model-card statement, not an assumption from exporter code."
+      }
+    },
+    {
+      "id": "titanet_large",
+      "name": "NVIDIA NeMo TitaNet large",
+      "path": "nemo_en_titanet_large.onnx",
+      "repoRelative": false,
+      "baseline": false,
+      "size": 101405493,
+      "sha256": "d51abcf31717ef28162f26acb9d44dd4127c3d44c9b8624f699f3425daca8e77",
+      "url": "https://github.com/k2-fsa/sherpa-onnx/releases/download/speaker-recongition-models/nemo_en_titanet_large.onnx",
+      "embedding_dimension": 192,
+      "training_language": "en",
+      "source": {
+        "repository": "k2-fsa/sherpa-onnx",
+        "release_id": 133152315,
+        "release_tag": "speaker-recongition-models",
+        "asset_id": 198917208,
+        "asset_name": "nemo_en_titanet_large.onnx",
+        "asset_created_at": "2024-10-14T07:03:04Z",
+        "asset_updated_at": "2024-10-14T07:03:08Z",
+        "asset_api_url": "https://api.github.com/repos/k2-fsa/sherpa-onnx/releases/assets/198917208",
+        "publisher_digest": null,
+        "sha256_origin": "independently measured downloaded bytes; GitHub publisher digest absent",
+        "source_checkpoint_byte_equivalence_verified": false,
+        "author_card_revision": "0dc382f40121a5fbd34db10a2bb04d826c2be6a8"
+      },
+      "license": {
+        "spdx": "CC-BY-4.0",
+        "status": "author_model_card",
+        "sources": [
+          "https://huggingface.co/nvidia/speakerverification_en_titanet_large/blob/0dc382f40121a5fbd34db10a2bb04d826c2be6a8/README.md"
+        ],
+        "note": "Exact NVIDIA model card frontmatter and model-license section state CC-BY-4.0."
+      }
+    }
+  ],
+  "unavailable_models": [],
+  "provenance": "artifacts/test-results/step-04/model-provenance-sources.json"
+}

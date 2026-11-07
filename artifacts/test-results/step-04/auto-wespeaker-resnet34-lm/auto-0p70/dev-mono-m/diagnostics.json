@@ -1,0 +1,39 @@
+{
+  "rawDiarizationTurns": [
+    {
+      "startMs": 31,
+      "endMs": 11489,
+      "speakerId": 0
+    }
+  ],
+  "diarizationTurns": [
+    {
+      "startMs": 31,
+      "endMs": 11489,
+      "speakerId": 0
+    }
+  ],
+  "mode": "auto",
+  "numClustersPassed": -1,
+  "threshold": 0.7,
+  "thresholdApplied": true,
+  "windowShiftRatio": 0.1,
+  "threads": 2,
+  "modelId": "wespeaker_resnet34_lm",
+  "modelSha256": "e9848563da86f263117134dfd7ad63c92355b37de492b55e325400c9d9c39012",
+  "diarizationInferenceMs": 808.8425450005161,
+  "modelLoadMs": 0.0,
+  "sessionReuse": "Same model config; set_config changes clustering only. Every process recomputes neural outputs.",
+  "newAsrInference": false,
+  "asrEvidenceSha256": {
+    "reference.json": "c027484abb892d54d2b3eb1601344a7c29e1e1ada7d09e490d15e104ed3e71f5",
+    "hypothesis.json": "b0f0936303065bb6363f5bc2ad50684c004de297cdac7cbb5ee87ee3f47dbccb",
+    "diagnostics.json": "620731da19d49ff696d3b4b5c11cc66935be699a2f8f656d1d35d4730ad32de7",
+    "metrics.json": "cbd2ed4bfb3a91149fc85e4d85a4d3d88c5fdac93c83054f1b7e12013632d2b2"
+  },
+  "fixedCountSource": "none",
+  "singleBypass": false,
+  "fixedSinglePolicy": "Actual diarizer process even K=1; separate production V1.6 single bypass comparison required",
+  "shortChunkCaveat": "Sherpa single-segmentation-chunk special case may skip embedding/clustering; no claim every threshold exercises those on short files.",
+  "newCleanWindowEmbeddingInference": false
+}

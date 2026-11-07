@@ -1,0 +1,148 @@
+{
+  "rawDiarizationTurns": [
+    {
+      "startMs": 31,
+      "endMs": 5515,
+      "speakerId": 0
+    },
+    {
+      "startMs": 6427,
+      "endMs": 9869,
+      "speakerId": 1
+    },
+    {
+      "startMs": 10578,
+      "endMs": 13970,
+      "speakerId": 1
+    },
+    {
+      "startMs": 13970,
+      "endMs": 14307,
+      "speakerId": 2
+    },
+    {
+      "startMs": 14678,
+      "endMs": 15252,
+      "speakerId": 0
+    },
+    {
+      "startMs": 15843,
+      "endMs": 18408,
+      "speakerId": 0
+    },
+    {
+      "startMs": 18965,
+      "endMs": 24905,
+      "speakerId": 0
+    },
+    {
+      "startMs": 25343,
+      "endMs": 29444,
+      "speakerId": 1
+    },
+    {
+      "startMs": 30490,
+      "endMs": 30997,
+      "speakerId": 1
+    },
+    {
+      "startMs": 31520,
+      "endMs": 32937,
+      "speakerId": 1
+    },
+    {
+      "startMs": 32650,
+      "endMs": 32954,
+      "speakerId": 2
+    },
+    {
+      "startMs": 33443,
+      "endMs": 34962,
+      "speakerId": 1
+    }
+  ],
+  "diarizationTurns": [
+    {
+      "startMs": 31,
+      "endMs": 5515,
+      "speakerId": 0
+    },
+    {
+      "startMs": 6427,
+      "endMs": 9869,
+      "speakerId": 1
+    },
+    {
+      "startMs": 10578,
+      "endMs": 13970,
+      "speakerId": 1
+    },
+    {
+      "startMs": 13970,
+      "endMs": 14307,
+      "speakerId": 2
+    },
+    {
+      "startMs": 14678,
+      "endMs": 15252,
+      "speakerId": 0
+    },
+    {
+      "startMs": 15843,
+      "endMs": 18408,
+      "speakerId": 0
+    },
+    {
+      "startMs": 18965,
+      "endMs": 24905,
+      "speakerId": 0
+    },
+    {
+      "startMs": 25343,
+      "endMs": 29444,
+      "speakerId": 1
+    },
+    {
+      "startMs": 30490,
+      "endMs": 30997,
+      "speakerId": 1
+    },
+    {
+      "startMs": 31520,
+      "endMs": 32937,
+      "speakerId": 1
+    },
+    {
+      "startMs": 32650,
+      "endMs": 32954,
+      "speakerId": 2
+    },
+    {
+      "startMs": 33443,
+      "endMs": 34962,
+      "speakerId": 1
+    }
+  ],
+  "mode": "fixed",
+  "numClustersPassed": 3,
+  "threshold": 0.5,
+  "thresholdApplied": false,
+  "windowShiftRatio": 0.1,
+  "threads": 2,
+  "modelId": "titanet_large",
+  "modelSha256": "d51abcf31717ef28162f26acb9d44dd4127c3d44c9b8624f699f3425daca8e77",
+  "diarizationInferenceMs": 6661.845387003268,
+  "modelLoadMs": 0.0,
+  "sessionReuse": "Same model config; set_config changes clustering only. Every process recomputes neural outputs.",
+  "newAsrInference": false,
+  "asrEvidenceSha256": {
+    "reference.json": "31893577919d7a65863235dc7067a73214f9a9855a7db5ee153fadffbb8606f7",
+    "hypothesis.json": "57b430453bb1d88d91297db9c616620d442524ed114ced8741cfce1ce14a28ee",
+    "diagnostics.json": "78c0cdaa7411064fcc0d74e16bb467f0dcfd8508435958c3432fe941bc6ddf37",
+    "metrics.json": "066a55f0b669f8e9013a24d76791813a3bf93b825ca1b8d2523c529540586844"
+  },
+  "fixedCountSource": "manifest known-K research oracle, not deployment",
+  "singleBypass": false,
+  "fixedSinglePolicy": "Actual diarizer process even K=1; separate production V1.6 single bypass comparison required",
+  "shortChunkCaveat": "Sherpa single-segmentation-chunk special case may skip embedding/clustering; no claim every threshold exercises those on short files."
+}

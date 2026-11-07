@@ -1,0 +1,52 @@
+{
+  "status": "FROZEN_FOR_VALIDATION",
+  "at": "2026-11-07T00:26:07.728891+00:00",
+  "candidate": "C1-resnet34-sd050-tau070-smallguard070-temporal",
+  "scope": "Provisional dev-passing global C1 candidate; remaining model/window research continues. No Android/pipeline acceptance.",
+  "dev_audit_sha256": "9c0c3f2f2b57063b2ec3407251cb2f274ce2433d072cbceac2073c976a7762c8",
+  "model": {
+    "id": "wespeaker_resnet34_lm",
+    "name": "WeSpeaker ResNet34 large-margin",
+    "path": "wespeaker_en_voxceleb_resnet34_LM.onnx",
+    "repoRelative": false,
+    "baseline": false,
+    "size": 26530550,
+    "sha256": "e9848563da86f263117134dfd7ad63c92355b37de492b55e325400c9d9c39012",
+    "url": "https://github.com/k2-fsa/sherpa-onnx/releases/download/speaker-recongition-models/wespeaker_en_voxceleb_resnet34_LM.onnx",
+    "embedding_dimension": 256,
+    "training_language": "en",
+    "source": {
+      "repository": "k2-fsa/sherpa-onnx",
+      "release_id": 133152315,
+      "release_tag": "speaker-recongition-models",
+      "asset_id": 198883653,
+      "asset_name": "wespeaker_en_voxceleb_resnet34_LM.onnx",
+      "asset_created_at": "2024-10-14T02:32:52Z",
+      "asset_updated_at": "2024-10-14T02:32:53Z",
+      "asset_api_url": "https://api.github.com/repos/k2-fsa/sherpa-onnx/releases/assets/198883653",
+      "publisher_digest": null,
+      "sha256_origin": "independently measured downloaded bytes; GitHub publisher digest absent",
+      "source_checkpoint_byte_equivalence_verified": false,
+      "author_card_revision": "f0c48c298fd835726c27956a5d617bad7115627e"
+    },
+    "license": {
+      "spdx": "CC-BY-4.0",
+      "status": "author_model_card",
+      "sources": [
+        "https://huggingface.co/Wespeaker/wespeaker-voxceleb-resnet34-LM/blob/f0c48c298fd835726c27956a5d617bad7115627e/README.md",
+        "https://github.com/wenet-e2e/wespeaker/blob/9fecd6cb4f47475d01761d87c826298dff4ef18c/docs/pretrained.md"
+      ],
+      "note": "Exact author model card and official VoxCeleb pretrained-model policy both state CC-BY-4.0; toolkit code license is separate."
+    }
+  },
+  "policy": {
+    "native_threshold": 0.5,
+    "window_shift": 0.1,
+    "threads": 2,
+    "refiner_tau": 0.7,
+    "minimum_reassignment_similarity": 0.7,
+    "missing_centroid_policy": "temporal",
+    "paired_asr_plan": "vad_words_context600"
+  },
+  "validation": "Original holdout and reserve are separate previously seen D regression cohorts; no policy changes per file."
+}

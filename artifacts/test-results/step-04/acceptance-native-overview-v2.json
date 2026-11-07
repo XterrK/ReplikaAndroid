@@ -1,0 +1,84 @@
+{
+  "status": "COMPLETE",
+  "at": "2026-11-07T00:32:33.048564+00:00",
+  "new_model_inference": false,
+  "profiles": 84,
+  "case_audits": 672,
+  "integrity_failures": 0,
+  "native_quality_gate_pass_profiles": 0,
+  "models": [
+    {
+      "model_id": "campplus_en",
+      "audited_profiles": 14,
+      "all_source_integrity_pass": true,
+      "quality_gate_pass_profiles": 0,
+      "maximum_exact_count_cases": 5,
+      "required_exact_count_cases": 7,
+      "minimum_native_der_0": 0.4685972744360902,
+      "minimum_der_profile": "auto-0p90",
+      "scope": "Minimum DER is descriptive only; count gate remains independent"
+    },
+    {
+      "model_id": "eres2net_zh",
+      "audited_profiles": 14,
+      "all_source_integrity_pass": true,
+      "quality_gate_pass_profiles": 0,
+      "maximum_exact_count_cases": 4,
+      "required_exact_count_cases": 7,
+      "minimum_native_der_0": 0.2764254385964912,
+      "minimum_der_profile": "auto-0p95",
+      "scope": "Minimum DER is descriptive only; count gate remains independent"
+    },
+    {
+      "model_id": "titanet_large",
+      "audited_profiles": 14,
+      "all_source_integrity_pass": true,
+      "quality_gate_pass_profiles": 0,
+      "maximum_exact_count_cases": 4,
+      "required_exact_count_cases": 7,
+      "minimum_native_der_0": 0.2238408521303258,
+      "minimum_der_profile": "auto-0p65",
+      "scope": "Minimum DER is descriptive only; count gate remains independent"
+    },
+    {
+      "model_id": "titanet_small",
+      "audited_profiles": 14,
+      "all_source_integrity_pass": true,
+      "quality_gate_pass_profiles": 0,
+      "maximum_exact_count_cases": 5,
+      "required_exact_count_cases": 7,
+      "minimum_native_der_0": 0.2441220238095238,
+      "minimum_der_profile": "auto-0p75",
+      "scope": "Minimum DER is descriptive only; count gate remains independent"
+    },
+    {
+      "model_id": "wespeaker_camplus_lm",
+      "audited_profiles": 14,
+      "all_source_integrity_pass": true,
+      "quality_gate_pass_profiles": 0,
+      "maximum_exact_count_cases": 5,
+      "required_exact_count_cases": 7,
+      "minimum_native_der_0": 0.4825657894736842,
+      "minimum_der_profile": "auto-0p85",
+      "scope": "Minimum DER is descriptive only; count gate remains independent"
+    },
+    {
+      "model_id": "wespeaker_resnet34_lm",
+      "audited_profiles": 14,
+      "all_source_integrity_pass": true,
+      "quality_gate_pass_profiles": 0,
+      "maximum_exact_count_cases": 4,
+      "required_exact_count_cases": 7,
+      "minimum_native_der_0": 0.27503524436090226,
+      "minimum_der_profile": "auto-0p80",
+      "scope": "Minimum DER is descriptive only; count gate remains independent"
+    }
+  ],
+  "raw_wer_unchanged_all_profiles": "71/533",
+  "summary": "artifacts/test-results/step-04/acceptance-native-summary-v2.json",
+  "summary_sha256": "b898ad4bcbcc049fe874902dc33e79803964112de2926bacb5588e183c299c97",
+  "csv": "artifacts/test-results/step-04/acceptance-native-results-v2.csv",
+  "csv_sha256": "4dd7c3997798b2384aebdb158c97755b7e85f0c78ae1b2f0cb4ff8532f597829",
+  "guard_dev_pass_report": "artifacts/test-results/step-04/acceptance-resnet34-050-temporal-guard0p7/tau-0p7.json",
+  "scope": "Native auto grids only; separate guard refiner devPASS is retained; no holdout/Android/full-pipeline claim"
+}
