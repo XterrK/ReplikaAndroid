@@ -14,7 +14,7 @@ import os
 from pathlib import Path
 import platform
 import re
-import resource
+from hostmem import peak_rss_kib
 import sys
 import time
 
@@ -46,7 +46,7 @@ def confined(root, relative):
 def validate_configuration(config):
     allowed = {"schema_version", "id", "pipeline", "expected_speakers", "threads", "notes"}
     if config.get("pipeline") == "vad_words_v1":
-        allowed |= {"punctuation_mode", "energy_split", "vad_min_speech_sec", "vad_min_silence_sec", "vad_threshold", "pre_roll_ms"}
+        allowed |= {"punctuation_mode", "energy_split", "vad_min_speech_sec", "vad_min_silence_sec", "vad_threshold", "pre_roll_ms", "bridge_gap_ms"}
     if set(config) - allowed:
         raise ValueError("Unsupported configuration options: " + str(sorted(set(config) - allowed)))
     if config.get("schema_version") != 1 or config.get("pipeline") not in {"v16", "vad_words_v1"}:
@@ -171,7 +171,7 @@ def run(args):
     if config["pipeline"] == "vad_words_v1":
         import pipeline_words as selected_pipeline
         options = {"punctuation_mode": config["punctuation_mode"], "energy_split": config["energy_split"]}
-        options.update({key: config[key] for key in ("vad_min_speech_sec", "vad_min_silence_sec", "vad_threshold", "pre_roll_ms") if key in config})
+        options.update({key: config[key] for key in ("vad_min_speech_sec", "vad_min_silence_sec", "vad_threshold", "pre_roll_ms", "bridge_gap_ms") if key in config})
     manifest = json.loads(args.manifest.read_text(encoding="utf-8"))
     if manifest.get("schema_version") != 1:
         raise ValueError("Unsupported corpus manifest schema")
@@ -297,7 +297,7 @@ def run(args):
         print(json.dumps({"case": case["id"], "split": case["split"], "wer_raw": records[-1]["metrics"]["wer_raw"]["rate"],
                           "rtf": records[-1]["metrics"]["rtf"]}, ensure_ascii=False), flush=True)
     meta.update(status="COMPLETE", completed_at=datetime.now(timezone.utc).isoformat(),
-                host_process_peak_rss_kib_cumulative=resource.getrusage(resource.RUSAGE_SELF).ru_maxrss,
+                host_process_peak_rss_kib_cumulative=peak_rss_kib(),
                 memory_scope="Linux process high-water RSS for the whole run; not per-file PSS or phone memory")
     write_json(output / "run.json", meta)
     summary["status"] = "COMPLETE"

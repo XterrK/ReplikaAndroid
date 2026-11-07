@@ -15,7 +15,7 @@ import math
 from pathlib import Path
 import platform
 import re
-import resource
+from hostmem import peak_rss_kib
 import sys
 import time
 
@@ -236,7 +236,7 @@ def run(args):
             print(json.dumps({"case": case["id"], "split": case["split"], "raw_wer": metric["wer_raw"]["rate"],
                 "native_speakers": metric["native_speaker_count"], "native_der0": metric["native_der_collar_0ms"]["rate"]}), flush=True)
         meta.update(status="COMPLETE", completed_at=datetime.now(timezone.utc).isoformat(),
-            host_process_peak_rss_kib_cumulative=resource.getrusage(resource.RUSAGE_SELF).ru_maxrss,
+            host_process_peak_rss_kib_cumulative=peak_rss_kib(),
             memory_scope="Whole host process cumulative RSS high-water; not per-file continuous PSS/phone memory")
         summary["status"] = "COMPLETE"
         write_json(output / "summary.json", summary)
