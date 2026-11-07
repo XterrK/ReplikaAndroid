@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="description" content="REPLIKA — Android-приложение для полностью офлайн-расшифровки разговоров: говорящие, таймкоды, плеер, правки и экспорт TXT, SRT, JSON.">
+  <title>REPLIKA — разговор становится текстом</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body id="top">
+  <a class="skip-link" href="#main">Перейти к содержанию</a>
+  <header class="site-header wrap">
+    <a class="wordmark" href="#top" aria-label="REPLIKA — в начало">REPLIKA<span aria-hidden="true">.</span></a>
+    <nav aria-label="Основная навигация">
+      <a href="#features">Возможности</a>
+      <a href="#how-it-works">Как это работает</a>
+      <a href="https://github.com/XterrK/ReplikaAndroid">GitHub <span aria-hidden="true">↗</span></a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="hero wrap" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <h1 id="hero-title">Разговор<br>становится <span>текстом.</span></h1>
+        <p class="lead">REPLIKA — Android-приложение, которое полностью офлайн превращает запись разговора в стенограмму с разделением говорящих и таймкодами.</p>
+        <div class="hero-actions">
+          <a class="button" href="https://github.com/XterrK/ReplikaAndroid/releases">Скачать APK <span aria-hidden="true">↓</span></a>
+          <a class="text-link" href="#how-it-works">Как это работает <span aria-hidden="true">↗</span></a>
+        </div>
+        <p class="download-note">Android · APK на странице Releases</p>
+      </div>
+      <figure class="transcript-demo">
+        <div class="waveform" aria-hidden="true">
+          <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+        </div>
+        <div class="transcript-sheet" aria-hidden="true">
+          <div class="sheet-heading">Стенограмма <span>↙</span></div>
+          <div class="utterance"><span class="timestamp">00:12</span><div><strong>Говорящий 1</strong><span class="text-line"></span><span class="text-line short"></span></div></div>
+          <div class="utterance"><span class="timestamp">00:18</span><div><strong>Говорящий 2</strong><span class="text-line"></span><span class="text-line medium"></span></div></div>
+          <div class="utterance"><span class="timestamp">00:24</span><div><strong>Говорящий 1</strong><span class="text-line"></span><span class="text-line short"></span></div></div>
+        </div>
+        <figcaption>Звук → текст · схема стенограммы</figcaption>
+      </figure>
+    </section>
+
+    <section class="section wrap" id="features" aria-labelledby="features-title">
+      <div class="section-heading"><p class="section-index" aria-hidden="true">01 / ВОЗМОЖНОСТИ</p><h2 id="features-title">Всё важное — в репликах.</h2></div>
+      <div class="features-grid">
+        <article class="feature"><span class="feature-number" aria-hidden="true">01</span><div><h3>Всё на устройстве</h3><p>Распознавание работает без интернета. Аудио, обработка и результат остаются на вашем телефоне.</p></div></article>
+        <article class="feature"><span class="feature-number" aria-hidden="true">02</span><div><h3>Кто сказал и когда</h3><p>Разделение говорящих и таймкоды каждой реплики помогают ориентироваться в разговоре.</p></div></article>
+        <article class="feature"><span class="feature-number" aria-hidden="true">03</span><div><h3>Слушайте. Проверяйте. Правьте.</h3><p>Плеер с переходом к нужной реплике позволяет сверить её с записью и внести правки в текст.</p></div></article>
+        <article class="feature"><span class="feature-number" aria-hidden="true">04</span><div><h3>TXT / SRT / JSON</h3><p>Экспортируйте стенограмму как обычный текст, субтитры или структурированные данные.</p></div></article>
+      </div>
+    </section>
+
+    <section class="process-band" id="how-it-works" aria-labelledby="process-title">
+      <div class="wrap section">
+        <div class="section-heading"><p class="section-index" aria-hidden="true">02 / КОНВЕЙЕР</p><h2 id="process-title">Как это работает</h2><p>От записи до структурированной стенограммы.<br>Каждый этап выполняется на телефоне.</p></div>
+        <ol class="pipeline" aria-label="Этапы обработки аудио">
+          <li><span class="step-label">Вход</span><h3>Звук</h3><p>Запись разговора</p></li>
+          <li><span class="step-label">Поиск речи</span><h3>Silero VAD</h3><p>Речевые участки</p></li>
+          <li><span class="step-label">Разделение говорящих</span><h3>Pyannote <br>+ ERes2Net</h3><p>Кто говорит</p></li>
+          <li><span class="step-label">Распознавание</span><h3>GigaAM v3</h3><p>Речь в текст</p></li>
+          <li><span class="step-label">Результат</span><h3>JSON</h3><p>Текст, говорящие, время</p></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="section wrap results" id="results" aria-labelledby="results-title">
+      <div class="section-heading"><p class="section-index" aria-hidden="true">03 / ОЦЕНКА</p><h2 id="results-title">Результаты</h2><p>Здесь появятся измерения качества и скорости.<br>Пока значения не опубликованы.</p></div>
+      <table>
+        <caption>Метрики обработки · значения-заглушки</caption>
+        <thead><tr><th scope="col">Метрика</th><th scope="col">Что измеряем</th><th scope="col">Значение</th></tr></thead>
+        <tbody>
+          <tr><th scope="row"><abbr title="Word Error Rate">WER</abbr></th><td>Ошибки распознавания слов</td><td class="metric-value">{{TBD}}</td></tr>
+          <tr><th scope="row"><abbr title="Diarization Error Rate">DER</abbr></th><td>Ошибки разделения говорящих</td><td class="metric-value">{{TBD}}</td></tr>
+          <tr><th scope="row"><abbr title="Real-Time Factor">RTF</abbr></th><td>Время обработки / длительность аудио</td><td class="metric-value">{{TBD}}</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="privacy wrap" id="privacy" aria-labelledby="privacy-title">
+      <div><p class="section-index">ПРИВАТНОСТЬ</p><h2 id="privacy-title">Ваш разговор.<br>Только на вашем телефоне.</h2></div>
+      <p>Аудио не покидает телефон. Поиск речи, разделение говорящих и распознавание выполняются локально — без передачи записи в облако.</p>
+    </section>
+
+    <section class="section wrap" id="screenshots" aria-labelledby="screenshots-title">
+      <div class="section-heading"><p class="section-index" aria-hidden="true">04 / ИНТЕРФЕЙС</p><h2 id="screenshots-title">Скриншоты</h2><p>Места для будущих скриншотов приложения.</p></div>
+      <div class="screenshots">
+        <figure><div class="screenshot-placeholder"><span class="placeholder-number" aria-hidden="true">01</span><span>Скриншот<br>будет здесь</span></div><figcaption>Запись разговора <span>01</span></figcaption></figure>
+        <figure><div class="screenshot-placeholder"><span class="placeholder-number" aria-hidden="true">02</span><span>Скриншот<br>будет здесь</span></div><figcaption>Стенограмма и плеер <span>02</span></figcaption></figure>
+        <figure><div class="screenshot-placeholder"><span class="placeholder-number" aria-hidden="true">03</span><span>Скриншот<br>будет здесь</span></div><figcaption>Экспорт результата <span>03</span></figcaption></figure>
+      </div>
+    </section>
+
+    <section class="section wrap team" id="team" aria-labelledby="team-title">
+      <div><p class="section-index" aria-hidden="true">05 / ЛЮДИ</p><h2 id="team-title">Команда</h2></div>
+      <div><h3>REPLIKA</h3><p>Здесь появятся участники команды и их роли.</p><a class="text-link" href="https://github.com/XterrK/ReplikaAndroid">Репозиторий проекта <span aria-hidden="true">↗</span></a></div>
+    </section>
+  </main>
+
+  <footer class="site-footer wrap"><a class="wordmark" href="#top">REPLIKA<span aria-hidden="true">.</span></a><p>Из звука — в смысл. Полностью офлайн.</p><a href="https://github.com/XterrK/ReplikaAndroid">GitHub <span aria-hidden="true">↗</span></a></footer>
+</body>
+</html>
