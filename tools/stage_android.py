@@ -28,7 +28,7 @@ try:
   assert p.stat().st_size==spec['size']
   assert hashlib.file_digest(p.open('rb'),'sha256').hexdigest()==spec['sha256']
   if '--pack' not in sys.argv:stage(p,'files/models/'+spec['path'])
- if '--pack' in sys.argv:stage(ROOT/'model-pack/replika-offline-pack-v1.5.zip','files/integration-model-pack.zip')
+ if '--pack' in sys.argv:stage(ROOT/'model-pack/replika-offline-pack-v1.6.zip','files/integration-model-pack.zip')
  stage(FIXTURES/'russian-example.wav','files/integration-example.wav')
  for ext in ['mp3','m4a']:
   source=FIXTURES/('russian-example.'+ext)

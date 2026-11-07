@@ -28,6 +28,9 @@ if not __package__:
 from tools.eval import pipeline as base, score as scoring, prepare_natural_ami as preparation
 from tools.eval import speaker_refiner, window_overcluster, prepare_diar_models
 from tools.eval.diar_sweep import make_config
+from tools.eval.language_id import LANGUAGE_MODEL_PINS
+
+LANGUAGE_PATHS = [path for path, _, _ in LANGUAGE_MODEL_PINS]
 
 ROOT = Path(__file__).resolve().parents[2]
 PROFILE_IDS = ("legacy-v16", "c1-centroid", "c2-window")
@@ -204,9 +207,14 @@ def preflight(args, *, project_root=ROOT):
 
     lock_path = track(project_root / "app/src/main/assets/models-lock.json")
     lock = json.loads(lock_path.read_bytes())
-    if len(lock.get("files", [])) != 7 or {spec["path"] for spec in lock["files"]} != LOCK_PATHS:
+    rows = lock.get("files", [])
+    # The optional pack v1.6 language extension is checked structurally (exact paths and order);
+    # this diarization tool never loads or hashes those weights.
+    if ({spec["path"] for spec in rows[:7]} != LOCK_PATHS or len(rows) not in (7, 14)
+            or (len(rows) == 14 and [spec.get("path") for spec in rows[7:]] != LANGUAGE_PATHS)):
         raise ValueError("Require the unchanged complete seven-file main model lock")
-    for spec in lock["files"]:
+    # Only the seven diarization/ASR models are used here; the language extension is not hashed.
+    for spec in rows[:7]:
         _check_file(track(safe_path(args.model_root, spec["path"])), spec)
     catalog_path = track(args.catalog)
     catalog = prepare_diar_models.load_catalog(catalog_path)

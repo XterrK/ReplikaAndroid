@@ -17,7 +17,7 @@ import platform
 import re
 try:
     from hostmem import peak_rss_kib
-except ImportError:  # imported as tools.eval.run
+except ImportError:  # imported as tools.eval.run (tests, pipeline_refined)
     from tools.eval.hostmem import peak_rss_kib
 import sys
 import time

@@ -128,7 +128,7 @@ def build_preflight(root, env, tasks, allow_new_key=False):
     needs_pack = all_in_one or aggregate
     if any(token in task for task in lowered for token in ("allin", "assemblea", "bundlea", "mergea")):
         needs_pack = True  # Cover common Gradle task abbreviations as well.
-    pack = Path("model-pack/replika-offline-pack-v1.5.zip") if needs_pack else None
+    pack = Path("model-pack/replika-offline-pack-v1.6.zip") if needs_pack else None
     integrity = verify_workspace(root, models=False, abis=ABIS, pack=pack)
     errors.extend(integrity["errors"])
     # Mirror app/build.gradle.kts: its explicit local key takes precedence over

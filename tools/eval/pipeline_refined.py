@@ -22,6 +22,7 @@ import time
 from tools.eval import pipeline as base
 from tools.eval import pipeline_words as words
 from tools.eval import diar_sweep
+from tools.eval import language_id
 from tools.eval.run import confined
 from tools.eval.speaker_refiner import EmbeddingWindow, RefineConfig, clean_windows, refine
 from tools.eval.vad_words import assign_words, group_words, plan_vad_chunks, words_from_tokens
@@ -131,7 +132,7 @@ def process(audio_path, model_root, expected_speakers=-1, threads=2, *,
         catalog_path=base.PROJECT_ROOT / "configs/eval/diar-models.json", embedding_root=None,
         model_id="wespeaker_resnet34_lm", window_shift=.1, native_threshold=.5,
         refiner_tau=_UNSET, minimum_reassignment_similarity=_UNSET, missing_centroid_policy=_UNSET,
-        strategy="centroid_v1", window_config=None, cpu_plan="v16"):
+        strategy="centroid_v1", window_config=None, cpu_plan="v16", language="ru", per_segment_language=False):
     refiner_config = validate_options(expected_speakers, threads, model_id=model_id,
         window_shift=window_shift, native_threshold=native_threshold, refiner_tau=refiner_tau,
         minimum_reassignment_similarity=minimum_reassignment_similarity,
@@ -211,9 +212,16 @@ def process(audio_path, model_root, expected_speakers=-1, threads=2, *,
         chunks = plan_vad_chunks(bounded, samples, max_ms=20000, energy_split=True)
     segments, slice_results, all_words = [], [], []
     fallback_chunks = 0
-    if chunks:
+    # Task 07 language routing (shared with pipeline_words); ru keeps the unchanged GigaAM path.
+    chunk_languages, strides, language_report = language_id.route(
+        language, per_segment_language, chunks, samples, recognition_gain, model_root, threads, stages,
+        base._measure, stride, words.encoder_metadata)
+    asr_passes = language_id.passes(chunk_languages)
+    for pass_language, pass_chunks in asr_passes:
+        source = language_id.ENGLISH_SOURCE if pass_language == "en" else base.SOURCE
+        stride_ms = strides[pass_language]["frame_stride_ms"]
         with base._measure(stages, "asrLoadMs"):
-            recognizer = sherpa.OfflineRecognizer.from_transducer(
+            recognizer = language_id.make_english_recognizer(model_root, threads) if pass_language == "en" else sherpa.OfflineRecognizer.from_transducer(
                 encoder=str(model_root / "giga-v3/encoder.int8.onnx"), decoder=str(model_root / "giga-v3/decoder.onnx"),
                 joiner=str(model_root / "giga-v3/joiner.onnx"), tokens=str(model_root / "giga-v3/tokens.txt"),
                 model_type="nemo_transducer", num_threads=threads, provider="cpu", debug=False,
@@ -221,7 +229,8 @@ def process(audio_path, model_root, expected_speakers=-1, threads=2, *,
                 max_active_paths=4, modeling_unit="", hotwords_file="", blank_penalty=0.0)
         try:
             with base._measure(stages, "asrMs"):
-                for chunk_index, chunk in enumerate(chunks):
+                for chunk_index in pass_chunks:
+                    chunk = chunks[chunk_index]
                     with base._measure(stages, "asrReadMs"):
                         pcm = samples[chunk.start_ms * 16:min(chunk.end_ms * 16, len(samples))].copy()
                     if recognition_gain != 1:
@@ -237,30 +246,35 @@ def process(audio_path, model_root, expected_speakers=-1, threads=2, *,
                         text, tokens, timestamps = output.text.strip(), list(output.tokens), list(output.timestamps)
                         with base._measure(stages, "wordAssignmentMs"):
                             parsed = words_from_tokens(text, tokens, timestamps, chunk.start_ms, chunk.end_ms,
-                                                       stride["frame_stride_ms"])
+                                                       stride_ms)
                             assigned = assign_words(parsed.words, turns) if parsed.supported else []
                             rows = [{"startMs": word.start_ms, "endMs": word.end_ms, "text": word.text,
                                      "speakerId": word.speaker, "warnings": list(word.reasons), "chunkIndex": chunk_index}
                                     for word in assigned]
                             all_words.extend(rows)
                             if parsed.supported:
-                                segments.extend(group_words(assigned, base.SOURCE, "none"))
+                                segments.extend(group_words(assigned, source, "none"))
                             elif text:
                                 fallback_chunks += 1
                                 segments.append({"startMs": chunk.start_ms, "endMs": chunk.end_ms,
-                                    "speakerId": -1, "text": text, "source": base.SOURCE, "warnings": [words.FALLBACK_WARNING]})
+                                    "speakerId": -1, "text": text, "source": source, "warnings": [words.FALLBACK_WARNING]})
                         slice_results.append({"startMs": chunk.start_ms, "endMs": chunk.end_ms,
                             "speakerId": -1, "text": text, "blank": not bool(text), "inferenceMs": inference_ms,
                             "tokens": tokens, "timestamps": timestamps, "timestampUnit": "seconds within ASR VAD chunk",
                             "words": rows, "wordAssignmentSupported": parsed.supported, "wordAssignmentReason": parsed.reason,
-                            "warnings": [] if parsed.supported else [words.FALLBACK_WARNING]})
+                            "warnings": [] if parsed.supported else [words.FALLBACK_WARNING],
+                            **({"language": pass_language} if language != "ru" else {})})
                         del output
                     finally:
                         del stream
         finally:
             del recognizer
             gc.collect()
-    else:
+    if len(asr_passes) > 1:
+        segments.sort(key=lambda item: item["startMs"])
+        slice_results.sort(key=lambda item: item["startMs"])
+        all_words.sort(key=lambda item: (item["startMs"], item["chunkIndex"]))
+    if not chunks:
         stages.update(asrLoadMs=0., asrInferenceMs=0., asrMs=0., wordAssignmentMs=0.)
 
     with base._measure(stages, "diagnosticMetadataMs"):
@@ -298,14 +312,14 @@ def process(audio_path, model_root, expected_speakers=-1, threads=2, *,
         "refinedDiarizationTurns": base._turn_json(turns), "diarizationTurns": base._turn_json(turns),
         "cleanEmbeddingWindows": observations, "refiner": refined.diagnostics, "refinerAccepted": refined.accepted,
         "refinerFallbackToNative": not refined.accepted, "asrSlices": slice_results, "words": all_words,
-        "segments": segments, "stagesMs": stages, "backend": base.SOURCE, "clusteringMode": "automatic",
+        "segments": segments, "stagesMs": stages, "backend": language_id.backend_name(chunk_languages, base.SOURCE), "clusteringMode": "automatic",
         "nativeConfigString": str(config),
         "expectedSpeakers": -1, "modelFiles": model_files, "modelBytes": model_bytes,
         "externalEmbedding": {"id": model_id, "path": str(embedding), "size": entry["size"],
             "sha256": entry["sha256"], "embeddingDimension": entry["embedding_dimension"], "catalogSha256": catalog_hash},
         "validatedModelBytes": model_bytes + (0 if any(item["sha256"] == entry["sha256"] for item in model_files) else entry["size"]),
         "tokenTimestampPolicy": stride,
-        "tokenTimestampError": stride_error, "wordAssignmentSupported": stride["verified"] and fallback_chunks == 0,
+        "tokenTimestampError": stride_error, "wordAssignmentSupported": all(strides[x]["verified"] for x in (set(chunk_languages) or {"ru"})) and fallback_chunks == 0,
         "fallbackChunks": fallback_chunks, "fallbackPolicy": words.FALLBACK_WARNING,
         "pairedAsrPolicy": dict(actual_asr_policy), "config": {
             "provider": "cpu", "threads": threads, "vadThreads": 1, "nativeNumClusters": -1,
@@ -322,6 +336,8 @@ def process(audio_path, model_root, expected_speakers=-1, threads=2, *,
         "validationScope": "All original packaged groups validated every invocation; active external embedder separately catalog-pinned. Baseline pack/Android policy unchanged.",
         "memoryScope": "Host Float32 WAV is resident; not Android bounded-IO or peak RAM parity",
         "sourceFiles": source_hashes}
+    if language != "ru":
+        diagnostics["language"] = language_report
     if strategy == "window_v1":
         diagnostics["windowConfig"] = asdict(refiner_config)
         diagnostics["selectedNativePolicy"] = {"model_id": model_id, "threshold": native_threshold,
