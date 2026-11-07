@@ -32,9 +32,9 @@ class ReviewScreenshotsTest {
   compose.waitForIdle()
  }
  @Test fun libraryModelsAndRecording() {
-  compose.onNodeWithText("Записи",substring=false).performClick()
+  compose.onNodeWithTag("tab-library").performClick()
   capture("01-library.png")
-  compose.onNodeWithText("Модели").performClick()
+  compose.onNodeWithTag("tab-models").performClick()
   compose.waitUntil(60000) {
    var checked=false
    compose.activityRule.scenario.onActivity { checked=androidx.lifecycle.ViewModelProvider(it)[ru.replika.ui.AppViewModel::class.java].models.value.size==3 }
@@ -53,12 +53,12 @@ class ReviewScreenshotsTest {
   compose.onNodeWithTag("diagnostics-details").performScrollTo();capture("35-models-metrics.png")
   compose.onNodeWithTag("diagnostics-details").performClick();capture("30-models-technical-details.png")
   compose.onNodeWithContentDescription("Закрыть диагностику").performClick()
-  compose.onNodeWithText("Записи").performClick()
+  compose.onNodeWithTag("tab-library").performClick()
   // Physical microphone validation requires separate explicit consent.
   Assume.assumeTrue("Recording screenshot is restricted to an emulator",android.os.Build.FINGERPRINT.contains("generic") || android.os.Build.MODEL.contains("sdk",ignoreCase=true))
   val app=InstrumentationRegistry.getInstrumentation().targetContext.applicationContext as ReplikaApp
   val idsBefore=runBlocking { app.db.dao().recordingList().map { it.id }.toSet() }
-  compose.onNodeWithText("Запись",substring=false).performClick();compose.onNodeWithTag("liquid-voice-orb").performClick();capture("02-recording.png")
+  compose.onNodeWithTag("tab-home").performClick();compose.onNodeWithTag("liquid-voice-orb").performClick();capture("02-recording.png")
   compose.waitUntil(5000) {
    var ticks=false;compose.activityRule.scenario.onActivity { ticks=androidx.lifecycle.ViewModelProvider(it)[ru.replika.ui.AppViewModel::class.java].levels.value.size>=3 };ticks
   }
@@ -90,7 +90,7 @@ class ReviewScreenshotsTest {
   assertFalse(File(record.audioPath).exists())
  }
  @Test fun actualShortSpeechReviewQueue() {
-  compose.onNodeWithText("Записи",substring=false).performClick()
+  compose.onNodeWithTag("tab-library").performClick()
   val i=InstrumentationRegistry.getInstrumentation();val app=i.targetContext.applicationContext as ReplikaApp
   val dao=app.db.dao();val id="integration-v12-warning"
   val realRows=runBlocking { dao.segmentList(id) }
@@ -143,7 +143,7 @@ class ReviewScreenshotsTest {
    .put("activityRecreationVerified",true).put("fontScale",compose.activity.resources.configuration.fontScale).put("reviewStateResetForRepeat",resetReviewed).toString(2))
  }
  @Test fun realTranscriptReviewAndSpeakerEditing() {
-  compose.onNodeWithText("Записи",substring=false).performClick()
+  compose.onNodeWithTag("tab-library").performClick()
   val i=InstrumentationRegistry.getInstrumentation();val app=i.targetContext.applicationContext as ReplikaApp
   val ready=runBlocking { app.db.dao().recording("integration-real-giga")?.status=="READY" }
   Assume.assumeTrue("Run real PipelineTest first",ready)
@@ -185,7 +185,7 @@ class ReviewScreenshotsTest {
   compose.onAllNodesWithText("Проверенная подпись").onLast().assertIsDisplayed()
   capture("11-transcript-after-correction.png")
   val exported=File(app.cacheDir,"exports/replika-integration-real-giga.diagnostic.json").apply { delete() }
-  compose.onNodeWithContentDescription("Экспорт").performClick()
+  compose.onNodeWithTag("workspace-export").performClick()
   compose.onNodeWithTag("export-diagnostic-json").performScrollTo().performClick()
   compose.waitUntil(5000) { exported.exists() && exported.length()>0 }
   val json=org.json.JSONObject(exported.readText()).getJSONArray("segments")

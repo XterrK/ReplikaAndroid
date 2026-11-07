@@ -31,7 +31,11 @@ import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
 import kotlin.math.abs
 
-/** Real emulator MediaRecorder sessions. Silence is valid; no physical-audio or inference claim. */
+/**
+ * Real emulator MediaRecorder sessions. Silence is valid; no physical-audio or inference claim.
+ * V1.7: live controls are ✕ delete (confirmed) · ⏸/▶ · ✓ save-and-open; Back/system Back still pause
+ * and offer save/delete; particles replace the right-edge meter as a full-screen overlay.
+ */
 @RunWith(AndroidJUnit4::class)
 class RecordingExperienceV16Test {
  @get:Rule val compose=createAndroidComposeRule<MainActivity>()
@@ -104,9 +108,11 @@ class RecordingExperienceV16Test {
   assertTrue(vm.isRecording.value);assertFalse(vm.paused.value)
   assertTrue("Silence is allowed; the real envelope must stay finite and normalized",vm.voiceLevel.value.isFinite() && vm.voiceLevel.value in 0f..1f)
   compose.onNodeWithTag("recording-exit").assertIsDisplayed().assertIsEnabled()
-  compose.onNodeWithText("Запись",substring=false).assertIsDisplayed()
-  compose.onNodeWithText("Говорите, мы слушаем",substring=false).assertIsDisplayed()
-  compose.onNodeWithTag("recording-stop").assertTextEquals("Завершить")
+  compose.onNodeWithTag("recording-status").assertTextEquals("Идёт запись")
+  compose.onNodeWithTag("recording-delete").assertIsDisplayed().assert(hasContentDescription("Удалить запись")).assertHasClickAction()
+  compose.onNodeWithTag("recording-pause").assertIsDisplayed().assert(hasContentDescription("Поставить запись на паузу")).assertHasClickAction()
+  compose.onNodeWithTag("recording-stop").assertIsDisplayed().assert(hasContentDescription("Сохранить запись")).assertHasClickAction()
+  compose.onNodeWithText("Пауза",substring=false).assertIsDisplayed()
   compose.onNodeWithTag("recording-timer").assertIsDisplayed()
   val draft=(audioFiles()-originalFiles.orEmpty()).single()
   assertUnpublished()
@@ -158,14 +164,46 @@ class RecordingExperienceV16Test {
   compose.onNodeWithTag("recording-decision").assertDoesNotExist()
   compose.onNodeWithTag("recording-timer").assertDoesNotExist()
   compose.onNodeWithTag("recording-exit").assertDoesNotExist()
-  compose.onNodeWithText("Нажмите на шар для записи",substring=false).assertIsDisplayed()
+  compose.onNodeWithTag("recording-delete").assertDoesNotExist()
+  compose.onNodeWithTag("recording-status").assertTextEquals("Коснитесь пузыря, чтобы начать запись")
+  compose.onNodeWithTag("home-import").assertIsDisplayed()
+ }
+ /** ✕ → confirmation. The recorder pauses while the question is open, exactly like Back. */
+ private fun openDeleteDialog() {
+  compose.onNodeWithTag("recording-delete").performClick();settleFrames()
+  compose.waitUntil(10000) {
+   compose.mainClock.advanceTimeBy(64)
+   vm.recordingPhase.value==RecordingPhase.PAUSED && exists("recording-delete-dialog")
+  }
+  settleFrames()
+  compose.onNodeWithText("Удалить запись?",substring=false).assertIsDisplayed()
+  compose.onNodeWithTag("recording-delete-confirm").assertIsDisplayed().assertIsEnabled()
+  compose.onNodeWithTag("recording-delete-cancel").assertIsDisplayed().assertIsEnabled()
+  assertTrue("Delete question pauses, rather than finalizes, MediaRecorder",vm.isRecording.value && vm.paused.value)
+  assertFrozenElapsed()
+  assertUnpublished()
+ }
+ private fun assertDiscarded(draft: File) {
+  compose.waitUntil(15000) { compose.mainClock.advanceTimeBy(64);vm.recordingPhase.value==RecordingPhase.IDLE && !draft.exists() }
+  settleFrames()
+  assertFalse("Discard must delete the actual recorder output",draft.exists())
+  assertEquals("Discard must leave no orphan audio",originalFiles,audioFiles())
+  assertUnpublished()
+  assertFalse(vm.isRecording.value);assertFalse(vm.paused.value)
+  assertEquals(0L,vm.elapsed.value)
+  compose.onNodeWithTag("recording-home").assertIsDisplayed()
+  compose.onNodeWithTag("recording-delete-dialog").assertDoesNotExist()
+  compose.onNodeWithTag("recording-timer").assertDoesNotExist()
  }
 
  @Test fun savePublishesOneDecodableRecordingAndOpensWorkspace() {
   startRealRecording()
-  openDecision("recording-stop")
+  // ✓ saves at once: no extra "save?" question, the recording opens with "Создать стенограмму".
+  compose.onNodeWithTag("recording-pause").performClick();settleFrames()
+  compose.waitUntil(10000) { vm.recordingPhase.value==RecordingPhase.PAUSED }
   val recordedDuration=vm.elapsed.value
-  compose.onNodeWithTag("recording-save").performClick();settleFrames()
+  compose.onNodeWithTag("recording-stop").performClick();settleFrames()
+  compose.onNodeWithTag("recording-decision").assertDoesNotExist()
   compose.waitUntil(15000) { vm.recordingPhase.value==RecordingPhase.SAVED && vm.selected.value!=null }
   settleFrames()
   val before=originalRows!!.map { it.id }.toSet()
@@ -206,7 +244,7 @@ class RecordingExperienceV16Test {
    vm.selected.value==null && exists("library-list")
   }
   settleFrames()
-  compose.onNodeWithText("Запись",substring=false).performClick();settleFrames()
+  compose.onNodeWithTag("tab-home").performClick();settleFrames()
   compose.onNodeWithTag("recording-home").assertIsDisplayed()
   compose.onNodeWithTag("recording-timer").assertDoesNotExist()
   assertEquals(0L,vm.elapsed.value)
@@ -218,7 +256,7 @@ class RecordingExperienceV16Test {
 
  @Test fun exitStopAndSystemBackPauseDecisionAndDismissRestoresOnlyRunningSessions() {
   val draft=startRealRecording()
-  for(trigger in listOf("recording-exit","recording-stop","system-back")) {
+  for(trigger in listOf("recording-exit","system-back")) {
    openDecision(trigger)
    assertTrue("Draft must remain on disk until an explicit decision",draft.isFile)
    dismissDecision(RecordingPhase.RECORDING)
@@ -226,17 +264,36 @@ class RecordingExperienceV16Test {
    compose.waitUntil(10000) { vm.elapsed.value>=resumed+350 }
    assertFalse(vm.paused.value)
   }
-  compose.onNodeWithText("Пауза",substring=false).performClick();settleFrames()
+  // ✕ while recording: cancel restores the running recorder; nothing is published.
+  openDeleteDialog()
+  compose.onNodeWithTag("recording-delete-cancel").performClick();settleFrames()
+  compose.waitUntil(10000) { compose.mainClock.advanceTimeBy(64);vm.recordingPhase.value==RecordingPhase.RECORDING && !exists("recording-delete-dialog") }
+  assertTrue("Cancelled delete must keep the draft",draft.isFile)
+  compose.onNodeWithTag("recording-pause").performClick();settleFrames()
   compose.waitUntil(10000) { vm.recordingPhase.value==RecordingPhase.PAUSED }
-  for(trigger in listOf("recording-exit","recording-stop")) {
+  for(trigger in listOf("recording-exit","system-back")) {
    openDecision(trigger)
    dismissDecision(RecordingPhase.PAUSED)
    assertTrue(vm.paused.value)
    assertFrozenElapsed()
+   compose.onNodeWithTag("recording-pause").assert(hasContentDescription("Продолжить запись"))
    compose.onNodeWithText("Продолжить",substring=false).assertIsDisplayed()
-   compose.onNodeWithText("Продолжите, когда будете готовы",substring=false).assertIsDisplayed()
+   compose.onNodeWithTag("recording-status").assertTextEquals("На паузе")
   }
-  openDecision("recording-stop")
+  // ✕ while paused: cancel keeps the pause; confirm deletes the draft and returns home.
+  openDeleteDialog()
+  compose.onNodeWithTag("recording-delete-cancel").performClick();settleFrames()
+  compose.waitUntil(10000) { compose.mainClock.advanceTimeBy(64);!exists("recording-delete-dialog") }
+  assertTrue(vm.paused.value);assertFrozenElapsed();assertUnpublished()
+  openDeleteDialog()
+  compose.onNodeWithTag("recording-delete-confirm").performClick();settleFrames()
+  assertDiscarded(draft)
+  compose.onNodeWithTag("recording-status").assertTextEquals("Коснитесь пузыря, чтобы начать запись")
+ }
+
+ @Test fun backDecisionDiscardStillDeletesTheDraft() {
+  val draft=startRealRecording()
+  openDecision("recording-exit")
   discard(draft)
  }
 
@@ -250,9 +307,13 @@ class RecordingExperienceV16Test {
    val draft=startRealRecording()
    assertCenteredHome()
    capture(theme,"recording")
-   openDecision(if(theme==ThemeMode.LIGHT) "recording-exit" else "recording-stop")
+   openDecision(if(theme==ThemeMode.LIGHT) "recording-exit" else "system-back")
    capture(theme,"decision")
-   discard(draft)
+   dismissDecision(RecordingPhase.RECORDING)
+   openDeleteDialog()
+   capture(theme,"delete-confirm")
+   compose.onNodeWithTag("recording-delete-confirm").performClick();settleFrames()
+   assertDiscarded(draft)
    assertCenteredHome()
    capture(theme,"post-discard")
   }
@@ -260,15 +321,15 @@ class RecordingExperienceV16Test {
  private fun assertCenteredHome() {
   val home=compose.onNodeWithTag("recording-home").getUnclippedBoundsInRoot()
   val orb=compose.onNodeWithTag("liquid-voice-orb").getUnclippedBoundsInRoot()
-  val meter=compose.onNodeWithTag("microphone-vu").getUnclippedBoundsInRoot()
+  val field=compose.onNodeWithTag("voice-particles").getUnclippedBoundsInRoot()
   val center=(home.left.value+home.right.value)/2
-  assertTrue("The orb must be centered without end padding or a VU gutter",abs((orb.left.value+orb.right.value)/2-center)<=1.1f)
+  assertTrue("The orb must be centered without end padding or a meter gutter",abs((orb.left.value+orb.right.value)/2-center)<=1.1f)
   assertTrue("Orb canvas remains square",abs((orb.right-orb.left).value-(orb.bottom-orb.top).value)<=1.1f)
   assertTrue("Orb remains within home",orb.left>=home.left && orb.right<=home.right && orb.top>=home.top && orb.bottom<=home.bottom)
-  assertTrue("VU is a tall home overlay",(meter.bottom-meter.top).value>=(home.bottom-home.top).value*.70f)
-  assertTrue("VU is approximately 64dp wide",abs((meter.right-meter.left).value-64f)<=2f)
-  assertTrue("VU is anchored to the physical right edge",abs(meter.right.value-home.right.value)<=1.1f)
-  assertTrue("VU remains within home height",meter.top>=home.top && meter.bottom<=home.bottom)
+  // Particles are an overlay of the whole home, from the microphone edge at the bottom to the top.
+  assertTrue("Particle field covers the full home height",abs((field.bottom-field.top).value-(home.bottom-home.top).value)<=1.1f)
+  assertTrue("Particle field covers the full home width",abs((field.right-field.left).value-(home.right-home.left).value)<=1.1f)
+  assertTrue("Particle field is not a gutter",abs(field.left.value-home.left.value)<=1.1f && abs(field.right.value-home.right.value)<=1.1f)
   for(tag in listOf("recording-status","recording-timer")) if(exists(tag)) {
    val text=compose.onNodeWithTag(tag).getUnclippedBoundsInRoot()
    assertTrue("$tag must share the orb center",abs((text.left.value+text.right.value)/2-center)<=1.1f)
@@ -277,7 +338,12 @@ class RecordingExperienceV16Test {
    val actionTop=compose.onNodeWithTag("recording-stop").getUnclippedBoundsInRoot().top
    assertTrue("Timer must remain above recording controls",compose.onNodeWithTag("recording-timer").getUnclippedBoundsInRoot().bottom<=actionTop)
    val stop=compose.onNodeWithTag("recording-stop").getUnclippedBoundsInRoot()
-   assertTrue("Recording controls retain a 56dp target",stop.bottom-stop.top>=56.dp)
+   val pause=compose.onNodeWithTag("recording-pause").getUnclippedBoundsInRoot()
+   val delete=compose.onNodeWithTag("recording-delete").getUnclippedBoundsInRoot()
+   assertTrue("Recording controls retain a 56dp target",stop.bottom-stop.top>=56.dp && delete.bottom-delete.top>=56.dp)
+   assertTrue("Pause/resume is the large 72dp control",pause.bottom-pause.top>=72.dp)
+   assertTrue("Three controls in one row: ✕ left, ⏸ centre, ✓ right",delete.right<=pause.left+1.dp && pause.right<=stop.left+1.dp && abs(delete.top.value-stop.top.value)<=1.1f)
+   assertTrue("Pause is centred under the bubble",abs((pause.left.value+pause.right.value)/2-center)<=1.1f)
   }
  }
  private fun capture(theme: ThemeMode,stage: String,injected: Boolean=false) {
@@ -291,7 +357,7 @@ class RecordingExperienceV16Test {
   }
   committed.await(2,TimeUnit.SECONDS)
   Thread.sleep(500) // Bounded compositor settling, including the real modal window; no Compose idle loop.
-  val directory=File(app.filesDir,"ui-v1.6").apply { check(isDirectory || mkdirs()) }
+  val directory=File(app.filesDir,"ui-v1.7").apply { check(isDirectory || mkdirs()) }
   val configuration=compose.activity.resources.configuration
   val name="${configuration.screenWidthDp}x${configuration.screenHeightDp}-font${configuration.fontScale}-${theme.name}-$stage"
   val screenshot=instrumentation.uiAutomation.takeScreenshot()?:error("Android screenshot unavailable")

@@ -22,7 +22,11 @@ class OrbRendererV14Test {
  @Test fun agslCompilesAndAcceptsUniforms() {
   Assume.assumeTrue(Build.VERSION.SDK_INT>=33)
   if(Build.VERSION.SDK_INT>=33) compose.runOnUiThread {
-   AgslOrbSurface().brush(Offset(150f,150f),100f,OrbDynamics(),true)
+   // V1.7 soap-bubble film: compiles, accepts the contour harmonics, and survives a dented contour.
+   val dynamics=OrbDynamics();val contour=OrbContourGeometry()
+   AgslBubbleSurface().brush(Offset(150f,150f),100f,dynamics,true)
+   dynamics.impact(1.2f,.9f);repeat(8) { dynamics.step(1f/60,.5f,true) };contour.update(dynamics)
+   AgslBubbleSurface().brush(Offset(150f,150f),100f,dynamics,false,contour)
   }
  }
  @Test fun canvasFallbackAndAgslRenderBothThemesWithoutRuntimeErrors() {

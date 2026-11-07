@@ -501,7 +501,7 @@ class Plan19DocumentsImportTest {
    capture("imported-${index+1}")
    assertTrue(instrumentation.uiAutomation.performGlobalAction(AccessibilityService.GLOBAL_ACTION_BACK))
    compose.waitUntil(10000) { compose.mainClock.advanceTimeBy(64);vm.selected.value==null && exists("library-list") }
-   compose.onNodeWithText("Запись",substring=false).performClick();settle()
+   compose.onNodeWithTag("tab-home").performClick();settle()
    compose.onNodeWithTag("home-import").assertIsDisplayed()
   }
   assertEquals(3,owned.size);assertEquals(prior.size+3,rows().size)

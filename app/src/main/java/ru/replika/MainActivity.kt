@@ -29,7 +29,7 @@ class MainActivity: ComponentActivity() {
  private fun updateSystemBarTheme(dark: Boolean) {
   if(systemBarsDark==dark) return
   systemBarsDark=dark
-  val color=if(dark) android.graphics.Color.rgb(17,18,20) else android.graphics.Color.rgb(245,245,246)
+  val color=if(dark) android.graphics.Color.rgb(14,15,19) else android.graphics.Color.rgb(246,247,251)
   // Activity 1.10.1 uses Api30/Api29 color setters (no ProtectionLayout wrappers).
   // Transparent enforced bars also need the underlying window background to follow the override.
   window.setBackgroundDrawable(ColorDrawable(color))
@@ -46,7 +46,7 @@ class MainActivity: ComponentActivity() {
  @Suppress("DEPRECATION")
  private fun applySystemBarAppearance() {
   val dark=systemBarsDark?:return
-  val color=if(dark) android.graphics.Color.rgb(17,18,20) else android.graphics.Color.rgb(245,245,246)
+  val color=if(dark) android.graphics.Color.rgb(14,15,19) else android.graphics.Color.rgb(246,247,251)
   window.statusBarColor=color;window.navigationBarColor=color
   if(Build.VERSION.SDK_INT>=29) {
    window.isStatusBarContrastEnforced=false

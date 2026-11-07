@@ -27,7 +27,7 @@ try:
  call('emu','avd','hostmicoff')
  raw=call('shell','am','instrument','-w','-r','-e','class',a.classes,'ru.replika.offline.test/androidx.test.runner.AndroidJUnitRunner')
  (a.output/'instrumentation.log').write_bytes(raw)
- data=call('exec-out','run-as','ru.replika.offline','tar','-cf','-','files/ui-v1.6')
+ data=call('exec-out','run-as','ru.replika.offline','tar','-cf','-','files/ui-v1.7')
  with tarfile.open(fileobj=io.BytesIO(data)) as archive:
   for member in archive.getmembers():
    if member.isfile():

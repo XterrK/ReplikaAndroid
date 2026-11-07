@@ -1,4 +1,4 @@
-@file:OptIn(androidx.compose.material3.ExperimentalMaterial3Api::class)
+@file:OptIn(androidx.compose.foundation.layout.ExperimentalLayoutApi::class,androidx.compose.material3.ExperimentalMaterial3Api::class)
 package ru.replika.ui
 
 import android.content.Intent
@@ -131,18 +131,20 @@ private val EditorRowSaver=listSaver<SegmentRow?,Any>(
  BoxWithConstraints(Modifier.fillMaxSize()) {
   val compact=maxHeight<680.dp || LocalDensity.current.fontScale>=1.25f
   Column(Modifier.fillMaxSize().testTag("workspace")) {
-   Row(Modifier.fillMaxWidth().padding(horizontal=8.dp,vertical=4.dp),verticalAlignment=Alignment.CenterVertically) {
-    IconButton(onClick=onBack) { Icon(Icons.Outlined.ArrowBack,"Библиотека") }
-    Column(Modifier.weight(1f).clickable { titleEditing=true }.padding(vertical=6.dp).testTag("workspace-title")) {
-     Text(rec.title,style=MaterialTheme.typography.titleMedium,maxLines=1,overflow=TextOverflow.Ellipsis)
-     Row(verticalAlignment=Alignment.CenterVertically,horizontalArrangement=Arrangement.spacedBy(8.dp)) {
-      Text(if(rec.durationMs>0) audioClock(rec.durationMs) else "Аудиофайл",style=MaterialTheme.typography.labelSmall,color=Muted)
+   // Title gets the full width; language, duration and "local" live in the metadata line below.
+   Row(Modifier.fillMaxWidth().padding(start=4.dp,end=4.dp,top=4.dp,bottom=8.dp),verticalAlignment=Alignment.Top) {
+    IconButton(onClick=onBack) { Icon(Icons.Outlined.ArrowBack,"Назад в библиотеку") }
+    Column(Modifier.weight(1f).padding(top=10.dp,start=4.dp,end=4.dp),verticalArrangement=Arrangement.spacedBy(8.dp)) {
+     Text(rec.title,style=MaterialTheme.typography.titleLarge,maxLines=3,overflow=TextOverflow.Ellipsis,
+      modifier=Modifier.clickable(onClickLabel="Переименовать запись") { titleEditing=true }.testTag("workspace-title"))
+     FlowRow(horizontalArrangement=Arrangement.spacedBy(12.dp),verticalArrangement=Arrangement.spacedBy(6.dp),itemVerticalAlignment=Alignment.CenterVertically,modifier=Modifier.testTag("workspace-meta")) {
+      Text(if(rec.durationMs>0) audioClock(rec.durationMs) else "Аудиофайл",style=MaterialTheme.typography.labelMedium,color=Muted)
+      if(ready && rec.backend!="whisper-tiny") TranscriptLanguageAction(vm,rec)
+      else if(ready) Text("Whisper",style=MaterialTheme.typography.labelMedium,color=Muted)
       LocalOnlyLabel()
      }
     }
-    if(ready && rec.backend!="whisper-tiny") TranscriptLanguageAction(vm,rec)
-    else if(ready) Text("Whisper",style=MaterialTheme.typography.labelSmall,color=Muted)
-    if(ready) IconButton(onClick={exporting=true},modifier=Modifier.testTag("workspace-export")) { Icon(Icons.Outlined.IosShare,"Экспорт") }
+    if(ready) IconButton(onClick={exporting=true},modifier=Modifier.testTag("workspace-export")) { Icon(Icons.Outlined.IosShare,"Экспорт стенограммы") }
    }
    if(!ready) {
     ProcessingPane(vm,rec,Modifier.weight(1f))
@@ -160,14 +162,15 @@ private val EditorRowSaver=listSaver<SegmentRow?,Any>(
      }
      if(reading) IconButton(onClick={clipboard.setText(AnnotatedString(TranscriptPresentation.plain(rows.map { it.domain() })))},modifier=Modifier.testTag("copy-plain-text")) { Icon(Icons.Outlined.ContentCopy,"Копировать чистый текст") }
     }
-    if(!reading) Row(Modifier.fillMaxWidth().padding(start=20.dp,end=8.dp),verticalAlignment=Alignment.CenterVertically) {
-     Text(if(filter==null) "Диалог" else name(filter!!),style=MaterialTheme.typography.titleSmall,maxLines=1,overflow=TextOverflow.Ellipsis,modifier=Modifier.weight(1f))
-     IconButton(onClick={choosingFilter=true}) { Icon(Icons.Outlined.FilterList,"Фильтр говорящих",tint=if(filter!=null) Blue else Muted) }
-     IconToggleButton(checked=follow,onCheckedChange={follow=it}) { Icon(Icons.Outlined.Sync,"Следовать за воспроизведением",tint=if(follow) Blue else Muted) }
-     TextButton(onClick={review=!review},modifier=Modifier.heightIn(min=48.dp).testTag("smart-review-toggle")) {
-      Icon(Icons.Outlined.FactCheck,null,Modifier.size(18.dp));Spacer(Modifier.width(6.dp))
-      Text("Проверка"+if(pending>0) " · "+pending else "",style=MaterialTheme.typography.labelMedium,color=if(review) Mint else Blue)
-     }
+    // Every tool is labelled: who is shown, auto-scroll during playback, review queue.
+    // One scrollable line keeps the transcript high on screen at any font size.
+    if(!reading) Row(Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()).padding(horizontal=20.dp),horizontalArrangement=Arrangement.spacedBy(8.dp),verticalAlignment=Alignment.CenterVertically) {
+     FilterChip(selected=filter!=null,onClick={choosingFilter=true},label={Text(if(filter==null) "Все участники" else name(filter!!),maxLines=1,overflow=TextOverflow.Ellipsis,modifier=Modifier.widthIn(max=180.dp))},
+      leadingIcon={Icon(Icons.Outlined.FilterList,null,Modifier.size(18.dp))},modifier=Modifier.testTag("speaker-filter"))
+     FilterChip(selected=follow,onClick={follow=!follow},label={Text("Автопрокрутка",maxLines=1)},
+      leadingIcon={Icon(if(follow) Icons.Outlined.Check else Icons.Outlined.Sync,null,Modifier.size(18.dp))},modifier=Modifier.testTag("follow-playback"))
+     FilterChip(selected=review,onClick={review=!review},label={Text("Проверка"+if(pending>0) " · "+pending else "",maxLines=1)},
+      leadingIcon={Icon(Icons.Outlined.FactCheck,null,Modifier.size(18.dp))},modifier=Modifier.testTag("smart-review-toggle"))
     }
     HorizontalDivider(color=SurfaceLine.copy(alpha=.65f))
     when {
@@ -309,10 +312,12 @@ private val EditorRowSaver=listSaver<SegmentRow?,Any>(
      TextButton(onClick={details=!details}) { Text(if(details) "Скрыть подробности" else "Технические подробности") }
      if(details) Text(rec.error.orEmpty(),style=MaterialTheme.typography.bodySmall,color=Muted,modifier=Modifier.testTag("processing-technical-error"))
     }
-    Column(Modifier.fillMaxWidth().background(SurfaceBase,ProductShape.panel).padding(16.dp),verticalArrangement=Arrangement.spacedBy(8.dp)) {
+    Column(Modifier.fillMaxWidth().background(SurfaceBase,ProductShape.panel).padding(16.dp),verticalArrangement=Arrangement.spacedBy(12.dp)) {
      Text("Количество говорящих",style=MaterialTheme.typography.titleMedium)
-     listOf("automatic" to "Автоматически", "single" to "Один говорящий", "fixed" to "Фиксированное число говорящих").forEach { (key,label) ->
-      Row(Modifier.fillMaxWidth().heightIn(min=48.dp).selectable(speakerMode==key,role=Role.RadioButton) { speakerMode=key }.testTag("speakers-"+key),verticalAlignment=Alignment.CenterVertically) { RadioButton(speakerMode==key,null);Text(label,style=MaterialTheme.typography.bodyMedium) }
+     Column {
+      listOf("automatic" to "Автоматически", "single" to "Один говорящий", "fixed" to "Фиксированное число говорящих").forEach { (key,label) ->
+       Row(Modifier.fillMaxWidth().heightIn(min=48.dp).selectable(speakerMode==key,role=Role.RadioButton) { speakerMode=key }.testTag("speakers-"+key),verticalAlignment=Alignment.CenterVertically) { RadioButton(speakerMode==key,null);Spacer(Modifier.width(8.dp));Text(label,style=MaterialTheme.typography.bodyLarge) }
+      }
      }
      if(speakerMode=="single") Text("Для монолога. Все фрагменты будут у одного участника; обработка быстрее.",style=MaterialTheme.typography.bodySmall,color=Muted)
      if(speakerMode=="automatic") Text("Число участников может быть неточным. Для известного состава выберите другой режим.",style=MaterialTheme.typography.bodySmall,color=Muted)
@@ -324,8 +329,8 @@ private val EditorRowSaver=listSaver<SegmentRow?,Any>(
       FilterChip(selected=threads!=1,onClick={threads=ordinaryThreads},label={Text("Обычная")})
      }
     }
-    Button(shape=ProductShape.control,onClick={vm.process(rec.id,when(speakerMode) { "single"->1;"fixed"->count.toInt();else->-1 },if(threads==1) 1 else ordinaryThreads,
-      ru.replika.domain.LanguageMode.fromPersistedId(language),perSegmentLanguage)},enabled=speakerMode!="fixed" || count.toIntOrNull()?.let { it in 2..20 }==true,modifier=Modifier.fillMaxWidth().heightIn(min=52.dp)) { Text(if(rec.status=="IMPORTED") "Создать стенограмму" else "Повторить обработку") }
+    GradientButton(if(rec.status=="IMPORTED") "Создать стенограмму" else "Повторить обработку",Icons.Outlined.AutoAwesome,onClick={vm.process(rec.id,when(speakerMode) { "single"->1;"fixed"->count.toInt();else->-1 },if(threads==1) 1 else ordinaryThreads,
+      ru.replika.domain.LanguageMode.fromPersistedId(language),perSegmentLanguage)},enabled=speakerMode!="fixed" || count.toIntOrNull()?.let { it in 2..20 }==true,modifier=Modifier.fillMaxWidth().testTag("create-transcript"))
     Text("Нужны выбранная модель распознавания и VAD; для нескольких участников — модели говорящих. Управление установкой — в разделе «Модели».",style=MaterialTheme.typography.bodySmall,color=Muted)
    }
   }

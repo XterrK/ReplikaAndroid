@@ -22,10 +22,13 @@ class OrbInteractionV15Test {
   val phase=mutableStateOf(RecordingPhase.IDLE)
   val realLevelFixture=MutableStateFlow(.35f)
   var starts=0
-  compose.setContent { ReplikaTheme { LiquidVoiceOrb(phase.value,realLevelFixture,{starts++},Modifier.width(300.dp)) } }
+  val orb=OrbState()
+  compose.setContent { ReplikaTheme { LiquidVoiceOrb(phase.value,realLevelFixture,{starts++},Modifier.width(300.dp),state=orb) } }
   compose.onNodeWithTag("liquid-voice-orb").performClick()
   compose.runOnIdle { assertEquals(1,starts);phase.value=RecordingPhase.RECORDING }
+  val impacts=orb.dynamics.impacts
   compose.onNodeWithTag("liquid-voice-orb").performClick()
+  compose.runOnIdle { assertTrue("A tap dents the jelly film",orb.dynamics.impacts>impacts) }
   compose.onNodeWithTag("liquid-voice-orb").performTouchInput {
    down(center);moveTo(center+Offset(70f,-35f));up()
   }

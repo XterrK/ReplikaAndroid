@@ -32,17 +32,22 @@ class HomeExperienceV15Test {
   if(::vm.isInitialized) compose.activityRule.scenario.onActivity { vm.selected.value=null;vm.clearNotice() }
   runBlocking { app.db.dao().deleteRecording(id) }
  }
- @Test fun launcherOpensOrbLibraryHasOwnTabAndHomeExportsRoomText() {
+ @Test fun launcherOpensOrbLibraryHasOwnTabAndTranscriptExportsRoomText() {
   val activity=compose.activity
   compose.onNodeWithTag("recording-home").assertIsDisplayed()
   compose.onNodeWithTag("liquid-voice-orb").assertIsDisplayed().assertHasClickAction()
-  compose.onNodeWithTag("home-import").assertIsDisplayed()
-  compose.onNodeWithText("Записи",substring=false).performClick()
+  compose.onNodeWithTag("home-import").assertIsDisplayed().assert(hasText("Импорт аудио или видео")).assertHasClickAction()
+  // V1.7: home has no «Экспорт» (nothing is selected there); export lives in the transcript.
+  compose.onNodeWithTag("home-export").assertDoesNotExist()
+  compose.onNodeWithTag("tab-library").performClick()
   compose.onNodeWithTag("library-search").assertIsDisplayed()
-  compose.onNodeWithText("Запись",substring=false).performClick()
-  compose.onNodeWithTag("home-export").performClick()
-  compose.onNodeWithTag("home-export-picker").assertExists()
-  compose.onNodeWithTag("home-export-$id").performScrollTo().performClick()
+  compose.onNodeWithTag("library-list").performScrollToNode(hasTestTag("recording-$id"))
+  compose.onNodeWithTag("recording-meta-$id",useUnmergedTree=true).assertTextEquals("00:11 · 1 говорящий · RU")
+  compose.onNodeWithTag("recording-preview-$id",useUnmergedTree=true).assertTextEquals("Проверяем экспорт с главного экрана.")
+  compose.onNodeWithTag("recording-$id").performClick()
+  compose.waitUntil(10000) { compose.onAllNodesWithTag("workspace-export").fetchSemanticsNodes().isNotEmpty() }
+  compose.onNodeWithTag("workspace-export").performClick()
+  compose.onNodeWithTag("transcript-export").assertExists()
   val target=File(app.cacheDir,"exports/replika-$id.json").apply { delete() }
   compose.onNodeWithText("JSON",substring=false).performClick()
   compose.waitUntil(10000) { target.isFile && target.length()>0 }
@@ -64,10 +69,9 @@ class HomeExperienceV15Test {
    InstrumentationRegistry.getInstrumentation().runOnMainSync { focused=activity.window.decorView.hasWindowFocus() && activity.lifecycle.currentState==androidx.lifecycle.Lifecycle.State.RESUMED }
    focused
   }
-  compose.onNodeWithTag("recording-home").assertIsDisplayed()
+  compose.onNodeWithTag("workspace").assertIsDisplayed()
   val juryBytes=target.readBytes()
-  compose.onNodeWithTag("home-export").performClick()
-  compose.onNodeWithTag("home-export-$id").performScrollTo().performClick()
+  compose.onNodeWithTag("workspace-export").performClick()
   val diagnostic=File(app.cacheDir,"exports/replika-$id.diagnostic.json").apply { delete() }
   compose.onNodeWithTag("export-diagnostic-json").performScrollTo().performClick()
   compose.waitUntil(10000) { diagnostic.isFile && diagnostic.length()>0 }
@@ -87,7 +91,7 @@ class HomeExperienceV15Test {
    InstrumentationRegistry.getInstrumentation().runOnMainSync { focused=activity.window.decorView.hasWindowFocus() }
    focused
   }
-  compose.onNodeWithTag("recording-home").assertIsDisplayed()
+  compose.onNodeWithTag("workspace").assertIsDisplayed()
  }
  @Test fun newRecordingDefaultsToAutomaticAndManualModesRemainSelectable() {
   runBlocking { app.db.dao().insert(Recording(id,"Новый импорт · default auto",File(app.filesDir,"integration-example.wav").path,status="IMPORTED")) }

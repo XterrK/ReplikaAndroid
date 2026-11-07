@@ -31,7 +31,7 @@ import ru.replika.domain.TranscriptLanguage
  if(language==LanguageMode.AUTO) Row(Modifier.fillMaxWidth().heightIn(min=48.dp)
   .toggleable(value=perSegment,role=Role.Switch,onValueChange=onPerSegment).testTag("language-per-segment"),
   verticalAlignment=Alignment.CenterVertically,horizontalArrangement=Arrangement.spacedBy(12.dp)) {
-  Column(Modifier.weight(1f)) {
+  Column(Modifier.weight(1f),verticalArrangement=Arrangement.spacedBy(4.dp)) {
    Text("Определять язык для каждого фрагмента",style=MaterialTheme.typography.bodyMedium)
    Text("Экспериментально · для записей, где звучат оба языка. Обработка дольше.",style=MaterialTheme.typography.bodySmall,color=Muted)
   }
