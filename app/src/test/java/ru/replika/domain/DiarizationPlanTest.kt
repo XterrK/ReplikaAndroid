@@ -8,7 +8,21 @@ class DiarizationPlanTest {
   assertEquals(DiarizationPlan.LEGACY,DiarizationPlan.fromPersistedId(null))
   assertEquals(DiarizationPlan.LEGACY,DiarizationPlan.fromPersistedId("v16"))
   assertEquals(DiarizationPlan.ERES2NET_WINDOW_V1,DiarizationPlan.fromPersistedId("eres2net_window_v1"))
-  assertEquals(setOf("v16","eres2net_window_v1"),DiarizationPlan.entries.map { it.wireId }.toSet())
+  assertEquals(DiarizationPlan.ERES2NET_WINDOW_CHUNKED_V1,DiarizationPlan.fromPersistedId("eres2net_window_chunked_v1"))
+  assertEquals(setOf("v16","eres2net_window_v1","eres2net_window_chunked_v1"),DiarizationPlan.entries.map { it.wireId }.toSet())
+ }
+ @Test fun chunkedPlanIsC2BelowThresholdAndWindowedOnlyAbove() {
+  val chunked=DiarizationPlan.ERES2NET_WINDOW_CHUNKED_V1;val c2=DiarizationPlan.ERES2NET_WINDOW_V1
+  assertEquals(c2.windowConfig,chunked.windowConfig);assertEquals(c2.clusterThreshold,chunked.clusterThreshold)
+  assertEquals(c2.segmentationWindowShiftRatio,chunked.segmentationWindowShiftRatio)
+  assertNull(c2.chunkConfig);assertNull(DiarizationPlan.LEGACY.chunkConfig)
+  val cfg=chunked.chunkConfig!!
+  assertNull(chunked.chunkedFor(cfg.minDurationMs));assertNull(chunked.chunkedFor(60_000))
+  assertEquals(cfg,chunked.chunkedFor(cfg.minDurationMs+1));assertNull(c2.chunkedFor(8*3_600_000L))
+  for(k in 1..20) assertEquals(DiarizationPlan.LEGACY,chunked.forExpectedSpeakers(k))
+  assertEquals(chunked,chunked.forExpectedSpeakers(-1))
+  chunked.requirePairedAsr(AsrPlan.VAD_WORDS_CONTEXT600)
+  try { chunked.requirePairedAsr(AsrPlan.LEGACY);fail("unpaired") } catch(expected: IllegalArgumentException) { }
  }
  @Test fun unknownIDsRejectRatherThanSilentlySelectCandidate() {
   for(id in listOf("","resnet34_c1","eres2net_window","future")) {

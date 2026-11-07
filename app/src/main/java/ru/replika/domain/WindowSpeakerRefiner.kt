@@ -39,23 +39,27 @@ object WindowSpeakerRefiner {
   require(config.minClusterMs>=0 && config.smoothMs>=0 && config.minClusterFraction.isFinite() && config.minClusterFraction in 0.0..1.0)
   require(config.minimumReassignmentSimilarity==null || (config.minimumReassignmentSimilarity.isFinite() && config.minimumReassignmentSimilarity in -1.0..1.0))
  }
- /** Nonoverlapping expansion summation, with half-even final correction as in math.fsum. */
- private fun sum(values: Iterable<Double>): Double {
-  val partials=mutableListOf<Double>()
-  for(value in values) {
-   var x=value;var next=0
-   for(original in partials.toList()) {
-    var y=original
+ /** Nonoverlapping expansion summation, with half-even final correction as in math.fsum.
+  * Primitive arrays, no boxing. Partials are rewritten only at indices at or below the one
+  * being read, so reading in place equals the former snapshot loop over a boxed list; the
+  * correctly rounded result is bit-identical (WindowRefinerSumParityTest). */
+ internal fun sum(values: DoubleArray,count: Int=values.size): Double {
+  var partials=DoubleArray(8);var size=0
+  for(index in 0 until count) {
+   var x=values[index];var next=0
+   for(j in 0 until size) {
+    var y=partials[j]
     if(abs(x)<abs(y)) { val swap=x;x=y;y=swap }
     val high=x+y;val low=y-(high-x)
     if(low!=0.0) { partials[next]=low;next++ }
     x=high
    }
-   while(partials.size>next) partials.removeAt(partials.lastIndex)
-   partials+=x
+   size=next
+   if(size==partials.size) partials=partials.copyOf(size*2)
+   partials[size++]=x
   }
-  if(partials.isEmpty()) return 0.0
-  var n=partials.size-1;var high=partials[n];var low=0.0
+  if(size==0) return 0.0
+  var n=size-1;var high=partials[n];var low=0.0
   while(n>0) {
    val x=high;val y=partials[--n]
    high=x+y;low=y-(high-x)
@@ -73,7 +77,7 @@ object WindowSpeakerRefiner {
   if(values.size==2) return Math.hypot(values[0],values[1])
   val scale=values.maxOf { abs(it) }
   if(scale==0.0) return 0.0
-  return scale*sqrt(sum(values.map { val value=it/scale;value*value }))
+  return scale*sqrt(sum(DoubleArray(values.size) { val value=values[it]/scale;value*value }))
  }
  private fun unit(values: DoubleArray): DoubleArray? {
   if(values.isEmpty() || values.any { !it.isFinite() }) return null
@@ -86,11 +90,19 @@ object WindowSpeakerRefiner {
   return DoubleArray(values.size) { scaled[it]/normalized }
  }
  private fun equivalent(a: DoubleArray,b: DoubleArray): Boolean = a.size==b.size && a.indices.all { a[it]==b[it] }
- private fun cosine(a: DoubleArray,b: DoubleArray): Double = sum(a.indices.map { a[it]*b[it] }).coerceIn(-1.0,1.0)
+ internal fun cosine(a: DoubleArray,b: DoubleArray): Double {
+  val products=DoubleArray(a.size)
+  for(i in a.indices) products[i]=a[i]*b[i]
+  return sum(products).coerceIn(-1.0,1.0)
+ }
  private fun mean(observations: List<Observation>): DoubleArray? {
   if(observations.isEmpty()) return null
-  val total=sum(observations.map { it.weight.toDouble() })
-  val result=DoubleArray(observations.first().vector.size) { i -> sum(observations.map { it.vector[i]*(it.weight.toDouble()/total) }) }
+  val total=sum(DoubleArray(observations.size) { observations[it].weight.toDouble() })
+  val column=DoubleArray(observations.size)
+  val result=DoubleArray(observations.first().vector.size) { i ->
+   for(j in observations.indices) column[j]=observations[j].vector[i]*(observations[j].weight.toDouble()/total)
+   sum(column)
+  }
   return if(norm(result)<=1e-12) null else unit(result)
  }
 
