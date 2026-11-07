@@ -73,9 +73,16 @@ class EdgeMicrophoneV16Test {
   compose.runOnUiThread { input.value=0f }
   repeat(10) { compose.mainClock.advanceTimeBy(16) }
   compose.onNodeWithTag("voice-particles").assert(SemanticsMatcher.expectValue(SemanticsProperties.StateDescription,"Тишина"))
+  // V1.7d: the gate releases smoothly (≈0.6 s), then silence launches nothing at all.
+  repeat(60) { compose.mainClock.advanceTimeBy(16) }
+  assertFalse("The voice gate closes in silence",particles.gate.open)
   val quiet=particles.spawned
   repeat(120) { compose.mainClock.advanceTimeBy(16) }
   assertEquals("Silence must not fabricate particles",quiet,particles.spawned)
+  // Room noise under the gate: still nothing.
+  compose.runOnUiThread { input.value=.12f }
+  repeat(180) { compose.mainClock.advanceTimeBy(16) }
+  assertEquals("Background noise below the gate must not launch particles",quiet,particles.spawned)
   // Pause: level reads zero and nothing new is launched even for a loud fixture value.
   compose.runOnUiThread { phase.value=RecordingPhase.PAUSED;input.value=.8f }
   repeat(10) { compose.mainClock.advanceTimeBy(16) }
@@ -83,5 +90,10 @@ class EdgeMicrophoneV16Test {
   val paused=particles.spawned
   repeat(120) { compose.mainClock.advanceTimeBy(16) }
   assertEquals("Pause must stop particles",paused,particles.spawned)
+  // Not recording at all (home, idle): nothing, however loud the fixture value is.
+  compose.runOnUiThread { phase.value=RecordingPhase.IDLE;input.value=1f }
+  repeat(180) { compose.mainClock.advanceTimeBy(16) }
+  assertEquals("Without a recording there are no particles",paused,particles.spawned)
+  compose.onNodeWithTag("voice-particles").assert(SemanticsMatcher.expectValue(SemanticsProperties.StateDescription,"Микрофон не записывает"))
  }
 }

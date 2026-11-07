@@ -144,38 +144,75 @@ class SoapBubbleV17Test {
   }
   assertTrue("8 harmonics must follow the contour the path draws, error $worst",worst<.03f)
  }
- @Test fun particlesFollowTheRealLevelAndStopInSilenceAndPause() {
-  val boundary={ _: Float -> 120f }
-  fun run(level: Float,active: Boolean,seconds: Float): VoiceParticleSystem {
-   val p=VoiceParticleSystem()
-   repeat((seconds*60).toInt()) { p.step(1f/60,level,active,1080f,2000f,2.75f,540f,800f,boundary) { _,_ -> } }
-   return p
-  }
-  assertEquals("Silence fabricates nothing",0,run(0f,true,3f).spawned)
-  assertEquals("Below the silence threshold nothing is launched",0,run(.02f,true,3f).spawned)
-  assertEquals("Paused recorder launches nothing",0,run(.9f,false,3f).spawned)
-  val quiet=run(.12f,true,3f).spawned;val loud=run(.9f,true,3f).spawned
-  assertTrue("Quiet speech is still visible: $quiet",quiet>=8)
-  assertTrue("Louder speech launches more particles: $quiet vs $loud",loud>quiet*3)
-  val p=VoiceParticleSystem()
-  assertTrue(p.speed(.9f)>p.speed(.1f)*2)
-  assertTrue(p.rate(Float.NaN)==0f && p.speed(Float.NaN)==p.speed(0f))
+ private fun particles(levels: (Int)->Float,active: Boolean,frames: Int,p: VoiceParticleSystem=VoiceParticleSystem(),hits: MutableList<Pair<Float,Float>>?=null): VoiceParticleSystem {
+  repeat(frames) { f -> p.step(1f/60,levels(f),active,1080f,2000f,2.75f,540f,800f,{ 150f }) { a,s -> hits?.add(a to s) } }
+  return p
  }
- @Test fun particlesFlyFromTheBottomEdgeAndHitTheBubble() {
-  val p=VoiceParticleSystem(capacity=24)
+
+ /** V1.7d: comets exist only during recording and only when the voice gate is open. */
+ @Test fun particlesNeedRecordingAndAVoiceAboveTheNoiseGate() {
+  assertEquals("Silence fabricates nothing",0,particles({ 0f },true,180).spawned)
+  assertEquals("Room noise below the gate launches nothing",0,particles({ .12f+.02f*sin(it*.3f) },true,600).spawned)
+  assertEquals("Hovering between close and open never opens the gate",0,particles({ .19f },true,600).spawned)
+  assertEquals("Not recording (idle, pause, touches): nothing, however loud",0,particles({ .9f },false,600).spawned)
+  // One MediaRecorder sample lasts 50 ms (three frames): a click of that length is not a voice.
+  assertEquals("A single loud click is smoothed away",0,particles({ if(it in 10..12) 1f else 0f },true,180).spawned)
+  val quiet=particles({ .32f },true,240).spawned;val loud=particles({ .9f },true,240).spawned
+  assertTrue("A voice opens the stream: $quiet",quiet>=3)
+  assertTrue("Louder voice, more comets: $quiet vs $loud",loud>quiet*2)
+  val p=VoiceParticleSystem()
+  assertTrue(p.speed(1f)>p.speed(0f)*2f)
+  assertEquals(0f,p.rate(Float.NaN),0f);assertEquals(0f,p.rate(0f),0f)
+ }
+
+ @Test fun theGateHasHysteresisAndSmoothAttackAndRelease() {
+  val g=VoiceGate()
+  repeat(3) { g.step(.9f,1f/60,true) }
+  assertFalse("Attack is smoothed: three frames are not enough",g.open)
+  repeat(60) { g.step(.9f,1f/60,true) }
+  assertTrue(g.open);val loud=g.intensity
+  repeat(12) { g.step(0f,1f/60,true) }
+  assertTrue("Release is slower than attack: still open shortly after the voice stops",g.open && g.intensity<loud)
+  repeat(120) { g.step(0f,1f/60,true) }
+  assertFalse(g.open);assertEquals(0f,g.intensity,0f)
+  repeat(60) { g.step(.9f,1f/60,true) };g.step(.9f,1f/60,false)
+  assertFalse("Leaving recording closes the gate at once",g.open)
+ }
+
+ @Test fun loudSpeechIsCappedAndSilenceDrainsTheStream() {
+  val p=VoiceParticleSystem()
+  var peak=0
+  repeat(600) { p.step(1f/60,1f,true,1080f,2000f,2.75f,540f,800f,{ 150f }) { _,_ -> };peak=max(peak,p.count) }
+  assertTrue("Never more than ${VoiceParticleSystem.MAX_ALIVE} comets",peak<=VoiceParticleSystem.MAX_ALIVE)
+  val before=p.spawned
+  repeat(8*60) { p.step(1f/60,0f,true,1080f,2000f,2.75f,540f,800f,{ 150f }) { _,_ -> } }
+  assertTrue("After the voice stops nothing new appears for long",p.spawned-before<=8)
+  assertTrue("…and everything in flight is absorbed or gone",p.idle)
+ }
+
+ @Test fun cometsCurveIntoTheBubbleAndAreAbsorbedWithSparks() {
   val hits=mutableListOf<Pair<Float,Float>>()
-  var minY=Float.MAX_VALUE
-  repeat(240) {
-   p.step(1f/60,.8f,true,1080f,2000f,2.75f,540f,800f,{ 150f }) { a,s -> hits+=a to s }
-   for(i in 0 until p.capacity) if(p.alive[i]) { assertTrue(p.x[i].isFinite() && p.y[i].isFinite());minY=min(minY,p.y[i]) }
+  var minY=Float.MAX_VALUE;var curved=false
+  val p=VoiceParticleSystem()
+  repeat(300) { f ->
+   p.step(1f/60,.85f,true,1080f,2000f,2.75f,540f,800f,{ 150f }) { a,s -> hits+=a to s }
+   for(i in 0 until p.capacity) if(p.alive[i]) {
+    assertTrue(p.x[i].isFinite() && p.y[i].isFinite());minY=min(minY,p.y[i])
+    // The path is not a straight line to the centre: velocity has a sideways (vortex) part.
+    val dx=540f-p.x[i];val dy=800f-p.y[i];val d=sqrt(dx*dx+dy*dy)
+    val cross=abs(p.vx[i]*dy/d-p.vy[i]*dx/d)/sqrt(p.vx[i]*p.vx[i]+p.vy[i]*p.vy[i]).coerceAtLeast(1f)
+    if(cross>.25f) curved=true
+    assertTrue(p.hue[i] in 0f..1f)
+   }
    assertTrue(p.count<=p.capacity)
   }
-  assertTrue("Particles must reach the bubble",hits.isNotEmpty())
+  assertTrue("Comets swirl on their way in",curved)
+  assertTrue("Comets reach the bubble",hits.isNotEmpty())
   assertEquals(hits.size,p.hits)
-  // Coming from below, hits land on the lower half of the bubble (screen y down: angle in 0..pi).
-  assertTrue(hits.count { (a,_) -> sin(a)>0f }>=hits.size*.8f)
+  assertTrue("Coming from below, most land low on the film (below 30° above the equator)",hits.count { (a,_) -> sin(a)>-.5f }>=hits.size*.8f)
   assertTrue(hits.all { (_,s) -> s in 0f..1f })
-  assertTrue("Particles stop at the bubble, never fly past its centre",minY>=800f-150f-60f)
-  p.reset();assertEquals(0,p.count)
+  assertTrue("Absorbed at the film, never flying through the centre",minY>=800f-150f-80f)
+  assertTrue("A hit leaves sparks",p.sparkAge.any { it<VoiceParticleSystem.SPARK_LIFE } || p.flashAge.any { it<VoiceParticleSystem.FLASH_LIFE })
+  p.reset();assertEquals(0,p.count);assertTrue(p.idle)
  }
 }

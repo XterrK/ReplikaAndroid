@@ -12,6 +12,8 @@ import ru.replika.ui.*
 import java.io.File
 
 /** User-visible regression: home/export navigation and the formerly offset transcript player. */
+/** Share chooser, or — when no app on the image accepts JSON (78931bba) — the system "save to file" dialog. */
+private val SYSTEM_EXPORT_WINDOWS=setOf("android","com.android.intentresolver","com.android.documentsui","com.google.android.documentsui")
 class HomeExperienceV15Test {
  @get:Rule val compose=androidx.compose.ui.test.junit4.createAndroidComposeRule<MainActivity>()
  private val app get()=InstrumentationRegistry.getInstrumentation().targetContext.applicationContext as ReplikaApp
@@ -60,18 +62,15 @@ class HomeExperienceV15Test {
   assertEquals(setOf("speaker_id","start_ms","end_ms","text"),exported.keys().asSequence().toSet())
   assertFalse(target.readBytes().take(3)==listOf(0xef.toByte(),0xbb.toByte(),0xbf.toByte()))
   val automation=InstrumentationRegistry.getInstrumentation().uiAutomation
-  compose.waitUntil(15000) { automation.rootInActiveWindow?.packageName?.toString() in setOf("android","com.android.intentresolver") }
-  automation.performGlobalAction(android.accessibilityservice.AccessibilityService.GLOBAL_ACTION_BACK)
+  compose.waitUntil(15000) { automation.rootInActiveWindow?.packageName?.toString() in SYSTEM_EXPORT_WINDOWS }
   // API28 can retain the Chooser accessibility root after Back even while WindowManager
   // has already resumed/focused this Activity. Verify the actual app window and content.
-  compose.waitUntil(10000) {
-   var focused=false
-   InstrumentationRegistry.getInstrumentation().runOnMainSync { focused=activity.window.decorView.hasWindowFocus() && activity.lifecycle.currentState==androidx.lifecycle.Lifecycle.State.RESUMED }
-   focused
-  }
+  // The save-to-file dialog (DocumentsUI) may need more than one Back to close.
+  leaveSystemWindow(activity,requireResumed=true)
   compose.onNodeWithTag("workspace").assertIsDisplayed()
   val juryBytes=target.readBytes()
-  compose.onNodeWithTag("workspace-export").performClick()
+  // A cancelled save leaves the export sheet open; reuse it instead of reopening.
+  if(compose.onAllNodesWithTag("transcript-export").fetchSemanticsNodes().isEmpty()) compose.onNodeWithTag("workspace-export").performClick()
   val diagnostic=File(app.cacheDir,"exports/replika-$id.diagnostic.json").apply { delete() }
   compose.onNodeWithTag("export-diagnostic-json").performScrollTo().performClick()
   compose.waitUntil(10000) { diagnostic.isFile && diagnostic.length()>0 }
@@ -84,14 +83,26 @@ class HomeExperienceV15Test {
   File(proof,"diagnostic.json").writeBytes(diagnostic.readBytes())
   File(proof,"scope.json").writeText(org.json.JSONObject().put("controlledUiFixture",true).put("newModelInference",false).put("sourceTest","HomeExperienceV15Test").put("bothFormatsExportedThroughUi",true).put("juryFileNotOverwritten",true).toString(2))
   // File creation precedes the Main-dispatcher chooser launch. Wait for its window before Back.
-  compose.waitUntil(15000) { automation.rootInActiveWindow?.packageName?.toString() in setOf("android","com.android.intentresolver") }
-  automation.performGlobalAction(android.accessibilityservice.AccessibilityService.GLOBAL_ACTION_BACK)
-  compose.waitUntil(10000) {
-   var focused=false
-   InstrumentationRegistry.getInstrumentation().runOnMainSync { focused=activity.window.decorView.hasWindowFocus() }
-   focused
-  }
+  compose.waitUntil(15000) { automation.rootInActiveWindow?.packageName?.toString() in SYSTEM_EXPORT_WINDOWS }
+  leaveSystemWindow(activity,requireResumed=false)
   compose.onNodeWithTag("workspace").assertIsDisplayed()
+ }
+ /** Back out of the share chooser or the system save dialog until this Activity has focus again. */
+ private fun leaveSystemWindow(activity: android.app.Activity,requireResumed: Boolean) {
+  val instrumentation=InstrumentationRegistry.getInstrumentation()
+  // The app's own window or its export sheet (a dialog window of this app) is in front again.
+  fun focused(): Boolean {
+   var resumed=false
+   instrumentation.runOnMainSync { resumed=!requireResumed || (activity as androidx.lifecycle.LifecycleOwner).lifecycle.currentState==androidx.lifecycle.Lifecycle.State.RESUMED }
+   return resumed && instrumentation.uiAutomation.rootInActiveWindow?.packageName?.toString()==activity.packageName
+  }
+  for(attempt in 0 until 4) {
+   if(focused()) return
+   instrumentation.uiAutomation.performGlobalAction(android.accessibilityservice.AccessibilityService.GLOBAL_ACTION_BACK)
+   val until=System.currentTimeMillis()+3000
+   while(System.currentTimeMillis()<until && !focused()) Thread.sleep(100)
+  }
+  assertTrue("The app window must regain focus after the system export window",focused())
  }
  @Test fun newRecordingDefaultsToAutomaticAndManualModesRemainSelectable() {
   runBlocking { app.db.dao().insert(Recording(id,"Новый импорт · default auto",File(app.filesDir,"integration-example.wav").path,status="IMPORTED")) }
