@@ -24,7 +24,7 @@ class EditorialV14UiTest {
  private val id="v14-visual-fixture"
  private var originalTheme=ThemeMode.SYSTEM
  @Before fun setup() {
-  compose.activityRule.scenario.onActivity { vm=ViewModelProvider(it)[AppViewModel::class.java] }
+  compose.activityRule.scenario.onActivity { vm=ViewModelProvider(it)[AppViewModel::class.java];vm.autoProcessNew=false }
   if(BuildConfig.BUNDLED_MODELS) runBlocking { app.bundledModels.awaitReady() }
   compose.waitForIdle()
   compose.activityRule.scenario.onActivity { vm.selected.value=null;vm.clearNotice() }

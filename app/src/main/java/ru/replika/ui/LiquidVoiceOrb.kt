@@ -128,7 +128,7 @@ internal fun powerFrameLimit(power: android.os.PowerManager?): Long {
   awaitEachGesture {
    val down=awaitFirstDown(requireUnconsumed=false)
    fun normalized(position: Offset): Offset {
-    val radius=size.width.coerceAtMost(size.height)*.39f
+    val radius=size.width.coerceAtMost(size.height)*.37f
     return Offset(((position.x-size.width*.5f)/radius).coerceIn(-1f,1f),((position.y-size.height*.5f)/radius).coerceIn(-1f,1f))
    }
    val first=normalized(down.position)
@@ -154,7 +154,7 @@ internal fun powerFrameLimit(power: android.os.PowerManager?): Long {
    if(playable) {
     role=Role.Button
     onClick("Потрогать пузырь") { dynamics.poke();gestureEpoch.intValue++;true }
-    customActions=listOf(CustomAccessibilityAction("Растянуть пузырь вправо") { dynamics.poke(.9f,0f);gestureEpoch.intValue++;true })
+    customActions=listOf(CustomAccessibilityAction("Нажать на пузырь") { dynamics.poke(.9f,0f);gestureEpoch.intValue++;true })
    }
   }
   .then(if(canStart) Modifier.clickable(interactionSource=interaction,indication=null,role=Role.Button,onClickLabel=label) {
@@ -166,8 +166,9 @@ internal fun powerFrameLimit(power: android.os.PowerManager?): Long {
   frame.longValue // Read exclusively during drawing, not in the screen's composition.
   geometry.update(dynamics)
   val base=Offset(size.width/2,size.height/2)
-  val desired=size.minDimension*.39f*(1f+dynamics.expansion)
-  val radius=min(desired,size.minDimension*.45f/geometry.maximumRadius.coerceAtLeast(.8f))
+  // The isotropic tap spread scales the whole circle after area normalization: never an oval.
+  val desired=size.minDimension*.37f*(1f+dynamics.expansion+dynamics.spread)
+  val radius=min(desired,size.minDimension*.485f/geometry.maximumRadius.coerceAtLeast(.8f))
   val center=base+Offset(dynamics.centerX*radius,dynamics.centerY*radius)
   state.centerX=origin[0]+center.x;state.centerY=origin[1]+center.y;state.radiusPx=radius
   val points=geometry.count
@@ -295,7 +296,7 @@ internal class AgslBubbleSurface {
   // Film thickness: gravity drains it towards the bottom, slow swirls stir the colours,
   // voice and touch add travelling bands.
   float swirl=sin(q.x*3.1+t*.35+sin(q.y*2.3-t*.27)*1.6)*.5+sin(q.y*4.2-t*.22+q.x*1.7)*.35+sin((q.x+q.y)*6.+t*.5)*.15;
-  float thick=300.+260.*(q.y*.5+.5)+130.*swirl+80.*energy*sin(t*2.6+rho*7.)+60.*contact*sin(a*3.-t*2.);
+  float thick=300.+260.*(q.y*.5+.5)+130.*swirl+80.*energy*sin(t*2.6+rho*7.)+70.*contact*sin(rho*16.-t*7.);
   float cosT=sqrt(max(0.,1.-rho*rho/1.769));
   float3 iris=film(thick,cosT);
   float g=.5+.5*sin(a+t*.12+swirl*.8);

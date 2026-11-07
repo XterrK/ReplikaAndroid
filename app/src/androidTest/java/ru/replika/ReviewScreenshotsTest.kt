@@ -58,6 +58,8 @@ class ReviewScreenshotsTest {
   Assume.assumeTrue("Recording screenshot is restricted to an emulator",android.os.Build.FINGERPRINT.contains("generic") || android.os.Build.MODEL.contains("sdk",ignoreCase=true))
   val app=InstrumentationRegistry.getInstrumentation().targetContext.applicationContext as ReplikaApp
   val idsBefore=runBlocking { app.db.dao().recordingList().map { it.id }.toSet() }
+  // This flow captures the saved, not-yet-processed state; V1.7b starts processing at once by default.
+  compose.activityRule.scenario.onActivity { androidx.lifecycle.ViewModelProvider(it)[ru.replika.ui.AppViewModel::class.java].autoProcessNew=false }
   compose.onNodeWithTag("tab-home").performClick();compose.onNodeWithTag("liquid-voice-orb").performClick();capture("02-recording.png")
   compose.waitUntil(5000) {
    var ticks=false;compose.activityRule.scenario.onActivity { ticks=androidx.lifecycle.ViewModelProvider(it)[ru.replika.ui.AppViewModel::class.java].levels.value.size>=3 };ticks
@@ -80,7 +82,7 @@ class ReviewScreenshotsTest {
   val decoded=runBlocking { ru.replika.ml.AudioDecoder.decode(record.audioPath,File(app.cacheDir,"v12-virtual-recording.pcm")) }
   assertTrue(decoded.durationMs>=1000);decoded.file.delete()
   compose.waitUntil(10000) { compose.onAllNodesWithTag("processing-pane").fetchSemanticsNodes().isNotEmpty() }
-  compose.onNodeWithText("Готово к обработке").assertIsDisplayed()
+  compose.onNodeWithText("Запись готова к расшифровке").assertIsDisplayed()
   capture("33-recording-saved-setup.png")
   File(app.filesDir,"v12-recording-ui-"+compose.activity.resources.configuration.fontScale+".json").writeText(org.json.JSONObject()
    .put("virtualEmulatorInputOnly",true).put("physicalMicrophoneTested",false).put("pauseResume",true)

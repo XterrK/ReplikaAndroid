@@ -29,28 +29,36 @@ class LiquidOrbV15Test {
   repeat(100) { envelope.sample(0f) }
   assertTrue(envelope.level<.002f)
  }
- @Test fun draggingStretchesTheContourAndReleaseSettlesWithoutChangingVoiceEnergy() {
-  val dynamics=OrbDynamics()
+ // V1.7b: pressing is a weight on a water balloon — it spreads evenly in every direction.
+ @Test fun pressingSpreadsUniformlyAndReleaseSettlesWithoutChangingVoiceEnergy() {
+  val dynamics=OrbDynamics();val contour=OrbContourGeometry()
   repeat(100) { dynamics.step(1f/60,.3f,true) }
   val previousVoice=dynamics.voiceEnergy
   dynamics.press(.9f,.05f)
-  repeat(35) { dynamics.step(1f/60,.3f,true) }
-  assertTrue(dynamics.radiusAt(dynamics.touchAngle)>dynamics.radiusAt(dynamics.touchAngle+PI.toFloat()/2)*1.35f)
-  assertEquals(previousVoice,dynamics.voiceEnergy,.00001f)
-  assertTrue(dynamics.centerX>.05f)
+  repeat(35) { dynamics.step(1f/60,0f,false) }
+  assertTrue("Holding flattens the bubble outwards",dynamics.spread>.04f)
+  contour.update(dynamics)
+  val radii=(0 until contour.count).map { sqrt(contour.x[it]*contour.x[it]+contour.y[it]*contour.y[it]) }
+  assertTrue("The spread has no direction: the contour stays a circle",radii.max()/radii.min()<1.01f)
+  assertEquals(0f,dynamics.stretch,0f)
+  assertEquals(previousVoice,.3f,.00001f)
+  assertTrue("The finger only nudges the whole bubble",dynamics.centerX>.02f)
   dynamics.release()
   repeat(300) { dynamics.step(1f/60,.3f,true) }
-  assertTrue(abs(dynamics.stretch)<.001f)
+  assertTrue(abs(dynamics.spread)<.001f)
   assertTrue(abs(dynamics.centerX)<.001f)
   assertFalse(dynamics.hasInteractionMotion)
  }
- @Test fun tapHasAnInertialReboundEvenWhenTheFingerIsReleasedImmediately() {
+ @Test fun tapHasAJellyReboundEvenWhenTheFingerIsReleasedImmediately() {
   val dynamics=OrbDynamics();dynamics.poke()
   repeat(6) { dynamics.step(1f/60,0f,true) }
-  assertTrue("A short tap must make a visible non-circular shape",abs(dynamics.stretch)>.08f)
+  assertTrue("A short tap must visibly spread the bubble",dynamics.spread>.04f)
   assertFalse(dynamics.isTouching)
+  var rebound=0f
+  repeat(60) { dynamics.step(1f/60,0f,true);rebound=min(rebound,dynamics.spread) }
+  assertTrue("It springs back past the circle once, like jelly",rebound< -.005f)
   repeat(240) { dynamics.step(1f/60,0f,true) }
-  assertTrue(abs(dynamics.stretch)<.001f)
+  assertTrue(abs(dynamics.spread)<.001f)
  }
  @Test fun contourKeepsItsAreaWhileVoiceAndTouchChangeTheBoundary() {
   val dynamics=OrbDynamics();val contour=OrbContourGeometry()
@@ -72,7 +80,8 @@ class LiquidOrbV15Test {
    if(i%9==3) dynamics.release()
    dynamics.step(if(i%3==0) .9f else .008f,if(i%5==0) 1f else 0f,true)
    assertTrue(dynamics.expansion in -.025f.. .235f)
-   assertTrue(dynamics.stretch in -.16f.. .43f)
+   assertEquals("Touch never stretches the bubble into an oval",0f,dynamics.stretch,0f)
+   assertTrue(dynamics.spread in -.09f.. .15f)
    for(a in 0..12) assertTrue(dynamics.radiusAt(a*.5f).isFinite() && dynamics.radiusAt(a*.5f)>.4f)
   }
  }

@@ -329,6 +329,7 @@ class Plan19DocumentsImportTest {
   compose.mainClock.autoAdvance=false
   compose.activityRule.scenario.onActivity {
    vm=ViewModelProvider(it)[AppViewModel::class.java]
+   vm.autoProcessNew=false // Import-format checks inspect the IMPORTED row; V1.7b auto-processing is covered elsewhere.
    check(!vm.isRecording.value && vm.importProgress.value==null) { "Do not interrupt an existing recording or import" }
    vm.selected.value=null;vm.clearNotice()
   }

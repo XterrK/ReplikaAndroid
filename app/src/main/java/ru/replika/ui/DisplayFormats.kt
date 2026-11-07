@@ -25,3 +25,15 @@ data class DiagnosticView(val data: JSONObject?) {
  val memory get()=data?.let { if(it.has("finalPssKb")) formatBytes(it.optLong("finalPssKb")*1024) else null }?:"—"
  companion object { fun parse(value: String)=DiagnosticView(runCatching { JSONObject(value) }.getOrNull()) }
 }
+/**
+ * Lets file-like titles ("dialog-two-speakers.wav") wrap at "-", "_" and before the extension instead
+ * of in the middle of a word. Only titles without spaces are touched, so "Запись 07.11 14:35" stays as is.
+ * Display only: Room keeps the original title.
+ */
+fun breakableTitle(title: String): String {
+ if(title.any { it.isWhitespace() }) return title
+ val zwsp='​'
+ val dot=title.lastIndexOf('.')
+ val withExtension=if(dot in 1 until title.length-1 && title.length-dot<=6) title.substring(0,dot)+zwsp+title.substring(dot) else title
+ return withExtension.replace("-","-$zwsp").replace("_","_$zwsp")
+}

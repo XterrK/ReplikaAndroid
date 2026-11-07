@@ -64,6 +64,7 @@ class RecordingExperienceV16Test {
   compose.mainClock.autoAdvance=false
   compose.activityRule.scenario.onActivity {
    vm=ViewModelProvider(it)[AppViewModel::class.java];vm.selected.value=null;vm.clearNotice()
+   vm.autoProcessNew=false // Recorder guarantees are checked on the IMPORTED row; auto-start has its own test.
   }
   compose.waitUntil(30000) { vm.library.value.loaded && exists("recording-home") }
   originalTheme=runBlocking { AppearancePreferences(app).mode.first() }
@@ -289,6 +290,26 @@ class RecordingExperienceV16Test {
   compose.onNodeWithTag("recording-delete-confirm").performClick();settleFrames()
   assertDiscarded(draft)
   compose.onNodeWithTag("recording-status").assertTextEquals("Коснитесь пузыря, чтобы начать запись")
+ }
+
+ /** V1.7b: ✓ goes straight to processing with the defaults — no setup screen between. */
+ @Test fun saveStartsProcessingAtOnceWithAutomaticDefaults() {
+  compose.activityRule.scenario.onActivity { vm.autoProcessNew=true }
+  startRealRecording()
+  compose.onNodeWithTag("recording-stop").performClick();settleFrames()
+  compose.waitUntil(15000) { vm.recordingPhase.value==RecordingPhase.SAVED && vm.selected.value!=null }
+  val before=originalRows!!.map { it.id }.toSet()
+  compose.waitUntil(15000) { rows().filter { it.id !in before }.singleOrNull()?.status?.let { it!="IMPORTED" }==true }
+  val saved=rows().single { it.id !in before }
+  assertEquals("Defaults: automatic speakers",-1,saved.expectedSpeakers)
+  compose.waitUntil(15000) {
+   compose.mainClock.advanceTimeBy(64)
+   exists("processing-pane") && exists("processing-options")
+  }
+  compose.onNodeWithTag("processing-options-summary",useUnmergedTree=true).assertTextEquals("Говорящие: авто · Язык: авто")
+  compose.onNodeWithTag("speakers-automatic").assertDoesNotExist()
+  // Let the Worker settle (this debug build has no models, so it ends in a clear error) before cleanup.
+  compose.waitUntil(90000) { runBlocking { app.db.dao().recording(saved.id)?.status } !in setOf("QUEUED","PROCESSING","CANCELLING") }
  }
 
  @Test fun backDecisionDiscardStillDeletesTheDraft() {
