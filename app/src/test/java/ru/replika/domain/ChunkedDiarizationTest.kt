@@ -57,9 +57,9 @@ class ChunkedDiarizationTest {
 
  @Test fun shortRecordingsNeverChunkAndEightHoursUseBoundedWindows() {
   val cfg=ChunkedDiarization.Config()
-  assertFalse(ChunkedDiarization.isChunked(15*60_000L,cfg))
-  assertEquals(listOf(ChunkedDiarization.Window(0,15*60_000L)),ChunkedDiarization.planWindows(15*60_000L,cfg))
-  assertTrue(ChunkedDiarization.isChunked(15*60_000L+1,cfg))
+  assertFalse(ChunkedDiarization.isChunked(12*60_000L,cfg))
+  assertEquals(listOf(ChunkedDiarization.Window(0,12*60_000L)),ChunkedDiarization.planWindows(12*60_000L,cfg))
+  assertTrue(ChunkedDiarization.isChunked(12*60_000L+1,cfg))
   val eight=ChunkedDiarization.planWindows(8*3_600_000L,cfg)
   assertEquals(51,eight.size)
   assertEquals(0L,eight.first().startMs);assertEquals(8*3_600_000L,eight.last().endMs)

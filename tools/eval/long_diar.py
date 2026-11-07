@@ -49,7 +49,7 @@ MAX_CLEAN_WINDOWS = 2048
 @dataclass(frozen=True)
 class ChunkConfig:
     """Kotlin twin: ChunkedDiarization.Config."""
-    min_duration_ms: int = 15 * 60_000   # chunk only strictly longer recordings
+    min_duration_ms: int = 12 * 60_000   # chunk only strictly longer recordings
     window_ms: int = 10 * 60_000
     overlap_ms: int = 30_000
     global_tau: float = .50              # merge centroids when cosine >= tau
@@ -499,7 +499,7 @@ def main(argv=None):
     parser.add_argument("--tau", type=float, default=.36)
     parser.add_argument("--window-min", type=float, default=10)
     parser.add_argument("--overlap-s", type=float, default=30)
-    parser.add_argument("--min-chunk-min", type=float, default=15)
+    parser.add_argument("--min-chunk-min", type=float, default=12)
     parser.add_argument("--global-tau", type=float, default=ChunkConfig.global_tau)
     parser.add_argument("--note", default="")
     parser.add_argument("--dump", type=Path, help="save per-window SD turns and clean-window vectors (npz)")

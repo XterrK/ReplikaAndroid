@@ -76,12 +76,12 @@ def build_fixture() -> dict:
 class LongDiarTest(unittest.TestCase):
     def test_short_recordings_stay_single_window(self):
         config = ChunkConfig()
-        self.assertEqual([(0, 15 * 60_000)], plan_windows(15 * 60_000, config))
+        self.assertEqual([(0, 12 * 60_000)], plan_windows(12 * 60_000, config))
         self.assertEqual([(0, 0)], plan_windows(0, config))
 
     def test_windows_are_equal_bounded_and_overlap_exactly(self):
         config = ChunkConfig()
-        for duration in (15 * 60_000 + 1, 16 * 60_000, 60 * 60_000, 8 * 3600_000 + 17, 8 * 3600_000 * 5 // 4):
+        for duration in (12 * 60_000 + 1, 16 * 60_000, 60 * 60_000, 8 * 3600_000 + 17, 8 * 3600_000 * 5 // 4):
             windows = plan_windows(duration, config)
             self.assertEqual(0, windows[0][0])
             self.assertEqual(duration, windows[-1][1])

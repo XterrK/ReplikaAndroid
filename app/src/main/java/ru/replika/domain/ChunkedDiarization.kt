@@ -20,7 +20,7 @@ import kotlin.math.sqrt
  * never reach this object: the caller keeps the original single-pass path byte for byte.
  */
 object ChunkedDiarization {
- data class Config(val minDurationMs: Long=15*60_000L,val windowMs: Long=10*60_000L,val overlapMs: Long=30_000L,
+ data class Config(val minDurationMs: Long=12*60_000L,val windowMs: Long=10*60_000L,val overlapMs: Long=30_000L,
   val globalTau: Double=.5,val maxSpeakers: Int=8,val stitchSearchMs: Long=10_000L) {
   init {
    require(windowMs>0 && overlapMs>=0 && overlapMs<windowMs) { "overlap must be shorter than the window" }
