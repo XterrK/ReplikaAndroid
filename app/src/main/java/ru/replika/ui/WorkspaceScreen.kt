@@ -84,6 +84,7 @@ private val EditorRowSaver=listSaver<SegmentRow?,Any>(
  var titleEditing by remember(rec.id) { mutableStateOf(false) }
  var choosingFilter by remember(rec.id) { mutableStateOf(false) }
  var exporting by remember(rec.id) { mutableStateOf(false) }
+ var showStats by remember(rec.id) { mutableStateOf(false) }
  var reprocessing by remember(rec.id) { mutableStateOf(false) }
  val listState=rememberLazyListState()
  val ready=rec.status=="READY"
@@ -176,6 +177,8 @@ private val EditorRowSaver=listSaver<SegmentRow?,Any>(
       leadingIcon={Icon(if(follow) Icons.Outlined.Check else Icons.Outlined.Sync,null,Modifier.size(18.dp))},modifier=Modifier.testTag("follow-playback"))
      FilterChip(selected=review,onClick={review=!review},label={Text("Проверка"+if(pending>0) " · "+pending else "",maxLines=1)},
       leadingIcon={Icon(Icons.Outlined.FactCheck,null,Modifier.size(18.dp))},modifier=Modifier.testTag("smart-review-toggle"))
+     FilterChip(selected=false,onClick={showStats=true},label={Text("Аналитика",maxLines=1)},
+      leadingIcon={Icon(Icons.Outlined.BarChart,null,Modifier.size(18.dp))},modifier=Modifier.testTag("meeting-stats-chip"))
     }
     HorizontalDivider(color=SurfaceLine.copy(alpha=.65f))
     when {
@@ -213,6 +216,7 @@ private val EditorRowSaver=listSaver<SegmentRow?,Any>(
   }
  }
  if(editing!=null) TranscriptEditor(vm,editing!!,choices,onListen={val row=editing!!;if(stopAt==row.endMs.coerceAtMost(rec.durationMs) && position>=row.startMs && position<row.endMs) player.play() else play(row)},onPause={player.pause()},playing=playing && stopAt==editing!!.endMs.coerceAtMost(rec.durationMs),onDismiss={editing=null})
+ if(showStats) MeetingStatsSheet(remember(rows,rec.durationMs) { ru.replika.domain.MeetingStats.compute(rows.map { ru.replika.domain.StatSegment(it.speakerId,it.startMs,it.endMs) },rec.durationMs) },::name,onDismiss={showStats=false})
  if(choosingFilter) SpeakerPickerDialog(choices,filter,allowAll=true,onChoose={filter=it;choosingFilter=false},onDismiss={choosingFilter=false})
  if(renaming!=null) {
   val id=renaming!!;var value by remember(id) { mutableStateOf(name(id)) }
