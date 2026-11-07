@@ -2,6 +2,7 @@ package ru.replika
 
 import org.json.JSONObject
 import org.junit.Assert.*
+import org.junit.Assume.assumeFalse
 import org.junit.Test
 import ru.replika.domain.SpeakerRefiner
 import ru.replika.domain.Turn
@@ -195,6 +196,8 @@ class DiarizationEvidenceTest {
     }
 
     @Test fun existingFileAndSymlinkAreNeverOverwritten() = temporary { directory ->
+        // Creating symlinks needs Developer Mode or admin rights on Windows; Android and Linux hosts run it.
+        assumeFalse(isWindowsHost)
         val target = File(directory, "diarization-$id.json")
         target.writeText("original evidence")
         try {
@@ -300,6 +303,8 @@ class DiarizationEvidenceTest {
     }
 
     @Test fun interruptedCrossProcessFileLockWaitCleansTempAndReleasesJvmMutex() = temporary { directory ->
+        // The two-process barrier relies on POSIX lock timing; Windows hosts skip it, Android and Linux run it.
+        assumeFalse(isWindowsHost)
         val coordination = Files.createTempDirectory("diar-evidence-lock-coordination-").toFile()
         val holder = child("hold-lock", directory, "holder", coordination)
         val failure = AtomicReference<Throwable?>()
@@ -426,3 +431,5 @@ object DiarizationEvidenceProcessProbe {
         }
     }
 }
+
+private val isWindowsHost: Boolean = System.getProperty("os.name").orEmpty().startsWith("Windows")

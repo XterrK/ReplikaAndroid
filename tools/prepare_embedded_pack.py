@@ -140,7 +140,8 @@ def prepare(source, lock, output, metadata):
                          sourceSha256=sha256_file(source), embeddedAsset="offline/replika-models.zip",
                          generatedBytes=temporary.stat().st_size, generatedSha256=sha256_file(temporary),
                          compression="ZIP DEFLATE level 6; APK stores this ZIP without a second compression layer")
-        with temporary.open("rb") as stream:
+        # Windows rejects fsync on a read-only handle (EBADF); r+b is valid on every OS.
+        with temporary.open("r+b") as stream:
             os.fsync(stream.fileno())
         temporary.replace(output)
         metadata.parent.mkdir(parents=True, exist_ok=True)

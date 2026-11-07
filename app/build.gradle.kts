@@ -7,19 +7,19 @@ plugins {
 
 // Models remain local build inputs. Only the All-in-One variants package this generated asset.
 val embeddedAssets = layout.buildDirectory.dir("generated/embedded-models/assets")
-// Explicit opt-in candidate builds retain the V1.6 default for ordinary builds.
-val defaultAsrPlan = providers.gradleProperty("replikaAsrPlan").orElse("v16").get()
+// Ordinary builds use the measured hackathon pipeline (step 5 candidate); pass -PreplikaAsrPlan=v16 etc. for V1.6.
+val defaultAsrPlan = providers.gradleProperty("replikaAsrPlan").orElse("vad_words_context600").get()
 require(defaultAsrPlan in setOf("v16", "vad_words_none", "vad_words_seam", "vad_words_short15",
  "vad_words_short10", "vad_words_sensitive", "vad_words_short10_seam", "vad_words_sensitive_short10",
  "vad_words_context300", "vad_words_context600")) { "Unsupported replikaAsrPlan" }
 // Explicit C2 build opt-in; missing historical WorkData still resolves to legacy in DiarizationPlan.
-val defaultDiarPlan = providers.gradleProperty("replikaDiarPlan").orElse("v16").get()
+val defaultDiarPlan = providers.gradleProperty("replikaDiarPlan").orElse("eres2net_window_v1").get()
 require(defaultDiarPlan in setOf("v16", "eres2net_window_v1")) { "Unsupported replikaDiarPlan" }
 require(defaultDiarPlan == "v16" || defaultAsrPlan == "vad_words_context600") {
  "eres2net_window_v1 requires -PreplikaAsrPlan=vad_words_context600"
 }
 // CPU policy is versioned independently; historical WorkData without a key remains v16.
-val defaultCpuPlan = providers.gradleProperty("replikaCpuPlan").orElse("v16").get()
+val defaultCpuPlan = providers.gradleProperty("replikaCpuPlan").orElse("auto_v1").get()
 require(defaultCpuPlan in setOf("v16", "auto_v1")) { "Unsupported replikaCpuPlan" }
 val prepareEmbeddedModelPack by tasks.registering(Exec::class) {
  group = "replika"
