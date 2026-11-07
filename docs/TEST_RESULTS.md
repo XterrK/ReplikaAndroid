@@ -1,110 +1,292 @@
-# Результаты тестирования — PLAN_19H
+# Результаты тестирования
 
-**WER / CER / cpWER / DER показывают ошибки — меньше лучше.** Например,
-3,01% normalized WER = 16 исправлений на 532 слова, а не 3% успеха.
-Главный raw WER сохраняет знаки и регистр; normalized — диагностика лексики.
-Доля файлов с верным числом спикеров и punctuation F1 имеют обратное направление:
-больше лучше. [Пояснения и формулы](../tools/eval/SCORING.md).
+Этот документ объясняет, как мы проверяли REPLIKA и что получилось. Каждая цифра
+взята из сохранённых JSON/CSV в [`artifacts/test-results/`](../artifacts/test-results/README.md).
+Ссылки на исходные файлы даны в каждом разделе.
 
-## Методика и независимые эталоны
+Прежняя версия этого документа (рабочий журнал разработки) сохранена в
+[docs/history/TEST_RESULTS_codex.md](history/TEST_RESULTS_codex.md).
 
-Свежий baseline ML V1.6 / pack V1.5, без смены моделей и параметров: automatic−1 на всех файлах,CPU2threads,sherpa2.0.1/ORT1.28.2. Эталонный текст и число спикеров не передаются в recognizer/diarizer. Основная метрика — rawWER с регистром,пунктуацией,ё/е и числительными. NormalizedWER,CER,number-normalizedWER,punctuationF1,initial-case,cpWER,DER0/250,ошибки таймкодов/coverage и RTF считаются отдельно. [Полный протокол](../tools/eval/SCORING.md).
+## Коротко
 
-Корпус: [manifest](../benchmark/eval/manifest.json), [provenance](../benchmark/eval/provenance.json), [validation](../benchmark/eval/validation.json). Langswap Dialogs,pinned revision,77уникальных авторских клипов.13файлов/485.722s:6dev+4holdout монтажа разных актёров и3mono. Officialval→dev/test→holdout; исходники и точные авторские строки между split не повторяются; прежние7whisper-test исключены. Выбор зафиксирован до inference. PublisherLFS SHA/размеры проверены;404 отсутствующие исходники отфильтрованы по pinned publisher tree до распознавания. Тексты — независимые эталоны авторов, нами заново не размечены; training overlap неизвестен. Условия и лицензия сохранены.
+Сравниваем две версии конвейера на одних и тех же файлах:
 
-**DER/timing scope:** gold — границы размещённых авторских utterance-клипов. Это montage/utterance-interval proxy, не независимая speech-activity разметка живого диалога и не word-level gold. В DER входят overlap/паузы; collar250ms означает общую ширину±125ms. Raw native turns и число кластеров оцениваются отдельно от проекции ID в Jury JSON. cpWER может превышать100% из-за лишних speaker streams.
+- **V1.6** — исходная версия приложения до хакатонных доработок.
+- **Сейчас** — конвейер по умолчанию в текущей сборке. Распознавание идёт по
+  фрагментам речи с 600 мс контекста. Голоса уточняются кластеризацией коротких окон.
+  Число потоков CPU подбирается автоматически. Подробности — в [ARCHITECTURE.md](ARCHITECTURE.md).
+  В отчётах по этапам и именах папок эти части называются `context600`
+  (контекст 600 мс), `C2` (кластеризация окон) и `auto_v1` (автоподбор потоков).
 
-## Принятый host baseline
+| Что измеряли (dev, 8 файлов) | V1.6 | Сейчас | Лучше, когда |
+| --- | ---: | ---: | --- |
+| Raw WER — ошибки в словах с пунктуацией и регистром | 23,26% | **13,32%** | меньше |
+| Normalized WER — ошибки только в словах | 7,33% | **3,01%** | меньше |
+| DER — доля времени с неверным говорящим | 43,16% | **18,30%** | меньше |
+| Файлы с верным числом говорящих | 2 из 8 | **7 из 8** | больше |
+| RTF на телефоне vivo X300, файлы 1 / 3 / 10 мин | не измеряли | **0,36 / 0,40 / 0,74** | меньше |
 
-| Split | Файлов | Raw WER | WER normalized | cpWER raw | Native DER0 proxy | Число native спикеров верно | Host RTF |
-| --- | ---: | --- | ---: | ---: | ---: | ---: | ---: |
-| dev | 8 | 124/533 = 23.26% | 7.33% | 82.93% | 43.16% | 2/8 | 0.369 |
-| holdout | 5 | 73/444 = 16.44% | 5.43% | 100.45% | 51.55% | 2/5 | 0.360 |
+На физическом телефоне dev-набор дал те же raw WER, normalized WER, DER и число
+говорящих, что и ПК. На отложенных наборах (holdout и reserve) улучшение тоже есть.
+Цифры по ним — ниже.
 
-Полные reference/hypothesis/diagnostics/metrics, config/manifest/code fingerprints и results.csv: [baseline-v16-host-android-decoder](../artifacts/test-results/step-02/baseline-v16-host-android-decoder). Первоначальный directPCM host baseline сохранён отдельно, не перезаписан.
+Главные ограничения сразу:
 
-HostRTF включает per-invocation SHA, WAV/Android-math emulation,VAD,diarization,planner,ASR release; без scorer/JSON/persistence. OS cache/температура/фоновые задачи не контролировались; это Linux/WSL CPU, не телефон/ARM. PeakRSS всего hostпроцесса, включая scoring:426.4MiB; не AndroidPSS/peakRAM.
+- Корпус маленький: 23 файла, около 14 минут речи, три актёра.
+- Диалоги смонтированы из отдельных реплик. Это не живой разговор.
+- На естественной записи совещания (AMI) приложение всё ещё находит больше
+  говорящих, чем есть на самом деле.
+- Скорость на телефоне — RTF от 0,36 до 0,74. Цель плана (RTF ≤ 0,3) не достигнута.
 
-## Android: пять actual Worker cases offline
+## Как читать цифры
 
-Один instrumentation batch test выполнил5настоящих productionWorker cases на отдельном AOSP API35/x86_64 AVD,2048MB/2cores/SwiftShader. Airplane=1,Wi-Fi/data off. Эталоны/число участников не staged; толькоaudio/id/SHA, threads2, automatic−1. Фактические Jury JSON/diagnostics: [baseline-v16-android](../artifacts/test-results/step-02/baseline-v16-android). ВходныеSHA и авторские refs совпадают с host.
+| Метрика | Что значит | Направление |
+| --- | --- | --- |
+| **Raw WER** | Доля слов с ошибкой. Слово считается верным, только если совпадают регистр, пунктуация, «ё» и запись чисел. Это главная метрика: организаторы подтвердили, что пунктуация входит в оценку | меньше — лучше |
+| **Normalized WER** | То же, но после приведения к нижнему регистру, замены «ё» на «е» и удаления знаков. Показывает, правильно ли распознаны сами слова | меньше — лучше |
+| **cpWER** | WER с учётом говорящих: текст каждого найденного голоса сравнивается с текстом настоящего говорящего. Может быть больше 100%, если голосов найдено лишнее | меньше — лучше |
+| **DER** | Доля времени, где говорящий определён неверно: пропущенная речь + лишняя речь + перепутанный голос | меньше — лучше |
+| **Верное K** | В скольких файлах найдено ровно столько голосов, сколько в эталоне | больше — лучше |
+| **RTF** | Время обработки, делённое на длительность записи. RTF 0,4 — минута аудио обрабатывается за 24 секунды | меньше — лучше |
 
-Пользователь уточнил, что порог0.5п.п. относится **ко всей фиксированной пятёрке**, при сохранении различий по файлам. На442эталонных rawсловах host76ошибок,Android75: delta−0.226244п.п., **corpus gate PASS**. [Сводка и CSV](../artifacts/test-results/step-02/port-comparison-user-gate). Четыре файла имеют exactWER parity; holdout02 отличается одним словом `Skeleton`/`скелетон`,23/148 против22/148,−0.675676п.п. Оно не исправлялось и не скрывалось. Прежний более строгий per-file PORT_PARITY_FAIL сохранён как исходное evidence; новая сводка только пересчитывает уже сохранённые outputs по уточнённому правилу, не выдавая её за новый inference.
+Пример: normalized WER 3,01% на dev — это 16 ошибок на 532 слова. Это не «3% успеха».
 
-RTF настоящего Worker на этих5файлах1.185–1.410. Это x86_64 functional proxy, не ARM/physical acceptance; статическое16KiB alignment не заменяет16KiB runtime.
+DER мы приводим «без допуска» (DER0): границы реплик не прощаются ни на миллисекунду.
+Стандартный вариант с допуском ±125 мс (DER250) лежит в тех же JSON и всегда ниже.
+Формулы и правила подсчёта — в [tools/eval/SCORING.md](../tools/eval/SCORING.md).
 
-## Decoder fidelity и ограничение межплатформенного совпадения
+## Методика
 
-Даже canonical16k WAV проходит через инкрементальныйDouble-clock иFloat32 interpolation AudioDecoder. Простой hostPCM16 read отличался. Generic эмуляция32768B WAV packets+integerPTS совпала побитно со всеми1190678захваченными Android samples; reference/model параметры не менялись. Helper проверен против независимого scalar-алгоритма; повторный13file baseline использует исправленный hostport.
+### Данные
 
-ТочноеPCM не устранило одно несовпадение слова: same-host probes/direct/actualAndroidPCM/emulation, полныйcase и AVX/SSE CPU-tier probes всё равно даютSkeleton; свежий productionGigaAmEngine наAndroid даётскелетон. Semver,ORT иgitaf2d8d81/date совпадают. Конкретная причина расхождения сборок не установлена; CPU-tier/PCM как единственная причина не доказаны. Это не объявляется исправленным ASR-багом или выигрышем модели. [Положительные/отрицательные доказательства](../artifacts/test-results/step-02/decoder-parity); сырыеPCM/временныеqemu binaries хранятся локально внеGit.
+Эталоны взяты из открытого набора [Langswap Dialogs](https://huggingface.co/datasets/langswap/dialogs-ru-emotional-conversations)
+(ревизия `a74ff44`). Это русские актёрские диалоги, записанные в студии.
+Тексты эталона — авторские, с пунктуацией и регистром. Мы их не правили и не размечали заново.
 
-## Проверки и ограничения
+Из отдельных реплик скрипт собирает «разговоры» на 2–4 голоса: чистые диалоги,
+короткие реплики, эмоциональная речь, шёпот, наложения. Отбор файлов зафиксирован
+до первого распознавания и не зависит от результатов модели.
 
-65Python tests PASS:scorer39,pipeline16,decoder3,runner4,corpus-gate3; дополнительно80random DER cases сверены с exhaustive permutation/time oracle на двух collars. JVM89 остаются зелёными, unchanged tasksUP-TO-DATE; All-in-One и testAPK сборкиPASS. Androidbatch1test/5inferences,decoder1test иfreshASR1test PASS. MainAPK и ML/storage/UI не менялись; отдельно расширен testAPK.
+| Набор | Файлов | Длительность | Зачем |
+| --- | ---: | ---: | --- |
+| dev | 8 (6 диалогов + 2 монолога) | 270,5 с | Подбор параметров |
+| holdout | 5 (4 диалога + 1 монолог) | 215,2 с | Проверка на отложенных данных |
+| reserve | 10 диалогов, 60 новых исходных реплик | 367,4 с | Вторая проверка, собрана позже и заморожена до выбора кандидата |
 
-Модели SHA-проверяются каждый process. Config,код,helper,зависимости,refs и savedartifacts fingerprinted; resume проверяетцелостность, partialattempt архивируется,failedexperiment получаетCSVстроку. Нулевой знаменатель→null, не выдуманный ноль. Реальныеtokens/timestamps GigaAM сохранены; tokens содержат ASCII-пробелы, не только`▁`. Word assignment ещё не внедрён.
+Описание и происхождение: [benchmark/eval](../benchmark/eval/README.md),
+[benchmark/eval-reserve](../benchmark/eval-reserve/README.md).
 
-Это baseline до улучшений. Automatic diarization по-прежнему плоха; корпус малый,3актёра,монтажный,не unseen-speaker/natural-dialogue acceptance. ARM/физический микрофон/энергопотребление/длинные записи остаются отдельными проверками. Последнее обновление:2026-11-07T00:02:35+03:00.
+### Правила
 
-## 07.11.2026 — пункт 3, opt-in ASR context600
+- Параметры подбираются только на dev. Holdout и reserve только проверяют результат.
+- Эталонный текст и число говорящих в приложение не передаются. Все прогоны —
+  в автоматическом режиме определения числа голосов.
+- Каждый эксперимент сохраняется целиком: эталон, гипотеза, диагностика, метрики,
+  хеши конфигурации, кода и моделей. Неудачные эксперименты тоже сохранены.
+- Holdout просмотрен после первого отклонённого кандидата. Поэтому для финального
+  выбора он считается регрессионной проверкой, а не «слепой» оценкой.
+  Для честной второй проверки собран reserve.
+- Модели не обучались и не дообучались на этих данных.
 
-WER — ошибки, меньше лучше. Модели/VAD/gain/диаризация прежние; реальный ASR pre-roll600мс и word assignment по token emission frames. Обычный build-defaultv16 сохранён.
+### Где запускали
 
-| Набор | Baseline raw WER ↓ | Context600 raw WER ↓ |
+| Стенд | Что это | Что доказывает |
+| --- | --- | --- |
+| ПК (host) | Python-стенд на Linux/WSL. Те же модели и библиотека sherpa-onnx 2.0.1, что в APK. Аудио декодируется так же, как на Android (проверено побитно на 1 190 678 отсчётах) | Качество текста и голосов на всех 23 файлах |
+| Эмулятор | Android 15 (API 35), x86_64, 2 ядра. Настоящий фоновый обработчик приложения | Что Android даёт тот же результат, что ПК |
+| Телефон | vivo X300: arm64, Android 17 (API 37), 8 ядер. Тот же APK, что для сдачи | Качество и скорость на реальном ARM-устройстве |
+
+Код стенда и инструкция: [tools/eval/README.md](../tools/eval/README.md).
+
+## Качество текста
+
+### ПК, все наборы
+
+| Набор | Raw WER, V1.6 | Raw WER, сейчас | Normalized WER, V1.6 | Normalized WER, сейчас |
+| --- | ---: | ---: | ---: | ---: |
+| dev, 8 | 124/533 = 23,26% | **71/533 = 13,32%** | 39/532 = 7,33% | **16/532 = 3,01%** |
+| holdout, 5 | 73/444 = 16,44% | **49/444 = 11,04%** | 24/442 = 5,43% | **13/442 = 2,94%** |
+| reserve, 10 | 135/743 = 18,17% | **83/743 = 11,17%** | 42/744 = 5,65% | **24/744 = 3,23%** |
+
+Запись «71/533» означает 71 ошибку на 533 слова эталона. Знаменатели raw и
+normalized чуть различаются: при нормализации отдельно стоящие знаки исчезают.
+
+Откуда выигрыш. Модель распознавания не менялась. Изменилось, какие куски звука ей
+подаются. В V1.6 распознавание шло по отрезкам каждого говорящего. Короткие отрезки
+давали модели мало контекста, и она ошибалась в пунктуации и регистре. Сейчас
+распознаётся непрерывный фрагмент речи до 20 секунд, плюс 600 мс звука перед ним.
+Затем слова распределяются по говорящим. Перебор вариантов на dev:
+
+| Вариант на dev | Raw WER |
+| --- | ---: |
+| V1.6 | 124/533 = 23,26% |
+| Фрагменты речи без контекста | 93/533 = 17,45% |
+| + 300 мс контекста | 84/533 = 15,76% |
+| + 600 мс контекста (выбран) | **71/533 = 13,32%** |
+
+Первый выбранный вариант (чувствительный детектор речи) улучшил dev, но ухудшил
+holdout: 78/444 против 73/444 у V1.6. Его отклонили; результаты сохранены.
+
+Источники: V1.6 — [step-02/baseline-v16-host-android-decoder/summary.json](../artifacts/test-results/step-02/baseline-v16-host-android-decoder/summary.json),
+[step-03/reserve-v16-host/summary.json](../artifacts/test-results/step-03/reserve-v16-host/summary.json);
+сейчас — [step-04/candidate-c2-full-original/summary.json](../artifacts/test-results/step-04/candidate-c2-full-original/summary.json),
+[step-04/candidate-c2-full-reserve/summary.json](../artifacts/test-results/step-04/candidate-c2-full-reserve/summary.json);
+перебор — [step-03/results.csv](../artifacts/test-results/step-03/results.csv).
+
+## Говорящие
+
+| Набор | DER, V1.6 | DER, сейчас | Верное K, V1.6 | Верное K, сейчас | cpWER, V1.6 | cpWER, сейчас |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| dev, 8 | 43,16% | **18,30%** | 2/8 | **7/8** | 82,93% | **27,39%** |
+| holdout, 5 | 51,55% | **13,89%** | 2/5 | **4/5** | 100,45% | **21,40%** |
+| reserve, 10 | 47,66% | **22,44%** | 1/10 | **5/10** | 76,99% | **38,22%** |
+
+V1.6 в автоматическом режиме почти всегда находил лишних говорящих. Например, на
+файле с двумя голосами — восемь. Сейчас разбиение уточняется кластеризацией
+коротких окон по 1,5 с. Как она устроена и какие модели мы отвергли, описано
+в [MODELS.md](MODELS.md).
+
+Слабое место — reserve: верное число голосов только в 5 файлах из 10.
+
+Источники: те же `summary.json`, что в разделе выше. Подробный отчёт:
+[STEP_04_DIARIZATION.md](STEP_04_DIARIZATION.md).
+
+## Перенос на Android
+
+Мы проверяли, что приложение на устройстве даёт то же, что стенд на ПК.
+
+### Эмулятор, 5 файлов
+
+Фиксированная пятёрка: два dev-диалога, два holdout-диалога и короткий монолог.
+
+| | Raw WER на Android | Raw WER на ПК | Разница |
+| --- | ---: | ---: | ---: |
+| V1.6 | 75/442 = 16,97% | 76/442 = 17,19% | −0,23 п.п. |
+| Сейчас | **43/442 = 9,73%** | 44/442 = 9,95% | −0,23 п.п. |
+
+Допуск на расхождение — 0,5 п.п. Оба раза он соблюдён. Различие — в одном-двух
+словах (например, «идеально!» / «идеально.»). Причина межплатформенной разницы
+не установлена.
+
+Источники: [step-02/port-comparison-user-gate/comparison.json](../artifacts/test-results/step-02/port-comparison-user-gate/comparison.json),
+[step-03/android-quality-gate.json](../artifacts/test-results/step-03/android-quality-gate.json).
+
+### Телефон vivo X300, 10 файлов
+
+Все 8 dev-файлов и 2 holdout-файла. Сборка — текущий конвейер, 4 потока.
+
+| dev, 8 файлов | Телефон | ПК |
 | --- | ---: | ---: |
-| Host dev |124/533=23,265%|71/533=13,321%|
-| Host прежний holdout |73/444=16,441%|49/444=11,036%|
-| Host новый disjoint reserve |135/743=18,170%|83/743=11,171%|
-| Actual Android, фиксированная пятёрка |75/442=16,968%|43/442=9,729%|
+| Raw WER | 71/533 = 13,32% | 71/533 = 13,32% |
+| Normalized WER | 16/532 = 3,01% | 16/532 = 3,01% |
+| DER | 18,30% | 18,30% |
+| Верное K | 7/8 | 7/8 |
 
-Normalized dev16/532=3,008% означает16 исправлений на532слова, а не3% успеха. Actual Android normalized11/439=2,506% против20/439=4,556% baseline. Short dev deletions2→0. Полная независимая word-time/diarization/speed приёмка не установлена: это ASR quality/port PASS за флагом. Старый holdout после первого отклонённого профиля используется как regression validation; reserve selection заморожена до второго выбора и проверяется отдельно.
+На фиксированной пятёрке телефон дал 44/442, как и ПК. Текст и разбиение по
+голосам совпали во всех 10 файлах. В двух файлах немного различаются времена слов.
 
-Host fixed-five44/442, Android43/442, delta−0,226п.п.≤0,5PASS; per-file outlier−0,714п.п. и все текстовые/временные различия сохранены. 32native chunks/1224tokens/434words полностью восстановлены из actualpayload; fallback/truncation0. 125Python/111JVM/build/static/2nativeUI PASS; первая UI-попытка сохранена, исправлена только синхронизация теста.
+Источник: [step-05/vivo-arm-full10-audited-v2](../artifacts/test-results/step-05/vivo-arm-full10-audited-v2/independent-audit.json),
+[results.csv](../artifacts/test-results/step-05/vivo-arm-full10-audited-v2/results.csv).
 
-Current-APK one-file timing control: legacyRTF4,739, word4,605; historicallegacy1,185. Обе текущиеSD стадии~219/217с против прежних50,7с. Причина отличия не установлена; benchmark не доказывает ускорение/ARM/телефон. Полная приёмка ещё открыта, defaultlegacy сохранён. [Полный отчёт D](STEP_03_VAD_WORD_ASR.md), [индекс](../artifacts/test-results/step-03/results.csv), [граница приёмки](../artifacts/test-results/step-03/acceptance.json), [контроль времени](../artifacts/test-results/step-03/performance-control.md).
+## Скорость на телефоне
 
+Телефон vivo X300, 8 ядер, приложение само выбрало 4 потока.
+Время — работа фонового обработчика приложения (WorkManager) от начала до конца.
 
-## 07.11.2026 — пункт4 C2, host проверен; Android ML pending
+| Запись | Длительность | Время обработки | RTF | Raw WER |
+| --- | ---: | ---: | ---: | ---: |
+| 1 мин | 60,0 с | 21,4 с | **0,357** | 10/108 |
+| 3 мин | 180,0 с | 72,3 с | **0,402** | 30/324 |
+| 10 мин | 600,0 с | 443,5 с | **0,739** | 88/1080 |
 
-Все48fixed-K и672automatic SD cases сохранены. Выбран один глобальный C2 на исходном
-ERes2Net512: nativeSDthreshold0,30/shift0,1, clean1,5s/step0,75s, averageHCτ0,36,
-reassign-small, grid125ms,max8,mincluster2s/3%,smooth500ms. Старые7моделей/pack1.5 прежние.
+Что важно знать про эту таблицу:
 
-| Набор | Native DER0 baseline ↓ | C2 ↓ | Точное K baseline ↑ | C2 ↑ | C2 rawWER ↓ |
+- Эти три файла — не новые разговоры. Это один и тот же 53-секундный фрагмент
+  dev-диалога, дополненный тишиной до минуты и повторённый 1, 3 и 10 раз.
+  Они проверяют поведение на длинных записях, а не качество.
+- В 10-минутном прогоне телефон нагрелся. Приложение 135 с ждало охлаждения,
+  и это время входит в RTF. Без ожидания вышло бы около 0,51.
+- Это один прогон на одном телефоне. Зарядка, фон и начальная температура не контролировались.
+- На 10 коротких dev/holdout-файлах RTF был от 0,31 до 0,61, по сумме времени — 0,43.
+- Цель плана — RTF ≤ 0,3 на флагмане — **не достигнута**.
+- V1.6 на телефоне на этих файлах не измерялась. Сравнения скорости «до/после» на
+  телефоне нет. На ПК обе версии работают с RTF около 0,36.
+
+{{TBD: финальный RTF на телефоне для сдаваемого APK — после параллельной задачи по скорости}}
+
+{{TBD: результаты по длинным файлам (более 10 минут) и импорту больших файлов — после параллельных задач}}
+
+Источники: [step-05/vivo-perf-one-audited-v2](../artifacts/test-results/step-05/vivo-perf-one-audited-v2/independent-audit.json)
+(по файлу — `perf-01m/metrics.json` и т.д.), описание файлов — [benchmark/eval-perf](../benchmark/eval-perf/README.md).
+
+## Естественная речь: AMI
+
+Чтобы проверить диаризацию не только на монтаже, мы взяли три минутных фрагмента
+записей совещаний AMI (английский, 3–4 участника). Текст здесь не оценивался —
+только говорящие. Параметры по AMI не подбирались.
+
+| Фрагмент | Говорящих на самом деле | V1.6 нашла | Сейчас находит | DER, V1.6 | DER, сейчас |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| Dev8 |43,1567%|18,2985%|2/8|7/8|71/533|
-| Original holdout5 |51,5457%|13,8896%|2/5|4/5|49/444|
-| Reserve10 |47,6591%|22,4396%|1/10|5/10|83/743|
+| EN2002a, гарнитура | 4 | 10 | 6 | 67,65% | 42,94% |
+| EN2002a, микрофонный массив | 4 | 13 | 8 | 60,65% | 49,88% |
+| EN2002c, гарнитура | 3 | 6 | 5 | 57,95% | 60,23% |
 
-Новые полныеVAD/SD/windowembedding/HC/GigaAM прогоны13+10 COMPLETE; независимыйfullC2audit3164checksPASS.
-ВсеJuryJSON/ASRtokens+timestamps/749vectors/refinedturns/coremetrics совпали сзафиксированными
-исследовательскимивыходами, rawWER unchanged относительноD. Это previouslyseen regression cohorts,
-не blind/natural-dialogue и не87,5% точности всехслов/реплик. Reserve K50% остаётся слабымместом.
+Ни в одном фрагменте число голосов не угадано. Лишних голосов стало меньше, но они
+остаются. На третьем фрагменте DER стал хуже V1.6 на 2,28 п.п. Первые два фрагмента —
+одна и та же встреча, записанная разными микрофонами, поэтому это не три независимых примера.
 
-Kotlin C2:157differential включая23actualcases без exactturn/IDs/acceptedрасхождений.
-Gradle170JVM/0fail/0skip, All-in-One/debug/testAPK, staticARM64pack/signature и2AndroidUI PASS.
-ПервыйUIFAIL приAsleepэмуляторе сохранён; wakeи повторбезизмененияAPK дали2/2PASS10,327s.
-КандидатAPK305476189B SHA6a73427638ccd3e1e04e725d1080d604c5941d571e796544c1fa2733f4f965fd
-сохранён отдельно; V1.6 иD hashes прежние. ActualAndroidC2ML, fixedfiveWERportgate иdev8nativeDER/count
-ещё не выполнены. [Подробности](STEP_04_DIARIZATION.md), [аудит](../artifacts/test-results/step-04/full-c2-equivalence-audit.json),
-[сборка/JVM](../artifacts/test-results/step-04/build-c2-v1/summary.json), [UI](../artifacts/test-results/step-04/ui-v2/summary.json).
+Источник: [step-04/natural-ami-diar-only-v2/results.csv](../artifacts/test-results/step-04/natural-ami-diar-only-v2/results.csv).
 
+## Английский язык
 
-### Итог C: actual Android10 и сохранённый контрольный профиль
+{{TBD: WER на английских записях — после параллельной задачи по английскому языку}}
 
-Native8dev: K7/8, nativeDER0 **18,2985%**, raw70/533=13,1332%, normalized16/532=3,0075%,
-cpWER145/533=27,2045%. Порогcount/DERпройден. Fixed5raw43/442vs44/442host,
-Δ−0,226244п.п.≤0,5PASS; dev01−0,714286п.п. сохранён какдиагностика.
-Все10sidecars:344реальных512dimвектора,56ASRчанков/2169токенов/767слов;
-независимыйnativeaudit564checksPASS. Вектораhost/nativeнепобайтноравны,
-текстовые/временныедиффысохранены; разметкаголосов/nativeDERсовпала.
+## Другие проверки
 
-Дополнительные32SDdevпрогонаподтвердилиотказотminOff0,25/1,0 иshift0,25/0,5:
-K6/4/5/4из8, DER21,6134/19,7999/18,9807/24,2211%вместо7/8/18,2985%.
-ИхASR—явныйreplayреальногоD,неповторныйGigaAM. КонтрольныйAPKне меняется.
-Финальные345Python/173JVM/UI2/staticPASS. [ГраницаCприёмки](../artifacts/test-results/step-04/acceptance.json),
-[нативныйаудит](../artifacts/test-results/step-04/context600-c2-android-v3/independent-audit.json),
-[дополнительныепробы](../artifacts/test-results/step-04/final-native-parameter-audit.json).
-ЕстественныйAMIпо-прежнемуK0/3,на третьемclipDERхужеlegacyна2,2794п.п.;
-ARM/телефоннаяскорость/независимыеwordtimingsнеприняты.
+| Что | Результат | Источник |
+| --- | --- | --- |
+| Модульные тесты Kotlin (JVM) | 192 пройдено | [step-05/build-auto-v2](../artifacts/test-results/step-05/build-auto-v2/summary.json) |
+| Тесты стенда на Python | 370 пройдено | [step-05/python-cpu-collector](../artifacts/test-results/step-05/python-cpu-collector/summary.json) |
+| Android-регрессия: импорт, журнал импорта, хранилище, экспорт с главной | 27 из 27 | [step-05/android-regression-v1](../artifacts/test-results/step-05/android-regression-v1/summary.json) |
+| Импорт 13 файлов: WAV, MP3, M4A/AAC, AAC ADTS, OGG/Opus, FLAC; моно и стерео; 8–48 кГц | все 13 прошли на Android | [step-05/android-import-thermal-v1](../artifacts/test-results/step-05/android-import-thermal-v1/summary.json) |
+| Выбор файла через системный диалог | пройдено | [step-05/android-picker-v1](../artifacts/test-results/step-05/android-picker-v1/device/picker-p19picker20261107T072016/report.json) |
+| Термоконтроль: при перегреве обработка ждёт, отмена работает | пройдено | [step-05/android-thermal-v2](../artifacts/test-results/step-05/android-thermal-v2/summary.json) |
+| Число потоков 1, 2 и 4 на ПК | 39 из 39 файлов дали одинаковый текст и голоса | [step-05/independent-cpu-threads2-v1.json](../artifacts/test-results/step-05/independent-cpu-threads2-v1.json) |
+| Формат JSON для жюри | строгая схема, экспорт через интерфейс | [step-01](../artifacts/test-results/step-01/acceptance.json) |
+| Обновление поверх старой версии без потери записей | данные пяти таблиц на телефоне совпали до и после | [step-05/vivo-prior-data-preservation-after-long3-v1.json](../artifacts/test-results/step-05/vivo-prior-data-preservation-after-long3-v1.json) |
+
+{{TBD: итоговое число тестов после финальной сборки сдаваемого APK}}
+
+### Что не получилось
+
+Мы сохраняем и неудачи:
+
+- **Серия замеров скорости на эмуляторе** (12 запусков) не завершилась: третий
+  10-минутный файл не уложился в 20-минутный лимит теста. Завершились 5 из 12.
+  [Отчёт](../artifacts/test-results/step-05/perf-2-4-4-2-v1/run.json).
+- **Первый кандидат улучшения распознавания** ухудшил holdout и был отклонён
+  ([отчёт](../artifacts/test-results/step-03/comparison-selected-host/report.md)).
+- **Первый тест термоконтроля** упал из-за ошибки в самом тесте; исправленный
+  повтор прошёл. Лог первой попытки сохранён.
+
+## Чего мы не проверяли
+
+- Живой разговор с естественными перебиваниями — только монтаж и AMI.
+- Точность времени отдельных слов: в эталоне есть только границы реплик.
+- Физический микрофон телефона в шумной обстановке.
+- Расход батареи и пиковую память в течение всей обработки. Есть отдельные снимки:
+  до 1 034 876 КиБ (около 1 ГиБ) RSS на 10-минутном файле.
+- Другие телефоны, кроме vivo X300. Android 16 КБ-страницы проверены только на эмуляторе.
+
+## Как воспроизвести
+
+1. Подготовить окружение стенда и корпус по [tools/eval/README.md](../tools/eval/README.md).
+   Аудио скачивается с Hugging Face и в репозиторий не входит.
+2. Прогон V1.6: `--config configs/eval/baseline-v16.json`.
+3. Прогон текущего конвейера: `--config configs/eval/c2-window-selected-full.json`
+   (та же конфигурация сохранена в [step-04/candidate-c2-full-original/config.json](../artifacts/test-results/step-04/candidate-c2-full-original/config.json)).
+4. Сравнить новый `summary.json` с сохранённым.
+
+Полные отчёты по этапам: [STEP_01](STEP_01_JURY_JSON.md), [STEP_03](STEP_03_VAD_WORD_ASR.md),
+[STEP_04](STEP_04_DIARIZATION.md), [STEP_05](STEP_05_RUNTIME_IMPORT.md).
+Индекс сырых результатов: [artifacts/test-results/README.md](../artifacts/test-results/README.md).
