@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "status": "PREPARED_NOT_EXECUTED",
+  "frozen_utc": "2026-11-07T04:47:58.273838+00:00",
+  "adb_invoked": false,
+  "new_model_inference": false,
+  "actual_android_contract_verified": false,
+  "procedure_sha256": "442367b8c14acb20914b290926684488cfdfbaf16dec6f9eccdbdb92583090ce",
+  "tests": {
+    "passed": 8,
+    "failed": 0,
+    "seconds": 33.477,
+    "scope": "Synthetic controls and saved actual full-QA payload transformed to compact/CPU controls; not actual QAfalse Android evidence"
+  },
+  "local_preflights": {
+    "compact-auto-two": "PASS",
+    "legacy-c2-moderate-one": "PASS",
+    "no_subprocess_no_mkdir_verified": true
+  },
+  "scope": "One duplicate short canonical dev-mono-s case per profile; no performance or model-quality acceptance, no changes to frozen 1/3/10 performance order/protocol. Host-only independent author scoring; compact output does not permit full token/vector replay.",
+  "execute_owner": "root, only after current Android CPU auto1 session is terminal",
+  "commands": {
+    "check": "/home/egor/replika-toolchain/host-venv/bin/python /home/egor/replika-toolchain/evidence/step05-compact-smoke.py --repo /mnt/d/ReplikaAndroid/ReplikaAndroid --audio-root /home/egor/replika-toolchain/eval-audio --check",
+    "auto_two": "/home/egor/replika-toolchain/host-venv/bin/python /home/egor/replika-toolchain/evidence/step05-compact-smoke.py --repo /mnt/d/ReplikaAndroid/ReplikaAndroid --audio-root /home/egor/replika-toolchain/eval-audio --execute",
+    "legacy_one": "/home/egor/replika-toolchain/host-venv/bin/python /home/egor/replika-toolchain/evidence/step05-compact-smoke.py --repo /mnt/d/ReplikaAndroid/ReplikaAndroid --audio-root /home/egor/replika-toolchain/eval-audio --execute --profile legacy-c2-moderate-one"
+  },
+  "expected_outputs": {
+    "compact-auto-two": "artifacts/test-results/step-05/compact-smoke-v1",
+    "legacy-c2-moderate-one": "artifacts/test-results/step-05/compact-legacy-moderate-one-v1"
+  },
+  "pins": {
+    "case": "dev-mono-s",
+    "duration_ms": 6333,
+    "automatic_speakers": -1,
+    "asr": "vad_words_context600",
+    "diarization": "eres2net_window_v1",
+    "collectEvidence": false,
+    "auto_two": {
+      "cpu_plan": "auto_v1",
+      "requested": 2,
+      "asr": 2,
+      "sd": 2,
+      "refinement": 2,
+      "stage_pin": false
+    },
+    "legacy_one": {
+      "cpu_plan": "v16",
+      "requested": 1,
+      "asr": 1,
+      "sd": 2,
+      "refinement": 2,
+      "stage_pin": true
+    }
+  },
+  "files_sha256": {
+    "auto-two-preflight.json": "e9713b863ecf43f988090f135ed8fab5090c85e3c489ac7457c388b5f6ab6837",
+    "legacy-one-preflight.json": "f6d6964a692b2f0672eee3395890fcc9493af876c831081f9fe77368153c0d7f",
+    "procedure.py": "442367b8c14acb20914b290926684488cfdfbaf16dec6f9eccdbdb92583090ce",
+    "self_test.log": "178b990e4553ecf2cd3af6366b25c6d7c9e1abcaaf5e73b36ea9100fc3d15e10",
+    "self_test.py": "4994a7e180a9c20f1856d0527a574446acbee50d47f602ae60dbf88b0c73456e"
+  }
+}

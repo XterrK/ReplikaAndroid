@@ -6,6 +6,7 @@ import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.ensureActive
 import ru.replika.domain.SpeakerRefiner
+import ru.replika.domain.CpuPlan
 import ru.replika.domain.Turn
 import ru.replika.domain.WindowSpeakerRefiner
 
@@ -98,9 +99,10 @@ object DiarizationRefiner {
         config: WindowSpeakerRefiner.Config = SELECTED_CONFIG,
         isStopped: () -> Boolean = { false },
         embeddingFactory: EmbeddingFactory = NativeFactory,
+        cpuPlan: CpuPlan = CpuPlan.LEGACY,
     ): Result {
         require(config == SELECTED_CONFIG) { "Only the frozen C2 window policy is supported" }
-        require(threads == 2) { "The selected C2 policy requires two embedding threads" }
+        cpuPlan.requireRefinementThreads(threads)
         require(modelPath.isNotBlank()) { "An explicit validated embedding model path is required" }
         val native = turns.toList()
         val began = System.nanoTime()
@@ -130,6 +132,7 @@ object DiarizationRefiner {
         fun result(output: List<Turn>, accepted: Boolean, pure: Map<String, Any?>): Result {
             val diagnostics = linkedMapOf<String, Any?>(
                 "algorithm" to "window-overcluster-v1", "config" to config.asMap(),
+                "cpuPlan" to cpuPlan.wireId, "embeddingThreads" to threads,
                 "status" to (pure["status"] ?: "UNSUPPORTED"),
                 "computationalSupport" to accepted, "qualityAcceptance" to "not evaluated by this adapter",
                 "originalPcm" to true, "sampleRate" to 16000,

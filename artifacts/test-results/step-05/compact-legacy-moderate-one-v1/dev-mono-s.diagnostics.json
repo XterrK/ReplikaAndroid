@@ -1,0 +1,371 @@
+{
+  "asrPlan": "vad_words_context600",
+  "asrPolicy": {
+    "pipeline": "vad_words_v1",
+    "punctuation_mode": "none",
+    "energy_split": true,
+    "vad_threshold": 0.5,
+    "vad_min_speech_sec": 0.25,
+    "vad_min_silence_sec": 0.25,
+    "pre_roll_ms": 600
+  },
+  "diarizationPlanRequested": "eres2net_window_v1",
+  "wordEvidenceRequested": false,
+  "wordEvidenceApplicable": true,
+  "wordEvidenceLimitBytes": 262144,
+  "wordEvidenceBytes": 0,
+  "wordEvidenceTruncated": false,
+  "diarizationPlan": "eres2net_window_v1",
+  "diarizationPolicy": {
+    "plan": "eres2net_window_v1",
+    "algorithm": "window-overcluster-v1",
+    "embedding_path": "diar\/embedding.onnx",
+    "native_threshold": 0.30000001192092896,
+    "window_shift": 0.10000000149011612,
+    "min_duration_on": 0.20000000298023224,
+    "min_duration_off": 0.5,
+    "window_config": {
+      "tau": 0.36,
+      "method": "average",
+      "grid_ms": 125,
+      "max_speakers": 8,
+      "reassign_small": true,
+      "min_cluster_ms": 2000,
+      "min_cluster_fraction": 0.03,
+      "minimum_reassignment_similarity": null,
+      "smooth": true,
+      "smooth_ms": 500
+    }
+  },
+  "cpuPolicy": {
+    "plan": "v16",
+    "requestedThreads": 1,
+    "availableCores": 2,
+    "asrThreads": 1,
+    "diarizationThreads": 2,
+    "refinementThreads": 2,
+    "diarizationPinned": true,
+    "refinementPinned": true
+  },
+  "vadPrimarySpanCount": 3,
+  "vadPrimarySpans": [
+    {
+      "startMs": 102,
+      "endMs": 518
+    },
+    {
+      "startMs": 774,
+      "endMs": 3622
+    },
+    {
+      "startMs": 3942,
+      "endMs": 6336
+    }
+  ],
+  "vadRescueAttempted": false,
+  "vadRescueApplied": false,
+  "vadDetectorGain": 1,
+  "vadRescueRms": null,
+  "vadRescueRmsSamples": 0,
+  "vadRescueSpanCount": 0,
+  "vadRescueReason": "primary_nonempty",
+  "vadRescueTargetRms": 0.02,
+  "vadRescueMaxGain": 20,
+  "vadRescuePeakHeadroom": 0.95,
+  "vadRescueMinGainRatio": 1.01,
+  "vadRescueScope": "detector-only empty-primary retry; ASR input, original PCM and diarization unchanged",
+  "rawDiarizationTurns": [
+    {
+      "startMs": 31,
+      "endMs": 5397,
+      "speakerId": 1
+    },
+    {
+      "startMs": 4300,
+      "endMs": 4655,
+      "speakerId": 2
+    },
+    {
+      "startMs": 5397,
+      "endMs": 6275,
+      "speakerId": 2
+    }
+  ],
+  "nativeDiarizationTurns": [
+    {
+      "startMs": 31,
+      "endMs": 5397,
+      "speakerId": 0
+    },
+    {
+      "startMs": 4300,
+      "endMs": 4655,
+      "speakerId": 1
+    },
+    {
+      "startMs": 5397,
+      "endMs": 6275,
+      "speakerId": 1
+    }
+  ],
+  "diarizationRefinementApplicable": true,
+  "diarizationRefinementAccepted": true,
+  "diarizationRefinement": {
+    "algorithm": "window-overcluster-v1",
+    "config": {
+      "tau": 0.36,
+      "method": "average",
+      "grid_ms": 125,
+      "max_speakers": 8,
+      "reassign_small": true,
+      "min_cluster_ms": 2000,
+      "min_cluster_fraction": 0.03,
+      "minimum_reassignment_similarity": null,
+      "smooth": true,
+      "smooth_ms": 500
+    },
+    "cpuPlan": "v16",
+    "embeddingThreads": 2,
+    "status": "PARTIAL_TEMPORAL",
+    "computationalSupport": true,
+    "qualityAcceptance": "not evaluated by this adapter",
+    "originalPcm": true,
+    "sampleRate": 16000,
+    "cleanWindowMs": 1500,
+    "cleanWindowStepMs": 750,
+    "cleanMinimumIslandMs": 1000,
+    "embeddingInferenceCompleted": true,
+    "embeddingScope": "Original decoded PCM; no gain, resampling, padding or normalization",
+    "nativeResourcesReleasedBeforeRefiner": true,
+    "retainedNativeModelCache": false,
+    "refiner": {
+      "algorithm": "window-overcluster-v1",
+      "config": {
+        "tau": 0.36,
+        "method": "average",
+        "grid_ms": 125,
+        "max_speakers": 8,
+        "reassign_small": true,
+        "min_cluster_ms": 2000,
+        "min_cluster_fraction": 0.03,
+        "minimum_reassignment_similarity": null,
+        "smooth": true,
+        "smooth_ms": 500
+      },
+      "duration_ms": 6333,
+      "new_neural_inference": false,
+      "eigengap_applied": false,
+      "boundary_timing_scope": "Saved-window votes on an activity-confined grid; no forced alignment or true change-point accuracy claim",
+      "native_input_clusters": 2,
+      "scipy_version": "1.18.1",
+      "hierarchy_backend": "pure Kotlin; scipy_version denotes source algorithm contract, not runtime",
+      "cut_distance": 0.64,
+      "cut_inclusive": true,
+      "linkage_method": "average",
+      "canonical_window_order": "start_ms, end_ms, original speaker",
+      "window_clusters_at_cut": 1,
+      "window_clusters_after_cap": 1,
+      "fully_acoustic_supported": false,
+      "every_native_label_has_measured_windows": false,
+      "clusters_after_voting": 1,
+      "small_cluster_cutoff_ms": 2000,
+      "clusters_after_small": 1,
+      "status": "PARTIAL_TEMPORAL",
+      "measured_unique_windows": 4,
+      "embedding_dimension": 512,
+      "output_clusters": 1,
+      "original_activity_union_ms": 6244,
+      "output_activity_union_ms": 6244,
+      "activity_union_preserved": true,
+      "original_speaker_time_ms": 6599,
+      "output_speaker_time_ms": 6244,
+      "speaker_time_collapsed_ms": 355,
+      "grid_boundary_resolution_ms": 125,
+      "max_assignment_atom_ms": 125
+    }
+  },
+  "diarizationRefinementTimingsMs": {
+    "embeddingLoadMs": 460.423427,
+    "embeddingReadMs": 16.022327,
+    "embeddingComputeMs": 468.691051,
+    "embeddingStageMs": 982.670996,
+    "refinerMs": 56.668211,
+    "totalMs": 1039.866177
+  },
+  "diarizationEmbeddingCounts": {
+    "plannedWindows": 4,
+    "extractorLoads": 1,
+    "readWindows": 4,
+    "createdStreams": 4,
+    "releasedStreams": 4,
+    "computeAttempts": 4,
+    "embeddingForwardCalls": 4,
+    "measuredWindows": 4,
+    "embeddingDimension": 512
+  },
+  "asrChunks": [
+    {
+      "startMs": 0,
+      "endMs": 6333
+    }
+  ],
+  "turnsUsedForAsrSlicing": false,
+  "wordAssignmentSupported": true,
+  "wordProcessedChunks": 1,
+  "fallbackChunks": 0,
+  "wordTimestampScope": "Token-emission proxies; pinned GigaAM v3 stride 40ms; not forced alignment or calibrated confidence",
+  "asrSlices": [
+    {
+      "startMs": 0,
+      "endMs": 6333,
+      "speakerId": -1,
+      "text": "Да, история — это ключ к пониманию прошлого и настоящего. А тебе нравится изучать историю?",
+      "blank": false,
+      "inferenceMs": 1921,
+      "tokenCount": 42,
+      "timestampCount": 42,
+      "wordCount": 14,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    }
+  ],
+  "energyWindowMs": 40,
+  "energySearchMs": 4000,
+  "energyMetric": "sequential Double mean-square of original decoded Float32 PCM",
+  "fallbackPolicy": "Full actual ASR chunk with unknown speaker and warning; no fabricated word times or second ASR pass",
+  "wordEvidenceBudgetScope": "Conservative additional pretty-JSON UTF-8 payload bytes, including nesting allowance; summaries excluded",
+  "finalPssKb": 181687,
+  "peakMemory": "N\/A; stage boundary snapshots only",
+  "device": "unknown Android SDK built for x86_64",
+  "android": 35,
+  "runtime": "sherpa-onnx 2.0.1",
+  "backend": "GigaAM v3 E2E RNNT INT8 \/ sherpa-onnx 2.0.1",
+  "threads": 1,
+  "vadThreads": 1,
+  "sampleRate": 16000,
+  "originalPcmPeak": 0.3039856,
+  "recognitionInputGain": 1,
+  "quietGainTriggerPeak": 0.01,
+  "quietGainMax": 20,
+  "quietGainScope": "temporary VAD and ASR arrays only; original PCM\/playback\/diarization preserved",
+  "expectedSpeakers": -1,
+  "clusterThreshold": 0.30000001192092896,
+  "vadThreshold": 0.5,
+  "maxAsrSegmentMs": 20000,
+  "audioMs": 6333,
+  "totalMs": 8310,
+  "pipelineRtf": 1.3121743249644717,
+  "pipelineTimingScope": "validation through ASR release; persistenceMs and telemetry.elapsedMs reported separately",
+  "asrStageRtf": 0.33096478762040105,
+  "asrInferenceRtf": 0.29701563240170537,
+  "runCondition": "uncontrolled device caches\/temperature; sequential ML stages; CPU provider",
+  "diarizationTurns": [
+    {
+      "startMs": 31,
+      "endMs": 6275,
+      "speakerId": 0
+    }
+  ],
+  "clusteringMode": "automatic",
+  "clusterThresholdApplied": true,
+  "automaticValidation": "not accepted on independent long Russian dialogue",
+  "segmentationWindowShiftRatio": 0.10000000149011612,
+  "diarMinDurationOnSec": 0.20000000298023224,
+  "diarMinDurationOffSec": 0.5,
+  "vadMinSpeechSec": 0.25,
+  "vadMinSilenceSec": 0.25,
+  "vadWindowSamples": 512,
+  "vadMaxSpeechSec": 20,
+  "preRollMs": 600,
+  "postRollMs": 0,
+  "vadSpans": [
+    {
+      "startMs": 102,
+      "endMs": 518
+    },
+    {
+      "startMs": 774,
+      "endMs": 3622
+    },
+    {
+      "startMs": 3942,
+      "endMs": 6336
+    }
+  ],
+  "asrSpeechSpans": [
+    {
+      "startMs": 0,
+      "endMs": 6333
+    }
+  ],
+  "modelBytes": 278127730,
+  "stagesMs": {
+    "thermalWaitMs": 0,
+    "provisioningWaitMs": 0,
+    "nativeGateWaitMs": 1,
+    "validationMs": 1892,
+    "decodeMs": 292,
+    "metadataPersistenceMs": 5,
+    "vadLoadMs": 115,
+    "vadMs": 102,
+    "diarizationLoadMs": 592,
+    "diarizationReadMs": 4,
+    "diarizationInferenceMs": 108,
+    "diarizationMs": 839,
+    "diarizationRefinementMs": 1055,
+    "alignmentMs": 3,
+    "asrLoadMs": 1453,
+    "asrReadMs": 4,
+    "asrInferenceMs": 1881,
+    "wordAssignmentMs": 7,
+    "asrMs": 2096,
+    "persistenceMs": 9
+  },
+  "telemetry": {
+    "run": "e4fff411-f142-4094-b07d-0c367dc5d021",
+    "elapsedMs": 8764,
+    "stagesMs": {
+      "thermalWaitMs": 0,
+      "provisioningWaitMs": 0,
+      "nativeGateWaitMs": 1,
+      "validationMs": 1892,
+      "decodeMs": 292,
+      "metadataPersistenceMs": 5,
+      "vadLoadMs": 115,
+      "vadMs": 102,
+      "diarizationLoadMs": 592,
+      "diarizationReadMs": 4,
+      "diarizationInferenceMs": 108,
+      "diarizationMs": 839,
+      "diarizationRefinementMs": 1055,
+      "alignmentMs": 3,
+      "asrLoadMs": 1453,
+      "asrReadMs": 4,
+      "asrInferenceMs": 1881,
+      "wordAssignmentMs": 7,
+      "asrMs": 2096,
+      "persistenceMs": 9
+    },
+    "observedMaxPssKb": 417455,
+    "memoryScope": "stage boundary PSS snapshots; not continuous peak memory",
+    "thermalStatus": 0,
+    "thermalEvents": [
+      {
+        "elapsedMs": 362,
+        "status": 0
+      }
+    ],
+    "thermalApiSupported": true,
+    "thermalPowerServiceAvailable": true,
+    "thermalStatusAvailable": true,
+    "thermalListenerRegistered": true,
+    "thermalListenerRegistrationFailed": false,
+    "thermalListenerFailureReason": null,
+    "thermalUnavailableReason": null
+  }
+}

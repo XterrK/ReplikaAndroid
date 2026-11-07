@@ -1,0 +1,7 @@
+{"argv": ["adb", "-s", "emulator-5556", "shell", "settings", "get", "global", "stay_on_while_plugged_in"], "returncode": 0}
+{"argv": ["adb", "-s", "emulator-5556", "shell", "settings", "put", "global", "stay_on_while_plugged_in", "7"], "returncode": 0}
+{"argv": ["adb", "-s", "emulator-5556", "shell", "input", "keyevent", "224"], "returncode": 0}
+{"argv": ["adb", "-s", "emulator-5556", "shell", "wm", "dismiss-keyguard"], "returncode": 0}
+{"argv": ["adb", "-s", "emulator-5556", "shell", "am", "instrument", "-w", "-r", "-e", "class", "ru.replika.MediaImportV15Test,ru.replika.ImportJournalV15Test,ru.replika.StorageAudioTest#stereo48kNormalizesTo16kWithoutTimeDrift,ru.replika.StorageAudioTest#corruptedImportReturnsErrorAndRemovesPcm,ru.replika.HomeExperienceV15Test#newRecordingDefaultsToAutomaticAndManualModesRemainSelectable,ru.replika.HomeExperienceV15Test#launcherOpensOrbLibraryHasOwnTabAndHomeExportsRoomText", "ru.replika.offline.test/androidx.test.runner.AndroidJUnitRunner"], "returncode": 0}
+{"argv": ["adb", "-s", "emulator-5556", "shell", "settings", "put", "global", "stay_on_while_plugged_in", "1"], "returncode": 0}
+{"argv": ["adb", "-s", "emulator-5556", "shell", "settings", "get", "global", "stay_on_while_plugged_in"], "returncode": 0}

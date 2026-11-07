@@ -67,11 +67,17 @@ object RecognitionPlanner {
 
 object MlPolicy {
  fun threads(value: Int): Int { require(value in setOf(1,2,4)) { "Допустимо 1, 2 или 4 потока" };return value }
+ /** Keep one available CPU for the system where possible; retain the validated 1/2/4 set. */
+ fun automaticThreads(availableCores: Int): Int {
+  val budget=(availableCores.coerceAtLeast(1)-1).coerceIn(1,4)
+  return when { budget>=4 -> 4;budget>=2 -> 2;else -> 1 }
+ }
  fun mode(expectedSpeakers: Int): String = when(expectedSpeakers) {
   1 -> "single"
   in 2..20 -> "fixed"
   -1 -> "automatic"
   else -> error("Недопустимое число говорящих")
  }
- fun coolingRequired(status: Int): Boolean = status>=3 // PowerManager.THERMAL_STATUS_SEVERE
+ fun thermalStatus(value: Int): Int = if(value in 0..6) value else -1
+ fun coolingRequired(status: Int): Boolean = status in 3..6 // Known SEVERE through SHUTDOWN only.
 }

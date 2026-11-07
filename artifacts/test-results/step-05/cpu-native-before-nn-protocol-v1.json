@@ -1,0 +1,342 @@
+{
+  "schema_version": 1,
+  "id": "cpu-native-before-neural-inference-v1",
+  "frozen_at": "2026-11-07T04:08:53.525512+00:00",
+  "status": "FROZEN_BEFORE_NATIVE_CPU_INFERENCE",
+  "base_merge": "87f669a61a4c3fa3d0e8a319a147f947a57e1844",
+  "scope": "Step5 CPU execution regression only. Historical authored montage and previously seen cohorts; not blind/natural-dialogue/ARM/phone/speed/word-boundary or full-project acceptance. No NN by protocol author.",
+  "priority": "PLAN_19H section0.4 >0.3 >0.2 >0.1; GigaAM v3 E2E and raw punctuation/case WER retained",
+  "case_manifest": "benchmark/eval/manifest.json",
+  "manifest_sha256": "47109cb1987624daaf8f4dc28e8eca3198b0c2bbcf01cd334b9611664eb38066",
+  "model_lock_sha256": "bd18076e29b225ae51a9c43dd347bf0fd7ed8f2e9c5ed10bba56a0899df1dcb9",
+  "paired_asr_plan": "vad_words_context600",
+  "diarization_plan": "eres2net_window_v1",
+  "automatic_speakers": -1,
+  "no_reference_text_or_expected_k_on_device": true,
+  "dev_ids": [
+    "dev-01-two-clean",
+    "dev-02-three-clean",
+    "dev-03-short",
+    "dev-04-expressive",
+    "dev-05-whisper",
+    "dev-06-overlap",
+    "dev-mono-m",
+    "dev-mono-s"
+  ],
+  "fixed_five_ids": [
+    "dev-01-two-clean",
+    "dev-03-short",
+    "holdout-02-three-clean",
+    "holdout-04-overlap-expressive",
+    "dev-mono-s"
+  ],
+  "union_ids": [
+    "dev-01-two-clean",
+    "dev-02-three-clean",
+    "dev-03-short",
+    "dev-04-expressive",
+    "dev-05-whisper",
+    "dev-06-overlap",
+    "dev-mono-m",
+    "dev-mono-s",
+    "holdout-02-three-clean",
+    "holdout-04-overlap-expressive"
+  ],
+  "union_cases": 10,
+  "baseline": {
+    "run": "artifacts/test-results/step-04/context600-c2-android-v3",
+    "run_sha256": "488f4f192a4547e579e9fce46634eb7613e3261dc1df1d8c525e539560fa6686",
+    "independent_audit_sha256": "25cdb4dc45bbe9aabe13947eebb720c0d215bce90e5d8f0332eb2609b2b92623",
+    "native_dev": {
+      "cases": 8,
+      "wer_raw_errors": 70,
+      "wer_raw_reference_tokens": 533,
+      "wer_normalized_errors": 16,
+      "wer_normalized_reference_tokens": 532,
+      "cpwer_raw_errors": 145,
+      "cpwer_raw_reference_tokens": 533,
+      "cpwer_raw_rate": 0.27204502814258913,
+      "native_speaker_count_exact_cases": 7,
+      "native_der0": 0.18298480576441103,
+      "native_der0_components": {
+        "miss_ms": 26531.0,
+        "false_alarm_ms": 2680.0,
+        "confusion_ms": 17516.0,
+        "reference_speaker_ms": 255360.0
+      }
+    },
+    "native_fixed_five": {
+      "errors": 43,
+      "reference_tokens": 442,
+      "rate": 0.09728506787330317
+    },
+    "cases": [
+      {
+        "id": "dev-01-two-clean",
+        "reference_sha256": "523b1097852d70d1f6d2cf2f3c632ee5c5ac3bedf8e64487ecbdada21c25d127",
+        "audio_sha256": "80bdb11e4d9e313d2440c01b80babc0dbe319c9dbea371988ef62716ffb9d77b",
+        "duration_ms": 69556,
+        "baseline_evidence_sha256": {
+          "case.json": "58a1175e5a2a700c33b52ea67a91b7551b528d66c02a3597eaee5e3f5abd95ff",
+          "scored-case.json": "6a7bb351d930fc5f01d97229b696d17bb0f21c350148b9c84a4a668c354c792e",
+          "reference.json": "523b1097852d70d1f6d2cf2f3c632ee5c5ac3bedf8e64487ecbdada21c25d127",
+          "hypothesis.json": "9c74b2c1a970e658fe28ddfde663342a8199d55f7719aa9f913facf7196ee50f",
+          "diagnostics.json": "880111fe4bb65fdd368805f8f558ac4f579ea0aa5c42f84237ba8fef979bc100",
+          "metrics.json": "ffa262fe080f5870a11b4e8a4555dec65b00759170e8409eaca19e1ea8ec697e",
+          "diarization-evidence.json": "e504a7100534099e0dd108873ad3e37a67f77a2a9148d21f6e1f70de6e40bd41"
+        }
+      },
+      {
+        "id": "dev-02-three-clean",
+        "reference_sha256": "0900022595d73de02b3c7459f85a37b39e37ac5cb455e7ee8827399097e01256",
+        "audio_sha256": "54dd41aa60e05602adcebc10d38a3a4f1cb2cf3ebdcc014d46a1387fbcc8a040",
+        "duration_ms": 59280,
+        "baseline_evidence_sha256": {
+          "case.json": "b2620b470ccabc184ba4bab220bb7c8d4360bc5a91bcce76e75aaa6c58dcf490",
+          "scored-case.json": "36ed9fe4a440fe3400fa9f280822d23e820aea62db21a5539c8fe8f9c2de7397",
+          "reference.json": "0900022595d73de02b3c7459f85a37b39e37ac5cb455e7ee8827399097e01256",
+          "hypothesis.json": "41d57b56728fc702a95a0241d5100ae80309e5567995c697561049c3b1ffccbb",
+          "diagnostics.json": "7cc1c6b17b34452918f5ff21a61894d29d596c5939c94cda05b0439fd1031abc",
+          "metrics.json": "6b99b457d945274fb46046bbb552daf4e1b50416ca3b07272e55f270939e2ae0",
+          "diarization-evidence.json": "e88e4635e61ee9619e9ca51961763d1372444a67a94e13d7ea9368ac0e79d35f"
+        }
+      },
+      {
+        "id": "dev-03-short",
+        "reference_sha256": "dfaf5a84d3c2850a87ebe3b47369ffb87863c6c710abc6cc7f2faea5337be571",
+        "audio_sha256": "a3255bc32a41cc9f6ccd691bfc6a0861e82e160370f2b403b1339133465c94b4",
+        "duration_ms": 19253,
+        "baseline_evidence_sha256": {
+          "case.json": "593269ff3cbd1351c4339d675e36838bea2b1c6ccddbdb7289999269c8fdda4e",
+          "scored-case.json": "e14c0eea58f1caa6e0cc0bf61a4abdb178b44a3eb990b0bfebe611365a4d6ff4",
+          "reference.json": "dfaf5a84d3c2850a87ebe3b47369ffb87863c6c710abc6cc7f2faea5337be571",
+          "hypothesis.json": "12388134de2450799fd659b000bdfa2910241b31b9b9bb6acf62d3d65d0c4794",
+          "diagnostics.json": "39f3f978670b18034cdaea615ca6d51dd22eec78c34fb5e7b0b601bb5faf9224",
+          "metrics.json": "c7f0fa3812522fd7764ef580ab4326711df5c8df5daddbe53d15e060ff56d44b",
+          "diarization-evidence.json": "f41e40731f1aac9d4f173d00d3c48df10246e9a9ce719521eb216b059759a97a"
+        }
+      },
+      {
+        "id": "dev-04-expressive",
+        "reference_sha256": "31893577919d7a65863235dc7067a73214f9a9855a7db5ee153fadffbb8606f7",
+        "audio_sha256": "f79ee42bac3ce68fa7bad5afeb68117e2135ea22facf95314fe0020288f1b11e",
+        "duration_ms": 35470,
+        "baseline_evidence_sha256": {
+          "case.json": "383d933542126ba3eb7bf4a1ff5c7002e9efb6d283c0576b3325fea9ffe2a64b",
+          "scored-case.json": "d0657f92955b9bf74595f427da9d69dcb41963ae6ded75532d1dd03080ff9352",
+          "reference.json": "31893577919d7a65863235dc7067a73214f9a9855a7db5ee153fadffbb8606f7",
+          "hypothesis.json": "af37266855e792ba3ab0a8247271edda1edbe5c374d42b2e76c291161f660c46",
+          "diagnostics.json": "0f844243d08e021cbca0bcb7bfea1fb66f04e1313d62138bc571ea44f6485c58",
+          "metrics.json": "621cbc5e2eeff18d8fa449dc3450987ed3deee5d805e9d195ee40a35c17516fb",
+          "diarization-evidence.json": "de51b3ae20a4de3baa5883b8ab71ef2ee0ecfcda407769a7752a5507becb0a07"
+        }
+      },
+      {
+        "id": "dev-05-whisper",
+        "reference_sha256": "d544e0695cf6307c2899f72cdff638c970e4915e9326003c393710545ca7a9f1",
+        "audio_sha256": "20443dba1db8cbd8ca5594ef1fc6edbd2ba257973f8c7621d7d20267a1a9095d",
+        "duration_ms": 32902,
+        "baseline_evidence_sha256": {
+          "case.json": "9690769925a1c0887f44f9595a36b92c94bc2c1d54def487fb21ad074bb68682",
+          "scored-case.json": "b668193f7cd3b7164d1e9b8bb3eced45b92cae60975025b87aaacfdd8e2163c1",
+          "reference.json": "d544e0695cf6307c2899f72cdff638c970e4915e9326003c393710545ca7a9f1",
+          "hypothesis.json": "df2687ada9bb7b12ad0bfad740bc517e24de9441d92e77dc6a04a09b0ba85352",
+          "diagnostics.json": "99338b760cf39009552e939d27aa2e741e3846f25dd2088782b18b61fe25d51b",
+          "metrics.json": "361310dc7e58e3d3213d7418f6c0a9af19583c971f8e51314d6402849a6ec639",
+          "diarization-evidence.json": "c501028eccb746f15cabacc675b0ae2e8aa10f19b6b357b37906f60c1742f910"
+        }
+      },
+      {
+        "id": "dev-06-overlap",
+        "reference_sha256": "7b23bb601328e721ebc51b2f2cf0d3292b64bf65cd6250332e45688756e53713",
+        "audio_sha256": "dd232cf4b15efa710887fc38785b1c7377cc30046b45719aa5f6a867bb0b009c",
+        "duration_ms": 36060,
+        "baseline_evidence_sha256": {
+          "case.json": "58c9243a18437dcab275ce286f68decadeca03b609d7c66f15d3d5d58f578377",
+          "scored-case.json": "e2498f0b904f765455f932c4c6c975f1d2ff642dd57dce77d934b849cbf9f463",
+          "reference.json": "7b23bb601328e721ebc51b2f2cf0d3292b64bf65cd6250332e45688756e53713",
+          "hypothesis.json": "da2b68e9be976c1a7cdc05c5b970b8bc726c7fd8ad72380f4b07ad9b365f15ea",
+          "diagnostics.json": "db4c97b3fe373b716d49ab1cc907c9941e100ae2fae383a83890f0235e04a0f5",
+          "metrics.json": "7ab6fe3b2a160ba80b3a4d46f003d265bb139a8df8b07f8a11e42aa1b61bb8a1",
+          "diarization-evidence.json": "4a26282aff4d8d87c1bb18d25dfc02e1cd0ba51e70e2d48156b07367f7935758"
+        }
+      },
+      {
+        "id": "dev-mono-m",
+        "reference_sha256": "c027484abb892d54d2b3eb1601344a7c29e1e1ada7d09e490d15e104ed3e71f5",
+        "audio_sha256": "317b2c84e153f783cd343c5681603c94045f522f2d44fe1f41dc7862f46198f6",
+        "duration_ms": 11626,
+        "baseline_evidence_sha256": {
+          "case.json": "0ebc3cff9444f6a086888b957e46d2604366772bbc9b81300e2e03688445a321",
+          "scored-case.json": "bb332e01738bb77bb6ed3cbeec037422929c10b9bae01fd7efdcfb78802b6bdb",
+          "reference.json": "c027484abb892d54d2b3eb1601344a7c29e1e1ada7d09e490d15e104ed3e71f5",
+          "hypothesis.json": "532e0a61828b4005303b2864d72ecac3be1ea3052c371fa10a38d765a077572b",
+          "diagnostics.json": "5abffe7869ba4d4f1bb21c212749e0711e7a0f6b2e30d5cec190d0adaa0f3b7a",
+          "metrics.json": "c4c9fe2abe63dad96656449b76be8c86cd96c5d61fdb63b552904399bb4b9411",
+          "diarization-evidence.json": "c82a05dee0cb84a0cb92612af6ecd54529205b9b4e623372f1bfdaf8f1b293ae"
+        }
+      },
+      {
+        "id": "dev-mono-s",
+        "reference_sha256": "9259341e0d2aa8bc8bf6bdc9f616ea30e5025aa4e1adca14dc09f2089dcb15e1",
+        "audio_sha256": "97943f4d90c2b56166031263a6820c41e0f80b94643a9d3737327debdc8fbe53",
+        "duration_ms": 6333,
+        "baseline_evidence_sha256": {
+          "case.json": "e0589d654844560e0353193f883ee887b885263c7cdc3a16543b0526c55f5d90",
+          "scored-case.json": "803764d16addf5430ee11408ff604c373751f4c08b929ac23dd538e526b2fc65",
+          "reference.json": "9259341e0d2aa8bc8bf6bdc9f616ea30e5025aa4e1adca14dc09f2089dcb15e1",
+          "hypothesis.json": "da717d03f8b6091548a6b903332e62313efe1efbfb18464503922703af13b858",
+          "diagnostics.json": "fb1bb5d4c52f17ba74b6115ee2be6b2674a237dc5945ba783e0cbfe716e6d162",
+          "metrics.json": "5fccb541f6330e2a7ba49e47d4aae88c93673fcf7390e383f238be56a2b52135",
+          "diarization-evidence.json": "19d3f739131d93b445df71f5b95623a108ef2b1869b3e506f26bf1abb1fab32f"
+        }
+      },
+      {
+        "id": "holdout-02-three-clean",
+        "reference_sha256": "b3d0daa4ea7d84008352961e70dd72fa85bb4052de546858651e08c87d79721a",
+        "audio_sha256": "453c3b47484600ba183a43a04f72a7c57faa51691d6ccd099939bb2dc99a1354",
+        "duration_ms": 74417,
+        "baseline_evidence_sha256": {
+          "case.json": "0223624096bfed1dd5c1849f1784a47f12d3f53beddf1c8da7fdb59896e7737c",
+          "scored-case.json": "a3d5fd0efd9288c81fbea6c831f7ca27f4b9071ec8eb949f4288aae9b43e45ff",
+          "reference.json": "b3d0daa4ea7d84008352961e70dd72fa85bb4052de546858651e08c87d79721a",
+          "hypothesis.json": "eb561173055b5f915918d71db80903dc2f984926fb28e3d83438193b3f8cefa8",
+          "diagnostics.json": "3bb066d0ec07918e3f2fa1a1b5562ef9629a74b3775d7f1bae6744dd325c187e",
+          "metrics.json": "d543f5f6025ff4ed8e8320ae3d6bb9564499c6a76378353a0970d68df865aa68",
+          "diarization-evidence.json": "fb0ec35bf069d8701136c2e997bb2f80a7fa87536c29165e606aa8af6fd3a858"
+        }
+      },
+      {
+        "id": "holdout-04-overlap-expressive",
+        "reference_sha256": "6523f1fd9c61b901b71a21a8b01f64b6cac7909da3cd579cedc95a21a4b6aefe",
+        "audio_sha256": "e5d96325a3f726a355c013757e42c250cff8b7457d6ccb2f5875fb4a6cad7514",
+        "duration_ms": 48178,
+        "baseline_evidence_sha256": {
+          "case.json": "c01fa283005a575900306a7f6cdf9c0776428f8183ae3af2333826bf69abe092",
+          "scored-case.json": "67178ea8b1d6c97f28764efe54c04e577fbe2da2175bb70a57147d9dbe287bf3",
+          "reference.json": "6523f1fd9c61b901b71a21a8b01f64b6cac7909da3cd579cedc95a21a4b6aefe",
+          "hypothesis.json": "38fb84d9304ec947b4e9fcd9540c7a6924187a51ef23e7b0aa3dab98d4481207",
+          "diagnostics.json": "7e56a79a796efdd25860be0400d928a16eb5afebd70677c82099c6a4d194a4b9",
+          "metrics.json": "9fecb75f6e16a35c411efcf123587e0916cdeb712ac36c49a5d7d26af66b0c33",
+          "diarization-evidence.json": "6eecbc851177c4d2f60600045a41b953e4c1e30da89071d8656f726bc01f631a"
+        }
+      }
+    ]
+  },
+  "host_thread_variants": {
+    "2": {
+      "run": "artifacts/test-results/step-05/cpu-host-threads2",
+      "run_sha256": "71911282ee756e994d15554f8e7f8b280b4d4c55fc5c90b71eef5f46903b8581",
+      "config_sha256": "432d580e2d8d310ce30e0bdaddff96afa70b3f7b35aeac4fcd4ef90f12b3dcf0",
+      "independent_audit": "artifacts/test-results/step-05/independent-cpu-threads2-v1.json",
+      "independent_audit_sha256": "fbaafc4f3173b1630d670716038183a9a4e1a136c596472c7cfd5a3508dfb615",
+      "quality_gate": "PASS",
+      "cases": 13
+    },
+    "1": {
+      "run": "artifacts/test-results/step-05/cpu-host-threads1",
+      "run_sha256": "ab82b7bb74f06751f673885ce96c506092894cf84604333549b5d3ce969140e8",
+      "config_sha256": "574d977292d2ae7e42dac49226a44a0964683a8b7d3d8c4bceb575c557178b1d",
+      "independent_audit": "artifacts/test-results/step-05/independent-cpu-threads1-v1.json",
+      "independent_audit_sha256": "06cd903428034a7653da51242cf10bda98c2e38bbf2e4ed7ad92dfebc3b0188a",
+      "quality_gate": "PASS",
+      "cases": 13
+    },
+    "4": {
+      "run": "artifacts/test-results/step-05/cpu-host-threads4",
+      "run_sha256": "1b13ffe4587fdfe680b69c607c236fff60368f18da36bca3939404ee52beb093",
+      "config_sha256": "5307eb0be785755aafb5e1a7c709d96c67e0290e176823d96566ceda7ba816ef",
+      "independent_audit": "artifacts/test-results/step-05/independent-cpu-threads4-v1.json",
+      "independent_audit_sha256": "455b4f7f026e70583ece09da774add3fde4d63040c2c3ef4305d30de8fcfd5bc",
+      "quality_gate": "PASS",
+      "cases": 13
+    }
+  },
+  "planned_native_controls": [
+    {
+      "id": "explicit-two",
+      "cpu_plan": "auto_v1",
+      "requested_threads": 2,
+      "expected_effective_threads": 2,
+      "host_variant": "2",
+      "coverage": "full10"
+    },
+    {
+      "id": "automatic-runtime-cores",
+      "cpu_plan": "auto_v1",
+      "requested_threads": 0,
+      "expected_effective_threads": 1,
+      "host_variant": "1",
+      "coverage": "full10",
+      "mapping": "largest of1,2,4 <=clamp(actual Runtime.availableProcessors()-1,1,4)",
+      "expected_emulator_available_cores": 2,
+      "actual_cores_must_be_recorded_and_mapping_replayed": true
+    }
+  ],
+  "separate_legacy_smoke": {
+    "policy": "historical missing CPU plan or explicit v16; moderate requested ASR threads1",
+    "expected_asr_threads": 1,
+    "expected_diarization_threads": 2,
+    "expected_refinement_threads": 2,
+    "diarization_pinned": true,
+    "refinement_pinned": true,
+    "scope": "Separate functional WorkData compatibility smoke; not supported as full10 collector v16/threads1 and not a corpus acceptance substitute."
+  },
+  "native_cpu_quality_gate": {
+    "cohort": "dev8 only; denominator never expanded by extra fixed-five cases",
+    "all_conditions_required": true,
+    "wer_raw_errors_max": 70,
+    "wer_normalized_errors_max": 16,
+    "cpwer_raw_errors_max": 145,
+    "native_der0_max": 0.18298480576441103,
+    "native_speaker_count_exact_cases_min": 7,
+    "numeric_epsilon": 1e-12,
+    "integer_counts_and_reference_denominators_exact": true,
+    "cpwer_rate_comparison": "candidate cpWERraw <=145/533+1e-12, with exact533 denominator and integer error cap145",
+    "native_der_comparison": "weighted sum(miss+FA+confusion)/sum(reference_speaker_ms) <= baseline +1e-12",
+    "directions": "All error counts/rates lower is better; exact-count cases higher is better"
+  },
+  "fixed_five_port_gate": {
+    "independent_of_dev_quality_gate": true,
+    "ids": [
+      "dev-01-two-clean",
+      "dev-03-short",
+      "holdout-02-three-clean",
+      "holdout-04-overlap-expressive",
+      "dev-mono-s"
+    ],
+    "reference_tokens": 442,
+    "reference_source": "Paired host run for actual effective threads; all host variants validated against the same canonical references",
+    "baseline_native_errors": 43,
+    "paired_host_errors": 44,
+    "threshold_percentage_points": 0.5,
+    "formula": "abs(100*(native_errors/442-host_errors/442)) <=0.5",
+    "weighted_corpus_gate": true,
+    "retain_every_per_file_delta_and_outlier": true,
+    "no_extra_per_file_gate": true
+  },
+  "required_native_evidence": [
+    "full10 exact coverage, source audio/reference/model/runtime/APK/source hashes",
+    "exact CPU policy and requested/effective threads on report/Worker/QA; automatic mapping from actual safeInt cores",
+    "C2 native SD/refiner parameters and stage threads bound to paired host variant",
+    "complete bounded actual Float32 vectors, resource counts/release, pure C2 replay",
+    "actual ASR tokens/timestamps/words/per-chunk grouping and strict Jury JSON replay",
+    "independent recomputation of raw/normalized/cpWER and native DER0/250/count",
+    "both new CPU nonregression gate and separate fixed-five port gate",
+    "restore screen-power state and retain every failure/output"
+  ],
+  "collector_code_sha256": {
+    "tools/eval/native_diar_policy.py": "3cbd379c545b3d6206a5afc52817c34ae601836fae38cc808c6972e651c407df",
+    "tools/eval/pull_refined_android.py": "a1f0524e5c0a814514143ff3db93c393bd9161dff9a6a2ac0c3a7e9ccee8ec5a"
+  },
+  "collector_gate_scope": "Existing collector dev_quality_gate remains historical C2 fixedV1.6+2pp. Collector gate_pass alone does NOT establish new CPU native nonregression; independent protocol audit must apply native_cpu_quality_gate. No historical gate is weakened.",
+  "before_inference_execution_receipt_required": {
+    "new_app_and_test_apk_sha256": true,
+    "installed_apk_digest_equals_local": true,
+    "new_source_cpu_runtime_snapshot": true,
+    "selected_host_run_and_protocol_sha256": true,
+    "note": "Record actual new build/installed pins before NN in separate fresh execution evidence; this immutable protocol does not invent a pending APK hash."
+  },
+  "performance_scope": "No speed acceptance from initial full10 quality controls. Separate controlled1/3/10-minute runs, same QA settings, stage timings/cores/thermal/PSS and actual platform are required. x86 emulator is not ARM/phone proof.",
+  "unchanged_earlier_protocol": "configs/eval/cpu-auto-v1-protocol.json"
+}

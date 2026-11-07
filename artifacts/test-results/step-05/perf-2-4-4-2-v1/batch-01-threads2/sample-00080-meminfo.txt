@@ -1,0 +1,65 @@
+Applications Memory Usage (in Kilobytes):
+Uptime: 33365076 Realtime: 33365076
+
+** MEMINFO in pid 8526 [ru.replika.offline] **
+                   Pss  Private  Private     Swap      Rss     Heap     Heap     Heap
+                 Total    Dirty    Clean    Dirty    Total     Size    Alloc     Free
+                ------   ------   ------   ------   ------   ------   ------   ------
+  Native Heap    94935    94820        0        0    98784   186420   101513    79585
+  Dalvik Heap    12219    11972        0        0    19656    15288     7644     7644
+ Dalvik Other    14971     6188        0        0    24352                           
+        Stack     2168     2168        0        0     2172                           
+       Ashmem       67        0        0        0      692                           
+    Other dev        6        0        4        0      336                           
+     .so mmap     3834      188       76        0    46104                           
+    .jar mmap     2843        0        4        0    44528                           
+    .apk mmap    91745      512    21052        0   163372                           
+    .ttf mmap      196        0      160        0      232                           
+    .dex mmap       68        8        0        0      964                           
+    .oat mmap       51        0        0        0     1660                           
+    .art mmap     8743     7980       32        0    29612                           
+   Other mmap     4700        4      128        0    10588                           
+      Unknown      693      680        0        0     1520                           
+        TOTAL   237239   124520    21456        0   444572   201708   109157    87229
+ 
+ App Summary
+                       Pss(KB)                        Rss(KB)
+                        ------                         ------
+           Java Heap:    19984                          49268
+         Native Heap:    94820                          98784
+                Code:    22160                         274560
+               Stack:     2168                           2172
+            Graphics:        0                              0
+       Private Other:     6844
+              System:    91263
+             Unknown:                                   19788
+ 
+           TOTAL PSS:   237239            TOTAL RSS:   444572      TOTAL SWAP (KB):        0
+ 
+ Objects
+               Views:        6         ViewRootImpl:        1
+         AppContexts:        8           Activities:        1
+              Assets:       10        AssetManagers:        0
+       Local Binders:       21        Proxy Binders:       71
+       Parcel memory:       13         Parcel count:       49
+    Death Recipients:        0             WebViews:        0
+ 
+ SQL
+         MEMORY_USED:     1000
+  PAGECACHE_OVERFLOW:      410          MALLOC_SIZE:      142
+ 
+ DATABASES
+      pgsz     dbsz   Lookaside(b) cache hits cache misses cache size  Dbname
+PER CONNECTION STATS
+         4       68            119   535   715    15  /data/user/0/ru.replika.offline/databases/replika.db
+         4        8                    0     0     0    (attached) temp
+         4       68            116  6910   344     6  /data/user/0/ru.replika.offline/databases/replika.db (2)
+         4       68            109  6827   311     7  /data/user/0/ru.replika.offline/databases/replika.db (1)
+         4       68             86  5373   732     4  /data/user/0/ru.replika.offline/databases/replika.db (3)
+         4      164            123  3599  2306    25  /data/user/0/ru.replika.offline/no_backup/androidx.work.workdb
+         4        8                    0     0     0    (attached) temp
+         4      164            104    33   263     8  /data/user/0/ru.replika.offline/no_backup/androidx.work.workdb (1)
+POOL STATS
+     cache hits  cache misses    cache size  Dbname
+          10347          1603         11950  /data/user/0/ru.replika.offline/databases/replika.db
+           3632          2573          6205  /data/user/0/ru.replika.offline/no_backup/androidx.work.workdb

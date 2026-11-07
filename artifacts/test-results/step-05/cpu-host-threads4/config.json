@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "id": "CPU-auto-v1-C2-threads4",
+  "pipeline": "window_words_v1",
+  "expected_speakers": -1,
+  "threads": 4,
+  "model_id": "eres2net_zh",
+  "window_shift": 0.1,
+  "native_threshold": 0.3,
+  "window_config": {
+    "tau": 0.36,
+    "method": "average",
+    "grid_ms": 125,
+    "max_speakers": 8,
+    "reassign_small": true,
+    "min_cluster_ms": 2000,
+    "min_cluster_fraction": 0.03,
+    "minimum_reassignment_similarity": null,
+    "smooth": true,
+    "smooth_ms": 500
+  },
+  "candidate_freeze_sha256": "2e81175388b45d204554d0c95eca27ba3a2a09b2c9d62dbfdd9a0bc60f360409",
+  "notes": "Predeclared CPU execution experiment; protocol SHA256 337ddce76c972d90e379734c4032b5d7d8328e323ae3ca08fc23d41df85bb4bf. Fresh whole C2 inference, no cached ASR or oracle K; original 7 weights and algorithm settings retained.",
+  "cpu_plan": "auto_v1"
+}

@@ -28,7 +28,7 @@ class RefinedPipelineContractTest(unittest.TestCase):
         self.audio = self.root / "audio.wav"
         self.audio.write_bytes(b"controlled waveform fixture; canonical reader is replaced")
 
-    def invoke(self, *, missing_times=False, fail_asr=False, window=False):
+    def invoke(self, *, missing_times=False, fail_asr=False, window=False, threads=2, cpu_plan="v16"):
         import numpy as np
         import sherpa_onnx
         events, asr_inputs, decoder_calls, sd_inputs, embedding_inputs, sd_configs = [], [], [], [], [], []
@@ -38,6 +38,8 @@ class RefinedPipelineContractTest(unittest.TestCase):
             def __init__(self, config):
                 self.config = config
                 sd_configs.append(config)
+                if config.segmentation.num_threads != threads or config.embedding.num_threads != threads:
+                    raise AssertionError("Requested CPU threads did not reach both native SD models")
                 self_count = config.clustering.num_clusters
                 if self_count != -1:
                     raise AssertionError("Known K reached SD")
@@ -65,6 +67,8 @@ class RefinedPipelineContractTest(unittest.TestCase):
 
         class FakeExtractor:
             def __init__(self, config):
+                if config.num_threads != threads:
+                    raise AssertionError("Requested CPU threads did not reach clean extractor")
                 if "sd_release" not in events:
                     raise AssertionError("SD model overlaps extractor lifetime")
                 self.calls = 0
@@ -99,7 +103,7 @@ class RefinedPipelineContractTest(unittest.TestCase):
             def from_transducer(cls, **config):
                 if "embedding_release" not in events:
                     raise AssertionError("Extractor lifetime overlaps ASR")
-                if config["num_threads"] != 2 or config["dither"] != 0 or config["decoding_method"] != "greedy_search":
+                if config["num_threads"] != threads or config["dither"] != 0 or config["decoding_method"] != "greedy_search":
                     raise AssertionError("Frozen GigaAM settings changed")
                 events.append("asr_load")
                 return cls()
@@ -148,7 +152,34 @@ class RefinedPipelineContractTest(unittest.TestCase):
         self.source_pcm = source_pcm
         self.sd_configs = sd_configs
         return pipeline.process(self.audio, self.root, catalog_path=self.catalog,
-            embedding_root=self.root, **options)
+            embedding_root=self.root, threads=threads, cpu_plan=cpu_plan, **options)
+
+    def test_explicit_cpu_one_reaches_all_native_stages_with_original_policy_and_lifetimes(self):
+        actual = self.invoke(window=True, threads=1, cpu_plan="auto_v1")
+        d = actual["diagnostics"]
+        self.assertEqual(1, d["pairedAsrPolicy"]["threads"])
+        self.assertEqual(1, d["selectedNativePolicy"]["threads"])
+        self.assertEqual(1, d["cpuExecutionPolicy"]["refinementThreads"])
+        self.assertEqual(pipeline.C2_WINDOW_CONFIG, d["windowConfig"])
+        self.assertEqual([1], self.decoder_calls)
+        self.assertLess(self.events.index("sd_release"), self.events.index("embedding_load"))
+        self.assertLess(self.events.index("embedding_release"), self.events.index("asr_load"))
+
+    def test_explicit_cpu_four_is_recorded_without_mutating_historical_policy(self):
+        actual = self.invoke(window=True, threads=4, cpu_plan="auto_v1")
+        d = actual["diagnostics"]
+        self.assertEqual(4, d["pairedAsrPolicy"]["threads"])
+        self.assertEqual(4, d["config"]["asr"]["threads"])
+        self.assertEqual(4, d["cpuExecutionPolicy"]["asrThreads"])
+        self.assertEqual(2, pipeline.PAIRED_ASR_POLICY["threads"])
+        self.assertEqual("Привет, мир!", " ".join(row["text"] for row in actual["transcript"]))
+
+    def test_cpu_policy_rejects_unknown_implicit_and_noninteger_requests_before_io(self):
+        for options in ({"threads": 1}, {"threads": 4}, {"threads": True, "cpu_plan": "auto_v1"},
+                        {"threads": 0, "cpu_plan": "auto_v1"}, {"threads": 3, "cpu_plan": "auto_v1"},
+                        {"threads": 2, "cpu_plan": "future"}, {"threads": 2, "cpu_plan": None}):
+            with self.subTest(options=options), self.assertRaises(ValueError):
+                pipeline.process("missing", "missing", **options)
 
     def test_lifetimes_original_pcm_and_one_actual_decode_per_vad_chunk(self):
         import numpy as np

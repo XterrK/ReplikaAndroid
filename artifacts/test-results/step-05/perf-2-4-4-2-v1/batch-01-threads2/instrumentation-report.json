@@ -1,0 +1,106 @@
+{
+  "status": "COMPLETE",
+  "run": "p19perf20261107T045130178000Z_1",
+  "cases": [
+    {
+      "id": "perf-01m",
+      "status": "COMPLETE",
+      "audio_sha256": "07fcdf4133767dd70170eaa25224b328b03ab411483f6e5957483121fa988bc3",
+      "duration_ms": 60000,
+      "processing_ms": 67890,
+      "worker_wall_ms": 69377,
+      "segments": 9,
+      "newModelInference": true,
+      "recordingId": "qa-evaluation-2e8e7bac-b708-4d01-9eef-f06fdd685dc0",
+      "collectEvidence": false,
+      "processId": 8526,
+      "workId": "57720e7a-db3d-4885-a6d1-32c82435cc0a",
+      "workManagerState": "SUCCEEDED"
+    },
+    {
+      "id": "perf-03m",
+      "status": "COMPLETE",
+      "audio_sha256": "b8787d41b83e2f3cb3b58655d06e574186e20b19e0e06158a122f2a76d6a6824",
+      "duration_ms": 179999,
+      "processing_ms": 223039,
+      "worker_wall_ms": 223737,
+      "segments": 25,
+      "newModelInference": true,
+      "recordingId": "qa-evaluation-bd061fec-cb8e-4f23-823b-1b1a2ba3be23",
+      "collectEvidence": false,
+      "processId": 8526,
+      "workId": "987985be-a6b6-4e8a-9c26-485045f83e6f",
+      "workManagerState": "SUCCEEDED"
+    },
+    {
+      "id": "perf-10m",
+      "status": "COMPLETE",
+      "audio_sha256": "d923885db4b7fe9964c0f36c911e9419123ef80e8e33bf55b94d40d577db4f60",
+      "duration_ms": 599999,
+      "processing_ms": 854460,
+      "worker_wall_ms": 855460,
+      "segments": 81,
+      "newModelInference": true,
+      "recordingId": "qa-evaluation-608e283f-9396-4cfb-a83c-92bdad6b005e",
+      "collectEvidence": false,
+      "processId": 8526,
+      "workId": "41e0465b-6b17-4b86-bd0d-c98e5a3d8d0b",
+      "workManagerState": "SUCCEEDED"
+    }
+  ],
+  "scope": "Actual Android production Worker; independent reference text\/counts are not staged or passed to recognition",
+  "api": 35,
+  "supportedAbis": [
+    "x86_64"
+  ],
+  "collectEvidence": false,
+  "processId": 8526,
+  "threads": 2,
+  "requestedThreads": 2,
+  "cpuPlan": "auto_v1",
+  "cpuPolicy": {
+    "plan": "auto_v1",
+    "requestedThreads": 2,
+    "availableCores": 2,
+    "asrThreads": 2,
+    "diarizationThreads": 2,
+    "refinementThreads": 2,
+    "diarizationPinned": false,
+    "refinementPinned": false
+  },
+  "expectedSpeakers": -1,
+  "newModelInference": true,
+  "asrPlan": "vad_words_context600",
+  "asrPolicy": {
+    "pipeline": "vad_words_v1",
+    "punctuation_mode": "none",
+    "energy_split": true,
+    "vad_threshold": 0.5,
+    "vad_min_speech_sec": 0.25,
+    "vad_min_silence_sec": 0.25,
+    "pre_roll_ms": 600
+  },
+  "diarizationPlanRequested": "eres2net_window_v1",
+  "diarizationPlan": "eres2net_window_v1",
+  "diarizationPolicy": {
+    "plan": "eres2net_window_v1",
+    "algorithm": "window-overcluster-v1",
+    "embedding_path": "diar\/embedding.onnx",
+    "native_threshold": 0.30000001192092896,
+    "window_shift": 0.10000000149011612,
+    "min_duration_on": 0.20000000298023224,
+    "min_duration_off": 0.5,
+    "window_config": {
+      "tau": 0.36,
+      "method": "average",
+      "grid_ms": 125,
+      "max_speakers": 8,
+      "reassign_small": true,
+      "min_cluster_ms": 2000,
+      "min_cluster_fraction": 0.03,
+      "minimum_reassignment_similarity": null,
+      "smooth": true,
+      "smooth_ms": 500
+    }
+  }
+}

@@ -1,0 +1,2258 @@
+{
+  "schema_version": 1,
+  "status": "PASS",
+  "integrity_status": "PASS",
+  "arm_full10_proxy_gate": "PASS",
+  "at": "2026-11-07T09:09:42.958364+00:00",
+  "checks": 941,
+  "protocol_sha256": "fea132215fc8571d98d6aaa338dd8270d81db6437d4ea08c976e410bb3510fcd",
+  "auditor_sha256": "3e73fb64451cc0e3378d09c41297c46bdb629066a26eaa07b8695967768af994",
+  "auditor_snapshot": "artifacts/test-results/step-05/runner-snapshots/3e73fb64451cc0e3378d09c41297c46bdb629066a26eaa07b8695967768af994-arm-full10-independent-audit.py",
+  "cases": 10,
+  "device": {
+    "physical": true,
+    "label": "vivo_X300",
+    "api": 37,
+    "abi": "arm64-v8a",
+    "page_size_bytes": 4096,
+    "runtime_cores": 8
+  },
+  "requested_threads": 0,
+  "effective_threads": 4,
+  "single_actual_pid": 15843,
+  "source_sha256": {
+    "artifacts/test-results/step-05/arm-cpu-protocol-v1.json": "fea132215fc8571d98d6aaa338dd8270d81db6437d4ea08c976e410bb3510fcd",
+    "artifacts/test-results/step-05/vivo-arm-full10-execution-receipt-v1.json": "f350faa503238eb43a2e8b0fffabb9880bc3fa6448c786abc202ea52ff187852",
+    "artifacts/test-results/step-05/vivo-arm-preflight-v1.json": "91e5dc65ce622b51ef325ca919bf276d876513f53619602a505e6575bc91ff5a",
+    "tools/eval/pull_refined_android.py": "a1f0524e5c0a814514143ff3db93c393bd9161dff9a6a2ac0c3a7e9ccee8ec5a",
+    "tools/eval/native_diar_policy.py": "3cbd379c545b3d6206a5afc52817c34ae601836fae38cc808c6972e651c407df",
+    "tools/eval/native_policy.py": "b6d7fd2de6a7ca7f1776de9fa3924c623918709e0358977bae059569ef4da36b",
+    "tools/eval/port_comparison.py": "8705abd0f4696520047032020f19069308b343008af3d7ed976b895c62e398c4",
+    "app/src/androidTest/java/ru/replika/EvaluationBatchTest.kt": "f4be2737a354fd408a5148de2d069fa1b86821acdfc0b23851d75a0de619a820",
+    "app/src/main/java/ru/replika/domain/CpuPlan.kt": "711ebbbd1f1d30dc72fb09faf1faf86bb1f670ecca30a0b0ef89f5292477b895",
+    "private-saved/run.json": "8df655de457d15139266052424dcaf894dacea7c5bdae6ba8794418834fe84b3",
+    "private-saved/android-report.json": "6ee366de405cc436c0e04ec6be0903b67ba5ddcf01a45a4d732d6189155f76e8",
+    "private-saved/commands.jsonl": "8bc53dc6aa963c59f75e21daabac83ce172f4934d4b18fe8b0b7ab60d0170d82",
+    "artifacts/test-results/step-05/cpu-host-threads4/run.json": "1b13ffe4587fdfe680b69c607c236fff60368f18da36bca3939404ee52beb093",
+    "artifacts/test-results/step-05/cpu-host-threads4/config.json": "5307eb0be785755aafb5e1a7c709d96c67e0290e176823d96566ceda7ba816ef",
+    "artifacts/test-results/step-05/cpu-host-threads4/summary.json": "73b9838571c609a16aef12d91613a07f82425743397fdf7f6fe20921316fdc7c",
+    "tools/eval/run_refined.py": "fa8d297d64c00aad467a72ac08f6543727289f80acd99483f0368c1ad61d883c",
+    "tools/eval/pipeline_refined.py": "2de1516a85faeed8b12a93a017a23fc4bede38f6fb03e78e89837a26a1c17229",
+    "tools/eval/score.py": "d9415f7fcac76261fc2c0749d0a640a0a03fa8c6e32f8e5856c4bc0e30ccd85f",
+    "tools/eval/pipeline.py": "fcdea5e2028e2c46226ab24ff0ac4fe33743fb15bfe853789e156f50203b137a",
+    "tools/eval/pipeline_words.py": "68183283067a0bff8da6b0912e850b1097875fef47fb09164d03b5ae3ab29f6c",
+    "tools/eval/diar_sweep.py": "5e9314e239374c8abf5287465b9a3d4e659cb31abbed1d6150b77d4f7a0567d9",
+    "artifacts/test-results/step-04/runner-snapshots/5e9314e239374c8abf5287465b9a3d4e659cb31abbed1d6150b77d4f7a0567d9.py": "5e9314e239374c8abf5287465b9a3d4e659cb31abbed1d6150b77d4f7a0567d9",
+    "tools/eval/decoder_parity.py": "5b5258286138ae5b251de0324c592a968180ef2d90f3c6ee68aa33e82af67044",
+    "tools/eval/vad_words.py": "1310361aecdab50e6c977032b73f01352d870af7416904b6dca22b682f3c76a7",
+    "tools/eval/speaker_refiner.py": "4f52854185c9ad4b2e54b9679a9670b5415d5a9fcc1c16d0c5f392eb6aa69eb1",
+    "tools/eval/run.py": "74b4d5daaa8f7aeb959c0d6a88860bc865f48d049607280569c06d32ba2840c9",
+    "tools/eval/window_overcluster.py": "23cffbba55b75e69695a2b508093505dcad74c804cb7913fd77356b67196acd4",
+    "artifacts/test-results/step-04/runner-snapshots/23cffbba55b75e69695a2b508093505dcad74c804cb7913fd77356b67196acd4.py": "23cffbba55b75e69695a2b508093505dcad74c804cb7913fd77356b67196acd4",
+    "benchmark/eval/manifest.json": "47109cb1987624daaf8f4dc28e8eca3198b0c2bbcf01cd334b9611664eb38066",
+    "app/src/main/assets/models-lock.json": "bd18076e29b225ae51a9c43dd347bf0fd7ed8f2e9c5ed10bba56a0899df1dcb9",
+    "model-pack/giga-v3/encoder.int8.onnx": "369f35a71bf288d3b8e0391fabd8dba5f2314088d440bca474056b7b4b6e66bf",
+    "model-pack/giga-v3/decoder.onnx": "38fc7475443ea2a26f63211ca350f73ac50fff824ab7a3876ee2bd610c53bbc4",
+    "model-pack/giga-v3/joiner.onnx": "602ff7017a93311aad34df1437c8d7f49911353c13d6eae7a6ee7b041339465c",
+    "model-pack/giga-v3/tokens.txt": "39abae20e692998290c574e606f11a9edef2902a1995463fcff63d1490cf22b7",
+    "model-pack/diar/segmentation.onnx": "220ad67ca923bef2fa91f2390c786097bf305bceb5e261d4af67b38e938e1079",
+    "model-pack/diar/embedding.onnx": "1a331345f04805badbb495c775a6ddffcdd1a732567d5ec8b3d5749e3c7a5e4b",
+    "model-pack/vad/silero_vad.onnx": "9e2449e1087496d8d4caba907f23e0bd3f78d91fa552479bb9c23ac09cbb1fd6",
+    "configs/eval/diar-models.json": "743624f2f25be1635fe60b11c3e11324c6dd8480f793cdbe196542733d29f7a3",
+    "release/REPLIKA-Hack-Step05-AutoCPU-AllInOne-arm64.apk": "ca18309f626d431d0bd7bb4c649a2a3ae77f3ef3b75f7f1bcb47c83bf449e15e",
+    "app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk": "ce4851c681962e8489bd9d8bc0edc0a229d245307b88fdfa9c19d0ef1f1df051",
+    "private-saved/batch.json": "1e2a277fb8fb28206d12d5e8307feb26ad520d6b941545b84f26b151c9885d60",
+    "private-saved/instrumentation.log": "56e2eee63639630c74c48230650824360d3c09959f01f396f7fd0121724071fc",
+    "artifacts/test-results/step-05/vivo-prior-data-preservation-v1.json": "f3a6ae36a339a9e7790e4a8e972a2d7c240109d1a688ee6ec79242cae282f78b",
+    "private-saved/dev-01-two-clean/case.json": "5efe4add60e7c422a221ba47b9928bf8f54dd9f4696036f62f3b28d74d5209c5",
+    "private-saved/dev-01-two-clean/scored-case.json": "8baef6b0934878f4b20d3a014996d1ba196e273e271b219fd5e116e778a248be",
+    "private-saved/dev-01-two-clean/diagnostics.json": "34b993e355ba13d810bfd3f0c69f7812b861cdb15edfcacd842df005b7d297cd",
+    "private-saved/dev-01-two-clean/hypothesis.json": "ca9f5ee08c3c4bb58539da40c0d7188cef77cb6e9e5457547b1cb2efe928ca66",
+    "private-saved/dev-01-two-clean/metrics.json": "20d0b8a09841139381582d86b54f0f015fe83f6428e949be0475da7e51d50bbe",
+    "benchmark/eval/references/dev-01-two-clean.json": "523b1097852d70d1f6d2cf2f3c632ee5c5ac3bedf8e64487ecbdada21c25d127",
+    "private-saved/dev-01-two-clean/reference.json": "523b1097852d70d1f6d2cf2f3c632ee5c5ac3bedf8e64487ecbdada21c25d127",
+    "external/dev-01-two-clean.wav": "80bdb11e4d9e313d2440c01b80babc0dbe319c9dbea371988ef62716ffb9d77b",
+    "private-saved/dev-01-two-clean/diarization-evidence.json": "3070c1f6734d9b59bc979e4ddb5f3833995cf6ba077db8477c2dfb31c1a489b3",
+    "artifacts/test-results/step-05/cpu-host-threads4/dev-01-two-clean/case.json": "48966006b566e6ba2d3090a5995a135a6c4cdfba2cfc4bcd422fe4419590fb6d",
+    "artifacts/test-results/step-05/cpu-host-threads4/dev-01-two-clean/diagnostics.json": "08cfe1f5024539b39a69bb9e9b1985b75b7b96ab9b01c531b3ef8bed27b20a1e",
+    "artifacts/test-results/step-05/cpu-host-threads4/dev-01-two-clean/hypothesis.json": "bf3144af2c69273ff16ee8fb3b081dbd17be2a9917b9681a5e2fe025f9efc870",
+    "artifacts/test-results/step-05/cpu-host-threads4/dev-01-two-clean/metrics.json": "88ca451348eae87dd336f33c0f1df8b6f804965a75c84c932b962fa1fb5ae72c",
+    "artifacts/test-results/step-05/cpu-host-threads4/dev-01-two-clean/reference.json": "523b1097852d70d1f6d2cf2f3c632ee5c5ac3bedf8e64487ecbdada21c25d127",
+    "private-saved/dev-02-three-clean/case.json": "465a4b4f26e89193ddd72f93321b18550de86f4d045ebdf3848066da072a00d3",
+    "private-saved/dev-02-three-clean/scored-case.json": "053cbe185370c0128583976f16daafedcab6c5082662e12ea04501899280a07b",
+    "private-saved/dev-02-three-clean/diagnostics.json": "56e1e8df0e059a24132bd09d095d8b6cc230b0e8c0a29950ac5a89d8f4d10d39",
+    "private-saved/dev-02-three-clean/hypothesis.json": "ab9451b072d2d94bd78f953ed5af9198fd59e44d0273dd4a8ff808057d9884df",
+    "private-saved/dev-02-three-clean/metrics.json": "f6a983dc08ee643d78cd13d8dabc8c2a70e6d7edc1aece8cf389e31d566cace5",
+    "benchmark/eval/references/dev-02-three-clean.json": "0900022595d73de02b3c7459f85a37b39e37ac5cb455e7ee8827399097e01256",
+    "private-saved/dev-02-three-clean/reference.json": "0900022595d73de02b3c7459f85a37b39e37ac5cb455e7ee8827399097e01256",
+    "external/dev-02-three-clean.wav": "54dd41aa60e05602adcebc10d38a3a4f1cb2cf3ebdcc014d46a1387fbcc8a040",
+    "private-saved/dev-02-three-clean/diarization-evidence.json": "b3e2433b46bbc140d6f15aef55b4e55bdd6d2fd1c112c67f1176da77cb7569ab",
+    "artifacts/test-results/step-05/cpu-host-threads4/dev-02-three-clean/case.json": "35ac34be8009df8aaaef72ba4d80fcd59e0bc1445b791946f42a7a81389ad9a1",
+    "artifacts/test-results/step-05/cpu-host-threads4/dev-02-three-clean/diagnostics.json": "c7d1cd78b9ee9cf14f7fda3f2bb3c80e06045d8a582f43b732dbd0f0894b9224",
+    "artifacts/test-results/step-05/cpu-host-threads4/dev-02-three-clean/hypothesis.json": "176e526ed3bfd88aaa6e917d278ddfc13f8b96ab9a5079845afc2d5c1486eac1",
+    "artifacts/test-results/step-05/cpu-host-threads4/dev-02-three-clean/metrics.json": "61f9437315d1ebf9683c31cc06843d97ee5ca211a51d45b14cbd08edb28d730b",
+    "artifacts/test-results/step-05/cpu-host-threads4/dev-02-three-clean/reference.json": "0900022595d73de02b3c7459f85a37b39e37ac5cb455e7ee8827399097e01256",
+    "private-saved/dev-03-short/case.json": "999a56e6649248112f12d767ce429b3d5fa3bb9668dffe408897fd487eaa4f0c",
+    "private-saved/dev-03-short/scored-case.json": "94ecc58b0e9abc87975705c23c7481c1a8e89ec3d4d8ef38d8fb8688bd79d72d",
+    "private-saved/dev-03-short/diagnostics.json": "b2271c05761c7df0afcb02a5d08e084fa96f1d6aac6a27852324ded57a2d5781",
+    "private-saved/dev-03-short/hypothesis.json": "12388134de2450799fd659b000bdfa2910241b31b9b9bb6acf62d3d65d0c4794",
+    "private-saved/dev-03-short/metrics.json": "ed352e5aa61dc5a44c08254b4a40a56531cec457a50caba98921fda799759ab3",
+    "benchmark/eval/references/dev-03-short.json": "dfaf5a84d3c2850a87ebe3b47369ffb87863c6c710abc6cc7f2faea5337be571",
+    "private-saved/dev-03-short/reference.json": "dfaf5a84d3c2850a87ebe3b47369ffb87863c6c710abc6cc7f2faea5337be571",
+    "external/dev-03-short.wav": "a3255bc32a41cc9f6ccd691bfc6a0861e82e160370f2b403b1339133465c94b4",
+    "private-saved/dev-03-short/diarization-evidence.json": "47beb7017b04d4af878879c000eb111ef13acecde0d453b0516b8cdbe4759b6e",
+    "artifacts/test-results/step-05/cpu-host-threads4/dev-03-short/case.json": "0aa7f6f29dfe33bd451e90e59e89877213539b27341e38bc6119b91171b509fc",
+    "artifacts/test-results/step-05/cpu-host-threads4/dev-03-short/diagnostics.json": "7195650565d375d872a043ea8805501fa7237d017b4f6dbfbc71b6dd4b32baf7",
+    "artifacts/test-results/step-05/cpu-host-threads4/dev-03-short/hypothesis.json": "fb3a143c2f8a102803c6134336afecce1464e56096c4448d018ea740bb169285",
+    "artifacts/test-results/step-05/cpu-host-threads4/dev-03-short/metrics.json": "9ccdd7306386ae94766225990f4451a358a14fe4f65702fcb0818c9051525b42",
+    "artifacts/test-results/step-05/cpu-host-threads4/dev-03-short/reference.json": "dfaf5a84d3c2850a87ebe3b47369ffb87863c6c710abc6cc7f2faea5337be571",
+    "private-saved/dev-04-expressive/case.json": "e0975eeddecf5566e086dabe641d2205f20701771f63638a0f1862d02632b9f5",
+    "private-saved/dev-04-expressive/scored-case.json": "abf96c931253e568cc2c8b475b08eebede465fbb24b4854e92021670abde7970",
+    "private-saved/dev-04-expressive/diagnostics.json": "b95cd710772c39ad149188833f9e17e9435f4bb0f9edb49608774b797a9ec10f",
+    "private-saved/dev-04-expressive/hypothesis.json": "af37266855e792ba3ab0a8247271edda1edbe5c374d42b2e76c291161f660c46",
+    "private-saved/dev-04-expressive/metrics.json": "f79eca341384bb77aa5d93f4151789504b37aa6fa5e5fc9bd92c47b539c58332",
+    "benchmark/eval/references/dev-04-expressive.json": "31893577919d7a65863235dc7067a73214f9a9855a7db5ee153fadffbb8606f7",
+    "private-saved/dev-04-expressive/reference.json": "31893577919d7a65863235dc7067a73214f9a9855a7db5ee153fadffbb8606f7",
+    "external/dev-04-expressive.wav": "f79ee42bac3ce68fa7bad5afeb68117e2135ea22facf95314fe0020288f1b11e",
+    "private-saved/dev-04-expressive/diarization-evidence.json": "e9ac9a14d93764d39f7e8d410c7c7ac901d008c480cf3562b8129d0b34c507fa",
+    "artifacts/test-results/step-05/cpu-host-threads4/dev-04-expressive/case.json": "06b69bb8a5efe9f83dd5fe8698b51800e204217dad4f3a6ef25f1e41a5a707f2",
+    "artifacts/test-results/step-05/cpu-host-threads4/dev-04-expressive/diagnostics.json": "05c9601974e0512b2f24b83038b2ecf589b5e41ea76b10ba79a69f245c4a065a",
+    "artifacts/test-results/step-05/cpu-host-threads4/dev-04-expressive/hypothesis.json": "3a85678ec81e31dcfca7f79d4c273d3db4f1a4400d06c94a56b7e20c1c883e81",
+    "artifacts/test-results/step-05/cpu-host-threads4/dev-04-expressive/metrics.json": "40645edcbcc65872582a7a1ecc2aa65c5e0ad6c0f63d1b9c9c797805eaddb561",
+    "artifacts/test-results/step-05/cpu-host-threads4/dev-04-expressive/reference.json": "31893577919d7a65863235dc7067a73214f9a9855a7db5ee153fadffbb8606f7",
+    "private-saved/dev-05-whisper/case.json": "d154c475824e2c18f975162b5e710fe568d5ae0116d6eea6b7375fb211e76107",
+    "private-saved/dev-05-whisper/scored-case.json": "57da88c606d2c0041a29d4ef9905f1b470703d98309bf3baa081d91e6c05a88e",
+    "private-saved/dev-05-whisper/diagnostics.json": "55b000760b33d5163a4c246a0274b97f9b3f1c043b014921f3a60c46862c38cf",
+    "private-saved/dev-05-whisper/hypothesis.json": "df2687ada9bb7b12ad0bfad740bc517e24de9441d92e77dc6a04a09b0ba85352",
+    "private-saved/dev-05-whisper/metrics.json": "9c088e1a031d32abc14fa9ac4c2eb6ff2051ba1adf91834bf504722680689e38",
+    "benchmark/eval/references/dev-05-whisper.json": "d544e0695cf6307c2899f72cdff638c970e4915e9326003c393710545ca7a9f1",
+    "private-saved/dev-05-whisper/reference.json": "d544e0695cf6307c2899f72cdff638c970e4915e9326003c393710545ca7a9f1",
+    "external/dev-05-whisper.wav": "20443dba1db8cbd8ca5594ef1fc6edbd2ba257973f8c7621d7d20267a1a9095d",
+    "private-saved/dev-05-whisper/diarization-evidence.json": "a930b590fb6354c818b33d685810bb603fa9bd5db908434f899e1a827a39638e",
+    "artifacts/test-results/step-05/cpu-host-threads4/dev-05-whisper/case.json": "483c4134aadd68890c0c51e6638174c1a2d853f26b96d56d85c6c6d4d988060f",
+    "artifacts/test-results/step-05/cpu-host-threads4/dev-05-whisper/diagnostics.json": "f32298faa93abae68f982bf3b0d28f5d977fd8b4fc6133a6ed91c3aa68b124df",
+    "artifacts/test-results/step-05/cpu-host-threads4/dev-05-whisper/hypothesis.json": "f3e971b46892fa85ddf5596a7c4858a81aa69149cede5d22db08eec4fe574540",
+    "artifacts/test-results/step-05/cpu-host-threads4/dev-05-whisper/metrics.json": "7c873841cb5c3eb669b636d0bb5f4be0286ec038b1feceae53495f0775a9e75b",
+    "artifacts/test-results/step-05/cpu-host-threads4/dev-05-whisper/reference.json": "d544e0695cf6307c2899f72cdff638c970e4915e9326003c393710545ca7a9f1",
+    "private-saved/dev-06-overlap/case.json": "477e5c43ab6891b1b571c5f78cc91fa2ebfe13dafef9fa67c7df747e9f9da9a3",
+    "private-saved/dev-06-overlap/scored-case.json": "cb2a52d4b85b2d9361c7d16144bf14722b0e67bb0a3580a9a89e38202c897a42",
+    "private-saved/dev-06-overlap/diagnostics.json": "10303c7fc805768cfb718c11769409cb4af96c4db21429d1ab29a7b1246cd2bc",
+    "private-saved/dev-06-overlap/hypothesis.json": "da2b68e9be976c1a7cdc05c5b970b8bc726c7fd8ad72380f4b07ad9b365f15ea",
+    "private-saved/dev-06-overlap/metrics.json": "191d9c818765ccebb74b42913d1c0a4a547e3bec5ae5e5a119ba92a3b7d6d615",
+    "benchmark/eval/references/dev-06-overlap.json": "7b23bb601328e721ebc51b2f2cf0d3292b64bf65cd6250332e45688756e53713",
+    "private-saved/dev-06-overlap/reference.json": "7b23bb601328e721ebc51b2f2cf0d3292b64bf65cd6250332e45688756e53713",
+    "external/dev-06-overlap.wav": "dd232cf4b15efa710887fc38785b1c7377cc30046b45719aa5f6a867bb0b009c",
+    "private-saved/dev-06-overlap/diarization-evidence.json": "3f071eab43f0a1b2a90905f7b9c391f41b89c80568c72be3c9a7e5b0dc613c14",
+    "artifacts/test-results/step-05/cpu-host-threads4/dev-06-overlap/case.json": "7b6c7471eb62eecfa259df84ccf75d6867bb2dfdb76ee855395c0f1dc56835c1",
+    "artifacts/test-results/step-05/cpu-host-threads4/dev-06-overlap/diagnostics.json": "e7efe64efe15f855162e0ab79bc3ccca82a4652f5230d36774f255793f4a3683",
+    "artifacts/test-results/step-05/cpu-host-threads4/dev-06-overlap/hypothesis.json": "2eba2cf31421ef168d7cfabc5e8cefbc7657545dca4ed45b254615db7423f2a1",
+    "artifacts/test-results/step-05/cpu-host-threads4/dev-06-overlap/metrics.json": "5a3b3f0e9b6277ca72046cd19244e13c515296339c00824e0235a8d3085a4d00",
+    "artifacts/test-results/step-05/cpu-host-threads4/dev-06-overlap/reference.json": "7b23bb601328e721ebc51b2f2cf0d3292b64bf65cd6250332e45688756e53713",
+    "private-saved/dev-mono-m/case.json": "1ac0fda121886f63bb466d6900ae4bebc4d167cac270a81b80eed4034ca433be",
+    "private-saved/dev-mono-m/scored-case.json": "63454963ade1c22323b0b041a6b0291c97f5b583f6ccef954080c7b187523f9e",
+    "private-saved/dev-mono-m/diagnostics.json": "70626f85e23985889ec82ec156c58d85fb1a97d7afb163c3fc11d7741f31f2e0",
+    "private-saved/dev-mono-m/hypothesis.json": "532e0a61828b4005303b2864d72ecac3be1ea3052c371fa10a38d765a077572b",
+    "private-saved/dev-mono-m/metrics.json": "f009643f41541482eb2d3369a1495790c979466fb96ba4385258ec44c818a399",
+    "benchmark/eval/references/dev-mono-m.json": "c027484abb892d54d2b3eb1601344a7c29e1e1ada7d09e490d15e104ed3e71f5",
+    "private-saved/dev-mono-m/reference.json": "c027484abb892d54d2b3eb1601344a7c29e1e1ada7d09e490d15e104ed3e71f5",
+    "external/dev-mono-m.wav": "317b2c84e153f783cd343c5681603c94045f522f2d44fe1f41dc7862f46198f6",
+    "private-saved/dev-mono-m/diarization-evidence.json": "b3fac579b1a421cc616440f79975590c3896b602c67038bfa5e05778c24f2d9a",
+    "artifacts/test-results/step-05/cpu-host-threads4/dev-mono-m/case.json": "63a9e55b2a57f0e35fbf08fb715a639f4a7635b627fb85c55191e568172935e3",
+    "artifacts/test-results/step-05/cpu-host-threads4/dev-mono-m/diagnostics.json": "7d9b35f5cd6b7a5df53ed70466c980a6b7d342e1615a4e180f5910989dc672a0",
+    "artifacts/test-results/step-05/cpu-host-threads4/dev-mono-m/hypothesis.json": "b0f0936303065bb6363f5bc2ad50684c004de297cdac7cbb5ee87ee3f47dbccb",
+    "artifacts/test-results/step-05/cpu-host-threads4/dev-mono-m/metrics.json": "a04ede11ba02febd7bc6bc17beef4a769b34696895684cace5d6b7d4800d2d95",
+    "artifacts/test-results/step-05/cpu-host-threads4/dev-mono-m/reference.json": "c027484abb892d54d2b3eb1601344a7c29e1e1ada7d09e490d15e104ed3e71f5",
+    "private-saved/dev-mono-s/case.json": "1afa420c22b6ae6d0158d142dd53b2b926a878675df718f382831efff2bbf503",
+    "private-saved/dev-mono-s/scored-case.json": "ba8e23d1060ad53a1bfb89f5fe8ab37e80d7a5d991923354c92525e6b5047e04",
+    "private-saved/dev-mono-s/diagnostics.json": "82ea63af6fa1763888dc264d570cde5079d15a79c6d14fe339b8cb57a633fa0b",
+    "private-saved/dev-mono-s/hypothesis.json": "da717d03f8b6091548a6b903332e62313efe1efbfb18464503922703af13b858",
+    "private-saved/dev-mono-s/metrics.json": "9144f37d9e0bd5a37f65c81101a48ba23978b8d82023cd64cb61e4732b45cb39",
+    "benchmark/eval/references/dev-mono-s.json": "9259341e0d2aa8bc8bf6bdc9f616ea30e5025aa4e1adca14dc09f2089dcb15e1",
+    "private-saved/dev-mono-s/reference.json": "9259341e0d2aa8bc8bf6bdc9f616ea30e5025aa4e1adca14dc09f2089dcb15e1",
+    "external/dev-mono-s.wav": "97943f4d90c2b56166031263a6820c41e0f80b94643a9d3737327debdc8fbe53",
+    "private-saved/dev-mono-s/diarization-evidence.json": "0dbcad66ced09c2cff1e0ced6a2b9b661f353333bf4b4ca78f2c8c06d7442651",
+    "artifacts/test-results/step-05/cpu-host-threads4/dev-mono-s/case.json": "a0ab2048a8def85b629a38cfbec7aeda160a17d6e22d5ff62577feb1de44ee38",
+    "artifacts/test-results/step-05/cpu-host-threads4/dev-mono-s/diagnostics.json": "75390891188f6b0abf801f03e401f4182e7eb925cefefde267b1056cd34a0142",
+    "artifacts/test-results/step-05/cpu-host-threads4/dev-mono-s/hypothesis.json": "fe812b0473e14dd09ab1a20bdcfd141aba957479c24a57177a78417c4462c013",
+    "artifacts/test-results/step-05/cpu-host-threads4/dev-mono-s/metrics.json": "04ead36a08b4d44e81d7addcbd80d4c19ea89796b184c5d0044499d12bb0fb82",
+    "artifacts/test-results/step-05/cpu-host-threads4/dev-mono-s/reference.json": "9259341e0d2aa8bc8bf6bdc9f616ea30e5025aa4e1adca14dc09f2089dcb15e1",
+    "private-saved/holdout-02-three-clean/case.json": "3058ad3077c5e28fc1e5824df74f62a3f00e6a1c8b8732a55de14c892fba760f",
+    "private-saved/holdout-02-three-clean/scored-case.json": "dc7a5f5cd8bf8c464bc071dcfb9faf49f053e5c1a5437c263edba726a5f595ff",
+    "private-saved/holdout-02-three-clean/diagnostics.json": "3658ae71ef8172d84acddd039be4ee07246b03545ab30338182631f6a9930ff5",
+    "private-saved/holdout-02-three-clean/hypothesis.json": "1444bf3f68de5df9acbebd4eae2ac7747ed01f779e4771ff4dcc7c112170ba4f",
+    "private-saved/holdout-02-three-clean/metrics.json": "6e20511fe3a786d2050e10d7d43c341728270bab6f66c7c2e16d7f9cd90e4109",
+    "benchmark/eval/references/holdout-02-three-clean.json": "b3d0daa4ea7d84008352961e70dd72fa85bb4052de546858651e08c87d79721a",
+    "private-saved/holdout-02-three-clean/reference.json": "b3d0daa4ea7d84008352961e70dd72fa85bb4052de546858651e08c87d79721a",
+    "external/holdout-02-three-clean.wav": "453c3b47484600ba183a43a04f72a7c57faa51691d6ccd099939bb2dc99a1354",
+    "private-saved/holdout-02-three-clean/diarization-evidence.json": "101a4b0188e74593276c0cf0baa1fa43460cad6cf8f17988478fc96451672375",
+    "artifacts/test-results/step-05/cpu-host-threads4/holdout-02-three-clean/case.json": "fdfa06f767473e8edda9ff378cda1477e8d4f55edc20f1b718d4fa0f08e7e180",
+    "artifacts/test-results/step-05/cpu-host-threads4/holdout-02-three-clean/diagnostics.json": "c23e80709f9061e5bd878749c3191d7a0496ec6197eb5b8bfadbc3320930afb2",
+    "artifacts/test-results/step-05/cpu-host-threads4/holdout-02-three-clean/hypothesis.json": "59665c9e1b6b3373fae3623ff1d306c0772e932c43a8a5d80ab3492b4e43d8d4",
+    "artifacts/test-results/step-05/cpu-host-threads4/holdout-02-three-clean/metrics.json": "66307a33e898270d23f65362ca2aca514728349bee5625d2e4c16ba4a18edf11",
+    "artifacts/test-results/step-05/cpu-host-threads4/holdout-02-three-clean/reference.json": "b3d0daa4ea7d84008352961e70dd72fa85bb4052de546858651e08c87d79721a",
+    "private-saved/holdout-04-overlap-expressive/case.json": "7a1eb18575d8f24a99e7840adca13ce8eb7335aa64666997ff9e47c5efcee50e",
+    "private-saved/holdout-04-overlap-expressive/scored-case.json": "1b745a9e7f961654532f9ef0ee86324fcdd309cfbb22c5dd35ddbe5c597cec55",
+    "private-saved/holdout-04-overlap-expressive/diagnostics.json": "6406ccfaff6e6cafa1d39dc677520a26ecae73e586af4659173be5e48b768bd7",
+    "private-saved/holdout-04-overlap-expressive/hypothesis.json": "38fb84d9304ec947b4e9fcd9540c7a6924187a51ef23e7b0aa3dab98d4481207",
+    "private-saved/holdout-04-overlap-expressive/metrics.json": "8355c72a9caada09f6726cf08a73cfcded555d39aa74ca101c58f831f4a62066",
+    "benchmark/eval/references/holdout-04-overlap-expressive.json": "6523f1fd9c61b901b71a21a8b01f64b6cac7909da3cd579cedc95a21a4b6aefe",
+    "private-saved/holdout-04-overlap-expressive/reference.json": "6523f1fd9c61b901b71a21a8b01f64b6cac7909da3cd579cedc95a21a4b6aefe",
+    "external/holdout-04-overlap-expressive.wav": "e5d96325a3f726a355c013757e42c250cff8b7457d6ccb2f5875fb4a6cad7514",
+    "private-saved/holdout-04-overlap-expressive/diarization-evidence.json": "9dfbee92fe74e07c9645d59585ed2b30fd3e7bba0ef902a9d24b92d8ae0d887a",
+    "artifacts/test-results/step-05/cpu-host-threads4/holdout-04-overlap-expressive/case.json": "1225a302afb73204c45ada5115dec692a3f152d06c91578097d6e9431fd371c5",
+    "artifacts/test-results/step-05/cpu-host-threads4/holdout-04-overlap-expressive/diagnostics.json": "b7796ec8ae82956d175e536e31fdf60b4e66fe429f37d29031738d66c94ddf3d",
+    "artifacts/test-results/step-05/cpu-host-threads4/holdout-04-overlap-expressive/hypothesis.json": "e92050a621952a448bc0ccc49a128f75c9df1f57a6005ecaaf094e186ce5dad0",
+    "artifacts/test-results/step-05/cpu-host-threads4/holdout-04-overlap-expressive/metrics.json": "d81e7457b6f85448202c8c7aef9340c33a867785170b5eff0753f2ccf3250aac",
+    "artifacts/test-results/step-05/cpu-host-threads4/holdout-04-overlap-expressive/reference.json": "6523f1fd9c61b901b71a21a8b01f64b6cac7909da3cd579cedc95a21a4b6aefe",
+    "artifacts/test-results/step-04/fixed-v16-production-comparison/summary.json": "6cf29600a98830f2b9fd76d9728f4aadaca0233c5d9de437dbf76e347e13417d",
+    "artifacts/test-results/step-04/fixed-v16-production-comparison/run.json": "af176738c5cfcc9d5ff85fdf9ff043d688e59f26163eefb38199f35e6af47182",
+    "private-saved/results.csv": "7001306fb8fb59cad912b9b79e2159898a76778f6fc19dad34b8b209d68486e5",
+    "external/step05-native-cpu-independent-audit-v2.py": "764ffb7233b0a7465c1e19d58552fbaaaf3bcdb9840b8a87bec42a4d1cd5383d",
+    "external/step05-independent-cpu-audit.py": "11fc1e516a2a0663ce950e755833b1cb9c9fd86b9c07ffba45a795239772b929"
+  },
+  "public_output_sha256": {
+    "dev-01-two-clean/case.json": "5efe4add60e7c422a221ba47b9928bf8f54dd9f4696036f62f3b28d74d5209c5",
+    "dev-01-two-clean/scored-case.json": "8baef6b0934878f4b20d3a014996d1ba196e273e271b219fd5e116e778a248be",
+    "dev-01-two-clean/reference.json": "523b1097852d70d1f6d2cf2f3c632ee5c5ac3bedf8e64487ecbdada21c25d127",
+    "dev-01-two-clean/hypothesis.json": "ca9f5ee08c3c4bb58539da40c0d7188cef77cb6e9e5457547b1cb2efe928ca66",
+    "dev-01-two-clean/diagnostics.json": "34b993e355ba13d810bfd3f0c69f7812b861cdb15edfcacd842df005b7d297cd",
+    "dev-01-two-clean/diarization-evidence.json": "3070c1f6734d9b59bc979e4ddb5f3833995cf6ba077db8477c2dfb31c1a489b3",
+    "dev-01-two-clean/metrics.json": "20d0b8a09841139381582d86b54f0f015fe83f6428e949be0475da7e51d50bbe",
+    "dev-02-three-clean/case.json": "465a4b4f26e89193ddd72f93321b18550de86f4d045ebdf3848066da072a00d3",
+    "dev-02-three-clean/scored-case.json": "053cbe185370c0128583976f16daafedcab6c5082662e12ea04501899280a07b",
+    "dev-02-three-clean/reference.json": "0900022595d73de02b3c7459f85a37b39e37ac5cb455e7ee8827399097e01256",
+    "dev-02-three-clean/hypothesis.json": "ab9451b072d2d94bd78f953ed5af9198fd59e44d0273dd4a8ff808057d9884df",
+    "dev-02-three-clean/diagnostics.json": "56e1e8df0e059a24132bd09d095d8b6cc230b0e8c0a29950ac5a89d8f4d10d39",
+    "dev-02-three-clean/diarization-evidence.json": "b3e2433b46bbc140d6f15aef55b4e55bdd6d2fd1c112c67f1176da77cb7569ab",
+    "dev-02-three-clean/metrics.json": "f6a983dc08ee643d78cd13d8dabc8c2a70e6d7edc1aece8cf389e31d566cace5",
+    "dev-03-short/case.json": "999a56e6649248112f12d767ce429b3d5fa3bb9668dffe408897fd487eaa4f0c",
+    "dev-03-short/scored-case.json": "94ecc58b0e9abc87975705c23c7481c1a8e89ec3d4d8ef38d8fb8688bd79d72d",
+    "dev-03-short/reference.json": "dfaf5a84d3c2850a87ebe3b47369ffb87863c6c710abc6cc7f2faea5337be571",
+    "dev-03-short/hypothesis.json": "12388134de2450799fd659b000bdfa2910241b31b9b9bb6acf62d3d65d0c4794",
+    "dev-03-short/diagnostics.json": "b2271c05761c7df0afcb02a5d08e084fa96f1d6aac6a27852324ded57a2d5781",
+    "dev-03-short/diarization-evidence.json": "47beb7017b04d4af878879c000eb111ef13acecde0d453b0516b8cdbe4759b6e",
+    "dev-03-short/metrics.json": "ed352e5aa61dc5a44c08254b4a40a56531cec457a50caba98921fda799759ab3",
+    "dev-04-expressive/case.json": "e0975eeddecf5566e086dabe641d2205f20701771f63638a0f1862d02632b9f5",
+    "dev-04-expressive/scored-case.json": "abf96c931253e568cc2c8b475b08eebede465fbb24b4854e92021670abde7970",
+    "dev-04-expressive/reference.json": "31893577919d7a65863235dc7067a73214f9a9855a7db5ee153fadffbb8606f7",
+    "dev-04-expressive/hypothesis.json": "af37266855e792ba3ab0a8247271edda1edbe5c374d42b2e76c291161f660c46",
+    "dev-04-expressive/diagnostics.json": "b95cd710772c39ad149188833f9e17e9435f4bb0f9edb49608774b797a9ec10f",
+    "dev-04-expressive/diarization-evidence.json": "e9ac9a14d93764d39f7e8d410c7c7ac901d008c480cf3562b8129d0b34c507fa",
+    "dev-04-expressive/metrics.json": "f79eca341384bb77aa5d93f4151789504b37aa6fa5e5fc9bd92c47b539c58332",
+    "dev-05-whisper/case.json": "d154c475824e2c18f975162b5e710fe568d5ae0116d6eea6b7375fb211e76107",
+    "dev-05-whisper/scored-case.json": "57da88c606d2c0041a29d4ef9905f1b470703d98309bf3baa081d91e6c05a88e",
+    "dev-05-whisper/reference.json": "d544e0695cf6307c2899f72cdff638c970e4915e9326003c393710545ca7a9f1",
+    "dev-05-whisper/hypothesis.json": "df2687ada9bb7b12ad0bfad740bc517e24de9441d92e77dc6a04a09b0ba85352",
+    "dev-05-whisper/diagnostics.json": "55b000760b33d5163a4c246a0274b97f9b3f1c043b014921f3a60c46862c38cf",
+    "dev-05-whisper/diarization-evidence.json": "a930b590fb6354c818b33d685810bb603fa9bd5db908434f899e1a827a39638e",
+    "dev-05-whisper/metrics.json": "9c088e1a031d32abc14fa9ac4c2eb6ff2051ba1adf91834bf504722680689e38",
+    "dev-06-overlap/case.json": "477e5c43ab6891b1b571c5f78cc91fa2ebfe13dafef9fa67c7df747e9f9da9a3",
+    "dev-06-overlap/scored-case.json": "cb2a52d4b85b2d9361c7d16144bf14722b0e67bb0a3580a9a89e38202c897a42",
+    "dev-06-overlap/reference.json": "7b23bb601328e721ebc51b2f2cf0d3292b64bf65cd6250332e45688756e53713",
+    "dev-06-overlap/hypothesis.json": "da2b68e9be976c1a7cdc05c5b970b8bc726c7fd8ad72380f4b07ad9b365f15ea",
+    "dev-06-overlap/diagnostics.json": "10303c7fc805768cfb718c11769409cb4af96c4db21429d1ab29a7b1246cd2bc",
+    "dev-06-overlap/diarization-evidence.json": "3f071eab43f0a1b2a90905f7b9c391f41b89c80568c72be3c9a7e5b0dc613c14",
+    "dev-06-overlap/metrics.json": "191d9c818765ccebb74b42913d1c0a4a547e3bec5ae5e5a119ba92a3b7d6d615",
+    "dev-mono-m/case.json": "1ac0fda121886f63bb466d6900ae4bebc4d167cac270a81b80eed4034ca433be",
+    "dev-mono-m/scored-case.json": "63454963ade1c22323b0b041a6b0291c97f5b583f6ccef954080c7b187523f9e",
+    "dev-mono-m/reference.json": "c027484abb892d54d2b3eb1601344a7c29e1e1ada7d09e490d15e104ed3e71f5",
+    "dev-mono-m/hypothesis.json": "532e0a61828b4005303b2864d72ecac3be1ea3052c371fa10a38d765a077572b",
+    "dev-mono-m/diagnostics.json": "70626f85e23985889ec82ec156c58d85fb1a97d7afb163c3fc11d7741f31f2e0",
+    "dev-mono-m/diarization-evidence.json": "b3fac579b1a421cc616440f79975590c3896b602c67038bfa5e05778c24f2d9a",
+    "dev-mono-m/metrics.json": "f009643f41541482eb2d3369a1495790c979466fb96ba4385258ec44c818a399",
+    "dev-mono-s/case.json": "1afa420c22b6ae6d0158d142dd53b2b926a878675df718f382831efff2bbf503",
+    "dev-mono-s/scored-case.json": "ba8e23d1060ad53a1bfb89f5fe8ab37e80d7a5d991923354c92525e6b5047e04",
+    "dev-mono-s/reference.json": "9259341e0d2aa8bc8bf6bdc9f616ea30e5025aa4e1adca14dc09f2089dcb15e1",
+    "dev-mono-s/hypothesis.json": "da717d03f8b6091548a6b903332e62313efe1efbfb18464503922703af13b858",
+    "dev-mono-s/diagnostics.json": "82ea63af6fa1763888dc264d570cde5079d15a79c6d14fe339b8cb57a633fa0b",
+    "dev-mono-s/diarization-evidence.json": "0dbcad66ced09c2cff1e0ced6a2b9b661f353333bf4b4ca78f2c8c06d7442651",
+    "dev-mono-s/metrics.json": "9144f37d9e0bd5a37f65c81101a48ba23978b8d82023cd64cb61e4732b45cb39",
+    "holdout-02-three-clean/case.json": "3058ad3077c5e28fc1e5824df74f62a3f00e6a1c8b8732a55de14c892fba760f",
+    "holdout-02-three-clean/scored-case.json": "dc7a5f5cd8bf8c464bc071dcfb9faf49f053e5c1a5437c263edba726a5f595ff",
+    "holdout-02-three-clean/reference.json": "b3d0daa4ea7d84008352961e70dd72fa85bb4052de546858651e08c87d79721a",
+    "holdout-02-three-clean/hypothesis.json": "1444bf3f68de5df9acbebd4eae2ac7747ed01f779e4771ff4dcc7c112170ba4f",
+    "holdout-02-three-clean/diagnostics.json": "3658ae71ef8172d84acddd039be4ee07246b03545ab30338182631f6a9930ff5",
+    "holdout-02-three-clean/diarization-evidence.json": "101a4b0188e74593276c0cf0baa1fa43460cad6cf8f17988478fc96451672375",
+    "holdout-02-three-clean/metrics.json": "6e20511fe3a786d2050e10d7d43c341728270bab6f66c7c2e16d7f9cd90e4109",
+    "holdout-04-overlap-expressive/case.json": "7a1eb18575d8f24a99e7840adca13ce8eb7335aa64666997ff9e47c5efcee50e",
+    "holdout-04-overlap-expressive/scored-case.json": "1b745a9e7f961654532f9ef0ee86324fcdd309cfbb22c5dd35ddbe5c597cec55",
+    "holdout-04-overlap-expressive/reference.json": "6523f1fd9c61b901b71a21a8b01f64b6cac7909da3cd579cedc95a21a4b6aefe",
+    "holdout-04-overlap-expressive/hypothesis.json": "38fb84d9304ec947b4e9fcd9540c7a6924187a51ef23e7b0aa3dab98d4481207",
+    "holdout-04-overlap-expressive/diagnostics.json": "6406ccfaff6e6cafa1d39dc677520a26ecae73e586af4659173be5e48b768bd7",
+    "holdout-04-overlap-expressive/diarization-evidence.json": "9dfbee92fe74e07c9645d59585ed2b30fd3e7bba0ef902a9d24b92d8ae0d887a",
+    "holdout-04-overlap-expressive/metrics.json": "8355c72a9caada09f6726cf08a73cfcded555d39aa74ca101c58f831f4a62066",
+    "android-report.json": "6ee366de405cc436c0e04ec6be0903b67ba5ddcf01a45a4d732d6189155f76e8",
+    "batch.json": "1e2a277fb8fb28206d12d5e8307feb26ad520d6b941545b84f26b151c9885d60",
+    "instrumentation.log": "56e2eee63639630c74c48230650824360d3c09959f01f396f7fd0121724071fc",
+    "results.csv": "7001306fb8fb59cad912b9b79e2159898a76778f6fc19dad34b8b209d68486e5"
+  },
+  "gates": {
+    "complete_union10": true,
+    "complete_dev8": true,
+    "native_count_at_least_7_of_8": true,
+    "native_der0_within_predeclared_fixed_v16_allowance": true,
+    "fixed_five_wer_port": true
+  },
+  "native_dev": {
+    "cases": 8,
+    "wer_raw": {
+      "errors": 71,
+      "substitutions": 62,
+      "deletions": 7,
+      "insertions": 2,
+      "reference_tokens": 533,
+      "hypothesis_tokens": 528,
+      "rate": 0.13320825515947468
+    },
+    "wer_punctuation_tokens": {
+      "errors": 76,
+      "substitutions": 58,
+      "deletions": 12,
+      "insertions": 6,
+      "reference_tokens": 691,
+      "hypothesis_tokens": 685,
+      "rate": 0.10998552821997105
+    },
+    "wer_normalized": {
+      "errors": 16,
+      "substitutions": 9,
+      "deletions": 6,
+      "insertions": 1,
+      "reference_tokens": 532,
+      "hypothesis_tokens": 527,
+      "rate": 0.03007518796992481
+    },
+    "cer_normalized": {
+      "errors": 38,
+      "substitutions": 11,
+      "deletions": 26,
+      "insertions": 1,
+      "reference_tokens": 2780,
+      "hypothesis_tokens": 2755,
+      "rate": 0.013669064748201438
+    },
+    "cpwer_raw": {
+      "errors": 146,
+      "substitutions": 55,
+      "deletions": 48,
+      "insertions": 43,
+      "reference_tokens": 533,
+      "hypothesis_tokens": 528,
+      "rate": 0.27392120075046905
+    },
+    "cpwer_normalized": {
+      "errors": 97,
+      "substitutions": 8,
+      "deletions": 47,
+      "insertions": 42,
+      "reference_tokens": 532,
+      "hypothesis_tokens": 527,
+      "rate": 0.18233082706766918
+    },
+    "der_collar_0ms": {
+      "miss_ms": 37701.0,
+      "false_alarm_ms": 1741.0,
+      "confusion_ms": 16822.0,
+      "reference_speaker_ms": 255360.0,
+      "rate": 0.22033208020050124
+    },
+    "der_collar_250ms": {
+      "miss_ms": 28527.0,
+      "false_alarm_ms": 400.0,
+      "confusion_ms": 15682.0,
+      "reference_speaker_ms": 243110.0,
+      "rate": 0.18349306898111967
+    },
+    "native_der_collar_0ms": {
+      "miss_ms": 26531.0,
+      "false_alarm_ms": 2680.0,
+      "confusion_ms": 17516.0,
+      "reference_speaker_ms": 255360.0,
+      "rate": 0.18298480576441103
+    },
+    "native_der_collar_250ms": {
+      "miss_ms": 19230.0,
+      "false_alarm_ms": 1163.0,
+      "confusion_ms": 16426.0,
+      "reference_speaker_ms": 243110.0,
+      "rate": 0.15144996092303895
+    },
+    "speaker_count_exact_cases": 7,
+    "native_speaker_count_exact_cases": 7,
+    "audio_ms": 270480,
+    "processing_ms": 114749,
+    "rtf": 0.4242420881396037
+  },
+  "host4_dev": {
+    "cases": 8,
+    "wer_raw": {
+      "errors": 71,
+      "substitutions": 62,
+      "deletions": 7,
+      "insertions": 2,
+      "reference_tokens": 533,
+      "hypothesis_tokens": 528,
+      "rate": 0.13320825515947468
+    },
+    "wer_punctuation_tokens": {
+      "errors": 76,
+      "substitutions": 58,
+      "deletions": 12,
+      "insertions": 6,
+      "reference_tokens": 691,
+      "hypothesis_tokens": 685,
+      "rate": 0.10998552821997105
+    },
+    "wer_normalized": {
+      "errors": 16,
+      "substitutions": 9,
+      "deletions": 6,
+      "insertions": 1,
+      "reference_tokens": 532,
+      "hypothesis_tokens": 527,
+      "rate": 0.03007518796992481
+    },
+    "cer_normalized": {
+      "errors": 38,
+      "substitutions": 11,
+      "deletions": 26,
+      "insertions": 1,
+      "reference_tokens": 2780,
+      "hypothesis_tokens": 2755,
+      "rate": 0.013669064748201438
+    },
+    "cpwer_raw": {
+      "errors": 146,
+      "substitutions": 55,
+      "deletions": 48,
+      "insertions": 43,
+      "reference_tokens": 533,
+      "hypothesis_tokens": 528,
+      "rate": 0.27392120075046905
+    },
+    "cpwer_normalized": {
+      "errors": 97,
+      "substitutions": 8,
+      "deletions": 47,
+      "insertions": 42,
+      "reference_tokens": 532,
+      "hypothesis_tokens": 527,
+      "rate": 0.18233082706766918
+    },
+    "der_collar_0ms": {
+      "miss_ms": 37741.0,
+      "false_alarm_ms": 1741.0,
+      "confusion_ms": 16822.0,
+      "reference_speaker_ms": 255360.0,
+      "rate": 0.2204887218045113
+    },
+    "der_collar_250ms": {
+      "miss_ms": 28567.0,
+      "false_alarm_ms": 400.0,
+      "confusion_ms": 15682.0,
+      "reference_speaker_ms": 243110.0,
+      "rate": 0.18365760355394678
+    },
+    "native_der_collar_0ms": {
+      "miss_ms": 26531.0,
+      "false_alarm_ms": 2680.0,
+      "confusion_ms": 17516.0,
+      "reference_speaker_ms": 255360.0,
+      "rate": 0.18298480576441103
+    },
+    "native_der_collar_250ms": {
+      "miss_ms": 19230.0,
+      "false_alarm_ms": 1163.0,
+      "confusion_ms": 16426.0,
+      "reference_speaker_ms": 243110.0,
+      "rate": 0.15144996092303895
+    },
+    "speaker_count_exact_cases": 7,
+    "native_speaker_count_exact_cases": 7,
+    "audio_ms": 270480,
+    "processing_ms": 83150.810899,
+    "rtf": 0.30741944283865724
+  },
+  "fixed_five_port_gate": {
+    "scope": "Fixed paired corpus, total errors / total reference words; per-file differences retained",
+    "reference_words": 442,
+    "host_errors": 44,
+    "native_errors": 44,
+    "host_wer_raw": 0.09954751131221719,
+    "native_wer_raw": 0.09954751131221719,
+    "wer_delta_percentage_points": 0.0,
+    "threshold_percentage_points": 0.5,
+    "gate_pass": true,
+    "per_file_diagnostics": [
+      {
+        "id": "dev-01-two-clean",
+        "split": "dev",
+        "reference_words": 140,
+        "native_errors": 11,
+        "host_errors": 11,
+        "wer_delta_percentage_points": 0.0,
+        "per_file_within_threshold": true
+      },
+      {
+        "id": "dev-03-short",
+        "split": "dev",
+        "reference_words": 38,
+        "native_errors": 6,
+        "host_errors": 6,
+        "wer_delta_percentage_points": 0.0,
+        "per_file_within_threshold": true
+      },
+      {
+        "id": "holdout-02-three-clean",
+        "split": "holdout",
+        "reference_words": 148,
+        "native_errors": 16,
+        "host_errors": 16,
+        "wer_delta_percentage_points": 0.0,
+        "per_file_within_threshold": true
+      },
+      {
+        "id": "holdout-04-overlap-expressive",
+        "split": "holdout",
+        "reference_words": 101,
+        "native_errors": 10,
+        "host_errors": 10,
+        "wer_delta_percentage_points": 0.0,
+        "per_file_within_threshold": true
+      },
+      {
+        "id": "dev-mono-s",
+        "split": "dev",
+        "reference_words": 15,
+        "native_errors": 1,
+        "host_errors": 1,
+        "wer_delta_percentage_points": 0.0,
+        "per_file_within_threshold": true
+      }
+    ]
+  },
+  "totals": {
+    "sidecars": 10,
+    "measured_windows": 344,
+    "released_streams": 344,
+    "embedding_forward_calls": 344,
+    "asr_chunks": 56,
+    "tokens": 2171,
+    "words": 767
+  },
+  "rows": [
+    {
+      "id": "dev-01-two-clean",
+      "split": "dev",
+      "processing_ms": 32371,
+      "audio_ms": 69556,
+      "raw_wer": {
+        "rate": 0.07857142857142857,
+        "errors": 11,
+        "substitutions": 10,
+        "deletions": 1,
+        "insertions": 0,
+        "correct": 129,
+        "reference_tokens": 140,
+        "hypothesis_tokens": 139,
+        "status": "ok"
+      },
+      "normalized_wer": {
+        "rate": 0.014598540145985401,
+        "errors": 2,
+        "substitutions": 2,
+        "deletions": 0,
+        "insertions": 0,
+        "correct": 135,
+        "reference_tokens": 137,
+        "hypothesis_tokens": 137,
+        "status": "ok"
+      },
+      "cpwer_raw": {
+        "errors": 11,
+        "substitutions": 10,
+        "deletions": 1,
+        "insertions": 0,
+        "correct": 129,
+        "reference_tokens": 140,
+        "hypothesis_tokens": 139,
+        "rate": 0.07857142857142857,
+        "status": "ok",
+        "speaker_pairs": [
+          {
+            "reference_speaker": "speaker_1",
+            "hypothesis_speaker": "speaker_1",
+            "errors": 5,
+            "reference_tokens": 77,
+            "hypothesis_tokens": 77
+          },
+          {
+            "reference_speaker": "speaker_2",
+            "hypothesis_speaker": "speaker_2",
+            "errors": 6,
+            "reference_tokens": 63,
+            "hypothesis_tokens": 62
+          }
+        ]
+      },
+      "native_der0": {
+        "rate": 0.09949508610585159,
+        "miss_ms": 6621.0,
+        "false_alarm_ms": 0.0,
+        "confusion_ms": 0.0,
+        "error_speaker_ms": 6621.0,
+        "reference_speaker_ms": 66546.0,
+        "evaluated_duration_ms": 69556.0,
+        "excluded_duration_ms": 0.0,
+        "reference_overlap_ms": 0.0,
+        "collar_ms": 0,
+        "collar_half_width_ms": 0.0,
+        "mapping_hypothesis_to_reference": {
+          "native_0": "speaker_1",
+          "native_1": "speaker_2"
+        },
+        "status": "ok"
+      },
+      "native_der250": {
+        "rate": 0.0746289467976327,
+        "miss_ms": 4817.0,
+        "false_alarm_ms": 0.0,
+        "confusion_ms": 0.0,
+        "error_speaker_ms": 4817.0,
+        "reference_speaker_ms": 64546.0,
+        "evaluated_duration_ms": 65696.0,
+        "excluded_duration_ms": 3860.0,
+        "reference_overlap_ms": 0.0,
+        "collar_ms": 250,
+        "collar_half_width_ms": 125.0,
+        "mapping_hypothesis_to_reference": {
+          "native_0": "speaker_1",
+          "native_1": "speaker_2"
+        },
+        "status": "ok"
+      },
+      "native_speaker_count": 2,
+      "cpu_policy": {
+        "plan": "auto_v1",
+        "requestedThreads": 0,
+        "availableCores": 8,
+        "asrThreads": 4,
+        "diarizationThreads": 4,
+        "refinementThreads": 4,
+        "diarizationPinned": false,
+        "refinementPinned": false
+      },
+      "vector_replay": {
+        "sidecar_sha256": "3070c1f6734d9b59bc979e4ddb5f3833995cf6ba077db8477c2dfb31c1a489b3",
+        "sidecar_bytes": 799277,
+        "work_id": "48f384e5-c231-414f-8c0c-3d0b61787104",
+        "recording_id": "qa-evaluation-36df7565-5402-4b1b-9bf0-636289e22327",
+        "measured_windows": 61,
+        "dimension": 512,
+        "resources_released": true,
+        "python_replay_exact_turns": true,
+        "status": "PARTIAL_TEMPORAL",
+        "native_speaker_count": 2,
+        "temporal_voting_is_explicit_algorithm_policy": true
+      },
+      "word_replay": {
+        "validated": true,
+        "slices": 11,
+        "tokenCount": 365,
+        "timestampCount": 365,
+        "wordCount": 137,
+        "scope": "Complete native QA payload structure; not token-timing revalidation, word-gold accuracy or microphone acceptance"
+      },
+      "host4_differences": {
+        "jury_content_equal": true,
+        "raw_turns_equal": true,
+        "stable_turns_equal": true,
+        "refined_turns_equal": true,
+        "vectors": {
+          "native_windows": 61,
+          "host_windows": 61,
+          "layout_equal": true,
+          "common_windows": 61,
+          "exact_common_windows": 0,
+          "maximum_absolute_difference": 2.6226043701171875e-05
+        },
+        "asr_chunk_count_equal": true,
+        "asr_changed_chunks": [
+          {
+            "index": 1,
+            "fields": [
+              "timestamps"
+            ]
+          },
+          {
+            "index": 3,
+            "fields": [
+              "timestamps"
+            ]
+          },
+          {
+            "index": 4,
+            "fields": [
+              "timestamps"
+            ]
+          },
+          {
+            "index": 5,
+            "fields": [
+              "timestamps"
+            ]
+          },
+          {
+            "index": 6,
+            "fields": [
+              "timestamps"
+            ]
+          },
+          {
+            "index": 10,
+            "fields": [
+              "timestamps"
+            ]
+          }
+        ]
+      },
+      "evidence_sha256": {
+        "reference.json": "523b1097852d70d1f6d2cf2f3c632ee5c5ac3bedf8e64487ecbdada21c25d127",
+        "hypothesis.json": "ca9f5ee08c3c4bb58539da40c0d7188cef77cb6e9e5457547b1cb2efe928ca66",
+        "diagnostics.json": "34b993e355ba13d810bfd3f0c69f7812b861cdb15edfcacd842df005b7d297cd",
+        "metrics.json": "20d0b8a09841139381582d86b54f0f015fe83f6428e949be0475da7e51d50bbe",
+        "case.json": "5efe4add60e7c422a221ba47b9928bf8f54dd9f4696036f62f3b28d74d5209c5",
+        "scored-case.json": "8baef6b0934878f4b20d3a014996d1ba196e273e271b219fd5e116e778a248be",
+        "diarization-evidence.json": "3070c1f6734d9b59bc979e4ddb5f3833995cf6ba077db8477c2dfb31c1a489b3"
+      }
+    },
+    {
+      "id": "dev-02-three-clean",
+      "split": "dev",
+      "processing_ms": 25754,
+      "audio_ms": 59280,
+      "raw_wer": {
+        "rate": 0.11864406779661017,
+        "errors": 14,
+        "substitutions": 13,
+        "deletions": 1,
+        "insertions": 0,
+        "correct": 104,
+        "reference_tokens": 118,
+        "hypothesis_tokens": 117,
+        "status": "ok"
+      },
+      "normalized_wer": {
+        "rate": 0.01680672268907563,
+        "errors": 2,
+        "substitutions": 1,
+        "deletions": 1,
+        "insertions": 0,
+        "correct": 117,
+        "reference_tokens": 119,
+        "hypothesis_tokens": 118,
+        "status": "ok"
+      },
+      "cpwer_raw": {
+        "errors": 18,
+        "substitutions": 13,
+        "deletions": 3,
+        "insertions": 2,
+        "correct": 102,
+        "reference_tokens": 118,
+        "hypothesis_tokens": 117,
+        "rate": 0.15254237288135594,
+        "status": "ok",
+        "speaker_pairs": [
+          {
+            "reference_speaker": "speaker_1",
+            "hypothesis_speaker": "speaker_1",
+            "errors": 2,
+            "reference_tokens": 43,
+            "hypothesis_tokens": 45
+          },
+          {
+            "reference_speaker": "speaker_2",
+            "hypothesis_speaker": "speaker_2",
+            "errors": 7,
+            "reference_tokens": 35,
+            "hypothesis_tokens": 32
+          },
+          {
+            "reference_speaker": "speaker_3",
+            "hypothesis_speaker": "speaker_3",
+            "errors": 9,
+            "reference_tokens": 40,
+            "hypothesis_tokens": 40
+          }
+        ]
+      },
+      "native_der0": {
+        "rate": 0.09215721464465183,
+        "miss_ms": 3913.0,
+        "false_alarm_ms": 404.0,
+        "confusion_ms": 818.0,
+        "error_speaker_ms": 5135.0,
+        "reference_speaker_ms": 55720.0,
+        "evaluated_duration_ms": 59280.0,
+        "excluded_duration_ms": 0.0,
+        "reference_overlap_ms": 0.0,
+        "collar_ms": 0,
+        "collar_half_width_ms": 0.0,
+        "mapping_hypothesis_to_reference": {
+          "native_0": "speaker_1",
+          "native_1": "speaker_2",
+          "native_2": "speaker_3"
+        },
+        "status": "ok"
+      },
+      "native_der250": {
+        "rate": 0.06416682251729942,
+        "miss_ms": 2638.0,
+        "false_alarm_ms": 100.0,
+        "confusion_ms": 693.0,
+        "error_speaker_ms": 3431.0,
+        "reference_speaker_ms": 53470.0,
+        "evaluated_duration_ms": 54920.0,
+        "excluded_duration_ms": 4360.0,
+        "reference_overlap_ms": 0.0,
+        "collar_ms": 250,
+        "collar_half_width_ms": 125.0,
+        "mapping_hypothesis_to_reference": {
+          "native_0": "speaker_1",
+          "native_1": "speaker_2",
+          "native_2": "speaker_3"
+        },
+        "status": "ok"
+      },
+      "native_speaker_count": 3,
+      "cpu_policy": {
+        "plan": "auto_v1",
+        "requestedThreads": 0,
+        "availableCores": 8,
+        "asrThreads": 4,
+        "diarizationThreads": 4,
+        "refinementThreads": 4,
+        "diarizationPinned": false,
+        "refinementPinned": false
+      },
+      "vector_replay": {
+        "sidecar_sha256": "b3e2433b46bbc140d6f15aef55b4e55bdd6d2fd1c112c67f1176da77cb7569ab",
+        "sidecar_bytes": 710173,
+        "work_id": "d8217317-840c-419d-9e76-c35b0a0ec2cd",
+        "recording_id": "qa-evaluation-80e31d4c-b38d-445d-85de-d403e535bd47",
+        "measured_windows": 55,
+        "dimension": 512,
+        "resources_released": true,
+        "python_replay_exact_turns": true,
+        "status": "PARTIAL_TEMPORAL",
+        "native_speaker_count": 3,
+        "temporal_voting_is_explicit_algorithm_policy": true
+      },
+      "word_replay": {
+        "validated": true,
+        "slices": 7,
+        "tokenCount": 338,
+        "timestampCount": 338,
+        "wordCount": 115,
+        "scope": "Complete native QA payload structure; not token-timing revalidation, word-gold accuracy or microphone acceptance"
+      },
+      "host4_differences": {
+        "jury_content_equal": false,
+        "raw_turns_equal": true,
+        "stable_turns_equal": true,
+        "refined_turns_equal": true,
+        "vectors": {
+          "native_windows": 55,
+          "host_windows": 55,
+          "layout_equal": true,
+          "common_windows": 55,
+          "exact_common_windows": 0,
+          "maximum_absolute_difference": 2.5272369384765625e-05
+        },
+        "asr_chunk_count_equal": true,
+        "asr_changed_chunks": [
+          {
+            "index": 1,
+            "fields": [
+              "timestamps"
+            ]
+          },
+          {
+            "index": 2,
+            "fields": [
+              "timestamps"
+            ]
+          },
+          {
+            "index": 5,
+            "fields": [
+              "timestamps"
+            ]
+          },
+          {
+            "index": 6,
+            "fields": [
+              "timestamps"
+            ]
+          }
+        ]
+      },
+      "evidence_sha256": {
+        "reference.json": "0900022595d73de02b3c7459f85a37b39e37ac5cb455e7ee8827399097e01256",
+        "hypothesis.json": "ab9451b072d2d94bd78f953ed5af9198fd59e44d0273dd4a8ff808057d9884df",
+        "diagnostics.json": "56e1e8df0e059a24132bd09d095d8b6cc230b0e8c0a29950ac5a89d8f4d10d39",
+        "metrics.json": "f6a983dc08ee643d78cd13d8dabc8c2a70e6d7edc1aece8cf389e31d566cace5",
+        "case.json": "465a4b4f26e89193ddd72f93321b18550de86f4d045ebdf3848066da072a00d3",
+        "scored-case.json": "053cbe185370c0128583976f16daafedcab6c5082662e12ea04501899280a07b",
+        "diarization-evidence.json": "b3e2433b46bbc140d6f15aef55b4e55bdd6d2fd1c112c67f1176da77cb7569ab"
+      }
+    },
+    {
+      "id": "dev-03-short",
+      "split": "dev",
+      "processing_ms": 7583,
+      "audio_ms": 19253,
+      "raw_wer": {
+        "rate": 0.15789473684210525,
+        "errors": 6,
+        "substitutions": 6,
+        "deletions": 0,
+        "insertions": 0,
+        "correct": 32,
+        "reference_tokens": 38,
+        "hypothesis_tokens": 38,
+        "status": "ok"
+      },
+      "normalized_wer": {
+        "rate": 0.0,
+        "errors": 0,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 0,
+        "correct": 38,
+        "reference_tokens": 38,
+        "hypothesis_tokens": 38,
+        "status": "ok"
+      },
+      "cpwer_raw": {
+        "errors": 27,
+        "substitutions": 3,
+        "deletions": 12,
+        "insertions": 12,
+        "correct": 23,
+        "reference_tokens": 38,
+        "hypothesis_tokens": 38,
+        "rate": 0.7105263157894737,
+        "status": "ok",
+        "speaker_pairs": [
+          {
+            "reference_speaker": "speaker_1",
+            "hypothesis_speaker": "speaker_2",
+            "errors": 12,
+            "reference_tokens": 23,
+            "hypothesis_tokens": 11
+          },
+          {
+            "reference_speaker": "speaker_2",
+            "hypothesis_speaker": "speaker_1",
+            "errors": 15,
+            "reference_tokens": 15,
+            "hypothesis_tokens": 27
+          }
+        ]
+      },
+      "native_der0": {
+        "rate": 0.3778242935418334,
+        "miss_ms": 661.0,
+        "false_alarm_ms": 719.0,
+        "confusion_ms": 4757.0,
+        "error_speaker_ms": 6137.0,
+        "reference_speaker_ms": 16243.0,
+        "evaluated_duration_ms": 19253.0,
+        "excluded_duration_ms": 0.0,
+        "reference_overlap_ms": 0.0,
+        "collar_ms": 0,
+        "collar_half_width_ms": 0.0,
+        "mapping_hypothesis_to_reference": {
+          "native_1": "speaker_1",
+          "native_0": "speaker_2"
+        },
+        "status": "ok"
+      },
+      "native_der250": {
+        "rate": 0.3160850944323527,
+        "miss_ms": 27.0,
+        "false_alarm_ms": 100.0,
+        "confusion_ms": 4375.0,
+        "error_speaker_ms": 4502.0,
+        "reference_speaker_ms": 14243.0,
+        "evaluated_duration_ms": 15393.0,
+        "excluded_duration_ms": 3860.0,
+        "reference_overlap_ms": 0.0,
+        "collar_ms": 250,
+        "collar_half_width_ms": 125.0,
+        "mapping_hypothesis_to_reference": {
+          "native_1": "speaker_1",
+          "native_0": "speaker_2"
+        },
+        "status": "ok"
+      },
+      "native_speaker_count": 2,
+      "cpu_policy": {
+        "plan": "auto_v1",
+        "requestedThreads": 0,
+        "availableCores": 8,
+        "asrThreads": 4,
+        "diarizationThreads": 4,
+        "refinementThreads": 4,
+        "diarizationPinned": false,
+        "refinementPinned": false
+      },
+      "vector_replay": {
+        "sidecar_sha256": "47beb7017b04d4af878879c000eb111ef13acecde0d453b0516b8cdbe4759b6e",
+        "sidecar_bytes": 222771,
+        "work_id": "40e6b333-bcd5-4d8a-93ac-95db8d90323d",
+        "recording_id": "qa-evaluation-6d9274ac-c875-4c7e-adc3-5e72af4d9ab3",
+        "measured_windows": 16,
+        "dimension": 512,
+        "resources_released": true,
+        "python_replay_exact_turns": true,
+        "status": "PARTIAL_TEMPORAL",
+        "native_speaker_count": 2,
+        "temporal_voting_is_explicit_algorithm_policy": true
+      },
+      "word_replay": {
+        "validated": true,
+        "slices": 4,
+        "tokenCount": 104,
+        "timestampCount": 104,
+        "wordCount": 38,
+        "scope": "Complete native QA payload structure; not token-timing revalidation, word-gold accuracy or microphone acceptance"
+      },
+      "host4_differences": {
+        "jury_content_equal": true,
+        "raw_turns_equal": true,
+        "stable_turns_equal": true,
+        "refined_turns_equal": true,
+        "vectors": {
+          "native_windows": 16,
+          "host_windows": 16,
+          "layout_equal": true,
+          "common_windows": 16,
+          "exact_common_windows": 0,
+          "maximum_absolute_difference": 2.4199485778808594e-05
+        },
+        "asr_chunk_count_equal": true,
+        "asr_changed_chunks": [
+          {
+            "index": 0,
+            "fields": [
+              "timestamps"
+            ]
+          }
+        ]
+      },
+      "evidence_sha256": {
+        "reference.json": "dfaf5a84d3c2850a87ebe3b47369ffb87863c6c710abc6cc7f2faea5337be571",
+        "hypothesis.json": "12388134de2450799fd659b000bdfa2910241b31b9b9bb6acf62d3d65d0c4794",
+        "diagnostics.json": "b2271c05761c7df0afcb02a5d08e084fa96f1d6aac6a27852324ded57a2d5781",
+        "metrics.json": "ed352e5aa61dc5a44c08254b4a40a56531cec457a50caba98921fda799759ab3",
+        "case.json": "999a56e6649248112f12d767ce429b3d5fa3bb9668dffe408897fd487eaa4f0c",
+        "scored-case.json": "94ecc58b0e9abc87975705c23c7481c1a8e89ec3d4d8ef38d8fb8688bd79d72d",
+        "diarization-evidence.json": "47beb7017b04d4af878879c000eb111ef13acecde0d453b0516b8cdbe4759b6e"
+      }
+    },
+    {
+      "id": "dev-04-expressive",
+      "split": "dev",
+      "processing_ms": 13420,
+      "audio_ms": 35470,
+      "raw_wer": {
+        "rate": 0.2,
+        "errors": 14,
+        "substitutions": 10,
+        "deletions": 3,
+        "insertions": 1,
+        "correct": 57,
+        "reference_tokens": 70,
+        "hypothesis_tokens": 68,
+        "status": "ok"
+      },
+      "normalized_wer": {
+        "rate": 0.07142857142857142,
+        "errors": 5,
+        "substitutions": 1,
+        "deletions": 3,
+        "insertions": 1,
+        "correct": 66,
+        "reference_tokens": 70,
+        "hypothesis_tokens": 68,
+        "status": "ok"
+      },
+      "cpwer_raw": {
+        "errors": 14,
+        "substitutions": 10,
+        "deletions": 3,
+        "insertions": 1,
+        "correct": 57,
+        "reference_tokens": 70,
+        "hypothesis_tokens": 68,
+        "rate": 0.2,
+        "status": "ok",
+        "speaker_pairs": [
+          {
+            "reference_speaker": "speaker_1",
+            "hypothesis_speaker": "speaker_1",
+            "errors": 4,
+            "reference_tokens": 33,
+            "hypothesis_tokens": 33
+          },
+          {
+            "reference_speaker": "speaker_2",
+            "hypothesis_speaker": "speaker_2",
+            "errors": 6,
+            "reference_tokens": 15,
+            "hypothesis_tokens": 12
+          },
+          {
+            "reference_speaker": "speaker_3",
+            "hypothesis_speaker": "speaker_3",
+            "errors": 4,
+            "reference_tokens": 22,
+            "hypothesis_tokens": 23
+          }
+        ]
+      },
+      "native_der0": {
+        "rate": 0.14959078508638982,
+        "miss_ms": 4137.0,
+        "false_alarm_ms": 747.0,
+        "confusion_ms": 51.0,
+        "error_speaker_ms": 4935.0,
+        "reference_speaker_ms": 32990.0,
+        "evaluated_duration_ms": 35470.0,
+        "excluded_duration_ms": 0.0,
+        "reference_overlap_ms": 0.0,
+        "collar_ms": 0,
+        "collar_half_width_ms": 0.0,
+        "mapping_hypothesis_to_reference": {
+          "native_0": "speaker_1",
+          "native_1": "speaker_2",
+          "native_2": "speaker_3"
+        },
+        "status": "ok"
+      },
+      "native_der250": {
+        "rate": 0.11625912988250238,
+        "miss_ms": 3060.0,
+        "false_alarm_ms": 550.0,
+        "confusion_ms": 51.0,
+        "error_speaker_ms": 3661.0,
+        "reference_speaker_ms": 31490.0,
+        "evaluated_duration_ms": 32540.0,
+        "excluded_duration_ms": 2930.0,
+        "reference_overlap_ms": 0.0,
+        "collar_ms": 250,
+        "collar_half_width_ms": 125.0,
+        "mapping_hypothesis_to_reference": {
+          "native_0": "speaker_1",
+          "native_1": "speaker_2",
+          "native_2": "speaker_3"
+        },
+        "status": "ok"
+      },
+      "native_speaker_count": 3,
+      "cpu_policy": {
+        "plan": "auto_v1",
+        "requestedThreads": 0,
+        "availableCores": 8,
+        "asrThreads": 4,
+        "diarizationThreads": 4,
+        "refinementThreads": 4,
+        "diarizationPinned": false,
+        "refinementPinned": false
+      },
+      "vector_replay": {
+        "sidecar_sha256": "e9ac9a14d93764d39f7e8d410c7c7ac901d008c480cf3562b8129d0b34c507fa",
+        "sidecar_bytes": 365476,
+        "work_id": "742ab8fe-92e9-4a8e-8580-9e9b1264efa9",
+        "recording_id": "qa-evaluation-bb5544fb-0c67-47a1-bbd2-9e9fc728a775",
+        "measured_windows": 26,
+        "dimension": 512,
+        "resources_released": true,
+        "python_replay_exact_turns": true,
+        "status": "PARTIAL_TEMPORAL",
+        "native_speaker_count": 3,
+        "temporal_voting_is_explicit_algorithm_policy": true
+      },
+      "word_replay": {
+        "validated": true,
+        "slices": 9,
+        "tokenCount": 183,
+        "timestampCount": 183,
+        "wordCount": 68,
+        "scope": "Complete native QA payload structure; not token-timing revalidation, word-gold accuracy or microphone acceptance"
+      },
+      "host4_differences": {
+        "jury_content_equal": true,
+        "raw_turns_equal": true,
+        "stable_turns_equal": true,
+        "refined_turns_equal": true,
+        "vectors": {
+          "native_windows": 26,
+          "host_windows": 26,
+          "layout_equal": true,
+          "common_windows": 26,
+          "exact_common_windows": 0,
+          "maximum_absolute_difference": 2.384185791015625e-05
+        },
+        "asr_chunk_count_equal": true,
+        "asr_changed_chunks": [
+          {
+            "index": 0,
+            "fields": [
+              "timestamps"
+            ]
+          },
+          {
+            "index": 1,
+            "fields": [
+              "timestamps"
+            ]
+          },
+          {
+            "index": 3,
+            "fields": [
+              "timestamps"
+            ]
+          },
+          {
+            "index": 8,
+            "fields": [
+              "timestamps"
+            ]
+          }
+        ]
+      },
+      "evidence_sha256": {
+        "reference.json": "31893577919d7a65863235dc7067a73214f9a9855a7db5ee153fadffbb8606f7",
+        "hypothesis.json": "af37266855e792ba3ab0a8247271edda1edbe5c374d42b2e76c291161f660c46",
+        "diagnostics.json": "b95cd710772c39ad149188833f9e17e9435f4bb0f9edb49608774b797a9ec10f",
+        "metrics.json": "f79eca341384bb77aa5d93f4151789504b37aa6fa5e5fc9bd92c47b539c58332",
+        "case.json": "e0975eeddecf5566e086dabe641d2205f20701771f63638a0f1862d02632b9f5",
+        "scored-case.json": "abf96c931253e568cc2c8b475b08eebede465fbb24b4854e92021670abde7970",
+        "diarization-evidence.json": "e9ac9a14d93764d39f7e8d410c7c7ac901d008c480cf3562b8129d0b34c507fa"
+      }
+    },
+    {
+      "id": "dev-05-whisper",
+      "split": "dev",
+      "processing_ms": 10230,
+      "audio_ms": 32902,
+      "raw_wer": {
+        "rate": 0.1111111111111111,
+        "errors": 5,
+        "substitutions": 4,
+        "deletions": 1,
+        "insertions": 0,
+        "correct": 40,
+        "reference_tokens": 45,
+        "hypothesis_tokens": 44,
+        "status": "ok"
+      },
+      "normalized_wer": {
+        "rate": 0.043478260869565216,
+        "errors": 2,
+        "substitutions": 1,
+        "deletions": 1,
+        "insertions": 0,
+        "correct": 44,
+        "reference_tokens": 46,
+        "hypothesis_tokens": 45,
+        "status": "ok"
+      },
+      "cpwer_raw": {
+        "errors": 16,
+        "substitutions": 3,
+        "deletions": 7,
+        "insertions": 6,
+        "correct": 35,
+        "reference_tokens": 45,
+        "hypothesis_tokens": 44,
+        "rate": 0.35555555555555557,
+        "status": "ok",
+        "speaker_pairs": [
+          {
+            "reference_speaker": "speaker_1",
+            "hypothesis_speaker": "speaker_1",
+            "errors": 5,
+            "reference_tokens": 3,
+            "hypothesis_tokens": 8
+          },
+          {
+            "reference_speaker": "speaker_2",
+            "hypothesis_speaker": "speaker_2",
+            "errors": 4,
+            "reference_tokens": 30,
+            "hypothesis_tokens": 31
+          },
+          {
+            "reference_speaker": "speaker_3",
+            "hypothesis_speaker": "speaker_3",
+            "errors": 7,
+            "reference_tokens": 12,
+            "hypothesis_tokens": 5
+          }
+        ]
+      },
+      "native_der0": {
+        "rate": 0.42373939911905856,
+        "miss_ms": 9060.0,
+        "false_alarm_ms": 219.0,
+        "confusion_ms": 3612.0,
+        "error_speaker_ms": 12891.0,
+        "reference_speaker_ms": 30422.0,
+        "evaluated_duration_ms": 32902.0,
+        "excluded_duration_ms": 0.0,
+        "reference_overlap_ms": 0.0,
+        "collar_ms": 0,
+        "collar_half_width_ms": 0.0,
+        "mapping_hypothesis_to_reference": {
+          "native_1": "speaker_2",
+          "native_0": "speaker_3"
+        },
+        "status": "ok"
+      },
+      "native_der250": {
+        "rate": 0.3960307032708665,
+        "miss_ms": 7706.0,
+        "false_alarm_ms": 219.0,
+        "confusion_ms": 3529.0,
+        "error_speaker_ms": 11454.0,
+        "reference_speaker_ms": 28922.0,
+        "evaluated_duration_ms": 29972.0,
+        "excluded_duration_ms": 2930.0,
+        "reference_overlap_ms": 0.0,
+        "collar_ms": 250,
+        "collar_half_width_ms": 125.0,
+        "mapping_hypothesis_to_reference": {
+          "native_1": "speaker_2",
+          "native_0": "speaker_3"
+        },
+        "status": "ok"
+      },
+      "native_speaker_count": 3,
+      "cpu_policy": {
+        "plan": "auto_v1",
+        "requestedThreads": 0,
+        "availableCores": 8,
+        "asrThreads": 4,
+        "diarizationThreads": 4,
+        "refinementThreads": 4,
+        "diarizationPinned": false,
+        "refinementPinned": false
+      },
+      "vector_replay": {
+        "sidecar_sha256": "a930b590fb6354c818b33d685810bb603fa9bd5db908434f899e1a827a39638e",
+        "sidecar_bytes": 246922,
+        "work_id": "4ef40a82-6065-452e-80fe-2ea84e5ba0c0",
+        "recording_id": "qa-evaluation-030b2e73-e9fe-4ac7-995f-2edba649fcae",
+        "measured_windows": 14,
+        "dimension": 512,
+        "resources_released": true,
+        "python_replay_exact_turns": true,
+        "status": "PARTIAL_TEMPORAL",
+        "native_speaker_count": 3,
+        "temporal_voting_is_explicit_algorithm_policy": true
+      },
+      "word_replay": {
+        "validated": true,
+        "slices": 4,
+        "tokenCount": 125,
+        "timestampCount": 125,
+        "wordCount": 44,
+        "scope": "Complete native QA payload structure; not token-timing revalidation, word-gold accuracy or microphone acceptance"
+      },
+      "host4_differences": {
+        "jury_content_equal": true,
+        "raw_turns_equal": true,
+        "stable_turns_equal": true,
+        "refined_turns_equal": true,
+        "vectors": {
+          "native_windows": 14,
+          "host_windows": 14,
+          "layout_equal": true,
+          "common_windows": 14,
+          "exact_common_windows": 0,
+          "maximum_absolute_difference": 2.0742416381835938e-05
+        },
+        "asr_chunk_count_equal": true,
+        "asr_changed_chunks": [
+          {
+            "index": 2,
+            "fields": [
+              "timestamps"
+            ]
+          }
+        ]
+      },
+      "evidence_sha256": {
+        "reference.json": "d544e0695cf6307c2899f72cdff638c970e4915e9326003c393710545ca7a9f1",
+        "hypothesis.json": "df2687ada9bb7b12ad0bfad740bc517e24de9441d92e77dc6a04a09b0ba85352",
+        "diagnostics.json": "55b000760b33d5163a4c246a0274b97f9b3f1c043b014921f3a60c46862c38cf",
+        "metrics.json": "9c088e1a031d32abc14fa9ac4c2eb6ff2051ba1adf91834bf504722680689e38",
+        "case.json": "d154c475824e2c18f975162b5e710fe568d5ae0116d6eea6b7375fb211e76107",
+        "scored-case.json": "57da88c606d2c0041a29d4ef9905f1b470703d98309bf3baa081d91e6c05a88e",
+        "diarization-evidence.json": "a930b590fb6354c818b33d685810bb603fa9bd5db908434f899e1a827a39638e"
+      }
+    },
+    {
+      "id": "dev-06-overlap",
+      "split": "dev",
+      "processing_ms": 16035,
+      "audio_ms": 36060,
+      "raw_wer": {
+        "rate": 0.21794871794871795,
+        "errors": 17,
+        "substitutions": 16,
+        "deletions": 1,
+        "insertions": 0,
+        "correct": 61,
+        "reference_tokens": 78,
+        "hypothesis_tokens": 77,
+        "status": "ok"
+      },
+      "normalized_wer": {
+        "rate": 0.0641025641025641,
+        "errors": 5,
+        "substitutions": 4,
+        "deletions": 1,
+        "insertions": 0,
+        "correct": 73,
+        "reference_tokens": 78,
+        "hypothesis_tokens": 77,
+        "status": "ok"
+      },
+      "cpwer_raw": {
+        "errors": 56,
+        "substitutions": 13,
+        "deletions": 22,
+        "insertions": 21,
+        "correct": 43,
+        "reference_tokens": 78,
+        "hypothesis_tokens": 77,
+        "rate": 0.717948717948718,
+        "status": "ok",
+        "speaker_pairs": [
+          {
+            "reference_speaker": "speaker_1",
+            "hypothesis_speaker": null,
+            "errors": 21,
+            "reference_tokens": 21,
+            "hypothesis_tokens": 0
+          },
+          {
+            "reference_speaker": "speaker_2",
+            "hypothesis_speaker": "speaker_1",
+            "errors": 29,
+            "reference_tokens": 31,
+            "hypothesis_tokens": 52
+          },
+          {
+            "reference_speaker": "speaker_3",
+            "hypothesis_speaker": "speaker_2",
+            "errors": 6,
+            "reference_tokens": 26,
+            "hypothesis_tokens": 25
+          }
+        ]
+      },
+      "native_der0": {
+        "rate": 0.30301578354002257,
+        "miss_ms": 1882.0,
+        "false_alarm_ms": 591.0,
+        "confusion_ms": 8278.0,
+        "error_speaker_ms": 10751.0,
+        "reference_speaker_ms": 35480.0,
+        "evaluated_duration_ms": 36060.0,
+        "excluded_duration_ms": 0.0,
+        "reference_overlap_ms": 1000.0,
+        "collar_ms": 0,
+        "collar_half_width_ms": 0.0,
+        "mapping_hypothesis_to_reference": {
+          "native_0": "speaker_2",
+          "native_1": "speaker_3"
+        },
+        "status": "ok"
+      },
+      "native_der250": {
+        "rate": 0.2711340206185567,
+        "miss_ms": 970.0,
+        "false_alarm_ms": 194.0,
+        "confusion_ms": 7778.0,
+        "error_speaker_ms": 8942.0,
+        "reference_speaker_ms": 32980.0,
+        "evaluated_duration_ms": 33130.0,
+        "excluded_duration_ms": 2930.0,
+        "reference_overlap_ms": 500.0,
+        "collar_ms": 250,
+        "collar_half_width_ms": 125.0,
+        "mapping_hypothesis_to_reference": {
+          "native_0": "speaker_2",
+          "native_1": "speaker_3"
+        },
+        "status": "ok"
+      },
+      "native_speaker_count": 2,
+      "cpu_policy": {
+        "plan": "auto_v1",
+        "requestedThreads": 0,
+        "availableCores": 8,
+        "asrThreads": 4,
+        "diarizationThreads": 4,
+        "refinementThreads": 4,
+        "diarizationPinned": false,
+        "refinementPinned": false
+      },
+      "vector_replay": {
+        "sidecar_sha256": "3f071eab43f0a1b2a90905f7b9c391f41b89c80568c72be3c9a7e5b0dc613c14",
+        "sidecar_bytes": 488002,
+        "work_id": "ab3ccddc-04af-46c5-8e4f-6cded70fc942",
+        "recording_id": "qa-evaluation-4b990189-a822-43b9-b43b-48f7822db9e8",
+        "measured_windows": 38,
+        "dimension": 512,
+        "resources_released": true,
+        "python_replay_exact_turns": true,
+        "status": "PARTIAL_TEMPORAL",
+        "native_speaker_count": 2,
+        "temporal_voting_is_explicit_algorithm_policy": true
+      },
+      "word_replay": {
+        "validated": true,
+        "slices": 3,
+        "tokenCount": 217,
+        "timestampCount": 217,
+        "wordCount": 77,
+        "scope": "Complete native QA payload structure; not token-timing revalidation, word-gold accuracy or microphone acceptance"
+      },
+      "host4_differences": {
+        "jury_content_equal": true,
+        "raw_turns_equal": true,
+        "stable_turns_equal": true,
+        "refined_turns_equal": true,
+        "vectors": {
+          "native_windows": 38,
+          "host_windows": 38,
+          "layout_equal": true,
+          "common_windows": 38,
+          "exact_common_windows": 0,
+          "maximum_absolute_difference": 2.6941299438476562e-05
+        },
+        "asr_chunk_count_equal": true,
+        "asr_changed_chunks": [
+          {
+            "index": 1,
+            "fields": [
+              "timestamps"
+            ]
+          },
+          {
+            "index": 2,
+            "fields": [
+              "timestamps"
+            ]
+          }
+        ]
+      },
+      "evidence_sha256": {
+        "reference.json": "7b23bb601328e721ebc51b2f2cf0d3292b64bf65cd6250332e45688756e53713",
+        "hypothesis.json": "da2b68e9be976c1a7cdc05c5b970b8bc726c7fd8ad72380f4b07ad9b365f15ea",
+        "diagnostics.json": "10303c7fc805768cfb718c11769409cb4af96c4db21429d1ab29a7b1246cd2bc",
+        "metrics.json": "191d9c818765ccebb74b42913d1c0a4a547e3bec5ae5e5a119ba92a3b7d6d615",
+        "case.json": "477e5c43ab6891b1b571c5f78cc91fa2ebfe13dafef9fa67c7df747e9f9da9a3",
+        "scored-case.json": "cb2a52d4b85b2d9361c7d16144bf14722b0e67bb0a3580a9a89e38202c897a42",
+        "diarization-evidence.json": "3f071eab43f0a1b2a90905f7b9c391f41b89c80568c72be3c9a7e5b0dc613c14"
+      }
+    },
+    {
+      "id": "dev-mono-m",
+      "split": "dev",
+      "processing_ms": 5477,
+      "audio_ms": 11626,
+      "raw_wer": {
+        "rate": 0.10344827586206896,
+        "errors": 3,
+        "substitutions": 2,
+        "deletions": 0,
+        "insertions": 1,
+        "correct": 27,
+        "reference_tokens": 29,
+        "hypothesis_tokens": 30,
+        "status": "ok"
+      },
+      "normalized_wer": {
+        "rate": 0.0,
+        "errors": 0,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 0,
+        "correct": 30,
+        "reference_tokens": 30,
+        "hypothesis_tokens": 30,
+        "status": "ok"
+      },
+      "cpwer_raw": {
+        "errors": 3,
+        "substitutions": 2,
+        "deletions": 0,
+        "insertions": 1,
+        "correct": 27,
+        "reference_tokens": 29,
+        "hypothesis_tokens": 30,
+        "rate": 0.10344827586206896,
+        "status": "ok",
+        "speaker_pairs": [
+          {
+            "reference_speaker": "speaker_1",
+            "hypothesis_speaker": "speaker_1",
+            "errors": 3,
+            "reference_tokens": 29,
+            "hypothesis_tokens": 30
+          }
+        ]
+      },
+      "native_der0": {
+        "rate": 0.014450369860657147,
+        "miss_ms": 168.0,
+        "false_alarm_ms": 0.0,
+        "confusion_ms": 0.0,
+        "error_speaker_ms": 168.0,
+        "reference_speaker_ms": 11626.0,
+        "evaluated_duration_ms": 11626.0,
+        "excluded_duration_ms": 0.0,
+        "reference_overlap_ms": 0.0,
+        "collar_ms": 0,
+        "collar_half_width_ms": 0.0,
+        "mapping_hypothesis_to_reference": {
+          "native_0": "speaker_1"
+        },
+        "status": "ok"
+      },
+      "native_der250": {
+        "rate": 0.0010548523206751054,
+        "miss_ms": 12.0,
+        "false_alarm_ms": 0.0,
+        "confusion_ms": 0.0,
+        "error_speaker_ms": 12.0,
+        "reference_speaker_ms": 11376.0,
+        "evaluated_duration_ms": 11376.0,
+        "excluded_duration_ms": 250.0,
+        "reference_overlap_ms": 0.0,
+        "collar_ms": 250,
+        "collar_half_width_ms": 125.0,
+        "mapping_hypothesis_to_reference": {
+          "native_0": "speaker_1"
+        },
+        "status": "ok"
+      },
+      "native_speaker_count": 1,
+      "cpu_policy": {
+        "plan": "auto_v1",
+        "requestedThreads": 0,
+        "availableCores": 8,
+        "asrThreads": 4,
+        "diarizationThreads": 4,
+        "refinementThreads": 4,
+        "diarizationPinned": false,
+        "refinementPinned": false
+      },
+      "vector_replay": {
+        "sidecar_sha256": "b3fac579b1a421cc616440f79975590c3896b602c67038bfa5e05778c24f2d9a",
+        "sidecar_bytes": 181861,
+        "work_id": "09ea86c6-31a1-473e-bf5c-86a1ccc45b14",
+        "recording_id": "qa-evaluation-68224e19-3474-4f46-966f-68508444f6d1",
+        "measured_windows": 14,
+        "dimension": 512,
+        "resources_released": true,
+        "python_replay_exact_turns": true,
+        "status": "PARTIAL_TEMPORAL",
+        "native_speaker_count": 1,
+        "temporal_voting_is_explicit_algorithm_policy": true
+      },
+      "word_replay": {
+        "validated": true,
+        "slices": 1,
+        "tokenCount": 82,
+        "timestampCount": 82,
+        "wordCount": 29,
+        "scope": "Complete native QA payload structure; not token-timing revalidation, word-gold accuracy or microphone acceptance"
+      },
+      "host4_differences": {
+        "jury_content_equal": true,
+        "raw_turns_equal": true,
+        "stable_turns_equal": true,
+        "refined_turns_equal": true,
+        "vectors": {
+          "native_windows": 14,
+          "host_windows": 14,
+          "layout_equal": true,
+          "common_windows": 14,
+          "exact_common_windows": 0,
+          "maximum_absolute_difference": 2.0503997802734375e-05
+        },
+        "asr_chunk_count_equal": true,
+        "asr_changed_chunks": [
+          {
+            "index": 0,
+            "fields": [
+              "timestamps"
+            ]
+          }
+        ]
+      },
+      "evidence_sha256": {
+        "reference.json": "c027484abb892d54d2b3eb1601344a7c29e1e1ada7d09e490d15e104ed3e71f5",
+        "hypothesis.json": "532e0a61828b4005303b2864d72ecac3be1ea3052c371fa10a38d765a077572b",
+        "diagnostics.json": "70626f85e23985889ec82ec156c58d85fb1a97d7afb163c3fc11d7741f31f2e0",
+        "metrics.json": "f009643f41541482eb2d3369a1495790c979466fb96ba4385258ec44c818a399",
+        "case.json": "1ac0fda121886f63bb466d6900ae4bebc4d167cac270a81b80eed4034ca433be",
+        "scored-case.json": "63454963ade1c22323b0b041a6b0291c97f5b583f6ccef954080c7b187523f9e",
+        "diarization-evidence.json": "b3fac579b1a421cc616440f79975590c3896b602c67038bfa5e05778c24f2d9a"
+      }
+    },
+    {
+      "id": "dev-mono-s",
+      "split": "dev",
+      "processing_ms": 3879,
+      "audio_ms": 6333,
+      "raw_wer": {
+        "rate": 0.06666666666666667,
+        "errors": 1,
+        "substitutions": 1,
+        "deletions": 0,
+        "insertions": 0,
+        "correct": 14,
+        "reference_tokens": 15,
+        "hypothesis_tokens": 15,
+        "status": "ok"
+      },
+      "normalized_wer": {
+        "rate": 0.0,
+        "errors": 0,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 0,
+        "correct": 14,
+        "reference_tokens": 14,
+        "hypothesis_tokens": 14,
+        "status": "ok"
+      },
+      "cpwer_raw": {
+        "errors": 1,
+        "substitutions": 1,
+        "deletions": 0,
+        "insertions": 0,
+        "correct": 14,
+        "reference_tokens": 15,
+        "hypothesis_tokens": 15,
+        "rate": 0.06666666666666667,
+        "status": "ok",
+        "speaker_pairs": [
+          {
+            "reference_speaker": "speaker_1",
+            "hypothesis_speaker": "speaker_1",
+            "errors": 1,
+            "reference_tokens": 15,
+            "hypothesis_tokens": 15
+          }
+        ]
+      },
+      "native_der0": {
+        "rate": 0.01405337123006474,
+        "miss_ms": 89.0,
+        "false_alarm_ms": 0.0,
+        "confusion_ms": 0.0,
+        "error_speaker_ms": 89.0,
+        "reference_speaker_ms": 6333.0,
+        "evaluated_duration_ms": 6333.0,
+        "excluded_duration_ms": 0.0,
+        "reference_overlap_ms": 0.0,
+        "collar_ms": 0,
+        "collar_half_width_ms": 0.0,
+        "mapping_hypothesis_to_reference": {
+          "native_0": "speaker_1"
+        },
+        "status": "ok"
+      },
+      "native_der250": {
+        "rate": 0.0,
+        "miss_ms": 0.0,
+        "false_alarm_ms": 0.0,
+        "confusion_ms": 0.0,
+        "error_speaker_ms": 0.0,
+        "reference_speaker_ms": 6083.0,
+        "evaluated_duration_ms": 6083.0,
+        "excluded_duration_ms": 250.0,
+        "reference_overlap_ms": 0.0,
+        "collar_ms": 250,
+        "collar_half_width_ms": 125.0,
+        "mapping_hypothesis_to_reference": {
+          "native_0": "speaker_1"
+        },
+        "status": "ok"
+      },
+      "native_speaker_count": 1,
+      "cpu_policy": {
+        "plan": "auto_v1",
+        "requestedThreads": 0,
+        "availableCores": 8,
+        "asrThreads": 4,
+        "diarizationThreads": 4,
+        "refinementThreads": 4,
+        "diarizationPinned": false,
+        "refinementPinned": false
+      },
+      "vector_replay": {
+        "sidecar_sha256": "0dbcad66ced09c2cff1e0ced6a2b9b661f353333bf4b4ca78f2c8c06d7442651",
+        "sidecar_bytes": 70430,
+        "work_id": "dabd978c-6774-4e06-b185-61b36e0ad014",
+        "recording_id": "qa-evaluation-a8de8928-9304-4caa-bcee-2f18b7225ab9",
+        "measured_windows": 4,
+        "dimension": 512,
+        "resources_released": true,
+        "python_replay_exact_turns": true,
+        "status": "PARTIAL_TEMPORAL",
+        "native_speaker_count": 1,
+        "temporal_voting_is_explicit_algorithm_policy": true
+      },
+      "word_replay": {
+        "validated": true,
+        "slices": 1,
+        "tokenCount": 42,
+        "timestampCount": 42,
+        "wordCount": 14,
+        "scope": "Complete native QA payload structure; not token-timing revalidation, word-gold accuracy or microphone acceptance"
+      },
+      "host4_differences": {
+        "jury_content_equal": true,
+        "raw_turns_equal": true,
+        "stable_turns_equal": true,
+        "refined_turns_equal": true,
+        "vectors": {
+          "native_windows": 4,
+          "host_windows": 4,
+          "layout_equal": true,
+          "common_windows": 4,
+          "exact_common_windows": 0,
+          "maximum_absolute_difference": 1.6689300537109375e-05
+        },
+        "asr_chunk_count_equal": true,
+        "asr_changed_chunks": []
+      },
+      "evidence_sha256": {
+        "reference.json": "9259341e0d2aa8bc8bf6bdc9f616ea30e5025aa4e1adca14dc09f2089dcb15e1",
+        "hypothesis.json": "da717d03f8b6091548a6b903332e62313efe1efbfb18464503922703af13b858",
+        "diagnostics.json": "82ea63af6fa1763888dc264d570cde5079d15a79c6d14fe339b8cb57a633fa0b",
+        "metrics.json": "9144f37d9e0bd5a37f65c81101a48ba23978b8d82023cd64cb61e4732b45cb39",
+        "case.json": "1afa420c22b6ae6d0158d142dd53b2b926a878675df718f382831efff2bbf503",
+        "scored-case.json": "ba8e23d1060ad53a1bfb89f5fe8ab37e80d7a5d991923354c92525e6b5047e04",
+        "diarization-evidence.json": "0dbcad66ced09c2cff1e0ced6a2b9b661f353333bf4b4ca78f2c8c06d7442651"
+      }
+    },
+    {
+      "id": "holdout-02-three-clean",
+      "split": "holdout",
+      "processing_ms": 32703,
+      "audio_ms": 74417,
+      "raw_wer": {
+        "rate": 0.10810810810810811,
+        "errors": 16,
+        "substitutions": 12,
+        "deletions": 4,
+        "insertions": 0,
+        "correct": 132,
+        "reference_tokens": 148,
+        "hypothesis_tokens": 144,
+        "status": "ok"
+      },
+      "normalized_wer": {
+        "rate": 0.03355704697986577,
+        "errors": 5,
+        "substitutions": 2,
+        "deletions": 3,
+        "insertions": 0,
+        "correct": 144,
+        "reference_tokens": 149,
+        "hypothesis_tokens": 146,
+        "status": "ok"
+      },
+      "cpwer_raw": {
+        "errors": 49,
+        "substitutions": 7,
+        "deletions": 23,
+        "insertions": 19,
+        "correct": 118,
+        "reference_tokens": 148,
+        "hypothesis_tokens": 144,
+        "rate": 0.3310810810810811,
+        "status": "ok",
+        "speaker_pairs": [
+          {
+            "reference_speaker": "speaker_1",
+            "hypothesis_speaker": "speaker_4",
+            "errors": 23,
+            "reference_tokens": 42,
+            "hypothesis_tokens": 21
+          },
+          {
+            "reference_speaker": "speaker_2",
+            "hypothesis_speaker": "speaker_2",
+            "errors": 1,
+            "reference_tokens": 55,
+            "hypothesis_tokens": 55
+          },
+          {
+            "reference_speaker": "speaker_3",
+            "hypothesis_speaker": "speaker_3",
+            "errors": 6,
+            "reference_tokens": 51,
+            "hypothesis_tokens": 49
+          },
+          {
+            "reference_speaker": null,
+            "hypothesis_speaker": "speaker_1",
+            "errors": 19,
+            "reference_tokens": 0,
+            "hypothesis_tokens": 19
+          }
+        ]
+      },
+      "native_der0": {
+        "rate": 0.20312742566013237,
+        "miss_ms": 4565.0,
+        "false_alarm_ms": 399.0,
+        "confusion_ms": 9429.0,
+        "error_speaker_ms": 14393.0,
+        "reference_speaker_ms": 70857.0,
+        "evaluated_duration_ms": 74417.0,
+        "excluded_duration_ms": 0.0,
+        "reference_overlap_ms": 0.0,
+        "collar_ms": 0,
+        "collar_half_width_ms": 0.0,
+        "mapping_hypothesis_to_reference": {
+          "native_3": "speaker_1",
+          "native_1": "speaker_2",
+          "native_2": "speaker_3"
+        },
+        "status": "ok"
+      },
+      "native_der250": {
+        "rate": 0.1764105703499643,
+        "miss_ms": 2902.0,
+        "false_alarm_ms": 94.0,
+        "confusion_ms": 9107.0,
+        "error_speaker_ms": 12103.0,
+        "reference_speaker_ms": 68607.0,
+        "evaluated_duration_ms": 70057.0,
+        "excluded_duration_ms": 4360.0,
+        "reference_overlap_ms": 0.0,
+        "collar_ms": 250,
+        "collar_half_width_ms": 125.0,
+        "mapping_hypothesis_to_reference": {
+          "native_3": "speaker_1",
+          "native_1": "speaker_2",
+          "native_2": "speaker_3"
+        },
+        "status": "ok"
+      },
+      "native_speaker_count": 4,
+      "cpu_policy": {
+        "plan": "auto_v1",
+        "requestedThreads": 0,
+        "availableCores": 8,
+        "asrThreads": 4,
+        "diarizationThreads": 4,
+        "refinementThreads": 4,
+        "diarizationPinned": false,
+        "refinementPinned": false
+      },
+      "vector_replay": {
+        "sidecar_sha256": "101a4b0188e74593276c0cf0baa1fa43460cad6cf8f17988478fc96451672375",
+        "sidecar_bytes": 906981,
+        "work_id": "d2882ef8-5c73-4620-a50e-e3471ed9e451",
+        "recording_id": "qa-evaluation-28719ff8-0fa0-4493-a2b9-1f741b61b212",
+        "measured_windows": 69,
+        "dimension": 512,
+        "resources_released": true,
+        "python_replay_exact_turns": true,
+        "status": "PARTIAL_TEMPORAL",
+        "native_speaker_count": 4,
+        "temporal_voting_is_explicit_algorithm_policy": true
+      },
+      "word_replay": {
+        "validated": true,
+        "slices": 9,
+        "tokenCount": 434,
+        "timestampCount": 434,
+        "wordCount": 143,
+        "scope": "Complete native QA payload structure; not token-timing revalidation, word-gold accuracy or microphone acceptance"
+      },
+      "host4_differences": {
+        "jury_content_equal": true,
+        "raw_turns_equal": true,
+        "stable_turns_equal": true,
+        "refined_turns_equal": true,
+        "vectors": {
+          "native_windows": 69,
+          "host_windows": 69,
+          "layout_equal": true,
+          "common_windows": 69,
+          "exact_common_windows": 0,
+          "maximum_absolute_difference": 2.5033950805664062e-05
+        },
+        "asr_chunk_count_equal": true,
+        "asr_changed_chunks": [
+          {
+            "index": 1,
+            "fields": [
+              "timestamps"
+            ]
+          },
+          {
+            "index": 2,
+            "fields": [
+              "timestamps"
+            ]
+          },
+          {
+            "index": 4,
+            "fields": [
+              "timestamps"
+            ]
+          },
+          {
+            "index": 7,
+            "fields": [
+              "timestamps"
+            ]
+          }
+        ]
+      },
+      "evidence_sha256": {
+        "reference.json": "b3d0daa4ea7d84008352961e70dd72fa85bb4052de546858651e08c87d79721a",
+        "hypothesis.json": "1444bf3f68de5df9acbebd4eae2ac7747ed01f779e4771ff4dcc7c112170ba4f",
+        "diagnostics.json": "3658ae71ef8172d84acddd039be4ee07246b03545ab30338182631f6a9930ff5",
+        "metrics.json": "6e20511fe3a786d2050e10d7d43c341728270bab6f66c7c2e16d7f9cd90e4109",
+        "case.json": "3058ad3077c5e28fc1e5824df74f62a3f00e6a1c8b8732a55de14c892fba760f",
+        "scored-case.json": "dc7a5f5cd8bf8c464bc071dcfb9faf49f053e5c1a5437c263edba726a5f595ff",
+        "diarization-evidence.json": "101a4b0188e74593276c0cf0baa1fa43460cad6cf8f17988478fc96451672375"
+      }
+    },
+    {
+      "id": "holdout-04-overlap-expressive",
+      "split": "holdout",
+      "processing_ms": 23087,
+      "audio_ms": 48178,
+      "raw_wer": {
+        "rate": 0.09900990099009901,
+        "errors": 10,
+        "substitutions": 8,
+        "deletions": 0,
+        "insertions": 2,
+        "correct": 93,
+        "reference_tokens": 101,
+        "hypothesis_tokens": 103,
+        "status": "ok"
+      },
+      "normalized_wer": {
+        "rate": 0.0297029702970297,
+        "errors": 3,
+        "substitutions": 2,
+        "deletions": 0,
+        "insertions": 1,
+        "correct": 99,
+        "reference_tokens": 101,
+        "hypothesis_tokens": 102,
+        "status": "ok"
+      },
+      "cpwer_raw": {
+        "errors": 10,
+        "substitutions": 8,
+        "deletions": 0,
+        "insertions": 2,
+        "correct": 93,
+        "reference_tokens": 101,
+        "hypothesis_tokens": 103,
+        "rate": 0.09900990099009901,
+        "status": "ok",
+        "speaker_pairs": [
+          {
+            "reference_speaker": "speaker_1",
+            "hypothesis_speaker": "speaker_1",
+            "errors": 2,
+            "reference_tokens": 34,
+            "hypothesis_tokens": 35
+          },
+          {
+            "reference_speaker": "speaker_2",
+            "hypothesis_speaker": "speaker_2",
+            "errors": 5,
+            "reference_tokens": 37,
+            "hypothesis_tokens": 38
+          },
+          {
+            "reference_speaker": "speaker_3",
+            "hypothesis_speaker": "speaker_3",
+            "errors": 3,
+            "reference_tokens": 30,
+            "hypothesis_tokens": 30
+          }
+        ]
+      },
+      "native_der0": {
+        "rate": 0.08489852514811547,
+        "miss_ms": 3822.0,
+        "false_alarm_ms": 219.0,
+        "confusion_ms": 0.0,
+        "error_speaker_ms": 4041.0,
+        "reference_speaker_ms": 47598.0,
+        "evaluated_duration_ms": 48178.0,
+        "excluded_duration_ms": 0.0,
+        "reference_overlap_ms": 1000.0,
+        "collar_ms": 0,
+        "collar_half_width_ms": 0.0,
+        "mapping_hypothesis_to_reference": {
+          "native_0": "speaker_1",
+          "native_1": "speaker_2",
+          "native_2": "speaker_3"
+        },
+        "status": "ok"
+      },
+      "native_der250": {
+        "rate": 0.06126657501441306,
+        "miss_ms": 2669.0,
+        "false_alarm_ms": 94.0,
+        "confusion_ms": 0.0,
+        "error_speaker_ms": 2763.0,
+        "reference_speaker_ms": 45098.0,
+        "evaluated_duration_ms": 45248.0,
+        "excluded_duration_ms": 2930.0,
+        "reference_overlap_ms": 500.0,
+        "collar_ms": 250,
+        "collar_half_width_ms": 125.0,
+        "mapping_hypothesis_to_reference": {
+          "native_0": "speaker_1",
+          "native_1": "speaker_2",
+          "native_2": "speaker_3"
+        },
+        "status": "ok"
+      },
+      "native_speaker_count": 3,
+      "cpu_policy": {
+        "plan": "auto_v1",
+        "requestedThreads": 0,
+        "availableCores": 8,
+        "asrThreads": 4,
+        "diarizationThreads": 4,
+        "refinementThreads": 4,
+        "diarizationPinned": false,
+        "refinementPinned": false
+      },
+      "vector_replay": {
+        "sidecar_sha256": "9dfbee92fe74e07c9645d59585ed2b30fd3e7bba0ef902a9d24b92d8ae0d887a",
+        "sidecar_bytes": 611026,
+        "work_id": "0fa14651-d5c0-4ef2-b985-f1ca6d5a625c",
+        "recording_id": "qa-evaluation-2cfd16c1-51b9-4e2c-8876-7082d94382f1",
+        "measured_windows": 47,
+        "dimension": 512,
+        "resources_released": true,
+        "python_replay_exact_turns": true,
+        "status": "PARTIAL_TEMPORAL",
+        "native_speaker_count": 3,
+        "temporal_voting_is_explicit_algorithm_policy": true
+      },
+      "word_replay": {
+        "validated": true,
+        "slices": 7,
+        "tokenCount": 281,
+        "timestampCount": 281,
+        "wordCount": 102,
+        "scope": "Complete native QA payload structure; not token-timing revalidation, word-gold accuracy or microphone acceptance"
+      },
+      "host4_differences": {
+        "jury_content_equal": false,
+        "raw_turns_equal": true,
+        "stable_turns_equal": true,
+        "refined_turns_equal": true,
+        "vectors": {
+          "native_windows": 47,
+          "host_windows": 47,
+          "layout_equal": true,
+          "common_windows": 47,
+          "exact_common_windows": 0,
+          "maximum_absolute_difference": 3.0279159545898438e-05
+        },
+        "asr_chunk_count_equal": true,
+        "asr_changed_chunks": [
+          {
+            "index": 1,
+            "fields": [
+              "timestamps"
+            ]
+          },
+          {
+            "index": 2,
+            "fields": [
+              "timestamps"
+            ]
+          },
+          {
+            "index": 3,
+            "fields": [
+              "timestamps"
+            ]
+          },
+          {
+            "index": 5,
+            "fields": [
+              "timestamps"
+            ]
+          },
+          {
+            "index": 6,
+            "fields": [
+              "timestamps"
+            ]
+          }
+        ]
+      },
+      "evidence_sha256": {
+        "reference.json": "6523f1fd9c61b901b71a21a8b01f64b6cac7909da3cd579cedc95a21a4b6aefe",
+        "hypothesis.json": "38fb84d9304ec947b4e9fcd9540c7a6924187a51ef23e7b0aa3dab98d4481207",
+        "diagnostics.json": "6406ccfaff6e6cafa1d39dc677520a26ecae73e586af4659173be5e48b768bd7",
+        "metrics.json": "8355c72a9caada09f6726cf08a73cfcded555d39aa74ca101c58f831f4a62066",
+        "case.json": "7a1eb18575d8f24a99e7840adca13ce8eb7335aa64666997ff9e47c5efcee50e",
+        "scored-case.json": "1b745a9e7f961654532f9ef0ee86324fcdd309cfbb22c5dd35ddbe5c597cec55",
+        "diarization-evidence.json": "9dfbee92fe74e07c9645d59585ed2b30fd3e7bba0ef902a9d24b92d8ae0d887a"
+      }
+    }
+  ],
+  "prior_data_preservation": {
+    "source": "artifacts/test-results/step-05/vivo-prior-data-preservation-v1.json",
+    "status": "PRIOR_DATABASE_TABLES_EXACTLY_PRESERVED",
+    "tables": 5,
+    "scope": "Root private per-table count/row-SHA proof linked; personal rows/DB not independently inspected or exported by this auditor."
+  },
+  "source_inference_new": true,
+  "new_neural_inference_by_auditor": false,
+  "x86_native_raw70_cpu_gate_applied": false,
+  "cross_arch_byte_exact_required": false,
+  "speed_accepted": false,
+  "natural_diarization_accepted": false,
+  "word_gold_accuracy_accepted": false,
+  "ps16k_NN_accepted": false,
+  "whole_project_accepted": false,
+  "scope": "Subsequent physical ARM64/API37 complete-ten compatibility and fixed existing quality/CPU-policy regression only. Separate first one-case ARM smoke has its own root-owned protocol. Historical authored montage cohorts, no new blind/natural/word-timing/16KB or controlled speed acceptance. No inference or ADB by protocol author.",
+  "privacy": "Only known author montage refs/hyps/diagnostics/vectors/scored cases and CSV exported. Original collector run.json/commands/serial/dumpsys/DB remain private. Comparisons to host4 preserve numeric/text/timing differences without demanding bit-exact cross-architecture NN."
+}

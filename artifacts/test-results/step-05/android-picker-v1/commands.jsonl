@@ -1,0 +1,16 @@
+{"argv": ["adb", "-s", "emulator-5556", "shell", "test", "-e", "/sdcard/Download/p19picker20261107T072016-p19-wav-08k-mono.wav"], "returncode": 1}
+{"argv": ["adb", "-s", "emulator-5556", "push", "app/src/androidTest/assets/plan19-import/p19-wav-08k-mono.wav", "/sdcard/Download/p19picker20261107T072016-p19-wav-08k-mono.wav"], "returncode": 0}
+{"argv": ["adb", "-s", "emulator-5556", "shell", "am", "broadcast", "-a", "android.intent.action.MEDIA_SCANNER_SCAN_FILE", "-d", "file:///sdcard/Download/p19picker20261107T072016-p19-wav-08k-mono.wav"], "returncode": 0}
+{"argv": ["adb", "-s", "emulator-5556", "shell", "test", "-e", "/sdcard/Download/p19picker20261107T072016-p19-ogg-opus-48k-stereo.ogg"], "returncode": 1}
+{"argv": ["adb", "-s", "emulator-5556", "push", "app/src/androidTest/assets/plan19-import/p19-ogg-opus-48k-stereo.ogg", "/sdcard/Download/p19picker20261107T072016-p19-ogg-opus-48k-stereo.ogg"], "returncode": 0}
+{"argv": ["adb", "-s", "emulator-5556", "shell", "am", "broadcast", "-a", "android.intent.action.MEDIA_SCANNER_SCAN_FILE", "-d", "file:///sdcard/Download/p19picker20261107T072016-p19-ogg-opus-48k-stereo.ogg"], "returncode": 0}
+{"argv": ["adb", "-s", "emulator-5556", "shell", "test", "-e", "/sdcard/Download/p19picker20261107T072016-p19-flac-44k-mono.flac"], "returncode": 1}
+{"argv": ["adb", "-s", "emulator-5556", "push", "app/src/androidTest/assets/plan19-import/p19-flac-44k-mono.flac", "/sdcard/Download/p19picker20261107T072016-p19-flac-44k-mono.flac"], "returncode": 0}
+{"argv": ["adb", "-s", "emulator-5556", "shell", "am", "broadcast", "-a", "android.intent.action.MEDIA_SCANNER_SCAN_FILE", "-d", "file:///sdcard/Download/p19picker20261107T072016-p19-flac-44k-mono.flac"], "returncode": 0}
+{"argv": ["adb", "-s", "emulator-5556", "shell", "settings", "get", "global", "stay_on_while_plugged_in"], "returncode": 0}
+{"argv": ["adb", "-s", "emulator-5556", "shell", "settings", "put", "global", "stay_on_while_plugged_in", "7"], "returncode": 0}
+{"argv": ["adb", "-s", "emulator-5556", "shell", "input", "keyevent", "224"], "returncode": 0}
+{"argv": ["adb", "-s", "emulator-5556", "shell", "wm", "dismiss-keyguard"], "returncode": 0}
+{"argv": ["adb", "-s", "emulator-5556", "shell", "am", "instrument", "-w", "-r", "-e", "plan19PickerRun", "p19picker20261107T072016", "-e", "plan19PickerNames", "p19picker20261107T072016-p19-wav-08k-mono.wav,p19picker20261107T072016-p19-ogg-opus-48k-stereo.ogg,p19picker20261107T072016-p19-flac-44k-mono.flac", "-e", "class", "ru.replika.Plan19DocumentsImportTest#threeSequentialDownloadsAndPickerBack", "ru.replika.offline.test/androidx.test.runner.AndroidJUnitRunner"], "returncode": 0}
+{"argv": ["adb", "-s", "emulator-5556", "shell", "settings", "put", "global", "stay_on_while_plugged_in", "1"], "returncode": 0}
+{"argv": ["adb", "-s", "emulator-5556", "shell", "settings", "get", "global", "stay_on_while_plugged_in"], "returncode": 0}

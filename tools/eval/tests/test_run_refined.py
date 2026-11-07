@@ -48,7 +48,7 @@ class FullRunnerContractTest(unittest.TestCase):
             catalog=self.catalog, embedding_root=self.root)
         self.calls = []
 
-    def invoke(self, *, change_reference=False, replay=False, wrong_window=False):
+    def invoke(self, *, change_reference=False, replay=False, wrong_window=False, wrong_cpu=False):
         config = json.loads(self.config.read_text())
         is_window = config["pipeline"] == "window_words_v1"
         pin = json.loads(self.catalog.read_text())["models"][0]
@@ -72,6 +72,15 @@ class FullRunnerContractTest(unittest.TestCase):
                         "window_shift": config["window_shift"], "threads": config["threads"], "num_clusters": -1})
                 if wrong_window:
                     result["diagnostics"]["refiner"]["config"]["tau"] = .37
+            if config.get("cpu_plan") == "auto_v1":
+                threads = config["threads"]
+                paired = runner.pipeline.paired_asr_policy(threads, "auto_v1")
+                result["diagnostics"].update(pairedAsrPolicy=paired,
+                    config={"threads": threads, "asr": paired},
+                    cpuExecutionPolicy={"plan": "auto_v1", "asrThreads": threads,
+                        "diarizationThreads": threads, "refinementThreads": threads, "vadThreads": 1})
+                if wrong_cpu:
+                    result["diagnostics"]["cpuExecutionPolicy"]["asrThreads"] = 2
             return result
         with mock.patch.object(runner.pipeline.base, "_verify_models", return_value=([], 0)), \
                 mock.patch.object(runner.pipeline.base, "MANIFEST", self.lock), \
@@ -162,6 +171,29 @@ class FullRunnerContractTest(unittest.TestCase):
                 runner.validate_configuration({**runner.WINDOW_CONFIG, **change})
         with self.assertRaises(ValueError):
             runner.validate_configuration({**runner.DEFAULT_CONFIG, "window_config": runner.WINDOW_CONFIG["window_config"]})
+
+    def test_explicit_cpu_policy_is_forwarded_and_actual_threads_are_retained(self):
+        self.use_window_configuration()
+        config = json.loads(self.config.read_text())
+        config.update(cpu_plan="auto_v1", threads=1)
+        self.config.write_text(json.dumps(config))
+        self.invoke()
+        self.assertEqual("auto_v1", self.calls[0][2]["cpu_plan"])
+        self.assertEqual(1, self.calls[0][2]["threads"])
+        meta = json.loads((self.args.output / "run.json").read_text())
+        self.assertEqual("COMPLETE", meta["status"])
+        self.assertEqual(1, meta["paired_asr_policy"]["threads"])
+
+    def test_cpu_policy_mismatch_keeps_raw_evidence_without_scoring(self):
+        self.use_window_configuration()
+        config = json.loads(self.config.read_text())
+        config.update(cpu_plan="auto_v1", threads=1)
+        self.config.write_text(json.dumps(config))
+        with self.assertRaisesRegex(ValueError, "CPU execution policy"):
+            self.invoke(wrong_cpu=True)
+        folder = self.args.output / "dev-unit"
+        self.assertTrue((folder / "diagnostics.json").exists())
+        self.assertFalse((folder / "metrics.json").exists())
 
     def test_c2_wrong_actual_window_policy_is_preserved_but_not_scored(self):
         self.use_window_configuration()

@@ -1,0 +1,2396 @@
+{
+  "runtime": "sherpa-onnx 2.0.1",
+  "backend": "GigaAM v3 E2E RNNT INT8 / sherpa-onnx 2.0.1",
+  "sampleRate": 16000,
+  "audioMs": 599999,
+  "totalMs": 443545,
+  "threads": 4,
+  "vadThreads": 1,
+  "cpuPolicy": {
+    "plan": "auto_v1",
+    "requestedThreads": 0,
+    "availableCores": 8,
+    "asrThreads": 4,
+    "diarizationThreads": 4,
+    "refinementThreads": 4,
+    "diarizationPinned": false,
+    "refinementPinned": false
+  },
+  "asrPlan": "vad_words_context600",
+  "asrPolicy": {
+    "pipeline": "vad_words_v1",
+    "punctuation_mode": "none",
+    "energy_split": true,
+    "vad_threshold": 0.5,
+    "vad_min_speech_sec": 0.25,
+    "vad_min_silence_sec": 0.25,
+    "pre_roll_ms": 600
+  },
+  "diarizationPlanRequested": "eres2net_window_v1",
+  "diarizationPlan": "eres2net_window_v1",
+  "diarizationPolicy": {
+    "plan": "eres2net_window_v1",
+    "algorithm": "window-overcluster-v1",
+    "embedding_path": "diar/embedding.onnx",
+    "native_threshold": 0.30000001192092896,
+    "window_shift": 0.10000000149011612,
+    "min_duration_on": 0.20000000298023224,
+    "min_duration_off": 0.5,
+    "window_config": {
+      "tau": 0.36,
+      "method": "average",
+      "grid_ms": 125,
+      "max_speakers": 8,
+      "reassign_small": true,
+      "min_cluster_ms": 2000,
+      "min_cluster_fraction": 0.03,
+      "minimum_reassignment_similarity": null,
+      "smooth": true,
+      "smooth_ms": 500
+    }
+  },
+  "nativeDiarizationTurns": [
+    {
+      "startMs": 470,
+      "endMs": 4283,
+      "speakerId": 0
+    },
+    {
+      "startMs": 5110,
+      "endMs": 13042,
+      "speakerId": 1
+    },
+    {
+      "startMs": 14476,
+      "endMs": 21817,
+      "speakerId": 2
+    },
+    {
+      "startMs": 22542,
+      "endMs": 29967,
+      "speakerId": 3
+    },
+    {
+      "startMs": 29967,
+      "endMs": 31351,
+      "speakerId": 4
+    },
+    {
+      "startMs": 31857,
+      "endMs": 39974,
+      "speakerId": 5
+    },
+    {
+      "startMs": 39974,
+      "endMs": 40700,
+      "speakerId": 6
+    },
+    {
+      "startMs": 41813,
+      "endMs": 42033,
+      "speakerId": 7
+    },
+    {
+      "startMs": 42033,
+      "endMs": 46184,
+      "speakerId": 8
+    },
+    {
+      "startMs": 46859,
+      "endMs": 47753,
+      "speakerId": 8
+    },
+    {
+      "startMs": 48260,
+      "endMs": 49964,
+      "speakerId": 8
+    },
+    {
+      "startMs": 49964,
+      "endMs": 52057,
+      "speakerId": 9
+    },
+    {
+      "startMs": 60460,
+      "endMs": 64291,
+      "speakerId": 0
+    },
+    {
+      "startMs": 65084,
+      "endMs": 66974,
+      "speakerId": 10
+    },
+    {
+      "startMs": 66974,
+      "endMs": 73032,
+      "speakerId": 1
+    },
+    {
+      "startMs": 74467,
+      "endMs": 81807,
+      "speakerId": 2
+    },
+    {
+      "startMs": 82550,
+      "endMs": 89975,
+      "speakerId": 3
+    },
+    {
+      "startMs": 89975,
+      "endMs": 91358,
+      "speakerId": 4
+    },
+    {
+      "startMs": 91865,
+      "endMs": 99965,
+      "speakerId": 5
+    },
+    {
+      "startMs": 99965,
+      "endMs": 100707,
+      "speakerId": 6
+    },
+    {
+      "startMs": 101821,
+      "endMs": 102023,
+      "speakerId": 7
+    },
+    {
+      "startMs": 102023,
+      "endMs": 106175,
+      "speakerId": 8
+    },
+    {
+      "startMs": 106850,
+      "endMs": 107744,
+      "speakerId": 8
+    },
+    {
+      "startMs": 108250,
+      "endMs": 109972,
+      "speakerId": 8
+    },
+    {
+      "startMs": 109972,
+      "endMs": 112064,
+      "speakerId": 9
+    },
+    {
+      "startMs": 120468,
+      "endMs": 124282,
+      "speakerId": 0
+    },
+    {
+      "startMs": 125092,
+      "endMs": 126965,
+      "speakerId": 10
+    },
+    {
+      "startMs": 126965,
+      "endMs": 133040,
+      "speakerId": 1
+    },
+    {
+      "startMs": 134474,
+      "endMs": 141815,
+      "speakerId": 2
+    },
+    {
+      "startMs": 142540,
+      "endMs": 149965,
+      "speakerId": 3
+    },
+    {
+      "startMs": 149965,
+      "endMs": 151366,
+      "speakerId": 4
+    },
+    {
+      "startMs": 151855,
+      "endMs": 159972,
+      "speakerId": 5
+    },
+    {
+      "startMs": 159972,
+      "endMs": 160698,
+      "speakerId": 6
+    },
+    {
+      "startMs": 161812,
+      "endMs": 162031,
+      "speakerId": 7
+    },
+    {
+      "startMs": 162031,
+      "endMs": 166182,
+      "speakerId": 8
+    },
+    {
+      "startMs": 166857,
+      "endMs": 167752,
+      "speakerId": 8
+    },
+    {
+      "startMs": 168258,
+      "endMs": 169962,
+      "speakerId": 8
+    },
+    {
+      "startMs": 169962,
+      "endMs": 172055,
+      "speakerId": 9
+    },
+    {
+      "startMs": 180458,
+      "endMs": 184289,
+      "speakerId": 0
+    },
+    {
+      "startMs": 185082,
+      "endMs": 186972,
+      "speakerId": 10
+    },
+    {
+      "startMs": 186972,
+      "endMs": 193030,
+      "speakerId": 1
+    },
+    {
+      "startMs": 194482,
+      "endMs": 201805,
+      "speakerId": 2
+    },
+    {
+      "startMs": 202548,
+      "endMs": 209973,
+      "speakerId": 3
+    },
+    {
+      "startMs": 209973,
+      "endMs": 211357,
+      "speakerId": 4
+    },
+    {
+      "startMs": 211863,
+      "endMs": 219963,
+      "speakerId": 5
+    },
+    {
+      "startMs": 219963,
+      "endMs": 220705,
+      "speakerId": 6
+    },
+    {
+      "startMs": 221819,
+      "endMs": 222038,
+      "speakerId": 7
+    },
+    {
+      "startMs": 222038,
+      "endMs": 226190,
+      "speakerId": 8
+    },
+    {
+      "startMs": 226848,
+      "endMs": 227742,
+      "speakerId": 8
+    },
+    {
+      "startMs": 228265,
+      "endMs": 229970,
+      "speakerId": 8
+    },
+    {
+      "startMs": 229970,
+      "endMs": 232062,
+      "speakerId": 9
+    },
+    {
+      "startMs": 240466,
+      "endMs": 244280,
+      "speakerId": 0
+    },
+    {
+      "startMs": 245090,
+      "endMs": 246963,
+      "speakerId": 10
+    },
+    {
+      "startMs": 246963,
+      "endMs": 253038,
+      "speakerId": 1
+    },
+    {
+      "startMs": 254472,
+      "endMs": 261813,
+      "speakerId": 2
+    },
+    {
+      "startMs": 262538,
+      "endMs": 269963,
+      "speakerId": 3
+    },
+    {
+      "startMs": 269963,
+      "endMs": 271364,
+      "speakerId": 4
+    },
+    {
+      "startMs": 271854,
+      "endMs": 279970,
+      "speakerId": 5
+    },
+    {
+      "startMs": 279970,
+      "endMs": 280713,
+      "speakerId": 6
+    },
+    {
+      "startMs": 281810,
+      "endMs": 282029,
+      "speakerId": 7
+    },
+    {
+      "startMs": 282029,
+      "endMs": 286180,
+      "speakerId": 8
+    },
+    {
+      "startMs": 286855,
+      "endMs": 287750,
+      "speakerId": 8
+    },
+    {
+      "startMs": 288256,
+      "endMs": 289977,
+      "speakerId": 8
+    },
+    {
+      "startMs": 289977,
+      "endMs": 292053,
+      "speakerId": 9
+    },
+    {
+      "startMs": 300457,
+      "endMs": 304287,
+      "speakerId": 0
+    },
+    {
+      "startMs": 305097,
+      "endMs": 306970,
+      "speakerId": 10
+    },
+    {
+      "startMs": 306970,
+      "endMs": 313028,
+      "speakerId": 1
+    },
+    {
+      "startMs": 314480,
+      "endMs": 321803,
+      "speakerId": 2
+    },
+    {
+      "startMs": 322546,
+      "endMs": 329971,
+      "speakerId": 3
+    },
+    {
+      "startMs": 329971,
+      "endMs": 331355,
+      "speakerId": 4
+    },
+    {
+      "startMs": 331861,
+      "endMs": 339978,
+      "speakerId": 5
+    },
+    {
+      "startMs": 339978,
+      "endMs": 340704,
+      "speakerId": 6
+    },
+    {
+      "startMs": 341817,
+      "endMs": 342037,
+      "speakerId": 7
+    },
+    {
+      "startMs": 342037,
+      "endMs": 346188,
+      "speakerId": 8
+    },
+    {
+      "startMs": 346846,
+      "endMs": 347740,
+      "speakerId": 8
+    },
+    {
+      "startMs": 348264,
+      "endMs": 349968,
+      "speakerId": 8
+    },
+    {
+      "startMs": 349968,
+      "endMs": 352060,
+      "speakerId": 9
+    },
+    {
+      "startMs": 360464,
+      "endMs": 364278,
+      "speakerId": 0
+    },
+    {
+      "startMs": 365088,
+      "endMs": 366978,
+      "speakerId": 10
+    },
+    {
+      "startMs": 366978,
+      "endMs": 373036,
+      "speakerId": 1
+    },
+    {
+      "startMs": 374470,
+      "endMs": 381811,
+      "speakerId": 2
+    },
+    {
+      "startMs": 382537,
+      "endMs": 389979,
+      "speakerId": 3
+    },
+    {
+      "startMs": 389979,
+      "endMs": 391362,
+      "speakerId": 4
+    },
+    {
+      "startMs": 391852,
+      "endMs": 399968,
+      "speakerId": 5
+    },
+    {
+      "startMs": 399968,
+      "endMs": 400711,
+      "speakerId": 6
+    },
+    {
+      "startMs": 401808,
+      "endMs": 402027,
+      "speakerId": 7
+    },
+    {
+      "startMs": 402027,
+      "endMs": 406179,
+      "speakerId": 8
+    },
+    {
+      "startMs": 406854,
+      "endMs": 407748,
+      "speakerId": 8
+    },
+    {
+      "startMs": 408254,
+      "endMs": 409975,
+      "speakerId": 8
+    },
+    {
+      "startMs": 409975,
+      "endMs": 412068,
+      "speakerId": 9
+    },
+    {
+      "startMs": 420455,
+      "endMs": 424285,
+      "speakerId": 0
+    },
+    {
+      "startMs": 425095,
+      "endMs": 426968,
+      "speakerId": 10
+    },
+    {
+      "startMs": 426968,
+      "endMs": 433027,
+      "speakerId": 1
+    },
+    {
+      "startMs": 434478,
+      "endMs": 441818,
+      "speakerId": 2
+    },
+    {
+      "startMs": 442544,
+      "endMs": 449969,
+      "speakerId": 3
+    },
+    {
+      "startMs": 449969,
+      "endMs": 451353,
+      "speakerId": 4
+    },
+    {
+      "startMs": 451859,
+      "endMs": 459976,
+      "speakerId": 5
+    },
+    {
+      "startMs": 459976,
+      "endMs": 460702,
+      "speakerId": 6
+    },
+    {
+      "startMs": 461815,
+      "endMs": 462035,
+      "speakerId": 7
+    },
+    {
+      "startMs": 462035,
+      "endMs": 466186,
+      "speakerId": 8
+    },
+    {
+      "startMs": 466861,
+      "endMs": 467755,
+      "speakerId": 8
+    },
+    {
+      "startMs": 468262,
+      "endMs": 469966,
+      "speakerId": 8
+    },
+    {
+      "startMs": 469966,
+      "endMs": 472059,
+      "speakerId": 9
+    },
+    {
+      "startMs": 480462,
+      "endMs": 484276,
+      "speakerId": 0
+    },
+    {
+      "startMs": 485086,
+      "endMs": 486976,
+      "speakerId": 10
+    },
+    {
+      "startMs": 486976,
+      "endMs": 493034,
+      "speakerId": 1
+    },
+    {
+      "startMs": 494468,
+      "endMs": 501809,
+      "speakerId": 2
+    },
+    {
+      "startMs": 502552,
+      "endMs": 509977,
+      "speakerId": 3
+    },
+    {
+      "startMs": 509977,
+      "endMs": 511360,
+      "speakerId": 4
+    },
+    {
+      "startMs": 511850,
+      "endMs": 519967,
+      "speakerId": 5
+    },
+    {
+      "startMs": 519967,
+      "endMs": 520709,
+      "speakerId": 6
+    },
+    {
+      "startMs": 521823,
+      "endMs": 522025,
+      "speakerId": 7
+    },
+    {
+      "startMs": 522025,
+      "endMs": 526177,
+      "speakerId": 8
+    },
+    {
+      "startMs": 526852,
+      "endMs": 527746,
+      "speakerId": 8
+    },
+    {
+      "startMs": 528252,
+      "endMs": 529974,
+      "speakerId": 8
+    },
+    {
+      "startMs": 529974,
+      "endMs": 532066,
+      "speakerId": 9
+    },
+    {
+      "startMs": 540453,
+      "endMs": 544284,
+      "speakerId": 0
+    },
+    {
+      "startMs": 545094,
+      "endMs": 546967,
+      "speakerId": 10
+    },
+    {
+      "startMs": 546967,
+      "endMs": 553042,
+      "speakerId": 1
+    },
+    {
+      "startMs": 554476,
+      "endMs": 561817,
+      "speakerId": 2
+    },
+    {
+      "startMs": 562542,
+      "endMs": 569967,
+      "speakerId": 3
+    },
+    {
+      "startMs": 569967,
+      "endMs": 571351,
+      "speakerId": 4
+    },
+    {
+      "startMs": 571857,
+      "endMs": 579974,
+      "speakerId": 5
+    },
+    {
+      "startMs": 579974,
+      "endMs": 580700,
+      "speakerId": 6
+    },
+    {
+      "startMs": 581814,
+      "endMs": 582033,
+      "speakerId": 7
+    },
+    {
+      "startMs": 582033,
+      "endMs": 586184,
+      "speakerId": 8
+    },
+    {
+      "startMs": 586859,
+      "endMs": 587754,
+      "speakerId": 8
+    },
+    {
+      "startMs": 588260,
+      "endMs": 589964,
+      "speakerId": 8
+    },
+    {
+      "startMs": 589964,
+      "endMs": 592057,
+      "speakerId": 9
+    }
+  ],
+  "diarizationTurns": [
+    {
+      "startMs": 470,
+      "endMs": 4283,
+      "speakerId": 0
+    },
+    {
+      "startMs": 5110,
+      "endMs": 13042,
+      "speakerId": 1
+    },
+    {
+      "startMs": 14476,
+      "endMs": 21817,
+      "speakerId": 0
+    },
+    {
+      "startMs": 22542,
+      "endMs": 31351,
+      "speakerId": 1
+    },
+    {
+      "startMs": 31857,
+      "endMs": 40700,
+      "speakerId": 0
+    },
+    {
+      "startMs": 41813,
+      "endMs": 46184,
+      "speakerId": 1
+    },
+    {
+      "startMs": 46859,
+      "endMs": 47753,
+      "speakerId": 1
+    },
+    {
+      "startMs": 48260,
+      "endMs": 52057,
+      "speakerId": 1
+    },
+    {
+      "startMs": 60460,
+      "endMs": 64291,
+      "speakerId": 0
+    },
+    {
+      "startMs": 65084,
+      "endMs": 73032,
+      "speakerId": 1
+    },
+    {
+      "startMs": 74467,
+      "endMs": 81807,
+      "speakerId": 0
+    },
+    {
+      "startMs": 82550,
+      "endMs": 91358,
+      "speakerId": 1
+    },
+    {
+      "startMs": 91865,
+      "endMs": 100707,
+      "speakerId": 0
+    },
+    {
+      "startMs": 101821,
+      "endMs": 106175,
+      "speakerId": 1
+    },
+    {
+      "startMs": 106850,
+      "endMs": 107744,
+      "speakerId": 1
+    },
+    {
+      "startMs": 108250,
+      "endMs": 112064,
+      "speakerId": 1
+    },
+    {
+      "startMs": 120468,
+      "endMs": 124282,
+      "speakerId": 0
+    },
+    {
+      "startMs": 125092,
+      "endMs": 133040,
+      "speakerId": 1
+    },
+    {
+      "startMs": 134474,
+      "endMs": 141815,
+      "speakerId": 0
+    },
+    {
+      "startMs": 142540,
+      "endMs": 151366,
+      "speakerId": 1
+    },
+    {
+      "startMs": 151855,
+      "endMs": 160698,
+      "speakerId": 0
+    },
+    {
+      "startMs": 161812,
+      "endMs": 166182,
+      "speakerId": 1
+    },
+    {
+      "startMs": 166857,
+      "endMs": 167752,
+      "speakerId": 1
+    },
+    {
+      "startMs": 168258,
+      "endMs": 172055,
+      "speakerId": 1
+    },
+    {
+      "startMs": 180458,
+      "endMs": 184289,
+      "speakerId": 0
+    },
+    {
+      "startMs": 185082,
+      "endMs": 193030,
+      "speakerId": 1
+    },
+    {
+      "startMs": 194482,
+      "endMs": 201805,
+      "speakerId": 0
+    },
+    {
+      "startMs": 202548,
+      "endMs": 211357,
+      "speakerId": 1
+    },
+    {
+      "startMs": 211863,
+      "endMs": 220705,
+      "speakerId": 0
+    },
+    {
+      "startMs": 221819,
+      "endMs": 226190,
+      "speakerId": 1
+    },
+    {
+      "startMs": 226848,
+      "endMs": 227742,
+      "speakerId": 1
+    },
+    {
+      "startMs": 228265,
+      "endMs": 232062,
+      "speakerId": 1
+    },
+    {
+      "startMs": 240466,
+      "endMs": 244280,
+      "speakerId": 0
+    },
+    {
+      "startMs": 245090,
+      "endMs": 253038,
+      "speakerId": 1
+    },
+    {
+      "startMs": 254472,
+      "endMs": 261813,
+      "speakerId": 0
+    },
+    {
+      "startMs": 262538,
+      "endMs": 271364,
+      "speakerId": 1
+    },
+    {
+      "startMs": 271854,
+      "endMs": 280713,
+      "speakerId": 0
+    },
+    {
+      "startMs": 281810,
+      "endMs": 286180,
+      "speakerId": 1
+    },
+    {
+      "startMs": 286855,
+      "endMs": 287750,
+      "speakerId": 1
+    },
+    {
+      "startMs": 288256,
+      "endMs": 292053,
+      "speakerId": 1
+    },
+    {
+      "startMs": 300457,
+      "endMs": 304287,
+      "speakerId": 0
+    },
+    {
+      "startMs": 305097,
+      "endMs": 313028,
+      "speakerId": 1
+    },
+    {
+      "startMs": 314480,
+      "endMs": 321803,
+      "speakerId": 0
+    },
+    {
+      "startMs": 322546,
+      "endMs": 331355,
+      "speakerId": 1
+    },
+    {
+      "startMs": 331861,
+      "endMs": 340704,
+      "speakerId": 0
+    },
+    {
+      "startMs": 341817,
+      "endMs": 346188,
+      "speakerId": 1
+    },
+    {
+      "startMs": 346846,
+      "endMs": 347740,
+      "speakerId": 1
+    },
+    {
+      "startMs": 348264,
+      "endMs": 352060,
+      "speakerId": 1
+    },
+    {
+      "startMs": 360464,
+      "endMs": 364278,
+      "speakerId": 0
+    },
+    {
+      "startMs": 365088,
+      "endMs": 373036,
+      "speakerId": 1
+    },
+    {
+      "startMs": 374470,
+      "endMs": 381811,
+      "speakerId": 0
+    },
+    {
+      "startMs": 382537,
+      "endMs": 391362,
+      "speakerId": 1
+    },
+    {
+      "startMs": 391852,
+      "endMs": 400711,
+      "speakerId": 0
+    },
+    {
+      "startMs": 401808,
+      "endMs": 406179,
+      "speakerId": 1
+    },
+    {
+      "startMs": 406854,
+      "endMs": 407748,
+      "speakerId": 1
+    },
+    {
+      "startMs": 408254,
+      "endMs": 412068,
+      "speakerId": 1
+    },
+    {
+      "startMs": 420455,
+      "endMs": 424285,
+      "speakerId": 0
+    },
+    {
+      "startMs": 425095,
+      "endMs": 433027,
+      "speakerId": 1
+    },
+    {
+      "startMs": 434478,
+      "endMs": 441818,
+      "speakerId": 0
+    },
+    {
+      "startMs": 442544,
+      "endMs": 451353,
+      "speakerId": 1
+    },
+    {
+      "startMs": 451859,
+      "endMs": 460702,
+      "speakerId": 0
+    },
+    {
+      "startMs": 461815,
+      "endMs": 466186,
+      "speakerId": 1
+    },
+    {
+      "startMs": 466861,
+      "endMs": 467755,
+      "speakerId": 1
+    },
+    {
+      "startMs": 468262,
+      "endMs": 472059,
+      "speakerId": 1
+    },
+    {
+      "startMs": 480462,
+      "endMs": 484276,
+      "speakerId": 0
+    },
+    {
+      "startMs": 485086,
+      "endMs": 493034,
+      "speakerId": 1
+    },
+    {
+      "startMs": 494468,
+      "endMs": 501809,
+      "speakerId": 0
+    },
+    {
+      "startMs": 502552,
+      "endMs": 511360,
+      "speakerId": 1
+    },
+    {
+      "startMs": 511850,
+      "endMs": 520709,
+      "speakerId": 0
+    },
+    {
+      "startMs": 521823,
+      "endMs": 526177,
+      "speakerId": 1
+    },
+    {
+      "startMs": 526852,
+      "endMs": 527746,
+      "speakerId": 1
+    },
+    {
+      "startMs": 528252,
+      "endMs": 532066,
+      "speakerId": 1
+    },
+    {
+      "startMs": 540453,
+      "endMs": 544284,
+      "speakerId": 0
+    },
+    {
+      "startMs": 545094,
+      "endMs": 553042,
+      "speakerId": 1
+    },
+    {
+      "startMs": 554476,
+      "endMs": 561817,
+      "speakerId": 0
+    },
+    {
+      "startMs": 562542,
+      "endMs": 571351,
+      "speakerId": 1
+    },
+    {
+      "startMs": 571857,
+      "endMs": 580700,
+      "speakerId": 0
+    },
+    {
+      "startMs": 581814,
+      "endMs": 586184,
+      "speakerId": 1
+    },
+    {
+      "startMs": 586859,
+      "endMs": 587754,
+      "speakerId": 1
+    },
+    {
+      "startMs": 588260,
+      "endMs": 592057,
+      "speakerId": 1
+    }
+  ],
+  "diarizationRefinement": {
+    "algorithm": "window-overcluster-v1",
+    "config": {
+      "tau": 0.36,
+      "method": "average",
+      "grid_ms": 125,
+      "max_speakers": 8,
+      "reassign_small": true,
+      "min_cluster_ms": 2000,
+      "min_cluster_fraction": 0.03,
+      "minimum_reassignment_similarity": null,
+      "smooth": true,
+      "smooth_ms": 500
+    },
+    "cpuPlan": "auto_v1",
+    "embeddingThreads": 4,
+    "status": "PARTIAL_TEMPORAL",
+    "computationalSupport": true,
+    "qualityAcceptance": "not evaluated by this adapter",
+    "originalPcm": true,
+    "sampleRate": 16000,
+    "cleanWindowMs": 1500,
+    "cleanWindowStepMs": 750,
+    "cleanMinimumIslandMs": 1000,
+    "embeddingInferenceCompleted": true,
+    "embeddingScope": "Original decoded PCM; no gain, resampling, padding or normalization",
+    "nativeResourcesReleasedBeforeRefiner": true,
+    "retainedNativeModelCache": false,
+    "refiner": {
+      "algorithm": "window-overcluster-v1",
+      "config": {
+        "tau": 0.36,
+        "method": "average",
+        "grid_ms": 125,
+        "max_speakers": 8,
+        "reassign_small": true,
+        "min_cluster_ms": 2000,
+        "min_cluster_fraction": 0.03,
+        "minimum_reassignment_similarity": null,
+        "smooth": true,
+        "smooth_ms": 500
+      },
+      "duration_ms": 599999,
+      "new_neural_inference": false,
+      "eigengap_applied": false,
+      "boundary_timing_scope": "Saved-window votes on an activity-confined grid; no forced alignment or true change-point accuracy claim",
+      "native_input_clusters": 11,
+      "scipy_version": "1.18.1",
+      "hierarchy_backend": "pure Kotlin; scipy_version denotes source algorithm contract, not runtime",
+      "cut_distance": 0.64,
+      "cut_inclusive": true,
+      "linkage_method": "average",
+      "canonical_window_order": "start_ms, end_ms, original speaker",
+      "window_clusters_at_cut": 2,
+      "window_clusters_after_cap": 2,
+      "fully_acoustic_supported": false,
+      "every_native_label_has_measured_windows": false,
+      "clusters_after_voting": 2,
+      "small_cluster_cutoff_ms": 17999.969999999998,
+      "clusters_after_small": 2,
+      "status": "PARTIAL_TEMPORAL",
+      "measured_unique_windows": 441,
+      "embedding_dimension": 512,
+      "output_clusters": 2,
+      "original_activity_union_ms": 458275,
+      "output_activity_union_ms": 458275,
+      "activity_union_preserved": true,
+      "original_speaker_time_ms": 458275,
+      "output_speaker_time_ms": 458275,
+      "speaker_time_collapsed_ms": 0,
+      "grid_boundary_resolution_ms": 125,
+      "max_assignment_atom_ms": 125
+    }
+  },
+  "diarizationRefinementAccepted": true,
+  "diarizationEmbeddingCounts": {
+    "plannedWindows": 441,
+    "extractorLoads": 1,
+    "readWindows": 441,
+    "createdStreams": 441,
+    "releasedStreams": 441,
+    "computeAttempts": 441,
+    "embeddingForwardCalls": 441,
+    "measuredWindows": 441,
+    "embeddingDimension": 512
+  },
+  "asrSlices": [
+    {
+      "startMs": 0,
+      "endMs": 4358,
+      "speakerId": -1,
+      "text": "Да, но это значит больше работы. Надо быть готовыми.",
+      "blank": false,
+      "inferenceMs": 265,
+      "tokenCount": 15,
+      "timestampCount": 15,
+      "wordCount": 9,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 4494,
+      "endMs": 10022,
+      "speakerId": -1,
+      "text": "Точно. Важно рассматривать полный экологический след любых транспортных решений.",
+      "blank": false,
+      "inferenceMs": 358,
+      "tokenCount": 34,
+      "timestampCount": 34,
+      "wordCount": 9,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 10062,
+      "endMs": 13030,
+      "speakerId": -1,
+      "text": "Чтобы принимать информированные решения.",
+      "blank": false,
+      "inferenceMs": 221,
+      "tokenCount": 13,
+      "timestampCount": 13,
+      "wordCount": 4,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 13966,
+      "endMs": 31238,
+      "speakerId": -1,
+      "text": "Дима, у нас столько возможностей! Я думаю, что мы могли бы начать новый проект, связанный с искусством и технологий. Тогда у нас будет целый арсенал для активного отдыха. Прогулка, пикник, фотографии, игры с мячом и фризби. Просто идеально!",
+      "blank": false,
+      "inferenceMs": 887,
+      "tokenCount": 111,
+      "timestampCount": 111,
+      "wordCount": 38,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 31278,
+      "endMs": 40710,
+      "speakerId": -1,
+      "text": "Мир фантастической книги — это нечто особенное. Всегда интересно было бы оказаться там хотя бы на время. А у тебя есть любимый персонаж из книги?",
+      "blank": false,
+      "inferenceMs": 501,
+      "tokenCount": 55,
+      "timestampCount": 55,
+      "wordCount": 24,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 41198,
+      "endMs": 46150,
+      "speakerId": -1,
+      "text": "Маша, ты не поверишь, какой потрясающий отпуск у нас получился!",
+      "blank": false,
+      "inferenceMs": 302,
+      "tokenCount": 25,
+      "timestampCount": 25,
+      "wordCount": 10,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 46254,
+      "endMs": 52038,
+      "speakerId": -1,
+      "text": "Мы с семьёй провели две недели на курорте на побережье Средиземного моря.",
+      "blank": false,
+      "inferenceMs": 312,
+      "tokenCount": 34,
+      "timestampCount": 34,
+      "wordCount": 12,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 59886,
+      "endMs": 64326,
+      "speakerId": -1,
+      "text": "Да, но это значит больше работы, надо быть готовыми.",
+      "blank": false,
+      "inferenceMs": 304,
+      "tokenCount": 14,
+      "timestampCount": 14,
+      "wordCount": 9,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 64494,
+      "endMs": 73062,
+      "speakerId": -1,
+      "text": "Точно. Важно рассматривать полный экологический след любых транспортных решений, чтобы принимать информированные решения.",
+      "blank": false,
+      "inferenceMs": 480,
+      "tokenCount": 46,
+      "timestampCount": 46,
+      "wordCount": 13,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 73966,
+      "endMs": 91466,
+      "speakerId": -1,
+      "text": "Дима, у нас столько возможностей! Я думаю, что мы могли бы начать новый проект, связанный с искусством и технологий. Тогда у нас будет целый арсенал для активного отдыха. Прогулка, пикник, фотографии, игры с мячом и фризби. Просто идеально!",
+      "blank": false,
+      "inferenceMs": 923,
+      "tokenCount": 111,
+      "timestampCount": 111,
+      "wordCount": 38,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 91466,
+      "endMs": 100710,
+      "speakerId": -1,
+      "text": "Мир фантастической книги — это нечто особенное. Всегда интересно было бы оказаться там хотя бы на время. А у тебя есть любимый персонаж из книги?",
+      "blank": false,
+      "inferenceMs": 500,
+      "tokenCount": 55,
+      "timestampCount": 55,
+      "wordCount": 24,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 101198,
+      "endMs": 106182,
+      "speakerId": -1,
+      "text": "Маша, ты не поверишь, какой потрясающий отпуск у нас получился!",
+      "blank": false,
+      "inferenceMs": 293,
+      "tokenCount": 25,
+      "timestampCount": 25,
+      "wordCount": 10,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 106254,
+      "endMs": 112038,
+      "speakerId": -1,
+      "text": "Мы с семьёй провели две недели на курорте на побережье Средиземного моря.",
+      "blank": false,
+      "inferenceMs": 320,
+      "tokenCount": 34,
+      "timestampCount": 34,
+      "wordCount": 12,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 119886,
+      "endMs": 124326,
+      "speakerId": -1,
+      "text": "Да, но это значит больше работы, надо быть готовыми.",
+      "blank": false,
+      "inferenceMs": 275,
+      "tokenCount": 14,
+      "timestampCount": 14,
+      "wordCount": 9,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 124494,
+      "endMs": 133062,
+      "speakerId": -1,
+      "text": "Точно. Важно рассматривать полный экологический след любых транспортных решений, чтобы принимать информированные решения.",
+      "blank": false,
+      "inferenceMs": 476,
+      "tokenCount": 46,
+      "timestampCount": 46,
+      "wordCount": 13,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 133966,
+      "endMs": 151466,
+      "speakerId": -1,
+      "text": "Дима, у нас столько возможностей! Я думаю, что мы могли бы начать новый проект, связанный с искусством и технологий. Тогда у нас будет целый арсенал для активного отдыха. Прогулка, пикник, фотографии, игры с мячом и фризби. Просто идеально!",
+      "blank": false,
+      "inferenceMs": 910,
+      "tokenCount": 111,
+      "timestampCount": 111,
+      "wordCount": 38,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 151466,
+      "endMs": 160710,
+      "speakerId": -1,
+      "text": "Мир фантастической книги — это нечто особенное. Всегда интересно было бы оказаться там хотя бы на время. А у тебя есть любимый персонаж из книги?",
+      "blank": false,
+      "inferenceMs": 473,
+      "tokenCount": 55,
+      "timestampCount": 55,
+      "wordCount": 24,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 161198,
+      "endMs": 166182,
+      "speakerId": -1,
+      "text": "Маша, ты не поверишь, какой потрясающий отпуск у нас получился!",
+      "blank": false,
+      "inferenceMs": 300,
+      "tokenCount": 25,
+      "timestampCount": 25,
+      "wordCount": 10,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 166254,
+      "endMs": 172038,
+      "speakerId": -1,
+      "text": "Мы с семьёй провели две недели на курорте на побережье Средиземного моря.",
+      "blank": false,
+      "inferenceMs": 312,
+      "tokenCount": 34,
+      "timestampCount": 34,
+      "wordCount": 12,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 179886,
+      "endMs": 184326,
+      "speakerId": -1,
+      "text": "Да, но это значит больше работы, надо быть готовыми.",
+      "blank": false,
+      "inferenceMs": 271,
+      "tokenCount": 14,
+      "timestampCount": 14,
+      "wordCount": 9,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 184494,
+      "endMs": 193062,
+      "speakerId": -1,
+      "text": "Точно. Важно рассматривать полный экологический след любых транспортных решений, чтобы принимать информированные решения.",
+      "blank": false,
+      "inferenceMs": 441,
+      "tokenCount": 46,
+      "timestampCount": 46,
+      "wordCount": 13,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 193966,
+      "endMs": 211466,
+      "speakerId": -1,
+      "text": "Дима, у нас столько возможностей! Я думаю, что мы могли бы начать новый проект, связанный с искусством и технологий. Тогда у нас будет целый арсенал для активного отдыха. Прогулка, пикник, фотографии, игры с мячом и фризби. Просто идеально!",
+      "blank": false,
+      "inferenceMs": 897,
+      "tokenCount": 111,
+      "timestampCount": 111,
+      "wordCount": 38,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 211466,
+      "endMs": 220710,
+      "speakerId": -1,
+      "text": "Мир фантастической книги — это нечто особенное. Всегда интересно было бы оказаться там хотя бы на время. А у тебя есть любимый персонаж из книги?",
+      "blank": false,
+      "inferenceMs": 490,
+      "tokenCount": 55,
+      "timestampCount": 55,
+      "wordCount": 24,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 221198,
+      "endMs": 226182,
+      "speakerId": -1,
+      "text": "Маша, ты не поверишь, какой потрясающий отпуск у нас получился!",
+      "blank": false,
+      "inferenceMs": 296,
+      "tokenCount": 25,
+      "timestampCount": 25,
+      "wordCount": 10,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 226254,
+      "endMs": 232038,
+      "speakerId": -1,
+      "text": "Мы с семьёй провели две недели на курорте на побережье Средиземного моря.",
+      "blank": false,
+      "inferenceMs": 313,
+      "tokenCount": 34,
+      "timestampCount": 34,
+      "wordCount": 12,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 239886,
+      "endMs": 244326,
+      "speakerId": -1,
+      "text": "Да, но это значит больше работы. Надо быть готовыми.",
+      "blank": false,
+      "inferenceMs": 287,
+      "tokenCount": 15,
+      "timestampCount": 15,
+      "wordCount": 9,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 244494,
+      "endMs": 253062,
+      "speakerId": -1,
+      "text": "Точно. Важно рассматривать полный экологический след любых транспортных решений, чтобы принимать информированные решения.",
+      "blank": false,
+      "inferenceMs": 454,
+      "tokenCount": 46,
+      "timestampCount": 46,
+      "wordCount": 13,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 253966,
+      "endMs": 271466,
+      "speakerId": -1,
+      "text": "Дима, у нас столько возможностей! Я думаю, что мы могли бы начать новый проект, связанный с искусством и технологий. Тогда у нас будет целый арсенал для активного отдыха. Прогулка, пикник, фотографии, игры с мячом и фризби. Просто идеально!",
+      "blank": false,
+      "inferenceMs": 893,
+      "tokenCount": 111,
+      "timestampCount": 111,
+      "wordCount": 38,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 271466,
+      "endMs": 280710,
+      "speakerId": -1,
+      "text": "Мир фантастической книги — это нечто особенное. Всегда интересно было бы оказаться там хотя бы на время. А у тебя есть любимый персонаж из книги?",
+      "blank": false,
+      "inferenceMs": 501,
+      "tokenCount": 55,
+      "timestampCount": 55,
+      "wordCount": 24,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 281198,
+      "endMs": 286182,
+      "speakerId": -1,
+      "text": "Маша, ты не поверишь, какой потрясающий отпуск у нас получился!",
+      "blank": false,
+      "inferenceMs": 297,
+      "tokenCount": 25,
+      "timestampCount": 25,
+      "wordCount": 10,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 286254,
+      "endMs": 292038,
+      "speakerId": -1,
+      "text": "Мы с семьёй провели две недели на курорте на побережье Средиземного моря.",
+      "blank": false,
+      "inferenceMs": 323,
+      "tokenCount": 34,
+      "timestampCount": 34,
+      "wordCount": 12,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 299886,
+      "endMs": 304326,
+      "speakerId": -1,
+      "text": "Да, но это значит больше работы. Надо быть готовыми.",
+      "blank": false,
+      "inferenceMs": 293,
+      "tokenCount": 15,
+      "timestampCount": 15,
+      "wordCount": 9,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 304494,
+      "endMs": 313062,
+      "speakerId": -1,
+      "text": "Точно. Важно рассматривать полный экологический след любых транспортных решений, чтобы принимать информированные решения.",
+      "blank": false,
+      "inferenceMs": 467,
+      "tokenCount": 46,
+      "timestampCount": 46,
+      "wordCount": 13,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 313966,
+      "endMs": 331466,
+      "speakerId": -1,
+      "text": "Дима, у нас столько возможностей! Я думаю, что мы могли бы начать новый проект, связанный с искусством и технологий. Тогда у нас будет целый арсенал для активного отдыха. Прогулка, пикник, фотографии, игры с мячом и фризби. Просто идеально!",
+      "blank": false,
+      "inferenceMs": 907,
+      "tokenCount": 111,
+      "timestampCount": 111,
+      "wordCount": 38,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 331466,
+      "endMs": 340710,
+      "speakerId": -1,
+      "text": "Мир фантастической книги — это нечто особенное. Всегда интересно было бы оказаться там хотя бы на время. А у тебя есть любимый персонаж из книги?",
+      "blank": false,
+      "inferenceMs": 572,
+      "tokenCount": 55,
+      "timestampCount": 55,
+      "wordCount": 24,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 341198,
+      "endMs": 346182,
+      "speakerId": -1,
+      "text": "Маша, ты не поверишь, какой потрясающий отпуск у нас получился!",
+      "blank": false,
+      "inferenceMs": 305,
+      "tokenCount": 25,
+      "timestampCount": 25,
+      "wordCount": 10,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 346254,
+      "endMs": 352038,
+      "speakerId": -1,
+      "text": "Мы с семьёй провели две недели на курорте на побережье Средиземного моря.",
+      "blank": false,
+      "inferenceMs": 340,
+      "tokenCount": 34,
+      "timestampCount": 34,
+      "wordCount": 12,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 359886,
+      "endMs": 364326,
+      "speakerId": -1,
+      "text": "Да, но это значит больше работы. Надо быть готовыми.",
+      "blank": false,
+      "inferenceMs": 275,
+      "tokenCount": 15,
+      "timestampCount": 15,
+      "wordCount": 9,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 364494,
+      "endMs": 373062,
+      "speakerId": -1,
+      "text": "Точно. Важно рассматривать полный экологический след любых транспортных решений, чтобы принимать информированные решения.",
+      "blank": false,
+      "inferenceMs": 458,
+      "tokenCount": 46,
+      "timestampCount": 46,
+      "wordCount": 13,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 373966,
+      "endMs": 391466,
+      "speakerId": -1,
+      "text": "Дима, у нас столько возможностей! Я думаю, что мы могли бы начать новый проект, связанный с искусством и технологий. Тогда у нас будет целый арсенал для активного отдыха. Прогулка, пикник, фотографии, игры с мячом и фризби. Просто идеально!",
+      "blank": false,
+      "inferenceMs": 985,
+      "tokenCount": 111,
+      "timestampCount": 111,
+      "wordCount": 38,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 391466,
+      "endMs": 400710,
+      "speakerId": -1,
+      "text": "Мир фантастической книги — это нечто особенное. Всегда интересно было бы оказаться там хотя бы на время. А у тебя есть любимый персонаж из книги?",
+      "blank": false,
+      "inferenceMs": 529,
+      "tokenCount": 55,
+      "timestampCount": 55,
+      "wordCount": 24,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 401198,
+      "endMs": 406182,
+      "speakerId": -1,
+      "text": "Маша, ты не поверишь, какой потрясающий отпуск у нас получился!",
+      "blank": false,
+      "inferenceMs": 303,
+      "tokenCount": 25,
+      "timestampCount": 25,
+      "wordCount": 10,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 406254,
+      "endMs": 412038,
+      "speakerId": -1,
+      "text": "Мы с семьёй провели две недели на курорте на побережье Средиземного моря.",
+      "blank": false,
+      "inferenceMs": 348,
+      "tokenCount": 34,
+      "timestampCount": 34,
+      "wordCount": 12,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 419886,
+      "endMs": 424326,
+      "speakerId": -1,
+      "text": "Да, но это значит больше работы. Надо быть готовыми.",
+      "blank": false,
+      "inferenceMs": 333,
+      "tokenCount": 15,
+      "timestampCount": 15,
+      "wordCount": 9,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 424494,
+      "endMs": 433062,
+      "speakerId": -1,
+      "text": "Точно. Важно рассматривать полный экологический след любых транспортных решений, чтобы принимать информированные решения.",
+      "blank": false,
+      "inferenceMs": 510,
+      "tokenCount": 46,
+      "timestampCount": 46,
+      "wordCount": 13,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 433966,
+      "endMs": 451466,
+      "speakerId": -1,
+      "text": "Дима, у нас столько возможностей! Я думаю, что мы могли бы начать новый проект, связанный с искусством и технологий. Тогда у нас будет целый арсенал для активного отдыха. Прогулка, пикник, фотографии, игры с мячом и фризби. Просто идеально!",
+      "blank": false,
+      "inferenceMs": 922,
+      "tokenCount": 111,
+      "timestampCount": 111,
+      "wordCount": 38,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 451466,
+      "endMs": 460710,
+      "speakerId": -1,
+      "text": "Мир фантастической книги — это нечто особенное. Всегда интересно было бы оказаться там хотя бы на время. А у тебя есть любимый персонаж из книги?",
+      "blank": false,
+      "inferenceMs": 508,
+      "tokenCount": 55,
+      "timestampCount": 55,
+      "wordCount": 24,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 461198,
+      "endMs": 466182,
+      "speakerId": -1,
+      "text": "Маша, ты не поверишь, какой потрясающий отпуск у нас получился!",
+      "blank": false,
+      "inferenceMs": 299,
+      "tokenCount": 25,
+      "timestampCount": 25,
+      "wordCount": 10,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 466254,
+      "endMs": 472038,
+      "speakerId": -1,
+      "text": "Мы с семьёй провели две недели на курорте на побережье Средиземного моря.",
+      "blank": false,
+      "inferenceMs": 325,
+      "tokenCount": 34,
+      "timestampCount": 34,
+      "wordCount": 12,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 479886,
+      "endMs": 484326,
+      "speakerId": -1,
+      "text": "Да, но это значит больше работы. Надо быть готовыми.",
+      "blank": false,
+      "inferenceMs": 302,
+      "tokenCount": 15,
+      "timestampCount": 15,
+      "wordCount": 9,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 484494,
+      "endMs": 493062,
+      "speakerId": -1,
+      "text": "Точно. Важно рассматривать полный экологический след любых транспортных решений, чтобы принимать информированные решения.",
+      "blank": false,
+      "inferenceMs": 447,
+      "tokenCount": 46,
+      "timestampCount": 46,
+      "wordCount": 13,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 493966,
+      "endMs": 511466,
+      "speakerId": -1,
+      "text": "Дима, у нас столько возможностей! Я думаю, что мы могли бы начать новый проект, связанный с искусством и технологий. Тогда у нас будет целый арсенал для активного отдыха. Прогулка, пикник, фотографии, игры с мячом и фризби. Просто идеально!",
+      "blank": false,
+      "inferenceMs": 904,
+      "tokenCount": 111,
+      "timestampCount": 111,
+      "wordCount": 38,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 511466,
+      "endMs": 520710,
+      "speakerId": -1,
+      "text": "Мир фантастической книги — это нечто особенное. Всегда интересно было бы оказаться там хотя бы на время. А у тебя есть любимый персонаж из книги?",
+      "blank": false,
+      "inferenceMs": 496,
+      "tokenCount": 55,
+      "timestampCount": 55,
+      "wordCount": 24,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 521198,
+      "endMs": 526182,
+      "speakerId": -1,
+      "text": "Маша, ты не поверишь, какой потрясающий отпуск у нас получился!",
+      "blank": false,
+      "inferenceMs": 300,
+      "tokenCount": 25,
+      "timestampCount": 25,
+      "wordCount": 10,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 526254,
+      "endMs": 532038,
+      "speakerId": -1,
+      "text": "Мы с семьёй провели две недели на курорте на побережье Средиземного моря.",
+      "blank": false,
+      "inferenceMs": 341,
+      "tokenCount": 34,
+      "timestampCount": 34,
+      "wordCount": 12,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 539886,
+      "endMs": 544326,
+      "speakerId": -1,
+      "text": "Да, но это значит больше работы. Надо быть готовыми.",
+      "blank": false,
+      "inferenceMs": 294,
+      "tokenCount": 15,
+      "timestampCount": 15,
+      "wordCount": 9,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 544494,
+      "endMs": 553062,
+      "speakerId": -1,
+      "text": "Точно. Важно рассматривать полный экологический след любых транспортных решений, чтобы принимать информированные решения.",
+      "blank": false,
+      "inferenceMs": 477,
+      "tokenCount": 46,
+      "timestampCount": 46,
+      "wordCount": 13,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 553966,
+      "endMs": 571466,
+      "speakerId": -1,
+      "text": "Дима, у нас столько возможностей! Я думаю, что мы могли бы начать новый проект, связанный с искусством и технологий. Тогда у нас будет целый арсенал для активного отдыха. Прогулка, пикник, фотографии, игры с мячом и фризби. Просто идеально!",
+      "blank": false,
+      "inferenceMs": 865,
+      "tokenCount": 111,
+      "timestampCount": 111,
+      "wordCount": 38,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 571466,
+      "endMs": 580710,
+      "speakerId": -1,
+      "text": "Мир фантастической книги — это нечто особенное. Всегда интересно было бы оказаться там хотя бы на время. А у тебя есть любимый персонаж из книги?",
+      "blank": false,
+      "inferenceMs": 462,
+      "tokenCount": 55,
+      "timestampCount": 55,
+      "wordCount": 24,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 581198,
+      "endMs": 586182,
+      "speakerId": -1,
+      "text": "Маша, ты не поверишь, какой потрясающий отпуск у нас получился!",
+      "blank": false,
+      "inferenceMs": 298,
+      "tokenCount": 25,
+      "timestampCount": 25,
+      "wordCount": 10,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    },
+    {
+      "startMs": 586254,
+      "endMs": 592038,
+      "speakerId": -1,
+      "text": "Мы с семьёй провели две недели на курорте на побережье Средиземного моря.",
+      "blank": false,
+      "inferenceMs": 338,
+      "tokenCount": 34,
+      "timestampCount": 34,
+      "wordCount": 12,
+      "frameStrideMs": 40,
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "warnings": [],
+      "wordEvidenceIncluded": false,
+      "wordEvidenceOmittedReason": "not_requested"
+    }
+  ],
+  "wordProcessedChunks": 61,
+  "wordEvidenceRequested": false,
+  "wordEvidenceBytes": 0,
+  "wordEvidenceTruncated": false,
+  "maxAsrSegmentMs": 20000,
+  "stagesMs": {
+    "thermalWaitMs": 135127,
+    "provisioningWaitMs": 1,
+    "nativeGateWaitMs": 0,
+    "validationMs": 299,
+    "decodeMs": 4206,
+    "metadataPersistenceMs": 9,
+    "vadLoadMs": 13,
+    "vadMs": 6024,
+    "diarizationLoadMs": 267,
+    "diarizationReadMs": 34,
+    "diarizationInferenceMs": 181148,
+    "diarizationMs": 181672,
+    "diarizationRefinementMs": 77770,
+    "alignmentMs": 43,
+    "asrLoadMs": 1893,
+    "asrReadMs": 74,
+    "asrInferenceMs": 23962,
+    "wordAssignmentMs": 132,
+    "asrMs": 47722,
+    "persistenceMs": 31
+  },
+  "telemetry": {
+    "run": "826d1f4c-05ef-47e8-8ea2-a283297a3b35",
+    "elapsedMs": 443816,
+    "stagesMs": {
+      "thermalWaitMs": 135127,
+      "provisioningWaitMs": 1,
+      "nativeGateWaitMs": 0,
+      "validationMs": 299,
+      "decodeMs": 4206,
+      "metadataPersistenceMs": 9,
+      "vadLoadMs": 13,
+      "vadMs": 6024,
+      "diarizationLoadMs": 267,
+      "diarizationReadMs": 34,
+      "diarizationInferenceMs": 181148,
+      "diarizationMs": 181672,
+      "diarizationRefinementMs": 77770,
+      "alignmentMs": 43,
+      "asrLoadMs": 1893,
+      "asrReadMs": 74,
+      "asrInferenceMs": 23962,
+      "wordAssignmentMs": 132,
+      "asrMs": 47722,
+      "persistenceMs": 31
+    },
+    "observedMaxPssKb": 876591,
+    "memoryScope": "stage boundary PSS snapshots; not continuous peak memory",
+    "thermalStatus": 2,
+    "thermalEvents": [
+      {
+        "elapsedMs": 1,
+        "status": 2
+      },
+      {
+        "elapsedMs": 68515,
+        "status": 3
+      },
+      {
+        "elapsedMs": 196718,
+        "status": 4
+      },
+      {
+        "elapsedMs": 201728,
+        "status": 3
+      },
+      {
+        "elapsedMs": 298915,
+        "status": 2
+      },
+      {
+        "elapsedMs": 313959,
+        "status": 3
+      },
+      {
+        "elapsedMs": 350018,
+        "status": 2
+      },
+      {
+        "elapsedMs": 360051,
+        "status": 3
+      },
+      {
+        "elapsedMs": 391103,
+        "status": 2
+      },
+      {
+        "elapsedMs": 416142,
+        "status": 3
+      },
+      {
+        "elapsedMs": 427161,
+        "status": 2
+      }
+    ],
+    "thermalApiSupported": true,
+    "thermalPowerServiceAvailable": true,
+    "thermalStatusAvailable": true,
+    "thermalListenerRegistered": true,
+    "thermalListenerRegistrationFailed": false,
+    "thermalListenerFailureReason": null,
+    "thermalUnavailableReason": null
+  }
+}

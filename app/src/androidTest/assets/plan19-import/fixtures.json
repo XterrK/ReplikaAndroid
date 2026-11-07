@@ -1,0 +1,376 @@
+{
+  "schema_version": 1,
+  "created_utc": "2026-11-07T03:49:16.187137+00:00",
+  "license": "CC0-1.0: original mathematical tones generated for this project; no speech or third-party recordings",
+  "scope": "Import/codec/channel/resampling checks; no model inference and no speech-quality claim",
+  "generator": "tools/create_plan19_import_fixtures.py",
+  "generator_sha256": "d3891ba7e720871fd4d9156a8b26599cfb3ef814915a6eb8b13cd40e475c2fbc",
+  "ffmpeg": {
+    "version": "ffmpeg version 7.0.2-static https://johnvansickle.com/ffmpeg/  Copyright (c) 2000-2024 the FFmpeg developers",
+    "executable_sha256": "e7e7fb30477f717e6f55f9180a70386c62677ef8a4d4d1a5d948f4098aa3eb99"
+  },
+  "files": [
+    {
+      "id": "wav-08k-mono",
+      "name": "p19-wav-08k-mono.wav",
+      "bytes": 48044,
+      "sha256": "9a4a833024b088f3f7a7621b43d5f21ee576cc244399763894251b19f31b4d3a",
+      "format": "wav",
+      "encoder": "pcm_s16le",
+      "sample_rate": 8000,
+      "channels": 1,
+      "expected_duration_ms": 3000,
+      "duration_tolerance_ms": 3,
+      "tone_hz": [
+        440
+      ],
+      "tone_amplitude_per_source_channel": 0.32,
+      "edge_silence_ms": 200,
+      "host_sanity": {
+        "scope": "FFmpeg generation sanity only; not Android/ASR/quality acceptance",
+        "decoded_16k_mono_samples": 48000,
+        "decoded_pcm16_sha256": "d42ced93e2b6085c9fcbf70fec6b284ff2fb6f20c921eca2b921cd8156f1b16d",
+        "spectral_amplitudes": {
+          "440": 0.31998779515247183,
+          "880": 2.787347710345343e-16,
+          "1300": 2.296342701277141e-16
+        }
+      }
+    },
+    {
+      "id": "wav-16k-mono",
+      "name": "p19-wav-16k-mono.wav",
+      "bytes": 96044,
+      "sha256": "d060275a274760f0549328e0e650bf4d78704fff4a72d302d76ea103ccb59ffd",
+      "format": "wav",
+      "encoder": "pcm_s16le",
+      "sample_rate": 16000,
+      "channels": 1,
+      "expected_duration_ms": 3000,
+      "duration_tolerance_ms": 3,
+      "tone_hz": [
+        440
+      ],
+      "tone_amplitude_per_source_channel": 0.32,
+      "edge_silence_ms": 200,
+      "host_sanity": {
+        "scope": "FFmpeg generation sanity only; not Android/ASR/quality acceptance",
+        "decoded_16k_mono_samples": 48000,
+        "decoded_pcm16_sha256": "a660d5f0373daa30e8bf55f300e6d6bd6d8aa7798f17632d248e675afb5c5312",
+        "spectral_amplitudes": {
+          "440": 0.31999027564446636,
+          "880": 2.7881614346558775e-16,
+          "1300": 2.2958166881002307e-16
+        }
+      }
+    },
+    {
+      "id": "wav-44k-stereo",
+      "name": "p19-wav-44k-stereo.wav",
+      "bytes": 529244,
+      "sha256": "cc2a2ce6613d9ba345900408f954d432ec0518e8e59bf0db2acff93a2fae2931",
+      "format": "wav",
+      "encoder": "pcm_s16le",
+      "sample_rate": 44100,
+      "channels": 2,
+      "expected_duration_ms": 3000,
+      "duration_tolerance_ms": 3,
+      "tone_hz": [
+        440,
+        880
+      ],
+      "tone_amplitude_per_source_channel": 0.32,
+      "edge_silence_ms": 200,
+      "host_sanity": {
+        "scope": "FFmpeg generation sanity only; not Android/ASR/quality acceptance",
+        "decoded_16k_mono_samples": 48000,
+        "decoded_pcm16_sha256": "428fb896d3cabaccbca48c9db8176ddb909eb6fb35f938cdb1d2006e62208db2",
+        "spectral_amplitudes": {
+          "440": 0.15999939709743732,
+          "880": 0.1599950233778614,
+          "1300": 1.3463755358125474e-07
+        }
+      }
+    },
+    {
+      "id": "wav-48k-stereo",
+      "name": "p19-wav-48k-stereo.wav",
+      "bytes": 576044,
+      "sha256": "59d01c635db629e800bd64359c2a0726a08799428df03180c0f9fbf561180ede",
+      "format": "wav",
+      "encoder": "pcm_s16le",
+      "sample_rate": 48000,
+      "channels": 2,
+      "expected_duration_ms": 3000,
+      "duration_tolerance_ms": 3,
+      "tone_hz": [
+        440,
+        880
+      ],
+      "tone_amplitude_per_source_channel": 0.32,
+      "edge_silence_ms": 200,
+      "host_sanity": {
+        "scope": "FFmpeg generation sanity only; not Android/ASR/quality acceptance",
+        "decoded_16k_mono_samples": 48000,
+        "decoded_pcm16_sha256": "a1c8488892421bdc68af14933001d2f93f3a3ffb47fd9ca53ab6b2b21b10a708",
+        "spectral_amplitudes": {
+          "440": 0.1600004130768525,
+          "880": 0.15999470672146004,
+          "1300": 2.847268179635111e-16
+        }
+      }
+    },
+    {
+      "id": "mp3-16k-mono",
+      "name": "p19-mp3-16k-mono.mp3",
+      "bytes": 25076,
+      "sha256": "0d4fa837caf21d54e83e21bae7bf43d93ccf345c02b784ec719dbe5a0f224386",
+      "format": "mp3",
+      "encoder": "libmp3lame",
+      "sample_rate": 16000,
+      "channels": 1,
+      "expected_duration_ms": 3000,
+      "duration_tolerance_ms": 250,
+      "tone_hz": [
+        440
+      ],
+      "tone_amplitude_per_source_channel": 0.32,
+      "edge_silence_ms": 200,
+      "host_sanity": {
+        "scope": "FFmpeg generation sanity only; not Android/ASR/quality acceptance",
+        "decoded_16k_mono_samples": 48000,
+        "decoded_pcm16_sha256": "304955cfa9103c217c80c046cc81ce31c53be97583c20e31987ef585a41c8bcf",
+        "spectral_amplitudes": {
+          "440": 0.30399656171090167,
+          "880": 5.642276591563876e-08,
+          "1300": 1.67988642345687e-07
+        }
+      }
+    },
+    {
+      "id": "mp3-44k-stereo",
+      "name": "p19-mp3-44k-stereo.mp3",
+      "bytes": 48920,
+      "sha256": "0e39e2da49fd2e15ab888a7eacb00038e804ac01b29a6b877dc41d003cbb424a",
+      "format": "mp3",
+      "encoder": "libmp3lame",
+      "sample_rate": 44100,
+      "channels": 2,
+      "expected_duration_ms": 3000,
+      "duration_tolerance_ms": 250,
+      "tone_hz": [
+        440,
+        880
+      ],
+      "tone_amplitude_per_source_channel": 0.32,
+      "edge_silence_ms": 200,
+      "host_sanity": {
+        "scope": "FFmpeg generation sanity only; not Android/ASR/quality acceptance",
+        "decoded_16k_mono_samples": 48000,
+        "decoded_pcm16_sha256": "01d0a22d816a23bf9d04cd729da980f39ef462921911e61eea21fa74a20e6e6a",
+        "spectral_amplitudes": {
+          "440": 0.15200323463602725,
+          "880": 0.1519865885758222,
+          "1300": 3.1748317684966195e-08
+        }
+      }
+    },
+    {
+      "id": "m4a-16k-mono",
+      "name": "p19-m4a-16k-mono.m4a",
+      "bytes": 15257,
+      "sha256": "aef3077d65e5193013bbfc3d2adf80d71d1c397ab7fd27180be1d6bf8c917fd2",
+      "format": "m4a",
+      "encoder": "aac",
+      "sample_rate": 16000,
+      "channels": 1,
+      "expected_duration_ms": 3000,
+      "duration_tolerance_ms": 250,
+      "tone_hz": [
+        440
+      ],
+      "tone_amplitude_per_source_channel": 0.32,
+      "edge_silence_ms": 200,
+      "host_sanity": {
+        "scope": "FFmpeg generation sanity only; not Android/ASR/quality acceptance",
+        "decoded_16k_mono_samples": 48128,
+        "decoded_pcm16_sha256": "d97e4213624c314345471aec8dc1b1c2411c41c246899ae62a4f1507aefd3c67",
+        "spectral_amplitudes": {
+          "440": 0.31997119043542804,
+          "880": 1.2171782036242334e-07,
+          "1300": 8.940398411813973e-08
+        }
+      }
+    },
+    {
+      "id": "m4a-48k-stereo",
+      "name": "p19-m4a-48k-stereo.m4a",
+      "bytes": 45850,
+      "sha256": "889288a86ae42e494c63d60def6cb5e0e874cc306b9e1422d685f292cae147d8",
+      "format": "m4a",
+      "encoder": "aac",
+      "sample_rate": 48000,
+      "channels": 2,
+      "expected_duration_ms": 3000,
+      "duration_tolerance_ms": 250,
+      "tone_hz": [
+        440,
+        880
+      ],
+      "tone_amplitude_per_source_channel": 0.32,
+      "edge_silence_ms": 200,
+      "host_sanity": {
+        "scope": "FFmpeg generation sanity only; not Android/ASR/quality acceptance",
+        "decoded_16k_mono_samples": 48128,
+        "decoded_pcm16_sha256": "a75e4a418c6a0b0bc621fc7bd7b36a1fa06e0571cf390f1d152c98d4d36c59bd",
+        "spectral_amplitudes": {
+          "440": 0.15991131244141873,
+          "880": 0.1599685577859966,
+          "1300": 2.2368508516092218e-07
+        }
+      }
+    },
+    {
+      "id": "aac-adts-16k-mono",
+      "name": "p19-aac-adts-16k-mono.aac",
+      "bytes": 15025,
+      "sha256": "c1f84e92dbc68cd608c4eea19fedbe2ab0d6ae85c055d66cb3d7097f32e80cb4",
+      "format": "aac",
+      "encoder": "aac",
+      "sample_rate": 16000,
+      "channels": 1,
+      "expected_duration_ms": 3000,
+      "duration_tolerance_ms": 250,
+      "tone_hz": [
+        440
+      ],
+      "tone_amplitude_per_source_channel": 0.32,
+      "edge_silence_ms": 200,
+      "host_sanity": {
+        "scope": "FFmpeg generation sanity only; not Android/ASR/quality acceptance",
+        "decoded_16k_mono_samples": 49152,
+        "decoded_pcm16_sha256": "d8d7bd20041c8c316196240b771ccff68626597d90d08085a01fcd586a5759c5",
+        "spectral_amplitudes": {
+          "440": 0.3199795805273524,
+          "880": 2.0148283413301854e-07,
+          "1300": 3.2209364567182795e-08
+        }
+      }
+    },
+    {
+      "id": "ogg-opus-48k-mono",
+      "name": "p19-ogg-opus-48k-mono.ogg",
+      "bytes": 15445,
+      "sha256": "2344acd78b68b22224591ff11f29d006ee5e01f07a8c8dc280417e3df23735ea",
+      "format": "ogg",
+      "encoder": "libopus",
+      "sample_rate": 48000,
+      "channels": 1,
+      "expected_duration_ms": 3000,
+      "duration_tolerance_ms": 250,
+      "tone_hz": [
+        440
+      ],
+      "tone_amplitude_per_source_channel": 0.32,
+      "edge_silence_ms": 200,
+      "host_sanity": {
+        "scope": "FFmpeg generation sanity only; not Android/ASR/quality acceptance",
+        "decoded_16k_mono_samples": 48000,
+        "decoded_pcm16_sha256": "159517dda840d68ecbdcc46e3d662c7d211111794440c35792fcfc2c2c826796",
+        "spectral_amplitudes": {
+          "440": 0.3202900336770625,
+          "880": 2.3437354444608625e-05,
+          "1300": 1.3825032302791757e-06
+        }
+      }
+    },
+    {
+      "id": "ogg-opus-48k-stereo",
+      "name": "p19-ogg-opus-48k-stereo.ogg",
+      "bytes": 31594,
+      "sha256": "b930c959549f360b7e4277e4e23f79845f6dd66c4539007d0942991932560bd9",
+      "format": "ogg",
+      "encoder": "libopus",
+      "sample_rate": 48000,
+      "channels": 2,
+      "expected_duration_ms": 3000,
+      "duration_tolerance_ms": 250,
+      "tone_hz": [
+        440,
+        880
+      ],
+      "tone_amplitude_per_source_channel": 0.32,
+      "edge_silence_ms": 200,
+      "host_sanity": {
+        "scope": "FFmpeg generation sanity only; not Android/ASR/quality acceptance",
+        "decoded_16k_mono_samples": 48000,
+        "decoded_pcm16_sha256": "a65f38e438f53e7a470b639cde06828d878a43fe69935de680d905de80b66f6e",
+        "spectral_amplitudes": {
+          "440": 0.16018404275813256,
+          "880": 0.16051664189244927,
+          "1300": 9.046944013378169e-06
+        }
+      }
+    },
+    {
+      "id": "flac-44k-mono",
+      "name": "p19-flac-44k-mono.flac",
+      "bytes": 41449,
+      "sha256": "a170fe8cca4d465d78f49e64cd2067b1e43e0443ff020b8db75eee3559b99878",
+      "format": "flac",
+      "encoder": "flac",
+      "sample_rate": 44100,
+      "channels": 1,
+      "expected_duration_ms": 3000,
+      "duration_tolerance_ms": 3,
+      "tone_hz": [
+        440
+      ],
+      "tone_amplitude_per_source_channel": 0.32,
+      "edge_silence_ms": 200,
+      "host_sanity": {
+        "scope": "FFmpeg generation sanity only; not Android/ASR/quality acceptance",
+        "decoded_16k_mono_samples": 48000,
+        "decoded_pcm16_sha256": "b4bb6a3ee031088936010ca9892ada952aa75be2e3356798573cb9c9aee963ec",
+        "spectral_amplitudes": {
+          "440": 0.3199959689586937,
+          "880": 1.2184566748957732e-08,
+          "1300": 1.9884587732796426e-07
+        }
+      }
+    },
+    {
+      "id": "flac-48k-stereo",
+      "name": "p19-flac-48k-stereo.flac",
+      "bytes": 82108,
+      "sha256": "dcdd0d6b3ef6648469b66c27b1a28b1f93d7e1e11b128f693db9d1893a9f6a7c",
+      "format": "flac",
+      "encoder": "flac",
+      "sample_rate": 48000,
+      "channels": 2,
+      "expected_duration_ms": 3000,
+      "duration_tolerance_ms": 3,
+      "tone_hz": [
+        440,
+        880
+      ],
+      "tone_amplitude_per_source_channel": 0.32,
+      "edge_silence_ms": 200,
+      "host_sanity": {
+        "scope": "FFmpeg generation sanity only; not Android/ASR/quality acceptance",
+        "decoded_16k_mono_samples": 48000,
+        "decoded_pcm16_sha256": "a1c8488892421bdc68af14933001d2f93f3a3ffb47fd9ca53ab6b2b21b10a708",
+        "spectral_amplitudes": {
+          "440": 0.1600004130768525,
+          "880": 0.15999470672146004,
+          "1300": 2.847268179635111e-16
+        }
+      }
+    }
+  ],
+  "suggested_picker_fixtures": [
+    "p19-wav-08k-mono.wav",
+    "p19-ogg-opus-48k-stereo.ogg",
+    "p19-flac-44k-mono.flac"
+  ]
+}

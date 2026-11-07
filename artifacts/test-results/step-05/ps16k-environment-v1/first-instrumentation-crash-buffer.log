@@ -1,0 +1,130 @@
+--------- beginning of crash
+11-07 11:43:13.472  8720  8752 F libc    : Fatal signal 11 (SIGSEGV), code 1 (SEGV_MAPERR), fault addr 0x0 in tid 8752 (GoogleApiHandle), pid 8720 (earchbox:search)
+11-07 11:43:14.868  9398  9398 F DEBUG   : *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
+11-07 11:43:14.897  9398  9398 F DEBUG   : Build fingerprint: 'google/sdk_gphone16k_x86_64/emu64xa16k:15/AE3A.240806.043/12960925:userdebug/dev-keys'
+11-07 11:43:14.897  9398  9398 F DEBUG   : Revision: '0'
+11-07 11:43:14.897  9398  9398 F DEBUG   : ABI: 'x86_64'
+11-07 11:43:14.897  9398  9398 F DEBUG   : Timestamp: 2026-11-07 11:43:13.706827580+0300
+11-07 11:43:14.897  9398  9398 F DEBUG   : Process uptime: 13s
+11-07 11:43:14.897  9398  9398 F DEBUG   : Page size: 16384 bytes
+11-07 11:43:14.897  9398  9398 F DEBUG   : Cmdline: com.google.android.googlequicksearchbox:search
+11-07 11:43:14.897  9398  9398 F DEBUG   : pid: 8720, tid: 8752, name: GoogleApiHandle  >>> com.google.android.googlequicksearchbox:search <<<
+11-07 11:43:14.897  9398  9398 F DEBUG   : uid: 10144
+11-07 11:43:14.897  9398  9398 F DEBUG   : signal 11 (SIGSEGV), code 1 (SEGV_MAPERR), fault addr 0x0000000000000000
+11-07 11:43:14.897  9398  9398 F DEBUG   : Cause: null pointer dereference
+11-07 11:43:14.897  9398  9398 F DEBUG   :     rax 00000000703cdb50  rbx 0000000000000010  rcx 0000000000000018  rdx 0000000049c74218
+11-07 11:43:14.897  9398  9398 F DEBUG   :     r8  00000022000010eb  r9  000000000000000c  r10 80000021000010eb  r11 000000000000000a
+11-07 11:43:14.897  9398  9398 F DEBUG   :     r12 000071e77bddf976  r13 000071e847e37e30  r14 000071e880a40800  r15 000071e847e37df0
+11-07 11:43:14.897  9398  9398 F DEBUG   :     rdi 000071e7c009e250  rsi 000000001474c2b0
+11-07 11:43:14.897  9398  9398 F DEBUG   :     rbp 000000000000000a  rsp 000071e847e37da8  rip 0000000000000000
+11-07 11:43:14.897  9398  9398 F DEBUG   : 29 total frames
+11-07 11:43:14.897  9398  9398 F DEBUG   : backtrace:
+11-07 11:43:14.897  9398  9398 F DEBUG   :       #00 pc 0000000000000000  <unknown>
+11-07 11:43:14.897  9398  9398 F DEBUG   :       #01 pc 000000000020a621  /apex/com.android.art/lib64/libart.so (nterp_helper+7345) (BuildId: e4a3c6c284a8b17d09fd84d661cf181b)
+11-07 11:43:14.897  9398  9398 F DEBUG   :       #02 pc 0000000000363976  /product/priv-app/Velvet/Velvet.apk (com.google.android.gms.common.internal.ab.<init>+66)
+11-07 11:43:14.898  9398  9398 F DEBUG   :       #03 pc 0000000000209fbe  /apex/com.android.art/lib64/libart.so (nterp_helper+5710) (BuildId: e4a3c6c284a8b17d09fd84d661cf181b)
+11-07 11:43:14.898  9398  9398 F DEBUG   :       #04 pc 0000000000386474  /product/priv-app/Velvet/Velvet.apk (com.google.android.gms.location.internal.ar.<init>+16)
+11-07 11:43:14.898  9398  9398 F DEBUG   :       #05 pc 0000000000209fbe  /apex/com.android.art/lib64/libart.so (nterp_helper+5710) (BuildId: e4a3c6c284a8b17d09fd84d661cf181b)
+11-07 11:43:14.898  9398  9398 F DEBUG   :       #06 pc 0000000000385654  /product/priv-app/Velvet/Velvet.apk (com.google.android.gms.location.internal.v.a+20)
+11-07 11:43:14.898  9398  9398 F DEBUG   :       #07 pc 0000000000209fbe  /apex/com.android.art/lib64/libart.so (nterp_helper+5710) (BuildId: e4a3c6c284a8b17d09fd84d661cf181b)
+11-07 11:43:14.898  9398  9398 F DEBUG   :       #08 pc 00000000003540cc  /product/priv-app/Velvet/Velvet.apk (com.google.android.gms.common.api.i.b+0)
+11-07 11:43:14.898  9398  9398 F DEBUG   :       #09 pc 0000000000209fbe  /apex/com.android.art/lib64/libart.so (nterp_helper+5710) (BuildId: e4a3c6c284a8b17d09fd84d661cf181b)
+11-07 11:43:14.898  9398  9398 F DEBUG   :       #10 pc 000000000035b108  /product/priv-app/Velvet/Velvet.apk (com.google.android.gms.common.api.internal.bk.<init>+132)
+11-07 11:43:14.898  9398  9398 F DEBUG   :       #11 pc 0000000000209808  /apex/com.android.art/lib64/libart.so (nterp_helper+3736) (BuildId: e4a3c6c284a8b17d09fd84d661cf181b)
+11-07 11:43:14.898  9398  9398 F DEBUG   :       #12 pc 000000000035c8c0  /product/priv-app/Velvet/Velvet.apk (com.google.android.gms.common.api.internal.bo.k+28)
+11-07 11:43:14.898  9398  9398 F DEBUG   :       #13 pc 0000000000209808  /apex/com.android.art/lib64/libart.so (nterp_helper+3736) (BuildId: e4a3c6c284a8b17d09fd84d661cf181b)
+11-07 11:43:14.898  9398  9398 F DEBUG   :       #14 pc 000000000035c3a6  /product/priv-app/Velvet/Velvet.apk (com.google.android.gms.common.api.internal.bo.handleMessage+1222)
+11-07 11:43:14.898  9398  9398 F DEBUG   :       #15 pc 000000000052bb84  /system/framework/x86_64/boot-framework.oat (android.os.Handler.dispatchMessage+132) (BuildId: bc047a67a4076b80992fbdfabdfba12acbd1924a)
+11-07 11:43:14.898  9398  9398 F DEBUG   :       #16 pc 000000000020986d  /apex/com.android.art/lib64/libart.so (nterp_helper+3837) (BuildId: e4a3c6c284a8b17d09fd84d661cf181b)
+11-07 11:43:14.898  9398  9398 F DEBUG   :       #17 pc 0000000000380054  /product/priv-app/Velvet/Velvet.apk (com.google.android.gms.libs.e.c.c.b+0)
+11-07 11:43:14.898  9398  9398 F DEBUG   :       #18 pc 0000000000209808  /apex/com.android.art/lib64/libart.so (nterp_helper+3736) (BuildId: e4a3c6c284a8b17d09fd84d661cf181b)
+11-07 11:43:14.898  9398  9398 F DEBUG   :       #19 pc 000000000038003c  /product/priv-app/Velvet/Velvet.apk (com.google.android.gms.libs.e.c.c.dispatchMessage+0)
+11-07 11:43:14.898  9398  9398 F DEBUG   :       #20 pc 000000000052ed9e  /system/framework/x86_64/boot-framework.oat (android.os.Looper.loopOnce+942) (BuildId: bc047a67a4076b80992fbdfabdfba12acbd1924a)
+11-07 11:43:14.898  9398  9398 F DEBUG   :       #21 pc 000000000052e93b  /system/framework/x86_64/boot-framework.oat (android.os.Looper.loop+235) (BuildId: bc047a67a4076b80992fbdfabdfba12acbd1924a)
+11-07 11:43:14.898  9398  9398 F DEBUG   :       #22 pc 000000000052dc37  /system/framework/x86_64/boot-framework.oat (android.os.HandlerThread.run+503) (BuildId: bc047a67a4076b80992fbdfabdfba12acbd1924a)
+11-07 11:43:14.898  9398  9398 F DEBUG   :       #23 pc 0000000000212154  /apex/com.android.art/lib64/libart.so (art_quick_invoke_stub+756) (BuildId: e4a3c6c284a8b17d09fd84d661cf181b)
+11-07 11:43:14.898  9398  9398 F DEBUG   :       #24 pc 0000000000563fd5  /apex/com.android.art/lib64/libart.so (art::ArtMethod::Invoke(art::Thread*, unsigned int*, unsigned int, art::JValue*, char const*)+181) (BuildId: e4a3c6c284a8b17d09fd84d661cf181b)
+11-07 11:43:14.898  9398  9398 F DEBUG   :       #25 pc 00000000009b5243  /apex/com.android.art/lib64/libart.so (art::Thread::CreateCallback(void*)+1427) (BuildId: e4a3c6c284a8b17d09fd84d661cf181b)
+11-07 11:43:14.898  9398  9398 F DEBUG   :       #26 pc 00000000009b4ca5  /apex/com.android.art/lib64/libart.so (art::Thread::CreateCallbackWithUffdGc(void*)+5) (BuildId: e4a3c6c284a8b17d09fd84d661cf181b)
+11-07 11:43:14.898  9398  9398 F DEBUG   :       #27 pc 000000000006d62a  /apex/com.android.runtime/lib64/bionic/libc.so (__pthread_start(void*)+58) (BuildId: eb58b4d427279994f00c0e1818477e4f)
+11-07 11:43:14.898  9398  9398 F DEBUG   :       #28 pc 0000000000060348  /apex/com.android.runtime/lib64/bionic/libc.so (__start_thread+56) (BuildId: eb58b4d427279994f00c0e1818477e4f)
+11-07 11:44:09.723  4926 10903 F libc    : Fatal signal 11 (SIGSEGV), code 1 (SEGV_MAPERR), fault addr 0x0 in tid 10903 (henotype.UPDATE), pid 4926 (.gms.persistent)
+11-07 11:44:10.935 10920 10920 F DEBUG   : *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
+11-07 11:44:10.935 10920 10920 F DEBUG   : Build fingerprint: 'google/sdk_gphone16k_x86_64/emu64xa16k:15/AE3A.240806.043/12960925:userdebug/dev-keys'
+11-07 11:44:10.935 10920 10920 F DEBUG   : Revision: '0'
+11-07 11:44:10.935 10920 10920 F DEBUG   : ABI: 'x86_64'
+11-07 11:44:10.935 10920 10920 F DEBUG   : Timestamp: 2026-11-07 11:44:09.907218689+0300
+11-07 11:44:10.935 10920 10920 F DEBUG   : Process uptime: 131s
+11-07 11:44:10.935 10920 10920 F DEBUG   : Page size: 16384 bytes
+11-07 11:44:10.935 10920 10920 F DEBUG   : Cmdline: com.google.android.gms.persistent
+11-07 11:44:10.935 10920 10920 F DEBUG   : pid: 4926, tid: 10903, name: henotype.UPDATE  >>> com.google.android.gms.persistent <<<
+11-07 11:44:10.935 10920 10920 F DEBUG   : uid: 10143
+11-07 11:44:10.935 10920 10920 F DEBUG   : signal 11 (SIGSEGV), code 1 (SEGV_MAPERR), fault addr 0x0000000000000000
+11-07 11:44:10.935 10920 10920 F DEBUG   : Cause: null pointer dereference
+11-07 11:44:10.935 10920 10920 F DEBUG   :     rax 000000004979bdd8  rbx 000000001403e970  rcx 0000000000000000  rdx 0000000000000005
+11-07 11:44:10.935 10920 10920 F DEBUG   :     r8  0000000000000001  r9  0000000000045005  r10 64cd000000045005  r11 000071e77e03d640
+11-07 11:44:10.935 10920 10920 F DEBUG   :     r12 00000000141b9e78  r13 0000000014666650  r14 000000001403e970  r15 000071e87845c298
+11-07 11:44:10.935 10920 10920 F DEBUG   :     rdi 000071e7c01e32d8  rsi 00000000141b9e78
+11-07 11:44:10.936 10920 10920 F DEBUG   :     rbp 00000000141b9ce0  rsp 000071e87845bfc8  rip 0000000000000000
+11-07 11:44:10.936 10920 10920 F DEBUG   : 15 total frames
+11-07 11:44:10.936 10920 10920 F DEBUG   : backtrace:
+11-07 11:44:10.936 10920 10920 F DEBUG   :       #00 pc 0000000000000000  <unknown>
+11-07 11:44:10.936 10920 10920 F DEBUG   :       #01 pc 0000000000093754  [anon_shmem:dalvik-jit-code-cache] (offset 0x2000000) (phx.l+100)
+11-07 11:44:10.936 10920 10920 F DEBUG   :       #02 pc 000000000003e96f  [anon:dalvik-main space]
+11-07 11:44:10.936 10920 10920 F DEBUG   :       #03 pc 00000000000929a9  [anon_shmem:dalvik-jit-code-cache] (offset 0x2000000) (phu.l+73)
+11-07 11:44:10.936 10920 10920 F DEBUG   :       #04 pc 000000000003e96f  [anon:dalvik-main space]
+11-07 11:44:10.936 10920 10920 F DEBUG   :       #05 pc 00000000001361c5  [anon_shmem:dalvik-jit-code-cache] (offset 0x2000000) (pgn.d+85)
+11-07 11:44:10.936 10920 10920 F DEBUG   :       #06 pc 000000000003cc9f  [anon:dalvik-main space]
+11-07 11:44:10.936 10920 10920 F DEBUG   :       #07 pc 000000000005bc62  [anon_shmem:dalvik-jit-code-cache] (offset 0x2000000) (com.google.android.chimera.config.ModuleManager.b+210)
+11-07 11:44:10.936 10920 10920 F DEBUG   :       #08 pc 0000000000100297  [anon:stack_and_tls:10903]
+11-07 11:44:10.936 10920 10920 F DEBUG   :       #09 pc 000000000010cfb3  [anon_shmem:dalvik-jit-code-cache] (offset 0x2000000) (com.google.android.chimera.config.ModuleManager.getCurrentModule+147)
+11-07 11:44:10.936 10920 10920 F DEBUG   :       #10 pc 0000000000234ca7  [anon:dalvik-main space]
+11-07 11:44:10.936 10920 10920 F DEBUG   :       #11 pc 0000000000121192  [anon_shmem:dalvik-jit-code-cache] (offset 0x2000000) (daag.h+226)
+11-07 11:44:10.936 10920 10920 F DEBUG   :       #12 pc 0000000000100297  [anon:stack_and_tls:10903]
+11-07 11:44:10.936 10920 10920 F DEBUG   :       #13 pc 000000000016502f  [anon_shmem:dalvik-jit-code-cache] (offset 0x2000000) (com.google.android.gms.platformconfigurator.PhenotypeConfigurationUpdateListener.b+127)
+11-07 11:44:10.936 10920 10920 F DEBUG   :       #14 pc 0000000000100297  [anon:stack_and_tls:10903]
+11-07 11:45:32.428   571   672 F libc    : Fatal signal 11 (SIGSEGV), code 1 (SEGV_MAPERR), fault addr 0xebadbf53 in tid 672 (CachedAppOptimi), pid 571 (system_server)
+11-07 11:45:33.311 11760 11760 F DEBUG   : *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
+11-07 11:45:33.311 11760 11760 F DEBUG   : Build fingerprint: 'google/sdk_gphone16k_x86_64/emu64xa16k:15/AE3A.240806.043/12960925:userdebug/dev-keys'
+11-07 11:45:33.311 11760 11760 F DEBUG   : Revision: '0'
+11-07 11:45:33.311 11760 11760 F DEBUG   : ABI: 'x86_64'
+11-07 11:45:33.311 11760 11760 F DEBUG   : Timestamp: 2026-11-07 11:45:32.547112847+0300
+11-07 11:45:33.311 11760 11760 F DEBUG   : Process uptime: 261s
+11-07 11:45:33.311 11760 11760 F DEBUG   : Page size: 16384 bytes
+11-07 11:45:33.311 11760 11760 F DEBUG   : Cmdline: system_server
+11-07 11:45:33.311 11760 11760 F DEBUG   : pid: 571, tid: 672, name: CachedAppOptimi  >>> system_server <<<
+11-07 11:45:33.311 11760 11760 F DEBUG   : uid: 1000
+11-07 11:45:33.311 11760 11760 F DEBUG   : signal 11 (SIGSEGV), code 1 (SEGV_MAPERR), fault addr 0x00000000ebadbf53
+11-07 11:45:33.311 11760 11760 F DEBUG   :     rax 000071ea354c7110  rbx 0000000000000002  rcx 000071e880a41900  rdx 0000000000000d50
+11-07 11:45:33.311 11760 11760 F DEBUG   :     r8  000071ea354c7110  r9  000071e75c664258  r10 ffffffffffffffff  r11 000071e75c664260
+11-07 11:45:33.311 11760 11760 F DEBUG   :     r12 000071e87ffc9756  r13 000071e75c664300  r14 000071e880a40800  r15 000071e75c6642e8
+11-07 11:45:33.311 11760 11760 F DEBUG   :     rdi 00000000ebadbeef  rsi 0000000000001446
+11-07 11:45:33.311 11760 11760 F DEBUG   :     rbp 0000000016260240  rsp 000071e75c6642b8  rip 000071e880a644d9
+11-07 11:45:33.311 11760 11760 F DEBUG   : 17 total frames
+11-07 11:45:33.311 11760 11760 F DEBUG   : backtrace:
+11-07 11:45:33.311 11760 11760 F DEBUG   :       #00 pc 00000000002244d9  /apex/com.android.art/lib64/libart.so (art_quick_alloc_object_initialized_tlab+9) (BuildId: e4a3c6c284a8b17d09fd84d661cf181b)
+11-07 11:45:33.311 11760 11760 F DEBUG   :       #01 pc 000000000020d7e0  /apex/com.android.art/lib64/libart.so (nterp_helper+20080) (BuildId: e4a3c6c284a8b17d09fd84d661cf181b)
+11-07 11:45:33.311 11760 11760 F DEBUG   :       #02 pc 00000000001c1756  /system/framework/framework.jar (android.app.ActivityManager$1.onUidFrozenStateChanged+26)
+11-07 11:45:33.311 11760 11760 F DEBUG   :       #03 pc 00000000001ae159  /system/framework/oat/x86_64/services.odex (com.android.server.am.ActivityManagerService.reportUidFrozenStateChanged+345) (BuildId: d252778afdcd06d3834ad876c5147792af2ee8d0)
+11-07 11:45:33.311 11760 11760 F DEBUG   :       #04 pc 000000000017d7c1  /system/framework/oat/x86_64/services.odex (com.android.server.am.CachedAppOptimizer$FreezeHandler.handleMessage+1169) (BuildId: d252778afdcd06d3834ad876c5147792af2ee8d0)
+11-07 11:45:33.311 11760 11760 F DEBUG   :       #05 pc 000000000052bb9e  /system/framework/x86_64/boot-framework.oat (android.os.Handler.dispatchMessage+158) (BuildId: bc047a67a4076b80992fbdfabdfba12acbd1924a)
+11-07 11:45:33.311 11760 11760 F DEBUG   :       #06 pc 000000000052ed9e  /system/framework/x86_64/boot-framework.oat (android.os.Looper.loopOnce+942) (BuildId: bc047a67a4076b80992fbdfabdfba12acbd1924a)
+11-07 11:45:33.311 11760 11760 F DEBUG   :       #07 pc 000000000052e93b  /system/framework/x86_64/boot-framework.oat (android.os.Looper.loop+235) (BuildId: bc047a67a4076b80992fbdfabdfba12acbd1924a)
+11-07 11:45:33.311 11760 11760 F DEBUG   :       #08 pc 000000000052dc37  /system/framework/x86_64/boot-framework.oat (android.os.HandlerThread.run+503) (BuildId: bc047a67a4076b80992fbdfabdfba12acbd1924a)
+11-07 11:45:33.311 11760 11760 F DEBUG   :       #09 pc 000000000020986d  /apex/com.android.art/lib64/libart.so (nterp_helper+3837) (BuildId: e4a3c6c284a8b17d09fd84d661cf181b)
+11-07 11:45:33.311 11760 11760 F DEBUG   :       #10 pc 0000000000218848  /system/framework/services.jar (com.android.server.ServiceThread.run+24)
+11-07 11:45:33.311 11760 11760 F DEBUG   :       #11 pc 0000000000212154  /apex/com.android.art/lib64/libart.so (art_quick_invoke_stub+756) (BuildId: e4a3c6c284a8b17d09fd84d661cf181b)
+11-07 11:45:33.311 11760 11760 F DEBUG   :       #12 pc 0000000000563fd5  /apex/com.android.art/lib64/libart.so (art::ArtMethod::Invoke(art::Thread*, unsigned int*, unsigned int, art::JValue*, char const*)+181) (BuildId: e4a3c6c284a8b17d09fd84d661cf181b)
+11-07 11:45:33.311 11760 11760 F DEBUG   :       #13 pc 00000000009b5243  /apex/com.android.art/lib64/libart.so (art::Thread::CreateCallback(void*)+1427) (BuildId: e4a3c6c284a8b17d09fd84d661cf181b)
+11-07 11:45:33.311 11760 11760 F DEBUG   :       #14 pc 00000000009b4ca5  /apex/com.android.art/lib64/libart.so (art::Thread::CreateCallbackWithUffdGc(void*)+5) (BuildId: e4a3c6c284a8b17d09fd84d661cf181b)
+11-07 11:45:33.311 11760 11760 F DEBUG   :       #15 pc 000000000006d62a  /apex/com.android.runtime/lib64/bionic/libc.so (__pthread_start(void*)+58) (BuildId: eb58b4d427279994f00c0e1818477e4f)
+11-07 11:45:33.311 11760 11760 F DEBUG   :       #16 pc 0000000000060348  /apex/com.android.runtime/lib64/bionic/libc.so (__start_thread+56) (BuildId: eb58b4d427279994f00c0e1818477e4f)
+11-07 11:45:33.696  8768  8854 E AndroidRuntime: FATAL EXCEPTION: GoogleApiHandler
+11-07 11:45:33.696  8768  8854 E AndroidRuntime: Process: com.google.android.gms, PID: 8768
+11-07 11:45:33.696  8768  8854 E AndroidRuntime: DeadSystemException: The system died; earlier logs will point to the root cause
+11-07 11:45:33.747   911  1069 E AndroidRuntime: FATAL EXCEPTION: SysUiBg
+11-07 11:45:33.747   911  1069 E AndroidRuntime: Process: com.android.systemui, PID: 911
+11-07 11:45:33.747   911  1069 E AndroidRuntime: DeadSystemException: The system died; earlier logs will point to the root cause
+11-07 11:45:33.838 10932 10960 E AndroidRuntime: FATAL EXCEPTION: GoogleApiHandler
+11-07 11:45:33.838 10932 10960 E AndroidRuntime: Process: com.google.android.gms.persistent, PID: 10932
+11-07 11:45:33.838 10932 10960 E AndroidRuntime: DeadSystemException: The system died; earlier logs will point to the root cause

@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "status": "OBSERVATION_DURING_RUNNING_BATCH_NOT_COMPLETION_AUDIT",
+  "observed_at": "2026-11-07T07:48:36.737143+00:00",
+  "source": "artifacts/test-results/step-05/perf-2-4-4-2-v1/batch-01-threads2/samples.jsonl",
+  "read_lines": 63,
+  "clock_discontinuities": [
+    {
+      "previous_line_index": 20,
+      "line_index": 21,
+      "previous_line_sha256": "f7df747720e0318bb359ac61655146b1bc679dcde966d9907be6af78a7b6797f",
+      "line_sha256": "a0f98f7fc14cfc8b0bef08c00f733013439b01f6b30502377eeff7fdf5458eda",
+      "previous": {
+        "at": "2026-11-07T04:55:15.395341+00:00",
+        "monotonic_seconds": 41990.151991845,
+        "scope": "periodic snapshot; not continuous peak",
+        "pids": "8526",
+        "rss_kb": 437868,
+        "pss_kb": 231881
+      },
+      "current": {
+        "at": "2026-11-07T07:41:14.331503+00:00",
+        "monotonic_seconds": 42000.630691223,
+        "scope": "periodic snapshot; not continuous peak",
+        "pids": "8526",
+        "rss_kb": 435520,
+        "pss_kb": 229453
+      },
+      "wall_delta_seconds": 9958.936162,
+      "monotonic_delta_seconds": 10.478699377999874,
+      "wall_minus_monotonic_delta_seconds": 9948.457462622
+    }
+  ],
+  "new_model_inference": false,
+  "scope": "Read-only saved sampler excerpts. UTC wall clock and monotonic deltas differ; cause is unknown. No timeout/hang, model-quality or causal speed conclusion is inferred. Worker/SystemClock/monotonic times remain separate from ISO chronology. Full12 audit still pending."
+}

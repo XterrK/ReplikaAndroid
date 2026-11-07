@@ -1,0 +1,95 @@
+{
+  "status": "FAILED",
+  "run": "p19perf20261107T045130178000Z_2",
+  "cases": [
+    {
+      "id": "perf-01m",
+      "status": "COMPLETE",
+      "audio_sha256": "07fcdf4133767dd70170eaa25224b328b03ab411483f6e5957483121fa988bc3",
+      "duration_ms": 60000,
+      "processing_ms": 130422,
+      "worker_wall_ms": 132635,
+      "segments": 9,
+      "newModelInference": true,
+      "recordingId": "qa-evaluation-d3c50ca5-f979-412e-8fd7-9a46a8d2a64f",
+      "collectEvidence": false,
+      "processId": 10346,
+      "workId": "41db4e16-98cc-4bdc-8635-b939f908db5f",
+      "workManagerState": "SUCCEEDED"
+    },
+    {
+      "id": "perf-03m",
+      "status": "COMPLETE",
+      "audio_sha256": "b8787d41b83e2f3cb3b58655d06e574186e20b19e0e06158a122f2a76d6a6824",
+      "duration_ms": 179999,
+      "processing_ms": 577404,
+      "worker_wall_ms": 578375,
+      "segments": 25,
+      "newModelInference": true,
+      "recordingId": "qa-evaluation-bb5c6778-4a89-4747-9aff-5a8b9b0936ab",
+      "collectEvidence": false,
+      "processId": 10346,
+      "workId": "2a8fa27b-9acd-4b5f-bab4-cc3f2f1d2c9e",
+      "workManagerState": "SUCCEEDED"
+    }
+  ],
+  "scope": "Actual Android production Worker; independent reference text\/counts are not staged or passed to recognition",
+  "api": 35,
+  "supportedAbis": [
+    "x86_64"
+  ],
+  "collectEvidence": false,
+  "processId": 10346,
+  "threads": 4,
+  "requestedThreads": 4,
+  "cpuPlan": "auto_v1",
+  "cpuPolicy": {
+    "plan": "auto_v1",
+    "requestedThreads": 4,
+    "availableCores": 2,
+    "asrThreads": 4,
+    "diarizationThreads": 4,
+    "refinementThreads": 4,
+    "diarizationPinned": false,
+    "refinementPinned": false
+  },
+  "expectedSpeakers": -1,
+  "newModelInference": true,
+  "asrPlan": "vad_words_context600",
+  "asrPolicy": {
+    "pipeline": "vad_words_v1",
+    "punctuation_mode": "none",
+    "energy_split": true,
+    "vad_threshold": 0.5,
+    "vad_min_speech_sec": 0.25,
+    "vad_min_silence_sec": 0.25,
+    "pre_roll_ms": 600
+  },
+  "diarizationPlanRequested": "eres2net_window_v1",
+  "diarizationPlan": "eres2net_window_v1",
+  "diarizationPolicy": {
+    "plan": "eres2net_window_v1",
+    "algorithm": "window-overcluster-v1",
+    "embedding_path": "diar\/embedding.onnx",
+    "native_threshold": 0.30000001192092896,
+    "window_shift": 0.10000000149011612,
+    "min_duration_on": 0.20000000298023224,
+    "min_duration_off": 0.5,
+    "window_config": {
+      "tau": 0.36,
+      "method": "average",
+      "grid_ms": 125,
+      "max_speakers": 8,
+      "reassign_small": true,
+      "min_cluster_ms": 2000,
+      "min_cluster_fraction": 0.03,
+      "minimum_reassignment_similarity": null,
+      "smooth": true,
+      "smooth_ms": 500
+    }
+  },
+  "failedRecordId": "qa-evaluation-1412b8d2-5be3-4e30-87ec-c578e3760cd5",
+  "cancellationRequested": true,
+  "cancellationScope": "Request for own QA job only; current JNI call may still need to return",
+  "error": "kotlinx.coroutines.TimeoutCancellationException: Timed out waiting for 1200000 ms\n\tat kotlinx.coroutines.TimeoutKt.TimeoutCancellationException(Timeout.kt:189)\n\tat kotlinx.coroutines.TimeoutCoroutine.run(Timeout.kt:157)\n\tat kotlinx.coroutines.EventLoopImplBase$DelayedRunnableTask.run(EventLoop.common.kt:505)\n\tat kotlinx.coroutines.EventLoopImplBase.processNextEvent(EventLoop.common.kt:263)\n\tat kotlinx.coroutines.DefaultExecutor.run(DefaultExecutor.kt:105)\n\tat java.lang.Thread.run(Thread.java:1012)\n"
+}
