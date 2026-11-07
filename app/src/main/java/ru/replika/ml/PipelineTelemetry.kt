@@ -54,9 +54,13 @@ class PipelineTelemetry(context: Context): AutoCloseable {
   try { return block().also { outcome="ok" } }
   finally {
    val elapsed=SystemClock.elapsedRealtime()-start
-   times[stage]=(times[stage]?:0)+elapsed;event(stage,elapsed,outcome=outcome)
+   add(stage,elapsed);event(stage,elapsed,outcome=outcome)
   }
  }
+ /** Stage timers may be written by the parallel ASR and diarization coroutines (step 14). */
+ fun add(stage: String,elapsed: Long) { synchronized(times) { times[stage]=(times[stage]?:0)+elapsed } }
+ fun put(stage: String,value: Long) { synchronized(times) { times[stage]=value } }
+ fun timesJson(): JSONObject = synchronized(times) { JSONObject(times as Map<*,*>) }
  fun config(backend: String,threads: Int,audioMs: Long,mode: String,cpuResolution: CpuResolution?=null) {
   // Backend and mode are validated constants, never data derived from transcript content.
   require(backend in setOf("giga-v2","giga-v3"));require(mode in setOf("single","fixed","automatic"))
@@ -67,13 +71,13 @@ class PipelineTelemetry(context: Context): AutoCloseable {
  }
  suspend fun cool(onWaiting: suspend ()->Unit): Long {
   val elapsed=ThermalGate.await(::thermalStatus,onWaiting)
-  if(elapsed>0) { times["thermalWaitMs"]=(times["thermalWaitMs"]?:0)+elapsed;event("cooling",elapsed) }
+  if(elapsed>0) { add("thermalWaitMs",elapsed);event("cooling",elapsed) }
   return elapsed
  }
  @Synchronized fun snapshot(): JSONObject {
   val status=thermalStatus()
   return JSONObject().put("run",run).put("elapsedMs",SystemClock.elapsedRealtime()-started)
-  .put("stagesMs",JSONObject(times as Map<*,*>)).put("observedMaxPssKb",observedMaxPssKb)
+  .put("stagesMs",timesJson()).put("observedMaxPssKb",observedMaxPssKb)
   .put("memoryScope","stage boundary PSS snapshots; not continuous peak memory")
   .put("thermalStatus",status).put("thermalEvents",JSONArray(thermal.toString()))
   .put("thermalApiSupported",Build.VERSION.SDK_INT>=29)
