@@ -146,7 +146,9 @@ class AppViewModel(application: Application): AndroidViewModel(application) {
   }
  }
 
- fun process(id: String,count: Int,threads: Int=if(BuildConfig.DEFAULT_CPU_PLAN=="auto_v1") 0 else 2) {
+ fun process(id: String,count: Int,threads: Int=if(BuildConfig.DEFAULT_CPU_PLAN=="auto_v1") 0 else 2,
+  language: ru.replika.domain.LanguageMode=ru.replika.domain.LanguageMode.fromPersistedId(BuildConfig.DEFAULT_LANGUAGE_MODE),
+  perSegmentLanguage: Boolean=false) {
   if(id in deleting.value || !processingRequests.add(id)) return
   viewModelScope.launch {
    try {
@@ -159,7 +161,7 @@ class AppViewModel(application: Application): AndroidViewModel(application) {
      dao.insert(rec.copy(expectedSpeakers=count,backend=backend.value,status="QUEUED",phase="Ожидание обработки",error=null))
      true
     }
-    if(queued) { clearUndo();ProcessingWorker.enqueue(app,id,threads.takeUnless { it==0 }) }
+    if(queued) { clearUndo();ProcessingWorker.enqueue(app,id,threads.takeUnless { it==0 },languageMode=language,perSegmentLanguage=perSegmentLanguage) }
    } catch(e: CancellationException) { throw e } catch(e: Exception) { reportError("Запуск обработки",e) }
    finally { processingRequests.remove(id) }
   }

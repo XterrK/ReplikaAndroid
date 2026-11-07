@@ -49,7 +49,7 @@ if __name__=='__main__':
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--manifest',type=pathlib.Path,default=ROOT/'app/src/main/assets/models-lock.json')
     parser.add_argument('--models',type=pathlib.Path,default=ROOT/'model-pack')
-    parser.add_argument('--output',type=pathlib.Path,default=ROOT/'model-pack/replika-offline-pack-v1.5.zip')
+    parser.add_argument('--output',type=pathlib.Path,default=ROOT/'model-pack/replika-offline-pack-v1.6.zip')
     parser.add_argument('--cache',type=pathlib.Path,default=pathlib.Path('/mnt/f/ReplikaToolchain/model-downloads'))
     args=parser.parse_args();args.models.mkdir(parents=True,exist_ok=True);args.cache.mkdir(parents=True,exist_ok=True)
     _,_,specs=read_lock(args.manifest)

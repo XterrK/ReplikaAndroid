@@ -1,0 +1,27 @@
+{"case": "dev-01-two-clean", "language": "ru", "wer_raw": 0.07857142857142857, "wer_normalized": 0.014598540145985401, "speakers": {"reference": 2, "hypothesis": 2, "signed_error": 0, "absolute_error": 0}, "rtf": 0.6237918871125424}
+{"case": "dev-02-three-clean", "language": "ru", "wer_raw": 0.11864406779661017, "wer_normalized": 0.01680672268907563, "speakers": {"reference": 3, "hypothesis": 3, "signed_error": 0, "absolute_error": 0}, "rtf": 0.6645664085695008}
+{"case": "dev-03-short", "language": "ru", "wer_raw": 0.15789473684210525, "wer_normalized": 0.0, "speakers": {"reference": 2, "hypothesis": 2, "signed_error": 0, "absolute_error": 0}, "rtf": 0.7367624474107931}
+{"case": "dev-04-expressive", "language": "ru", "wer_raw": 0.2, "wer_normalized": 0.07142857142857142, "speakers": {"reference": 3, "hypothesis": 3, "signed_error": 0, "absolute_error": 0}, "rtf": 0.8296444290950099}
+{"case": "dev-05-whisper", "language": "ru", "wer_raw": 0.1111111111111111, "wer_normalized": 0.043478260869565216, "speakers": {"reference": 3, "hypothesis": 3, "signed_error": 0, "absolute_error": 0}, "rtf": 0.4400347060968938}
+{"case": "dev-06-overlap", "language": "ru", "wer_raw": 0.20512820512820512, "wer_normalized": 0.0641025641025641, "speakers": {"reference": 3, "hypothesis": 2, "signed_error": -1, "absolute_error": 1}, "rtf": 0.7044345285635053}
+{"case": "holdout-01-two-clean", "language": "ru", "wer_raw": 0.09090909090909091, "wer_normalized": 0.025, "speakers": {"reference": 2, "hypothesis": 2, "signed_error": 0, "absolute_error": 0}, "rtf": 0.799823871597365}
+{"case": "holdout-02-three-clean", "language": "ru", "wer_raw": 0.10810810810810811, "wer_normalized": 0.03355704697986577, "speakers": {"reference": 3, "hypothesis": 4, "signed_error": 1, "absolute_error": 1}, "rtf": 0.7399921187363102}
+{"case": "holdout-03-short", "language": "ru", "wer_raw": 0.16279069767441862, "wer_normalized": 0.046511627906976744, "speakers": {"reference": 3, "hypothesis": 3, "signed_error": 0, "absolute_error": 0}, "rtf": 0.7264504017320182}
+{"case": "holdout-04-overlap-expressive", "language": "ru", "wer_raw": 0.09900990099009901, "wer_normalized": 0.0297029702970297, "speakers": {"reference": 3, "hypothesis": 3, "signed_error": 0, "absolute_error": 0}, "rtf": 0.7474547573581303}
+{"case": "dev-mono-m", "language": "ru", "wer_raw": 0.10344827586206896, "wer_normalized": 0.0, "speakers": {"reference": 1, "hypothesis": 1, "signed_error": 0, "absolute_error": 0}, "rtf": 0.7824277309478755}
+{"case": "dev-mono-s", "language": "ru", "wer_raw": 0.06666666666666667, "wer_normalized": 0.0, "speakers": {"reference": 1, "hypothesis": 1, "signed_error": 0, "absolute_error": 0}, "rtf": 0.9404172745933996}
+{"case": "holdout-mono-d", "language": "ru", "wer_raw": 0.16129032258064516, "wer_normalized": 0.0, "speakers": {"reference": 1, "hypothesis": 1, "signed_error": 0, "absolute_error": 0}, "rtf": 0.8640276174033149}
+Traceback (most recent call last):
+  File "C:\R\wt-lang\tools\eval\run_lang.py", line 103, in <module>
+    if __name__ == "__main__":
+        ^^^^^^
+  File "C:\R\wt-lang\tools\eval\run_lang.py", line 95, in main
+    "speakers": metric["speakers"], "rtf": metric["rtf"]}, ensure_ascii=False), flush=True)
+                      ^^^^^^^^^^^^^^^^^^
+  File "C:\R\wt-lang\tools\eval\run.py", line 131, in aggregate
+    output["rtf"] = output["processing_ms"] / output["audio_ms"] if output["audio_ms"] else None
+                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\R\wt-lang\tools\eval\run.py", line 131, in <genexpr>
+    output["rtf"] = output["processing_ms"] / output["audio_ms"] if output["audio_ms"] else None
+                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyError: 'native_speaker_count_error'

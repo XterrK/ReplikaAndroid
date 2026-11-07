@@ -1,0 +1,4778 @@
+{
+  "runtime": "sherpa-onnx 2.0.1",
+  "onnxruntimeVersion": "1.28.2",
+  "platform": "Windows-10-10.0.19045-SP0",
+  "pythonVersion": "3.12.7",
+  "scope": "Experimental host VAD-chunk ASR; not enabled production behavior or physical-device acceptance",
+  "pipelineVariant": "vad_words_experimental",
+  "turnsUsedForAsrSlicing": false,
+  "audioSha256": "68051836e1801537107145f825b3f3d4a388db6105a30d49e2f48c814596c6e6",
+  "audioMs": 79497,
+  "sampleRate": 16000,
+  "originalPcmPeak": 0.7854886651039124,
+  "recognitionInputGain": 1.0,
+  "vadDetectorGain": 1.0,
+  "vadPrimarySpanCount": 20,
+  "vadPrimarySpans": [
+    {
+      "startMs": 486,
+      "endMs": 7590
+    },
+    {
+      "startMs": 8198,
+      "endMs": 10214
+    },
+    {
+      "startMs": 10534,
+      "endMs": 11718
+    },
+    {
+      "startMs": 13286,
+      "endMs": 16070
+    },
+    {
+      "startMs": 16294,
+      "endMs": 17254
+    },
+    {
+      "startMs": 18630,
+      "endMs": 19558
+    },
+    {
+      "startMs": 19974,
+      "endMs": 26374
+    },
+    {
+      "startMs": 26726,
+      "endMs": 29830
+    },
+    {
+      "startMs": 31110,
+      "endMs": 35462
+    },
+    {
+      "startMs": 36838,
+      "endMs": 41894
+    },
+    {
+      "startMs": 42566,
+      "endMs": 45414
+    },
+    {
+      "startMs": 45958,
+      "endMs": 46598
+    },
+    {
+      "startMs": 47430,
+      "endMs": 51110
+    },
+    {
+      "startMs": 51782,
+      "endMs": 53990
+    },
+    {
+      "startMs": 54246,
+      "endMs": 57190
+    },
+    {
+      "startMs": 58182,
+      "endMs": 60230
+    },
+    {
+      "startMs": 61446,
+      "endMs": 66342
+    },
+    {
+      "startMs": 67654,
+      "endMs": 69670
+    },
+    {
+      "startMs": 70662,
+      "endMs": 76166
+    },
+    {
+      "startMs": 76422,
+      "endMs": 78950
+    }
+  ],
+  "vadRescueAttempted": false,
+  "vadRescueApplied": false,
+  "vadRescueRms": null,
+  "vadRescueRmsSamples": 0,
+  "vadRescueSpanCount": 0,
+  "vadRescueReason": "primary_nonempty",
+  "vadRescueScope": "detector-only empty-primary retry with the same explicit threshold/min-speech/min-silence policy as primary; ASR gain and original PCM preserved",
+  "vadSpans": [
+    {
+      "startMs": 486,
+      "endMs": 7590
+    },
+    {
+      "startMs": 8198,
+      "endMs": 10214
+    },
+    {
+      "startMs": 10534,
+      "endMs": 11718
+    },
+    {
+      "startMs": 13286,
+      "endMs": 16070
+    },
+    {
+      "startMs": 16294,
+      "endMs": 17254
+    },
+    {
+      "startMs": 18630,
+      "endMs": 19558
+    },
+    {
+      "startMs": 19974,
+      "endMs": 26374
+    },
+    {
+      "startMs": 26726,
+      "endMs": 29830
+    },
+    {
+      "startMs": 31110,
+      "endMs": 35462
+    },
+    {
+      "startMs": 36838,
+      "endMs": 41894
+    },
+    {
+      "startMs": 42566,
+      "endMs": 45414
+    },
+    {
+      "startMs": 45958,
+      "endMs": 46598
+    },
+    {
+      "startMs": 47430,
+      "endMs": 51110
+    },
+    {
+      "startMs": 51782,
+      "endMs": 53990
+    },
+    {
+      "startMs": 54246,
+      "endMs": 57190
+    },
+    {
+      "startMs": 58182,
+      "endMs": 60230
+    },
+    {
+      "startMs": 61446,
+      "endMs": 66342
+    },
+    {
+      "startMs": 67654,
+      "endMs": 69670
+    },
+    {
+      "startMs": 70662,
+      "endMs": 76166
+    },
+    {
+      "startMs": 76422,
+      "endMs": 78950
+    }
+  ],
+  "asrSpeechSpans": [
+    {
+      "startMs": 0,
+      "endMs": 7590
+    },
+    {
+      "startMs": 7598,
+      "endMs": 11718
+    },
+    {
+      "startMs": 12686,
+      "endMs": 17254
+    },
+    {
+      "startMs": 18030,
+      "endMs": 29830
+    },
+    {
+      "startMs": 30510,
+      "endMs": 35462
+    },
+    {
+      "startMs": 36238,
+      "endMs": 41894
+    },
+    {
+      "startMs": 41966,
+      "endMs": 46598
+    },
+    {
+      "startMs": 46830,
+      "endMs": 51110
+    },
+    {
+      "startMs": 51182,
+      "endMs": 57190
+    },
+    {
+      "startMs": 57582,
+      "endMs": 60230
+    },
+    {
+      "startMs": 60846,
+      "endMs": 66342
+    },
+    {
+      "startMs": 67054,
+      "endMs": 69670
+    },
+    {
+      "startMs": 70062,
+      "endMs": 78950
+    }
+  ],
+  "asrChunks": [
+    {
+      "startMs": 0,
+      "endMs": 7590
+    },
+    {
+      "startMs": 7598,
+      "endMs": 11718
+    },
+    {
+      "startMs": 12686,
+      "endMs": 17254
+    },
+    {
+      "startMs": 18030,
+      "endMs": 29830
+    },
+    {
+      "startMs": 30510,
+      "endMs": 35462
+    },
+    {
+      "startMs": 36238,
+      "endMs": 41894
+    },
+    {
+      "startMs": 41966,
+      "endMs": 46598
+    },
+    {
+      "startMs": 46830,
+      "endMs": 51110
+    },
+    {
+      "startMs": 51182,
+      "endMs": 57190
+    },
+    {
+      "startMs": 57582,
+      "endMs": 60230
+    },
+    {
+      "startMs": 60846,
+      "endMs": 66342
+    },
+    {
+      "startMs": 67054,
+      "endMs": 69670
+    },
+    {
+      "startMs": 70062,
+      "endMs": 78950
+    }
+  ],
+  "rawDiarizationTurns": [
+    {
+      "startMs": 487,
+      "endMs": 11725,
+      "speakerId": 0
+    },
+    {
+      "startMs": 13244,
+      "endMs": 16670,
+      "speakerId": 1
+    },
+    {
+      "startMs": 16670,
+      "endMs": 17193,
+      "speakerId": 4
+    },
+    {
+      "startMs": 18627,
+      "endMs": 29866,
+      "speakerId": 3
+    },
+    {
+      "startMs": 31047,
+      "endMs": 35452,
+      "speakerId": 5
+    },
+    {
+      "startMs": 36835,
+      "endMs": 41881,
+      "speakerId": 3
+    },
+    {
+      "startMs": 42539,
+      "endMs": 45408,
+      "speakerId": 6
+    },
+    {
+      "startMs": 45914,
+      "endMs": 46572,
+      "speakerId": 6
+    },
+    {
+      "startMs": 47433,
+      "endMs": 57170,
+      "speakerId": 3
+    },
+    {
+      "startMs": 58165,
+      "endMs": 60224,
+      "speakerId": 8
+    },
+    {
+      "startMs": 61439,
+      "endMs": 66316,
+      "speakerId": 3
+    },
+    {
+      "startMs": 67598,
+      "endMs": 69674,
+      "speakerId": 9
+    },
+    {
+      "startMs": 70670,
+      "endMs": 78972,
+      "speakerId": 3
+    }
+  ],
+  "diarizationTurns": [
+    {
+      "startMs": 487,
+      "endMs": 11725,
+      "speakerId": 0
+    },
+    {
+      "startMs": 13244,
+      "endMs": 16670,
+      "speakerId": 1
+    },
+    {
+      "startMs": 16670,
+      "endMs": 17193,
+      "speakerId": 2
+    },
+    {
+      "startMs": 18627,
+      "endMs": 29866,
+      "speakerId": 3
+    },
+    {
+      "startMs": 31047,
+      "endMs": 35452,
+      "speakerId": 4
+    },
+    {
+      "startMs": 36835,
+      "endMs": 41881,
+      "speakerId": 3
+    },
+    {
+      "startMs": 42539,
+      "endMs": 45408,
+      "speakerId": 5
+    },
+    {
+      "startMs": 45914,
+      "endMs": 46572,
+      "speakerId": 5
+    },
+    {
+      "startMs": 47433,
+      "endMs": 57170,
+      "speakerId": 3
+    },
+    {
+      "startMs": 58165,
+      "endMs": 60224,
+      "speakerId": 6
+    },
+    {
+      "startMs": 61439,
+      "endMs": 66316,
+      "speakerId": 3
+    },
+    {
+      "startMs": 67598,
+      "endMs": 69674,
+      "speakerId": 7
+    },
+    {
+      "startMs": 70670,
+      "endMs": 78972,
+      "speakerId": 3
+    }
+  ],
+  "asrSlices": [
+    {
+      "startMs": 0,
+      "endMs": 7590,
+      "speakerId": -1,
+      "text": "The governor, on his part, becoming doubtful of the legality of employing Missouri militia to enforce Kansas laws,",
+      "blank": false,
+      "inferenceMs": 1667.7284,
+      "tokens": [
+        " The",
+        " go",
+        "vern",
+        "or",
+        ",",
+        " on",
+        " his",
+        " part",
+        ",",
+        " bec",
+        "om",
+        "ing",
+        " d",
+        "ou",
+        "b",
+        "t",
+        "ful",
+        " of",
+        " the",
+        " le",
+        "g",
+        "al",
+        "ity",
+        " of",
+        " em",
+        "pl",
+        "oy",
+        "ing",
+        " M",
+        "iss",
+        "ou",
+        "ri",
+        " m",
+        "il",
+        "it",
+        "ia",
+        " to",
+        " en",
+        "f",
+        "or",
+        "ce",
+        " K",
+        "ans",
+        "as",
+        " la",
+        "w",
+        "s",
+        ","
+      ],
+      "timestamps": [
+        0.3199999928474426,
+        0.5600000023841858,
+        0.7199999690055847,
+        0.8799999952316284,
+        1.0399999618530273,
+        1.1999999284744263,
+        1.3600000143051147,
+        1.5999999046325684,
+        1.7599999904632568,
+        2.0,
+        2.1599998474121094,
+        2.240000009536743,
+        2.3999998569488525,
+        2.4800000190734863,
+        2.559999942779541,
+        2.6399998664855957,
+        2.799999952316284,
+        2.9600000381469727,
+        3.119999885559082,
+        3.1999998092651367,
+        3.43999981880188,
+        3.5999999046325684,
+        3.8399999141693115,
+        4.159999847412109,
+        4.400000095367432,
+        4.559999942779541,
+        4.71999979019165,
+        4.880000114440918,
+        5.039999961853027,
+        5.119999885559082,
+        5.279999732971191,
+        5.440000057220459,
+        5.519999980926514,
+        5.599999904632568,
+        5.759999752044678,
+        5.839999675750732,
+        6.0,
+        6.159999847412109,
+        6.239999771118164,
+        6.319999694824219,
+        6.399999618530273,
+        6.559999942779541,
+        6.71999979019165,
+        6.87999963760376,
+        7.039999961853027,
+        7.119999885559082,
+        7.279999732971191,
+        7.359999656677246
+      ],
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "words": [
+        {
+          "startMs": 320,
+          "endMs": 400,
+          "text": "The",
+          "speakerId": -1,
+          "warnings": [
+            "Не найден говорящий слова"
+          ],
+          "chunkIndex": 0
+        },
+        {
+          "startMs": 560,
+          "endMs": 960,
+          "text": "governor,",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 0
+        },
+        {
+          "startMs": 1200,
+          "endMs": 1280,
+          "text": "on",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 0
+        },
+        {
+          "startMs": 1360,
+          "endMs": 1440,
+          "text": "his",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 0
+        },
+        {
+          "startMs": 1600,
+          "endMs": 1680,
+          "text": "part,",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 0
+        },
+        {
+          "startMs": 2000,
+          "endMs": 2320,
+          "text": "becoming",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 0
+        },
+        {
+          "startMs": 2400,
+          "endMs": 2880,
+          "text": "doubtful",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 0
+        },
+        {
+          "startMs": 2960,
+          "endMs": 3040,
+          "text": "of",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 0
+        },
+        {
+          "startMs": 3120,
+          "endMs": 3200,
+          "text": "the",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 0
+        },
+        {
+          "startMs": 3200,
+          "endMs": 3920,
+          "text": "legality",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 0
+        },
+        {
+          "startMs": 4160,
+          "endMs": 4240,
+          "text": "of",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 0
+        },
+        {
+          "startMs": 4400,
+          "endMs": 4960,
+          "text": "employing",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 0
+        },
+        {
+          "startMs": 5040,
+          "endMs": 5520,
+          "text": "Missouri",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 0
+        },
+        {
+          "startMs": 5520,
+          "endMs": 5920,
+          "text": "militia",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 0
+        },
+        {
+          "startMs": 6000,
+          "endMs": 6080,
+          "text": "to",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 0
+        },
+        {
+          "startMs": 6160,
+          "endMs": 6480,
+          "text": "enforce",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 0
+        },
+        {
+          "startMs": 6560,
+          "endMs": 6960,
+          "text": "Kansas",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 0
+        },
+        {
+          "startMs": 7040,
+          "endMs": 7360,
+          "text": "laws,",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 0
+        }
+      ],
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "warnings": [],
+      "language": "en"
+    },
+    {
+      "startMs": 7598,
+      "endMs": 11718,
+      "speakerId": -1,
+      "text": "was also eager to secure the help of Federal troops.",
+      "blank": false,
+      "inferenceMs": 752.0697,
+      "tokens": [
+        " was",
+        " also",
+        " e",
+        "ag",
+        "er",
+        " to",
+        " se",
+        "c",
+        "ure",
+        " the",
+        " help",
+        " of",
+        " F",
+        "ed",
+        "er",
+        "al",
+        " t",
+        "ro",
+        "op",
+        "s",
+        "."
+      ],
+      "timestamps": [
+        0.3199999928474426,
+        0.7199999690055847,
+        1.0399999618530273,
+        1.1999999284744263,
+        1.3600000143051147,
+        1.5199999809265137,
+        1.6799999475479126,
+        1.8399999141693115,
+        2.0,
+        2.1599998474121094,
+        2.3999998569488525,
+        2.799999952316284,
+        3.0399999618530273,
+        3.1999998092651367,
+        3.359999895095825,
+        3.43999981880188,
+        3.5999999046325684,
+        3.679999828338623,
+        3.759999990463257,
+        3.8399999141693115,
+        3.919999837875366
+      ],
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "words": [
+        {
+          "startMs": 7918,
+          "endMs": 7998,
+          "text": "was",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 1
+        },
+        {
+          "startMs": 8318,
+          "endMs": 8398,
+          "text": "also",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 1
+        },
+        {
+          "startMs": 8638,
+          "endMs": 9038,
+          "text": "eager",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 1
+        },
+        {
+          "startMs": 9118,
+          "endMs": 9198,
+          "text": "to",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 1
+        },
+        {
+          "startMs": 9278,
+          "endMs": 9678,
+          "text": "secure",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 1
+        },
+        {
+          "startMs": 9758,
+          "endMs": 9838,
+          "text": "the",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 1
+        },
+        {
+          "startMs": 9998,
+          "endMs": 10078,
+          "text": "help",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 1
+        },
+        {
+          "startMs": 10398,
+          "endMs": 10478,
+          "text": "of",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 1
+        },
+        {
+          "startMs": 10638,
+          "endMs": 11118,
+          "text": "Federal",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 1
+        },
+        {
+          "startMs": 11198,
+          "endMs": 11518,
+          "text": "troops.",
+          "speakerId": 0,
+          "warnings": [],
+          "chunkIndex": 1
+        }
+      ],
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "warnings": [],
+      "language": "en"
+    },
+    {
+      "startMs": 12686,
+      "endMs": 17254,
+      "speakerId": -1,
+      "text": "Can you imagine why Buckingham has been so violent? I suspect.",
+      "blank": false,
+      "inferenceMs": 852.5633,
+      "tokens": [
+        " C",
+        "an",
+        " you",
+        " im",
+        "ag",
+        "ine",
+        " why",
+        " B",
+        "u",
+        "ck",
+        "ing",
+        "h",
+        "am",
+        " has",
+        " been",
+        " so",
+        " v",
+        "i",
+        "ol",
+        "ent",
+        "?",
+        " I",
+        " s",
+        "us",
+        "pect",
+        "."
+      ],
+      "timestamps": [
+        0.3999999761581421,
+        0.5600000023841858,
+        0.7199999690055847,
+        0.8799999952316284,
+        1.0399999618530273,
+        1.1200000047683716,
+        1.2799999713897705,
+        1.5199999809265137,
+        1.5999999046325684,
+        1.7599999904632568,
+        1.8399999141693115,
+        1.9199999570846558,
+        2.0799999237060547,
+        2.240000009536743,
+        2.3999998569488525,
+        2.559999942779541,
+        2.7200000286102295,
+        2.879999876022339,
+        2.9600000381469727,
+        3.119999885559082,
+        3.2799999713897705,
+        3.5999999046325684,
+        3.759999990463257,
+        3.919999837875366,
+        4.079999923706055,
+        4.319999694824219
+      ],
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "words": [
+        {
+          "startMs": 13086,
+          "endMs": 13326,
+          "text": "Can",
+          "speakerId": 1,
+          "warnings": [],
+          "chunkIndex": 2
+        },
+        {
+          "startMs": 13406,
+          "endMs": 13486,
+          "text": "you",
+          "speakerId": 1,
+          "warnings": [],
+          "chunkIndex": 2
+        },
+        {
+          "startMs": 13566,
+          "endMs": 13886,
+          "text": "imagine",
+          "speakerId": 1,
+          "warnings": [],
+          "chunkIndex": 2
+        },
+        {
+          "startMs": 13966,
+          "endMs": 14046,
+          "text": "why",
+          "speakerId": 1,
+          "warnings": [],
+          "chunkIndex": 2
+        },
+        {
+          "startMs": 14206,
+          "endMs": 14846,
+          "text": "Buckingham",
+          "speakerId": 1,
+          "warnings": [],
+          "chunkIndex": 2
+        },
+        {
+          "startMs": 14926,
+          "endMs": 15006,
+          "text": "has",
+          "speakerId": 1,
+          "warnings": [],
+          "chunkIndex": 2
+        },
+        {
+          "startMs": 15086,
+          "endMs": 15166,
+          "text": "been",
+          "speakerId": 1,
+          "warnings": [],
+          "chunkIndex": 2
+        },
+        {
+          "startMs": 15246,
+          "endMs": 15326,
+          "text": "so",
+          "speakerId": 1,
+          "warnings": [],
+          "chunkIndex": 2
+        },
+        {
+          "startMs": 15406,
+          "endMs": 15886,
+          "text": "violent?",
+          "speakerId": 1,
+          "warnings": [],
+          "chunkIndex": 2
+        },
+        {
+          "startMs": 16286,
+          "endMs": 16366,
+          "text": "I",
+          "speakerId": 1,
+          "warnings": [],
+          "chunkIndex": 2
+        },
+        {
+          "startMs": 16446,
+          "endMs": 16846,
+          "text": "suspect.",
+          "speakerId": 1,
+          "warnings": [
+            "Смена говорящего на границе слова"
+          ],
+          "chunkIndex": 2
+        }
+      ],
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "warnings": [],
+      "language": "en"
+    },
+    {
+      "startMs": 18030,
+      "endMs": 29830,
+      "speakerId": -1,
+      "text": "In this incident, contrasting the creative and the destructive spirit of the factions, the Immigrant Aid Society of Massachusetts finds its most honorable and triumphant vindication.",
+      "blank": false,
+      "inferenceMs": 3087.8021,
+      "tokens": [
+        " In",
+        " this",
+        " inc",
+        "id",
+        "ent",
+        ",",
+        " cont",
+        "r",
+        "ast",
+        "ing",
+        " the",
+        " c",
+        "reat",
+        "ive",
+        " and",
+        " the",
+        " d",
+        "est",
+        "r",
+        "uct",
+        "ive",
+        " sp",
+        "ir",
+        "it",
+        " of",
+        " the",
+        " fact",
+        "ions",
+        ",",
+        " the",
+        " I",
+        "m",
+        "m",
+        "ig",
+        "r",
+        "ant",
+        " A",
+        "id",
+        " So",
+        "ci",
+        "et",
+        "y",
+        " of",
+        " M",
+        "ass",
+        "ach",
+        "us",
+        "et",
+        "t",
+        "s",
+        " find",
+        "s",
+        " its",
+        " most",
+        " h",
+        "on",
+        "or",
+        "able",
+        " and",
+        " t",
+        "ri",
+        "um",
+        "ph",
+        "ant",
+        " v",
+        "ind",
+        "ic",
+        "ation",
+        "."
+      ],
+      "timestamps": [
+        0.3199999928474426,
+        0.6399999856948853,
+        0.9599999785423279,
+        1.1999999284744263,
+        1.3600000143051147,
+        1.5199999809265137,
+        1.7599999904632568,
+        2.0799999237060547,
+        2.240000009536743,
+        2.3999998569488525,
+        2.559999942779541,
+        2.7200000286102295,
+        2.879999876022339,
+        3.119999885559082,
+        3.2799999713897705,
+        3.43999981880188,
+        3.5199999809265137,
+        3.679999828338623,
+        3.759999990463257,
+        3.8399999141693115,
+        4.0,
+        4.159999847412109,
+        4.319999694824219,
+        4.400000095367432,
+        4.559999942779541,
+        4.71999979019165,
+        4.880000114440918,
+        5.279999732971191,
+        5.440000057220459,
+        5.679999828338623,
+        5.839999675750732,
+        5.920000076293945,
+        6.0,
+        6.079999923706055,
+        6.159999847412109,
+        6.239999771118164,
+        6.399999618530273,
+        6.480000019073486,
+        6.71999979019165,
+        6.87999963760376,
+        7.039999961853027,
+        7.119999885559082,
+        7.199999809265137,
+        7.359999656677246,
+        7.519999980926514,
+        7.679999828338623,
+        7.839999675750732,
+        8.0,
+        8.079999923706055,
+        8.239999771118164,
+        8.559999465942383,
+        8.800000190734863,
+        8.960000038146973,
+        9.199999809265137,
+        9.519999504089355,
+        9.59999942779541,
+        9.760000228881836,
+        10.0,
+        10.15999984741211,
+        10.399999618530273,
+        10.479999542236328,
+        10.639999389648438,
+        10.800000190734863,
+        10.880000114440918,
+        11.039999961853027,
+        11.199999809265137,
+        11.359999656677246,
+        11.519999504089355,
+        11.679999351501465
+      ],
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "words": [
+        {
+          "startMs": 18350,
+          "endMs": 18430,
+          "text": "In",
+          "speakerId": -1,
+          "warnings": [
+            "Не найден говорящий слова"
+          ],
+          "chunkIndex": 3
+        },
+        {
+          "startMs": 18670,
+          "endMs": 18750,
+          "text": "this",
+          "speakerId": 3,
+          "warnings": [],
+          "chunkIndex": 3
+        },
+        {
+          "startMs": 18990,
+          "endMs": 19470,
+          "text": "incident,",
+          "speakerId": 3,
+          "warnings": [],
+          "chunkIndex": 3
+        },
+        {
+          "startMs": 19790,
+          "endMs": 20510,
+          "text": "contrasting",
+          "speakerId": 3,
+          "warnings": [],
+          "chunkIndex": 3
+        },
+        {
+          "startMs": 20590,
+          "endMs": 20670,
+          "text": "the",
+          "speakerId": 3,
+          "warnings": [],
+          "chunkIndex": 3
+        },
+        {
+          "startMs": 20750,
+          "endMs": 21230,
+          "text": "creative",
+          "speakerId": 3,
+          "warnings": [],
+          "chunkIndex": 3
+        },
+        {
+          "startMs": 21310,
+          "endMs": 21390,
+          "text": "and",
+          "speakerId": 3,
+          "warnings": [],
+          "chunkIndex": 3
+        },
+        {
+          "startMs": 21470,
+          "endMs": 21550,
+          "text": "the",
+          "speakerId": 3,
+          "warnings": [],
+          "chunkIndex": 3
+        },
+        {
+          "startMs": 21550,
+          "endMs": 22110,
+          "text": "destructive",
+          "speakerId": 3,
+          "warnings": [],
+          "chunkIndex": 3
+        },
+        {
+          "startMs": 22190,
+          "endMs": 22510,
+          "text": "spirit",
+          "speakerId": 3,
+          "warnings": [],
+          "chunkIndex": 3
+        },
+        {
+          "startMs": 22590,
+          "endMs": 22670,
+          "text": "of",
+          "speakerId": 3,
+          "warnings": [],
+          "chunkIndex": 3
+        },
+        {
+          "startMs": 22750,
+          "endMs": 22830,
+          "text": "the",
+          "speakerId": 3,
+          "warnings": [],
+          "chunkIndex": 3
+        },
+        {
+          "startMs": 22910,
+          "endMs": 23390,
+          "text": "factions,",
+          "speakerId": 3,
+          "warnings": [],
+          "chunkIndex": 3
+        },
+        {
+          "startMs": 23710,
+          "endMs": 23790,
+          "text": "the",
+          "speakerId": 3,
+          "warnings": [],
+          "chunkIndex": 3
+        },
+        {
+          "startMs": 23870,
+          "endMs": 24350,
+          "text": "Immigrant",
+          "speakerId": 3,
+          "warnings": [],
+          "chunkIndex": 3
+        },
+        {
+          "startMs": 24430,
+          "endMs": 24590,
+          "text": "Aid",
+          "speakerId": 3,
+          "warnings": [],
+          "chunkIndex": 3
+        },
+        {
+          "startMs": 24750,
+          "endMs": 25230,
+          "text": "Society",
+          "speakerId": 3,
+          "warnings": [],
+          "chunkIndex": 3
+        },
+        {
+          "startMs": 25230,
+          "endMs": 25310,
+          "text": "of",
+          "speakerId": 3,
+          "warnings": [],
+          "chunkIndex": 3
+        },
+        {
+          "startMs": 25390,
+          "endMs": 26350,
+          "text": "Massachusetts",
+          "speakerId": 3,
+          "warnings": [],
+          "chunkIndex": 3
+        },
+        {
+          "startMs": 26590,
+          "endMs": 26910,
+          "text": "finds",
+          "speakerId": 3,
+          "warnings": [],
+          "chunkIndex": 3
+        },
+        {
+          "startMs": 26990,
+          "endMs": 27070,
+          "text": "its",
+          "speakerId": 3,
+          "warnings": [],
+          "chunkIndex": 3
+        },
+        {
+          "startMs": 27230,
+          "endMs": 27310,
+          "text": "most",
+          "speakerId": 3,
+          "warnings": [],
+          "chunkIndex": 3
+        },
+        {
+          "startMs": 27550,
+          "endMs": 28110,
+          "text": "honorable",
+          "speakerId": 3,
+          "warnings": [],
+          "chunkIndex": 3
+        },
+        {
+          "startMs": 28190,
+          "endMs": 28270,
+          "text": "and",
+          "speakerId": 3,
+          "warnings": [],
+          "chunkIndex": 3
+        },
+        {
+          "startMs": 28430,
+          "endMs": 28990,
+          "text": "triumphant",
+          "speakerId": 3,
+          "warnings": [],
+          "chunkIndex": 3
+        },
+        {
+          "startMs": 29070,
+          "endMs": 29630,
+          "text": "vindication.",
+          "speakerId": 3,
+          "warnings": [],
+          "chunkIndex": 3
+        }
+      ],
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "warnings": [],
+      "language": "en"
+    },
+    {
+      "startMs": 30510,
+      "endMs": 35462,
+      "speakerId": -1,
+      "text": "I say, you do know what this means, and you must tell us,",
+      "blank": false,
+      "inferenceMs": 1187.9246,
+      "tokens": [
+        " I",
+        " say",
+        ",",
+        " you",
+        " do",
+        " know",
+        " what",
+        " this",
+        " me",
+        "ans",
+        ",",
+        " and",
+        " you",
+        " m",
+        "ust",
+        " tell",
+        " us",
+        ","
+      ],
+      "timestamps": [
+        0.5600000023841858,
+        0.7999999523162842,
+        1.1200000047683716,
+        1.3600000143051147,
+        1.5999999046325684,
+        1.9199999570846558,
+        2.1599998474121094,
+        2.3999998569488525,
+        2.6399998664855957,
+        2.799999952316284,
+        3.0399999618530273,
+        3.359999895095825,
+        3.679999828338623,
+        3.8399999141693115,
+        4.0,
+        4.239999771118164,
+        4.480000019073486,
+        4.71999979019165
+      ],
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "words": [
+        {
+          "startMs": 31070,
+          "endMs": 31150,
+          "text": "I",
+          "speakerId": 4,
+          "warnings": [],
+          "chunkIndex": 4
+        },
+        {
+          "startMs": 31310,
+          "endMs": 31390,
+          "text": "say,",
+          "speakerId": 4,
+          "warnings": [],
+          "chunkIndex": 4
+        },
+        {
+          "startMs": 31870,
+          "endMs": 31950,
+          "text": "you",
+          "speakerId": 4,
+          "warnings": [],
+          "chunkIndex": 4
+        },
+        {
+          "startMs": 32110,
+          "endMs": 32190,
+          "text": "do",
+          "speakerId": 4,
+          "warnings": [],
+          "chunkIndex": 4
+        },
+        {
+          "startMs": 32430,
+          "endMs": 32510,
+          "text": "know",
+          "speakerId": 4,
+          "warnings": [],
+          "chunkIndex": 4
+        },
+        {
+          "startMs": 32670,
+          "endMs": 32750,
+          "text": "what",
+          "speakerId": 4,
+          "warnings": [],
+          "chunkIndex": 4
+        },
+        {
+          "startMs": 32910,
+          "endMs": 32990,
+          "text": "this",
+          "speakerId": 4,
+          "warnings": [],
+          "chunkIndex": 4
+        },
+        {
+          "startMs": 33150,
+          "endMs": 33390,
+          "text": "means,",
+          "speakerId": 4,
+          "warnings": [],
+          "chunkIndex": 4
+        },
+        {
+          "startMs": 33870,
+          "endMs": 33950,
+          "text": "and",
+          "speakerId": 4,
+          "warnings": [],
+          "chunkIndex": 4
+        },
+        {
+          "startMs": 34190,
+          "endMs": 34270,
+          "text": "you",
+          "speakerId": 4,
+          "warnings": [],
+          "chunkIndex": 4
+        },
+        {
+          "startMs": 34350,
+          "endMs": 34590,
+          "text": "must",
+          "speakerId": 4,
+          "warnings": [],
+          "chunkIndex": 4
+        },
+        {
+          "startMs": 34750,
+          "endMs": 34830,
+          "text": "tell",
+          "speakerId": 4,
+          "warnings": [],
+          "chunkIndex": 4
+        },
+        {
+          "startMs": 34990,
+          "endMs": 35070,
+          "text": "us,",
+          "speakerId": 4,
+          "warnings": [],
+          "chunkIndex": 4
+        }
+      ],
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "warnings": [],
+      "language": "en"
+    },
+    {
+      "startMs": 36238,
+      "endMs": 41894,
+      "speakerId": -1,
+      "text": "Their distinctive characters, however, display one broad and unfailing difference,",
+      "blank": false,
+      "inferenceMs": 1050.0309,
+      "tokens": [
+        " The",
+        "ir",
+        " d",
+        "ist",
+        "in",
+        "ct",
+        "ive",
+        " ch",
+        "ar",
+        "act",
+        "ers",
+        ",",
+        " how",
+        "ever",
+        ",",
+        " dis",
+        "pl",
+        "ay",
+        " one",
+        " b",
+        "ro",
+        "ad",
+        " and",
+        " un",
+        "f",
+        "ail",
+        "ing",
+        " differe",
+        "n",
+        "ce",
+        ","
+      ],
+      "timestamps": [
+        0.3199999928474426,
+        0.47999998927116394,
+        0.7199999690055847,
+        0.8799999952316284,
+        0.9599999785423279,
+        1.1200000047683716,
+        1.1999999284744263,
+        1.3600000143051147,
+        1.5199999809265137,
+        1.6799999475479126,
+        1.8399999141693115,
+        1.9199999570846558,
+        2.0799999237060547,
+        2.319999933242798,
+        2.4800000190734863,
+        2.6399998664855957,
+        2.879999876022339,
+        3.0399999618530273,
+        3.2799999713897705,
+        3.679999828338623,
+        3.759999990463257,
+        3.919999837875366,
+        4.079999923706055,
+        4.319999694824219,
+        4.559999942779541,
+        4.71999979019165,
+        4.880000114440918,
+        5.039999961853027,
+        5.199999809265137,
+        5.279999732971191,
+        5.440000057220459
+      ],
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "words": [
+        {
+          "startMs": 36558,
+          "endMs": 36798,
+          "text": "Their",
+          "speakerId": -1,
+          "warnings": [
+            "Не найден говорящий слова"
+          ],
+          "chunkIndex": 5
+        },
+        {
+          "startMs": 36958,
+          "endMs": 37518,
+          "text": "distinctive",
+          "speakerId": 3,
+          "warnings": [],
+          "chunkIndex": 5
+        },
+        {
+          "startMs": 37598,
+          "endMs": 38158,
+          "text": "characters,",
+          "speakerId": 3,
+          "warnings": [],
+          "chunkIndex": 5
+        },
+        {
+          "startMs": 38318,
+          "endMs": 38638,
+          "text": "however,",
+          "speakerId": 3,
+          "warnings": [],
+          "chunkIndex": 5
+        },
+        {
+          "startMs": 38878,
+          "endMs": 39358,
+          "text": "display",
+          "speakerId": 3,
+          "warnings": [],
+          "chunkIndex": 5
+        },
+        {
+          "startMs": 39518,
+          "endMs": 39598,
+          "text": "one",
+          "speakerId": 3,
+          "warnings": [],
+          "chunkIndex": 5
+        },
+        {
+          "startMs": 39918,
+          "endMs": 40238,
+          "text": "broad",
+          "speakerId": 3,
+          "warnings": [],
+          "chunkIndex": 5
+        },
+        {
+          "startMs": 40318,
+          "endMs": 40398,
+          "text": "and",
+          "speakerId": 3,
+          "warnings": [],
+          "chunkIndex": 5
+        },
+        {
+          "startMs": 40558,
+          "endMs": 41198,
+          "text": "unfailing",
+          "speakerId": 3,
+          "warnings": [],
+          "chunkIndex": 5
+        },
+        {
+          "startMs": 41278,
+          "endMs": 41598,
+          "text": "difference,",
+          "speakerId": 3,
+          "warnings": [],
+          "chunkIndex": 5
+        }
+      ],
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "warnings": [],
+      "language": "en"
+    },
+    {
+      "startMs": 41966,
+      "endMs": 46598,
+      "speakerId": -1,
+      "text": "said another voice, which I recognized as Voltaire's. Caffir",
+      "blank": false,
+      "inferenceMs": 891.2944,
+      "tokens": [
+        " said",
+        " another",
+        " v",
+        "o",
+        "ice",
+        ",",
+        " which",
+        " I",
+        " rec",
+        "og",
+        "n",
+        "iz",
+        "ed",
+        " as",
+        " V",
+        "ol",
+        "t",
+        "a",
+        "ire",
+        "'",
+        "s",
+        ".",
+        " C",
+        "a",
+        "ff",
+        "ir"
+      ],
+      "timestamps": [
+        0.5600000023841858,
+        0.8799999952316284,
+        1.1200000047683716,
+        1.1999999284744263,
+        1.2799999713897705,
+        1.3600000143051147,
+        1.4399999380111694,
+        1.5999999046325684,
+        1.7599999904632568,
+        1.9199999570846558,
+        2.0,
+        2.1599998474121094,
+        2.319999933242798,
+        2.3999998569488525,
+        2.559999942779541,
+        2.7200000286102295,
+        2.799999952316284,
+        2.9600000381469727,
+        3.119999885559082,
+        3.2799999713897705,
+        3.359999895095825,
+        3.5199999809265137,
+        3.8399999141693115,
+        4.0,
+        4.159999847412109,
+        4.319999694824219
+      ],
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "words": [
+        {
+          "startMs": 42526,
+          "endMs": 42606,
+          "text": "said",
+          "speakerId": 5,
+          "warnings": [],
+          "chunkIndex": 6
+        },
+        {
+          "startMs": 42846,
+          "endMs": 42926,
+          "text": "another",
+          "speakerId": 5,
+          "warnings": [],
+          "chunkIndex": 6
+        },
+        {
+          "startMs": 43086,
+          "endMs": 43326,
+          "text": "voice,",
+          "speakerId": 5,
+          "warnings": [],
+          "chunkIndex": 6
+        },
+        {
+          "startMs": 43406,
+          "endMs": 43486,
+          "text": "which",
+          "speakerId": 5,
+          "warnings": [],
+          "chunkIndex": 6
+        },
+        {
+          "startMs": 43566,
+          "endMs": 43646,
+          "text": "I",
+          "speakerId": 5,
+          "warnings": [],
+          "chunkIndex": 6
+        },
+        {
+          "startMs": 43726,
+          "endMs": 44366,
+          "text": "recognized",
+          "speakerId": 5,
+          "warnings": [],
+          "chunkIndex": 6
+        },
+        {
+          "startMs": 44366,
+          "endMs": 44446,
+          "text": "as",
+          "speakerId": 5,
+          "warnings": [],
+          "chunkIndex": 6
+        },
+        {
+          "startMs": 44526,
+          "endMs": 45406,
+          "text": "Voltaire's.",
+          "speakerId": 5,
+          "warnings": [],
+          "chunkIndex": 6
+        },
+        {
+          "startMs": 45806,
+          "endMs": 46366,
+          "text": "Caffir",
+          "speakerId": 5,
+          "warnings": [],
+          "chunkIndex": 6
+        }
+      ],
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "warnings": [],
+      "language": "en"
+    },
+    {
+      "startMs": 46830,
+      "endMs": 51110,
+      "speakerId": -1,
+      "text": "The Free State men clung to their prairie towns and prairie ravines",
+      "blank": false,
+      "inferenceMs": 843.7848,
+      "tokens": [
+        " The",
+        " F",
+        "ree",
+        " St",
+        "ate",
+        " m",
+        "en",
+        " cl",
+        "un",
+        "g",
+        " to",
+        " their",
+        " p",
+        "ra",
+        "ir",
+        "ie",
+        " to",
+        "wn",
+        "s",
+        " and",
+        " p",
+        "ra",
+        "ir",
+        "ie",
+        " r",
+        "av",
+        "in",
+        "es"
+      ],
+      "timestamps": [
+        0.3199999928474426,
+        0.5600000023841858,
+        0.7199999690055847,
+        0.9599999785423279,
+        1.1200000047683716,
+        1.2799999713897705,
+        1.3600000143051147,
+        1.5199999809265137,
+        1.5999999046325684,
+        1.7599999904632568,
+        1.8399999141693115,
+        2.0,
+        2.240000009536743,
+        2.319999933242798,
+        2.4800000190734863,
+        2.6399998664855957,
+        2.7200000286102295,
+        2.799999952316284,
+        2.9600000381469727,
+        3.119999885559082,
+        3.2799999713897705,
+        3.359999895095825,
+        3.43999981880188,
+        3.5199999809265137,
+        3.679999828338623,
+        3.759999990463257,
+        3.919999837875366,
+        4.0
+      ],
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "words": [
+        {
+          "startMs": 47150,
+          "endMs": 47230,
+          "text": "The",
+          "speakerId": -1,
+          "warnings": [
+            "Не найден говорящий слова"
+          ],
+          "chunkIndex": 7
+        },
+        {
+          "startMs": 47390,
+          "endMs": 47630,
+          "text": "Free",
+          "speakerId": 3,
+          "warnings": [],
+          "chunkIndex": 7
+        },
+        {
+          "startMs": 47790,
+          "endMs": 48030,
+          "text": "State",
+          "speakerId": 3,
+          "warnings": [],
+          "chunkIndex": 7
+        },
+        {
+          "startMs": 48110,
+          "endMs": 48270,
+          "text": "men",
+          "speakerId": 3,
+          "warnings": [],
+          "chunkIndex": 7
+        },
+        {
+          "startMs": 48350,
+          "endMs": 48670,
+          "text": "clung",
+          "speakerId": 3,
+          "warnings": [],
+          "chunkIndex": 7
+        },
+        {
+          "startMs": 48670,
+          "endMs": 48750,
+          "text": "to",
+          "speakerId": 3,
+          "warnings": [],
+          "chunkIndex": 7
+        },
+        {
+          "startMs": 48830,
+          "endMs": 48910,
+          "text": "their",
+          "speakerId": 3,
+          "warnings": [],
+          "chunkIndex": 7
+        },
+        {
+          "startMs": 49070,
+          "endMs": 49550,
+          "text": "prairie",
+          "speakerId": 3,
+          "warnings": [],
+          "chunkIndex": 7
+        },
+        {
+          "startMs": 49550,
+          "endMs": 49870,
+          "text": "towns",
+          "speakerId": 3,
+          "warnings": [],
+          "chunkIndex": 7
+        },
+        {
+          "startMs": 49950,
+          "endMs": 50030,
+          "text": "and",
+          "speakerId": 3,
+          "warnings": [],
+          "chunkIndex": 7
+        },
+        {
+          "startMs": 50110,
+          "endMs": 50430,
+          "text": "prairie",
+          "speakerId": 3,
+          "warnings": [],
+          "chunkIndex": 7
+        },
+        {
+          "startMs": 50510,
+          "endMs": 50910,
+          "text": "ravines",
+          "speakerId": 3,
+          "warnings": [],
+          "chunkIndex": 7
+        }
+      ],
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "warnings": [],
+      "language": "en"
+    },
+    {
+      "startMs": 51182,
+      "endMs": 57190,
+      "speakerId": -1,
+      "text": "with all the obstinacy and courage of true defenders of their homes and firesides.",
+      "blank": false,
+      "inferenceMs": 1164.5562,
+      "tokens": [
+        " with",
+        " all",
+        " the",
+        " ob",
+        "st",
+        "in",
+        "ac",
+        "y",
+        " and",
+        " cou",
+        "ra",
+        "ge",
+        " of",
+        " tr",
+        "ue",
+        " de",
+        "fe",
+        "nd",
+        "ers",
+        " of",
+        " their",
+        " h",
+        "om",
+        "es",
+        " and",
+        " f",
+        "i",
+        "res",
+        "id",
+        "es",
+        "."
+      ],
+      "timestamps": [
+        0.3199999928474426,
+        0.6399999856948853,
+        0.8799999952316284,
+        1.0399999618530273,
+        1.2799999713897705,
+        1.4399999380111694,
+        1.6799999475479126,
+        1.8399999141693115,
+        2.0,
+        2.240000009536743,
+        2.4800000190734863,
+        2.6399998664855957,
+        2.879999876022339,
+        3.1999998092651367,
+        3.359999895095825,
+        3.5199999809265137,
+        3.679999828338623,
+        3.8399999141693115,
+        4.0,
+        4.159999847412109,
+        4.319999694824219,
+        4.559999942779541,
+        4.71999979019165,
+        4.880000114440918,
+        4.960000038146973,
+        5.199999809265137,
+        5.359999656677246,
+        5.519999980926514,
+        5.599999904632568,
+        5.759999752044678,
+        5.839999675750732
+      ],
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "words": [
+        {
+          "startMs": 51502,
+          "endMs": 51582,
+          "text": "with",
+          "speakerId": 3,
+          "warnings": [],
+          "chunkIndex": 8
+        },
+        {
+          "startMs": 51822,
+          "endMs": 51902,
+          "text": "all",
+          "speakerId": 3,
+          "warnings": [],
+          "chunkIndex": 8
+        },
+        {
+          "startMs": 52062,
+          "endMs": 52142,
+          "text": "the",
+          "speakerId": 3,
+          "warnings": [],
+          "chunkIndex": 8
+        },
+        {
+          "startMs": 52222,
+          "endMs": 53102,
+          "text": "obstinacy",
+          "speakerId": 3,
+          "warnings": [],
+          "chunkIndex": 8
+        },
+        {
+          "startMs": 53182,
+          "endMs": 53262,
+          "text": "and",
+          "speakerId": 3,
+          "warnings": [],
+          "chunkIndex": 8
+        },
+        {
+          "startMs": 53422,
+          "endMs": 53902,
+          "text": "courage",
+          "speakerId": 3,
+          "warnings": [],
+          "chunkIndex": 8
+        },
+        {
+          "startMs": 54062,
+          "endMs": 54142,
+          "text": "of",
+          "speakerId": 3,
+          "warnings": [],
+          "chunkIndex": 8
+        },
+        {
+          "startMs": 54382,
+          "endMs": 54622,
+          "text": "true",
+          "speakerId": 3,
+          "warnings": [],
+          "chunkIndex": 8
+        },
+        {
+          "startMs": 54702,
+          "endMs": 55262,
+          "text": "defenders",
+          "speakerId": 3,
+          "warnings": [],
+          "chunkIndex": 8
+        },
+        {
+          "startMs": 55342,
+          "endMs": 55422,
+          "text": "of",
+          "speakerId": 3,
+          "warnings": [],
+          "chunkIndex": 8
+        },
+        {
+          "startMs": 55502,
+          "endMs": 55582,
+          "text": "their",
+          "speakerId": 3,
+          "warnings": [],
+          "chunkIndex": 8
+        },
+        {
+          "startMs": 55742,
+          "endMs": 56142,
+          "text": "homes",
+          "speakerId": 3,
+          "warnings": [],
+          "chunkIndex": 8
+        },
+        {
+          "startMs": 56142,
+          "endMs": 56222,
+          "text": "and",
+          "speakerId": 3,
+          "warnings": [],
+          "chunkIndex": 8
+        },
+        {
+          "startMs": 56382,
+          "endMs": 57022,
+          "text": "firesides.",
+          "speakerId": 3,
+          "warnings": [],
+          "chunkIndex": 8
+        }
+      ],
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "warnings": [],
+      "language": "en"
+    },
+    {
+      "startMs": 57582,
+      "endMs": 60230,
+      "speakerId": -1,
+      "text": "Now let's dust the furniture and pictures.",
+      "blank": false,
+      "inferenceMs": 674.044,
+      "tokens": [
+        " Now",
+        " let",
+        "'",
+        "s",
+        " d",
+        "ust",
+        " the",
+        " f",
+        "urn",
+        "it",
+        "ure",
+        " and",
+        " p",
+        "ict",
+        "u",
+        "res",
+        "."
+      ],
+      "timestamps": [
+        0.3199999928474426,
+        0.7199999690055847,
+        0.8799999952316284,
+        0.9599999785423279,
+        0.9599999785423279,
+        1.1200000047683716,
+        1.3600000143051147,
+        1.4399999380111694,
+        1.5199999809265137,
+        1.6799999475479126,
+        1.7599999904632568,
+        1.9199999570846558,
+        2.0799999237060547,
+        2.1599998474121094,
+        2.240000009536743,
+        2.3999998569488525,
+        2.4800000190734863
+      ],
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "words": [
+        {
+          "startMs": 57902,
+          "endMs": 57982,
+          "text": "Now",
+          "speakerId": -1,
+          "warnings": [
+            "Не найден говорящий слова"
+          ],
+          "chunkIndex": 9
+        },
+        {
+          "startMs": 58302,
+          "endMs": 58542,
+          "text": "let's",
+          "speakerId": 6,
+          "warnings": [],
+          "chunkIndex": 9
+        },
+        {
+          "startMs": 58542,
+          "endMs": 58782,
+          "text": "dust",
+          "speakerId": 6,
+          "warnings": [],
+          "chunkIndex": 9
+        },
+        {
+          "startMs": 58942,
+          "endMs": 59022,
+          "text": "the",
+          "speakerId": 6,
+          "warnings": [],
+          "chunkIndex": 9
+        },
+        {
+          "startMs": 59022,
+          "endMs": 59422,
+          "text": "furniture",
+          "speakerId": 6,
+          "warnings": [],
+          "chunkIndex": 9
+        },
+        {
+          "startMs": 59502,
+          "endMs": 59582,
+          "text": "and",
+          "speakerId": 6,
+          "warnings": [],
+          "chunkIndex": 9
+        },
+        {
+          "startMs": 59662,
+          "endMs": 60062,
+          "text": "pictures.",
+          "speakerId": 6,
+          "warnings": [],
+          "chunkIndex": 9
+        }
+      ],
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "warnings": [],
+      "language": "en"
+    },
+    {
+      "startMs": 60846,
+      "endMs": 66342,
+      "speakerId": -1,
+      "text": "The leaders of the conspiracy became distrustful of their power to crush the town.",
+      "blank": false,
+      "inferenceMs": 1221.8627,
+      "tokens": [
+        " The",
+        " le",
+        "ad",
+        "ers",
+        " of",
+        " the",
+        " cons",
+        "p",
+        "ir",
+        "ac",
+        "y",
+        " bec",
+        "ame",
+        " d",
+        "ist",
+        "r",
+        "ust",
+        "ful",
+        " of",
+        " their",
+        " p",
+        "ower",
+        " to",
+        " cr",
+        "us",
+        "h",
+        " the",
+        " to",
+        "wn",
+        "."
+      ],
+      "timestamps": [
+        0.3199999928474426,
+        0.6399999856948853,
+        0.7999999523162842,
+        1.0399999618530273,
+        1.1999999284744263,
+        1.3600000143051147,
+        1.5199999809265137,
+        1.7599999904632568,
+        1.8399999141693115,
+        2.0,
+        2.240000009536743,
+        2.3999998569488525,
+        2.559999942779541,
+        2.7200000286102295,
+        2.879999876022339,
+        3.0399999618530273,
+        3.1999998092651367,
+        3.359999895095825,
+        3.5199999809265137,
+        3.679999828338623,
+        3.919999837875366,
+        4.079999923706055,
+        4.319999694824219,
+        4.480000019073486,
+        4.639999866485596,
+        4.71999979019165,
+        4.880000114440918,
+        5.039999961853027,
+        5.199999809265137,
+        5.279999732971191
+      ],
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "words": [
+        {
+          "startMs": 61166,
+          "endMs": 61246,
+          "text": "The",
+          "speakerId": -1,
+          "warnings": [
+            "Не найден говорящий слова"
+          ],
+          "chunkIndex": 10
+        },
+        {
+          "startMs": 61486,
+          "endMs": 61966,
+          "text": "leaders",
+          "speakerId": 3,
+          "warnings": [],
+          "chunkIndex": 10
+        },
+        {
+          "startMs": 62046,
+          "endMs": 62126,
+          "text": "of",
+          "speakerId": 3,
+          "warnings": [],
+          "chunkIndex": 10
+        },
+        {
+          "startMs": 62206,
+          "endMs": 62286,
+          "text": "the",
+          "speakerId": 3,
+          "warnings": [],
+          "chunkIndex": 10
+        },
+        {
+          "startMs": 62366,
+          "endMs": 63166,
+          "text": "conspiracy",
+          "speakerId": 3,
+          "warnings": [],
+          "chunkIndex": 10
+        },
+        {
+          "startMs": 63246,
+          "endMs": 63486,
+          "text": "became",
+          "speakerId": 3,
+          "warnings": [],
+          "chunkIndex": 10
+        },
+        {
+          "startMs": 63566,
+          "endMs": 64286,
+          "text": "distrustful",
+          "speakerId": 3,
+          "warnings": [],
+          "chunkIndex": 10
+        },
+        {
+          "startMs": 64366,
+          "endMs": 64446,
+          "text": "of",
+          "speakerId": 3,
+          "warnings": [],
+          "chunkIndex": 10
+        },
+        {
+          "startMs": 64526,
+          "endMs": 64606,
+          "text": "their",
+          "speakerId": 3,
+          "warnings": [],
+          "chunkIndex": 10
+        },
+        {
+          "startMs": 64766,
+          "endMs": 65006,
+          "text": "power",
+          "speakerId": 3,
+          "warnings": [],
+          "chunkIndex": 10
+        },
+        {
+          "startMs": 65166,
+          "endMs": 65246,
+          "text": "to",
+          "speakerId": 3,
+          "warnings": [],
+          "chunkIndex": 10
+        },
+        {
+          "startMs": 65326,
+          "endMs": 65646,
+          "text": "crush",
+          "speakerId": 3,
+          "warnings": [],
+          "chunkIndex": 10
+        },
+        {
+          "startMs": 65726,
+          "endMs": 65806,
+          "text": "the",
+          "speakerId": 3,
+          "warnings": [],
+          "chunkIndex": 10
+        },
+        {
+          "startMs": 65886,
+          "endMs": 66126,
+          "text": "town.",
+          "speakerId": 3,
+          "warnings": [],
+          "chunkIndex": 10
+        }
+      ],
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "warnings": [],
+      "language": "en"
+    },
+    {
+      "startMs": 67054,
+      "endMs": 69670,
+      "speakerId": -1,
+      "text": "My position was too terrible.",
+      "blank": false,
+      "inferenceMs": 550.9715,
+      "tokens": [
+        " M",
+        "y",
+        " pos",
+        "ition",
+        " was",
+        " too",
+        " t",
+        "er",
+        "ri",
+        "ble",
+        "."
+      ],
+      "timestamps": [
+        0.3199999928474426,
+        0.5600000023841858,
+        0.7999999523162842,
+        1.0399999618530273,
+        1.3600000143051147,
+        1.6799999475479126,
+        1.9199999570846558,
+        2.0,
+        2.1599998474121094,
+        2.240000009536743,
+        2.3999998569488525
+      ],
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "words": [
+        {
+          "startMs": 67374,
+          "endMs": 67694,
+          "text": "My",
+          "speakerId": 7,
+          "warnings": [],
+          "chunkIndex": 11
+        },
+        {
+          "startMs": 67854,
+          "endMs": 68174,
+          "text": "position",
+          "speakerId": 7,
+          "warnings": [],
+          "chunkIndex": 11
+        },
+        {
+          "startMs": 68414,
+          "endMs": 68494,
+          "text": "was",
+          "speakerId": 7,
+          "warnings": [],
+          "chunkIndex": 11
+        },
+        {
+          "startMs": 68734,
+          "endMs": 68814,
+          "text": "too",
+          "speakerId": 7,
+          "warnings": [],
+          "chunkIndex": 11
+        },
+        {
+          "startMs": 68974,
+          "endMs": 69374,
+          "text": "terrible.",
+          "speakerId": 7,
+          "warnings": [],
+          "chunkIndex": 11
+        }
+      ],
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "warnings": [],
+      "language": "en"
+    },
+    {
+      "startMs": 70062,
+      "endMs": 78950,
+      "speakerId": -1,
+      "text": "Of the lynchings, the mobs, and the murders, it would be impossible, except in a very extended work, to note the frequent and atrocious details",
+      "blank": false,
+      "inferenceMs": 1704.6492,
+      "tokens": [
+        " Of",
+        " the",
+        " l",
+        "y",
+        "n",
+        "ch",
+        "ings",
+        ",",
+        " the",
+        " mo",
+        "b",
+        "s",
+        ",",
+        " and",
+        " the",
+        " m",
+        "ur",
+        "d",
+        "ers",
+        ",",
+        " it",
+        " would",
+        " be",
+        " imp",
+        "os",
+        "s",
+        "ible",
+        ",",
+        " ex",
+        "cept",
+        " in",
+        " a",
+        " very",
+        " ex",
+        "te",
+        "nd",
+        "ed",
+        " work",
+        ",",
+        " to",
+        " not",
+        "e",
+        " the",
+        " f",
+        "re",
+        "qu",
+        "ent",
+        " and",
+        " at",
+        "ro",
+        "ci",
+        "ous",
+        " d",
+        "et",
+        "ail",
+        "s"
+      ],
+      "timestamps": [
+        0.3199999928474426,
+        0.6399999856948853,
+        0.7999999523162842,
+        0.8799999952316284,
+        0.9599999785423279,
+        1.1200000047683716,
+        1.1999999284744263,
+        1.3600000143051147,
+        1.5199999809265137,
+        1.6799999475479126,
+        1.8399999141693115,
+        2.0,
+        2.0799999237060547,
+        2.240000009536743,
+        2.319999933242798,
+        2.4800000190734863,
+        2.559999942779541,
+        2.6399998664855957,
+        2.799999952316284,
+        2.879999876022339,
+        3.0399999618530273,
+        3.1999998092651367,
+        3.359999895095825,
+        3.5199999809265137,
+        3.679999828338623,
+        3.8399999141693115,
+        4.0,
+        4.159999847412109,
+        4.480000019073486,
+        4.639999866485596,
+        4.799999713897705,
+        4.960000038146973,
+        5.039999961853027,
+        5.279999732971191,
+        5.440000057220459,
+        5.599999904632568,
+        5.679999828338623,
+        5.839999675750732,
+        6.079999923706055,
+        6.239999771118164,
+        6.399999618530273,
+        6.559999942779541,
+        6.71999979019165,
+        6.87999963760376,
+        6.960000038146973,
+        7.119999885559082,
+        7.199999809265137,
+        7.359999656677246,
+        7.519999980926514,
+        7.759999752044678,
+        7.919999599456787,
+        8.079999923706055,
+        8.15999984741211,
+        8.239999771118164,
+        8.399999618530273,
+        8.559999465942383
+      ],
+      "timestampUnit": "seconds within ASR VAD chunk",
+      "words": [
+        {
+          "startMs": 70382,
+          "endMs": 70462,
+          "text": "Of",
+          "speakerId": -1,
+          "warnings": [
+            "Не найден говорящий слова"
+          ],
+          "chunkIndex": 12
+        },
+        {
+          "startMs": 70702,
+          "endMs": 70782,
+          "text": "the",
+          "speakerId": 3,
+          "warnings": [],
+          "chunkIndex": 12
+        },
+        {
+          "startMs": 70862,
+          "endMs": 71342,
+          "text": "lynchings,",
+          "speakerId": 3,
+          "warnings": [],
+          "chunkIndex": 12
+        },
+        {
+          "startMs": 71582,
+          "endMs": 71662,
+          "text": "the",
+          "speakerId": 3,
+          "warnings": [],
+          "chunkIndex": 12
+        },
+        {
+          "startMs": 71742,
+          "endMs": 72142,
+          "text": "mobs,",
+          "speakerId": 3,
+          "warnings": [],
+          "chunkIndex": 12
+        },
+        {
+          "startMs": 72302,
+          "endMs": 72382,
+          "text": "and",
+          "speakerId": 3,
+          "warnings": [],
+          "chunkIndex": 12
+        },
+        {
+          "startMs": 72382,
+          "endMs": 72462,
+          "text": "the",
+          "speakerId": 3,
+          "warnings": [],
+          "chunkIndex": 12
+        },
+        {
+          "startMs": 72542,
+          "endMs": 72942,
+          "text": "murders,",
+          "speakerId": 3,
+          "warnings": [],
+          "chunkIndex": 12
+        },
+        {
+          "startMs": 73102,
+          "endMs": 73182,
+          "text": "it",
+          "speakerId": 3,
+          "warnings": [],
+          "chunkIndex": 12
+        },
+        {
+          "startMs": 73262,
+          "endMs": 73342,
+          "text": "would",
+          "speakerId": 3,
+          "warnings": [],
+          "chunkIndex": 12
+        },
+        {
+          "startMs": 73422,
+          "endMs": 73502,
+          "text": "be",
+          "speakerId": 3,
+          "warnings": [],
+          "chunkIndex": 12
+        },
+        {
+          "startMs": 73582,
+          "endMs": 74142,
+          "text": "impossible,",
+          "speakerId": 3,
+          "warnings": [],
+          "chunkIndex": 12
+        },
+        {
+          "startMs": 74542,
+          "endMs": 74782,
+          "text": "except",
+          "speakerId": 3,
+          "warnings": [],
+          "chunkIndex": 12
+        },
+        {
+          "startMs": 74862,
+          "endMs": 74942,
+          "text": "in",
+          "speakerId": 3,
+          "warnings": [],
+          "chunkIndex": 12
+        },
+        {
+          "startMs": 75022,
+          "endMs": 75102,
+          "text": "a",
+          "speakerId": 3,
+          "warnings": [],
+          "chunkIndex": 12
+        },
+        {
+          "startMs": 75102,
+          "endMs": 75182,
+          "text": "very",
+          "speakerId": 3,
+          "warnings": [],
+          "chunkIndex": 12
+        },
+        {
+          "startMs": 75342,
+          "endMs": 75822,
+          "text": "extended",
+          "speakerId": 3,
+          "warnings": [],
+          "chunkIndex": 12
+        },
+        {
+          "startMs": 75902,
+          "endMs": 75982,
+          "text": "work,",
+          "speakerId": 3,
+          "warnings": [],
+          "chunkIndex": 12
+        },
+        {
+          "startMs": 76302,
+          "endMs": 76382,
+          "text": "to",
+          "speakerId": 3,
+          "warnings": [],
+          "chunkIndex": 12
+        },
+        {
+          "startMs": 76462,
+          "endMs": 76702,
+          "text": "note",
+          "speakerId": 3,
+          "warnings": [],
+          "chunkIndex": 12
+        },
+        {
+          "startMs": 76782,
+          "endMs": 76862,
+          "text": "the",
+          "speakerId": 3,
+          "warnings": [],
+          "chunkIndex": 12
+        },
+        {
+          "startMs": 76942,
+          "endMs": 77342,
+          "text": "frequent",
+          "speakerId": 3,
+          "warnings": [],
+          "chunkIndex": 12
+        },
+        {
+          "startMs": 77422,
+          "endMs": 77502,
+          "text": "and",
+          "speakerId": 3,
+          "warnings": [],
+          "chunkIndex": 12
+        },
+        {
+          "startMs": 77582,
+          "endMs": 78222,
+          "text": "atrocious",
+          "speakerId": 3,
+          "warnings": [],
+          "chunkIndex": 12
+        },
+        {
+          "startMs": 78222,
+          "endMs": 78702,
+          "text": "details",
+          "speakerId": 3,
+          "warnings": [],
+          "chunkIndex": 12
+        }
+      ],
+      "wordAssignmentSupported": true,
+      "wordAssignmentReason": "supported",
+      "warnings": [],
+      "language": "en"
+    }
+  ],
+  "words": [
+    {
+      "startMs": 320,
+      "endMs": 400,
+      "text": "The",
+      "speakerId": -1,
+      "warnings": [
+        "Не найден говорящий слова"
+      ],
+      "chunkIndex": 0
+    },
+    {
+      "startMs": 560,
+      "endMs": 960,
+      "text": "governor,",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 0
+    },
+    {
+      "startMs": 1200,
+      "endMs": 1280,
+      "text": "on",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 0
+    },
+    {
+      "startMs": 1360,
+      "endMs": 1440,
+      "text": "his",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 0
+    },
+    {
+      "startMs": 1600,
+      "endMs": 1680,
+      "text": "part,",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 0
+    },
+    {
+      "startMs": 2000,
+      "endMs": 2320,
+      "text": "becoming",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 0
+    },
+    {
+      "startMs": 2400,
+      "endMs": 2880,
+      "text": "doubtful",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 0
+    },
+    {
+      "startMs": 2960,
+      "endMs": 3040,
+      "text": "of",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 0
+    },
+    {
+      "startMs": 3120,
+      "endMs": 3200,
+      "text": "the",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 0
+    },
+    {
+      "startMs": 3200,
+      "endMs": 3920,
+      "text": "legality",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 0
+    },
+    {
+      "startMs": 4160,
+      "endMs": 4240,
+      "text": "of",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 0
+    },
+    {
+      "startMs": 4400,
+      "endMs": 4960,
+      "text": "employing",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 0
+    },
+    {
+      "startMs": 5040,
+      "endMs": 5520,
+      "text": "Missouri",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 0
+    },
+    {
+      "startMs": 5520,
+      "endMs": 5920,
+      "text": "militia",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 0
+    },
+    {
+      "startMs": 6000,
+      "endMs": 6080,
+      "text": "to",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 0
+    },
+    {
+      "startMs": 6160,
+      "endMs": 6480,
+      "text": "enforce",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 0
+    },
+    {
+      "startMs": 6560,
+      "endMs": 6960,
+      "text": "Kansas",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 0
+    },
+    {
+      "startMs": 7040,
+      "endMs": 7360,
+      "text": "laws,",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 0
+    },
+    {
+      "startMs": 7918,
+      "endMs": 7998,
+      "text": "was",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 1
+    },
+    {
+      "startMs": 8318,
+      "endMs": 8398,
+      "text": "also",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 1
+    },
+    {
+      "startMs": 8638,
+      "endMs": 9038,
+      "text": "eager",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 1
+    },
+    {
+      "startMs": 9118,
+      "endMs": 9198,
+      "text": "to",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 1
+    },
+    {
+      "startMs": 9278,
+      "endMs": 9678,
+      "text": "secure",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 1
+    },
+    {
+      "startMs": 9758,
+      "endMs": 9838,
+      "text": "the",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 1
+    },
+    {
+      "startMs": 9998,
+      "endMs": 10078,
+      "text": "help",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 1
+    },
+    {
+      "startMs": 10398,
+      "endMs": 10478,
+      "text": "of",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 1
+    },
+    {
+      "startMs": 10638,
+      "endMs": 11118,
+      "text": "Federal",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 1
+    },
+    {
+      "startMs": 11198,
+      "endMs": 11518,
+      "text": "troops.",
+      "speakerId": 0,
+      "warnings": [],
+      "chunkIndex": 1
+    },
+    {
+      "startMs": 13086,
+      "endMs": 13326,
+      "text": "Can",
+      "speakerId": 1,
+      "warnings": [],
+      "chunkIndex": 2
+    },
+    {
+      "startMs": 13406,
+      "endMs": 13486,
+      "text": "you",
+      "speakerId": 1,
+      "warnings": [],
+      "chunkIndex": 2
+    },
+    {
+      "startMs": 13566,
+      "endMs": 13886,
+      "text": "imagine",
+      "speakerId": 1,
+      "warnings": [],
+      "chunkIndex": 2
+    },
+    {
+      "startMs": 13966,
+      "endMs": 14046,
+      "text": "why",
+      "speakerId": 1,
+      "warnings": [],
+      "chunkIndex": 2
+    },
+    {
+      "startMs": 14206,
+      "endMs": 14846,
+      "text": "Buckingham",
+      "speakerId": 1,
+      "warnings": [],
+      "chunkIndex": 2
+    },
+    {
+      "startMs": 14926,
+      "endMs": 15006,
+      "text": "has",
+      "speakerId": 1,
+      "warnings": [],
+      "chunkIndex": 2
+    },
+    {
+      "startMs": 15086,
+      "endMs": 15166,
+      "text": "been",
+      "speakerId": 1,
+      "warnings": [],
+      "chunkIndex": 2
+    },
+    {
+      "startMs": 15246,
+      "endMs": 15326,
+      "text": "so",
+      "speakerId": 1,
+      "warnings": [],
+      "chunkIndex": 2
+    },
+    {
+      "startMs": 15406,
+      "endMs": 15886,
+      "text": "violent?",
+      "speakerId": 1,
+      "warnings": [],
+      "chunkIndex": 2
+    },
+    {
+      "startMs": 16286,
+      "endMs": 16366,
+      "text": "I",
+      "speakerId": 1,
+      "warnings": [],
+      "chunkIndex": 2
+    },
+    {
+      "startMs": 16446,
+      "endMs": 16846,
+      "text": "suspect.",
+      "speakerId": 1,
+      "warnings": [
+        "Смена говорящего на границе слова"
+      ],
+      "chunkIndex": 2
+    },
+    {
+      "startMs": 18350,
+      "endMs": 18430,
+      "text": "In",
+      "speakerId": -1,
+      "warnings": [
+        "Не найден говорящий слова"
+      ],
+      "chunkIndex": 3
+    },
+    {
+      "startMs": 18670,
+      "endMs": 18750,
+      "text": "this",
+      "speakerId": 3,
+      "warnings": [],
+      "chunkIndex": 3
+    },
+    {
+      "startMs": 18990,
+      "endMs": 19470,
+      "text": "incident,",
+      "speakerId": 3,
+      "warnings": [],
+      "chunkIndex": 3
+    },
+    {
+      "startMs": 19790,
+      "endMs": 20510,
+      "text": "contrasting",
+      "speakerId": 3,
+      "warnings": [],
+      "chunkIndex": 3
+    },
+    {
+      "startMs": 20590,
+      "endMs": 20670,
+      "text": "the",
+      "speakerId": 3,
+      "warnings": [],
+      "chunkIndex": 3
+    },
+    {
+      "startMs": 20750,
+      "endMs": 21230,
+      "text": "creative",
+      "speakerId": 3,
+      "warnings": [],
+      "chunkIndex": 3
+    },
+    {
+      "startMs": 21310,
+      "endMs": 21390,
+      "text": "and",
+      "speakerId": 3,
+      "warnings": [],
+      "chunkIndex": 3
+    },
+    {
+      "startMs": 21470,
+      "endMs": 21550,
+      "text": "the",
+      "speakerId": 3,
+      "warnings": [],
+      "chunkIndex": 3
+    },
+    {
+      "startMs": 21550,
+      "endMs": 22110,
+      "text": "destructive",
+      "speakerId": 3,
+      "warnings": [],
+      "chunkIndex": 3
+    },
+    {
+      "startMs": 22190,
+      "endMs": 22510,
+      "text": "spirit",
+      "speakerId": 3,
+      "warnings": [],
+      "chunkIndex": 3
+    },
+    {
+      "startMs": 22590,
+      "endMs": 22670,
+      "text": "of",
+      "speakerId": 3,
+      "warnings": [],
+      "chunkIndex": 3
+    },
+    {
+      "startMs": 22750,
+      "endMs": 22830,
+      "text": "the",
+      "speakerId": 3,
+      "warnings": [],
+      "chunkIndex": 3
+    },
+    {
+      "startMs": 22910,
+      "endMs": 23390,
+      "text": "factions,",
+      "speakerId": 3,
+      "warnings": [],
+      "chunkIndex": 3
+    },
+    {
+      "startMs": 23710,
+      "endMs": 23790,
+      "text": "the",
+      "speakerId": 3,
+      "warnings": [],
+      "chunkIndex": 3
+    },
+    {
+      "startMs": 23870,
+      "endMs": 24350,
+      "text": "Immigrant",
+      "speakerId": 3,
+      "warnings": [],
+      "chunkIndex": 3
+    },
+    {
+      "startMs": 24430,
+      "endMs": 24590,
+      "text": "Aid",
+      "speakerId": 3,
+      "warnings": [],
+      "chunkIndex": 3
+    },
+    {
+      "startMs": 24750,
+      "endMs": 25230,
+      "text": "Society",
+      "speakerId": 3,
+      "warnings": [],
+      "chunkIndex": 3
+    },
+    {
+      "startMs": 25230,
+      "endMs": 25310,
+      "text": "of",
+      "speakerId": 3,
+      "warnings": [],
+      "chunkIndex": 3
+    },
+    {
+      "startMs": 25390,
+      "endMs": 26350,
+      "text": "Massachusetts",
+      "speakerId": 3,
+      "warnings": [],
+      "chunkIndex": 3
+    },
+    {
+      "startMs": 26590,
+      "endMs": 26910,
+      "text": "finds",
+      "speakerId": 3,
+      "warnings": [],
+      "chunkIndex": 3
+    },
+    {
+      "startMs": 26990,
+      "endMs": 27070,
+      "text": "its",
+      "speakerId": 3,
+      "warnings": [],
+      "chunkIndex": 3
+    },
+    {
+      "startMs": 27230,
+      "endMs": 27310,
+      "text": "most",
+      "speakerId": 3,
+      "warnings": [],
+      "chunkIndex": 3
+    },
+    {
+      "startMs": 27550,
+      "endMs": 28110,
+      "text": "honorable",
+      "speakerId": 3,
+      "warnings": [],
+      "chunkIndex": 3
+    },
+    {
+      "startMs": 28190,
+      "endMs": 28270,
+      "text": "and",
+      "speakerId": 3,
+      "warnings": [],
+      "chunkIndex": 3
+    },
+    {
+      "startMs": 28430,
+      "endMs": 28990,
+      "text": "triumphant",
+      "speakerId": 3,
+      "warnings": [],
+      "chunkIndex": 3
+    },
+    {
+      "startMs": 29070,
+      "endMs": 29630,
+      "text": "vindication.",
+      "speakerId": 3,
+      "warnings": [],
+      "chunkIndex": 3
+    },
+    {
+      "startMs": 31070,
+      "endMs": 31150,
+      "text": "I",
+      "speakerId": 4,
+      "warnings": [],
+      "chunkIndex": 4
+    },
+    {
+      "startMs": 31310,
+      "endMs": 31390,
+      "text": "say,",
+      "speakerId": 4,
+      "warnings": [],
+      "chunkIndex": 4
+    },
+    {
+      "startMs": 31870,
+      "endMs": 31950,
+      "text": "you",
+      "speakerId": 4,
+      "warnings": [],
+      "chunkIndex": 4
+    },
+    {
+      "startMs": 32110,
+      "endMs": 32190,
+      "text": "do",
+      "speakerId": 4,
+      "warnings": [],
+      "chunkIndex": 4
+    },
+    {
+      "startMs": 32430,
+      "endMs": 32510,
+      "text": "know",
+      "speakerId": 4,
+      "warnings": [],
+      "chunkIndex": 4
+    },
+    {
+      "startMs": 32670,
+      "endMs": 32750,
+      "text": "what",
+      "speakerId": 4,
+      "warnings": [],
+      "chunkIndex": 4
+    },
+    {
+      "startMs": 32910,
+      "endMs": 32990,
+      "text": "this",
+      "speakerId": 4,
+      "warnings": [],
+      "chunkIndex": 4
+    },
+    {
+      "startMs": 33150,
+      "endMs": 33390,
+      "text": "means,",
+      "speakerId": 4,
+      "warnings": [],
+      "chunkIndex": 4
+    },
+    {
+      "startMs": 33870,
+      "endMs": 33950,
+      "text": "and",
+      "speakerId": 4,
+      "warnings": [],
+      "chunkIndex": 4
+    },
+    {
+      "startMs": 34190,
+      "endMs": 34270,
+      "text": "you",
+      "speakerId": 4,
+      "warnings": [],
+      "chunkIndex": 4
+    },
+    {
+      "startMs": 34350,
+      "endMs": 34590,
+      "text": "must",
+      "speakerId": 4,
+      "warnings": [],
+      "chunkIndex": 4
+    },
+    {
+      "startMs": 34750,
+      "endMs": 34830,
+      "text": "tell",
+      "speakerId": 4,
+      "warnings": [],
+      "chunkIndex": 4
+    },
+    {
+      "startMs": 34990,
+      "endMs": 35070,
+      "text": "us,",
+      "speakerId": 4,
+      "warnings": [],
+      "chunkIndex": 4
+    },
+    {
+      "startMs": 36558,
+      "endMs": 36798,
+      "text": "Their",
+      "speakerId": -1,
+      "warnings": [
+        "Не найден говорящий слова"
+      ],
+      "chunkIndex": 5
+    },
+    {
+      "startMs": 36958,
+      "endMs": 37518,
+      "text": "distinctive",
+      "speakerId": 3,
+      "warnings": [],
+      "chunkIndex": 5
+    },
+    {
+      "startMs": 37598,
+      "endMs": 38158,
+      "text": "characters,",
+      "speakerId": 3,
+      "warnings": [],
+      "chunkIndex": 5
+    },
+    {
+      "startMs": 38318,
+      "endMs": 38638,
+      "text": "however,",
+      "speakerId": 3,
+      "warnings": [],
+      "chunkIndex": 5
+    },
+    {
+      "startMs": 38878,
+      "endMs": 39358,
+      "text": "display",
+      "speakerId": 3,
+      "warnings": [],
+      "chunkIndex": 5
+    },
+    {
+      "startMs": 39518,
+      "endMs": 39598,
+      "text": "one",
+      "speakerId": 3,
+      "warnings": [],
+      "chunkIndex": 5
+    },
+    {
+      "startMs": 39918,
+      "endMs": 40238,
+      "text": "broad",
+      "speakerId": 3,
+      "warnings": [],
+      "chunkIndex": 5
+    },
+    {
+      "startMs": 40318,
+      "endMs": 40398,
+      "text": "and",
+      "speakerId": 3,
+      "warnings": [],
+      "chunkIndex": 5
+    },
+    {
+      "startMs": 40558,
+      "endMs": 41198,
+      "text": "unfailing",
+      "speakerId": 3,
+      "warnings": [],
+      "chunkIndex": 5
+    },
+    {
+      "startMs": 41278,
+      "endMs": 41598,
+      "text": "difference,",
+      "speakerId": 3,
+      "warnings": [],
+      "chunkIndex": 5
+    },
+    {
+      "startMs": 42526,
+      "endMs": 42606,
+      "text": "said",
+      "speakerId": 5,
+      "warnings": [],
+      "chunkIndex": 6
+    },
+    {
+      "startMs": 42846,
+      "endMs": 42926,
+      "text": "another",
+      "speakerId": 5,
+      "warnings": [],
+      "chunkIndex": 6
+    },
+    {
+      "startMs": 43086,
+      "endMs": 43326,
+      "text": "voice,",
+      "speakerId": 5,
+      "warnings": [],
+      "chunkIndex": 6
+    },
+    {
+      "startMs": 43406,
+      "endMs": 43486,
+      "text": "which",
+      "speakerId": 5,
+      "warnings": [],
+      "chunkIndex": 6
+    },
+    {
+      "startMs": 43566,
+      "endMs": 43646,
+      "text": "I",
+      "speakerId": 5,
+      "warnings": [],
+      "chunkIndex": 6
+    },
+    {
+      "startMs": 43726,
+      "endMs": 44366,
+      "text": "recognized",
+      "speakerId": 5,
+      "warnings": [],
+      "chunkIndex": 6
+    },
+    {
+      "startMs": 44366,
+      "endMs": 44446,
+      "text": "as",
+      "speakerId": 5,
+      "warnings": [],
+      "chunkIndex": 6
+    },
+    {
+      "startMs": 44526,
+      "endMs": 45406,
+      "text": "Voltaire's.",
+      "speakerId": 5,
+      "warnings": [],
+      "chunkIndex": 6
+    },
+    {
+      "startMs": 45806,
+      "endMs": 46366,
+      "text": "Caffir",
+      "speakerId": 5,
+      "warnings": [],
+      "chunkIndex": 6
+    },
+    {
+      "startMs": 47150,
+      "endMs": 47230,
+      "text": "The",
+      "speakerId": -1,
+      "warnings": [
+        "Не найден говорящий слова"
+      ],
+      "chunkIndex": 7
+    },
+    {
+      "startMs": 47390,
+      "endMs": 47630,
+      "text": "Free",
+      "speakerId": 3,
+      "warnings": [],
+      "chunkIndex": 7
+    },
+    {
+      "startMs": 47790,
+      "endMs": 48030,
+      "text": "State",
+      "speakerId": 3,
+      "warnings": [],
+      "chunkIndex": 7
+    },
+    {
+      "startMs": 48110,
+      "endMs": 48270,
+      "text": "men",
+      "speakerId": 3,
+      "warnings": [],
+      "chunkIndex": 7
+    },
+    {
+      "startMs": 48350,
+      "endMs": 48670,
+      "text": "clung",
+      "speakerId": 3,
+      "warnings": [],
+      "chunkIndex": 7
+    },
+    {
+      "startMs": 48670,
+      "endMs": 48750,
+      "text": "to",
+      "speakerId": 3,
+      "warnings": [],
+      "chunkIndex": 7
+    },
+    {
+      "startMs": 48830,
+      "endMs": 48910,
+      "text": "their",
+      "speakerId": 3,
+      "warnings": [],
+      "chunkIndex": 7
+    },
+    {
+      "startMs": 49070,
+      "endMs": 49550,
+      "text": "prairie",
+      "speakerId": 3,
+      "warnings": [],
+      "chunkIndex": 7
+    },
+    {
+      "startMs": 49550,
+      "endMs": 49870,
+      "text": "towns",
+      "speakerId": 3,
+      "warnings": [],
+      "chunkIndex": 7
+    },
+    {
+      "startMs": 49950,
+      "endMs": 50030,
+      "text": "and",
+      "speakerId": 3,
+      "warnings": [],
+      "chunkIndex": 7
+    },
+    {
+      "startMs": 50110,
+      "endMs": 50430,
+      "text": "prairie",
+      "speakerId": 3,
+      "warnings": [],
+      "chunkIndex": 7
+    },
+    {
+      "startMs": 50510,
+      "endMs": 50910,
+      "text": "ravines",
+      "speakerId": 3,
+      "warnings": [],
+      "chunkIndex": 7
+    },
+    {
+      "startMs": 51502,
+      "endMs": 51582,
+      "text": "with",
+      "speakerId": 3,
+      "warnings": [],
+      "chunkIndex": 8
+    },
+    {
+      "startMs": 51822,
+      "endMs": 51902,
+      "text": "all",
+      "speakerId": 3,
+      "warnings": [],
+      "chunkIndex": 8
+    },
+    {
+      "startMs": 52062,
+      "endMs": 52142,
+      "text": "the",
+      "speakerId": 3,
+      "warnings": [],
+      "chunkIndex": 8
+    },
+    {
+      "startMs": 52222,
+      "endMs": 53102,
+      "text": "obstinacy",
+      "speakerId": 3,
+      "warnings": [],
+      "chunkIndex": 8
+    },
+    {
+      "startMs": 53182,
+      "endMs": 53262,
+      "text": "and",
+      "speakerId": 3,
+      "warnings": [],
+      "chunkIndex": 8
+    },
+    {
+      "startMs": 53422,
+      "endMs": 53902,
+      "text": "courage",
+      "speakerId": 3,
+      "warnings": [],
+      "chunkIndex": 8
+    },
+    {
+      "startMs": 54062,
+      "endMs": 54142,
+      "text": "of",
+      "speakerId": 3,
+      "warnings": [],
+      "chunkIndex": 8
+    },
+    {
+      "startMs": 54382,
+      "endMs": 54622,
+      "text": "true",
+      "speakerId": 3,
+      "warnings": [],
+      "chunkIndex": 8
+    },
+    {
+      "startMs": 54702,
+      "endMs": 55262,
+      "text": "defenders",
+      "speakerId": 3,
+      "warnings": [],
+      "chunkIndex": 8
+    },
+    {
+      "startMs": 55342,
+      "endMs": 55422,
+      "text": "of",
+      "speakerId": 3,
+      "warnings": [],
+      "chunkIndex": 8
+    },
+    {
+      "startMs": 55502,
+      "endMs": 55582,
+      "text": "their",
+      "speakerId": 3,
+      "warnings": [],
+      "chunkIndex": 8
+    },
+    {
+      "startMs": 55742,
+      "endMs": 56142,
+      "text": "homes",
+      "speakerId": 3,
+      "warnings": [],
+      "chunkIndex": 8
+    },
+    {
+      "startMs": 56142,
+      "endMs": 56222,
+      "text": "and",
+      "speakerId": 3,
+      "warnings": [],
+      "chunkIndex": 8
+    },
+    {
+      "startMs": 56382,
+      "endMs": 57022,
+      "text": "firesides.",
+      "speakerId": 3,
+      "warnings": [],
+      "chunkIndex": 8
+    },
+    {
+      "startMs": 57902,
+      "endMs": 57982,
+      "text": "Now",
+      "speakerId": -1,
+      "warnings": [
+        "Не найден говорящий слова"
+      ],
+      "chunkIndex": 9
+    },
+    {
+      "startMs": 58302,
+      "endMs": 58542,
+      "text": "let's",
+      "speakerId": 6,
+      "warnings": [],
+      "chunkIndex": 9
+    },
+    {
+      "startMs": 58542,
+      "endMs": 58782,
+      "text": "dust",
+      "speakerId": 6,
+      "warnings": [],
+      "chunkIndex": 9
+    },
+    {
+      "startMs": 58942,
+      "endMs": 59022,
+      "text": "the",
+      "speakerId": 6,
+      "warnings": [],
+      "chunkIndex": 9
+    },
+    {
+      "startMs": 59022,
+      "endMs": 59422,
+      "text": "furniture",
+      "speakerId": 6,
+      "warnings": [],
+      "chunkIndex": 9
+    },
+    {
+      "startMs": 59502,
+      "endMs": 59582,
+      "text": "and",
+      "speakerId": 6,
+      "warnings": [],
+      "chunkIndex": 9
+    },
+    {
+      "startMs": 59662,
+      "endMs": 60062,
+      "text": "pictures.",
+      "speakerId": 6,
+      "warnings": [],
+      "chunkIndex": 9
+    },
+    {
+      "startMs": 61166,
+      "endMs": 61246,
+      "text": "The",
+      "speakerId": -1,
+      "warnings": [
+        "Не найден говорящий слова"
+      ],
+      "chunkIndex": 10
+    },
+    {
+      "startMs": 61486,
+      "endMs": 61966,
+      "text": "leaders",
+      "speakerId": 3,
+      "warnings": [],
+      "chunkIndex": 10
+    },
+    {
+      "startMs": 62046,
+      "endMs": 62126,
+      "text": "of",
+      "speakerId": 3,
+      "warnings": [],
+      "chunkIndex": 10
+    },
+    {
+      "startMs": 62206,
+      "endMs": 62286,
+      "text": "the",
+      "speakerId": 3,
+      "warnings": [],
+      "chunkIndex": 10
+    },
+    {
+      "startMs": 62366,
+      "endMs": 63166,
+      "text": "conspiracy",
+      "speakerId": 3,
+      "warnings": [],
+      "chunkIndex": 10
+    },
+    {
+      "startMs": 63246,
+      "endMs": 63486,
+      "text": "became",
+      "speakerId": 3,
+      "warnings": [],
+      "chunkIndex": 10
+    },
+    {
+      "startMs": 63566,
+      "endMs": 64286,
+      "text": "distrustful",
+      "speakerId": 3,
+      "warnings": [],
+      "chunkIndex": 10
+    },
+    {
+      "startMs": 64366,
+      "endMs": 64446,
+      "text": "of",
+      "speakerId": 3,
+      "warnings": [],
+      "chunkIndex": 10
+    },
+    {
+      "startMs": 64526,
+      "endMs": 64606,
+      "text": "their",
+      "speakerId": 3,
+      "warnings": [],
+      "chunkIndex": 10
+    },
+    {
+      "startMs": 64766,
+      "endMs": 65006,
+      "text": "power",
+      "speakerId": 3,
+      "warnings": [],
+      "chunkIndex": 10
+    },
+    {
+      "startMs": 65166,
+      "endMs": 65246,
+      "text": "to",
+      "speakerId": 3,
+      "warnings": [],
+      "chunkIndex": 10
+    },
+    {
+      "startMs": 65326,
+      "endMs": 65646,
+      "text": "crush",
+      "speakerId": 3,
+      "warnings": [],
+      "chunkIndex": 10
+    },
+    {
+      "startMs": 65726,
+      "endMs": 65806,
+      "text": "the",
+      "speakerId": 3,
+      "warnings": [],
+      "chunkIndex": 10
+    },
+    {
+      "startMs": 65886,
+      "endMs": 66126,
+      "text": "town.",
+      "speakerId": 3,
+      "warnings": [],
+      "chunkIndex": 10
+    },
+    {
+      "startMs": 67374,
+      "endMs": 67694,
+      "text": "My",
+      "speakerId": 7,
+      "warnings": [],
+      "chunkIndex": 11
+    },
+    {
+      "startMs": 67854,
+      "endMs": 68174,
+      "text": "position",
+      "speakerId": 7,
+      "warnings": [],
+      "chunkIndex": 11
+    },
+    {
+      "startMs": 68414,
+      "endMs": 68494,
+      "text": "was",
+      "speakerId": 7,
+      "warnings": [],
+      "chunkIndex": 11
+    },
+    {
+      "startMs": 68734,
+      "endMs": 68814,
+      "text": "too",
+      "speakerId": 7,
+      "warnings": [],
+      "chunkIndex": 11
+    },
+    {
+      "startMs": 68974,
+      "endMs": 69374,
+      "text": "terrible.",
+      "speakerId": 7,
+      "warnings": [],
+      "chunkIndex": 11
+    },
+    {
+      "startMs": 70382,
+      "endMs": 70462,
+      "text": "Of",
+      "speakerId": -1,
+      "warnings": [
+        "Не найден говорящий слова"
+      ],
+      "chunkIndex": 12
+    },
+    {
+      "startMs": 70702,
+      "endMs": 70782,
+      "text": "the",
+      "speakerId": 3,
+      "warnings": [],
+      "chunkIndex": 12
+    },
+    {
+      "startMs": 70862,
+      "endMs": 71342,
+      "text": "lynchings,",
+      "speakerId": 3,
+      "warnings": [],
+      "chunkIndex": 12
+    },
+    {
+      "startMs": 71582,
+      "endMs": 71662,
+      "text": "the",
+      "speakerId": 3,
+      "warnings": [],
+      "chunkIndex": 12
+    },
+    {
+      "startMs": 71742,
+      "endMs": 72142,
+      "text": "mobs,",
+      "speakerId": 3,
+      "warnings": [],
+      "chunkIndex": 12
+    },
+    {
+      "startMs": 72302,
+      "endMs": 72382,
+      "text": "and",
+      "speakerId": 3,
+      "warnings": [],
+      "chunkIndex": 12
+    },
+    {
+      "startMs": 72382,
+      "endMs": 72462,
+      "text": "the",
+      "speakerId": 3,
+      "warnings": [],
+      "chunkIndex": 12
+    },
+    {
+      "startMs": 72542,
+      "endMs": 72942,
+      "text": "murders,",
+      "speakerId": 3,
+      "warnings": [],
+      "chunkIndex": 12
+    },
+    {
+      "startMs": 73102,
+      "endMs": 73182,
+      "text": "it",
+      "speakerId": 3,
+      "warnings": [],
+      "chunkIndex": 12
+    },
+    {
+      "startMs": 73262,
+      "endMs": 73342,
+      "text": "would",
+      "speakerId": 3,
+      "warnings": [],
+      "chunkIndex": 12
+    },
+    {
+      "startMs": 73422,
+      "endMs": 73502,
+      "text": "be",
+      "speakerId": 3,
+      "warnings": [],
+      "chunkIndex": 12
+    },
+    {
+      "startMs": 73582,
+      "endMs": 74142,
+      "text": "impossible,",
+      "speakerId": 3,
+      "warnings": [],
+      "chunkIndex": 12
+    },
+    {
+      "startMs": 74542,
+      "endMs": 74782,
+      "text": "except",
+      "speakerId": 3,
+      "warnings": [],
+      "chunkIndex": 12
+    },
+    {
+      "startMs": 74862,
+      "endMs": 74942,
+      "text": "in",
+      "speakerId": 3,
+      "warnings": [],
+      "chunkIndex": 12
+    },
+    {
+      "startMs": 75022,
+      "endMs": 75102,
+      "text": "a",
+      "speakerId": 3,
+      "warnings": [],
+      "chunkIndex": 12
+    },
+    {
+      "startMs": 75102,
+      "endMs": 75182,
+      "text": "very",
+      "speakerId": 3,
+      "warnings": [],
+      "chunkIndex": 12
+    },
+    {
+      "startMs": 75342,
+      "endMs": 75822,
+      "text": "extended",
+      "speakerId": 3,
+      "warnings": [],
+      "chunkIndex": 12
+    },
+    {
+      "startMs": 75902,
+      "endMs": 75982,
+      "text": "work,",
+      "speakerId": 3,
+      "warnings": [],
+      "chunkIndex": 12
+    },
+    {
+      "startMs": 76302,
+      "endMs": 76382,
+      "text": "to",
+      "speakerId": 3,
+      "warnings": [],
+      "chunkIndex": 12
+    },
+    {
+      "startMs": 76462,
+      "endMs": 76702,
+      "text": "note",
+      "speakerId": 3,
+      "warnings": [],
+      "chunkIndex": 12
+    },
+    {
+      "startMs": 76782,
+      "endMs": 76862,
+      "text": "the",
+      "speakerId": 3,
+      "warnings": [],
+      "chunkIndex": 12
+    },
+    {
+      "startMs": 76942,
+      "endMs": 77342,
+      "text": "frequent",
+      "speakerId": 3,
+      "warnings": [],
+      "chunkIndex": 12
+    },
+    {
+      "startMs": 77422,
+      "endMs": 77502,
+      "text": "and",
+      "speakerId": 3,
+      "warnings": [],
+      "chunkIndex": 12
+    },
+    {
+      "startMs": 77582,
+      "endMs": 78222,
+      "text": "atrocious",
+      "speakerId": 3,
+      "warnings": [],
+      "chunkIndex": 12
+    },
+    {
+      "startMs": 78222,
+      "endMs": 78702,
+      "text": "details",
+      "speakerId": 3,
+      "warnings": [],
+      "chunkIndex": 12
+    }
+  ],
+  "segments": [
+    {
+      "startMs": 320,
+      "endMs": 400,
+      "speakerId": -1,
+      "text": "The",
+      "source": "Parakeet TDT 0.6B v2 INT8 / sherpa-onnx 2.0.1",
+      "warnings": [
+        "Не найден говорящий слова"
+      ]
+    },
+    {
+      "startMs": 560,
+      "endMs": 7360,
+      "speakerId": 0,
+      "text": "governor, on his part, becoming doubtful of the legality of employing Missouri militia to enforce Kansas laws,",
+      "source": "Parakeet TDT 0.6B v2 INT8 / sherpa-onnx 2.0.1",
+      "warnings": []
+    },
+    {
+      "startMs": 7918,
+      "endMs": 11518,
+      "speakerId": 0,
+      "text": "was also eager to secure the help of Federal troops.",
+      "source": "Parakeet TDT 0.6B v2 INT8 / sherpa-onnx 2.0.1",
+      "warnings": []
+    },
+    {
+      "startMs": 13086,
+      "endMs": 16846,
+      "speakerId": 1,
+      "text": "Can you imagine why Buckingham has been so violent? I suspect.",
+      "source": "Parakeet TDT 0.6B v2 INT8 / sherpa-onnx 2.0.1",
+      "warnings": [
+        "Смена говорящего на границе слова"
+      ]
+    },
+    {
+      "startMs": 18350,
+      "endMs": 18430,
+      "speakerId": -1,
+      "text": "In",
+      "source": "Parakeet TDT 0.6B v2 INT8 / sherpa-onnx 2.0.1",
+      "warnings": [
+        "Не найден говорящий слова"
+      ]
+    },
+    {
+      "startMs": 18670,
+      "endMs": 29630,
+      "speakerId": 3,
+      "text": "this incident, contrasting the creative and the destructive spirit of the factions, the Immigrant Aid Society of Massachusetts finds its most honorable and triumphant vindication.",
+      "source": "Parakeet TDT 0.6B v2 INT8 / sherpa-onnx 2.0.1",
+      "warnings": []
+    },
+    {
+      "startMs": 31070,
+      "endMs": 35070,
+      "speakerId": 4,
+      "text": "I say, you do know what this means, and you must tell us,",
+      "source": "Parakeet TDT 0.6B v2 INT8 / sherpa-onnx 2.0.1",
+      "warnings": []
+    },
+    {
+      "startMs": 36558,
+      "endMs": 36798,
+      "speakerId": -1,
+      "text": "Their",
+      "source": "Parakeet TDT 0.6B v2 INT8 / sherpa-onnx 2.0.1",
+      "warnings": [
+        "Не найден говорящий слова"
+      ]
+    },
+    {
+      "startMs": 36958,
+      "endMs": 41598,
+      "speakerId": 3,
+      "text": "distinctive characters, however, display one broad and unfailing difference,",
+      "source": "Parakeet TDT 0.6B v2 INT8 / sherpa-onnx 2.0.1",
+      "warnings": []
+    },
+    {
+      "startMs": 42526,
+      "endMs": 46366,
+      "speakerId": 5,
+      "text": "said another voice, which I recognized as Voltaire's. Caffir",
+      "source": "Parakeet TDT 0.6B v2 INT8 / sherpa-onnx 2.0.1",
+      "warnings": []
+    },
+    {
+      "startMs": 47150,
+      "endMs": 47230,
+      "speakerId": -1,
+      "text": "The",
+      "source": "Parakeet TDT 0.6B v2 INT8 / sherpa-onnx 2.0.1",
+      "warnings": [
+        "Не найден говорящий слова"
+      ]
+    },
+    {
+      "startMs": 47390,
+      "endMs": 50910,
+      "speakerId": 3,
+      "text": "Free State men clung to their prairie towns and prairie ravines",
+      "source": "Parakeet TDT 0.6B v2 INT8 / sherpa-onnx 2.0.1",
+      "warnings": []
+    },
+    {
+      "startMs": 51502,
+      "endMs": 57022,
+      "speakerId": 3,
+      "text": "with all the obstinacy and courage of true defenders of their homes and firesides.",
+      "source": "Parakeet TDT 0.6B v2 INT8 / sherpa-onnx 2.0.1",
+      "warnings": []
+    },
+    {
+      "startMs": 57902,
+      "endMs": 57982,
+      "speakerId": -1,
+      "text": "Now",
+      "source": "Parakeet TDT 0.6B v2 INT8 / sherpa-onnx 2.0.1",
+      "warnings": [
+        "Не найден говорящий слова"
+      ]
+    },
+    {
+      "startMs": 58302,
+      "endMs": 60062,
+      "speakerId": 6,
+      "text": "let's dust the furniture and pictures.",
+      "source": "Parakeet TDT 0.6B v2 INT8 / sherpa-onnx 2.0.1",
+      "warnings": []
+    },
+    {
+      "startMs": 61166,
+      "endMs": 61246,
+      "speakerId": -1,
+      "text": "The",
+      "source": "Parakeet TDT 0.6B v2 INT8 / sherpa-onnx 2.0.1",
+      "warnings": [
+        "Не найден говорящий слова"
+      ]
+    },
+    {
+      "startMs": 61486,
+      "endMs": 66126,
+      "speakerId": 3,
+      "text": "leaders of the conspiracy became distrustful of their power to crush the town.",
+      "source": "Parakeet TDT 0.6B v2 INT8 / sherpa-onnx 2.0.1",
+      "warnings": []
+    },
+    {
+      "startMs": 67374,
+      "endMs": 69374,
+      "speakerId": 7,
+      "text": "My position was too terrible.",
+      "source": "Parakeet TDT 0.6B v2 INT8 / sherpa-onnx 2.0.1",
+      "warnings": []
+    },
+    {
+      "startMs": 70382,
+      "endMs": 70462,
+      "speakerId": -1,
+      "text": "Of",
+      "source": "Parakeet TDT 0.6B v2 INT8 / sherpa-onnx 2.0.1",
+      "warnings": [
+        "Не найден говорящий слова"
+      ]
+    },
+    {
+      "startMs": 70702,
+      "endMs": 78702,
+      "speakerId": 3,
+      "text": "the lynchings, the mobs, and the murders, it would be impossible, except in a very extended work, to note the frequent and atrocious details",
+      "source": "Parakeet TDT 0.6B v2 INT8 / sherpa-onnx 2.0.1",
+      "warnings": []
+    }
+  ],
+  "stagesMs": {
+    "validationMs": 20590.609,
+    "timestampMetadataMs": 0.2589,
+    "decodeMs": 213.1413,
+    "vadLoadMs": 11.0247,
+    "vadMs": 567.6097,
+    "diarizationLoadMs": 390.1117,
+    "diarizationInferenceMs": 29681.6715,
+    "diarizationMs": 30105.3947,
+    "alignmentMs": 0.0186,
+    "languageModelValidationMs": 816.0596,
+    "languageIdMs": 2246.5705,
+    "asrLoadMs": 2974.6861,
+    "asrReadMs": 1.3249000000000002,
+    "asrInferenceMs": 15648.884499999998,
+    "wordAssignmentMs": 6.083200000000001,
+    "asrMs": 15824.6387
+  },
+  "backend": "Parakeet TDT 0.6B v2 INT8 / sherpa-onnx 2.0.1",
+  "clusteringMode": "automatic",
+  "expectedSpeakers": -1,
+  "modelFiles": [
+    {
+      "path": "giga-v3/encoder.int8.onnx",
+      "bytes": 224570820,
+      "sha256": "369f35a71bf288d3b8e0391fabd8dba5f2314088d440bca474056b7b4b6e66bf",
+      "hashValidationCached": false
+    },
+    {
+      "path": "giga-v3/decoder.onnx",
+      "bytes": 4600132,
+      "sha256": "38fc7475443ea2a26f63211ca350f73ac50fff824ab7a3876ee2bd610c53bbc4",
+      "hashValidationCached": false
+    },
+    {
+      "path": "giga-v3/joiner.onnx",
+      "bytes": 2712896,
+      "sha256": "602ff7017a93311aad34df1437c8d7f49911353c13d6eae7a6ee7b041339465c",
+      "hashValidationCached": false
+    },
+    {
+      "path": "giga-v3/tokens.txt",
+      "bytes": 13354,
+      "sha256": "39abae20e692998290c574e606f11a9edef2902a1995463fcff63d1490cf22b7",
+      "hashValidationCached": false
+    },
+    {
+      "path": "diar/segmentation.onnx",
+      "bytes": 5992913,
+      "sha256": "220ad67ca923bef2fa91f2390c786097bf305bceb5e261d4af67b38e938e1079",
+      "hashValidationCached": false
+    },
+    {
+      "path": "diar/embedding.onnx",
+      "bytes": 39593761,
+      "sha256": "1a331345f04805badbb495c775a6ddffcdd1a732567d5ec8b3d5749e3c7a5e4b",
+      "hashValidationCached": false
+    },
+    {
+      "path": "vad/silero_vad.onnx",
+      "bytes": 643854,
+      "sha256": "9e2449e1087496d8d4caba907f23e0bd3f78d91fa552479bb9c23ac09cbb1fd6",
+      "hashValidationCached": false
+    }
+  ],
+  "modelBytes": 1043026159,
+  "tokenTimestampPolicy": {
+    "verified": true,
+    "feature_frame_shift_ms": 10,
+    "subsampling_factor": 4,
+    "frame_stride_ms": 40,
+    "feature_frame_shift_source": "https://github.com/k2-fsa/sherpa-onnx/blob/v2.0.1/sherpa-onnx/csrc/offline-recognizer-transducer-nemo-impl.h#L208-L211",
+    "model_metadata": {
+      "onnx.infer": "onnxruntime.quant",
+      "vocab_size": "1024",
+      "pred_rnn_layers": "1",
+      "pred_hidden": "320",
+      "normalize_type": "",
+      "subsampling_factor": "4",
+      "model_type": "EncDecRNNTBPEModel",
+      "version": "3",
+      "model_author": "https://github.com/salute-developers/GigaAM",
+      "license": "https://github.com/salute-developers/GigaAM/blob/main/LICENSE",
+      "language": "Russian",
+      "comment": "v3",
+      "is_giga_am": "1"
+    },
+    "precision": "Token emission frame intervals; not acoustic forced-aligned word timestamps"
+  },
+  "tokenTimestampError": null,
+  "wordAssignmentSupported": true,
+  "fallbackChunks": 0,
+  "fallbackPolicy": "Full ASR chunk with unknown speaker and warning; no fabricated word times or second ASR pass",
+  "config": {
+    "asrThreads": 2,
+    "vadThreads": 1,
+    "provider": "cpu",
+    "sampleRate": 16000,
+    "featureDim": 80,
+    "dither": 0,
+    "decodingMethod": "greedy_search",
+    "modelType": "nemo_transducer",
+    "vadThreshold": 0.5,
+    "vadMinSpeechSec": 0.25,
+    "vadMinSilenceSec": 0.25,
+    "vadWindowSamples": 512,
+    "vadMaxSpeechSec": 20,
+    "preRollMs": 600,
+    "postRollMs": 0,
+    "maxAsrSegmentMs": 20000,
+    "clusterThreshold": 0.5,
+    "clusterThresholdApplied": true,
+    "segmentationWindowShiftRatio": 0.1,
+    "diarMinDurationOnSec": 0.2,
+    "diarMinDurationOffSec": 0.5,
+    "quietGainTriggerPeak": 0.01,
+    "quietGainTargetPeak": 0.1,
+    "quietGainMax": 20,
+    "quietGainSilenceFloor": 1e-06,
+    "rescueTargetRms": 0.02,
+    "rescuePeakHeadroom": 0.95,
+    "rescueMinGainRatio": 1.01,
+    "asrSlicing": "bounded VAD only; ignores diarization turns",
+    "energySplit": true,
+    "energyWindowMs": 40,
+    "energySearchMs": 4000,
+    "energyTie": "earliest minimum",
+    "energyCut": "window center",
+    "punctuationMode": "none"
+  },
+  "inputDecoder": {
+    "policy": "unchanged generic AudioDecoder canonical16k timeline emulation",
+    "hostDecoderHelperSha256": "5b5258286138ae5b251de0324c592a968180ef2d90f3c6ee68aa33e82af67044"
+  },
+  "pipelineTimingScope": "per-invocation SHA validation, metadata, canonical decode, unchanged VAD/diarization, VAD chunking, ASR and word assignment; excludes persistence/result JSON serialization",
+  "memoryScope": "Host WAV held in memory; not Android bounded-IO/peak RAM parity",
+  "validationScope": "Every required file hashed per invocation, unchanged production ModelManager policy",
+  "nativeResourcePolicy": "VAD released before diarization; diarizer released before ASR; no retained native model cache",
+  "sourceFiles": {
+    "app\\src\\main\\java\\ru\\replika\\ml\\ProcessingWorker.kt": "b61385f9f80f0c295f92fdc3039da9a5f816d08fe580335b294e12a0122565ab",
+    "app\\src\\main\\java\\ru\\replika\\ml\\AsrEngine.kt": "f695396c9f29a9591db3809901f86711cb08e8cb63e65b48eb37a9c3b471ce34",
+    "app\\src\\main\\java\\ru\\replika\\ml\\AudioDecoder.kt": "53cb484da019c62cca72f74c1930b50dabd934018aef47528eafbaf690b34b06",
+    "app\\src\\main\\java\\ru\\replika\\domain\\QuietAudioGain.kt": "f89037844f79685a7e79bfe1e282af3687202de06325826ac2fc320379225b40",
+    "app\\src\\main\\java\\ru\\replika\\domain\\ZeroSpanVadRescue.kt": "ffdeb91451b495e686a52fb6029663387bc53991318f572d992d39fd4b5883b8",
+    "tools\\eval\\pipeline_words.py": "1a947d634ad123180ca33b1c4af1999dc1d57d84e7725fb2c31f474def8eefb6",
+    "tools\\eval\\vad_words.py": "1310361aecdab50e6c977032b73f01352d870af7416904b6dca22b682f3c76a7",
+    "tools\\eval\\pipeline.py": "fcdea5e2028e2c46226ab24ff0ac4fe33743fb15bfe853789e156f50203b137a",
+    "tools\\eval\\decoder_parity.py": "5b5258286138ae5b251de0324c592a968180ef2d90f3c6ee68aa33e82af67044"
+  },
+  "language": {
+    "mode": "auto",
+    "perSegment": false,
+    "decided": "en",
+    "lid": {
+      "language": "en",
+      "probeLabels": [
+        "en",
+        "en",
+        "en"
+      ],
+      "probes": [
+        [
+          [
+            0,
+            7590
+          ],
+          [
+            7598,
+            10008
+          ]
+        ],
+        [
+          [
+            10008,
+            11718
+          ],
+          [
+            12686,
+            17254
+          ],
+          [
+            18030,
+            21752
+          ]
+        ],
+        [
+          [
+            21752,
+            29830
+          ],
+          [
+            30510,
+            32432
+          ]
+        ]
+      ],
+      "loadMs": 619.1640000324696,
+      "fileDecisionMs": 1595.9520998876542,
+      "totalMs": 2246.4711999055
+    },
+    "lidError": null,
+    "lidModels": [
+      {
+        "path": "lid-whisper-tiny/tiny-encoder.int8.onnx",
+        "bytes": 12937772,
+        "sha256": "d24fb083ae3b1041fc24e97971d60e280c9342201fbb67b0ab428a8b4a51a434",
+        "hashValidationCached": false
+      },
+      {
+        "path": "lid-whisper-tiny/tiny-decoder.int8.onnx",
+        "bytes": 89855401,
+        "sha256": "d2fece8dd42771f1df975c6c0445770d0c292bf7547c2cae04a6c0cc57540925",
+        "hashValidationCached": false
+      },
+      {
+        "path": "lid-whisper-tiny/tiny-tokens.txt",
+        "bytes": 816730,
+        "sha256": "b34b360dbb493e781e479794586d661700670d65564001f23024971d1f2fa126",
+        "hashValidationCached": false
+      }
+    ],
+    "chunkLanguages": [
+      "en",
+      "en",
+      "en",
+      "en",
+      "en",
+      "en",
+      "en",
+      "en",
+      "en",
+      "en",
+      "en",
+      "en",
+      "en"
+    ],
+    "englishModels": [
+      {
+        "path": "parakeet-en-v2/encoder.int8.onnx",
+        "bytes": 652282309,
+        "sha256": "92a10bd9c23936ea0566c29f963bc57c2a5df4261b6a8921c39abea66557ca8b",
+        "hashValidationCached": false
+      },
+      {
+        "path": "parakeet-en-v2/decoder.int8.onnx",
+        "bytes": 7257753,
+        "sha256": "4d097bae3bac5c96018d5293ba39f1b657296102b142affda40378f38b020f41",
+        "hashValidationCached": false
+      },
+      {
+        "path": "parakeet-en-v2/joiner.int8.onnx",
+        "bytes": 1739080,
+        "sha256": "77a29f3e5ac7d37074e0af465391b80f314015d5b97f0f90c6c7767f1d56f428",
+        "hashValidationCached": false
+      },
+      {
+        "path": "parakeet-en-v2/tokens.txt",
+        "bytes": 9384,
+        "sha256": "ec182b70dd42113aff6c5372c75cac58c952443eb22322f57bbd7f53977d497d",
+        "hashValidationCached": false
+      }
+    ],
+    "tokenTimestampPolicies": {
+      "ru": {
+        "verified": true,
+        "feature_frame_shift_ms": 10,
+        "subsampling_factor": 4,
+        "frame_stride_ms": 40,
+        "feature_frame_shift_source": "https://github.com/k2-fsa/sherpa-onnx/blob/v2.0.1/sherpa-onnx/csrc/offline-recognizer-transducer-nemo-impl.h#L208-L211",
+        "precision": "Token emission frame intervals; not acoustic forced-aligned word timestamps"
+      },
+      "en": {
+        "verified": true,
+        "feature_frame_shift_ms": 10,
+        "subsampling_factor": 8,
+        "frame_stride_ms": 80,
+        "precision": "TDT token emission frame intervals; not acoustic forced-aligned word timestamps"
+      }
+    }
+  }
+}

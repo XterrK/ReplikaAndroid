@@ -15,6 +15,7 @@ import struct
 import uuid
 
 from tools.eval import pipeline as base
+from tools.eval.language_id import LANGUAGE_MODEL_PINS, language_rows_valid
 from tools.eval.native_policy import policy_for_plan, validate_native_policy, validate_word_evidence
 from tools.eval.speaker_refiner import EmbeddingWindow, clean_windows
 from tools.eval.vad_words import assign_words, group_words, words_from_tokens
@@ -96,8 +97,11 @@ def policy_for_diar_plan(plan=PLAN):
 
 def validate_model_lock(lock):
     rows = lock.get("files") if isinstance(lock, dict) else None
-    if not isinstance(rows, list) or len(rows) != 7:
+    if not isinstance(rows, list) or len(rows) not in (7, 7 + len(LANGUAGE_MODEL_PINS)):
         _fail("C2 requires exactly the legacy seven pinned models")
+    # Pack v1.6 appends the pinned LID/English extension; the legacy seven stay first and unchanged.
+    if len(rows) > 7 and not language_rows_valid(rows[7:]):
+        _fail("Language model extension differs from the pack v1.6 pins")
     for row, (path, size, sha) in zip(rows, MODEL_PINS):
         if row.get("path") != path or type(row.get("size")) is not int or row["size"] != size or row.get("sha256") != sha:
             _fail("Legacy model order/size/hash differs: " + path)

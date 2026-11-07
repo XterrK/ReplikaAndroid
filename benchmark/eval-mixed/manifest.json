@@ -1,0 +1,96 @@
+{
+  "schema_version": 1,
+  "name": "REPLIKA RU+EN mixed diagnostic v1",
+  "reference_scope": "Concatenation of existing RU and EN montages; diagnostic only, not tuning",
+  "files": [
+    {
+      "id": "mixed-01-ru-then-en",
+      "split": "mixed",
+      "language": "mixed",
+      "audio": "mixed/mixed-01-ru-then-en.wav",
+      "reference": "references/mixed-01-ru-then-en.json",
+      "duration_ms": 133210,
+      "audio_sha256": "e6c32eb6434db4a4d8688c52d0bdb45f349c637d755d05ad51f181a492e51619",
+      "reference_sha256": "6fdf6e0a0fd5cddecaa855e50827c9e5fe39f3d56ac84169a51478289686fc3c",
+      "expected_speakers": 4,
+      "kind": "diagnostic_ru_en_concatenation",
+      "row_languages": [
+        "ru",
+        "ru",
+        "ru",
+        "ru",
+        "ru",
+        "ru",
+        "ru",
+        "ru",
+        "en",
+        "en",
+        "en",
+        "en",
+        "en",
+        "en",
+        "en",
+        "en"
+      ],
+      "parts": [
+        {
+          "language": "ru",
+          "id": "dev-01-two-clean",
+          "audio_sha256": "80bdb11e4d9e313d2440c01b80babc0dbe319c9dbea371988ef62716ffb9d77b"
+        },
+        {
+          "language": "en",
+          "id": "en-01-two-mf",
+          "audio_sha256": "b1dbaee6243aaebcd46016976093e64f63f5506d60c3a0dfb618b806ad214f01"
+        }
+      ]
+    },
+    {
+      "id": "mixed-02-en-then-ru",
+      "split": "mixed",
+      "language": "mixed",
+      "audio": "mixed/mixed-02-en-then-ru.wav",
+      "reference": "references/mixed-02-en-then-ru.json",
+      "duration_ms": 66845,
+      "audio_sha256": "ddbaadd5932a6937231092efec5ddbe2de78e25b8cdbc09e5c07c5109ac42d14",
+      "reference_sha256": "372b71be04c022e00846a45f454b79060cec5f85b99e7444e8931b6f929a09be",
+      "expected_speakers": 5,
+      "kind": "diagnostic_ru_en_concatenation",
+      "row_languages": [
+        "en",
+        "en",
+        "en",
+        "en",
+        "en",
+        "en",
+        "en",
+        "en",
+        "en",
+        "en",
+        "en",
+        "en",
+        "en",
+        "ru",
+        "ru",
+        "ru",
+        "ru",
+        "ru",
+        "ru",
+        "ru",
+        "ru"
+      ],
+      "parts": [
+        {
+          "language": "en",
+          "id": "en-03-short",
+          "audio_sha256": "4534575e8d0ed6ff2bbf1c9dd5247022dc7f9d7ac5ce1e26a7aa93e16924ae9b"
+        },
+        {
+          "language": "ru",
+          "id": "holdout-03-short",
+          "audio_sha256": "c107bd7c657245278204950dc80ca07346a035ba997c3e2b99771867f9a4dc49"
+        }
+      ]
+    }
+  ]
+}

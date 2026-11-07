@@ -16,9 +16,11 @@ import time
 
 if __package__:
     from . import pipeline as base
+    from . import language_id
     from .vad_words import (words_from_tokens, assign_words, group_words, plan_vad_chunks)
 else:
     import pipeline as base
+    import language_id
     from vad_words import words_from_tokens, assign_words, group_words, plan_vad_chunks
 
 FALLBACK_WARNING = "Время слов недоступно: проверьте говорящего и границы"
@@ -143,7 +145,8 @@ def _detect_with_durations(samples, gain, model_root, stages, np, sherpa, min_sp
 def process(audio_path, model_root, expected_speakers: int = -1, threads: int = 2,
             punctuation_mode: str = "none", energy_split: bool = True,
             vad_min_speech_sec: float = .25, vad_min_silence_sec: float = .25,
-            vad_threshold: float = .5, pre_roll_ms: int = 100) -> dict:
+            vad_threshold: float = .5, pre_roll_ms: int = 100, language: str = "ru",
+            per_segment_language: bool = False) -> dict:
     if threads not in (1, 2, 4):
         raise ValueError("Current Android policy allows 1, 2 or 4 threads")
     if expected_speakers != -1 and not 1 <= expected_speakers <= 20:
@@ -155,6 +158,10 @@ def process(audio_path, model_root, expected_speakers: int = -1, threads: int = 
     if type(pre_roll_ms) is not int or not 0 <= pre_roll_ms <= 1000:
         raise ValueError("pre_roll_ms must be an integer in 0..1000 milliseconds")
     validate_vad_durations(vad_min_speech_sec, vad_min_silence_sec, vad_threshold)
+    if language not in ("ru", "en", "auto") or type(per_segment_language) is not bool:
+        raise ValueError("language must be ru, en or auto")
+    if per_segment_language and language != "auto":
+        raise ValueError("Per-segment language identification requires language=auto")
     import numpy as np
     import sherpa_onnx as sherpa
     if sherpa.__version__ != base.RUNTIME_VERSION:
@@ -234,9 +241,15 @@ def process(audio_path, model_root, expected_speakers: int = -1, threads: int = 
     segments, slice_results = [], []
     fallback_chunks = 0
     all_words = []
-    if chunks:
-        with base._measure(stages, "asrLoadMs"):
-            recognizer = sherpa.OfflineRecognizer.from_transducer(
+    # Language routing (task 07). ru keeps the unchanged GigaAM path; LID only reads audio.
+    chunk_languages, strides, language_report = language_id.route(
+        language, per_segment_language, chunks, samples, recognition_gain, model_root, threads, stages,
+        base._measure, stride, encoder_metadata)
+
+    def make_recognizer(lang):
+        if lang == "en":
+            return language_id.make_english_recognizer(model_root, threads)
+        return sherpa.OfflineRecognizer.from_transducer(
                 encoder=str(model_root / "giga-v3/encoder.int8.onnx"),
                 decoder=str(model_root / "giga-v3/decoder.onnx"),
                 joiner=str(model_root / "giga-v3/joiner.onnx"),
@@ -244,9 +257,18 @@ def process(audio_path, model_root, expected_speakers: int = -1, threads: int = 
                 model_type="nemo_transducer", num_threads=threads, provider="cpu", debug=False,
                 sample_rate=16000, feature_dim=80, dither=0.0, decoding_method="greedy_search",
                 max_active_paths=4, modeling_unit="", hotwords_file="", blank_penalty=0.0)
+
+    # Russian chunks first, then English; only one recognizer is resident at a time.
+    passes = language_id.passes(chunk_languages)
+    for pass_language, pass_chunks in passes:
+        source = language_id.ENGLISH_SOURCE if pass_language == "en" else base.SOURCE
+        stride_ms = strides[pass_language]["frame_stride_ms"]
+        with base._measure(stages, "asrLoadMs"):
+            recognizer = make_recognizer(pass_language)
         try:
             with base._measure(stages, "asrMs"):
-                for chunk_index, chunk in enumerate(chunks):
+                for chunk_index in pass_chunks:
+                    chunk = chunks[chunk_index]
                     with base._measure(stages, "asrReadMs"):
                         pcm = samples[chunk.start_ms * 16:min(chunk.end_ms * 16, len(samples))].copy()
                     if recognition_gain != 1:
@@ -262,34 +284,40 @@ def process(audio_path, model_root, expected_speakers: int = -1, threads: int = 
                         text, tokens, timestamps = output.text.strip(), list(output.tokens), list(output.timestamps)
                         with base._measure(stages, "wordAssignmentMs"):
                             parsed = words_from_tokens(text, tokens, timestamps, chunk.start_ms, chunk.end_ms,
-                                                       stride["frame_stride_ms"])
+                                                       stride_ms)
                             assigned = assign_words(parsed.words, turns) if parsed.supported else []
                             words_json = [{"startMs": w.start_ms, "endMs": w.end_ms, "text": w.text,
                                            "speakerId": w.speaker, "warnings": list(w.reasons),
                                            "chunkIndex": chunk_index} for w in assigned]
                             all_words.extend(words_json)
                             if parsed.supported:
-                                segments.extend(group_words(assigned, base.SOURCE, punctuation_mode))
+                                segments.extend(group_words(assigned, source, punctuation_mode))
                             elif text:
                                 fallback_chunks += 1
                                 # Preserve actual recognition text without inventing word boundaries
                                 # or attributing a potentially multispeaker chunk to one voice.
                                 segments.append({"startMs": chunk.start_ms, "endMs": chunk.end_ms,
-                                                 "speakerId": -1, "text": text, "source": base.SOURCE,
+                                                 "speakerId": -1, "text": text, "source": source,
                                                  "warnings": [FALLBACK_WARNING]})
                         slice_results.append({"startMs": chunk.start_ms, "endMs": chunk.end_ms,
                             "speakerId": -1, "text": text, "blank": not bool(text),
                             "inferenceMs": inference_ms, "tokens": tokens, "timestamps": timestamps,
                             "timestampUnit": "seconds within ASR VAD chunk", "words": words_json,
                             "wordAssignmentSupported": parsed.supported, "wordAssignmentReason": parsed.reason,
-                            "warnings": [] if parsed.supported else [FALLBACK_WARNING]})
+                            "warnings": [] if parsed.supported else [FALLBACK_WARNING],
+                            **({"language": pass_language} if language != "ru" else {})})
                         del output
                     finally:
                         del stream
         finally:
             del recognizer
             gc.collect()
-    else:
+    if len(passes) > 1:
+        # Mixed-language order back to the timeline (Python sort is stable).
+        segments.sort(key=lambda item: item["startMs"])
+        slice_results.sort(key=lambda item: item["startMs"])
+        all_words.sort(key=lambda item: (item["startMs"], item["chunkIndex"]))
+    if not chunks:
         stages.update(asrLoadMs=0.0, asrInferenceMs=0.0, asrMs=0.0, wordAssignmentMs=0.0)
     processing_ms = (time.perf_counter_ns() - started) / 1e6
     applied = attempted and bool(rescued)
@@ -320,10 +348,11 @@ def process(audio_path, model_root, expected_speakers: int = -1, threads: int = 
         "asrChunks": base._span_json(chunks), "rawDiarizationTurns": base._turn_json(raw_turns),
         "diarizationTurns": base._turn_json(turns), "asrSlices": slice_results,
         "words": all_words, "segments": segments, "stagesMs": stages,
-        "backend": base.SOURCE, "clusteringMode": mode, "expectedSpeakers": expected_speakers,
+        "backend": language_id.backend_name(chunk_languages, base.SOURCE),
+        "clusteringMode": mode, "expectedSpeakers": expected_speakers,
         "modelFiles": model_files, "modelBytes": model_bytes,
         "tokenTimestampPolicy": stride, "tokenTimestampError": stride_error,
-        "wordAssignmentSupported": stride["verified"] and fallback_chunks == 0,
+        "wordAssignmentSupported": all(strides[x]["verified"] for x in (set(chunk_languages) or {"ru"})) and fallback_chunks == 0,
         "fallbackChunks": fallback_chunks,
         "fallbackPolicy": "Full ASR chunk with unknown speaker and warning; no fabricated word times or second ASR pass",
         "config": {"asrThreads": threads, "vadThreads": 1, "provider": "cpu", "sampleRate": 16000,
@@ -345,6 +374,8 @@ def process(audio_path, model_root, expected_speakers: int = -1, threads: int = 
         "nativeResourcePolicy": "VAD released before diarization; diarizer released before ASR; no retained native model cache",
         "sourceFiles": {str(p.relative_to(base.PROJECT_ROOT)): base._sha256(p) for p in source_paths},
     }
+    if language != "ru":
+        diagnostics["language"] = language_report
     return {"transcript": base.jury_projection(segments), "diagnostics": diagnostics,
             "duration_ms": duration_ms, "processing_ms": processing_ms}
 
@@ -361,13 +392,16 @@ def main():
     parser.add_argument("--vad-min-silence-sec", type=float, default=.25)
     parser.add_argument("--vad-threshold", type=float, default=.5)
     parser.add_argument("--pre-roll-ms", type=int, default=100)
+    parser.add_argument("--language", choices=["ru", "en", "auto"], default="ru")
+    parser.add_argument("--per-segment-language", action="store_true")
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     if args.output.exists():
         parser.error("Preserve existing evidence; choose a new output")
     result = process(args.audio, args.model_root, args.expected_speakers, args.threads,
                      args.punctuation_mode, not args.no_energy_split,
-                     args.vad_min_speech_sec, args.vad_min_silence_sec, args.vad_threshold, args.pre_roll_ms)
+                     args.vad_min_speech_sec, args.vad_min_silence_sec, args.vad_threshold, args.pre_roll_ms,
+                     language=args.language, per_segment_language=args.per_segment_language)
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(result, ensure_ascii=False, indent=2, allow_nan=False) + "\n", encoding="utf-8")
     print(json.dumps({"output": str(args.output), "duration_ms": result["duration_ms"],

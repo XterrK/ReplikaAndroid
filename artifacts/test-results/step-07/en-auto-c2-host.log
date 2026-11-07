@@ -1,0 +1,18 @@
+{"case": "en-01-two-mf", "language": "en", "wer_raw": 0.041379310344827586, "wer_normalized": 0.013793103448275862, "speakers": {"reference": 2, "hypothesis": 3, "signed_error": 1, "absolute_error": 1}, "rtf": 0.5797414429583506}
+{"case": "en-02-three", "language": "en", "wer_raw": 0.10666666666666667, "wer_normalized": 0.021834061135371178, "speakers": {"reference": 3, "hypothesis": 3, "signed_error": 0, "absolute_error": 0}, "rtf": 0.7471551046768204}
+{"case": "en-03-short", "language": "en", "wer_raw": 0.06363636363636363, "wer_normalized": 0.0, "speakers": {"reference": 2, "hypothesis": 3, "signed_error": 1, "absolute_error": 1}, "rtf": 0.5641060912698412}
+{"case": "en-04-four", "language": "en", "wer_raw": 0.09859154929577464, "wer_normalized": 0.010380622837370242, "speakers": {"reference": 4, "hypothesis": 4, "signed_error": 0, "absolute_error": 0}, "rtf": 0.5029991758830413}
+{"case": "en-05-two-mm", "language": "en", "wer_raw": 0.04597701149425287, "wer_normalized": 0.011363636363636364, "speakers": {"reference": 2, "hypothesis": 2, "signed_error": 0, "absolute_error": 0}, "rtf": 0.6331672943633093}
+Traceback (most recent call last):
+  File "C:\R\wt-lang\tools\eval\run_lang.py", line 103, in <module>
+    main()
+  File "C:\R\wt-lang\tools\eval\run_lang.py", line 95, in main
+    summary = {"status": "COMPLETE", "all": aggregate(records),
+                                            ^^^^^^^^^^^^^^^^^^
+  File "C:\R\wt-lang\tools\eval\run.py", line 131, in aggregate
+    output["native_speaker_count_exact_cases"] = sum(r["metrics"]["native_speaker_count_error"] == 0 for r in records)
+                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\R\wt-lang\tools\eval\run.py", line 131, in <genexpr>
+    output["native_speaker_count_exact_cases"] = sum(r["metrics"]["native_speaker_count_error"] == 0 for r in records)
+                                                     ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyError: 'native_speaker_count_error'

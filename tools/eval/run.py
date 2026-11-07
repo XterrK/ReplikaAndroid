@@ -14,7 +14,10 @@ import os
 from pathlib import Path
 import platform
 import re
-from hostmem import peak_rss_kib
+try:
+    from hostmem import peak_rss_kib
+except ImportError:  # imported as tools.eval.run (tests, pipeline_refined)
+    from tools.eval.hostmem import peak_rss_kib
 import sys
 import time
 
@@ -31,7 +34,7 @@ def write_json(path, value):
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
     temporary = path.with_name(path.name + ".tmp")
-    temporary.write_text(json.dumps(value, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    temporary.write_text(json.dumps(value, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n")
     temporary.replace(path)
 
 
@@ -47,6 +50,7 @@ def validate_configuration(config):
     allowed = {"schema_version", "id", "pipeline", "expected_speakers", "threads", "notes"}
     if config.get("pipeline") == "vad_words_v1":
         allowed |= {"punctuation_mode", "energy_split", "vad_min_speech_sec", "vad_min_silence_sec", "vad_threshold", "pre_roll_ms", "bridge_gap_ms"}
+        allowed |= {"language", "per_segment_language"}
     if set(config) - allowed:
         raise ValueError("Unsupported configuration options: " + str(sorted(set(config) - allowed)))
     if config.get("schema_version") != 1 or config.get("pipeline") not in {"v16", "vad_words_v1"}:
@@ -61,6 +65,10 @@ def validate_configuration(config):
         threshold = config.get("vad_threshold", .5)
         if type(threshold) not in (int, float) or not math.isfinite(threshold) or not .1 <= threshold <= .9:
             raise ValueError("vad_threshold must be finite and within 0.1..0.9")
+        if config.get("language", "ru") not in {"ru", "en", "auto"} or type(config.get("per_segment_language", False)) is not bool:
+            raise ValueError("language must be ru, en or auto; per_segment_language must be boolean")
+        if config.get("per_segment_language", False) and config.get("language", "ru") != "auto":
+            raise ValueError("per_segment_language requires language=auto")
         pre_roll = config.get("pre_roll_ms", 100)
         if type(pre_roll) is not int or not 0 <= pre_roll <= 1000:
             raise ValueError("pre_roll_ms must be an integer within 0..1000")
@@ -171,7 +179,8 @@ def run(args):
     if config["pipeline"] == "vad_words_v1":
         import pipeline_words as selected_pipeline
         options = {"punctuation_mode": config["punctuation_mode"], "energy_split": config["energy_split"]}
-        options.update({key: config[key] for key in ("vad_min_speech_sec", "vad_min_silence_sec", "vad_threshold", "pre_roll_ms", "bridge_gap_ms") if key in config})
+        options.update({key: config[key] for key in ("vad_min_speech_sec", "vad_min_silence_sec", "vad_threshold", "pre_roll_ms", "bridge_gap_ms",
+                                                     "language", "per_segment_language") if key in config})
     manifest = json.loads(args.manifest.read_text(encoding="utf-8"))
     if manifest.get("schema_version") != 1:
         raise ValueError("Unsupported corpus manifest schema")
@@ -208,6 +217,8 @@ def run(args):
                    "selected_ids": [c["id"] for c in cases]}
     if config["pipeline"] == "vad_words_v1":
         fingerprint["word_planner_code_sha256"] = digest(Path(__file__).with_name("vad_words.py"))
+        if config.get("language", "ru") != "ru":
+            fingerprint["language_code_sha256"] = digest(Path(__file__).with_name("language_id.py"))
     output = args.output.resolve()
     if output.exists():
         if not args.resume or not (output / "run.json").is_file():

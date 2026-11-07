@@ -33,7 +33,11 @@ class ModelManager(private val context: Context) {
  fun valid(spec: ModelFile): Boolean { val f=file(spec.path);return f.isFile && f.length()==spec.size && hash(f)==spec.sha256 }
  val asrId: String get()=files.map { it.group }.distinct().single { it.startsWith("giga-") }
  fun resolveBackend(legacyId: String?): String = if(legacyId==asrId) legacyId else asrId
- fun statuses(): List<ModelStatus> = listOf(asrId to (if(asrId=="giga-v3") "GigaAM v3" else "GigaAM v2"), "diar" to "Разделение говорящих", "vad" to "Silero VAD").map { (id,title) ->
+ /** Optional language groups (pack v1.6). Their absence never blocks Russian processing. */
+ fun groupReady(group: String): Boolean { val selected=files.filter { it.group==group };return selected.isNotEmpty() && selected.all { valid(it) } }
+ fun requireEnglishReady()=require(groupReady(ENGLISH_GROUP)) { "Для английской записи установите модель Parakeet (English) в разделе «Модели»" }
+ fun statuses(): List<ModelStatus> = (listOf(asrId to (if(asrId=="giga-v3") "GigaAM v3" else "GigaAM v2"), "diar" to "Разделение говорящих", "vad" to "Silero VAD")+
+  listOf(ENGLISH_GROUP to "Parakeet TDT v2 · English", LID_GROUP to "Определение языка · Whisper tiny").filter { (id,_) -> files.any { it.group==id } }).map { (id,title) ->
   val selected=files.filter { it.group==id };ModelStatus(id,title,selected.isNotEmpty() && selected.all { valid(it) },selected.sumOf { file(it.path).takeIf(File::isFile)?.length()?:0 },selected.sumOf { it.size })
  }
  fun requireReady(backend: String = asrId, includeDiarization: Boolean = true) {
@@ -48,6 +52,10 @@ class ModelManager(private val context: Context) {
    check(retired.delete()) { "Не удалось удалить файл снятой модели" }
    retired.parentFile?.let { if(it.listFiles().orEmpty().isEmpty()) it.delete() }
   }
+ }
+ companion object {
+  const val LID_GROUP="lid-whisper-tiny"
+  const val ENGLISH_GROUP="parakeet-en-v2"
  }
  suspend fun delete(group: String)=gate.withLock { withContext(Dispatchers.IO) { files.filter { it.group==group }.forEach { file(it.path).delete() } } }
  suspend fun download(group: String, progress: (String)->Unit)=gate.withLock { withContext(Dispatchers.IO) {

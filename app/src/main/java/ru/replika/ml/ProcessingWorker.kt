@@ -45,6 +45,9 @@ class ProcessingWorker(context: Context,params: WorkerParameters): CoroutineWork
    val requestedDiarPlan=DiarizationPlan.fromPersistedId(inputData.getString(DIAR_PLAN_KEY))
    val cpuPlan=CpuPlan.fromPersistedId(inputData.getString(CPU_PLAN_KEY))
    val collectWordEvidence=inputData.getBoolean(COLLECT_WORD_EVIDENCE_KEY,false)
+   // Task 07. Historical WorkData without the key stays Russian/GigaAM.
+   val languageMode=LanguageMode.fromPersistedId(inputData.getString(LANGUAGE_MODE_KEY))
+   val perSegmentLanguage=languageMode==LanguageMode.AUTO && inputData.getBoolean(PER_SEGMENT_LANGUAGE_KEY,false)
    diagnostic.put("asrPlan",asrPlan.wireId).put("asrPolicy",asrPolicyJson(asrPlan))
     .put("diarizationPlanRequested",requestedDiarPlan.wireId)
     .put("wordEvidenceRequested",collectWordEvidence).put("wordEvidenceApplicable",asrPlan.wordTimestamps)
@@ -263,17 +266,33 @@ class ProcessingWorker(context: Context,params: WorkerParameters): CoroutineWork
        .put("fallbackPolicy","Full actual ASR chunk with unknown speaker and warning; no fabricated word times or second ASR pass")
        .put("wordEvidenceBudgetScope","Conservative additional pretty-JSON UTF-8 payload bytes, including nesting allowance; summaries excluded")
      }
+     // Task 07: the language decision only reads audio. A Russian decision keeps the GigaAM path unchanged.
+     if(languageMode==LanguageMode.AUTO && slices.isNotEmpty()) guard("Определение языка")
+     val language=trace.measure("languageIdMs") { LanguageRouting.decide(app.models,languageMode,perSegmentLanguage,
+      slices.map { Span(it.startMs,it.endMs) },threads) { startMs,endMs -> withContext(Dispatchers.IO) {
+       workerContext.ensureActive()
+       val first=startMs*16L;val last=minOf(endMs*16L,decoded.samples.toLong())
+       require(first>=0 && last>first && last<=Int.MAX_VALUE.toLong())
+       AudioDecoder.read(pcm,first.toInt(),(last-first).toInt()).also { QuietAudioGain.apply(it,recognitionGain) }
+      } } }
+     if(AsrLanguage.EN in language.languages && slices.isNotEmpty())
+      trace.measure("languageModelValidationMs") { withContext(Dispatchers.IO) { app.models.requireEnglishReady() } }
+     diagnostic.put("language",LanguageRouting.json(language)).put("asrLanguage",language.summary)
+     // Single-language plans keep the chronological order; mixed plans run Russian first, then English.
+     val asrOrder=LanguagePlan.recognitionOrder(language.chunkLanguages).map { slices[it] to language.chunkLanguages[it] }
      val engine=if(slices.isEmpty()) {
       // Silence/no-speech does not need a 230 MB recognizer. Preserve attribution and Room semantics.
       trace.times["asrLoadMs"]=0;trace.times["asrInferenceMs"]=0;null
      } else {
       guard("Загрузка модели распознавания")
-      trace.measure("asrLoadMs") { GigaAmEngine(app.models,threads) }
+      trace.measure("asrLoadMs") { RoutedAsrEngine(app.models,threads,asrOrder.first().second) { loaded,ms ->
+       trace.times["asrLoad_${loaded.wireId}Ms"]=(trace.times["asrLoad_${loaded.wireId}Ms"]?:0L)+ms } }
      }
      val source=engine?.source?:GigaAmEngine.sourceForModel(backend)
      trace.measure("asrMs") { engine?.use { activeEngine ->
       if(!asrPlan.wordTimestamps) {
-      for((i,s) in slices.withIndex()) {
+      for((i,entry) in asrOrder.withIndex()) {
+       val s=entry.first;activeEngine.select(entry.second);val source=activeEngine.source
        ensureActive();guard("Распознавание · ${source.substringBefore(" /")} · ${i+1}/${slices.size}")
        val a=(s.startMs*16).toInt();val b=min((s.endMs*16).toInt(),decoded.samples)
        val samples=trace.measure("asrReadMs") { AudioDecoder.read(pcm,a,(b-a).coerceAtLeast(0)) }
@@ -287,7 +306,8 @@ class ProcessingWorker(context: Context,params: WorkerParameters): CoroutineWork
        if(text.isNotBlank()) segments+=Segment(startMs=s.startMs,endMs=s.endMs,speakerId=s.speaker,text=text,source=source,reasons=s.reasons)
       }
       } else {
-       for((i,s) in slices.withIndex()) {
+       for((i,entry) in asrOrder.withIndex()) {
+        val s=entry.first;activeEngine.select(entry.second);val source=activeEngine.source
         ensureActive();guard("Распознавание · ${source.substringBefore(" /")} · ${i+1}/${slices.size}")
         val first=s.startMs*16L;val last=minOf(s.endMs*16L,decoded.samples.toLong())
         require(first>=0 && last>=first && last<=Int.MAX_VALUE.toLong())
@@ -344,6 +364,8 @@ class ProcessingWorker(context: Context,params: WorkerParameters): CoroutineWork
        }
       }
      } }
+     // Mixed-language passes are restored to the timeline (stable sort); single language is untouched.
+     if(language.mixed) segments.sortBy { it.startMs }
      val total=SystemClock.elapsedRealtime()-start
      val finalMemory=Debug.MemoryInfo();Debug.getMemoryInfo(finalMemory)
      diagnostic=diagnostic.put("finalPssKb",finalMemory.totalPss).put("peakMemory","N/A; stage boundary snapshots only").put("device","${Build.MANUFACTURER} ${Build.MODEL}").put("android",Build.VERSION.SDK_INT)
@@ -436,6 +458,8 @@ class ProcessingWorker(context: Context,params: WorkerParameters): CoroutineWork
   const val DIAR_PLAN_KEY="diarizationPlan"
   const val CPU_PLAN_KEY="cpuPlan"
   const val COLLECT_WORD_EVIDENCE_KEY="collectWordEvidence"
+  const val LANGUAGE_MODE_KEY="languageMode"
+  const val PER_SEGMENT_LANGUAGE_KEY="perSegmentLanguage"
   const val WORD_EVIDENCE_LIMIT_BYTES=256*1024
   const val WORD_FALLBACK_WARNING="Время слов недоступно: проверьте говорящего и границы"
   const val PRE_ROLL_MS=100L
@@ -460,13 +484,15 @@ class ProcessingWorker(context: Context,params: WorkerParameters): CoroutineWork
   fun enqueue(context: Context,id: String,threads: Int?=null,
    asrPlan: AsrPlan=AsrPlan.fromPersistedId(BuildConfig.DEFAULT_ASR_PLAN),collectWordEvidence: Boolean=false,
    diarizationPlan: DiarizationPlan=DiarizationPlan.fromPersistedId(BuildConfig.DEFAULT_DIAR_PLAN),
-   cpuPlan: CpuPlan=CpuPlan.fromPersistedId(BuildConfig.DEFAULT_CPU_PLAN)) {
+   cpuPlan: CpuPlan=CpuPlan.fromPersistedId(BuildConfig.DEFAULT_CPU_PLAN),
+   languageMode: LanguageMode=LanguageMode.fromPersistedId(BuildConfig.DEFAULT_LANGUAGE_MODE),perSegmentLanguage: Boolean=false) {
    val requestedThreads=threads?:if(cpuPlan==CpuPlan.AUTO_V1) 0 else 2
    // Validate before scheduling; resolve again from the actual available cores when Worker starts.
    cpuPlan.resolve(requestedThreads,Runtime.getRuntime().availableProcessors(),refined=false)
    val request=OneTimeWorkRequestBuilder<ProcessingWorker>().setInputData(workDataOf("recordingId" to id,
     "mlThreads" to requestedThreads,CPU_PLAN_KEY to cpuPlan.wireId,ASR_PLAN_KEY to asrPlan.wireId,
-    COLLECT_WORD_EVIDENCE_KEY to collectWordEvidence,DIAR_PLAN_KEY to diarizationPlan.wireId)).addTag(id).build()
+    COLLECT_WORD_EVIDENCE_KEY to collectWordEvidence,DIAR_PLAN_KEY to diarizationPlan.wireId,
+    LANGUAGE_MODE_KEY to languageMode.wireId,PER_SEGMENT_LANGUAGE_KEY to (perSegmentLanguage && languageMode==LanguageMode.AUTO))).addTag(id).build()
    WorkManager.getInstance(context).enqueueUniqueWork("replika-$id",ExistingWorkPolicy.KEEP,request)
   }
  }

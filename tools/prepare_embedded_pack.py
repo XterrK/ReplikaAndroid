@@ -12,6 +12,8 @@ import zipfile
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 CHUNK = 1024 * 1024
 SUPPORT_GROUPS = {"diar", "vad"}
+# Pack v1.6 (task 07): optional language extension, all-or-nothing, after the core seven rows.
+LANGUAGE_GROUPS = {"lid-whisper-tiny": 3, "parakeet-en-v2": 4}
 
 
 def sha256_file(path):
@@ -43,10 +45,17 @@ def read_lock(path):
         if len(digest) != 64 or any(c not in "0123456789abcdef" for c in digest):
             raise ValueError(f"Invalid SHA-256 in lock: {name}")
         expected[name] = item
-    groups = {item["group"] for item in files}
+    core = [item for item in files if item["group"] not in LANGUAGE_GROUPS]
+    language = [item for item in files if item["group"] in LANGUAGE_GROUPS]
+    groups = {item["group"] for item in core}
     asr = groups - SUPPORT_GROUPS
-    if len(expected) != 7 or len(asr) != 1 or not next(iter(asr)).startswith("giga-") or not SUPPORT_GROUPS <= groups:
+    if len(core) != 7 or len(asr) != 1 or not next(iter(asr)).startswith("giga-") or not SUPPORT_GROUPS <= groups:
         raise ValueError("Expected one seven-file GigaAM/VAD/diarization lock")
+    if files[:7] != core:
+        raise ValueError("The seven core models must precede the optional language extension")
+    counts = {group: sum(1 for item in language if item["group"] == group) for group in LANGUAGE_GROUPS}
+    if language and counts != LANGUAGE_GROUPS:
+        raise ValueError("Language extension must contain the complete LID and English model groups")
     return raw, manifest, expected
 
 
@@ -160,7 +169,7 @@ def prepare(source, lock, output, metadata):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--source", type=pathlib.Path, default=ROOT / "model-pack/replika-offline-pack-v1.5.zip")
+    parser.add_argument("--source", type=pathlib.Path, default=ROOT / "model-pack/replika-offline-pack-v1.6.zip")
     parser.add_argument("--manifest", type=pathlib.Path, default=ROOT / "app/src/main/assets/models-lock.json")
     parser.add_argument("--output", type=pathlib.Path, default=ROOT / "app/build/generated/embedded-models/assets/offline/replika-models.zip")
     parser.add_argument("--metadata", type=pathlib.Path, default=ROOT / "app/build/generated/embedded-models/pack-verification.json")
