@@ -138,6 +138,12 @@ internal fun powerFrameLimit(power: android.os.PowerManager?): Long {
    try {
     while(true) {
      val event=awaitPointerEvent()
+     // Every extra finger that lands dents the film at its own side; waves superpose.
+     for(other in event.changes) if(other.id!=down.id && other.pressed && !other.previousPressed) {
+      val p=normalized(other.position)
+      if(p.x*p.x+p.y*p.y>.0144f) dynamics.impact(kotlin.math.atan2(p.y,p.x),1f)
+      other.consume();gestureEpoch.intValue++
+     }
      val change=event.changes.firstOrNull { it.id==down.id }?:break
      if(!change.pressed) { change.consume();break }
      val point=normalized(change.position)

@@ -5,41 +5,89 @@ import org.junit.Test
 import ru.replika.ui.*
 import kotlin.math.*
 
-/** V1.7 soap bubble: jelly membrane, shader boundary and voice particles. Display-only logic. */
+/** V1.7c soap bubble: soft directional shell, shader boundary and voice particles. Display-only logic. */
 class SoapBubbleV17Test {
- @Test fun impactDentsTheFilmLocallyBulgesTheSidesAndRingsOut() {
-  val d=OrbDynamics();val g=OrbContourGeometry()
-  val bottom=(PI/2).toFloat()
-  d.impact(bottom,.8f)
-  repeat(5) { d.step(1f/60,0f,true) }
-  g.update(d)
-  val dent=d.radiusAt(bottom)*g.areaScale
-  val side=d.radiusAt(0f)*g.areaScale
-  assertTrue("The hit point must be pushed in, got $dent",dent<.985f)
-  assertTrue("Area conservation pushes the sides out, got $side",side>1f)
-  assertEquals(1,d.impacts)
-  // The dent travels: some time later the opposite side moves, then everything settles.
-  var maxTop=0f
-  repeat(90) { d.step(1f/60,0f,true);maxTop=max(maxTop,abs(d.ringAt(-bottom))) }
-  assertTrue("The wave must reach the far side of the contour",maxTop>.002f)
-  repeat(400) { d.step(1f/60,0f,true) }
-  assertFalse("Jelly oscillation must decay",d.ringMotion)
-  assertFalse(d.hasInteractionMotion)
+ private fun deepestAngle(d: OrbDynamics): Float {
+  var best=0f;var lowest=Float.MAX_VALUE
+  for(i in 0 until 720) { val a=i*(2f*PI.toFloat()/720);val u=d.shellAt(a);if(u<lowest) { lowest=u;best=a } }
+  return best
  }
- @Test fun tapNearTheEdgeDentsWhereTheFingerIsAndMembraneStaysBounded() {
+ private fun angleError(a: Float,b: Float)=abs(atan2(sin(a-b),cos(a-b)))
+ private fun radii(g: OrbContourGeometry)=(0 until g.count).map { sqrt(g.x[it]*g.x[it]+g.y[it]*g.y[it]) }
+
+ @Test fun aTapDentsTheFilmThereBulgesTheSidesAndSendsTwoWavesBothWays() {
+  val d=OrbDynamics()
+  val bottom=(PI/2).toFloat()
+  d.impact(bottom,1f)
+  var peak=0f
+  repeat(20) { d.step(1f/60,0f,false);peak=max(peak,-d.shellAt(bottom)) }
+  assertTrue("An ordinary tap dents 8–15 % of the radius, got ${peak*100}%",peak in .08f.. .15f)
+  assertEquals(1,d.impacts)
+  // Zero-mean shell: the dent pushes the neighbouring film out.
+  val fresh=OrbDynamics();fresh.impact(bottom,1f);repeat(4) { fresh.step(1f/60,0f,false) }
+  assertTrue("Sides bulge out",(0 until 360).any { fresh.shellAt(it*PI.toFloat()/180)>.02f })
+  // Two waves: the shape stays mirror-symmetric about the tap while the dent splits and runs away.
+  var travelled=false
+  repeat(30) {
+   fresh.step(1f/60,0f,false)
+   for(k in 1..8) assertEquals(fresh.shellAt(bottom+k*.2f),fresh.shellAt(bottom-k*.2f),1e-4f)
+   if(angleError(deepestAngle(fresh),bottom)>.6f) travelled=true
+  }
+  assertTrue("The dent must leave the tap point as travelling waves",travelled)
+  // Lively for ~0.6–1.2 s, then gone.
+  val alive=OrbDynamics();alive.impact(bottom,1f)
+  repeat(36) { alive.step(1f/60,0f,false) }
+  assertTrue("Still visibly wobbling at 0.6 s",(0 until 90).maxOf { abs(alive.shellAt(it*.07f)) }>.01f)
+  repeat(84) { alive.step(1f/60,0f,false) }
+  repeat(60) { alive.step(1f/60,0f,false) }
+  assertTrue("Almost settled at 2 s",(0 until 90).maxOf { abs(alive.shellAt(it*.07f)) }<.01f)
+  repeat(240) { alive.step(1f/60,0f,false) }
+  assertFalse("Jelly oscillation must decay",alive.shellMotion)
+  assertFalse(alive.hasInteractionMotion)
+ }
+
+ /** Requested 07.11 night: every click, from any side, dents the film in that direction (±15°). */
+ @Test fun aTapFromAnySideDentsTheFilmExactlyOnThatSide() {
+  for(k in 0 until 24) {
+   val angle=-PI.toFloat()+k*(2f*PI.toFloat()/24)
+   for(reach in listOf(.35f,.7f,1f)) {
+    val d=OrbDynamics();val g=OrbContourGeometry()
+    d.poke(cos(angle)*reach,sin(angle)*reach)
+    repeat(3) { d.step(1f/60,0f,true) }
+    assertTrue("Tap at ${Math.toDegrees(angle.toDouble()).roundToInt()}°: deepest point ${Math.toDegrees(deepestAngle(d).toDouble()).roundToInt()}°",
+     angleError(deepestAngle(d),angle)<=Math.toRadians(15.0).toFloat())
+    // The drawn contour (after area normalization) is innermost on the same side.
+    g.update(d);val r=radii(g);val i=r.indices.minBy { r[it] }
+    assertTrue("Contour is innermost at the tap",angleError(i*(2f*PI.toFloat()/g.count),angle)<=Math.toRadians(15.0).toFloat())
+   }
+  }
+ }
+
+ @Test fun severalTapsAtOnceGiveSeveralDentsAndARapidSeriesHitsHarderButStaysCapped() {
+  val d=OrbDynamics()
+  d.impact(0f,1f);d.impact(PI.toFloat()*2f/3f,1f);d.impact(-PI.toFloat()*2f/3f,1f)
+  repeat(3) { d.step(1f/60,0f,false) }
+  for(a in listOf(0f,PI.toFloat()*2f/3f,-PI.toFloat()*2f/3f)) assertTrue("A dent at $a",d.shellAt(a)< -.04f)
+  val single=OrbDynamics();single.impact(0f,1f)
+  val series=OrbDynamics()
+  var one=0f;var many=0f
+  repeat(30) { i -> if(i%5==0) series.impact(0f,1f);single.step(1f/60,0f,false);series.step(1f/60,0f,false);one=max(one,-single.shellAt(0f));many=max(many,-series.shellAt(0f)) }
+  assertTrue("A quick series dents deeper ($many vs $one)",many>one*1.2f)
+  val hammer=OrbDynamics()
+  repeat(200) { i -> hammer.impact(i*.37f,2f);hammer.step(1f/120,1f,true)
+   for(p in 0 until 360) assertTrue(abs(hammer.shellAt(p*.01745f))<=OrbDynamics.SHELL_LIMIT+.01f) }
+ }
+
+ @Test fun theShellStaysBoundedUnderHammeringAndDroppedFrames() {
   val d=OrbDynamics()
   repeat(300) { i ->
    d.impact(i*.37f,1.6f)
    if(i%7==0) d.poke(cos(i.toFloat()),sin(i.toFloat()))
    d.step(if(i%11==0) .9f else 1f/60,1f,true)
-   assertTrue(d.ring.all { it.isFinite() && abs(it)<=OrbDynamics.RING_LIMIT+1e-6f })
+   assertTrue(d.shapeA.all { it.isFinite() } && d.shapeB.all { it.isFinite() })
    for(a in 0..24) { val r=d.radiusAt(a*.26f);assertTrue("radius $r",r.isFinite() && r>.4f) }
   }
-  // V1.7b: a finger is not a particle — it never dents one side of the film.
-  val e=OrbDynamics();e.press(.95f,0f)
-  repeat(4) { e.step(1f/60,0f,true) }
-  assertTrue("A tap leaves the membrane symmetric",e.ring.all { it==0f })
-  assertTrue(e.spread>0f)
+  assertEquals("Touch never stretches the bubble into an ellipse",0f,d.stretch,0f)
  }
 
  /** User report 07.11: after many taps the bubble stayed oval. Any tap/hit sequence must settle to a circle. */
@@ -57,34 +105,31 @@ class SoapBubbleV17Test {
     }
     repeat(random.nextInt(5)) { d.step(1f/60,random.nextFloat(),true) }
    }
-   // Mid-sequence the taps alone are isotropic; after the decay time everything is a circle.
    repeat(8*60) { d.step(1f/60,0f,false) }
    g.update(d)
-   val radii=(0 until g.count).map { sqrt(g.x[it]*g.x[it]+g.y[it]*g.y[it]) }
-   val mean=radii.average().toFloat()
-   val worst=radii.maxOf { abs(it-mean)/mean }
+   val r=radii(g);val mean=r.average().toFloat()
+   val worst=r.maxOf { abs(it-mean)/mean }
    assertTrue("Run $run ($taps taps): radius deviation ${worst*100}% must be < 1%",worst<.01f)
-   assertTrue(abs(d.spread)<.002f && abs(d.stretch)<1e-6f)
+   assertEquals(0f,d.stretch,0f)
    assertFalse(d.hasInteractionMotion)
   }
  }
- @Test fun tapsAloneAreIsotropicAtEveryMoment() {
+
+ @Test fun theOvalModeCannotBePumpedIntoAPermanentShape() {
   val d=OrbDynamics();val g=OrbContourGeometry()
-  repeat(30) { i ->
-   d.poke(cos(i*1.3f),sin(i*.7f))
-   repeat(3) {
-    d.step(1f/60,0f,false);g.update(d)
-    val radii=(0 until g.count).map { sqrt(g.x[it]*g.x[it]+g.y[it]*g.y[it]) }
-    assertTrue("Tap $i: contour must stay round while spreading",radii.max()/radii.min()<1.01f)
-   }
-  }
-  assertTrue("Rapid taps are capped, they do not pile up",d.spread<=OrbDynamics.SPREAD_MAX)
+  // Opposite taps drive mode 2 (the oval) as hard as possible, in rhythm with its own frequency.
+  repeat(60) { i -> d.impact(if(i%2==0) 0f else PI.toFloat(),2f);d.impact(if(i%2==0) PI.toFloat() else 0f,2f);repeat(4) { d.step(1f/60,0f,false) } }
+  repeat(6*60) { d.step(1f/60,0f,false) }
+  assertEquals("Mode 2 decays to zero",0f,abs(d.shapeA[0])+abs(d.shapeB[0]),.002f)
+  g.update(d);val r=radii(g)
+  assertTrue(r.max()/r.min()<1.01f)
  }
- @Test fun reducedMotionDropsTheMembraneWobble() {
+
+ @Test fun reducedMotionDropsTheShellWobble() {
   val d=OrbDynamics();d.impact(0f,1f)
   d.step(1f/60,.5f,true,reduced=true)
-  assertTrue(d.ring.all { it==0f })
-  assertFalse(d.ringMotion)
+  assertTrue(d.shapeA.all { it==0f } && d.shapeB.all { it==0f })
+  assertFalse(d.shellMotion)
  }
  @Test fun shaderHarmonicsReconstructTheDentedContour() {
   val d=OrbDynamics();val g=OrbContourGeometry()

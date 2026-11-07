@@ -44,8 +44,8 @@ class OrbDynamics {
  val modes=FloatArray(5)
  private val speeds=FloatArray(5)
  var voiceEnergy=0f;private set
+ /** Kept at 0: the shell never stretches into an ellipse. Read by the Canvas fallback. */
  var stretch=0f;private set
- private var stretchSpeed=0f
  var touchAngle=0f;private set
  var centerX=0f;private set
  var centerY=0f;private set
@@ -57,54 +57,66 @@ class OrbDynamics {
  private var contactSpeed=0f
  var isTouching=false;private set
  private var lastLevel=0f
- /**
-  * Isotropic "water balloon" spread: a tap is a weight dropped on the bubble — it flattens and
-  * runs out evenly in every direction, then springs back. Applied as a uniform radius scale after
-  * area normalization, so it can never bend the circle into an oval.
-  */
+ /** Kept at 0 since V1.7c: a tap is local again. Still part of the drawn radius for compatibility. */
  var spread=0f;private set
- private var spreadSpeed=0f
- /** Jelly membrane: radial displacement of [RING] mass points joined by springs to rest and to neighbours. */
- val ring=FloatArray(RING)
- private val ringSpeed=FloatArray(RING)
- private val ringForce=FloatArray(RING)
- /** Count of particle/tap impacts since creation; display-only telemetry for tests. */
- var impacts=0;private set
- val ringMotion: Boolean get() { for(i in 0 until RING) if(abs(ring[i])>.002f || abs(ringSpeed[i])>.02f) return true;return false }
- val hasInteractionMotion get()=isTouching || abs(spread)>.002f || abs(spreadSpeed)>.015f || abs(centerX)+abs(centerY)>.004f || abs(centerSpeedX)+abs(centerSpeedY)>.02f || abs(contactSpeed)>.02f || ringMotion
 
  /**
-  * A blow on the film at [angle]: an inward velocity impulse with a Gaussian footprint. Area
-  * normalization in [OrbContourGeometry] turns the dent into a sideways bulge, then the
-  * neighbour springs carry it around the contour as a damped wave.
+  * The jelly shell: radial displacement u(θ) = Σ aₙ·cos nθ + bₙ·sin nθ for n = [MODE_MIN]..[MODE_MAX].
+  * Every harmonic is its own damped spring back to zero, so no shape — the oval mode 2 included — can
+  * persist; n = 0 (mean) and n = 1 (shift) are excluded, so the deformation has zero mean and the area
+  * is kept. A low-stiffness, string-like dispersion (ω² = K + T·n²) makes a local dent split into two
+  * waves that run around the contour in both directions and fade.
+  */
+ val shapeA=FloatArray(MODE_COUNT)
+ val shapeB=FloatArray(MODE_COUNT)
+ private val speedA=FloatArray(MODE_COUNT)
+ private val speedB=FloatArray(MODE_COUNT)
+ private val omega2=FloatArray(MODE_COUNT) { val n=MODE_MIN+it;MODE_STIFFNESS+MODE_TENSION*n*n }
+ private val decay=FloatArray(MODE_COUNT) { val n=MODE_MIN+it;MODE_DECAY+MODE_DECAY_N2*n*n }
+ /** Footprint of a blow on each harmonic: a Gaussian dent of width [DENT_WIDTH] projected on cos/sin nθ. */
+ private val footprint=FloatArray(MODE_COUNT) { val n=MODE_MIN+it;(DENT_WIDTH*sqrt(2.0*PI)/PI*exp(-n*n*DENT_WIDTH*DENT_WIDTH/2.0)).toFloat() }
+ private val probeCos=FloatArray(PROBES*MODE_COUNT) { val n=MODE_MIN+it%MODE_COUNT;cos(n*(it/MODE_COUNT)*2*PI/PROBES).toFloat() }
+ private val probeSin=FloatArray(PROBES*MODE_COUNT) { val n=MODE_MIN+it%MODE_COUNT;sin(n*(it/MODE_COUNT)*2*PI/PROBES).toFloat() }
+ /** Count of particle/tap impacts since creation; display-only telemetry for tests. */
+ var impacts=0;private set
+ val shellMotion: Boolean get() {
+  for(i in 0 until MODE_COUNT) if(abs(shapeA[i])+abs(shapeB[i])>.0015f || abs(speedA[i])+abs(speedB[i])>.02f) return true
+  return false
+ }
+ val hasInteractionMotion get()=isTouching || abs(centerX)+abs(centerY)>.004f || abs(centerSpeedX)+abs(centerSpeedY)>.02f || abs(contactSpeed)>.02f || shellMotion
+
+ /**
+  * A blow on the film at screen angle [angle] (y down): an inward velocity impulse with a Gaussian
+  * footprint. The dent appears exactly there, the sides bulge (zero mean), and two damped waves run
+  * away from the point in both directions. Several blows superpose; the total amplitude is capped.
   */
  fun impact(angle: Float,strength: Float) {
   if(!angle.isFinite() || !strength.isFinite()) return
-  val s=strength.coerceIn(0f,1.6f)
+  val s=strength.coerceIn(0f,2f)*KICK
   impacts++
-  for(i in 0 until RING) {
-   val node=i*(2f*PI.toFloat()/RING)
-   val d=atan2(sin(node-angle),cos(node-angle))
-   val w=exp(-(d*d)/(2f*.30f*.30f))
-   ringSpeed[i]=(ringSpeed[i]-s*.85f*w).coerceIn(-4f,4f)
+  for(i in 0 until MODE_COUNT) {
+   val n=MODE_MIN+i
+   val k=s*footprint[i]
+   speedA[i]-=k*cos(n*angle);speedB[i]-=k*sin(n*angle)
   }
+  contactSpeed=(contactSpeed+1.2f*strength.coerceIn(0f,2f)).coerceAtMost(5f)
  }
 
- /**
-  * A tap anywhere spreads the bubble evenly (no direction, no oval). Rapid taps add velocity, but
-  * velocity and amplitude are capped, so nothing accumulates: every tap decays back to the circle.
-  */
+ /** A tap dents the film where the finger is (any side), the waves run off from there. */
  fun press(x: Float=0f,y: Float=0f) {
   isTouching=true
   moveTouch(x,y)
-  impacts++
-  spreadSpeed=(spreadSpeed+SPREAD_KICK).coerceIn(-SPREAD_MAX_SPEED,SPREAD_MAX_SPEED)
-  contactSpeed=(contactSpeed+3.2f).coerceAtMost(5f)
+  val distance=sqrt(touchX*touchX+touchY*touchY)
+  // A tap in the very middle has no side: it presses the top, like a finger from above.
+  val angle=if(distance>.12f) atan2(touchY,touchX) else -PI.toFloat()/2
+  touchAngle=angle
+  impact(angle,1f)
  }
- /** The finger position only nudges the whole bubble (a translation that springs home), never its shape. */
+ /** While held, the finger keeps pressing the film where it is now; dragging moves the dent around. */
  fun moveTouch(x: Float,y: Float) {
   touchX=if(x.isFinite()) x.coerceIn(-1f,1f) else 0f
   touchY=if(y.isFinite()) y.coerceIn(-1f,1f) else 0f
+  if(sqrt(touchX*touchX+touchY*touchY)>.12f) touchAngle=atan2(touchY,touchX)
  }
  fun release() { isTouching=false;touchX=0f;touchY=0f }
  fun poke(x: Float=0f,y: Float=0f) { press(x,y);release() }
@@ -116,8 +128,8 @@ class OrbDynamics {
   voiceEnergy=amplitude
   if(reduced) {
    expansion=target;velocity=0f;modes.fill(0f);speeds.fill(0f)
-   stretch=0f;stretchSpeed=0f;centerX=0f;centerY=0f;centerSpeedX=0f;centerSpeedY=0f;contactEnergy=0f;contactSpeed=0f
-   spread=0f;spreadSpeed=0f;ring.fill(0f);ringSpeed.fill(0f)
+   centerX=0f;centerY=0f;centerSpeedX=0f;centerSpeedY=0f;contactEnergy=0f;contactSpeed=0f
+   shapeA.fill(0f);shapeB.fill(0f);speedA.fill(0f);speedB.fill(0f)
    lastLevel=amplitude;return
   }
   val onset=(amplitude-lastLevel).coerceAtLeast(0f)
@@ -134,64 +146,72 @@ class OrbDynamics {
     speeds[j]+=((36+j*10)*(goal-modes[j])-5.7f*speeds[j])*h
     modes[j]=(modes[j]+speeds[j]*h).coerceIn(-.026f,.026f)
    }
-   // Holding presses the balloon flat; releasing lets it spring back through a few jelly wobbles.
-   val spreadGoal=if(isTouching) SPREAD_HOLD else 0f
-   spreadSpeed+=(SPREAD_STIFFNESS*(spreadGoal-spread)-SPREAD_DAMPING*spreadSpeed)*h
-   spreadSpeed=spreadSpeed.coerceIn(-SPREAD_MAX_SPEED,SPREAD_MAX_SPEED)
-   spread=(spread+spreadSpeed*h).coerceIn(-SPREAD_MAX*.55f,SPREAD_MAX)
-   val goalX=if(isTouching) touchX*.08f else 0f
-   val goalY=if(isTouching) touchY*.08f else 0f
+   val goalX=if(isTouching) touchX*.05f else 0f
+   val goalY=if(isTouching) touchY*.05f else 0f
    centerSpeedX+=(72f*(goalX-centerX)-10f*centerSpeedX)*h
    centerSpeedY+=(72f*(goalY-centerY)-10f*centerSpeedY)*h
    centerX=(centerX+centerSpeedX*h).coerceIn(-.19f,.19f)
    centerY=(centerY+centerSpeedY*h).coerceIn(-.19f,.19f)
    contactSpeed+=(-55f*contactEnergy-8.5f*contactSpeed)*h
    contactEnergy=(contactEnergy+contactSpeed*h).coerceIn(-.18f,.55f)
-   // Semi-implicit Euler on the membrane; omega*h < 0.4 at 120 Hz keeps every mode stable.
-   for(i in 0 until RING) {
-    val laplacian=ring[(i+RING-1)%RING]+ring[(i+1)%RING]-2f*ring[i]
-    ringForce[i]=RING_STIFFNESS*-ring[i]+RING_TENSION*laplacian-RING_DAMPING*ringSpeed[i]
+   // A held finger keeps a soft inward pressure at its angle.
+   val hold=if(isTouching) HOLD_PRESSURE*h else 0f
+   // Semi-implicit Euler per harmonic: ω·h ≤ 0.65 at 120 Hz, every mode is stable and damped.
+   for(i in 0 until MODE_COUNT) {
+    val n=MODE_MIN+i
+    if(hold!=0f) { speedA[i]-=hold*footprint[i]*cos(n*touchAngle);speedB[i]-=hold*footprint[i]*sin(n*touchAngle) }
+    speedA[i]+=(-omega2[i]*shapeA[i]-2f*decay[i]*speedA[i])*h
+    speedB[i]+=(-omega2[i]*shapeB[i]-2f*decay[i]*speedB[i])*h
+    shapeA[i]+=speedA[i]*h;shapeB[i]+=speedB[i]*h
    }
-   for(i in 0 until RING) {
-    ringSpeed[i]=(ringSpeed[i]+ringForce[i]*h).coerceIn(-4f,4f)
-    ring[i]=(ring[i]+ringSpeed[i]*h).coerceIn(-RING_LIMIT,RING_LIMIT)
-   }
+   limitShell()
   }
+ }
+
+ /** Caps the largest radial displacement at [SHELL_LIMIT] by scaling the whole shell; nothing piles up. */
+ private fun limitShell() {
+  var peak=0f
+  for(p in 0 until PROBES) {
+   var u=0f;val base=p*MODE_COUNT
+   for(i in 0 until MODE_COUNT) u+=shapeA[i]*probeCos[base+i]+shapeB[i]*probeSin[base+i]
+   peak=max(peak,abs(u))
+  }
+  if(peak>SHELL_LIMIT) {
+   val k=SHELL_LIMIT/peak
+   for(i in 0 until MODE_COUNT) { shapeA[i]*=k;shapeB[i]*=k;speedA[i]*=k;speedB[i]*=k }
+  }
+ }
+
+ /** Radial displacement of the shell along a screen angle. */
+ fun shellAt(angle: Float): Float {
+  var u=0f
+  for(i in 0 until MODE_COUNT) { val n=MODE_MIN+i;u+=shapeA[i]*cos(n*angle)+shapeB[i]*sin(n*angle) }
+  return u
  }
 
  /** Polar radius before per-frame area normalization; always positive and bounded. */
  fun radiusAt(angle: Float): Float {
-  val relative=angle-touchAngle
-  val sx=exp(stretch)
-  val sy=1f/sx
-  val cosine=cos(relative);val sine=sin(relative)
-  val ellipse=1f/sqrt(cosine*cosine/(sx*sx)+sine*sine/(sy*sy))
   var wave=0f
   for(j in modes.indices) wave+=modes[j]*sin(angle*(j+2)+time*.24f+j*1.7f)
-  return ellipse*(1f+((wave*1.4f).coerceIn(-.20f,.20f)+ringAt(angle)).coerceIn(-.30f,.34f))
- }
-
- /** Catmull-Rom interpolation keeps a smooth film between the [RING] mass points. */
- fun ringAt(angle: Float): Float {
-  val turn=2f*PI.toFloat()
-  val u=((angle%turn+turn)%turn)/turn*RING
-  val i=floor(u).toInt();val t=u-i
-  val p0=ring[(i+RING-1)%RING];val p1=ring[i%RING];val p2=ring[(i+1)%RING];val p3=ring[(i+2)%RING]
-  return .5f*(2f*p1+(-p0+p2)*t+(2f*p0-5f*p1+4f*p2-p3)*t*t+(-p0+3f*p1-3f*p2+p3)*t*t*t)
+  return 1f+((wave*1.4f).coerceIn(-.20f,.20f)+shellAt(angle)).coerceIn(-.30f,.34f)
  }
 
  companion object {
-  const val RING=32
-  const val RING_STIFFNESS=58f
-  const val RING_TENSION=820f
-  const val RING_DAMPING=3.4f
-  const val RING_LIMIT=.26f
-  const val SPREAD_STIFFNESS=78f
-  const val SPREAD_DAMPING=5.2f
-  const val SPREAD_KICK=1.05f
-  const val SPREAD_HOLD=.07f
-  const val SPREAD_MAX=.15f
-  const val SPREAD_MAX_SPEED=2.2f
+  const val MODE_MIN=2
+  const val MODE_MAX=12
+  const val MODE_COUNT=MODE_MAX-MODE_MIN+1
+  /** Low stiffness: the oval mode rings at ~2 Hz, a dent travels half way round in ~0.5 s. */
+  const val MODE_STIFFNESS=4f
+  const val MODE_TENSION=40f
+  /** Decay rate per harmonic: visible jelly for ~0.6–1.2 s, fine ripples settle first. */
+  const val MODE_DECAY=1.6f
+  const val MODE_DECAY_N2=.04f
+  const val DENT_WIDTH=.32
+  /** One ordinary tap (strength 1) → a dent of ~11–12 % of the radius. */
+  const val KICK=5f
+  const val HOLD_PRESSURE=26f
+  const val SHELL_LIMIT=.24f
+  const val PROBES=96
  }
 }
 

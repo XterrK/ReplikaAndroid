@@ -117,7 +117,7 @@ class VoiceParticleSystem(val capacity: Int=56,seed: Int=0x2F6B) {
  val lifecycle=LocalLifecycleOwner.current.lifecycle
  val power=LocalContext.current.getSystemService(android.os.PowerManager::class.java)
  val boundary=remember(orb) { { angle: Float -> orb.boundaryPx(angle) } }
- val hit=remember(orb) { { angle: Float,strength: Float -> if(!orb.reducedMotion) orb.dynamics.impact(angle,strength) } }
+ val hit=remember(orb) { { angle: Float,strength: Float -> if(!orb.reducedMotion) orb.dynamics.impact(angle,strength*PARTICLE_WEIGHT) } }
  LaunchedEffect(recording,reduced,lifecycle) {
   if(reduced) { system.reset();tick.longValue++;return@LaunchedEffect }
   if(!recording && system.idle) return@LaunchedEffect
@@ -161,3 +161,6 @@ class VoiceParticleSystem(val capacity: Int=56,seed: Int=0x2F6B) {
   }
  }
 }
+
+/** Particles hit lightly: at most ~40 % of a finger tap, so speech ripples the film without denting it hard. */
+internal const val PARTICLE_WEIGHT=.4f
