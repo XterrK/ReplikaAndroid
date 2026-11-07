@@ -110,7 +110,8 @@ private val EditorRowSaver=listSaver<SegmentRow?,Any>(
  }
  LaunchedEffect(player,ready,rec.audioPath) {
   if(ready && !prepared) {
-   player.setMediaItem(MediaItem.fromUri(Uri.fromFile(File(rec.audioPath))))
+   // Large imports reference the original document (content URI) instead of an app-owned copy.
+   player.setMediaItem(MediaItem.fromUri(if(ru.replika.ml.AudioDecoder.isContentUri(rec.audioPath)) Uri.parse(rec.audioPath) else Uri.fromFile(File(rec.audioPath))))
    player.setPlaybackSpeed(speed);player.seekTo(position.coerceIn(0,rec.durationMs.coerceAtLeast(0)));player.prepare();prepared=true
   } else if(!ready) { player.pause();stopAt=null }
  }
@@ -265,6 +266,21 @@ private val EditorRowSaver=listSaver<SegmentRow?,Any>(
  }
 }
 
+/** Stage · percent of audio processed · remaining time. Indeterminate until the Worker reports. */
+@Composable private fun ProcessingProgressBlock(vm: AppViewModel,rec: Recording) {
+ val flow=remember(rec.id) { vm.processingProgress(rec.id) }
+ val snapshot by flow.collectAsStateWithLifecycle(null)
+ val current=snapshot.takeIf { rec.status=="PROCESSING" }
+ val fraction=current?.fraction
+ if(fraction!=null) LinearProgressIndicator(progress={ fraction },modifier=Modifier.fillMaxWidth().testTag("processing-progress-bar"))
+ else LinearProgressIndicator(Modifier.fillMaxWidth())
+ if(current!=null) Row(Modifier.fillMaxWidth(),horizontalArrangement=Arrangement.SpaceBetween,verticalAlignment=Alignment.CenterVertically) {
+  Text(current.stage.title+(current.percent?.let { " · $it %" }?:""),style=MaterialTheme.typography.labelLarge,modifier=Modifier.testTag("processing-progress-stage"))
+  ru.replika.domain.ProcessingEta.format(current.etaMs)?.let { Text("Осталось $it",style=MaterialTheme.typography.labelLarge,color=Muted,modifier=Modifier.testTag("processing-eta")) }
+ }
+ if(current!=null && current.audioMs>0 && current.fraction!=null) Text("Обработано ${audioClock(current.processedMs)} из ${audioClock(current.audioMs)}",style=MaterialTheme.typography.bodySmall,color=Muted,modifier=Modifier.testTag("processing-progress-audio"))
+}
+
 @Composable private fun ProcessingPane(vm: AppViewModel,rec: Recording,modifier: Modifier=Modifier) {
  var speakerMode by rememberSaveable(rec.id) { mutableStateOf(if(rec.expectedSpeakers==1) "single" else if(rec.expectedSpeakers>1) "fixed" else "automatic") }
  val ordinaryThreads=if(ru.replika.BuildConfig.DEFAULT_CPU_PLAN=="auto_v1") 0 else 2
@@ -281,7 +297,7 @@ private val EditorRowSaver=listSaver<SegmentRow?,Any>(
     Text(if(rec.status=="CANCELLING") "Отмена запрошена" else "Создаём стенограмму",style=MaterialTheme.typography.headlineMedium)
     Column(Modifier.fillMaxWidth().background(SurfaceBase,ProductShape.panel).padding(20.dp),verticalArrangement=Arrangement.spacedBy(16.dp)) {
      Text(rec.phase,style=MaterialTheme.typography.titleMedium,modifier=Modifier.testTag("processing-phase"))
-     LinearProgressIndicator(Modifier.fillMaxWidth())
+     ProcessingProgressBlock(vm,rec)
      Text(if(rec.status=="CANCELLING") "Текущую нативную операцию нельзя прервать мгновенно. Завершаем её; запись останется в библиотеке." else "Аудио обрабатывается на устройстве. Можно вернуться к библиотеке — задание продолжится.",style=MaterialTheme.typography.bodyMedium,color=Muted)
     }
     if(rec.status!="CANCELLING") OutlinedButton(shape=ProductShape.control,onClick={vm.cancel(rec.id)},modifier=Modifier.heightIn(min=48.dp)) { Text("Отменить обработку") }
