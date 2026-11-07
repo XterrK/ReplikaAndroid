@@ -1,0 +1,24 @@
+{"case": "reserve-01-two-clean", "language": "ru", "wer_raw": 0.26666666666666666, "wer_normalized": 0.1643835616438356, "speakers": {"reference": 2, "hypothesis": 2, "signed_error": 0, "absolute_error": 0}, "rtf": 0.7591898034053388}
+{"case": "reserve-02-two-clean", "language": "ru", "wer_raw": 0.04411764705882353, "wer_normalized": 0.0, "speakers": {"reference": 2, "hypothesis": 4, "signed_error": 2, "absolute_error": 2}, "rtf": 0.7871644407345576}
+{"case": "reserve-03-three-clean", "language": "ru", "wer_raw": 0.12871287128712872, "wer_normalized": 0.019801980198019802, "speakers": {"reference": 3, "hypothesis": 3, "signed_error": 0, "absolute_error": 0}, "rtf": 0.8035445674784106}
+{"case": "reserve-04-three-clean", "language": "ru", "wer_raw": 0.0625, "wer_normalized": 0.037037037037037035, "speakers": {"reference": 3, "hypothesis": 3, "signed_error": 0, "absolute_error": 0}, "rtf": 0.7098859732201176}
+{"case": "reserve-05-short", "language": "ru", "wer_raw": 0.15151515151515152, "wer_normalized": 0.02857142857142857, "speakers": {"reference": 2, "hypothesis": 2, "signed_error": 0, "absolute_error": 0}, "rtf": 1.3167594609769793}
+{"case": "reserve-06-short", "language": "ru", "wer_raw": 0.12121212121212122, "wer_normalized": 0.0, "speakers": {"reference": 2, "hypothesis": 1, "signed_error": -1, "absolute_error": 1}, "rtf": 0.7669445050252907}
+{"case": "reserve-07-expressive", "language": "ru", "wer_raw": 0.10344827586206896, "wer_normalized": 0.022988505747126436, "speakers": {"reference": 3, "hypothesis": 4, "signed_error": 1, "absolute_error": 1}, "rtf": 0.6790382609074284}
+{"case": "reserve-08-expressive", "language": "ru", "wer_raw": 0.08695652173913043, "wer_normalized": 0.014492753623188406, "speakers": {"reference": 3, "hypothesis": 3, "signed_error": 0, "absolute_error": 0}, "rtf": 0.6354180406016273}
+{"case": "reserve-09-overlap", "language": "ru", "wer_raw": 0.0990990990990991, "wer_normalized": 0.01818181818181818, "speakers": {"reference": 2, "hypothesis": 3, "signed_error": 1, "absolute_error": 1}, "rtf": 1.0160835712304508}
+{"case": "reserve-10-overlap", "language": "ru", "wer_raw": 0.08139534883720931, "wer_normalized": 0.011494252873563218, "speakers": {"reference": 3, "hypothesis": 2, "signed_error": -1, "absolute_error": 1}, "rtf": 1.0385837355888374}
+Traceback (most recent call last):
+  File "C:\R\wt-lang\tools\eval\run_lang.py", line 104, in <module>
+    write_json(case_dir / "diagnostics.json", actual["diagnostics"])
+^^^^^^
+  File "C:\R\wt-lang\tools\eval\run_lang.py", line 96, in main
+    "end_ms": t["endMs"], "text": ""} for t in actual["diagnostics"]["diarizationTurns"]]
+                       ^^^^^^^^^^^^^^^^^^
+  File "C:\R\wt-lang\tools\eval\run.py", line 128, in aggregate
+    counts["rate"] = (counts["miss_ms"] + counts["false_alarm_ms"] + counts["confusion_ms"]) / counts["reference_speaker_ms"] if counts["reference_speaker_ms"] else None
+                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\R\wt-lang\tools\eval\run.py", line 128, in <genexpr>
+    counts["rate"] = (counts["miss_ms"] + counts["false_alarm_ms"] + counts["confusion_ms"]) / counts["reference_speaker_ms"] if counts["reference_speaker_ms"] else None
+                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyError: 'native_speaker_count_error'

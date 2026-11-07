@@ -21,10 +21,14 @@ require(defaultDiarPlan == "v16" || defaultAsrPlan == "vad_words_context600") {
 // CPU policy is versioned independently; historical WorkData without a key remains v16.
 val defaultCpuPlan = providers.gradleProperty("replikaCpuPlan").orElse("auto_v1").get()
 require(defaultCpuPlan in setOf("v16", "auto_v1")) { "Unsupported replikaCpuPlan" }
+// Task 07: default language request for new jobs. "ru" restores the GigaAM-only behaviour;
+// historical WorkData without a key is always Russian (LanguageMode.fromPersistedId).
+val defaultLanguageMode = providers.gradleProperty("replikaLanguageMode").orElse("auto").get()
+require(defaultLanguageMode in setOf("auto", "ru")) { "Unsupported replikaLanguageMode" }
 val prepareEmbeddedModelPack by tasks.registering(Exec::class) {
  group = "replika"
  description = "Verify and package the existing local offline models without downloading weights"
- val sourcePack = rootProject.file("model-pack/replika-offline-pack-v1.5.zip")
+ val sourcePack = rootProject.file("model-pack/replika-offline-pack-v1.6.zip")
  val modelManifest = file("src/main/assets/models-lock.json")
  val generator = rootProject.file("tools/prepare_embedded_pack.py")
  val outputPack = embeddedAssets.map { it.file("offline/replika-models.zip") }
@@ -51,6 +55,7 @@ android {
   buildConfigField("String", "DEFAULT_ASR_PLAN", "\"$defaultAsrPlan\"")
   buildConfigField("String", "DEFAULT_DIAR_PLAN", "\"$defaultDiarPlan\"")
   buildConfigField("String", "DEFAULT_CPU_PLAN", "\"$defaultCpuPlan\"")
+  buildConfigField("String", "DEFAULT_LANGUAGE_MODE", "\"$defaultLanguageMode\"")
   buildConfigField("String", "EMBEDDED_MODEL_ASSET", "\"offline/replika-models.zip\"")
   // Model SHA-256 values come from models-lock.json; the generated ZIP fingerprint is build evidence.
   buildConfigField("String", "EMBEDDED_MODEL_PACK_SHA256", "\"\"")

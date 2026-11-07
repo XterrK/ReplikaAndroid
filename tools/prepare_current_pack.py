@@ -36,7 +36,8 @@ def prepare(models, manifest, output, licenses):
             for source in sorted(licenses.iterdir()):
                 if source.is_file():archive.writestr(entry('licenses/'+source.name),source.read_bytes())
         inventory=verify_pack(temporary,manifest)
-        with temporary.open('rb') as stream:os.fsync(stream.fileno())
+        # Windows rejects fsync on a read-only handle (EBADF); r+b is valid on every OS.
+        with temporary.open('r+b') as stream:os.fsync(stream.fileno())
         temporary.replace(output)
         inventory.update(source=str(output.resolve()),sourceBytes=output.stat().st_size,sourceSha256=sha256_file(output))
         return inventory
@@ -48,7 +49,7 @@ if __name__=='__main__':
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--models',type=pathlib.Path,default=ROOT/'model-pack')
     parser.add_argument('--manifest',type=pathlib.Path,default=ROOT/'app/src/main/assets/models-lock.json')
-    parser.add_argument('--output',type=pathlib.Path,default=ROOT/'model-pack/replika-offline-pack-v1.5.zip')
+    parser.add_argument('--output',type=pathlib.Path,default=ROOT/'model-pack/replika-offline-pack-v1.6.zip')
     parser.add_argument('--licenses',type=pathlib.Path,default=ROOT/'app/src/main/assets/licenses')
     args=parser.parse_args()
     print(json.dumps(prepare(args.models,args.manifest,args.output,args.licenses),ensure_ascii=False,indent=2))
