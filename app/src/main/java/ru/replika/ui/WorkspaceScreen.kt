@@ -163,13 +163,14 @@ private val EditorRowSaver=listSaver<SegmentRow?,Any>(
      if(reading) IconButton(onClick={clipboard.setText(AnnotatedString(TranscriptPresentation.plain(rows.map { it.domain() })))},modifier=Modifier.testTag("copy-plain-text")) { Icon(Icons.Outlined.ContentCopy,"Копировать чистый текст") }
     }
     // Every tool is labelled: who is shown, auto-scroll during playback, review queue.
-    if(!reading) FlowRow(Modifier.fillMaxWidth().padding(horizontal=20.dp,vertical=4.dp),horizontalArrangement=Arrangement.spacedBy(8.dp),verticalArrangement=Arrangement.spacedBy(0.dp)) {
-     FilterChip(selected=filter!=null,onClick={choosingFilter=true},label={Text(if(filter==null) "Все участники" else name(filter!!),maxLines=1,overflow=TextOverflow.Ellipsis)},
-      leadingIcon={Icon(Icons.Outlined.FilterList,null,Modifier.size(18.dp))},modifier=Modifier.heightIn(min=48.dp).testTag("speaker-filter"))
-     FilterChip(selected=follow,onClick={follow=!follow},label={Text("Автопрокрутка")},
-      leadingIcon={Icon(if(follow) Icons.Outlined.Check else Icons.Outlined.Sync,null,Modifier.size(18.dp))},modifier=Modifier.heightIn(min=48.dp).testTag("follow-playback"))
-     FilterChip(selected=review,onClick={review=!review},label={Text("Проверка"+if(pending>0) " · "+pending else "")},
-      leadingIcon={Icon(Icons.Outlined.FactCheck,null,Modifier.size(18.dp))},modifier=Modifier.heightIn(min=48.dp).testTag("smart-review-toggle"))
+    // One scrollable line keeps the transcript high on screen at any font size.
+    if(!reading) Row(Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()).padding(horizontal=20.dp),horizontalArrangement=Arrangement.spacedBy(8.dp),verticalAlignment=Alignment.CenterVertically) {
+     FilterChip(selected=filter!=null,onClick={choosingFilter=true},label={Text(if(filter==null) "Все участники" else name(filter!!),maxLines=1,overflow=TextOverflow.Ellipsis,modifier=Modifier.widthIn(max=180.dp))},
+      leadingIcon={Icon(Icons.Outlined.FilterList,null,Modifier.size(18.dp))},modifier=Modifier.testTag("speaker-filter"))
+     FilterChip(selected=follow,onClick={follow=!follow},label={Text("Автопрокрутка",maxLines=1)},
+      leadingIcon={Icon(if(follow) Icons.Outlined.Check else Icons.Outlined.Sync,null,Modifier.size(18.dp))},modifier=Modifier.testTag("follow-playback"))
+     FilterChip(selected=review,onClick={review=!review},label={Text("Проверка"+if(pending>0) " · "+pending else "",maxLines=1)},
+      leadingIcon={Icon(Icons.Outlined.FactCheck,null,Modifier.size(18.dp))},modifier=Modifier.testTag("smart-review-toggle"))
     }
     HorizontalDivider(color=SurfaceLine.copy(alpha=.65f))
     when {

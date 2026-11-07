@@ -209,7 +209,12 @@ fun languageShort(summary: String?)=when(summary) { "en"->"EN";"mixed"->"RU + EN
  val ready=r.status=="READY"
  val segments by remember(r.id,ready) { if(ready) vm.dao.segments(r.id) else kotlinx.coroutines.flow.flowOf(emptyList()) }.collectAsStateWithLifecycle(emptyList())
  val speakers=remember(segments) { segments.map { it.speakerId }.filter { it>=0 }.distinct().size }
- val firstLine=remember(segments) { segments.firstOrNull { it.text.isNotBlank() }?.text?.trim() }
+ // The opening of the conversation: short first replies ("Да,") are joined with the next ones.
+ val firstLine=remember(segments) {
+  val text=StringBuilder()
+  for(s in segments) { val t=s.text.trim();if(t.isEmpty()) continue;if(text.isNotEmpty()) text.append(' ');text.append(t);if(text.length>=80) break }
+  text.toString().take(160).ifEmpty { null }
+ }
  val language=remember(r.diagnostics) { languageShort(ru.replika.domain.TranscriptLanguage.fromDiagnostics(r.diagnostics)) }
  val meta=buildList {
   if(r.durationMs>0) add(audioClock(r.durationMs))

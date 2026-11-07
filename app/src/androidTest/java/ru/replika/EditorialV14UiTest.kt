@@ -89,6 +89,8 @@ class EditorialV14UiTest {
   for(theme in listOf(ThemeMode.LIGHT,ThemeMode.DARK)) {
    compose.activityRule.scenario.onActivity { vm.selected.value=null;vm.selectTheme(theme) }
    compose.waitUntil(5000) { runBlocking { AppearancePreferences(app).mode.first()==theme } }
+   // A theme switch can recreate the Activity; wait until its Compose hierarchy is back.
+   compose.waitUntil(10000) { runCatching { compose.onAllNodesWithTag("tab-library").fetchSemanticsNodes().isNotEmpty() }.getOrDefault(false) }
    compose.onNodeWithTag("tab-library").performClick()
    capture("${theme.name}-library")
    compose.onNodeWithTag("appearance-settings").performClick()
@@ -162,9 +164,11 @@ class EditorialV14UiTest {
   capture("virtual-mic-recording")
   compose.onNodeWithTag("recording-pause").performClick();singleLineAction("Продолжить");singleLineAction("Сохранить");contentAboveRecordingActions(true);capture("virtual-mic-paused")
   compose.onNodeWithTag("recording-pause").performClick()
+  // System Back is asynchronous: wait for each effect (decision shown, then dismissed and resumed).
   InstrumentationRegistry.getInstrumentation().uiAutomation.performGlobalAction(android.accessibilityservice.AccessibilityService.GLOBAL_ACTION_BACK)
+  compose.waitUntil(10000) { vm.recordingPhase.value==RecordingPhase.PAUSED && compose.onAllNodesWithTag("recording-decision").fetchSemanticsNodes().isNotEmpty() }
   InstrumentationRegistry.getInstrumentation().uiAutomation.performGlobalAction(android.accessibilityservice.AccessibilityService.GLOBAL_ACTION_BACK)
-  compose.waitUntil(10000) { vm.recordingPhase.value==RecordingPhase.RECORDING }
+  compose.waitUntil(10000) { vm.recordingPhase.value==RecordingPhase.RECORDING && compose.onAllNodesWithTag("recording-decision").fetchSemanticsNodes().isEmpty() }
   compose.onNodeWithTag("recording-stop").performClick() // ✓ saves at once in V1.7.
   compose.onNodeWithTag("recording-decision").assertDoesNotExist()
   compose.waitUntil(12000) { vm.recordingPhase.value==RecordingPhase.SAVED }
