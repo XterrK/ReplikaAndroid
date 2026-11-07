@@ -228,7 +228,7 @@ fun languageShort(summary: String?)=when(summary) { "en"->"EN";"mixed"->"RU + EN
     Icon(if(ready) Icons.Outlined.GraphicEq else if(error) Icons.Outlined.ErrorOutline else Icons.Outlined.AudioFile,null,tint=if(error) MaterialTheme.colorScheme.error else Color.White,modifier=Modifier.size(20.dp))
    }
    Column(Modifier.weight(1f),verticalArrangement=Arrangement.spacedBy(4.dp)) {
-    Text(r.title,style=MaterialTheme.typography.titleMedium,maxLines=2,overflow=TextOverflow.Ellipsis)
+    Text(remember(r.title) { breakableTitle(r.title) },style=MaterialTheme.typography.titleMedium,maxLines=2,overflow=TextOverflow.Ellipsis)
     Text(meta,color=Muted,style=MaterialTheme.typography.bodySmall,modifier=Modifier.testTag("recording-meta-${r.id}"))
     if(ready && firstLine!=null) Text(firstLine,color=Muted,style=MaterialTheme.typography.bodyMedium,maxLines=2,overflow=TextOverflow.Ellipsis,modifier=Modifier.testTag("recording-preview-${r.id}"))
     if(!ready) Text(r.phase,color=if(error) MaterialTheme.colorScheme.error else Blue,style=MaterialTheme.typography.labelMedium,maxLines=2)

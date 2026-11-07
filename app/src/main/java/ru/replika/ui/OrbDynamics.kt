@@ -47,18 +47,23 @@ class OrbDynamics {
  var stretch=0f;private set
  private var stretchSpeed=0f
  var touchAngle=0f;private set
- private var targetAngle=0f
  var centerX=0f;private set
  var centerY=0f;private set
  private var centerSpeedX=0f
  private var centerSpeedY=0f
  private var touchX=0f
  private var touchY=0f
- private var stretchTarget=0f
  var contactEnergy=0f;private set
  private var contactSpeed=0f
  var isTouching=false;private set
  private var lastLevel=0f
+ /**
+  * Isotropic "water balloon" spread: a tap is a weight dropped on the bubble — it flattens and
+  * runs out evenly in every direction, then springs back. Applied as a uniform radius scale after
+  * area normalization, so it can never bend the circle into an oval.
+  */
+ var spread=0f;private set
+ private var spreadSpeed=0f
  /** Jelly membrane: radial displacement of [RING] mass points joined by springs to rest and to neighbours. */
  val ring=FloatArray(RING)
  private val ringSpeed=FloatArray(RING)
@@ -66,7 +71,7 @@ class OrbDynamics {
  /** Count of particle/tap impacts since creation; display-only telemetry for tests. */
  var impacts=0;private set
  val ringMotion: Boolean get() { for(i in 0 until RING) if(abs(ring[i])>.002f || abs(ringSpeed[i])>.02f) return true;return false }
- val hasInteractionMotion get()=isTouching || abs(stretch)>.003f || abs(stretchSpeed)>.015f || abs(centerX)+abs(centerY)>.004f || abs(centerSpeedX)+abs(centerSpeedY)>.02f || abs(contactSpeed)>.02f || ringMotion
+ val hasInteractionMotion get()=isTouching || abs(spread)>.002f || abs(spreadSpeed)>.015f || abs(centerX)+abs(centerY)>.004f || abs(centerSpeedX)+abs(centerSpeedY)>.02f || abs(contactSpeed)>.02f || ringMotion
 
  /**
   * A blow on the film at [angle]: an inward velocity impulse with a Gaussian footprint. Area
@@ -81,30 +86,27 @@ class OrbDynamics {
    val node=i*(2f*PI.toFloat()/RING)
    val d=atan2(sin(node-angle),cos(node-angle))
    val w=exp(-(d*d)/(2f*.30f*.30f))
-   ringSpeed[i]=(ringSpeed[i]-s*1.15f*w).coerceIn(-4f,4f)
+   ringSpeed[i]=(ringSpeed[i]-s*.85f*w).coerceIn(-4f,4f)
   }
  }
 
+ /**
+  * A tap anywhere spreads the bubble evenly (no direction, no oval). Rapid taps add velocity, but
+  * velocity and amplitude are capped, so nothing accumulates: every tap decays back to the circle.
+  */
  fun press(x: Float=0f,y: Float=0f) {
   isTouching=true
   moveTouch(x,y)
-  val distance=sqrt(touchX*touchX+touchY*touchY)
-  // A finger near the film dents it locally; a central tap squashes the whole bubble from above.
-  if(distance>.12f) impact(atan2(touchY,touchX),.55f+distance*.35f) else { impact(-PI.toFloat()/2,.6f);impact(PI.toFloat()/2,.35f) }
-  // An impulse makes even a short tap elastic; holding then dragging continuously stretches it.
-  stretchSpeed=(stretchSpeed+1.9f).coerceAtMost(3.5f)
+  impacts++
+  spreadSpeed=(spreadSpeed+SPREAD_KICK).coerceIn(-SPREAD_MAX_SPEED,SPREAD_MAX_SPEED)
   contactSpeed=(contactSpeed+3.2f).coerceAtMost(5f)
-  speeds[0]=(speeds[0]+.32f).coerceIn(-.8f,.8f)
-  speeds[1]=(speeds[1]-.19f).coerceIn(-.8f,.8f)
  }
+ /** The finger position only nudges the whole bubble (a translation that springs home), never its shape. */
  fun moveTouch(x: Float,y: Float) {
   touchX=if(x.isFinite()) x.coerceIn(-1f,1f) else 0f
   touchY=if(y.isFinite()) y.coerceIn(-1f,1f) else 0f
-  val distance=sqrt(touchX*touchX+touchY*touchY).coerceAtMost(1f)
-  targetAngle=if(distance>.12f) atan2(touchY,touchX) else 0f
-  stretchTarget=.19f+distance*.17f
  }
- fun release() { isTouching=false;stretchTarget=0f;touchX=0f;touchY=0f }
+ fun release() { isTouching=false;touchX=0f;touchY=0f }
  fun poke(x: Float=0f,y: Float=0f) { press(x,y);release() }
 
  fun step(delta: Float,level: Float,active: Boolean,reduced: Boolean=false) {
@@ -115,7 +117,7 @@ class OrbDynamics {
   if(reduced) {
    expansion=target;velocity=0f;modes.fill(0f);speeds.fill(0f)
    stretch=0f;stretchSpeed=0f;centerX=0f;centerY=0f;centerSpeedX=0f;centerSpeedY=0f;contactEnergy=0f;contactSpeed=0f
-   ring.fill(0f);ringSpeed.fill(0f)
+   spread=0f;spreadSpeed=0f;ring.fill(0f);ringSpeed.fill(0f)
    lastLevel=amplitude;return
   }
   val onset=(amplitude-lastLevel).coerceAtLeast(0f)
@@ -128,17 +130,17 @@ class OrbDynamics {
    velocity+=(88f*(target-expansion)-11.8f*velocity)*h
    expansion=(expansion+velocity*h).coerceIn(-.025f,.235f)
    for(j in modes.indices) {
-    val goal=(.0015f+amplitude*.016f)/sqrt((j+1).toFloat())*sin(time*(1.65f+j*.43f)+j*1.3f)
+    val goal=((if(active) .0015f else .0004f)+amplitude*.016f)/sqrt((j+1).toFloat())*sin(time*(1.65f+j*.43f)+j*1.3f)
     speeds[j]+=((36+j*10)*(goal-modes[j])-5.7f*speeds[j])*h
     modes[j]=(modes[j]+speeds[j]*h).coerceIn(-.026f,.026f)
    }
-   // Angular interpolation follows the short arc when a finger crosses -pi/pi.
-   val angleDelta=atan2(sin(targetAngle-touchAngle),cos(targetAngle-touchAngle))
-   touchAngle+=angleDelta*(1f-exp(-h*13f))
-   stretchSpeed+=(62f*(stretchTarget-stretch)-7.8f*stretchSpeed)*h
-   stretch=(stretch+stretchSpeed*h).coerceIn(-.16f,.43f)
-   val goalX=if(isTouching) touchX*.16f else 0f
-   val goalY=if(isTouching) touchY*.16f else 0f
+   // Holding presses the balloon flat; releasing lets it spring back through a few jelly wobbles.
+   val spreadGoal=if(isTouching) SPREAD_HOLD else 0f
+   spreadSpeed+=(SPREAD_STIFFNESS*(spreadGoal-spread)-SPREAD_DAMPING*spreadSpeed)*h
+   spreadSpeed=spreadSpeed.coerceIn(-SPREAD_MAX_SPEED,SPREAD_MAX_SPEED)
+   spread=(spread+spreadSpeed*h).coerceIn(-SPREAD_MAX*.55f,SPREAD_MAX)
+   val goalX=if(isTouching) touchX*.08f else 0f
+   val goalY=if(isTouching) touchY*.08f else 0f
    centerSpeedX+=(72f*(goalX-centerX)-10f*centerSpeedX)*h
    centerSpeedY+=(72f*(goalY-centerY)-10f*centerSpeedY)*h
    centerX=(centerX+centerSpeedX*h).coerceIn(-.19f,.19f)
@@ -166,8 +168,7 @@ class OrbDynamics {
   val ellipse=1f/sqrt(cosine*cosine/(sx*sx)+sine*sine/(sy*sy))
   var wave=0f
   for(j in modes.indices) wave+=modes[j]*sin(angle*(j+2)+time*.24f+j*1.7f)
-  val ripple=contactEnergy*.085f*cos(relative*3f-time*1.1f)
-  return ellipse*(1f+((wave*1.4f+ripple).coerceIn(-.20f,.20f)+ringAt(angle)).coerceIn(-.30f,.34f)+.003f*sin(angle*3f+time*.48f))
+  return ellipse*(1f+((wave*1.4f).coerceIn(-.20f,.20f)+ringAt(angle)).coerceIn(-.30f,.34f))
  }
 
  /** Catmull-Rom interpolation keeps a smooth film between the [RING] mass points. */
@@ -185,6 +186,12 @@ class OrbDynamics {
   const val RING_TENSION=820f
   const val RING_DAMPING=3.4f
   const val RING_LIMIT=.26f
+  const val SPREAD_STIFFNESS=78f
+  const val SPREAD_DAMPING=5.2f
+  const val SPREAD_KICK=1.05f
+  const val SPREAD_HOLD=.07f
+  const val SPREAD_MAX=.15f
+  const val SPREAD_MAX_SPEED=2.2f
  }
 }
 

@@ -96,12 +96,26 @@ class HomeExperienceV15Test {
  @Test fun newRecordingDefaultsToAutomaticAndManualModesRemainSelectable() {
   runBlocking { app.db.dao().insert(Recording(id,"Новый импорт · default auto",File(app.filesDir,"integration-example.wav").path,status="IMPORTED")) }
   compose.activityRule.scenario.onActivity { vm.selected.value=id }
+  // V1.7b: no setup screen. One line shows the defaults; the parameters live in an optional sheet.
+  compose.waitUntil(10000) { compose.onAllNodesWithTag("processing-options").fetchSemanticsNodes().isNotEmpty() }
+  compose.onNodeWithTag("processing-options-summary",useUnmergedTree=true).assertTextEquals("Говорящие: авто · Язык: авто")
+  compose.onNodeWithTag("create-transcript").assertIsDisplayed().assertIsEnabled()
+  compose.onNodeWithTag("speakers-automatic").assertDoesNotExist()
+  // Everything fits without scrolling on a phone-sized screen.
+  val pane=compose.onNodeWithTag("processing-pane").getUnclippedBoundsInRoot()
+  val row=compose.onNodeWithTag("processing-options").getUnclippedBoundsInRoot()
+  assertTrue("Processing setup must not need scrolling",row.bottom<=pane.bottom)
+  compose.onNodeWithTag("processing-options").performClick()
   compose.waitUntil(10000) { compose.onAllNodesWithTag("speakers-automatic").fetchSemanticsNodes().isNotEmpty() }
   compose.onNodeWithTag("speakers-automatic").assertIsSelected()
   compose.onNodeWithTag("speakers-single").assertIsNotSelected().performClick().assertIsSelected()
   compose.onNodeWithTag("speakers-fixed").performClick().assertIsSelected()
   compose.onNodeWithTag("speaker-count").assertIsDisplayed()
   compose.onNodeWithTag("speakers-automatic").performClick().assertIsSelected()
+  compose.onNodeWithTag("speakers-single").performClick()
+  androidx.test.espresso.Espresso.pressBack()
+  compose.waitUntil(10000) { compose.onAllNodesWithTag("processing-options-sheet").fetchSemanticsNodes().isEmpty() }
+  assertEquals("Dismissing the sheet starts nothing","IMPORTED",runBlocking { app.db.dao().recording(id)!!.status })
  }
  @Test fun largeMonoWaveformAndTransportStayCenteredAndSeekIsAccessible() {
   compose.activityRule.scenario.onActivity { vm.selected.value=id }

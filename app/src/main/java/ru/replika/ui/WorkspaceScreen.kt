@@ -82,6 +82,7 @@ private val EditorRowSaver=listSaver<SegmentRow?,Any>(
  var titleEditing by remember(rec.id) { mutableStateOf(false) }
  var choosingFilter by remember(rec.id) { mutableStateOf(false) }
  var exporting by remember(rec.id) { mutableStateOf(false) }
+ var reprocessing by remember(rec.id) { mutableStateOf(false) }
  val listState=rememberLazyListState()
  val ready=rec.status=="READY"
  val peaks=remember(rec.peaks) { rec.peaks.split(',').mapNotNull { it.toFloatOrNull() } }
@@ -135,7 +136,8 @@ private val EditorRowSaver=listSaver<SegmentRow?,Any>(
    Row(Modifier.fillMaxWidth().padding(start=4.dp,end=4.dp,top=4.dp,bottom=8.dp),verticalAlignment=Alignment.Top) {
     IconButton(onClick=onBack) { Icon(Icons.Outlined.ArrowBack,"Назад в библиотеку") }
     Column(Modifier.weight(1f).padding(top=10.dp,start=4.dp,end=4.dp),verticalArrangement=Arrangement.spacedBy(8.dp)) {
-     Text(rec.title,style=MaterialTheme.typography.titleLarge,maxLines=3,overflow=TextOverflow.Ellipsis,
+     // File names wrap at their separators ("dialog-two-speakers.wav"), not in the middle of a word.
+     Text(remember(rec.title) { breakableTitle(rec.title) },style=MaterialTheme.typography.titleLarge,maxLines=3,overflow=TextOverflow.Ellipsis,
       modifier=Modifier.clickable(onClickLabel="Переименовать запись") { titleEditing=true }.testTag("workspace-title"))
      FlowRow(horizontalArrangement=Arrangement.spacedBy(12.dp),verticalArrangement=Arrangement.spacedBy(6.dp),itemVerticalAlignment=Alignment.CenterVertically,modifier=Modifier.testTag("workspace-meta")) {
       Text(if(rec.durationMs>0) audioClock(rec.durationMs) else "Аудиофайл",style=MaterialTheme.typography.labelMedium,color=Muted)
@@ -144,6 +146,7 @@ private val EditorRowSaver=listSaver<SegmentRow?,Any>(
       LocalOnlyLabel()
      }
     }
+    if(ready) IconButton(onClick={reprocessing=true},modifier=Modifier.testTag("reprocess-options")) { Icon(Icons.Outlined.Tune,"Обработать заново с другими параметрами") }
     if(ready) IconButton(onClick={exporting=true},modifier=Modifier.testTag("workspace-export")) { Icon(Icons.Outlined.IosShare,"Экспорт стенограммы") }
    }
    if(!ready) {
@@ -223,6 +226,8 @@ private val EditorRowSaver=listSaver<SegmentRow?,Any>(
   AlertDialog(onDismissRequest={titleEditing=false},containerColor=SurfaceRaised,title={Text("Название записи")},text={OutlinedTextField(value,{value=it},label={Text("Название")})},confirmButton={TextButton(onClick={vm.title(rec.id,value);titleEditing=false}) { Text("Сохранить") }},dismissButton={TextButton(onClick={titleEditing=false}) { Text("Отмена") }})
  }
  if(exporting) TranscriptExport(vm,rec,onDismiss={exporting=false})
+ if(reprocessing) ProcessingOptionsSheet(ProcessingOptions.of(rec),"Обработать заново","Стенограмма будет создана заново. Ручные правки текущей версии будут заменены.",
+  onConfirm={ reprocessing=false;vm.processWith(rec.id,it) },onDismiss={reprocessing=false})
 }
 
 @Composable private fun SpeakerTimeline(rows: List<SegmentRow>,duration: Long,position: Long) {
@@ -277,64 +282,106 @@ private val EditorRowSaver=listSaver<SegmentRow?,Any>(
  val fraction=current?.fraction
  if(fraction!=null) LinearProgressIndicator(progress={ fraction },modifier=Modifier.fillMaxWidth().testTag("processing-progress-bar"))
  else LinearProgressIndicator(Modifier.fillMaxWidth())
- if(current!=null) Row(Modifier.fillMaxWidth(),horizontalArrangement=Arrangement.SpaceBetween,verticalAlignment=Alignment.CenterVertically) {
+ // Wraps instead of colliding when the font is large: stage on one line, time left on the next.
+ if(current!=null) FlowRow(Modifier.fillMaxWidth(),horizontalArrangement=Arrangement.spacedBy(16.dp),verticalArrangement=Arrangement.spacedBy(4.dp)) {
   Text(current.stage.title+(current.percent?.let { " · $it %" }?:""),style=MaterialTheme.typography.labelLarge,modifier=Modifier.testTag("processing-progress-stage"))
   ru.replika.domain.ProcessingEta.format(current.etaMs)?.let { Text("Осталось $it",style=MaterialTheme.typography.labelLarge,color=Muted,modifier=Modifier.testTag("processing-eta")) }
  }
  if(current!=null && current.audioMs>0 && current.fraction!=null) Text("Обработано ${audioClock(current.processedMs)} из ${audioClock(current.audioMs)}",style=MaterialTheme.typography.bodySmall,color=Muted,modifier=Modifier.testTag("processing-progress-audio"))
 }
 
-@Composable private fun ProcessingPane(vm: AppViewModel,rec: Recording,modifier: Modifier=Modifier) {
- var speakerMode by rememberSaveable(rec.id) { mutableStateOf(if(rec.expectedSpeakers==1) "single" else if(rec.expectedSpeakers>1) "fixed" else "automatic") }
- val ordinaryThreads=if(ru.replika.BuildConfig.DEFAULT_CPU_PLAN=="auto_v1") 0 else 2
- var threads by rememberSaveable(rec.id) { mutableIntStateOf(ordinaryThreads) }
- var count by rememberSaveable(rec.id) { mutableStateOf(if(rec.expectedSpeakers>0) rec.expectedSpeakers.toString() else "2") }
- var language by rememberSaveable(rec.id) { mutableStateOf(ru.replika.BuildConfig.DEFAULT_LANGUAGE_MODE) }
- var perSegmentLanguage by rememberSaveable(rec.id) { mutableStateOf(false) }
- var details by remember(rec.id) { mutableStateOf(false) }
- val busy=rec.status in setOf("QUEUED","PROCESSING","CANCELLING")
- Column(modifier.fillMaxWidth().testTag("processing-pane").imePadding().verticalScroll(rememberScrollState()).padding(20.dp),verticalArrangement=Arrangement.spacedBy(20.dp)) {
-  Spacer(Modifier.height(8.dp))
-  when {
-   busy -> {
-    Text(if(rec.status=="CANCELLING") "Отмена запрошена" else "Создаём стенограмму",style=MaterialTheme.typography.headlineMedium)
-    Column(Modifier.fillMaxWidth().background(SurfaceBase,ProductShape.panel).padding(20.dp),verticalArrangement=Arrangement.spacedBy(16.dp)) {
-     Text(rec.phase,style=MaterialTheme.typography.titleMedium,modifier=Modifier.testTag("processing-phase"))
-     ProcessingProgressBlock(vm,rec)
-     Text(if(rec.status=="CANCELLING") "Текущую нативную операцию нельзя прервать мгновенно. Завершаем её; запись останется в библиотеке." else "Аудио обрабатывается на устройстве. Можно вернуться к библиотеке — задание продолжится.",style=MaterialTheme.typography.bodyMedium,color=Muted)
-    }
-    if(rec.status!="CANCELLING") OutlinedButton(shape=ProductShape.control,onClick={vm.cancel(rec.id)},modifier=Modifier.heightIn(min=48.dp)) { Text("Отменить обработку") }
-   }
-   else -> {
-    Text(if(rec.status=="ERROR") "Не удалось обработать аудио" else if(rec.status=="CANCELLED") "Обработка остановлена" else "Готово к обработке",style=MaterialTheme.typography.headlineMedium)
-    Text(if(rec.status=="ERROR") vm.errorMessage("Обработка",rec.error) else "Выберите число участников. Аудио и стенограмма сохраняются только на устройстве.",style=MaterialTheme.typography.bodyMedium,color=Muted)
-    if(rec.status=="ERROR" && !rec.error.isNullOrBlank()) {
-     TextButton(onClick={details=!details}) { Text(if(details) "Скрыть подробности" else "Технические подробности") }
-     if(details) Text(rec.error.orEmpty(),style=MaterialTheme.typography.bodySmall,color=Muted,modifier=Modifier.testTag("processing-technical-error"))
-    }
-    Column(Modifier.fillMaxWidth().background(SurfaceBase,ProductShape.panel).padding(16.dp),verticalArrangement=Arrangement.spacedBy(12.dp)) {
-     Text("Количество говорящих",style=MaterialTheme.typography.titleMedium)
-     Column {
-      listOf("automatic" to "Автоматически", "single" to "Один говорящий", "fixed" to "Фиксированное число говорящих").forEach { (key,label) ->
-       Row(Modifier.fillMaxWidth().heightIn(min=48.dp).selectable(speakerMode==key,role=Role.RadioButton) { speakerMode=key }.testTag("speakers-"+key),verticalAlignment=Alignment.CenterVertically) { RadioButton(speakerMode==key,null);Spacer(Modifier.width(8.dp));Text(label,style=MaterialTheme.typography.bodyLarge) }
-      }
-     }
-     if(speakerMode=="single") Text("Для монолога. Все фрагменты будут у одного участника; обработка быстрее.",style=MaterialTheme.typography.bodySmall,color=Muted)
-     if(speakerMode=="automatic") Text("Число участников может быть неточным. Для известного состава выберите другой режим.",style=MaterialTheme.typography.bodySmall,color=Muted)
-     if(speakerMode=="fixed") OutlinedTextField(count,{count=it.filter(Char::isDigit).take(2)},label={Text("Число говорящих")},supportingText={Text("От 2 до 20 участников.")},keyboardOptions=KeyboardOptions(keyboardType=KeyboardType.Number),singleLine=true,isError=count.toIntOrNull()?.let { it in 2..20 }!=true,modifier=Modifier.fillMaxWidth().testTag("speaker-count"))
-     LanguageChoice(ru.replika.domain.LanguageMode.fromPersistedId(language),perSegmentLanguage,onLanguage={language=it.wireId},onPerSegment={perSegmentLanguage=it})
-     Text("Нагрузка на процессор",style=MaterialTheme.typography.labelLarge)
-     Row(horizontalArrangement=Arrangement.spacedBy(8.dp)) {
-      FilterChip(selected=threads==1,onClick={threads=1},label={Text("Умеренная")})
-      FilterChip(selected=threads!=1,onClick={threads=ordinaryThreads},label={Text("Обычная")})
-     }
-    }
-    GradientButton(if(rec.status=="IMPORTED") "Создать стенограмму" else "Повторить обработку",Icons.Outlined.AutoAwesome,onClick={vm.process(rec.id,when(speakerMode) { "single"->1;"fixed"->count.toInt();else->-1 },if(threads==1) 1 else ordinaryThreads,
-      ru.replika.domain.LanguageMode.fromPersistedId(language),perSegmentLanguage)},enabled=speakerMode!="fixed" || count.toIntOrNull()?.let { it in 2..20 }==true,modifier=Modifier.fillMaxWidth().testTag("create-transcript"))
-    Text("Нужны выбранная модель распознавания и VAD; для нескольких участников — модели говорящих. Управление установкой — в разделе «Модели».",style=MaterialTheme.typography.bodySmall,color=Muted)
-   }
+/** Processing parameters. Defaults are automatic speakers and automatic language: no choice needed. */
+data class ProcessingOptions(val speakerMode: String="automatic",val count: String="2",val language: String=ru.replika.BuildConfig.DEFAULT_LANGUAGE_MODE,val perSegment: Boolean=false,val moderate: Boolean=false) {
+ val valid get()=speakerMode!="fixed" || count.toIntOrNull()?.let { it in 2..20 }==true
+ val speakers get()=when(speakerMode) { "single"->1;"fixed"->count.toIntOrNull()?:2;else->-1 }
+ val languageMode get()=ru.replika.domain.LanguageMode.fromPersistedId(language)
+ val summary get()="Говорящие: "+when(speakerMode) { "single"->"один";"fixed"->count;else->"авто" }+" · Язык: "+when(languageMode) {
+  ru.replika.domain.LanguageMode.AUTO->if(perSegment) "авто по фрагментам" else "авто"
+  ru.replika.domain.LanguageMode.RU->"русский"
+  ru.replika.domain.LanguageMode.EN->"English"
+ }
+ companion object {
+  fun of(rec: Recording)=ProcessingOptions(speakerMode=if(rec.expectedSpeakers==1) "single" else if(rec.expectedSpeakers>1) "fixed" else "automatic",count=if(rec.expectedSpeakers>1) rec.expectedSpeakers.toString() else "2")
+  val Saver=listSaver<ProcessingOptions,Any>(save={ listOf(it.speakerMode,it.count,it.language,it.perSegment,it.moderate) },restore={ ProcessingOptions(it[0] as String,it[1] as String,it[2] as String,it[3] as Boolean,it[4] as Boolean) })
+ }
+}
+private fun AppViewModel.processWith(id: String,options: ProcessingOptions) {
+ val ordinary=if(ru.replika.BuildConfig.DEFAULT_CPU_PLAN=="auto_v1") 0 else 2
+ process(id,options.speakers,if(options.moderate) 1 else ordinary,options.languageMode,options.perSegment)
+}
+
+/** One compact line with the current parameters and a way to change them. */
+@Composable private fun ProcessingOptionsRow(options: ProcessingOptions,enabled: Boolean,onEdit: ()->Unit) {
+ Surface(color=SurfaceBase,shape=ProductShape.panel,modifier=Modifier.fillMaxWidth().clip(ProductShape.panel).clickable(enabled=enabled,onClickLabel="Изменить параметры обработки",onClick=onEdit).testTag("processing-options")) {
+  Row(Modifier.padding(start=16.dp,end=8.dp).heightIn(min=56.dp),verticalAlignment=Alignment.CenterVertically,horizontalArrangement=Arrangement.spacedBy(12.dp)) {
+   Icon(Icons.Outlined.Tune,null,Modifier.size(20.dp),tint=Muted)
+   Text(options.summary,style=MaterialTheme.typography.bodyMedium,modifier=Modifier.weight(1f).testTag("processing-options-summary"))
+   if(enabled) Text("Изменить",style=MaterialTheme.typography.labelLarge,color=Blue,modifier=Modifier.padding(end=8.dp))
   }
  }
+}
+
+/** All parameters, only on request. The confirm button runs (or re-runs) processing with them. */
+@Composable fun ProcessingOptionsSheet(initial: ProcessingOptions,confirmLabel: String,warning: String?,onConfirm: (ProcessingOptions)->Unit,onDismiss: ()->Unit) {
+ var o by rememberSaveable(stateSaver=ProcessingOptions.Saver) { mutableStateOf(initial) }
+ ModalBottomSheet(onDismissRequest=onDismiss,containerColor=SurfaceBase,sheetState=rememberModalBottomSheetState(skipPartiallyExpanded=true),modifier=Modifier.testTag("processing-options-sheet")) {
+  DarkSheetSystemBars()
+  Column(Modifier.fillMaxWidth().navigationBarsPadding().imePadding().verticalScroll(rememberScrollState()).padding(horizontal=20.dp).padding(bottom=20.dp),verticalArrangement=Arrangement.spacedBy(12.dp)) {
+   Text("Параметры обработки",style=MaterialTheme.typography.titleLarge)
+   Text("Обычно ничего менять не нужно: число говорящих и язык определяются автоматически.",style=MaterialTheme.typography.bodyMedium,color=Muted)
+   Text("Количество говорящих",style=MaterialTheme.typography.titleMedium)
+   Column {
+    listOf("automatic" to "Автоматически","single" to "Один говорящий","fixed" to "Фиксированное число").forEach { (key,label) ->
+     Row(Modifier.fillMaxWidth().heightIn(min=48.dp).selectable(o.speakerMode==key,role=Role.RadioButton) { o=o.copy(speakerMode=key) }.testTag("speakers-"+key),verticalAlignment=Alignment.CenterVertically) {
+      RadioButton(o.speakerMode==key,null);Spacer(Modifier.width(8.dp));Text(label,style=MaterialTheme.typography.bodyLarge)
+     }
+    }
+   }
+   if(o.speakerMode=="fixed") OutlinedTextField(o.count,{ o=o.copy(count=it.filter(Char::isDigit).take(2)) },label={Text("Число говорящих")},supportingText={Text("От 2 до 20 участников.")},keyboardOptions=KeyboardOptions(keyboardType=KeyboardType.Number),singleLine=true,isError=!o.valid,modifier=Modifier.fillMaxWidth().testTag("speaker-count"))
+   LanguageChoice(o.languageMode,o.perSegment,onLanguage={ o=o.copy(language=it.wireId) },onPerSegment={ o=o.copy(perSegment=it) })
+   Text("Нагрузка на процессор",style=MaterialTheme.typography.titleMedium)
+   Row(horizontalArrangement=Arrangement.spacedBy(8.dp)) {
+    FilterChip(selected=o.moderate,onClick={ o=o.copy(moderate=true) },label={Text("Умеренная")})
+    FilterChip(selected=!o.moderate,onClick={ o=o.copy(moderate=false) },label={Text("Обычная")})
+   }
+   if(warning!=null) Text(warning,style=MaterialTheme.typography.bodySmall,color=Amber)
+   GradientButton(confirmLabel,Icons.Outlined.AutoAwesome,{ onConfirm(o) },enabled=o.valid,modifier=Modifier.fillMaxWidth().testTag("processing-options-confirm"))
+  }
+ }
+}
+
+/**
+ * V1.7b: no setup screen. A saved or imported recording is already processing with the defaults;
+ * this pane shows progress, or — for an older, cancelled or failed item — one button and one line.
+ */
+@Composable private fun ProcessingPane(vm: AppViewModel,rec: Recording,modifier: Modifier=Modifier) {
+ var options by rememberSaveable(rec.id,stateSaver=ProcessingOptions.Saver) { mutableStateOf(ProcessingOptions.of(rec)) }
+ var editing by remember(rec.id) { mutableStateOf(false) }
+ var details by remember(rec.id) { mutableStateOf(false) }
+ val busy=rec.status in setOf("QUEUED","PROCESSING","CANCELLING")
+ Column(modifier.fillMaxWidth().testTag("processing-pane").verticalScroll(rememberScrollState()).padding(horizontal=20.dp,vertical=16.dp),verticalArrangement=Arrangement.spacedBy(16.dp)) {
+  if(busy) {
+   Text(if(rec.status=="CANCELLING") "Останавливаем обработку" else "Создаём стенограмму",style=MaterialTheme.typography.headlineMedium)
+   Column(Modifier.fillMaxWidth().background(SurfaceBase,ProductShape.panel).padding(20.dp),verticalArrangement=Arrangement.spacedBy(14.dp)) {
+    Text(rec.phase,style=MaterialTheme.typography.titleMedium,modifier=Modifier.testTag("processing-phase"))
+    ProcessingProgressBlock(vm,rec)
+    Text(if(rec.status=="CANCELLING") "Текущую операцию нельзя прервать мгновенно. Завершаем её; запись останется в библиотеке." else "Всё происходит на устройстве. Можно вернуться в библиотеку — обработка продолжится.",style=MaterialTheme.typography.bodyMedium,color=Muted)
+   }
+   ProcessingOptionsRow(options,enabled=false) {}
+   if(rec.status!="CANCELLING") OutlinedButton(shape=ProductShape.control,onClick={vm.cancel(rec.id)},modifier=Modifier.heightIn(min=48.dp).testTag("processing-cancel")) { Text("Отменить обработку") }
+  } else {
+   Text(when(rec.status) { "ERROR"->"Не удалось обработать аудио";"CANCELLED"->"Обработка остановлена";else->"Запись готова к расшифровке" },style=MaterialTheme.typography.headlineMedium)
+   Text(if(rec.status=="ERROR") vm.errorMessage("Обработка",rec.error) else "Аудио и стенограмма остаются только на устройстве.",style=MaterialTheme.typography.bodyMedium,color=Muted)
+   if(rec.status=="ERROR" && !rec.error.isNullOrBlank()) {
+    TextButton(onClick={details=!details},modifier=Modifier.heightIn(min=48.dp)) { Text(if(details) "Скрыть подробности" else "Технические подробности") }
+    if(details) Text(rec.error.orEmpty(),style=MaterialTheme.typography.bodySmall,color=Muted,modifier=Modifier.testTag("processing-technical-error"))
+   }
+   GradientButton(if(rec.status=="IMPORTED") "Создать стенограмму" else "Повторить обработку",Icons.Outlined.AutoAwesome,onClick={vm.processWith(rec.id,options)},enabled=options.valid,modifier=Modifier.fillMaxWidth().testTag("create-transcript"))
+   ProcessingOptionsRow(options,enabled=true) { editing=true }
+  }
+ }
+ if(editing) ProcessingOptionsSheet(options,if(rec.status=="IMPORTED") "Создать стенограмму" else "Повторить обработку",null,
+  onConfirm={ options=it;editing=false;vm.processWith(rec.id,it) },onDismiss={editing=false})
 }
 
 @Composable fun TranscriptExport(vm: AppViewModel,rec: Recording,onDismiss: ()->Unit) {

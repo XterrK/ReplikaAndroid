@@ -38,6 +38,9 @@ class AppViewModel(application: Application): AndroidViewModel(application) {
  val undoAvailable=MutableStateFlow(false)
  val deleting=MutableStateFlow<Set<String>>(emptySet())
  val selected=MutableStateFlow<String?>(null)
+ /** V1.7b: a saved recording or an imported file starts processing at once with the defaults
+  * (speakers automatic, language automatic). Parameters stay available for a re-run. */
+ @Volatile var autoProcessNew=true
  private val transcriptRows=selected.flatMapLatest { id ->
   if(id==null) flowOf(TranscriptState()) else dao.transcriptSnapshot(id).map { snapshot ->
    TranscriptState(id,true,snapshot?.rows.orEmpty().sortedWith(compareBy<SegmentRow> { it.startMs }.thenBy { it.endMs }),snapshot?.speakers.orEmpty(),snapshot?.recording?.status)
@@ -140,6 +143,7 @@ class AppViewModel(application: Application): AndroidViewModel(application) {
     }
     referenced=null
     selected.value=id
+    if(autoProcessNew) process(id,-1)
     if(imported.mode==MediaImporter.Mode.SOURCE_REFERENCE) {
      val size=ru.replika.domain.StorageBudget.formatBytes(imported.sourceBytes)
      val reason=if(imported.sourceBytes>ru.replika.domain.StorageBudget.COPY_LIMIT_BYTES) "Файл большой ($size), поэтому REPLIKA не копирует его"
@@ -377,6 +381,7 @@ class AppViewModel(application: Application): AndroidViewModel(application) {
        dao.insert(Recording(id,"Запись ${java.text.SimpleDateFormat("dd.MM HH:mm",java.util.Locale.ROOT).format(java.util.Date())}",f.path,durationMs=savedDuration,backend=backend.value))
        // Give the physical shell time to settle while the database commit finishes.
        elapsed.value=0;levels.value=emptyList();envelope.reset();recordingPhase.value=RecordingPhase.SAVED;selected.value=id;notice.value="Запись сохранена"
+       if(autoProcessNew && !persistAfterClear) viewModelScope.launch(Dispatchers.Main.immediate) { process(id,-1) }
       } else { check(f.delete()) { "Не удалось удалить черновик записи" };elapsed.value=0;levels.value=emptyList();envelope.reset();if(recordingPhase.value!=RecordingPhase.ERROR) recordingPhase.value=RecordingPhase.IDLE }
      }
     }

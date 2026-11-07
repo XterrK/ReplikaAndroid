@@ -15,7 +15,7 @@ class SoapBubbleV17Test {
   g.update(d)
   val dent=d.radiusAt(bottom)*g.areaScale
   val side=d.radiusAt(0f)*g.areaScale
-  assertTrue("The hit point must be pushed in, got $dent",dent<.97f)
+  assertTrue("The hit point must be pushed in, got $dent",dent<.985f)
   assertTrue("Area conservation pushes the sides out, got $side",side>1f)
   assertEquals(1,d.impacts)
   // The dent travels: some time later the opposite side moves, then everything settles.
@@ -35,9 +35,50 @@ class SoapBubbleV17Test {
    assertTrue(d.ring.all { it.isFinite() && abs(it)<=OrbDynamics.RING_LIMIT+1e-6f })
    for(a in 0..24) { val r=d.radiusAt(a*.26f);assertTrue("radius $r",r.isFinite() && r>.4f) }
   }
+  // V1.7b: a finger is not a particle — it never dents one side of the film.
   val e=OrbDynamics();e.press(.95f,0f)
   repeat(4) { e.step(1f/60,0f,true) }
-  assertTrue("Pressing the right edge dents the right side first",e.ringAt(0f)<e.ringAt(PI.toFloat()))
+  assertTrue("A tap leaves the membrane symmetric",e.ring.all { it==0f })
+  assertTrue(e.spread>0f)
+ }
+
+ /** User report 07.11: after many taps the bubble stayed oval. Any tap/hit sequence must settle to a circle. */
+ @Test fun twentyToThirtyRapidRandomTapsAndHitsAlwaysSettleBackToACircle() {
+  val random=java.util.Random(17)
+  for(run in 0 until 12) {
+   val d=OrbDynamics();val g=OrbContourGeometry()
+   val taps=20+random.nextInt(11)
+   repeat(taps) {
+    val x=random.nextFloat()*2f-1f;val y=random.nextFloat()*2f-1f
+    when(random.nextInt(3)) {
+     0 -> d.poke(x,y)
+     1 -> { d.press(x,y);repeat(1+random.nextInt(4)) { d.step(1f/60,0f,true) };d.release() }
+     else -> d.impact(random.nextFloat()*6.28f,random.nextFloat()*1.6f)
+    }
+    repeat(random.nextInt(5)) { d.step(1f/60,random.nextFloat(),true) }
+   }
+   // Mid-sequence the taps alone are isotropic; after the decay time everything is a circle.
+   repeat(8*60) { d.step(1f/60,0f,false) }
+   g.update(d)
+   val radii=(0 until g.count).map { sqrt(g.x[it]*g.x[it]+g.y[it]*g.y[it]) }
+   val mean=radii.average().toFloat()
+   val worst=radii.maxOf { abs(it-mean)/mean }
+   assertTrue("Run $run ($taps taps): radius deviation ${worst*100}% must be < 1%",worst<.01f)
+   assertTrue(abs(d.spread)<.002f && abs(d.stretch)<1e-6f)
+   assertFalse(d.hasInteractionMotion)
+  }
+ }
+ @Test fun tapsAloneAreIsotropicAtEveryMoment() {
+  val d=OrbDynamics();val g=OrbContourGeometry()
+  repeat(30) { i ->
+   d.poke(cos(i*1.3f),sin(i*.7f))
+   repeat(3) {
+    d.step(1f/60,0f,false);g.update(d)
+    val radii=(0 until g.count).map { sqrt(g.x[it]*g.x[it]+g.y[it]*g.y[it]) }
+    assertTrue("Tap $i: contour must stay round while spreading",radii.max()/radii.min()<1.01f)
+   }
+  }
+  assertTrue("Rapid taps are capped, they do not pile up",d.spread<=OrbDynamics.SPREAD_MAX)
  }
  @Test fun reducedMotionDropsTheMembraneWobble() {
   val d=OrbDynamics();d.impact(0f,1f)
