@@ -140,10 +140,53 @@ def _detect_with_durations(samples, gain, model_root, stages, np, sherpa, min_sp
     return found
 
 
+BRIDGE_PROBE_MS = 1200
+
+
+def dominant_speaker(turns, start_ms: int, end_ms: int):
+    """Speaker with the largest overlap inside [start_ms, end_ms); None when nothing overlaps."""
+    best, best_overlap = None, 0
+    totals = {}
+    for turn in turns:
+        overlap = min(end_ms, turn.end_ms) - max(start_ms, turn.start_ms)
+        if overlap > 0:
+            totals[turn.speaker] = totals.get(turn.speaker, 0) + overlap
+    for speaker, overlap in sorted(totals.items()):
+        if overlap > best_overlap:
+            best, best_overlap = speaker, overlap
+    return best
+
+
+def bridge_gaps(spans, gap_ms: int, turns=None):
+    """Join context spans separated by at most gap_ms so one ASR chunk hears the whole phrase.
+
+    gap_ms=0 keeps the original spans unchanged. With turns, a pause is bridged only when the
+    same known speaker dominates both sides, so a speaker change keeps its own ASR seam.
+    The 20 s chunk planner still splits long results at the lowest-energy point.
+    """
+    if type(gap_ms) is not int or not 0 <= gap_ms <= 3000:
+        raise ValueError("bridge_gap_ms must be an integer in 0..3000 milliseconds")
+    if gap_ms == 0:
+        return spans
+    out = []
+    for span in sorted(spans, key=lambda s: s.start_ms):
+        bridge = bool(out) and span.start_ms - out[-1].end_ms <= gap_ms
+        if bridge and turns is not None:
+            left = dominant_speaker(turns, max(out[-1].start_ms, out[-1].end_ms - BRIDGE_PROBE_MS), out[-1].end_ms)
+            right = dominant_speaker(turns, span.start_ms, min(span.end_ms, span.start_ms + BRIDGE_PROBE_MS))
+            bridge = left is not None and left == right
+        if bridge:
+            out[-1] = type(span)(out[-1].start_ms, max(out[-1].end_ms, span.end_ms))
+        else:
+            out.append(span)
+    return out
+
+
 def process(audio_path, model_root, expected_speakers: int = -1, threads: int = 2,
             punctuation_mode: str = "none", energy_split: bool = True,
             vad_min_speech_sec: float = .25, vad_min_silence_sec: float = .25,
-            vad_threshold: float = .5, pre_roll_ms: int = 100) -> dict:
+            vad_threshold: float = .5, pre_roll_ms: int = 100, bridge_gap_ms: int = 0,
+            bridge_same_speaker: bool = False) -> dict:
     if threads not in (1, 2, 4):
         raise ValueError("Current Android policy allows 1, 2 or 4 threads")
     if expected_speakers != -1 and not 1 <= expected_speakers <= 20:
@@ -228,7 +271,8 @@ def process(audio_path, model_root, expected_speakers: int = -1, threads: int = 
             finally:
                 del diarizer
                 gc.collect()
-    bounded = base.context_spans(spans, duration_ms, pre_roll_ms, 0)
+    bounded = bridge_gaps(base.context_spans(spans, duration_ms, pre_roll_ms, 0), bridge_gap_ms,
+                          turns if bridge_same_speaker else None)
     with base._measure(stages, "alignmentMs"):
         chunks = plan_vad_chunks(bounded, samples, max_ms=20000, energy_split=energy_split)
     segments, slice_results = [], []
@@ -329,7 +373,7 @@ def process(audio_path, model_root, expected_speakers: int = -1, threads: int = 
         "config": {"asrThreads": threads, "vadThreads": 1, "provider": "cpu", "sampleRate": 16000,
                    "featureDim": 80, "dither": 0, "decodingMethod": "greedy_search", "modelType": "nemo_transducer",
                    "vadThreshold": vad_threshold, "vadMinSpeechSec": vad_min_speech_sec, "vadMinSilenceSec": vad_min_silence_sec,
-                   "vadWindowSamples": 512, "vadMaxSpeechSec": 20, "preRollMs": pre_roll_ms, "postRollMs": 0,
+                   "vadWindowSamples": 512, "vadMaxSpeechSec": 20, "preRollMs": pre_roll_ms, "postRollMs": 0, "bridgeGapMs": bridge_gap_ms, "bridgeSameSpeaker": bridge_same_speaker,
                    "maxAsrSegmentMs": 20000, "clusterThreshold": .5, "clusterThresholdApplied": mode == "automatic",
                    "segmentationWindowShiftRatio": .1, "diarMinDurationOnSec": .2, "diarMinDurationOffSec": .5,
                    "quietGainTriggerPeak": .01, "quietGainTargetPeak": .1, "quietGainMax": 20,
@@ -361,13 +405,15 @@ def main():
     parser.add_argument("--vad-min-silence-sec", type=float, default=.25)
     parser.add_argument("--vad-threshold", type=float, default=.5)
     parser.add_argument("--pre-roll-ms", type=int, default=100)
+    parser.add_argument("--bridge-gap-ms", type=int, default=0)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     if args.output.exists():
         parser.error("Preserve existing evidence; choose a new output")
     result = process(args.audio, args.model_root, args.expected_speakers, args.threads,
                      args.punctuation_mode, not args.no_energy_split,
-                     args.vad_min_speech_sec, args.vad_min_silence_sec, args.vad_threshold, args.pre_roll_ms)
+                     args.vad_min_speech_sec, args.vad_min_silence_sec, args.vad_threshold, args.pre_roll_ms,
+                     args.bridge_gap_ms)
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(result, ensure_ascii=False, indent=2, allow_nan=False) + "\n", encoding="utf-8")
     print(json.dumps({"output": str(args.output), "duration_ms": result["duration_ms"],

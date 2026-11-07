@@ -14,7 +14,10 @@ import os
 from pathlib import Path
 import platform
 import re
-from hostmem import peak_rss_kib
+try:
+    from hostmem import peak_rss_kib
+except ImportError:  # imported as tools.eval.run
+    from tools.eval.hostmem import peak_rss_kib
 import sys
 import time
 
@@ -46,7 +49,7 @@ def confined(root, relative):
 def validate_configuration(config):
     allowed = {"schema_version", "id", "pipeline", "expected_speakers", "threads", "notes"}
     if config.get("pipeline") == "vad_words_v1":
-        allowed |= {"punctuation_mode", "energy_split", "vad_min_speech_sec", "vad_min_silence_sec", "vad_threshold", "pre_roll_ms", "bridge_gap_ms"}
+        allowed |= {"punctuation_mode", "energy_split", "vad_min_speech_sec", "vad_min_silence_sec", "vad_threshold", "pre_roll_ms", "bridge_gap_ms", "bridge_same_speaker"}
     if set(config) - allowed:
         raise ValueError("Unsupported configuration options: " + str(sorted(set(config) - allowed)))
     if config.get("schema_version") != 1 or config.get("pipeline") not in {"v16", "vad_words_v1"}:
@@ -171,7 +174,7 @@ def run(args):
     if config["pipeline"] == "vad_words_v1":
         import pipeline_words as selected_pipeline
         options = {"punctuation_mode": config["punctuation_mode"], "energy_split": config["energy_split"]}
-        options.update({key: config[key] for key in ("vad_min_speech_sec", "vad_min_silence_sec", "vad_threshold", "pre_roll_ms", "bridge_gap_ms") if key in config})
+        options.update({key: config[key] for key in ("vad_min_speech_sec", "vad_min_silence_sec", "vad_threshold", "pre_roll_ms", "bridge_gap_ms", "bridge_same_speaker") if key in config})
     manifest = json.loads(args.manifest.read_text(encoding="utf-8"))
     if manifest.get("schema_version") != 1:
         raise ValueError("Unsupported corpus manifest schema")
