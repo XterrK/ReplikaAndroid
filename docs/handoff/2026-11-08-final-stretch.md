@@ -1,27 +1,25 @@
-# Handoff 08.11 ~02:25 — финальный отрезок до сдачи (stop coding 09:00)
+# Handoff 08.11 ~04:00 — финальный отрезок до сдачи (stop coding 09:00, заморозка 06:00)
 
-**Ветка:** `hack/final` (origin `XterrK/ReplikaAndroid`), HEAD `91f33ad5` (видео). Сборка 1.7 / code 9.
+**Ветка:** `hack/final` (origin `XterrK/ReplikaAndroid`), HEAD `f9075a53`, запушено. Сборка 1.7 / code 9.
+**Кандидат в релиз:** `app/build/outputs/apk/allInOne/app-allInOne.apk`, 839 901 555 Б,
+sha256 `5e26ecc98d3090602dac6b0eacde1f378002660a3ede8d0d1406dbd8cad22fe3` (стоит на телефоне vivo).
 
-## Сделано
-- Видео: `artifacts/demo/demo.mp4` (2:05, 1080p, тихая CC BY музыка, −25,5 LUFS) + `demo-poster.jpg`, README с таймкодами.
-  Исходник HyperFrames: `C:\R\replika-video` (`build_comp.py` → `composition/`, `npx hyperframes@0.9.20 render --quality delivery`).
-- Шум/GTCRN (шаг 15), ближайший говорящий (шаг 13), FP32 отклонён — в `docs/STEP_1x_*.md`, `docs/DEFENSE_UPDATE.md`.
-- Ветка `claude/gallant-khorana-199242`, коммит `2abc667b` (шаг 14, ASR параллельно с диаризацией):
-  JSON побитно совпадает, −11…−15% времени, +250–430 МБ пикового PSS (есть откат на последовательный путь).
-  **Слита 08.11 ~02:30 с согласия пользователя: merge `72dffbf8`.** Тесты/сборка после слияния — см. ниже.
+## Сделано за ночь (после основного отчёта)
+- Видео `artifacts/demo/demo.mp4` (2:05) + постер + README. Исходник HyperFrames: `C:\R\replika-video`.
+- Шаг 14 (ASR параллельно с диаризацией) слит, но **выключен по умолчанию** (`ParallelAsrDiarPolicy.DEFAULT_ENABLED=false`):
+  на ARM-телефоне выигрыша нет, на 13 мин перегрев (627 с ожидания). Итог — в `docs/STEP_14_PARALLEL_ASR_DIAR.md`.
+- «Аналитика встречи» (кто сколько говорил) — чип на экране стенограммы, `domain/MeetingStats.kt`, тесты.
+- JVM: 271 тест, 0 падений, 2 пропуска. Телефон: phoneFinal4/5 — транскрипты совпадают с phoneFinal3.
+  RTF в phoneFinal5 (0,40/0,48) снят на горячем телефоне; для отчётов использовать phoneFinal3 (0,35/0,41/0,41).
+- DER с допуском ±0,25 с — только измерение, в `docs/DEFENSE_UPDATE.md` (по итоговому JSON 15–23%, строго 18–28%).
 
-## Дальше (по порядку)
-1. После слияния шага 14: JVM-тесты + чистая сборка APK (логи `C:\R\logs\step14-*.log`); установить на телефон в 04:30.
-2. ~04:30 проверка на телефоне (пользователь подключает, экран разблокирован, stay-awake):
-   `scratchpad\run_batch.ps1` / `EvaluationBatchTest#stagedCanonicalInputsThroughProductionWorker`, RU+EN, 13 мин.
-   Гонять через подагента/рабочую сессию на Sonnet, отчёт ≤20 строк.
-3. 06:00 заморозка кода → чистая сборка → GitHub Release (APK + sha256 + demo.mp4), README: убрать TBD про имя релиза.
-4. 07:00–08:30: XterrK делает репозиторий публичным и включает Pages = GitHub Actions; добавить
-   `.github/workflows/pages.yml` по `site/README.md`, проверить ссылку без входа. Ссылку отправить до 09:00.
-5. По желанию: скриншоты V1.7 для слайдов 1 и 6 (см. `docs/DEFENSE_UPDATE.md`).
+## Дальше
+1. GitHub Release: APK выше + sha256 + `demo.mp4`; в README убрать TBD про имя релиза. Запускать на Sonnet.
+2. 07:00–08:30: XterrK делает репозиторий публичным + Pages = GitHub Actions; добавить `.github/workflows/pages.yml`
+   по `site/README.md`, проверить ссылку без входа. Ссылку отправить до 09:00.
+3. По желанию: скриншоты V1.7 (включая «Аналитику») для слайдов 1 и 6.
 
 ## Риски
 - Не публиковать `local-dev/debug.keystore`, серийник телефона, приватную БД. Без force-push.
-- Залоченный телефон замораживает приложение во время прогонов.
-- Частицы на экране записи в видео не попали (на эмуляторе нет микрофона) — честно сказано в README.
-- Правила экономии: `memory/token-economy-rules.md` (≤180k контекста, сборки/adb — на Sonnet/Haiku).
+- Перед финальной сборкой удалять `app/build/outputs/apk` (иначе мёртвый хвост 208 МБ).
+- Правила экономии: `memory/token-economy-rules.md`; все ответы пользователю — по-русски.
