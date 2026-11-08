@@ -5,7 +5,7 @@
 sha256 `5e26ecc98d3090602dac6b0eacde1f378002660a3ede8d0d1406dbd8cad22fe3` (стоит на телефоне vivo).
 
 ## Сделано за ночь (после основного отчёта)
-- Видео `artifacts/demo/demo.mp4` (2:05) + постер + README. Исходник HyperFrames: `C:\R\replika-video`.
+- Видео `artifacts/demo/demo.mp4` (1:00, все футажи с телефона vivo) + постер + README. Исходник HyperFrames: `C:\R\replika-video` (`build_comp60.py` → `composition60/`; прежняя 2-минутная версия — `build_comp.py`).
 - Шаг 14 (ASR параллельно с диаризацией) слит, но **выключен по умолчанию** (`ParallelAsrDiarPolicy.DEFAULT_ENABLED=false`):
   на ARM-телефоне выигрыша нет, на 13 мин перегрев (627 с ожидания). Итог — в `docs/STEP_14_PARALLEL_ASR_DIAR.md`.
 - «Аналитика встречи» (кто сколько говорил) — чип на экране стенограммы, `domain/MeetingStats.kt`, тесты.
