@@ -34,7 +34,8 @@ REPLIKA превращает запись разговора в текст: кт
 
 1. Откройте [GitHub Releases](https://github.com/XterrK/ReplikaAndroid/releases) репозитория.
 2. Скачайте APK для телефона (arm64, ≈ 840 МБ, все модели внутри).
-   {{TBD: имя финального релиза и APK для сдачи; до него — `REPLIKA-Hack-Step05-AutoCPU-AllInOne-arm64.apk` из релиза `hack-step05-20261107`}}
+   Финальный релиз для сдачи — [REPLIKA 1.7 (code 9) — Nuclear IT Hack](https://github.com/XterrK/ReplikaAndroid/releases/tag/v1.7-hack-20261108)
+   (тег `v1.7-hack-20261108`), файл `REPLIKA-1.7-code9-AllInOne-arm64.apk`.
 3. Проверьте SHA-256 по файлу `.sha256` рядом с APK (необязательно).
 4. Установите:
    - на телефоне — откройте APK и разрешите установку из этого источника;
