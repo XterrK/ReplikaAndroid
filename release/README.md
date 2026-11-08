@@ -1,19 +1,46 @@
 # Установочная версия
 
-Текущий APK: **REPLIKA-V1.6-AllInOne-arm64.apk** (versionCode 8).
-Модели GigaAM v3/VAD/диаризации включены внутрь; после обновления интернет не требуется.
-Установка поверх прежней версии сохраняет записи благодаря прежнему applicationId и ключу подписи.
+Финальная сборка для Nuclear IT Hack — **REPLIKA 1.7 (versionCode 9)**.
+APK и видео доступны в [релизе v1.7-hack-20261108](https://github.com/XterrK/ReplikaAndroid/releases/tag/v1.7-hack-20261108).
 
-`SHA256SUMS` и `CURRENT.json` описывают только текущие артефакты.
-Старые APK, их исходные подписи/суммы и старый ARTIFACTS.json сохранены в `archive/`.
-Исторические отчёты могут указывать старое расположение `release/<старое имя>`; теперь это `release/archive/<старое имя>`.
+| Файл в релизе | Назначение |
+| --- | --- |
+| `REPLIKA-1.7-code9-AllInOne-arm64.apk` | Приложение для Android 8.0+; все модели внутри, 839 901 555 байт (≈ 840 МБ) |
+| `REPLIKA-1.7-code9-AllInOne-arm64.apk.sha256` | Контрольная сумма APK |
+| `demo.mp4` | Демонстрация на физическом телефоне, 1 минута |
 
+SHA-256 APK (также в [SHA256SUMS](SHA256SUMS)):
 
-Экспериментальный C2 для PLAN_19H сохранён отдельно:
-`REPLIKA-Hack-Step04-C2-v2-AllInOne-arm64.apk`, SHA256
-`a83bfe95cf7db72ddb65177a33586fdc52074a92759aa721212cc335f6b2a496`.
-Модельный pack1.5/семь весов и подпись прежние. Native x86-проверка10/10 прошла
-заданные proxy-gates; ARM runtime, общая точность естественных встреч, скорость
-и независимые word-time targets не приняты. Обычный исходный default остаётсяv16.
-Отчёт: [пункт C](../docs/STEP_04_DIARIZATION.md).
-V1.6 и APK пункта D сохранены; CURRENT.json по-прежнему описывает стабильную V1.6.
+```text
+5e26ecc98d3090602dac6b0eacde1f378002660a3ede8d0d1406dbd8cad22fe3
+```
+
+Скачайте APK и файл `.sha256` в одну папку. Проверка на Linux / macOS:
+
+```bash
+# Linux
+sha256sum -c REPLIKA-1.7-code9-AllInOne-arm64.apk.sha256
+# macOS
+shasum -a 256 -c REPLIKA-1.7-code9-AllInOne-arm64.apk.sha256
+```
+
+Откройте APK на телефоне и разрешите установку из этого источника либо установите
+через компьютер:
+
+```bash
+adb install -r REPLIKA-1.7-code9-AllInOne-arm64.apk
+```
+
+При обновлении нашей сборки с той же подписью записи сохраняются. Первый запуск
+распаковывает и проверяет модели; после этого приложение работает без сети.
+Метрики и ограничения — в [TEST_RESULTS.md](../docs/TEST_RESULTS.md)
+и [LIMITATIONS.md](../docs/LIMITATIONS.md).
+
+## Прежние артефакты
+
+[CURRENT.json](CURRENT.json) — сохранённые метаданные базовой **V1.6 (code 8)**,
+используемые историческими отчётами. Этот файл не описывает релиз 1.7.
+[SHA256SUMS](SHA256SUMS) содержит суммы релизной 1.7 и базовой 1.6.
+Прежние метаданные и суммы сохранены в [archive/](archive/);
+APK распространяются через GitHub Releases и локально не входят в Git.
+Проверки экспериментального C2 сохранены в [отчёте этапа 4](../docs/STEP_04_DIARIZATION.md).

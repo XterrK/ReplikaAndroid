@@ -71,7 +71,8 @@ SHA-256 архива закреплён в [tools/native-lock.json](../tools/nat
 
 ### Модели
 
-Семь файлов, 278 127 730 байт. Ссылки и SHA-256 — в
+Файлы русской и английской ASR, определения языка, VAD и диаризации
+(всего около 1 ГБ). Ссылки и SHA-256 — в
 [app/src/main/assets/models-lock.json](../app/src/main/assets/models-lock.json).
 Скрипт скачивает их с GitHub и Hugging Face, проверяет хеши и собирает ZIP для
 сборки All-in-One:
@@ -84,7 +85,8 @@ python3 tools/prepare_models.py --cache local-dev/model-downloads
 
 ```text
 model-pack/giga-v3/   model-pack/vad/   model-pack/diar/
-model-pack/replika-offline-pack-v1.5.zip   (278 569 170 байт)
+model-pack/lid-whisper-tiny/   model-pack/parakeet-en-v2/
+model-pack/replika-offline-pack-v1.6.zip
 ```
 
 Аргумент `--cache` обязателен на новой машине: значение по умолчанию указывает
@@ -93,7 +95,7 @@ model-pack/replika-offline-pack-v1.5.zip   (278 569 170 байт)
 Проверка, что всё на месте (только чтение):
 
 ```bash
-python3 tools/verify_workspace.py --pack model-pack/replika-offline-pack-v1.5.zip
+python3 tools/verify_workspace.py --pack model-pack/replika-offline-pack-v1.6.zip
 ```
 
 ### Ключ подписи
