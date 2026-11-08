@@ -1,6 +1,6 @@
 # Изменения V1.6
 
-V1.6 добавляет спокойное внутреннее течение шара до записи (~12–15 fps после settle), речевой режим с прежним верхним cap, lifecycle RESUMED и reduced-motion/thermal limits. Правая волна — история amplitude 20 Hz, независимая от touch. См. [контракт](docs/ui-v1.6/DESIGN.md).
+V1.6 добавляет спокойное внутреннее течение шара до записи (~12–15 fps после settle), речевой режим с прежним верхним cap, lifecycle RESUMED и reduced-motion/thermal limits. Правая волна — история amplitude 20 Hz, независимая от touch. См. [контракт](../../ui-v1.6/DESIGN.md).
 
 ---
 

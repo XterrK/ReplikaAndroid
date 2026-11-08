@@ -1,6 +1,6 @@
 # C+B fidelity ledger — V1.5
 
-Дата: 2026-11-06. Основание — прямое решение пользователя в [HUMAN_CONCEPT_REVIEW.md](../../HUMAN_CONCEPT_REVIEW.md), окончательная палитра и последующие требования V1.5. Визуальная основа C / Editorial Voice, UX B / Linear Intelligence; A отклонён. Повторный выбор A/B/C не требуется.
+Дата: 2026-11-06. Основание — прямое решение пользователя в [HUMAN_CONCEPT_REVIEW.md](../../docs/history/root/HUMAN_CONCEPT_REVIEW.md), окончательная палитра и последующие требования V1.5. Визуальная основа C / Editorial Voice, UX B / Linear Intelligence; A отклонён. Повторный выбор A/B/C не требуется.
 
 Подробная текущая native сверка: [FIDELITY_REVIEW.md](../../docs/human-review/v1.5/FIDELITY_REVIEW.md). Она сопоставляет исходный [C board](../concepts/c-overview.png), актуальный design-lab и свежие native source11 captures. **Визуальная сверка source11 завершена**: 48 PNG основной матрицы, дополнительные recorder font130/200% и API28 Canvas. Финальное source11 видео и отдельные performance evidence добавлены в Human Review; визуальная сверка завершена.
 

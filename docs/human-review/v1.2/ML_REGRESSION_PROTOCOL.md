@@ -4,7 +4,7 @@
 
 ## Зафиксированная исходная версия
 
-База сравнения — commit `6e3c8abcd885345b185c2a9131f69eb02e4eb029`. Источники ранее выполненных проверок: [ML_TEST_SUMMARY.md](../v1.1/ML_TEST_SUMMARY.md), [TEST_REPORT.md](../../../TEST_REPORT.md), [fixtures.json](../../test-evidence/v1.1/fixtures.json). Старые JSON и скриншоты не перезаписываются результатами V1.2.
+База сравнения — commit `6e3c8abcd885345b185c2a9131f69eb02e4eb029`. Источники ранее выполненных проверок: [ML_TEST_SUMMARY.md](../v1.1/ML_TEST_SUMMARY.md), [TEST_REPORT.md](../../history/root/TEST_REPORT.md), [fixtures.json](../../test-evidence/v1.1/fixtures.json). Старые JSON и скриншоты не перезаписываются результатами V1.2.
 
 | Исходный факт V1.1 | Предел вывода |
 |---|---|

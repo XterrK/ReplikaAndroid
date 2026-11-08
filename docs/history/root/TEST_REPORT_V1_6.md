@@ -1,6 +1,6 @@
 # REPLIKA V1.6 · UI / передача проекта · 06.11.2026
 
-Цель цикла: переработать главную запись и шар, вынести голосовую волну на правую кромку без смещения центра, упростить сохранение/удаление и убрать старый таймер. Исследование и визуальный контракт: [DESIGN](docs/ui-v1.6/DESIGN.md), [концепт](docs/ui-v1.6/concept.png). Рабочее дерево предыдущего цикла сохранено; reset/clean/push/удаление app data не выполнялись.
+Цель цикла: переработать главную запись и шар, вынести голосовую волну на правую кромку без смещения центра, упростить сохранение/удаление и убрать старый таймер. Исследование и визуальный контракт: [DESIGN](../../ui-v1.6/DESIGN.md), [концепт](../../ui-v1.6/concept.png). Рабочее дерево предыдущего цикла сохранено; reset/clean/push/удаление app data не выполнялись.
 
 ## Реализовано
 
@@ -12,25 +12,25 @@
 
 ## Проверки
 
-**JVM:** 80 тестов, 0 failures/errors/skips. [XML](docs/ui-v1.6/tests/jvm/), [итоговая сборка](docs/ui-v1.6/tests/final-build.log), [сборка тестового APK](docs/ui-v1.6/tests/test-build.log). Debug и arm64 All-in-One собраны из актуального source. Предупреждения устаревших Compose API остались; compile/test ошибок в финальных сборках нет.
+**JVM:** 80 тестов, 0 failures/errors/skips. [XML](../../ui-v1.6/tests/jvm/), [итоговая сборка](../../ui-v1.6/tests/final-build.log), [сборка тестового APK](../../ui-v1.6/tests/test-build.log). Debug и arm64 All-in-One собраны из актуального source. Предупреждения устаревших Compose API остались; compile/test ошибок в финальных сборках нет.
 
-**Android UI: 11 уникальных методов / 15 вызовов, 0 failures/skips в финальных прогонах.** [Сводка](docs/ui-v1.6/tests/summary.json).
+**Android UI: 11 уникальных методов / 15 вызовов, 0 failures/skips в финальных прогонах.** [Сводка](../../ui-v1.6/tests/summary.json).
 
 | Прогон | Тестов | Результат |
 | --- | ---: | --- |
-| [384×832dp, font1.0](docs/ui-v1.6/tests/tall-final/instrumentation.log) | 9 | PASS |
-| [360×640dp, font1.3](docs/ui-v1.6/tests/compact-final/instrumentation.log) | 3 | PASS |
-| [360×640dp, font2.0, обе темы](docs/ui-v1.6/tests/large-final/instrumentation.log) | 1 | PASS |
-| [Прежний recorder regression, новый flow](docs/ui-v1.6/tests/legacy-recorder-final/instrumentation.log) | 1 | PASS |
-| [Отказ в разрешении микрофона](docs/ui-v1.6/tests/permission-final.log) | 1 | PASS |
+| [384×832dp, font1.0](../../ui-v1.6/tests/tall-final/instrumentation.log) | 9 | PASS |
+| [360×640dp, font1.3](../../ui-v1.6/tests/compact-final/instrumentation.log) | 3 | PASS |
+| [360×640dp, font2.0, обе темы](../../ui-v1.6/tests/large-final/instrumentation.log) | 1 | PASS |
+| [Прежний recorder regression, новый flow](../../ui-v1.6/tests/legacy-recorder-final/instrumentation.log) | 1 | PASS |
+| [Отказ в разрешении микрофона](../../ui-v1.6/tests/permission-final.log) | 1 | PASS |
 
  Профили: API35 x86_64, 384×832dp/font1.0; 360×640dp/font1.3; 360×640dp/font2.0. Проверяется реальный виртуальный MediaRecorder, AAC decode, Room, отсутствие черновых/дублирующих файлов, пауза и восстановление, все три входа в decision sheet, сохранённая длительность, возврат без таймера, экспорт и старый waveform, оба renderer и touch. Заданный вход 80% используется только отдельным `EdgeMicrophoneV16Test`; его скриншоты `injected-envelope-*` не являются микрофонным тестом.
 
-**APK:** [статическая проверка](docs/ui-v1.6/tests/all-in-one-static.json) PASS: один вложенный ZIP, семь pinned model/token files, arm64-only, ZIP/ELF alignment и native dependencies. [Badging](docs/ui-v1.6/tests/apk-badging.txt): `ru.replika.offline`, code8/name1.6. [Подпись](docs/ui-v1.6/tests/apk-signature.txt): прежний сертификат SHA256 `f40399356577bcd0a5c220818ba13e9686768a02830a7f6e3af81d5a487947ab`.
+**APK:** [статическая проверка](../../ui-v1.6/tests/all-in-one-static.json) PASS: один вложенный ZIP, семь pinned model/token files, arm64-only, ZIP/ELF alignment и native dependencies. [Badging](../../ui-v1.6/tests/apk-badging.txt): `ru.replika.offline`, code8/name1.6. [Подпись](../../ui-v1.6/tests/apk-signature.txt): прежний сертификат SHA256 `f40399356577bcd0a5c220818ba13e9686768a02830a7f6e3af81d5a487947ab`.
 
-APK: [REPLIKA-V1.6-AllInOne-arm64.apk](release/REPLIKA-V1.6-AllInOne-arm64.apk). SHA256: `dec7523de9403248358a5b590f12069be47e821460cb6095af4c1424edb7febd`. Размер и актуальный состав: [CURRENT](release/CURRENT.json), [SHA256SUMS](release/SHA256SUMS).
+APK: [REPLIKA-V1.6-AllInOne-arm64.apk](../../../release/REPLIKA-V1.6-AllInOne-arm64.apk). SHA256: `dec7523de9403248358a5b590f12069be47e821460cb6095af4c1424edb7febd`. Размер и актуальный состав: [CURRENT](../../../release/CURRENT.json), [SHA256SUMS](../../../release/SHA256SUMS).
 
-**Перенос:** 12 входов (семь моделей/токенов, четыре native .so, ZIP) проверены по SHA; [manifest](docs/ui-v1.6/workspace-inputs.json), [повтор](docs/ui-v1.6/tests/workspace-recheck.log). Portable preflight Debug и All-in-One прошёл, в том числе вызов из другого cwd. Все входы находятся в папке; ключ не включается в Git. Новая Windows/ноутбук ещё не запускались. Инструкция: [HANDOFF](HANDOFF.md), [PORTABILITY](PORTABILITY.md).
+**Перенос:** 12 входов (семь моделей/токенов, четыре native .so, ZIP) проверены по SHA; [manifest](../../ui-v1.6/workspace-inputs.json), [повтор](../../ui-v1.6/tests/workspace-recheck.log). Portable preflight Debug и All-in-One прошёл, в том числе вызов из другого cwd. Все входы находятся в папке; ключ не включается в Git. Новая Windows/ноутбук ещё не запускались. Инструкция: [HANDOFF](HANDOFF.md), [PORTABILITY](../../PORTABILITY.md).
 
 ## Визуальная проверка
 
@@ -40,7 +40,7 @@ APK: [REPLIKA-V1.6-AllInOne-arm64.apk](release/REPLIKA-V1.6-AllInOne-arm64.apk).
 
 Сознательные адаптации концепта: существующие холодная Light/Graphite палитра и serif REPLIKA/заголовки, Onest controls, радиусы кнопок общего приложения. Статус «На паузе» сохраняет прежний словарь; нет новой навигации, декоративных карточек/метрик. Native copy сверена с DESIGN; техническая подпись controlled fixture не является текстом продукта. Внешний вид проверен по принятому контракту, с этими явными адаптациями.
 
-[Нативные PNG](docs/ui-v1.6/screenshots/) включают обычный, компактный и font200% экраны. Финальный концепт и актуальные LIGHT idle / DARK decision font200% открыты рядом через view_image; кнопки и текст доступны, остаточных материальных расхождений с контрактом не обнаружено. Нативная [видеодемонстрация](docs/ui-v1.6/demo/native-demo.mp4) показывает start/drag/pause/exit/discard; [scope](docs/ui-v1.6/demo/video-scope.json) отделяет её от физического микрофона и performance-измерений.
+[Нативные PNG](../../ui-v1.6/screenshots/) включают обычный, компактный и font200% экраны. Финальный концепт и актуальные LIGHT idle / DARK decision font200% открыты рядом через view_image; кнопки и текст доступны, остаточных материальных расхождений с контрактом не обнаружено. Нативная [видеодемонстрация](../../ui-v1.6/demo/native-demo.mp4) показывает start/drag/pause/exit/discard; [scope](../../ui-v1.6/demo/video-scope.json) отделяет её от физического микрофона и performance-измерений.
 
 ## Ранние ошибки и исправления проверки
 
@@ -48,7 +48,7 @@ APK: [REPLIKA-V1.6-AllInOne-arm64.apk](release/REPLIKA-V1.6-AllInOne-arm64.apk).
 
 ## Очистка рабочего дерева
 
-После копирования APK и evidence регенерируемые `app/build`, корневой `build`, `.gradle`, `.kotlin` и машинный `local.properties` вынесены из переносимой папки в desktop recovery cache. Python bytecode и временные изображения/дубли QA удалены. [Журнал](docs/ui-v1.6/cleanup.json). Обязательные модели/native/ключ, `.git`, source, тесты и архивы прежней работы оставлены. После очистки повторно прошли [portable preflight](docs/ui-v1.6/tests/portable-after-cleanup.log) и [SHA-входы](docs/ui-v1.6/tests/inputs-after-cleanup.log). Это не `git clean` и не удаление ignored build inputs.
+После копирования APK и evidence регенерируемые `app/build`, корневой `build`, `.gradle`, `.kotlin` и машинный `local.properties` вынесены из переносимой папки в desktop recovery cache. Python bytecode и временные изображения/дубли QA удалены. [Журнал](../../ui-v1.6/cleanup.json). Обязательные модели/native/ключ, `.git`, source, тесты и архивы прежней работы оставлены. После очистки повторно прошли [portable preflight](../../ui-v1.6/tests/portable-after-cleanup.log) и [SHA-входы](../../ui-v1.6/tests/inputs-after-cleanup.log). Это не `git clean` и не удаление ignored build inputs.
 
 ## Границы результата
 

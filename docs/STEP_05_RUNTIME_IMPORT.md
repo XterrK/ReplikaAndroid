@@ -2,7 +2,7 @@
 
 **PAUSED_BY_USER_AFTER_STEP05 — 2026-11-07T12:37:46+03:00.** Реализация и текущие
 проверки пункта5 завершены; пользователь попросил сохранить контрольный срез и
-передать его другому агенту. [Передача](../HANDOFF_NEXT_AGENT.md). Пункт6 не начат;
+передать его другому агенту. [Передача](history/root/HANDOFF_NEXT_AGENT.md). Пункт6 не начат;
 новые работы — только по новой команде пользователя.
 После терминального завершения всех NN root остановил собственный эмулятор5558
 и Windows ADB5038; [команды](../artifacts/test-results/step-05/user-pause-test-service-stop-v1.json)
@@ -25,7 +25,7 @@ ARM Worker и1004 проверки, ps16k one120 PASS; импорт13 форма
 остаётся FAILED. Готовность контрольного среза не означает приёмку всего проекта, естественного
 диалога, word-gold, ARM16KiB/M1 или причинного ускорения.
 
-Приоритет [PLAN_19H.md](../PLAN_19H.md): **§0.4 > §0.3 > §0.2 > §0.1**.
+Приоритет [PLAN_19H.md](history/root/PLAN_19H.md): **§0.4 > §0.3 > §0.2 > §0.1**.
 Основная метрика — raw WER с пунктуацией и регистром; GigaAM v3 E2E сохраняется.
 LLM, Lite и лендинг не входят в этот пункт и не добавляются в критический путь до
 завершения проверок конвейера. GLM/Kimi недоступны; ответственность остаётся у Codex.
@@ -573,8 +573,8 @@ SHA app/test не изменились, prior tables EXACT; личная DB/seri
 Финальная commit/tag-привязка определяется по Git history и
 [выпуску `hack-step05-20261107`](https://github.com/XterrK/ReplikaAndroid/releases/tag/hack-step05-20261107),
 без self-HEAD или заранее предполагаемого номера PR. Пользовательская пауза
-зафиксирована в [STATUS.md](../STATUS.md); продолжение — по
-[HANDOFF_NEXT_AGENT.md](../HANDOFF_NEXT_AGENT.md) после новой команды пользователя.
+зафиксирована в [STATUS.md](history/root/STATUS.md); продолжение — по
+[HANDOFF_NEXT_AGENT.md](history/root/HANDOFF_NEXT_AGENT.md) после новой команды пользователя.
 Кандидат `ca18309f…` сохранён локально, подпись `f4039935…` прежняя. Стабильный
 V1.6 fallback SHA256 `dec7523de9403248358a5b590f12069be47e821460cb6095af4c1424edb7febd`
 и `release/CURRENT.json` сохранены; ordinary defaults/старые задания остаются legacy,

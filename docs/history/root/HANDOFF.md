@@ -2,17 +2,17 @@
 
 **Работа приостановлена по запросу пользователя на контрольном срезе пункта 5.**
 Начинать с [HANDOFF_NEXT_AGENT.md](HANDOFF_NEXT_AGENT.md), [STATUS.md](STATUS.md)
-и [PROJECT_OVERVIEW.md](PROJECT_OVERVIEW.md). Реализация CPU, термоконтроля и импорта
+и [PROJECT_OVERVIEW.md](../../PROJECT_OVERVIEW.md). Реализация CPU, термоконтроля и импорта
 проверена; результаты и оставшиеся ограничения — в
-[отчёте пункта 5](docs/STEP_05_RUNTIME_IMPORT.md). Источник итогового commit — история
+[отчёте пункта 5](../../STEP_05_RUNTIME_IMPORT.md). Источник итогового commit — история
 `hack/final` и тег `hack-step05-20261107`; ветка работы — `hack/task-05-runtime-import`.
 Пункт 6 не начат. Возобновлять работу только по новому указанию пользователя.
 
 Пункт C опубликован: commit `b619519`, объединённый
 [PR #4](https://github.com/XterrK/ReplikaAndroid/pull/4) и
 [выпуск C2](https://github.com/XterrK/ReplikaAndroid/releases/tag/hack-step04-20261107).
-Проверенный ранее D описан в [отчёте D](docs/STEP_03_VAD_WORD_ASR.md), C — в
-[отчёте C](docs/STEP_04_DIARIZATION.md); эти checkpoint не являются текущими задачами.
+Проверенный ранее D описан в [отчёте D](../../STEP_03_VAD_WORD_ASR.md), C — в
+[отчёте C](../../STEP_04_DIARIZATION.md); эти checkpoint не являются текущими задачами.
 
 Стабильный fallback — **V1.6 / versionCode 8**, pack V1.5 с прежними семью моделями.
 Обычные ML-defaults остаются `v16`; context600, C2 и CPU `auto_v1` включаются явно,

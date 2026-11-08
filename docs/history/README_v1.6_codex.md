@@ -6,16 +6,16 @@
 
 Стенд оценки и свежий baseline: [результаты](../../docs/TEST_RESULTS.md), [запуск](../../tools/eval/README.md), [эталоны](../../benchmark/eval/manifest.json).
 
-Текущий 19-часовой цикл: [STATUS.md](../../STATUS.md) · [изменения](../../UPDATES.md) · [решения](../../DECISIONS.md) · [план](../../PLAN_19H.md).
+Текущий 19-часовой цикл: [STATUS.md](root/STATUS.md) · [изменения](root/UPDATES.md) · [решения](root/DECISIONS.md) · [план](root/PLAN_19H.md).
 
 Нативная Android-запись и локальная транскрибация. В V1.6 переработаны шар, главная, голосовая волна у правой кромки и выбор сохранения/удаления. Качество распознавания V1.5 сохранено.
 
-- **Полный обзор проекта:** [PROJECT_OVERVIEW.md](../../PROJECT_OVERVIEW.md) — весь стек, архитектура, модели, выполненные изменения и эксперименты, результаты проверок и открытые проблемы.
+- **Полный обзор проекта:** [PROJECT_OVERVIEW.md](../PROJECT_OVERVIEW.md) — весь стек, архитектура, модели, выполненные изменения и эксперименты, результаты проверок и открытые проблемы.
 - **Установить:** `release/REPLIKA-V1.6-AllInOne-arm64.apk` — модели внутри, прежняя подпись для обновления поверх установленной версии.
-- **Продолжить на ноутбуке:** [HANDOFF.md](../../HANDOFF.md). Копируйте всю папку, включая `.git`, `model-pack/`, нативные `.so` и приватный `local-dev/debug.keystore`; Git clone не включает эти локальные входы.
-- **Собрать:** JDK 17, Python 3.12+, Android SDK 35/Build Tools 35.0.0/NDK 27.2.12479018. Настройте `JAVA_HOME`, `ANDROID_HOME`; затем `python3 tools/build_portable.py :app:assembleAllInOne` (на Windows `python`). [Подробности](../../PORTABILITY.md).
+- **Продолжить на ноутбуке:** [HANDOFF.md](root/HANDOFF.md). Копируйте всю папку, включая `.git`, `model-pack/`, нативные `.so` и приватный `local-dev/debug.keystore`; Git clone не включает эти локальные входы.
+- **Собрать:** JDK 17, Python 3.12+, Android SDK 35/Build Tools 35.0.0/NDK 27.2.12479018. Настройте `JAVA_HOME`, `ANDROID_HOME`; затем `python3 tools/build_portable.py :app:assembleAllInOne` (на Windows `python`). [Подробности](../PORTABILITY.md).
 - **Проверить перенос:** `python3 tools/verify_workspace.py --pack model-pack/replika-offline-pack-v1.5.zip --manifest docs/ui-v1.6/workspace-inputs.json`.
-- **Состояние и проверки:** [PROJECT_STATE.md](../../PROJECT_STATE.md), [TEST_REPORT_V1_6.md](../../TEST_REPORT_V1_6.md), [KNOWN_ISSUES.md](../../KNOWN_ISSUES.md), [исследование и дизайн](../../docs/ui-v1.6/DESIGN.md).
+- **Состояние и проверки:** [PROJECT_STATE.md](root/PROJECT_STATE.md), [TEST_REPORT_V1_6.md](root/TEST_REPORT_V1_6.md), [KNOWN_ISSUES.md](root/KNOWN_ISSUES.md), [исследование и дизайн](../../docs/ui-v1.6/DESIGN.md).
 
 `release/archive/` содержит старые APK и исходные суммы; `review/`, `docs/history/`, версионные отчёты — история. Прежний видеоэксперимент убран в `archive/`. Нижние разделы README сохранены для контекста; машинно-зависимые bootstrap/сборка из них не являются инструкцией для ноутбука — используйте текущий переносимый launcher.
 
@@ -23,17 +23,17 @@
 
 # REPLIKA · Реплика
 
-V1.5 — **Editorial Intelligence + Liquid Voice**: главная с интерактивным шаром, отдельная библиотека, экспорт с главной, большой симметричный плеер и локальный импорт видео в текст. GigaAM v3 заменяет v2; Whisper удалён. Холодная светлая / нейтральная графитовая темы и DataStore сохранены. [Отчёт V1.5](../../TEST_REPORT_V1_5.md), [выбор модели](../../MODEL_SELECTION_V1_5.md), [ASR A/B](../../ASR_QUALITY_V1_5.md), [дизайн-система](../../DESIGN_SYSTEM.md), [Human Review](../../docs/human-review/v1.5/REVIEW_GUIDE.md). APK: `release/REPLIKA-V1.5-AllInOne-arm64.apk`.
+V1.5 — **Editorial Intelligence + Liquid Voice**: главная с интерактивным шаром, отдельная библиотека, экспорт с главной, большой симметричный плеер и локальный импорт видео в текст. GigaAM v3 заменяет v2; Whisper удалён. Холодная светлая / нейтральная графитовая темы и DataStore сохранены. [Отчёт V1.5](root/TEST_REPORT_V1_5.md), [выбор модели](../MODEL_SELECTION_V1_5.md), [ASR A/B](../ASR_QUALITY_V1_5.md), [дизайн-система](root/DESIGN_SYSTEM.md), [Human Review](../../docs/human-review/v1.5/REVIEW_GUIDE.md). APK: `release/REPLIKA-V1.5-AllInOne-arm64.apk`.
 
-V1.3/V1.4 APK, прежние review ZIP и исходный Git сохранены. [Отчёт V1.4](../../TEST_REPORT_V1_4.md) относится к предыдущей версии. Физическая микрофонная/тепловая приёмка vivo X300 остаётся открытой: телефон не подключён. Automatic diarization не объявляется исправленной.
+V1.3/V1.4 APK, прежние review ZIP и исходный Git сохранены. [Отчёт V1.4](root/TEST_REPORT_V1_4.md) относится к предыдущей версии. Физическая микрофонная/тепловая приёмка vivo X300 остаётся открытой: телефон не подключён. Automatic diarization не объявляется исправленной.
 
-V1.3 — кандидат восстановления после первого теста vivo: отдельный режим одного говорящего, блочное чтение PCM, диагностика thermal/performance и «Диалог / Чтение». [Результаты и обновление без потери записей](../../TEST_REPORT_V1_3.md). Автоматическая диаризация и исходные обрезания vivo **не объявлены исправленными**; физическая повторная приёмка ещё нужна. APK: `release/REPLIKA-V1.3-AllInOne-arm64.apk`, SHA рядом; предыдущая V1.2.1 сохранена.
+V1.3 — кандидат восстановления после первого теста vivo: отдельный режим одного говорящего, блочное чтение PCM, диагностика thermal/performance и «Диалог / Чтение». [Результаты и обновление без потери записей](root/TEST_REPORT_V1_3.md). Автоматическая диаризация и исходные обрезания vivo **не объявлены исправленными**; физическая повторная приёмка ещё нужна. APK: `release/REPLIKA-V1.3-AllInOne-arm64.apk`, SHA рядом; предыдущая V1.2.1 сохранена.
 
 V1.2.1 добавляет отдельный **All-in-One arm64 APK**: все пять семейств моделей уже внутри, первый запуск автоматически подготавливает и проверяет файлы без сети. Установка одним файлом и локальная сборка описаны в [ALL_IN_ONE_INSTALL.md](../../docs/ALL_IN_ONE_INSTALL.md); [аудит распространения моделей](../../docs/ALL_IN_ONE_LICENSE_AUDIT.md). Обычный debug APK и ручной импорт ZIP сохранены.
 
 **Каждое слово можно проверить.** Локальная стенограмма с говорящими, исходным звуком и ручной проверкой. Исследовательская Android-сборка для подготовки к хакатону 6 ноября 2026 года. Основной сценарий — локальное распознавание, разделение говорящих и временные метки.
 
-Приложение реализует Kotlin / Compose / Room / Media3 / WorkManager и настоящие нативные ML-backend. Состояние проверок и ограничения находятся в [PROJECT_STATE.md](../../PROJECT_STATE.md) и [TEST_REPORT.md](../../TEST_REPORT.md). Наличие кода не означает подтверждённую работу на физическом телефоне.
+Приложение реализует Kotlin / Compose / Room / Media3 / WorkManager и настоящие нативные ML-backend. Состояние проверок и ограничения находятся в [PROJECT_STATE.md](root/PROJECT_STATE.md) и [TEST_REPORT.md](root/TEST_REPORT.md). Наличие кода не означает подтверждённую работу на физическом телефоне.
 
 ## Сборка
 
@@ -67,7 +67,7 @@ adb push model-pack/replika-offline-pack-v1.5.zip /sdcard/Download/
 
 Исторический All-in-One отчёт V1.2.1 — [ALL_IN_ONE_TEST_REPORT.md](../../docs/ALL_IN_ONE_TEST_REPORT.md); материалы нового onboarding — [v1.2.1](../../docs/human-review/v1.2.1/README.md). Сохранённые результаты V1.2 относятся к предыдущей итерации.
 
-Исторические результаты V1.2 — [TEST_REPORT.md](../../TEST_REPORT.md), материалы независимого ревью — [docs/human-review/v1.2](../../docs/human-review/v1.2). Старые доказательства сохранены отдельно. Проверка физического arm64 и русского многоголосного диалога учитывается отдельно от x86_64 emulator.
+Исторические результаты V1.2 — [TEST_REPORT.md](root/TEST_REPORT.md), материалы независимого ревью — [docs/human-review/v1.2](../../docs/human-review/v1.2). Старые доказательства сохранены отдельно. Проверка физического arm64 и русского многоголосного диалога учитывается отдельно от x86_64 emulator.
 
 ```bash
 python3 tools/build_local.py clean :app:assembleDebug :app:testDebugUnitTest :app:assembleDebugAndroidTest
@@ -87,10 +87,10 @@ python3 tools/package_review_v12.py
 
 ## Материалы
 
-- [Архитектура](../../ARCHITECTURE.md)
-- [Модели, лицензии, источники](../../MODEL_RESEARCH.md)
-- [Методика измерений](../../BENCHMARKS.md)
-- [Проверки](../../TEST_REPORT.md)
+- [Архитектура](root/ARCHITECTURE.md)
+- [Модели, лицензии, источники](root/MODEL_RESEARCH.md)
+- [Методика измерений](root/BENCHMARKS.md)
+- [Проверки](root/TEST_REPORT.md)
 - [Human Review](../../docs/human-review/REVIEW_GUIDE.md)
 
 Веса и сторонние библиотеки имеют собственные лицензии: [docs/licenses](../../docs/licenses). Исходное аудио никогда не используется в сетевых запросах приложения. Разрешение INTERNET требуется только для загрузки моделей.

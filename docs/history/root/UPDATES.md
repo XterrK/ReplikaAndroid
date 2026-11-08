@@ -570,8 +570,8 @@ picker/UI/legacy/compact позволяет готовить отдельный 
 После терминальности всех NN root завершил собственный эмулятор5558 и Windows
 ADB5038: обе команды exit0. Финальная read-only проверка показала live QEMU[],
 Windows5038 listeners отсутствуют, `no_live_owned_test_services=true`.
-[Команды](artifacts/test-results/step-05/user-pause-test-service-stop-v1.json),
-[финальный receipt](artifacts/test-results/step-05/user-pause-test-services-final-v1.json).
+[Команды](../../../artifacts/test-results/step-05/user-pause-test-service-stop-v1.json),
+[финальный receipt](../../../artifacts/test-results/step-05/user-pause-test-services-final-v1.json).
 Linux5037 не завершался; данные AVD, приложения телефона и прежние пользовательские
 записи сохранены. Фоновых тестов нет. Остаётся только запрошенное сохранение
 checkpoint/передача; пункт6 не начат и на пользовательской паузе не запускается.

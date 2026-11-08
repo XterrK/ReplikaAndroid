@@ -45,8 +45,8 @@
 Whisper tiny был экспериментальной альтернативой в ранних версиях и удалён в V1.5 в пользу GigaAM v3.
 GigaAM-Multilingual не выдаёт пунктуацию и не имеет русской sherpa-конверсии.
 
-Источники: [MODEL_SELECTION_V1_5.md](../MODEL_SELECTION_V1_5.md),
-[ASR_QUALITY_V1_5.md](../ASR_QUALITY_V1_5.md).
+Источники: [MODEL_SELECTION_V1_5.md](MODEL_SELECTION_V1_5.md),
+[ASR_QUALITY_V1_5.md](ASR_QUALITY_V1_5.md).
 
 **Как мы её используем сейчас.** Модель та же, но изменилось, что ей подаётся.
 Вместо коротких отрезков отдельных говорящих — целый фрагмент речи до 20 секунд

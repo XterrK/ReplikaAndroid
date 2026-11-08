@@ -10,7 +10,7 @@
 - [Font200%, панель](screenshots/360x640-font2.0-DARK-decision.png)
 - [Правая волна: controlled amplitude 80%, не микрофон](screenshots/injected-envelope-LIGHT.png)
 - [Нативная видеодемонстрация](demo/native-demo.mp4), [границы демонстрации](demo/video-scope.json)
-- [Тесты](tests/summary.json), [полный отчёт](../../TEST_REPORT_V1_6.md)
+- [Тесты](tests/summary.json), [полный отчёт](../history/root/TEST_REPORT_V1_6.md)
 - [SHA моделей и native](workspace-inputs.json), [перемещения](relocation.json), [очистка](cleanup.json)
 
 `injected-envelope-*` сняты на отдельном native renderer fixture с заданным уровнем. Остальные recording PNG — реальный MediaRecorder эмулятора, host microphone отключён, тишина допустима. Видео не является замером FPS/батареи или физической проверкой голоса.

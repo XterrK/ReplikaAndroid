@@ -5,16 +5,16 @@
 [HANDOFF_NEXT_AGENT.md](HANDOFF_NEXT_AGENT.md). Ветка `hack/task-05-runtime-import`
 основана на `87f669a`; итоговая фиксация определяется историей `hack/final` и тегом
 `hack-step05-20261107`. Фактические runtime-проверки и ограничения: [STATUS.md](STATUS.md),
-[отчёт пункта 5](docs/STEP_05_RUNTIME_IMPORT.md). Общий контекст —
-[PROJECT_OVERVIEW.md](PROJECT_OVERVIEW.md), история — [UPDATES.md](UPDATES.md)
+[отчёт пункта 5](../../STEP_05_RUNTIME_IMPORT.md). Общий контекст —
+[PROJECT_OVERVIEW.md](../../PROJECT_OVERVIEW.md), история — [UPDATES.md](UPDATES.md)
 и [DECISIONS.md](DECISIONS.md). Пункт 6 не начат; продолжение — только по команде пользователя.
 
 Пункт C опубликован коммитом `b619519` через
 [PR #4](https://github.com/XterrK/ReplikaAndroid/pull/4), объединённый как `87f669a`;
 [выпуск C2](https://github.com/XterrK/ReplikaAndroid/releases/tag/hack-step04-20261107)
-и [отчёт](docs/STEP_04_DIARIZATION.md) сохраняют область экспериментальной приёмки.
+и [отчёт](../../STEP_04_DIARIZATION.md) сохраняют область экспериментальной приёмки.
 Прежний checkpoint пункта D уже завершён и опубликован; его проверки и ограничения —
-исторические результаты в [отчёте D](docs/STEP_03_VAD_WORD_ASR.md), а не текущая работа.
+исторические результаты в [отчёте D](../../STEP_03_VAD_WORD_ASR.md), а не текущая работа.
 
 Стабильный V1.6 `3aba648` и fallback APK сохранены в приватном
 [XterrK/ReplikaAndroid](https://github.com/XterrK/ReplikaAndroid).
@@ -34,7 +34,7 @@
 
 «Назад», видимая стрелка выхода и «Завершить» открывают одну нижнюю панель «Сохранить запись» / «Удалить запись». Запись на время выбора на паузе; закрытие панели восстанавливает только ранее работающую запись. Панель прокручивается на коротких экранах. Сохранение не доступно до завершения старта микрофона. После сохранения/удаления elapsed очищается; на главной старый таймер не показывается. Длительность сохранённого файла остаётся в библиотеке.
 
-Текущие точки входа: [README](README.md), [передача на ноутбук](HANDOFF.md), [переносимая сборка](PORTABILITY.md), [отчёт V1.6](TEST_REPORT_V1_6.md), [визуальное исследование](docs/ui-v1.6/DESIGN.md). APK versionCode 8 / 1.6 использует прежние applicationId и сертификат подписи. Архив APK: `release/archive/`; прежний видеоэксперимент: `archive/video-production-fi-20261105/`. Корневые версионные отчёты и review evidence сохранены как история.
+Текущие точки входа: [README](../../../README.md), [передача на ноутбук](HANDOFF.md), [переносимая сборка](../../PORTABILITY.md), [отчёт V1.6](TEST_REPORT_V1_6.md), [визуальное исследование](../../ui-v1.6/DESIGN.md). APK versionCode 8 / 1.6 использует прежние applicationId и сертификат подписи. Архив APK: `release/archive/`; прежний видеоэксперимент: `archive/video-production-fi-20261105/`. Корневые версионные отчёты и review evidence сохранены как история.
 
 Финальные результаты и ограничения приведены в отчёте V1.6. Windows/ноутбук и физический GPU/энергопотребление пока не проверены в этом цикле; эмуляторные проверки не заменяют приёмку нового UI на телефоне. Automatic diarization остаётся прежним ограничением.
 
@@ -48,7 +48,7 @@
 
 Проверки source11:80 JVM,97 уникальных Android-методов на API35 и33 на API28 прошли; первоначальные таймауты захвата/очереди сохранены, изолированные повторы успешны. На7 авторских студийных RU whisper test-записях Android Worker получил9/84 ошибок (WER10,714%,CER7,80%): выборочный RMS/headroom повтор VAD восстановил21 из23 слов фрагмента, полностью пропущенного первым проходом. Другие6 не входят в retry; ASR gain/оригинальные WAV/PCM/диаризация не меняются. Это небольшая студийная выборка, не физическая приёмка vivo. В спокойной записи cadence ограничивается30fps; речь и касания используют прежний максимум60 с сохранением thermal/power caps.
 
-Финальная поставка и фактические результаты проверок описаны в [TEST_REPORT_V1_5.md](TEST_REPORT_V1_5.md), [ASR_QUALITY_V1_5.md](ASR_QUALITY_V1_5.md), [KNOWN_ISSUES.md](KNOWN_ISSUES.md) и [Human Review](docs/human-review/v1.5/REVIEW_GUIDE.md). Предыдущие V1.3/V1.4 APK, review ZIP и исходный HEAD ce345569377f0d7b60b383296f00f58b417986e0 сохранены; push не выполнялся. Прежние untracked video-production материалы не изменены.
+Финальная поставка и фактические результаты проверок описаны в [TEST_REPORT_V1_5.md](TEST_REPORT_V1_5.md), [ASR_QUALITY_V1_5.md](../../ASR_QUALITY_V1_5.md), [KNOWN_ISSUES.md](KNOWN_ISSUES.md) и [Human Review](../../human-review/v1.5/REVIEW_GUIDE.md). Предыдущие V1.3/V1.4 APK, review ZIP и исходный HEAD ce345569377f0d7b60b383296f00f58b417986e0 сохранены; push не выполнялся. Прежние untracked video-production материалы не изменены.
 
 Доступны эмуляторы API35 и API28; vivo X300 не подключён. Физическая реакция микрофона, скорость, батарея и нагрев телефона не подтверждены. Ослабленная обычная речь не заменяет проверку настоящего шёпота. Ниже сохранена история прежних версий; её числа не являются новыми измерениями V1.5.
 
@@ -56,7 +56,7 @@
 
 # REPLIKA V1.4 — состояние на 05.11.2026
 
-Editorial Intelligence (C+B) утверждён напрямую пользователем, включая Final Visual Direction Update. Реализованы две темы, локальный выбор оформления, Liquid Voice Orb (Compose Path / AGSL / Canvas) из существующего MediaRecorder, самостоятельные реплики и чистое Reading. Подробности: [TEST_REPORT_V1_4.md](TEST_REPORT_V1_4.md), [KNOWN_ISSUES.md](KNOWN_ISSUES.md), [Human Review](docs/human-review/v1.4/REVIEW_GUIDE.md).
+Editorial Intelligence (C+B) утверждён напрямую пользователем, включая Final Visual Direction Update. Реализованы две темы, локальный выбор оформления, Liquid Voice Orb (Compose Path / AGSL / Canvas) из существующего MediaRecorder, самостоятельные реплики и чистое Reading. Подробности: [TEST_REPORT_V1_4.md](TEST_REPORT_V1_4.md), [KNOWN_ISSUES.md](KNOWN_ISSUES.md), [Human Review](../../human-review/v1.4/REVIEW_GUIDE.md).
 
 Нативные ML/domain/Room/storage/C++ и models-lock совпадают с V1.3. Automatic diarization остаётся дефектом. Новый arm64 All-in-One — versionCode 6 / 1.4; V1.3 APK сохранён, исходный HEAD ce34556 и прежняя лаборатория архивированы в review/v1.4-baseline/. Изменения V1.4 оставлены reviewable в рабочем дереве, push не выполнялся. Прежние untracked video-production материалы не изменены.
 
@@ -109,12 +109,12 @@ Editorial Intelligence (C+B) утверждён напрямую пользов�
 |Long audio/peakRAM/thermal/share receivers|PARTIAL/BLOCKED|переносятся ограничения V1.2;PSS snapshots не peak|
 |Native immediate abort/wordtimes/overlap separation|NOT IMPLEMENTED|сегментные timestamps;отмена ждёт nativecall|
 
-Проверки:25JVM;54uniqueAndroid/UI JUnit+1coldrepeat,0failed/skipped.2существующих Worker-метода вызваны внутри нового acceptance wrapper. [Отчёт](docs/ALL_IN_ONE_TEST_REPORT.md),[поимённые логи](docs/test-evidence/v1.2.1/test-summary.json).
+Проверки:25JVM;54uniqueAndroid/UI JUnit+1coldrepeat,0failed/skipped.2существующих Worker-метода вызваны внутри нового acceptance wrapper. [Отчёт](../../ALL_IN_ONE_TEST_REPORT.md),[поимённые логи](../../test-evidence/v1.2.1/test-summary.json).
 
 APK:`F:\Hackathons\ReplikaAndroid\release\REPLIKA-V1.2.1-AllInOne-arm64.apk`.
 
 SHA-256:`72fb824fc4356f72b22a57a1f7ac8a3221c29361d7feec35c0d1710cf2554aaa`.
 
-Стандартный:`release/REPLIKA-V1.2.1-Standard.apk`;прежнийV1.2:`release/REPLIKA-V1.2-Standard-preserved.apk`. Модели/APK/audio/SDK не добавляются в Git. [Установка](docs/ALL_IN_ONE_INSTALL.md),[лицензии](docs/ALL_IN_ONE_LICENSE_AUDIT.md),[экраны](docs/human-review/v1.2.1/README.md),[пределы](docs/ALL_IN_ONE_KNOWN_ISSUES.md).
+Стандартный:`release/REPLIKA-V1.2.1-Standard.apk`;прежнийV1.2:`release/REPLIKA-V1.2-Standard-preserved.apk`. Модели/APK/audio/SDK не добавляются в Git. [Установка](../../ALL_IN_ONE_INSTALL.md),[лицензии](../../ALL_IN_ONE_LICENSE_AUDIT.md),[экраны](../../human-review/v1.2.1/README.md),[пределы](../../ALL_IN_ONE_KNOWN_ISSUES.md).
 
 Три риска перед6ноября:1)нет приёмки физическогоarm64/API36/16KiB/микрофона и есть не до конца объяснённый ANR AVD;2)качество naturalRUдиалога/пересечений и дробление speaker IDs не подтверждены(zh auto7/fixed4,DER N/A);3)377MB APK+365MB weights,свободное место и native memory/нагрев длинных записей требуют проверки на телефоне.

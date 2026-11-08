@@ -56,7 +56,7 @@ Models: выбор обоих ASR, реальные размеры включа�
 
 ML/Worker/Alignment/native/model-lock не менялись. Оба настоящих русских mono Worker прошли; [6 групп сравнения с V1.1](../../test-evidence/v1.2/ml-regression.json) PASS по гипотезам, временным меткам сегментов, ID, предупреждениям, контекстам и параметрам. Pre100 ms/post0 сохранены, GigaAM «ничьих» и start31 ms подтверждены. Raw JSON отделён от [ручного UI export](../../test-evidence/v1.2/ui-corrected-transcript.json).
 
-Automatic.5/.65 на zh fixture снова 7 кластеров; fixed4→4. Sparse native labels и first-appearance IDs объяснены [provenance](SPEAKER_ID_PROVENANCE.md), это не новая неисправность. Без reference нет DER/WER/CER и независимого tune/eval. Сопоставимые timings обоих ASR и двух полных Worker — [BENCHMARKS](../../../BENCHMARKS.md); `totalMs` исключает final commit/diagnostics, PSS не peak.
+Automatic.5/.65 на zh fixture снова 7 кластеров; fixed4→4. Sparse native labels и first-appearance IDs объяснены [provenance](SPEAKER_ID_PROVENANCE.md), это не новая неисправность. Без reference нет DER/WER/CER и независимого tune/eval. Сопоставимые timings обоих ASR и двух полных Worker — [BENCHMARKS](../../history/root/BENCHMARKS.md); `totalMs` исключает final commit/diagnostics, PSS не peak.
 
 Русский natural multispeaker audio не предоставлен: полный такой сценарий BLOCKED. Короткий mono crop и отдельная китайская diarization его не заменяют. Физический arm64, API36/16KiB runtime, реальный микрофон/звук, long audio/peak/thermal, ENOSPC и сторонние Share receivers не приняты. Мгновенный abort JNI, word timestamps и separation одновременных слов NOT IMPLEMENTED.
 

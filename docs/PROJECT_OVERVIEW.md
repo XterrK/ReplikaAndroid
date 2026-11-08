@@ -1,27 +1,27 @@
 # REPLIKA Android — полный обзор проекта
 
-Активная работа идёт по [PLAN_19H.md](PLAN_19H.md). Текущий этап и доказательства:
-[STATUS.md](STATUS.md), [журнал изменений](UPDATES.md), [решения](DECISIONS.md).
+Активная работа идёт по [PLAN_19H.md](history/root/PLAN_19H.md). Текущий этап и доказательства:
+[STATUS.md](history/root/STATUS.md), [журнал изменений](history/root/UPDATES.md), [решения](history/root/DECISIONS.md).
 Документ ниже описывает базовый срез V1.6; результаты нового цикла приведены здесь
 и в отдельных отчётах. Исторические результаты не подменяют свежую приёмку.
 
 V1.6 сохранена коммитом `3aba648` и отдельным APK; проект опубликован в приватном GitHub.
 Пункт 1 добавил строгий JSON жюри и automatic по умолчанию. Прежний расширенный JSON
-доступен как диагностический. Пункт 2 создал [воспроизводимый стенд](tools/eval/README.md)
-с независимыми эталонами и [baseline](docs/TEST_RESULTS.md).
+доступен как диагностический. Пункт 2 создал [воспроизводимый стенд](../tools/eval/README.md)
+с независимыми эталонами и [baseline](TEST_RESULTS.md).
 
 Пункт D добавил ASR по VAD и назначение говорящих словам по реальным RNNT timestamps.
 Профиль context600 прошёл host-проверки и настоящий Android-прогон фиксированной пятёрки:
 raw WER 43/442 = 9,73%, расхождение с ПК −0,226 п.п. APK опубликован отдельно.
-[Отчёт D](docs/STEP_03_VAD_WORD_ASR.md) сохраняет ограничения таймингов и скорости.
+[Отчёт D](STEP_03_VAD_WORD_ASR.md) сохраняет ограничения таймингов и скорости.
 
 Пункт C завершён для экспериментального профиля по заданным проверкам монтажного
 корпуса. Шесть эмбеддеров прошли 48 fixed-K и 672 automatic SD-прогона. Выбран C2
 на исходном ERes2Net: native threshold 0,30, измеренные чистые окна и average HC
 при τ=0,36. Полный новый host-прогон 23 файлов и аудит 3164 проверок завершены:
 правильное K — dev 7/8, holdout 4/5, reserve 5/10; native DER — 18,30%, 13,89%, 22,44%.
-[Итог C](docs/STEP_04_DIARIZATION.md),
-[машинная приёмка](artifacts/test-results/step-04/acceptance.json).
+[Итог C](STEP_04_DIARIZATION.md),
+[машинная приёмка](../artifacts/test-results/step-04/acceptance.json).
 
 Чистый Kotlin C2 совпал с Python на 157 сравнениях, включая все 23 реальных файла.
 Первый Android-прогон завершил ML/ASR, но выявил запрет SELinux на hard link для QA;
@@ -38,7 +38,7 @@ C опубликован коммитом `b619519`, объединён чере
 [экспериментальный Release](https://github.com/XterrK/ReplikaAndroid/releases/tag/hack-step04-20261107)
 имеет проверенный серверный digest APK v2 `a83bfe95…`. V1.6 и D сохранены с теми же
 локальными и серверными хешами.
-[Запись публикации](artifacts/test-results/step-04/github-publication.json).
+[Запись публикации](../artifacts/test-results/step-04/github-publication.json).
 
 Обычные ML-defaults остаются `v16`. C2 включается явно:
 `-PreplikaAsrPlan=vad_words_context600 -PreplikaDiarPlan=eres2net_window_v1`.
@@ -49,9 +49,9 @@ C опубликован коммитом `b619519`, объединён чере
 
 **PAUSED_BY_USER_AFTER_STEP05 — 2026-11-07T12:37:46+03:00.** Пользователь запросил
 сохранение контрольного среза и передачу другому агенту. Пункт5 проверен в
-описанном ниже объёме, пункт6 не начинался. [Передача](HANDOFF_NEXT_AGENT.md).
+описанном ниже объёме, пункт6 не начинался. [Передача](history/root/HANDOFF_NEXT_AGENT.md).
 Все NN терминальны. Root остановил собственный эмулятор5558 и Windows ADB5038;
-[read-only проверка](artifacts/test-results/step-05/user-pause-test-services-final-v1.json)
+[read-only проверка](../artifacts/test-results/step-05/user-pause-test-services-final-v1.json)
 подтвердила отсутствие live owned test services. Linux5037, данные AVD, приложения
 телефона и прежние пользовательские записи сохранены.
 Ветка
@@ -99,14 +99,14 @@ API37/ARM/4KiB, cores8/automatic0→4. Dev raw71/533, norm16/532, cp146/533, K7/
 native DER18,29848%; fixed5 44/442 равно host4, gap0. Реальные344×512 вектора,
 56 чанков, 2171 токен/767 слов и ресурсы проверены. Оба монтажных proxy-гейта PASS;
 cross-arch вариации токеновых времён/векторов сохранены.
-[Доказательства](artifacts/test-results/step-05/vivo-arm-full10-audited-v2/independent-audit.json).
+[Доказательства](../artifacts/test-results/step-05/vivo-arm-full10-audited-v2/independent-audit.json).
 Root сверил пять прежних Room-таблиц: полное совпадение count/row SHA; личная DB
 не опубликована. Последующие **три ARM1/3/10мин COMPLETE/SUCCEEDED**, один PID,
 независимый аудит **1004 PASS**. Worker/RTF:21429мс/0,357150;72287мс/0,401597;
 443545мс/0,739243. Последнее время включает135127мс охлаждения при фактическом
 thermal2→3→4→3→2. Ресурсные счётчики621 окон/87 чанков сбалансированы;
 полные токены/векторы длинных файлов не собирались и не воспроизводились.
-[ARMlong3](artifacts/test-results/step-05/vivo-perf-one-audited-v2/independent-audit.json).
+[ARMlong3](../artifacts/test-results/step-05/vivo-perf-one-audited-v2/independent-audit.json).
 RSS/PSS — отдельные снимки, stage-log пуст по неизвестной причине. Это один
 наблюдённый профиль, не причинное сравнение потоков. Цель RTF≤0,3 на флагмане
 не достигнута, старый FAILED x86 performance12 сохранён. После группы оба APK
@@ -115,17 +115,17 @@ RSS/PSS — отдельные снимки, stage-log пуст по неизв�
 QA/static/install hashes и cold3 PASS. Первый hash-test прерван SIGSEGV
 `system_server`, REPLIKA crash не установлен; после перезапуска retry OK1 и один
 настоящий NN Worker прошёл **120 проверок** векторов/ресурсов/токенов/Jury.
-[ps16k smoke](artifacts/test-results/step-05/ps16k-android-one-v1/independent-compatibility-audit-v2.json).
+[ps16k smoke](../artifacts/test-results/step-05/ps16k-android-one-v1/independent-compatibility-audit-v2.json).
 Настройки восстановлены по readback. Backcompat-off не доказан (write denied),
 это короткая x86/16KiB совместимость, не ARM16KiB или speed acceptance.
 Следующая задача после новой команды пользователя — пункт6, английский/LID и
 стереозвонки, ещё не начата. На текущей паузе новые работы не запускаются.
-[План и отчёт пункта 5](docs/STEP_05_RUNTIME_IMPORT.md).
+[План и отчёт пункта 5](STEP_05_RUNTIME_IMPORT.md).
 LLM, Lite и лендинг не добавляются до завершения проверок конвейера.
 
 Приоритет §0.4 сохраняет GigaAM v3 E2E и raw WER с пунктуацией.
 **WER/DER — доля ошибок: меньше лучше.** 3% normalized WER не означает 3% успеха:
-[как читать метрики](tools/eval/SCORING.md).
+[как читать метрики](../tools/eval/SCORING.md).
 
 Архитектурный обзор ниже описывает базовый срез **V1.6 / versionCode 8** и pack
 **V1.5** от 6 ноября 2026 года. Свежие результаты цикла 7 ноября приведены выше и
@@ -171,19 +171,19 @@ REPLIKA — нативное Android-приложение для записи и
 
 | Что | Актуальное значение / источник |
 | --- | --- |
-| Android-приложение | `ru.replika.offline`, V1.6, code 8 — [app/build.gradle.kts](app/build.gradle.kts) |
-| ML pack | V1.5: GigaAM v3 + VAD + диаризация — [models-lock.json](app/src/main/assets/models-lock.json) |
-| Сохранённый базовый артефакт V1.6 | `release/REPLIKA-V1.6-AllInOne-arm64.apk`, 306 312 754 байта — [CURRENT.json](release/CURRENT.json) |
-| Схема локальной БД | Room version 1 — [Database.kt](app/src/main/java/ru/replika/data/Database.kt) |
-| Текущее состояние / ограничения | [PROJECT_STATE.md](PROJECT_STATE.md), [KNOWN_ISSUES.md](KNOWN_ISSUES.md) |
-| Базовый цикл проверок V1.6 | [TEST_REPORT_V1_6.md](TEST_REPORT_V1_6.md); свежие — [STATUS.md](STATUS.md) |
-| Продолжение работы / перенос | [AGENTS.md](AGENTS.md), [HANDOFF.md](HANDOFF.md), [PORTABILITY.md](PORTABILITY.md) |
+| Android-приложение | `ru.replika.offline`, V1.6, code 8 — [app/build.gradle.kts](../app/build.gradle.kts) |
+| ML pack | V1.5: GigaAM v3 + VAD + диаризация — [models-lock.json](../app/src/main/assets/models-lock.json) |
+| Сохранённый базовый артефакт V1.6 | `release/REPLIKA-V1.6-AllInOne-arm64.apk`, 306 312 754 байта — [CURRENT.json](../release/CURRENT.json) |
+| Схема локальной БД | Room version 1 — [Database.kt](../app/src/main/java/ru/replika/data/Database.kt) |
+| Текущее состояние / ограничения | [PROJECT_STATE.md](history/root/PROJECT_STATE.md), [KNOWN_ISSUES.md](history/root/KNOWN_ISSUES.md) |
+| Базовый цикл проверок V1.6 | [TEST_REPORT_V1_6.md](history/root/TEST_REPORT_V1_6.md); свежие — [STATUS.md](history/root/STATUS.md) |
+| Продолжение работы / перенос | [AGENTS.md](history/root/AGENTS.md), [HANDOFF.md](history/root/HANDOFF.md), [PORTABILITY.md](PORTABILITY.md) |
 
 **Версия приложения и версия моделей различаются:** в V1.6 изменяли UI и переносимость, ML-конвейер V1.5 сохранили.
 
 При первоначальном обзоре V1.4–V1.6 существовали незакоммиченной работой поверх `ce34556` (V1.3). Пункт 0 зафиксировал её снимком `3aba648`; последующие пункты имеют отдельные коммиты, включая C `b619519` и merge `87f669a`. Клонирование актуальной ветки восстанавливает исходники. Игнорируемые локальные веса, native `.so` и ключ подписи восстанавливаются отдельно по [PORTABILITY.md](PORTABILITY.md); их отсутствие не означает, что код нового цикла не опубликован.
 
-README, PROJECT_STATE и ARCHITECTURE содержат исторические разделы. [MODEL_RESEARCH.md](MODEL_RESEARCH.md) описывает первоначальные GigaAM v2 и Whisper; актуальный выбор — в [MODEL_SELECTION_V1_5.md](MODEL_SELECTION_V1_5.md). В старом `docs/licenses/NOTICE.md` также остаются прежние компоненты; текущий notice поставки — [app/src/main/assets/licenses/NOTICE.md](app/src/main/assets/licenses/NOTICE.md). Состав текущего APK следует сверять с Gradle, manifest моделей и версионным отчётом.
+README, PROJECT_STATE и ARCHITECTURE содержат исторические разделы. [MODEL_RESEARCH.md](history/root/MODEL_RESEARCH.md) описывает первоначальные GigaAM v2 и Whisper; актуальный выбор — в [MODEL_SELECTION_V1_5.md](MODEL_SELECTION_V1_5.md). В старом `docs/licenses/NOTICE.md` также остаются прежние компоненты; текущий notice поставки — [app/src/main/assets/licenses/NOTICE.md](../app/src/main/assets/licenses/NOTICE.md). Состав текущего APK следует сверять с Gradle, manifest моделей и версионным отчётом.
 
 ## Технологический стек
 
@@ -211,29 +211,29 @@ README, PROJECT_STATE и ARCHITECTURE содержат исторические 
 
 Это один Gradle-модуль `:app` с пакетами `domain`, `data`, `ml`, `ui`. Объекты приложения создаются в `ReplikaApp`; строгая многомодульная Clean Architecture и отдельный DI framework здесь не введены. Нативный UI реализован на Kotlin/Compose. `design-lab/` и веб-концепты используются как дизайн-референсы.
 
-Источники зависимостей: [корневой Gradle](build.gradle.kts), [Gradle приложения](app/build.gradle.kts), [settings](settings.gradle.kts), [wrapper](gradle/wrapper/gradle-wrapper.properties), [AndroidManifest](app/src/main/AndroidManifest.xml).
+Источники зависимостей: [корневой Gradle](../build.gradle.kts), [Gradle приложения](../app/build.gradle.kts), [settings](../settings.gradle.kts), [wrapper](../gradle/wrapper/gradle-wrapper.properties), [AndroidManifest](../app/src/main/AndroidManifest.xml).
 
 ## Карта репозитория
 
 | Путь | Назначение |
 | --- | --- |
-| [app/src/main/java/ru/replika](app/src/main/java/ru/replika) | Собственный Kotlin-код приложения |
-| [ReplikaApp.kt](app/src/main/java/ru/replika/ReplikaApp.kt), [MainActivity.kt](app/src/main/java/ru/replika/MainActivity.kt) | Владение БД/моделями, запуск и корневой UI |
-| [domain/](app/src/main/java/ru/replika/domain) | Сегменты, выравнивание, RecognitionPlanner, экспорт, метрики, подготовка тихого входа, представление стенограммы |
-| [data/](app/src/main/java/ru/replika/data) | Room/DAO, безопасные правки и удаление, журнал импорта, настройки темы |
-| [ml/](app/src/main/java/ru/replika/ml) | Декодирование, импорт медиа, provisioning моделей, ASR, Worker, telemetry |
-| [ui/](app/src/main/java/ru/replika/ui) | Главная, библиотека, редактор, review, плеер, модели, тема и шар |
-| [com/k2fsa/sherpa/onnx/](app/src/main/java/com/k2fsa/sherpa/onnx) | Сторонние Kotlin bindings; должны соответствовать версии native runtime |
+| [app/src/main/java/ru/replika](../app/src/main/java/ru/replika) | Собственный Kotlin-код приложения |
+| [ReplikaApp.kt](../app/src/main/java/ru/replika/ReplikaApp.kt), [MainActivity.kt](../app/src/main/java/ru/replika/MainActivity.kt) | Владение БД/моделями, запуск и корневой UI |
+| [domain/](../app/src/main/java/ru/replika/domain) | Сегменты, выравнивание, RecognitionPlanner, экспорт, метрики, подготовка тихого входа, представление стенограммы |
+| [data/](../app/src/main/java/ru/replika/data) | Room/DAO, безопасные правки и удаление, журнал импорта, настройки темы |
+| [ml/](../app/src/main/java/ru/replika/ml) | Декодирование, импорт медиа, provisioning моделей, ASR, Worker, telemetry |
+| [ui/](../app/src/main/java/ru/replika/ui) | Главная, библиотека, редактор, review, плеер, модели, тема и шар |
+| [com/k2fsa/sherpa/onnx/](../app/src/main/java/com/k2fsa/sherpa/onnx) | Сторонние Kotlin bindings; должны соответствовать версии native runtime |
 | `app/src/main/jniLibs/` | Игнорируемые Git `.so`: `libonnxruntime.so`, `libsherpa-onnx-jni.so` для двух ABI |
-| [app/src/main/assets/](app/src/main/assets) | Model lock и лицензии, включаемые в приложение |
+| [app/src/main/assets/](../app/src/main/assets) | Model lock и лицензии, включаемые в приложение |
 | `model-pack/` | Локальные веса и ZIP, включая текущий и исторические комплекты; игнорируется Git |
-| [app/src/test/](app/src/test), [app/src/androidTest/](app/src/androidTest) | JVM и Android/instrumentation тесты, небольшие codec fixtures |
-| [tools/](tools) | Сборка, верификация, staging, benchmarks, сбор evidence и review-пакетов |
-| [benchmark/](benchmark) | Формат эталонов, методики и локальные smoke fixtures; не все датасеты хранятся здесь |
-| [docs/](docs) | Evidence по версиям, лицензии, human review и дизайн |
-| [design-lab/](design-lab) | Веб-референсы, концепты и история визуальных исследований |
-| [release/](release) | Текущий APK, описание и суммы; прежние артефакты в `release/archive/` |
-| `review/`, [archive/](archive) | Предыдущие review-материалы, диагностика и отдельный видеоэксперимент |
+| [app/src/test/](../app/src/test), [app/src/androidTest/](../app/src/androidTest) | JVM и Android/instrumentation тесты, небольшие codec fixtures |
+| [tools/](../tools) | Сборка, верификация, staging, benchmarks, сбор evidence и review-пакетов |
+| [benchmark/](../benchmark) | Формат эталонов, методики и локальные smoke fixtures; не все датасеты хранятся здесь |
+| [docs/](.) | Evidence по версиям, лицензии, human review и дизайн |
+| [design-lab/](../design-lab) | Веб-референсы, концепты и история визуальных исследований |
+| [release/](../release) | Текущий APK, описание и суммы; прежние артефакты в `release/archive/` |
+| `review/`, [archive/](../archive) | Предыдущие review-материалы, диагностика и отдельный видеоэксперимент |
 | `local-dev/` | Приватный прежний debug-keystore и локальные настройки/кэши; игнорируется Git |
 
 ## Архитектура и обработка записи
@@ -270,11 +270,11 @@ flowchart TD
 
 **Фон, отмена и нагрев.** WorkManager продолжает обработку независимо от Activity; запись микрофона при уходе в фон ставится на паузу. При thermal status SEVERE+ приложение ждёт охлаждения перед следующей тяжёлой операцией. Отмена проверяется между блоками и стадиями, но текущий JNI-вызов не прерывается немедленно. После смерти процесса обработка может начаться заново: ML-checkpoint отсутствует. Небезопасный callback диаризации не используется из-за зафиксированной несовместимости JNI с Kotlin invokedynamic.
 
-Ключевые файлы: [ProcessingWorker.kt](app/src/main/java/ru/replika/ml/ProcessingWorker.kt), [AudioDecoder.kt](app/src/main/java/ru/replika/ml/AudioDecoder.kt), [AsrEngine.kt](app/src/main/java/ru/replika/ml/AsrEngine.kt), [Transcript.kt](app/src/main/java/ru/replika/domain/Transcript.kt), [PipelineTelemetry.kt](app/src/main/java/ru/replika/ml/PipelineTelemetry.kt). Дополнительное описание: [ARCHITECTURE.md](ARCHITECTURE.md).
+Ключевые файлы: [ProcessingWorker.kt](../app/src/main/java/ru/replika/ml/ProcessingWorker.kt), [AudioDecoder.kt](../app/src/main/java/ru/replika/ml/AudioDecoder.kt), [AsrEngine.kt](../app/src/main/java/ru/replika/ml/AsrEngine.kt), [Transcript.kt](../app/src/main/java/ru/replika/domain/Transcript.kt), [PipelineTelemetry.kt](../app/src/main/java/ru/replika/ml/PipelineTelemetry.kt). Дополнительное описание: [ARCHITECTURE.md](history/root/ARCHITECTURE.md).
 
 ## Какие модели используются
 
-Текущий [models-lock.json](app/src/main/assets/models-lock.json) закрепляет **7 файлов общим размером 278 127 730 байт**. Для каждого указаны путь, источник, размер и SHA-256. Это проверка конкретных файлов; измеренные хеши не являются подписью издателя.
+Текущий [models-lock.json](../app/src/main/assets/models-lock.json) закрепляет **7 файлов общим размером 278 127 730 байт**. Для каждого указаны путь, источник, размер и SHA-256. Это проверка конкретных файлов; измеренные хеши не являются подписью издателя.
 
 | Задача | Модель / файлы относительно `model-pack/` | Размер, байт | Лицензия по материалам поставки |
 | --- | --- | ---: | --- |
@@ -293,7 +293,7 @@ flowchart TD
 
 **Исторические модели.** До V1.5 использовалась GigaAM v2 RNNT INT8, а Whisper tiny multilingual через whisper.cpp 1.7.6 был экспериментальной альтернативой. В V1.5 Whisper удалён из продуктового движка, UI, собственного JNI/CMake и текущего pack. Старые стенограммы с Whisper-source остаются читаемыми; повторная обработка использует текущую GigaAM. Исторические веса/исходники сохранены локально отдельно. Название `WhisperPipelineV15Test` относится к тестированию шёпота, а не к возврату Whisper-модели.
 
-По текущему notice runtime sherpa имеет Apache-2.0, ORT — MIT с дополнительными notices. Для 3D-Speaker в provenance отмечено, что точная исходная checkpoint revision и побайтовый рецепт ONNX-export независимо не восстановлены. Подробности: [актуальный NOTICE](app/src/main/assets/licenses/NOTICE.md), [model-license-provenance.json](app/src/main/assets/licenses/model-license-provenance.json), [лицензионный аудит](docs/ALL_IN_ONE_LICENSE_AUDIT.md). Лицензии датасетов учитываются отдельно от моделей; исследовательские аудио не входят в APK.
+По текущему notice runtime sherpa имеет Apache-2.0, ORT — MIT с дополнительными notices. Для 3D-Speaker в provenance отмечено, что точная исходная checkpoint revision и побайтовый рецепт ONNX-export независимо не восстановлены. Подробности: [актуальный NOTICE](../app/src/main/assets/licenses/NOTICE.md), [model-license-provenance.json](../app/src/main/assets/licenses/model-license-provenance.json), [лицензионный аудит](ALL_IN_ONE_LICENSE_AUDIT.md). Лицензии датасетов учитываются отдельно от моделей; исследовательские аудио не входят в APK.
 
 ## Что уже делали с моделями и звуком
 
@@ -311,9 +311,9 @@ flowchart TD
 
 ### Тихая речь: два разных механизма
 
-В [QuietAudioGain.kt](app/src/main/java/ru/replika/domain/QuietAudioGain.kt) один gain вычисляется на всю запись: если peak выше silence floor `1e-6`, но ниже `0.01`, используется `min(20, 0.1/peak)`, иначе gain 1. Он применяется **только к временным VAD/ASR-буферам**. Исходный PCM, playback и вход диаризации не переписываются. Это подготовка уровня, не denoising или восстановление отсутствующих фонем.
+В [QuietAudioGain.kt](../app/src/main/java/ru/replika/domain/QuietAudioGain.kt) один gain вычисляется на всю запись: если peak выше silence floor `1e-6`, но ниже `0.01`, используется `min(20, 0.1/peak)`, иначе gain 1. Он применяется **только к временным VAD/ASR-буферам**. Исходный PCM, playback и вход диаризации не переписываются. Это подготовка уровня, не denoising или восстановление отсутствующих фонем.
 
-Позднее нашли студийный whisper-клип, который первый VAD-проход целиком отвергал. [ZeroSpanVadRescue.kt](app/src/main/java/ru/replika/domain/ZeroSpanVadRescue.kt) после пустого primary VAD может прочитать RMS и выполнить повтор детектора с gain `max(recognitionGain, min(0.02/RMS, 20, 0.95/peak))`. Retry требует значимого увеличения gain; тишина и непустой первый проход его пропускают. Это **detector-only** усиление: ASR сохраняет прежний recognition gain.
+Позднее нашли студийный whisper-клип, который первый VAD-проход целиком отвергал. [ZeroSpanVadRescue.kt](../app/src/main/java/ru/replika/domain/ZeroSpanVadRescue.kt) после пустого primary VAD может прочитать RMS и выполнить повтор детектора с gain `max(recognitionGain, min(0.02/RMS, 20, 0.95/peak))`. Retry требует значимого увеличения gain; тишина и непустой первый проход его пропускают. Это **detector-only** усиление: ASR сохраняет прежний recognition gain.
 
 ### Измерения и проверенные альтернативы
 
@@ -340,7 +340,7 @@ WER — доля словных ошибок по эталону; CER — сим
 - **Повышение automatic clustering threshold:** host four-speaker fixture дал 7/5/5 участников на 0.5/0.7/0.85 вместо 4. Универсальный пороговый «фикс» не принят; текущий automatic остался 0.5.
 - **GigaAM Multilingual 220M/600M, T-one, Vosk:** рассмотрены как направления; проверенной продуктовой интеграции вместо текущего RNNT нет. Эти модели не входят в APK.
 
-Подробные гипотезы, provenance, лицензии выборок и методики: [MODEL_SELECTION_V1_5.md](MODEL_SELECTION_V1_5.md), [ASR_QUALITY_V1_5.md](ASR_QUALITY_V1_5.md), [DIARIZATION_FIX_REPORT.md](DIARIZATION_FIX_REPORT.md), [VAD_BOUNDARY_REPORT.md](VAD_BOUNDARY_REPORT.md). Host timings и RSS snapshots не заменяют замеры на телефоне.
+Подробные гипотезы, provenance, лицензии выборок и методики: [MODEL_SELECTION_V1_5.md](MODEL_SELECTION_V1_5.md), [ASR_QUALITY_V1_5.md](ASR_QUALITY_V1_5.md), [DIARIZATION_FIX_REPORT.md](history/root/DIARIZATION_FIX_REPORT.md), [VAD_BOUNDARY_REPORT.md](history/root/VAD_BOUNDARY_REPORT.md). Host timings и RSS snapshots не заменяют замеры на телефоне.
 
 ## История разработки
 
@@ -357,7 +357,7 @@ WER — доля словных ошибок по эталону; CER — сим
 | V1.5, 05–06.11 | GigaAM v3, удаление Whisper, quiet gain и detector rescue; импорт видео, сохранение timeline, главная/библиотека/экспорт/плеер | Нужна отдельная физическая приёмка; automatic diarization осталась дефектом |
 | V1.6, 06.11 | Центрированный опаловый шар, правая микрофонная волна, единый save/discard flow, очистка таймера, переносимая сборка и архивирование | ML V1.5 и Room schema 1 сохранены; новый UI ещё не принят на vivo |
 
-Первый физический feedback описан в [REAL_DEVICE_FINDINGS.md](REAL_DEVICE_FINDINGS.md): монолог около четырёх минут обрабатывался более пяти минут, automatic создал 11 участников, были ожидание охлаждения и обрезанные начала. Исходная запись и trace этого случая отсутствуют. Другие исторические сообщения о скорости относятся к отдельным тестам и не являются сравнительным benchmark. В PROJECT_STATE V1.6 записано более позднее пользовательское подтверждение улучшения ASR, включая шёпот; нового измеренного ASR benchmark в V1.6 не было.
+Первый физический feedback описан в [REAL_DEVICE_FINDINGS.md](history/root/REAL_DEVICE_FINDINGS.md): монолог около четырёх минут обрабатывался более пяти минут, automatic создал 11 участников, были ожидание охлаждения и обрезанные начала. Исходная запись и trace этого случая отсутствуют. Другие исторические сообщения о скорости относятся к отдельным тестам и не являются сравнительным benchmark. В PROJECT_STATE V1.6 записано более позднее пользовательское подтверждение улучшения ASR, включая шёпот; нового измеренного ASR benchmark в V1.6 не было.
 
 ## Данные, правки и экспорт
 
@@ -373,7 +373,7 @@ Room содержит три таблицы:
 
 Аудио хранится в app-private `files/audio`, модели — в `files/models`, промежуточный PCM — в cache. `TranscriptSnapshot` читает связанные данные транзакционно. `ProductStorage` проверяет исходное состояние строки перед правкой и Undo. Удаление согласовано с WorkManager/native gate и откатывает перенос аудио при ошибке БД. Внешний импортированный оригинал и модели не входят в удаление записи.
 
-TXT/SRT/JSON строятся из текущих сохранённых правок. В пункте 1 PLAN_19H обычный JSON использует строгий контракт жюри: `transcript`, `speaker_id`, `start_ms`, `end_ms`, `text`; прежний расширенный JSON с source, правками, warnings и диагностикой доступен отдельной опцией. Подробнее: [пункт 1](docs/STEP_01_JURY_JSON.md). **Временные метки сегментные:** word timestamps и калиброванная confidence не выдумываются. `speakerId=-1` означает неизвестное/неоднозначное назначение.
+TXT/SRT/JSON строятся из текущих сохранённых правок. В пункте 1 PLAN_19H обычный JSON использует строгий контракт жюри: `transcript`, `speaker_id`, `start_ms`, `end_ms`, `text`; прежний расширенный JSON с source, правками, warnings и диагностикой доступен отдельной опцией. Подробнее: [пункт 1](STEP_01_JURY_JSON.md). **Временные метки сегментные:** word timestamps и калиброванная confidence не выдумываются. `speakerId=-1` означает неизвестное/неоднозначное назначение.
 
 Reading группирует соседние фрагменты известного одного speaker с паузой до 1200 ms, ограничивая абзац примерно 45 s / 1200 символами. Это представление исходных строк, не изменение ML-сегментов и не semantic sentence detector. Smart Review использует причины на границах, overlap и неоднозначных местах; пустая очередь не гарантирует безошибочную стенограмму.
 
@@ -383,17 +383,17 @@ Reading группирует соседние фрагменты известн�
 
 Точки изменения UI:
 
-- [RecordingHome.kt](app/src/main/java/ru/replika/ui/RecordingHome.kt) — главная, центрированный шар, правая волна.
-- [LiquidVoiceOrb.kt](app/src/main/java/ru/replika/ui/LiquidVoiceOrb.kt), [OrbDynamics.kt](app/src/main/java/ru/replika/ui/OrbDynamics.kt), [OrbFrameCadence.kt](app/src/main/java/ru/replika/ui/OrbFrameCadence.kt) — AGSL/Canvas, геометрия и cadence.
-- [Screens.kt](app/src/main/java/ru/replika/ui/Screens.kt) — навигация и общий выбор сохранения/удаления.
-- [AppViewModel.kt](app/src/main/java/ru/replika/ui/AppViewModel.kt) — MediaRecorder, импорт, библиотека, запуск обработки, правки, экспорт.
-- [WorkspaceScreen.kt](app/src/main/java/ru/replika/ui/WorkspaceScreen.kt), [TranscriptEditor.kt](app/src/main/java/ru/replika/ui/TranscriptEditor.kt), [SmartReview.kt](app/src/main/java/ru/replika/ui/SmartReview.kt), [AudioDock.kt](app/src/main/java/ru/replika/ui/AudioDock.kt) — стенограмма, редактирование, review и плеер.
+- [RecordingHome.kt](../app/src/main/java/ru/replika/ui/RecordingHome.kt) — главная, центрированный шар, правая волна.
+- [LiquidVoiceOrb.kt](../app/src/main/java/ru/replika/ui/LiquidVoiceOrb.kt), [OrbDynamics.kt](../app/src/main/java/ru/replika/ui/OrbDynamics.kt), [OrbFrameCadence.kt](../app/src/main/java/ru/replika/ui/OrbFrameCadence.kt) — AGSL/Canvas, геометрия и cadence.
+- [Screens.kt](../app/src/main/java/ru/replika/ui/Screens.kt) — навигация и общий выбор сохранения/удаления.
+- [AppViewModel.kt](../app/src/main/java/ru/replika/ui/AppViewModel.kt) — MediaRecorder, импорт, библиотека, запуск обработки, правки, экспорт.
+- [WorkspaceScreen.kt](../app/src/main/java/ru/replika/ui/WorkspaceScreen.kt), [TranscriptEditor.kt](../app/src/main/java/ru/replika/ui/TranscriptEditor.kt), [SmartReview.kt](../app/src/main/java/ru/replika/ui/SmartReview.kt), [AudioDock.kt](../app/src/main/java/ru/replika/ui/AudioDock.kt) — стенограмма, редактирование, review и плеер.
 
 В V1.6 уровень шара и правой волны приходит из реального MediaRecorder. Касания меняют упругую форму и не подмешиваются в уровень микрофона. Правая волна — overlay на 88% высоты главной; она не сдвигает центр и отображает огибающую амплитуды, не FFT/спектр.
 
 Back, стрелка выхода и «Завершить» открывают один выбор. На время выбора запись ставится на паузу; закрытие возобновляет только ранее работающую запись. Черновик не публикуется в Room до сохранения. После сохранения или удаления elapsed/levels очищаются, а длительность сохранённого файла остаётся в метаданных.
 
-Движение ограничивается lifecycle, reduced motion, power и thermal policy. В тишине применяется cap 30 fps, для речи/touch — до 60; это пределы планирования, не измеренный FPS физического GPU. Дизайн и адаптации описаны в [DESIGN_SYSTEM.md](DESIGN_SYSTEM.md) и [docs/ui-v1.6/DESIGN.md](docs/ui-v1.6/DESIGN.md).
+Движение ограничивается lifecycle, reduced motion, power и thermal policy. В тишине применяется cap 30 fps, для речи/touch — до 60; это пределы планирования, не измеренный FPS физического GPU. Дизайн и адаптации описаны в [DESIGN_SYSTEM.md](history/root/DESIGN_SYSTEM.md) и [docs/ui-v1.6/DESIGN.md](ui-v1.6/DESIGN.md).
 
 ## Сборка, модели и перенос
 
@@ -428,11 +428,11 @@ python3 tools/build_portable.py
 python3 tools/build_portable.py :app:assembleAllInOne
 ```
 
-На Windows используйте `python` вместо `python3`, если так называется интерпретатор. Результат All-in-One: `app/build/outputs/apk/allInOne/app-allInOne.apk`. Готовый сохранённый релиз — в `release/`; SHA текущего APK: `dec7523de9403248358a5b590f12069be47e821460cb6095af4c1424edb7febd` по [CURRENT.json](release/CURRENT.json).
+На Windows используйте `python` вместо `python3`, если так называется интерпретатор. Результат All-in-One: `app/build/outputs/apk/allInOne/app-allInOne.apk`. Готовый сохранённый релиз — в `release/`; SHA текущего APK: `dec7523de9403248358a5b590f12069be47e821460cb6095af4c1424edb7febd` по [CURRENT.json](../release/CURRENT.json).
 
 ### Какие локальные входы нужны
 
-На момент обзора в этой папке присутствуют семь текущих model/token files, текущий ZIP размером 278 569 170 байт, четыре `.so` для двух ABI, текущий APK и приватный прежний `local-dev/debug.keystore`. При составлении обзора проверены наличие и размеры; повторное хеширование всех бинарников не выполнялось. Сохранённая инвентаризация — [workspace-inputs.json](docs/ui-v1.6/workspace-inputs.json).
+На момент обзора в этой папке присутствуют семь текущих model/token files, текущий ZIP размером 278 569 170 байт, четыре `.so` для двух ABI, текущий APK и приватный прежний `local-dev/debug.keystore`. При составлении обзора проверены наличие и размеры; повторное хеширование всех бинарников не выполнялось. Сохранённая инвентаризация — [workspace-inputs.json](ui-v1.6/workspace-inputs.json).
 
 Git игнорирует веса, `.so`, APK и ключ. Для переноса текущей приватной рабочей копии нужны вся папка, `.git` и ignored inputs. Для обновления поверх уже установленного APK важен прежний сертификат; удаление приложения ради смены подписи может потерять его локальные данные. Ключ не должен попадать в публичный исходный архив.
 
@@ -440,7 +440,7 @@ Git игнорирует веса, `.so`, APK и ключ. Для перенос
 
 ## Проверки и доказательства
 
-Последний [отчёт V1.6](TEST_REPORT_V1_6.md) фиксирует:
+Последний [отчёт V1.6](history/root/TEST_REPORT_V1_6.md) фиксирует:
 
 - **80 JVM-тестов**, без failures/errors/skips.
 - **11 уникальных Android UI-методов / 15 вызовов** в финальных прогонах API35 x86_64, без failures/skips: обычный/компактный экран, font 1.0/1.3/2.0, темы, recorder, permission flow, сохранение/удаление, Room, duration и renderer.
@@ -449,9 +449,9 @@ Git игнорирует веса, `.so`, APK и ключ. Для перенос
 
 Полная Android/ML-регрессия V1.5 учитывается отдельно: отчёт содержит 97 уникальных Android-методов на API35 и 33 на API28; это не повторный полный прогон в V1.6. Whisper-holdout Worker и quiet/silence checks описаны в ML-отчётах. Прежние сбои и ограниченные повторы сохранены в evidence, а не заменены итоговыми числами.
 
-JVM-проверки расположены в `app/src/test`; Android/Room/ML/UI — в `app/src/androidTest`. Для V1.6 релевантны `RecordingExperienceV16Test`, `EdgeMicrophoneV16Test`, `OrbRendererV14Test`, `OrbInteractionV15Test`; runner — [tools/run_ui_v16.py](tools/run_ui_v16.py), с явно выбранным эмулятором. `injected-envelope-*` — визуальные fixtures с заданным сигналом, не измерения микрофона.
+JVM-проверки расположены в `app/src/test`; Android/Room/ML/UI — в `app/src/androidTest`. Для V1.6 релевантны `RecordingExperienceV16Test`, `EdgeMicrophoneV16Test`, `OrbRendererV14Test`, `OrbInteractionV15Test`; runner — [tools/run_ui_v16.py](../tools/run_ui_v16.py), с явно выбранным эмулятором. `injected-envelope-*` — визуальные fixtures с заданным сигналом, не измерения микрофона.
 
-Метрики WER/CER и DER реализованы в [Benchmark.kt](app/src/main/java/ru/replika/domain/Benchmark.kt). DER использует временную разметку говорящих, zero collar, overlap и оптимальное соответствие ID; знание только количества участников не даёт DER. Нормализация текста и методика — в [BENCHMARKS.md](BENCHMARKS.md).
+Метрики WER/CER и DER реализованы в [Benchmark.kt](../app/src/main/java/ru/replika/domain/Benchmark.kt). DER использует временную разметку говорящих, zero collar, overlap и оптимальное соответствие ID; знание только количества участников не даёт DER. Нормализация текста и методика — в [BENCHMARKS.md](history/root/BENCHMARKS.md).
 
 ## Что остаётся незавершённым
 
@@ -468,27 +468,27 @@ JVM-проверки расположены в `app/src/test`; Android/Room/ML/U
 | Перенос на новую ОС | Требуется фактический запуск host-native SDK/JDK/Gradle; часть исследовательских скриптов и внешних датасетов непереносима автоматически |
 | Полнота доказательств качества | FLEURS subset, студийный whisper и synthetic controls имеют ограниченную область. Нет основания заявлять универсальную точность, скорость или исправление всех пользовательских дефектов |
 
-Текущий перечень: [KNOWN_ISSUES.md](KNOWN_ISSUES.md). План дальнейших ML-проверок описан в отчётах по диаризации, VAD и performance; при изменении UI следует сохранять действующий ML-конвейер.
+Текущий перечень: [KNOWN_ISSUES.md](history/root/KNOWN_ISSUES.md). План дальнейших ML-проверок описан в отчётах по диаризации, VAD и performance; при изменении UI следует сохранять действующий ML-конвейер.
 
 ## Навигатор по подробной документации
 
 | Вопрос | Где читать |
 | --- | --- |
-| Быстрый старт и состояние | [README](README.md), [PROJECT_STATE](PROJECT_STATE.md) |
-| Как продолжить работу и перенести папку | [AGENTS](AGENTS.md), [HANDOFF](HANDOFF.md), [PORTABILITY](PORTABILITY.md) |
-| Архитектура и целостность данных | [ARCHITECTURE](ARCHITECTURE.md) |
+| Быстрый старт и состояние | [README](../README.md), [PROJECT_STATE](history/root/PROJECT_STATE.md) |
+| Как продолжить работу и перенести папку | [AGENTS](history/root/AGENTS.md), [HANDOFF](history/root/HANDOFF.md), [PORTABILITY](PORTABILITY.md) |
+| Архитектура и целостность данных | [ARCHITECTURE](history/root/ARCHITECTURE.md) |
 | Почему выбрана текущая ASR | [MODEL_SELECTION_V1_5](MODEL_SELECTION_V1_5.md) |
 | Gain, шёпот, VAD rescue и качество | [ASR_QUALITY_V1_5](ASR_QUALITY_V1_5.md) |
-| Первоначальная интеграция v2/Whisper | [MODEL_RESEARCH](MODEL_RESEARCH.md) — исторический состав |
-| Первые наблюдения на телефоне | [REAL_DEVICE_FINDINGS](REAL_DEVICE_FINDINGS.md) |
-| Диаризация, VAD-границы, скорость | [DIARIZATION_FIX_REPORT](DIARIZATION_FIX_REPORT.md), [VAD_BOUNDARY_REPORT](VAD_BOUNDARY_REPORT.md), [PERFORMANCE_ANALYSIS](PERFORMANCE_ANALYSIS.md) |
-| Импорт видео и временная шкала | [VIDEO_IMPORT_TECHNICAL_SPEC](VIDEO_IMPORT_TECHNICAL_SPEC.md), [MEDIA_TIMELINE_FIX_V1_5](MEDIA_TIMELINE_FIX_V1_5.md) |
-| UI, шар и движение | [DESIGN_SYSTEM](DESIGN_SYSTEM.md), [MOTION_DESIGN](MOTION_DESIGN.md), [LIQUID_ORB_TECHNICAL_SPEC](LIQUID_ORB_TECHNICAL_SPEC.md), [LIQUID_ORB_V1_5](LIQUID_ORB_V1_5.md), [V1.6 DESIGN](docs/ui-v1.6/DESIGN.md) |
-| Итоги версий | [TEST_REPORT](TEST_REPORT.md), [V1.3](TEST_REPORT_V1_3.md), [V1.4](TEST_REPORT_V1_4.md), [V1.5](TEST_REPORT_V1_5.md), [V1.6](TEST_REPORT_V1_6.md) |
-| Сырые evidence и человеческое ревью | [docs/test-evidence](docs/test-evidence), [docs/human-review](docs/human-review), [docs/ui-v1.6](docs/ui-v1.6) |
-| All-in-One и лицензии | [ALL_IN_ONE_INSTALL](docs/ALL_IN_ONE_INSTALL.md), [ALL_IN_ONE_TEST_REPORT](docs/ALL_IN_ONE_TEST_REPORT.md), [ALL_IN_ONE_LICENSE_AUDIT](docs/ALL_IN_ONE_LICENSE_AUDIT.md), [актуальные notices](app/src/main/assets/licenses) — учитывать версию раздела |
-| Точный состав и происхождение весов | [models-lock.json](app/src/main/assets/models-lock.json), [native-lock.json](tools/native-lock.json), [license provenance](app/src/main/assets/licenses/model-license-provenance.json) |
-| Текущий и прежние APK | [release/README](release/README.md), [CURRENT](release/CURRENT.json), [SHA256SUMS](release/SHA256SUMS), [release/archive](release/archive) |
+| Первоначальная интеграция v2/Whisper | [MODEL_RESEARCH](history/root/MODEL_RESEARCH.md) — исторический состав |
+| Первые наблюдения на телефоне | [REAL_DEVICE_FINDINGS](history/root/REAL_DEVICE_FINDINGS.md) |
+| Диаризация, VAD-границы, скорость | [DIARIZATION_FIX_REPORT](history/root/DIARIZATION_FIX_REPORT.md), [VAD_BOUNDARY_REPORT](history/root/VAD_BOUNDARY_REPORT.md), [PERFORMANCE_ANALYSIS](history/root/PERFORMANCE_ANALYSIS.md) |
+| Импорт видео и временная шкала | [VIDEO_IMPORT_TECHNICAL_SPEC](history/root/VIDEO_IMPORT_TECHNICAL_SPEC.md), [MEDIA_TIMELINE_FIX_V1_5](history/root/MEDIA_TIMELINE_FIX_V1_5.md) |
+| UI, шар и движение | [DESIGN_SYSTEM](history/root/DESIGN_SYSTEM.md), [MOTION_DESIGN](history/root/MOTION_DESIGN.md), [LIQUID_ORB_TECHNICAL_SPEC](history/root/LIQUID_ORB_TECHNICAL_SPEC.md), [LIQUID_ORB_V1_5](history/root/LIQUID_ORB_V1_5.md), [V1.6 DESIGN](ui-v1.6/DESIGN.md) |
+| Итоги версий | [TEST_REPORT](history/root/TEST_REPORT.md), [V1.3](history/root/TEST_REPORT_V1_3.md), [V1.4](history/root/TEST_REPORT_V1_4.md), [V1.5](history/root/TEST_REPORT_V1_5.md), [V1.6](history/root/TEST_REPORT_V1_6.md) |
+| Сырые evidence и человеческое ревью | [docs/test-evidence](test-evidence), [docs/human-review](human-review), [docs/ui-v1.6](ui-v1.6) |
+| All-in-One и лицензии | [ALL_IN_ONE_INSTALL](ALL_IN_ONE_INSTALL.md), [ALL_IN_ONE_TEST_REPORT](ALL_IN_ONE_TEST_REPORT.md), [ALL_IN_ONE_LICENSE_AUDIT](ALL_IN_ONE_LICENSE_AUDIT.md), [актуальные notices](../app/src/main/assets/licenses) — учитывать версию раздела |
+| Точный состав и происхождение весов | [models-lock.json](../app/src/main/assets/models-lock.json), [native-lock.json](../tools/native-lock.json), [license provenance](../app/src/main/assets/licenses/model-license-provenance.json) |
+| Текущий и прежние APK | [release/README](../release/README.md), [CURRENT](../release/CURRENT.json), [SHA256SUMS](../release/SHA256SUMS), [release/archive](../release/archive) |
 
 ## Как поддерживать этот обзор
 

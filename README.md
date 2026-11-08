@@ -126,8 +126,9 @@ REPLIKA превращает запись разговора в текст: кт
 - Отчёты по этапам: [JSON для жюри](docs/STEP_01_JURY_JSON.md),
   [распознавание](docs/STEP_03_VAD_WORD_ASR.md), [диаризация](docs/STEP_04_DIARIZATION.md),
   [потоки, нагрев, импорт](docs/STEP_05_RUNTIME_IMPORT.md).
-- Полный технический обзор: [PROJECT_OVERVIEW.md](PROJECT_OVERVIEW.md).
+- Полный технический обзор: [PROJECT_OVERVIEW.md](docs/PROJECT_OVERVIEW.md).
 - Прежний README версии 1.6: [docs/history/README_v1.6_codex.md](docs/history/README_v1.6_codex.md).
+- Исторические отчёты и рабочие заметки разработки: [docs/history/root/](docs/history/root/README.md).
 
 ## Лицензии
 

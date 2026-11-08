@@ -130,7 +130,7 @@ python3 tools/build_portable.py
 
 `build_portable.py` сам находит JDK и SDK, проверяет версии, нативные библиотеки,
 модели и ключ, затем запускает Gradle wrapper. Он ничего не скачивает и не удаляет.
-Подробности переноса на другую машину — в [PORTABILITY.md](../PORTABILITY.md).
+Подробности переноса на другую машину — в [PORTABILITY.md](../docs/PORTABILITY.md).
 
 ## Варианты конвейера
 

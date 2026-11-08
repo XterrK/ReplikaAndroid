@@ -10,7 +10,7 @@
 | VAD | silero_vad.onnx из asr-models | MIT | Официальный Kotlin Vad.kt; окно 512, 16 kHz |
 | Альтернативный ASR | ggml-tiny.bin, multilingual | MIT | whisper.cpp v1.7.6, собственный JNI над официальным whisper.h; CPU, два потока, язык ru |
 
-Точные размеры и SHA-256 находятся в [models-lock.json](app/src/main/assets/models-lock.json). Хеши моделей sherpa измерены после загрузки release assets, а не выданы за подписанные производителем значения. Для Whisper model card публикует SHA-1; локальный SHA-256 дополнительно фиксирует точный бинарный файл. Неполные/изменённые файлы блокируют inference.
+Точные размеры и SHA-256 находятся в [models-lock.json](../../../app/src/main/assets/models-lock.json). Хеши моделей sherpa измерены после загрузки release assets, а не выданы за подписанные производителем значения. Для Whisper model card публикует SHA-1; локальный SHA-256 дополнительно фиксирует точный бинарный файл. Неполные/изменённые файлы блокируют inference.
 
 ## Источники
 

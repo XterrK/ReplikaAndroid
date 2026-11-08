@@ -79,8 +79,8 @@ ADB=/mnt/f/ReplikaToolchain/v13-adb.exe python3 tools/run_android_v13.py --outpu
 
 ## Артефакты передачи
 
-- All-in-One arm64: [REPLIKA-V1.3-AllInOne-arm64.apk](release/REPLIKA-V1.3-AllInOne-arm64.apk), **377500137 bytes**.
-- SHA-256: `80f39d54d1d2b18e299c3820f4f21fee03aedbebd0a766bdf74cf171ff5a2fc2`; [checksum](release/REPLIKA-V1.3-AllInOne-arm64.apk.sha256).
-- [HUMAN_REVIEW_V1_3.zip](review/HUMAN_REVIEW_V1_3.zip): этот APK, пять отчётов, публичные/контролируемые evidence, исходники для ревью, guide и `v1.3-delivery.json` с точным Git commit. Приватные backup/DB/audio не включаются.
+- All-in-One arm64: [REPLIKA-V1.3-AllInOne-arm64.apk](../../../release/REPLIKA-V1.3-AllInOne-arm64.apk), **377500137 bytes**.
+- SHA-256: `80f39d54d1d2b18e299c3820f4f21fee03aedbebd0a766bdf74cf171ff5a2fc2`; [checksum](../../../release/REPLIKA-V1.3-AllInOne-arm64.apk.sha256).
+- [HUMAN_REVIEW_V1_3.zip](../../../review/HUMAN_REVIEW_V1_3.zip): этот APK, пять отчётов, публичные/контролируемые evidence, исходники для ревью, guide и `v1.3-delivery.json` с точным Git commit. Приватные backup/DB/audio не включаются.
 - До выдачи ZIP проверяется CRC всех его файлов; упаковщик требует чистое рабочее дерево и совпадение APK SHA со статическим отчётом.
 - Точный окончательный commit выдаётся вместе с архивом и записывается в его manifest после фиксации отчётов; здесь не используется самоссылочный hash будущего commit. Состояние дерева проверяется `git status --short`; push не выполняется.
