@@ -107,13 +107,17 @@ caption { text-align: left; color: var(--muted); font-size: .75rem; margin-botto
 th, td { padding: 18px 12px; border-bottom: 1px solid var(--line); text-align: left; }
 thead th { color: var(--muted); font-size: .7rem; font-weight: 600; background: var(--band); }
 tbody th { font-weight: 650; }
+th { white-space: nowrap; }
 abbr { text-decoration: none; }
 .metric-value { color: var(--accent); font-family: ui-monospace, Consolas, monospace; white-space: nowrap; }
 .privacy { background: var(--privacy-bg); color: var(--privacy-text); padding: 48px; border-radius: var(--radius); display: grid; grid-template-columns: 1.25fr 1fr; gap: 50px; align-items: center; margin-bottom: 80px; }
 .privacy h2 { font-size: clamp(1.7rem, 3vw, 2.3rem); }
 .privacy .section-index { color: inherit; }
 .privacy > p { font-size: .95rem; }
-.screenshots { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; margin-top: 36px; }
+.screenshots { display: grid; grid-template-columns: repeat(4, 1fr); gap: 26px; margin-top: 36px; }
+.screenshots img { display: block; width: 100%; height: auto; border-radius: var(--radius); border: 1px solid var(--line); background: #0d0e12; }
+.metric-old { color: var(--muted); font-family: ui-monospace, Consolas, monospace; white-space: nowrap; }
+caption a, .section-heading .text-link { color: var(--accent); }
 .screenshot-placeholder { aspect-ratio: 4 / 5; display: grid; place-content: center; text-align: center; gap: 20px; border: 1px dashed var(--line); border-radius: var(--radius); background: var(--surface); color: var(--muted); font-size: .85rem; }
 .placeholder-number { font-size: 2rem; font-weight: 300; color: var(--accent); letter-spacing: -.05em; }
 .screenshots figcaption { margin-top: 16px; display: flex; justify-content: space-between; gap: 10px; font-size: .83rem; }
@@ -136,6 +140,7 @@ abbr { text-decoration: none; }
   .utterance { gap: 4px; }
   .features-grid { column-gap: 35px; }
   .results { grid-template-columns: 1fr; gap: 32px; }
+  .screenshots { grid-template-columns: repeat(2, 1fr); }
   .pipeline li + li { padding-left: 16px; }
   .privacy { padding: 36px; gap: 32px; }
 }
@@ -166,7 +171,7 @@ abbr { text-decoration: none; }
   table { font-size: .75rem; }
   thead th { font-size: .65rem; }
   .privacy { padding: 28px; grid-template-columns: 1fr; gap: 24px; margin-bottom: 56px; }
-  .screenshots { grid-template-columns: 1fr; gap: 32px; }
+  .screenshots { grid-template-columns: repeat(2, 1fr); gap: 16px; }
   .screenshot-placeholder { aspect-ratio: 4 / 3; }
   .team { grid-template-columns: 1fr; gap: 28px; }
   .site-footer { flex-wrap: wrap; gap: 20px; }
