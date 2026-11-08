@@ -8,8 +8,13 @@ package ru.replika.domain
  * Pure decision: Android facts (cores, memory, model sizes) are passed in by the Worker.
  */
 object ParallelAsrDiarPolicy {
-    /** Default for new jobs. Historical WorkData without the key always stays sequential. */
-    const val DEFAULT_ENABLED = true
+    /**
+     * Default for new jobs. Historical WorkData without the key always stays sequential.
+     * Off since 08.11: on the ARM phone (vivo, 8 big.LITTLE cores) parallel mode gave no gain on short files
+     * (RTF 0.35 -> 0.43 RU, 0.41 -> 0.41 EN) and overheated on 13 min (627 s thermal wait, RTF 0.41 -> 1.06).
+     * The -11..-15% gain was measured only on the x86_64 emulator. See docs/STEP_14_PARALLEL_ASR_DIAR.md.
+     */
+    const val DEFAULT_ENABLED = false
     /** Native model working set is estimated from file size; ORT arenas and buffers add the rest. */
     const val MEMORY_FACTOR = 1.5
     const val MEMORY_MARGIN_BYTES = 256L shl 20
