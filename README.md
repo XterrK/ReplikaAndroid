@@ -99,7 +99,7 @@ REPLIKA превращает запись разговора в текст: кт
 | Модели | [docs/MODELS.md](docs/MODELS.md) |
 | Ограничения | [docs/LIMITATIONS.md](docs/LIMITATIONS.md) |
 | Результаты тестов | [docs/TEST_RESULTS.md](docs/TEST_RESULTS.md) |
-| Сырые результаты тестов | [artifacts/test-results/](artifacts/test-results/README.md) |
+| Сырые результаты тестов | [artifacts/test-results/](artifacts/test-results/README.md); сводка — [results.csv](artifacts/test-results/results.csv) (колонки адаптированы под наш кейс: WER, DER, RTF) |
 | Видеодемонстрация | [artifacts/demo/](artifacts/demo/README.md) |
 | `docs/PROTOCOL.md` из шаблона | Не нужен: относится к другому кейсу |
 

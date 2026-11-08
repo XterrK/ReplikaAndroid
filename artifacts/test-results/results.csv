@@ -1,0 +1,16 @@
+test_id,date_utc,build,device,dataset_or_file,language,duration_seconds,wer_punct,wer_words,der_strict,rtf,success,source,notes
+host-dev,2026-11-07,hack/final context600+C2,PC host (sherpa-onnx 2.0.1),dev (8 dialogs),ru,,0.1332,0.0301,0.1830,,true,docs/TEST_RESULTS.md,WER 71/533 punct; 16/532 words; DER of diarizer turns; baseline V1.6 WER 0.2326
+host-holdout,2026-11-07,hack/final context600+C2,PC host (sherpa-onnx 2.0.1),holdout (5 dialogs),ru,,0.1104,0.0294,0.1389,,true,docs/TEST_RESULTS.md,WER 49/444 punct; 13/442 words; baseline V1.6 WER 0.1644
+host-reserve,2026-11-07,hack/final context600+C2,PC host (sherpa-onnx 2.0.1),reserve (10 dialogs),ru,367.4,0.112,,0.2244,,true,docs/TEST_RESULTS.md,frozen second check set
+host-dev-export-der,2026-11-08,hack/final + nearest speaker,PC host,dev (8 dialogs),ru,,,,0.2121,,true,docs/STEP_13_NEAREST_SPEAKER.md,DER of final jury JSON (was 0.2206); with +-0.25 s collar ~0.15
+host-holdout-export-der,2026-11-08,hack/final + nearest speaker,PC host,holdout (5 dialogs),ru,,,,0.1795,,true,docs/STEP_13_NEAREST_SPEAKER.md,DER of final jury JSON (was 0.1836); with +-0.25 s collar ~0.12
+host-reserve-export-der,2026-11-08,hack/final + nearest speaker,PC host,reserve (10 dialogs),ru,,,,0.2754,,true,docs/STEP_13_NEAREST_SPEAKER.md,DER of final jury JSON (was 0.2834); with +-0.25 s collar ~0.22
+android-emu-5,2026-11-07,hack/final,Android emulator x86_64,5 fixed files (2 dev + 2 holdout + monologue),ru,,0.0973,,,,true,docs/TEST_RESULTS.md,WER 43/442; V1.6 was 75/442 = 0.1697
+phone-dev01,2026-11-07,hack/final V1.7b (phoneFinal3),vivo V2515 ARM64 Android 17,dev01.wav,ru,69.6,0.0786,0.0146,,0.352,true,artifacts/test-results/step-12-device/README.md,11/140 punct; 2/137 words
+phone-en01,2026-11-07,hack/final V1.7b (phoneFinal3),vivo V2515 ARM64 Android 17,en01.wav,en,63.0,0.0414,0.0138,,0.407,true,artifacts/test-results/step-12-device/README.md,6/145 punct; 2/145 words; language auto-detected
+phone-long13,2026-11-07,hack/final V1.7b (phoneFinal3),vivo V2515 ARM64 Android 17,long13.wav (13 min),ru+en,780.0,,,,0.407,true,artifacts/test-results/step-12-device/README.md,windowed diarization; includes 30 s thermal wait; no text reference
+phone-release-dev01,2026-11-08,1.7 code 9 (323c0bdd),vivo V2515 ARM64 Android 17,dev01.wav,ru,69.6,,,,0.404,true,artifacts/test-results/step-12-device/phoneFinal5,transcript identical to phone-dev01; RTF measured on a hot phone
+phone-release-en01,2026-11-08,1.7 code 9 (323c0bdd),vivo V2515 ARM64 Android 17,en01.wav,en,63.0,,,,0.475,true,artifacts/test-results/step-12-device/phoneFinal5,transcript identical to phone-en01; RTF measured on a hot phone
+phone-video-import,2026-11-08,1.7 code 9 release,vivo V2515 ARM64 Android 17,meeting-video-test.mp4 (H.264 + AAC),ru,70.2,,,,,true,artifacts/test-results/step-12-device/videoImport1,video imported via UI; text matches WAV import at 99.3% word similarity
+long-8h-memory,2026-11-07,hack/final chunked diarization,PC host,8 h synthetic recording,ru,28800,,,,0.29,true,docs/STEP_06_LONG_DIARIZATION.md,peak memory 917 MB (2 h 864 MB; 4 h 876 MB)
+lid-all,2026-11-07,hack/final lang auto,PC host,23 RU + 5 EN dialogs,ru/en,,,,,,true,docs/STEP_07_LANG_EN.md,language detection 28/28 correct
